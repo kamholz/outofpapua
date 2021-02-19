@@ -8,7 +8,7 @@ with 'Lexicon::Util';
 
 has 'encoding' => (
   is => 'ro',
-  default => 'utf-8',
+  default => sub { ['utf-8'] },
 );
 
 has 'gloss_action' => (
@@ -53,10 +53,6 @@ around BUILDARGS => sub {
     $attr->{$att} = split_regex($attr->{$att});
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/record headword gloss reverse definition sense/) {
-    $attr->{$att} = to_array_map($attr->{$att});
-  }
-
   foreach my $att (grep { defined $attr->{$_} } qw/encoding strip/) {
     $attr->{$att} = to_array($attr->{$att});
   }
@@ -95,7 +91,7 @@ sub push_row {
 sub apply_action {
   my ($self, $row, $item) = @_;
   if ($row->{$item}) {
-    my $action = $self->can("${item}_action")->();
+    my $action = $self->${\"${item}_action"};
 
     my $value = delete $row->{$item};
     @$value = grep { /\w/ } @$value; # ensure at least one word char present
@@ -118,7 +114,7 @@ sub apply_action {
 sub add_gloss {
   my ($self, $row, $item, $txt) = @_;
 
-  my $pre = $self->can("${item}_preprocess")->();
+  my $pre = $self->${\"${item}_preprocess"};
   if ($pre) {
     $txt = $pre->($txt);
     return if $txt =~ /^\s*$/;

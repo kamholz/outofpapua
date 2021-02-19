@@ -1,6 +1,7 @@
 package Lexicon::Util;
 use v5.14;
 use Moo::Role;
+use Encode::Simple qw(decode decode_lax);
 
 sub to_array {
   return ref $_[0] eq 'ARRAY' ? $_[0] : [$_[0]];
@@ -20,5 +21,22 @@ sub normalize_headword {
   $txt =~ s/\s+/ /g;
   return $txt;
 }
+
+sub apply_encodings {
+  my ($txt, $encodings) = @_;
+
+  if (@$encodings == 1) {
+    return decode_lax($encodings->[0], $txt);
+  } else {
+    foreach my $encoding (@$encodings) {
+      my $new_txt;
+      eval { $new_txt = decode($encoding, $txt) };
+      return $new_txt unless $@;
+    }
+  }
+
+  return $txt;
+}
+
 
 1;

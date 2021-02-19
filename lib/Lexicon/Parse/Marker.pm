@@ -44,6 +44,10 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
+  foreach my $att (grep { defined $attr->{$_} } qw/record headword gloss reverse definition sense/) {
+    $attr->{$att} = to_array_map($attr->{$att});
+  }
+
   return $attr;
 };
 
@@ -57,7 +61,8 @@ sub read {
   my $definition = $self->definition;
   my $sense = $self->sense;
 
-  my ($rows, $row);
+  my $rows = [];
+  my $row = {};
 
   foreach my $line ($self->parse($path)) {
     my ($marker, $txt, $headword_flag) = @$line;
@@ -66,11 +71,11 @@ sub read {
       $self->push_row($rows, $row, $record->{$marker} ? 'record' : 'headword');
       $row->{headword} = normalize_headword($txt);
     } elsif ($gloss->{$marker}) {
-      $self->add_gloss('gloss', $txt);
+      $self->add_gloss($row, 'gloss', $txt);
     } elsif ($reverse->{$marker}) {
-      $self->add_gloss('reverse', $txt);
+      $self->add_gloss($row, 'reverse', $txt);
     } elsif ($definition->{$marker}) {
-      $self->add_gloss('definition', $txt);
+      $self->add_gloss($row, 'definition', $txt);
     } elsif ($sense->{$marker} and defined $row->{headword}) {
       my $hw = $row->{headword};
       $self->push_row($rows, $row, 'sense'); # 1 means keep stored row if no gloss has been found yet
@@ -82,6 +87,52 @@ sub read {
   $self->push_row($rows, $row, 'record');
 
   return $rows;
+}
+
+sub parse {
+  my ($self, $path) = @_;
+  my $encoding = $self->encoding;
+
+  my $mode = '<:crlf';
+  my $decode_by_line = 1;
+  if (@$encoding == 1 and $encoding->[0] eq 'UTF-16') {
+    $mode .= ':encoding(UTF-16)';
+    $decode_by_line = 0;
+  }
+
+  open my $in, $mode, $path or die $!;
+
+  # skip over the MDF header.
+  while (defined(my $line = <$in>)) {
+    last if $line =~ /^\s*$/;
+  }
+
+  my (@lines, $last_marker, $last_txt);
+
+  while (defined(my $line = <$in>)) {
+    $line = apply_encodings($line, $encoding) if $decode_by_line;
+    chomp $line;
+
+    $line =~ s/\x{FFFD}+$//; # remove trailing replacement chars
+    $line =~ s/[\x{E000}-\x{F8FF}\x{F0000}-\x{FFFFD}\x{100000}-\x{10FFFD}]//g; # remove PUA
+    $line =~ s/^(\\sn)(\d+)/$1 $2/;
+
+    next if $line =~ /^\s*$/ || $line =~ /\x{FFFD}/;
+
+    if (my ($marker, $txt) = $line =~ /^\\([a-zA-Z0-9_]+)(?: +(.+?))?\s*$/) {
+      # the last marker (if any) is complete, so save it
+      push(@lines, [$last_marker, $last_txt]) if defined $last_marker && defined $last_txt;
+      ($last_marker, $last_txt) = ($marker, $txt);
+    } elsif ($line !~ /^(?:\\[a-zA-Z0-9_]+)\s*$/) { # continuation of previous line's marker text
+      $last_txt .= ' ' if length $last_txt;
+      $last_txt .= $line =~ s/^\s+|\s+$//gr;
+    }
+  }
+  push(@lines, [$last_marker, $last_txt]) if defined $last_marker;
+
+  close $in;
+
+  return @lines;
 }
 
 1;
