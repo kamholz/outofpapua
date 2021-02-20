@@ -2,35 +2,58 @@ package Lexicon::Parse::Marker;
 use v5.14;
 use Moo;
 use namespace::clean;
+use List::Util 'uniqstr';
 
 extends 'Lexicon::Parse';
 with 'Lexicon::Util';
 
+# marker(s) for new record
 has record => (
   is => 'ro',
   default => sub { to_array_map('lx') },
 );
 
+# marker(s) for headword
 has headword => (
   is => 'ro',
   default => sub { to_array_map(['lx','se']) },
 );
 
+# marker(s) for gloss
 has gloss => (
   is => 'ro',
   default => sub { to_array_map('ge') },
 );
 
+# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', or 'drop'
+has 'gloss_action' => (
+  is => 'ro',
+  default => 'merge',
+);
+
+# marker(s) for reverse lookup form
 has reverse => (
   is => 'ro',
   default => sub { to_array_map('re') },
 );
 
+has 'reverse_action' => (
+  is => 'ro',
+  default => 'merge',
+);
+
+# marker(s) for definition
 has definition => (
   is => 'ro',
   default => sub { to_array_map('de') },
 );
 
+has 'definition_action' => (
+  is => 'ro',
+  default => 'disprefer',
+);
+
+# marker(s) for new sense
 has sense => (
   is => 'ro',
   default => sub { to_array_map('sn') },
@@ -53,7 +76,6 @@ around BUILDARGS => sub {
 
 sub read {
   my ($self, $path) = @_;
-
   my $headword = $self->headword;
   my $record = $self->record;
   my $gloss = $self->gloss;
@@ -87,6 +109,49 @@ sub read {
   $self->push_row($rows, $row, 'record');
 
   return $rows;
+}
+
+# mutates $row
+sub push_row {
+  my ($self, $rows, $row, $context) = @_;
+
+  if (%{$row||{}}) {
+    $self->apply_action($row, 'reverse');
+    $self->apply_action($row, 'definition');
+
+    if ($row->{gloss}) {
+      push(@$rows, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
+    }
+
+    if ($context eq 'record') {
+      %$row = ();
+    } elsif ($context eq 'headword' or $row->{gloss}) {
+      %$row = (record => $row->{record});
+    }
+  }
+}
+
+sub apply_action {
+  my ($self, $row, $item) = @_;
+  if ($row->{$item}) {
+    my $action = $self->${\"${item}_action"};
+
+    my $value = delete $row->{$item};
+    @$value = grep { /\w/ } @$value; # ensure at least one word char present
+    return unless @$value;
+
+    if ($action eq 'merge') {
+      push @{$row->{gloss}}, @$value;
+    } elsif ($action =~ /^merge_(\d+)$/) {
+      push @{$row->{gloss}}, grep { length() <= $1 } @$value;
+    } elsif ($action eq 'prefer') {
+      $row->{gloss} = $value;
+    } elsif ($action =~ /^prefer_(\d+)$/) {
+      $row->{gloss} = $value unless all { length() <= $1 } @$value;
+    } elsif ($action eq 'disprefer' and !$row->{gloss}) {
+      $row->{gloss} = $value;
+    }
+  }
 }
 
 sub parse {

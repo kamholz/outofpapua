@@ -2,28 +2,13 @@ package Lexicon::Parse;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::Util qw/uniqstr/;
 
 with 'Lexicon::Util';
 
+# character encoding
 has 'encoding' => (
   is => 'ro',
   default => sub { ['utf-8'] },
-);
-
-has 'gloss_action' => (
-  is => 'ro',
-  default => 'merge',
-);
-
-has 'reverse_action' => (
-  is => 'ro',
-  default => 'merge',
-);
-
-has 'definition_action' => (
-  is => 'ro',
-  default => 'disprefer',
 );
 
 foreach my $attr (qw/gloss reverse definition/) {
@@ -32,6 +17,7 @@ foreach my $attr (qw/gloss reverse definition/) {
   );
 }
 
+# string of chars to split gloss/reverse/definition on (default ';', undef if none)
 has 'split' => (
   is => 'ro',
   default => sub { split_regex(';') },
@@ -41,6 +27,7 @@ has 'split_heuristic' => (
   is => 'ro',
 );
 
+# word(s) to strip from beginning of gloss/reverse/definition
 has 'strip' => (
   is => 'ro',
 );
@@ -66,49 +53,6 @@ sub read {
 
 sub parse {
   die "must be implemented by subclass";
-}
-
-# mutates $row
-sub push_row {
-  my ($self, $rows, $row, $context) = @_;
-
-  if (%{$row||{}}) {
-    $self->apply_action($row, 'reverse');
-    $self->apply_action($row, 'definition');
-
-    if ($row->{gloss}) {
-      push(@$rows, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
-    }
-
-    if ($context eq 'record') {
-      %$row = ();
-    } elsif ($context eq 'headword' or $row->{gloss}) {
-      %$row = (record => $row->{record});
-    }
-  }
-}
-
-sub apply_action {
-  my ($self, $row, $item) = @_;
-  if ($row->{$item}) {
-    my $action = $self->${\"${item}_action"};
-
-    my $value = delete $row->{$item};
-    @$value = grep { /\w/ } @$value; # ensure at least one word char present
-    return unless @$value;
-
-    if ($action eq 'merge') {
-      push @{$row->{gloss}}, @$value;
-    } elsif ($action =~ /^merge_(\d+)$/) {
-      push @{$row->{gloss}}, grep { length() <= $1 } @$value;
-    } elsif ($action eq 'prefer') {
-      $row->{gloss} = $value;
-    } elsif ($action =~ /^prefer_(\d+)$/) {
-      $row->{gloss} = $value unless all { length() <= $1 } @$value;
-    } elsif ($action eq 'disprefer' and !$row->{gloss}) {
-      $row->{gloss} = $value;
-    }
-  }
 }
 
 sub add_gloss {
