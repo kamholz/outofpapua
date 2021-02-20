@@ -1,10 +1,10 @@
-package Lexicon::Parse::Marker;
+package Lexicon::Parser::Marker;
 use v5.14;
 use Moo;
 use namespace::clean;
 use List::Util 'uniqstr';
 
-extends 'Lexicon::Parse';
+extends 'Lexicon::Parser';
 with 'Lexicon::Util';
 
 # marker(s) for new record
@@ -74,8 +74,8 @@ around BUILDARGS => sub {
   return $attr;
 };
 
-sub read {
-  my ($self, $path) = @_;
+sub read_records {
+  my ($self) = @_;
   my $headword = $self->headword;
   my $record = $self->record;
   my $gloss = $self->gloss;
@@ -86,7 +86,7 @@ sub read {
   my $rows = [];
   my $row = {};
 
-  foreach my $line ($self->parse($path)) {
+  foreach my $line ($self->parse) {
     my ($marker, $txt, $headword_flag) = @$line;
 
     if ($headword->{$marker} or $headword_flag) {
@@ -155,7 +155,7 @@ sub apply_action {
 }
 
 sub parse {
-  my ($self, $path) = @_;
+  my ($self) = @_;
   my $encoding = $self->encoding;
 
   my $mode = '<:crlf';
@@ -165,7 +165,7 @@ sub parse {
     $decode_by_line = 0;
   }
 
-  open my $in, $mode, $path or die $!;
+  open my $in, $mode, $self->path or die $!;
 
   # skip over the MDF header.
   while (defined(my $line = <$in>)) {

@@ -1,15 +1,15 @@
-package Lexicon::Parse::LexiqueDocx;
+package Lexicon::Parser::LexiqueDocx;
 use v5.14;
 use Moo;
 use namespace::clean;
 use List::Util 'uniqstr';
 
-extends 'Lexicon::Parse::XML';
+extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-sub read {
-  my ($self, $path) = @_;
-  my $dom = $self->parse($path);
+sub read_records {
+  my ($self) = @_;
+  my $dom = $self->parse;
   my @rows;
 
   foreach my $p ($dom->find('p')->each) {

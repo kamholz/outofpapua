@@ -1,9 +1,14 @@
-package Lexicon::Parse;
+package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
 
 with 'Lexicon::Util';
+
+# file path
+has 'path' => (
+  is => 'ro',
+);
 
 # character encoding
 has 'encoding' => (
@@ -47,7 +52,7 @@ around BUILDARGS => sub {
   return $attr;
 };
 
-sub read {
+sub read_records {
   die "must be implemented by subclass";
 }
 

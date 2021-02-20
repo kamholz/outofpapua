@@ -1,9 +1,9 @@
-package Lexicon::Parse::Fieldworks;
+package Lexicon::Parser::Fieldworks;
 use v5.14;
 use Moo;
 use namespace::clean;
 
-extends 'Lexicon::Parse::XML';
+extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
 has lang_target => (
@@ -14,9 +14,9 @@ has lang_national => (
   is => 'ro',
 );
 
-sub read {
-  my ($self, $path) = @_;
-  my $dom = $self->parse($path);
+sub read_records {
+  my ($self) = @_;
+  my $dom = $self->parse;
   my $items;
   my $lang_target = $self->lang_target;
   my $lang_national = $self->lang_national;

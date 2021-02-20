@@ -1,14 +1,14 @@
-package Lexicon::Parse::Flex;
+package Lexicon::Parser::Flex;
 use v5.14;
 use Moo;
 use namespace::clean;
 
-extends 'Lexicon::Parse::XML';
+extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-sub read {
-  my ($self, $path) = @_;
-  my $dom = $self->parse($path);
+sub read_records {
+  my ($self) = @_;
+  my $dom = $self->parse;
   my @rows;
 
   foreach my $entry ($dom->find('LexEntry')->each) {
