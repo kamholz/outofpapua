@@ -8,6 +8,7 @@ with 'Lexicon::Util';
 # file path
 has 'path' => (
   is => 'ro',
+  required => 1,
 );
 
 # character encoding
@@ -61,7 +62,7 @@ sub parse {
 }
 
 sub add_gloss {
-  my ($self, $sense, $item, $txt) = @_;
+  my ($self, $sense, $item, $txt, $lang) = @_;
 
   my $pre = $self->${\"${item}_preprocess"};
   if ($pre) {
@@ -69,7 +70,7 @@ sub add_gloss {
     return if $txt =~ /^\s*$/;
   }
 
-  push(@{$sense->{$item}}, $self->extract_glosses($txt));
+  push(@{$sense->{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
 }
 
 sub extract_glosses {
@@ -83,7 +84,7 @@ sub extract_glosses {
     @items = map { _split_heuristic($_, $self->split_heuristic) } @items;
   }
 
-  return map { _normalize_gloss($_, $self->strip) } @items;
+  return grep { length } map { _normalize_gloss($_, $self->strip) } @items;
 }
 
 sub _split_heuristic {

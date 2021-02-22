@@ -45,7 +45,7 @@ sub import_lexicon {
 
     my $entries = $parser->read_entries;
 
-    foreach my $entry (@$entries) {
+    foreach my $entry (@{$entries||[]}) {
       next unless length $entry->{headword};
 
       my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized root partofspeech/, jsonify_record($entry->{record}))->array->[0];
@@ -54,14 +54,14 @@ VALUES (?, ?, ?, ?, ?, ?)
 RETURING id
 EOF
 
-      foreach my $sense (@{$entry->{sense}}) {
+      foreach my $sense (@{$entry->{sense}||[]}) {
         my $sense_id = $db->query(<<'EOF', $entry_id, jsonify_record($sense->{record}))->array->[0];
 INSERT INTO sense (entry_id, data) VALUES (?, ?)
 RETURNING id
 EOF
 
         foreach my $item (qw/gloss definition/) {
-          foreach my $val (@{$sense->{$item}}) {
+          foreach my $val (@{$sense->{$item}||[]}) {
             my $language_id = $self->get_language_id($val->[0]);
             $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt) VALUES (?, ?, ?)",
               $sense_id, $language_id, $val->[1]);
@@ -87,7 +87,6 @@ sub get_language_id {
   my ($self, $iso6393) = @_;
   state %language_cache;
   if (!exists $language_cache{$iso6393}) {
-    say "getting for $iso6393";
     $language_cache{$iso6393} = $self->db->query('SELECT id FROM language WHERE iso6393 = ?', $iso6393)->array->[0];
   }
   return $language_cache{$iso6393};
