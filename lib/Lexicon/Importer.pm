@@ -35,21 +35,22 @@ sub import_lexicon {
 
     # look for source id
     my $source_id = $db->query('SELECT id FROM source WHERE title = ?', $source_title)->array->[0];
-    # not found, so create new source
+    # not found, create new source
     unless ($source_id) {
       $source_id = $db->query('INSERT INTO source (title) VALUES (?) RETURNING id', $source_title)->array->[0];
     }
 
-    die "source entries already exist, aborting"
+    die 'source entries already exist, aborting'
       if $db->query('SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)->array->[0];
 
     my $entries = $parser->read_entries;
 
     foreach my $entry (@{$entries||[]}) {
+      die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       next unless length $entry->{headword};
 
-      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized root pos/, jsonify_record($entry->{record}))->array->[0];
-INSERT INTO entry (source_id, headword, headword_normalized, root, pos, data)
+      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/, jsonify_record($entry->{record}))->array->[0];
+INSERT INTO entry (source_id, headword, headword_normalized, pos, root, data)
 VALUES (?, ?, ?, ?, ?, ?)
 RETURING id
 EOF
@@ -64,9 +65,10 @@ EOF
 
         foreach my $item (qw/gloss definition/) {
           foreach my $val (@{$sense->{$item}||[]}) {
-            my $language_id = $self->get_language_id($val->[0]);
+            my $language_id = $self->get_language_id($val->[1]);
+            die "no language found for gloss: $val->[0]" unless $language_id;
             $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt) VALUES (?, ?, ?)",
-              $sense_id, $language_id, $val->[1]);
+              $sense_id, $language_id, $val->[0]);
           }
         }
       }

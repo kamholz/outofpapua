@@ -20,7 +20,7 @@ sub read_entries {
 
     my $entry = {
       headword => $headword,
-      record => [['lx', $headword]]
+      record => [['lx', $headword]],
     };
     my $seen_pos;
 
