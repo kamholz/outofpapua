@@ -48,15 +48,17 @@ sub import_lexicon {
     foreach my $entry (@{$entries||[]}) {
       next unless length $entry->{headword};
 
-      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized root partofspeech/, jsonify_record($entry->{record}))->array->[0];
-INSERT INTO entry (source_id, headword, headword_normalized, root, partofspeech, data)
+      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized root pos/, jsonify_record($entry->{record}))->array->[0];
+INSERT INTO entry (source_id, headword, headword_normalized, root, pos, data)
 VALUES (?, ?, ?, ?, ?, ?)
 RETURING id
 EOF
 
       foreach my $sense (@{$entry->{sense}||[]}) {
-        my $sense_id = $db->query(<<'EOF', $entry_id, jsonify_record($sense->{record}))->array->[0];
-INSERT INTO sense (entry_id, data) VALUES (?, ?)
+        next unless %{$sense||{}};
+
+        my $sense_id = $db->query(<<'EOF', $entry_id)->array->[0];
+INSERT INTO sense (entry_id) VALUES (?)
 RETURNING id
 EOF
 

@@ -3,6 +3,7 @@ use v5.14;
 use Moo;
 use namespace::clean;
 use File::Slurper 'read_text';
+use Mojo::DOM;
 
 extends 'Lexicon::Parser';
 

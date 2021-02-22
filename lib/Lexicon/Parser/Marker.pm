@@ -2,7 +2,7 @@ package Lexicon::Parser::Marker;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::UtilsBy 'uniq_by';
+use List::Util 'any';
 
 extends 'Lexicon::Parser';
 with 'Lexicon::Util';
@@ -34,13 +34,21 @@ has pos => (
 # marker(s) for gloss
 has gloss => (
   is => 'ro',
-  default => sub { { ge => 'eng' } },
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    return { ge => $self->lang_english, gr => $self->lang_regional, gn => $self->lang_national };
+  },
 );
 
 # marker(s) for reverse lookup form
 has reverse => (
   is => 'ro',
-  default => sub { { re => 'eng' } },
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    return { re => $self->lang_english, rr => $self->lang_regional, rn => $self->lang_national };
+  },
 );
 
 # valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', or 'drop'
@@ -52,7 +60,11 @@ has 'reverse_action' => (
 # marker(s) for definition
 has definition => (
   is => 'ro',
-  default => sub { { de => 'eng' } },
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    return { de => $self->lang_english, dr => $self->lang_regional, dn => $self->lang_national };
+  },
 );
 
 has 'definition_action' => (
@@ -87,83 +99,38 @@ sub read_entries {
 
   my $entries = [];
   my $entry = {};
+  my $seen_pos;
 
   foreach my $line ($self->parse) {
     my ($marker, $txt, $headword_flag) = @$line;
 
     if ($headword->{$marker} or $headword_flag) {
-      $entry = $self->push_entry($entries, $entry, $record->{$marker} ? 'record' : 'headword');
+      $self->push_entry($entries, $entry);
+      $entry = $self->reset_entry($entry, $record->{$marker} ? 'record' : 'headword');
+      $seen_pos = undef;
       $entry->{headword} = normalize_headword($txt);
     } elsif ($pos->{$marker}) {
-      $entry = $self->push_entry($entries, $entry, 'pos') if @{$entry->{gloss}||[]} || @{$entry->{definition}||[]};
+      if (defined $seen_pos and $seen_pos ne $txt) {
+        $self->push_entry($entries, $entry);
+        $entry = $self->reset_entry($entry, 'pos');
+        $seen_pos = $txt;
+      }
       $entry->{pos} = $txt;
     } elsif (exists $gloss->{$marker}) {
       $self->add_gloss($entry, 'gloss', $txt, $gloss->{$marker});
     } elsif (exists $reverse->{$marker}) {
       $self->add_gloss($entry, 'reverse', $txt, $reverse->{$marker});
-    } elsif (exists$definition->{$marker}) {
+    } elsif (exists $definition->{$marker}) {
       $self->add_gloss($entry, 'definition', $txt, $definition->{$marker});
     } elsif ($sense->{$marker}) {
-      if (defined $entry->{headword}) {
-        my $hw = $entry->{headword};
-        $entry = $self->push_entry($entries, $entry, 'sense'); # 1 means keep stored entry if no gloss has been found yet
-        $entry->{headword} = $hw;
-      }
+      $self->add_sense($entry);
     }
 
     push @{$entry->{record}}, [$marker, $txt];
   }
-  $self->push_entry($entries, $entry, 'record');
+  $self->push_entry($entries, $entry);
 
   return $entries;
-}
-
-sub push_entry {
-  my ($self, $entries, $entry, $context) = @_;
-
-  if (%{$entry||{}}) {
-    foreach my $sense (@{$entry->{sense}||[]}) {
-      $self->apply_action($entry, 'reverse');
-      $self->apply_action($entry, 'definition');
-    }
-
-    foreach my $item (qw/gloss definition/) {
-      @{$entry->{$item}} = uniq_by { join('|||', @$_) } @{$entry->{$item}||[]};
-    }
-
-    push(@$entries, $entry);
-
-    if ($context eq 'headword') {
-      return { record => $entry->{record} };
-    } elsif ($context eq 'pos') {
-      return { %$entry, pos => undef };
-    }
-  }
-
-  return {};
-}
-
-sub apply_action {
-  my ($self, $sense, $item) = @_;
-  if ($sense->{$item}) {
-    my $action = $self->${\"${item}_action"};
-
-    my $value = delete $sense->{$item};
-    @$value = grep { $_->[0] =~ /\w/ } @$value; # ensure at least one word char present
-    return unless @$value;
-
-    if ($action eq 'merge') {
-      push @{$sense->{gloss}}, @$value;
-    } elsif ($action =~ /^merge_(\d+)$/) {
-      push @{$sense->{gloss}}, grep { length($_->[0]) <= $1 } @$value;
-    } elsif ($action eq 'prefer') {
-      $sense->{gloss} = $value;
-    } elsif ($action =~ /^prefer_(\d+)$/) {
-      $sense->{gloss} = $value unless all { length($_->[0]) <= $1 } @$value;
-    } elsif ($action eq 'disprefer' and !$sense->{gloss}) {
-      $sense->{gloss} = $value;
-    }
-  }
 }
 
 sub parse {

@@ -2,6 +2,7 @@ package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
+use List::UtilsBy 'uniq_by';
 
 with 'Lexicon::Util';
 
@@ -38,6 +39,21 @@ has 'strip' => (
   is => 'ro',
 );
 
+has lang_english => (
+  is => 'ro',
+  default => 'eng',
+);
+
+has lang_national => (
+  is => 'ro',
+  default => 'und',
+);
+
+has lang_regional => (
+  is => 'ro',
+  default => 'und',
+);
+
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
@@ -61,8 +77,73 @@ sub parse {
   die "must be implemented by subclass";
 }
 
+sub push_entry {
+  my ($self, $entries, $entry) = @_;
+
+  if (%{$entry||{}}) {
+    foreach my $sense (@{$entry->{sense}||[]}) {
+      $self->apply_action($sense, 'reverse');
+      $self->apply_action($sense, 'definition');
+
+      foreach my $item (qw/gloss definition/) {
+        next unless @{$sense->{$item}||[]};
+        @{$sense->{$item}} = uniq_by { join('|||', @$_) } @{$sense->{$item}};
+      }
+    }
+
+    push(@$entries, $entry);
+  }
+}
+
+sub reset_entry {
+  my ($self, $entry, $context) = @_;
+
+  if ($context eq 'headword') {
+    return {
+      record => $entry->{record},
+    };
+  } elsif ($context eq 'pos') {
+    my $new_entry = { %$entry };
+    delete $new_entry->{sense};
+    delete $new_entry->{pos};
+    return $new_entry;
+  } else {
+    return {};
+  }
+}
+
+sub apply_action {
+  my ($self, $sense, $item) = @_;
+  if ($sense->{$item}) {
+    my $action = $self->${\"${item}_action"};
+
+    my $value = delete $sense->{$item};
+    @$value = grep { $_->[0] =~ /\w/ } @$value; # ensure at least one word char present
+    return unless @$value;
+
+    if ($action eq 'merge') {
+      push @{$sense->{gloss}}, @$value;
+    } elsif ($action =~ /^merge_(\d+)$/) {
+      push @{$sense->{gloss}}, grep { length($_->[0]) <= $1 } @$value;
+    } elsif ($action eq 'prefer') {
+      $sense->{gloss} = $value;
+    } elsif ($action =~ /^prefer_(\d+)$/) {
+      $sense->{gloss} = $value unless all { length($_->[0]) <= $1 } @$value;
+    } elsif ($action eq 'disprefer' and !$sense->{gloss}) {
+      $sense->{gloss} = $value;
+    }
+  }
+}
+
+sub add_sense {
+  my ($self, $entry) = @_;
+  if ($entry->{sense} and %{$entry->{sense}[-1]}) {
+    push @{$entry->{sense}}, {};
+  }
+}
+
 sub add_gloss {
-  my ($self, $sense, $item, $txt, $lang) = @_;
+  my ($self, $entry, $item, $txt, $lang) = @_;
 
   my $pre = $self->${\"${item}_preprocess"};
   if ($pre) {
@@ -70,7 +151,10 @@ sub add_gloss {
     return if $txt =~ /^\s*$/;
   }
 
-  push(@{$sense->{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
+  if (!@{$entry->{sense}||[]}) {
+    push @{$entry->{sense}}, {};
+  }
+  push(@{$entry->{sense}[-1]{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
 }
 
 sub extract_glosses {

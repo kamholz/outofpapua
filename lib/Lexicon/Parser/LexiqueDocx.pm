@@ -2,7 +2,6 @@ package Lexicon::Parser::LexiqueDocx;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::Util 'uniqstr';
 
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
@@ -10,13 +9,17 @@ with 'Lexicon::Util';
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
-  my @entries;
+  my $entries = [];
+
+  my $lang_english = $self->lang_english;
+  my $lang_national = $self->lang_national;
+  my $lang_regional = $self->lang_regional;
 
   foreach my $p ($dom->find('p')->each) {
     next unless $p->at('pStyle[val="EntryParagraph"]') || $p->at('pStyle[val="IndentedParagraph"]');
     merge_records_docx($p);
 
-    my $row;
+    my $entry;
 
     foreach my $r ($p->find('r')->each) {
       my $type = get_type_docx($r);
@@ -26,35 +29,35 @@ sub read_entries {
       next unless length $txt;
 
       if ($type eq 'Lexeme' or $type eq 'Subentry') {
-        $row->{headword} = normalize_headword($txt);
-        push @{$row->{record}}, ['lx', $row->{headword}];
+        $entry->{headword} = normalize_headword($txt);
+        push @{$entry->{record}}, ['lx', $entry->{headword}];
       } elsif ($type eq 'DefinitionE') {
-        push @{$row->{gloss}}, $self->extract_glosses($txt);
-        push @{$row->{record}}, ['ge', $txt];
+        $self->add_gloss($entry, 'gloss', $txt, $lang_english);
+        push @{$entry->{record}}, ['ge', $txt];
       } elsif ($type eq 'Partofspeech') {
-        push @{$row->{record}}, ['ps', $txt];
+        $entry->{pos} = $txt;
+        push @{$entry->{record}}, ['ps', $txt];
       } elsif ($type eq 'Definitionn') {
-        push @{$row->{record}}, ['gn', $txt];
+        $self->add_gloss($entry, 'gloss', $txt, $lang_national);
+        push @{$entry->{record}}, ['gn', $txt];
       } elsif ($type eq 'Examplev') {
-        push @{$row->{record}}, ['xv', $txt];
+        push @{$entry->{record}}, ['xv', $txt];
       } elsif ($type eq 'ExamplefreetransE') {
-        push @{$row->{record}}, ['xe', $txt];
+        push @{$entry->{record}}, ['xe', $txt];
       } elsif ($type eq 'Examplefreetransn') {
-        push @{$row->{record}}, ['xn', $txt];
+        push @{$entry->{record}}, ['xn', $txt];
       } elsif ($type eq 'Examplefreetransr') {
-        #push @{$row->{record}}, ['xr', $txt];
+        #push @{$entry->{record}}, ['xr', $txt];
       } elsif ($type =~ /^(?:flabel|Reference|Definitionr|Encyclopedicinfo[Er]|Notesgeneral)$/) {
         $txt =~ s/\s*\.+$//;
-        push @{$row->{record}}, ['', $txt] if length $txt;
+        push @{$entry->{record}}, ['', $txt] if length $txt;
       }
     }
 
-    if ($row->{headword} && $row->{gloss}) {
-      push(@entries, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
-    }
+    $self->push_entry($entries, $entry);
   }
 
-  return \@entries;
+  return $entries;
 }
 
 sub merge_records_docx {

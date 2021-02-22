@@ -10,10 +10,6 @@ has lang_target => (
   is => 'ro',
 );
 
-has lang_national => (
-  is => 'ro',
-);
-
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;

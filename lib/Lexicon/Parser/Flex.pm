@@ -9,37 +9,53 @@ with 'Lexicon::Util';
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
-  my @entries;
+  my $entries = [];
 
-  foreach my $entry ($dom->find('LexEntry')->each) {
-    my $headword = $entry->children('LexEntry_HeadWord')->first;
+  my $lang_english = $self->lang_english;
+
+  foreach my $dom_entry ($dom->find('LexEntry')->each) {
+    my $headword = $dom_entry->children('LexEntry_HeadWord')->first;
     next unless $headword;
     $headword = normalize_headword(get_text_sil($headword));
 
-    foreach my $sense ($entry->find('LexSense')->each) {
-      my $row = { headword => $headword, record => [['lx', $headword]] };
+    my $entry = {
+      headword => $headword,
+      record => [['lx', $headword]]
+    };
+    my $seen_pos;
+
+    foreach my $sense ($dom_entry->find('LexSense')->each) {
+      my $pos = $sense->at('MoMorphSynAnalysisLink_MLPartOfSpeech');
+      if ($pos) {
+        $pos = get_text_sil($pos);
+        if (defined $seen_pos and $seen_pos ne $pos) {
+          $self->push_entry($entries, $entry);
+          $entry = $self->reset_entry($entry, 'pos');
+          $seen_pos = $pos;
+        } else {
+          $self->add_sense($entry);
+        }
+        $entry->{pos} = $pos;
+        push @{$entry->{record}}, ['ps', $pos];
+      }
 
       my $gloss = $sense->at('LexSense_Definition');
       if ($gloss) {
         $gloss = get_text_sil($gloss);
-        push @{$row->{record}}, ['ge', $gloss];
-        push @{$row->{gloss}}, $self->extract_glosses($gloss);
+        $self->add_gloss($entry, 'gloss', $gloss, $lang_english);
+        push @{$entry->{record}}, ['ge', $gloss];
       }
-
-      collect_record_sil($row->{record}, $sense->at('MoMorphSynAnalysisLink_MLPartOfSpeech'), 'ps');
 
       foreach my $example ($sense->find('LexExampleSentence')->each) {
-        collect_record_sil($row->{record}, $example->at('LexExampleSentence_Example'), 'xv');
-        collect_record_sil($row->{record}, $example->at('CmTranslation_Translation'), 'xe');
+        collect_record_sil($entry->{record}, $example->at('LexExampleSentence_Example'), 'xv');
+        collect_record_sil($entry->{record}, $example->at('CmTranslation_Translation'), 'xe');
       }
 
-      if ($row->{gloss}) {
-        push(@entries, { %$row, gloss => $_ }) for @{$row->{gloss}};
-      }
+      $self->push_entry($entries, $entry);
     }
   }
 
-  return \@entries;
+  return $entries;
 }
 
 1;
