@@ -54,6 +54,16 @@ sub get_text_sil {
   return $txt;
 }
 
+sub get_text_sil_lang {
+  my ($el, $lang) = @_;
+  my $run = $el->at(qq(AStr Run[ws="$lang"]));
+  return undef unless $run;
+  my $txt = $run->text;
+  $txt =~ s/^\s+|\s+$//g;
+  $txt =~ s/\s+/ /g;
+  return $txt;
+}
+
 sub collect_record_sil {
   my ($record, $found, $marker) = @_;
   if ($found) {

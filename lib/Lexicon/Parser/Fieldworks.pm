@@ -6,6 +6,11 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
+has '+lang_english' => (
+  is => 'ro',
+  default => 'en',
+);
+
 has lang_target => (
   is => 'ro',
 );
@@ -15,7 +20,9 @@ sub read_entries {
   my $dom = $self->parse;
   my $items;
   my $lang_target = $self->lang_target;
+  my $lang_english = $self->lang_english;
   my $lang_national = $self->lang_national;
+  my $lang_regional = $self->lang_regional;
 
   foreach my $item ($dom->find('rt')->each) {
     my $attr = $items->{$item->attr('guid')} = {
@@ -24,7 +31,7 @@ sub read_entries {
     };
 
     my $name = $item->at('Name');
-    $attr->{name} = get_text_fw($name, 'en') if $name;
+    $attr->{name} = get_text_fw($name, $lang_english) if $name;
   }
 
   my $get_obj = sub {
@@ -32,74 +39,114 @@ sub read_entries {
     return map { $items->{$_->attr('guid')} } $item->find("$tag objsur")->each;
   };
 
-  my @entries;
+  my $entries = [];
 
-  foreach my $entry (map { $_->{element} } grep { $_->{class} eq 'LexEntry' } values %$items) {
-    my ($form) = map { $_->{element} } $get_obj->($entry, 'LexemeForm');
-    next unless $form;
-    $form = get_text_fw($form, $lang_target);
+  foreach my $entry_elt (map { $_->{element} } grep { $_->{class} eq 'LexEntry' } values %$items) {
+    my ($form_elt) = map { $_->{element} } $get_obj->($entry_elt, 'LexemeForm');
+    next unless $form_elt;
+    my $form = get_text_fw($form_elt, $lang_target);
     next unless length $form;
 
-    my $row = { headword => $form, record => [['lx', $form]] };
+    my $entry = {
+      headword => $form,
+      record => [['lx', $form]],
+    };
 
-    foreach my $variant (map { $_->{element} } $get_obj->($entry, 'AlternateForms')) {
-      $variant = get_text_fw($variant, $lang_target);
-      push @{$row->{record}}, ['va', $variant] if length $variant;
+    foreach my $variant_elt (map { $_->{element} } $get_obj->($entry_elt, 'AlternateForms')) {
+      my $variant = get_text_fw($variant_elt, $lang_target);
+      push @{$entry->{record}}, ['va', $variant] if length $variant;
     }
 
-    foreach my $analysis (map { $_->{element} } $get_obj->($entry, 'MorphoSyntaxAnalyses')) {
-      foreach my $pos ($get_obj->($analysis, 'PartOfSpeech')) {
-        push @{$row->{record}}, ['ps', $pos->{name}] if length $pos->{name};
-      }
-    }
-
+    my $seen_pos;
     my $current_sense = 0;
-    foreach my $sense (map { $_->{element} } $get_obj->($entry, 'Senses')) {
-      my $gloss = $sense->at('Gloss');
-      next unless $gloss;
+    foreach my $sense_elt (map { $_->{element} } $get_obj->($entry_elt, 'Senses')) {
       $current_sense++;
-      push @{$row->{record}}, ['sn', $current_sense] if $current_sense > 1;
+      push @{$entry->{record}}, ['sn', "$current_sense"] if $current_sense > 1;
 
-      my $ge = get_text_fw($gloss, 'en');
-      if (length $ge) {
-        push @{$row->{record}}, ['ge', $ge];
-        push @entries, { %$row, gloss => $_ } for $self->extract_glosses($ge);
+      my $pos;
+      my $analysis_elt = ($get_obj->($sense_elt, 'MorphoSyntaxAnalysis'))[0];
+      if ($analysis_elt) {
+        my $pos_elt = ($get_obj->($analysis_elt->{element}, 'PartOfSpeech'))[0];
+        if ($pos_elt) {
+          $pos = $pos_elt->{name};
+        } else {
+          my $from_pos_elt = ($get_obj->($analysis_elt->{element}, 'FromPartOfSpeech'))[0];
+          if ($from_pos_elt) {
+            my $to_pos_elt = ($get_obj->($analysis_elt->{element}, 'ToPartOfSpeech'))[0];
+            if ($to_pos_elt) {
+              $pos = "$from_pos_elt->{name} > $to_pos_elt->{name}";
+            }
+          }
+        }
       }
 
-      my $gn = get_text_fw($gloss, $lang_national);
-      push @{$row->{record}}, ['gn', $gn] if length $gn;
+      if (length $pos) {
+        if (defined $seen_pos and $seen_pos ne $pos) {
+          $self->push_entry($entries, $entry);
+          $entry = $self->reset_entry($entry, 'pos');
+        } else {
+          $self->add_sense($entry);
+        }
+        $entry->{pos} = $seen_pos = $pos;
+        push @{$entry->{record}}, ['ps', $pos];
+      } else {
+        $self->add_sense($entry);
+      }
 
-      collect_record_sil($row->{record}, $sense->at('Definition'), 'de');
-      collect_record_sil($row->{record}, $sense->at('SemanticsNote'), 'nt');
-      collect_record_sil($row->{record}, $sense->at('GeneralNote'), 'nt');
-      collect_record_sil($row->{record}, $sense->at('EncyclopedicInfo'), 'ee');
+      my $gloss_elt = $sense_elt->at('Gloss');
+      if ($gloss_elt) {
+        foreach my $lang ([$lang_english, 'ge'], [$lang_national, 'gn'], [$lang_regional, 'gr']) {
+          my $gloss = get_text_fw($gloss_elt, $lang->[0]);
+          if (length $gloss) {
+            $self->add_gloss($entry, 'gloss', $gloss, $lang->[0]);
+            push @{$entry->{record}}, [$lang->[1], $gloss];
+          }
+        }
+      }
+
+      my $definition_elt = $sense_elt->at('Definition');
+      if ($definition_elt) {
+        foreach my $lang ([$lang_english, 'de'], [$lang_national, 'dn'], [$lang_regional, 'dr']) {
+          my $definition = get_text_sil_lang($definition_elt, $lang->[0]);
+          if (length $definition) {
+            $self->add_gloss($entry, 'definition', $definition, $lang->[0]);
+            push @{$entry->{record}}, [$lang->[1], $definition];
+          }
+        }
+      }
+
+      collect_record_sil($entry->{record}, $sense_elt->at('SemanticsNote'), 'nt');
+      collect_record_sil($entry->{record}, $sense_elt->at('GeneralNote'), 'nt');
+      collect_record_sil($entry->{record}, $sense_elt->at('EncyclopedicInfo'), 'ee');
     }
 
-    foreach my $ref (map { $_->{element} } $get_obj->($entry, 'EntryRefs')) {
+    foreach my $ref_elt (map { $_->{element} } $get_obj->($entry_elt, 'EntryRefs')) {
       my @components;
 
-      foreach my $component (map { $_->{element} } $get_obj->($ref, 'ComponentLexemes')) {
-        my ($form) = map { $_->{element} } $get_obj->($component, 'LexemeForm');
-        next unless $form;
-        $form = get_text_fw($form, $lang_target);
+      foreach my $component_elt (map { $_->{element} } $get_obj->($ref_elt, 'ComponentLexemes')) {
+        my ($form_elt) = map { $_->{element} } $get_obj->($component_elt, 'LexemeForm');
+        next unless $form_elt;
+        my $form = get_text_fw($form_elt, $lang_target);
         next unless length $form;
 
         my @senses;
-        foreach my $sense (map { $_->{element} } $get_obj->($component, 'Senses')) {
-          my $gloss = $sense->at('Gloss');
+        foreach my $sense_elt (map { $_->{element} } $get_obj->($component_elt, 'Senses')) {
+          my $gloss = $sense_elt->at('Gloss');
           next unless $gloss;
-          my $ge = get_text_fw($gloss, 'en');
+          my $ge = get_text_fw($gloss, $lang_english);
           push(@senses, $ge) if length $ge;
         }
 
           push(@components, $form . ' ‘' . join(', ', @senses) . '’') if @senses;
         }
 
-        push(@{$row->{record}}, ['nt', "Constituents: " . join('; ', @components)]) if @components;
+        push(@{$entry->{record}}, ['nt', 'Constituents: ' . join('; ', @components)]) if @components;
     }
+
+    $self->push_entry($entries, $entry);
   }
 
-  return \@entries;
+  return $entries;
 }
 
 sub get_text_fw {

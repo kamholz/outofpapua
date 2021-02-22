@@ -20,6 +20,13 @@ has pg => (
   builder => sub { Mojo::Pg->new(shift->db_url) },
 );
 
+has iso_corrected => (
+  is => 'ro',
+  default => sub { {
+    en => 'eng',
+  } },
+);
+
 sub db {
   return shift->pg->db;
 }
@@ -89,7 +96,9 @@ sub jsonify_record {
 
 sub get_language_id {
   my ($self, $iso6393) = @_;
+  state $iso_corrected = $self->iso_corrected;
   state %language_cache;
+  $iso6393 = $iso_corrected->{$iso6393} // $iso6393;
   if (!exists $language_cache{$iso6393}) {
     $language_cache{$iso6393} = $self->db->query('SELECT id FROM language WHERE iso6393 = ?', $iso6393)->array->[0];
   }

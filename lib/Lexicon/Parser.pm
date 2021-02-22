@@ -2,6 +2,7 @@ package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
+use List::Util 'all';
 use List::UtilsBy 'uniq_by';
 
 with 'Lexicon::Util';
@@ -52,6 +53,17 @@ has lang_national => (
 has lang_regional => (
   is => 'ro',
   default => 'und',
+);
+
+# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', or 'drop'
+has 'reverse_action' => (
+  is => 'ro',
+  default => 'merge',
+);
+
+has 'definition_action' => (
+  is => 'ro',
+  default => 'drop',
 );
 
 around BUILDARGS => sub {

@@ -22,21 +22,26 @@ sub read_entries {
       headword => $headword,
       record => [['lx', $headword]],
     };
-    my $seen_pos;
 
+    my $seen_pos;
+    my $current_sense = 0;
     foreach my $sense ($dom_entry->find('LexSense')->each) {
+      $current_sense++;
+      push @{$entry->{record}}, ['sn', "$current_sense"] if $current_sense > 1;
+
       my $pos = $sense->at('MoMorphSynAnalysisLink_MLPartOfSpeech');
       if ($pos) {
         $pos = get_text_sil($pos);
         if (defined $seen_pos and $seen_pos ne $pos) {
           $self->push_entry($entries, $entry);
           $entry = $self->reset_entry($entry, 'pos');
-          $seen_pos = $pos;
         } else {
           $self->add_sense($entry);
         }
-        $entry->{pos} = $pos;
+        $entry->{pos} = $seen_pos = $pos;
         push @{$entry->{record}}, ['ps', $pos];
+      } else {
+        $self->add_sense($entry);
       }
 
       my $gloss = $sense->at('LexSense_Definition');

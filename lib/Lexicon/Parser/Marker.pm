@@ -51,12 +51,6 @@ has reverse => (
   },
 );
 
-# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', or 'drop'
-has 'reverse_action' => (
-  is => 'ro',
-  default => 'merge',
-);
-
 # marker(s) for definition
 has definition => (
   is => 'ro',
@@ -65,11 +59,6 @@ has definition => (
     my $self = shift;
     return { de => $self->lang_english, dr => $self->lang_regional, dn => $self->lang_national };
   },
-);
-
-has 'definition_action' => (
-  is => 'ro',
-  default => 'drop',
 );
 
 around BUILDARGS => sub {
@@ -113,9 +102,8 @@ sub read_entries {
       if (defined $seen_pos and $seen_pos ne $txt) {
         $self->push_entry($entries, $entry);
         $entry = $self->reset_entry($entry, 'pos');
-        $seen_pos = $txt;
       }
-      $entry->{pos} = $txt;
+      $entry->{pos} = $seen_pos = $txt;
     } elsif (exists $gloss->{$marker}) {
       $self->add_gloss($entry, 'gloss', $txt, $gloss->{$marker});
     } elsif (exists $reverse->{$marker}) {
