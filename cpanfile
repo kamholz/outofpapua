@@ -7,3 +7,4 @@ requires 'Mojolicious', '9.0';
 requires 'Moo', '2.004004';
 requires 'namespace::clean', '0.27';
 requires 'Text::CSV', '2.0';
+requires 'Try::Tiny', '0.30';

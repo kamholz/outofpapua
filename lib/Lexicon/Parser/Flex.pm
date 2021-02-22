@@ -6,10 +6,10 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-sub read_records {
+sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
-  my @rows;
+  my @entries;
 
   foreach my $entry ($dom->find('LexEntry')->each) {
     my $headword = $entry->children('LexEntry_HeadWord')->first;
@@ -34,12 +34,12 @@ sub read_records {
       }
 
       if ($row->{gloss}) {
-        push(@rows, { %$row, gloss => $_ }) for @{$row->{gloss}};
+        push(@entries, { %$row, gloss => $_ }) for @{$row->{gloss}};
       }
     }
   }
 
-  return \@rows;
+  return \@entries;
 }
 
 1;

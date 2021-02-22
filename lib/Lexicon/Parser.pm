@@ -52,7 +52,7 @@ around BUILDARGS => sub {
   return $attr;
 };
 
-sub read_records {
+sub read_entries {
   die "must be implemented by subclass";
 }
 
@@ -61,7 +61,7 @@ sub parse {
 }
 
 sub add_gloss {
-  my ($self, $row, $item, $txt) = @_;
+  my ($self, $sense, $item, $txt) = @_;
 
   my $pre = $self->${\"${item}_preprocess"};
   if ($pre) {
@@ -69,7 +69,7 @@ sub add_gloss {
     return if $txt =~ /^\s*$/;
   }
 
-  push(@{$row->{$item}}, $self->extract_glosses($txt));
+  push(@{$sense->{$item}}, $self->extract_glosses($txt));
 }
 
 sub extract_glosses {

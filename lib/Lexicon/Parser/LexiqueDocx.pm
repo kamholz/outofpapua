@@ -7,10 +7,10 @@ use List::Util 'uniqstr';
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-sub read_records {
+sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
-  my @rows;
+  my @entries;
 
   foreach my $p ($dom->find('p')->each) {
     next unless $p->at('pStyle[val="EntryParagraph"]') || $p->at('pStyle[val="IndentedParagraph"]');
@@ -50,11 +50,11 @@ sub read_records {
     }
 
     if ($row->{headword} && $row->{gloss}) {
-      push(@rows, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
+      push(@entries, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
     }
   }
 
-  return \@rows;
+  return \@entries;
 }
 
 sub merge_records_docx {

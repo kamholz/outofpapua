@@ -14,7 +14,7 @@ has lang_national => (
   is => 'ro',
 );
 
-sub read_records {
+sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
   my $items;
@@ -36,7 +36,7 @@ sub read_records {
     return map { $items->{$_->attr('guid')} } $item->find("$tag objsur")->each;
   };
 
-  my @rows;
+  my @entries;
 
   foreach my $entry (map { $_->{element} } grep { $_->{class} eq 'LexEntry' } values %$items) {
     my ($form) = map { $_->{element} } $get_obj->($entry, 'LexemeForm');
@@ -67,7 +67,7 @@ sub read_records {
       my $ge = get_text_fw($gloss, 'en');
       if (length $ge) {
         push @{$row->{record}}, ['ge', $ge];
-        push @rows, { %$row, gloss => $_ } for $self->extract_glosses($ge);
+        push @entries, { %$row, gloss => $_ } for $self->extract_glosses($ge);
       }
 
       my $gn = get_text_fw($gloss, $lang_national);
@@ -103,7 +103,7 @@ sub read_records {
     }
   }
 
-  return \@rows;
+  return \@entries;
 }
 
 sub get_text_fw {

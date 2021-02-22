@@ -74,7 +74,7 @@ around BUILDARGS => sub {
   return $attr;
 };
 
-sub read_records {
+sub read_entries {
   my ($self) = @_;
   my $headword = $self->headword;
   my $record = $self->record;
@@ -83,14 +83,14 @@ sub read_records {
   my $definition = $self->definition;
   my $sense = $self->sense;
 
-  my $rows = [];
+  my $entries = [];
   my $row = {};
 
   foreach my $line ($self->parse) {
     my ($marker, $txt, $headword_flag) = @$line;
 
     if ($headword->{$marker} or $headword_flag) {
-      $self->push_row($rows, $row, $record->{$marker} ? 'record' : 'headword');
+      $self->push_row($entries, $row, $record->{$marker} ? 'record' : 'headword');
       $row->{headword} = normalize_headword($txt);
     } elsif ($gloss->{$marker}) {
       $self->add_gloss($row, 'gloss', $txt);
@@ -100,27 +100,27 @@ sub read_records {
       $self->add_gloss($row, 'definition', $txt);
     } elsif ($sense->{$marker} and defined $row->{headword}) {
       my $hw = $row->{headword};
-      $self->push_row($rows, $row, 'sense'); # 1 means keep stored row if no gloss has been found yet
+      $self->push_row($entries, $row, 'sense'); # 1 means keep stored row if no gloss has been found yet
       $row->{headword} = $hw;
     }
 
     push @{$row->{record}}, [$marker, $txt];
   }
-  $self->push_row($rows, $row, 'record');
+  $self->push_row($entries, $row, 'record');
 
-  return $rows;
+  return $entries;
 }
 
 # mutates $row
 sub push_row {
-  my ($self, $rows, $row, $context) = @_;
+  my ($self, $entries, $row, $context) = @_;
 
   if (%{$row||{}}) {
     $self->apply_action($row, 'reverse');
     $self->apply_action($row, 'definition');
 
     if ($row->{gloss}) {
-      push(@$rows, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
+      push(@$entries, { %$row, gloss => $_ }) for uniqstr(@{$row->{gloss}});
     }
 
     if ($context eq 'record') {
@@ -132,24 +132,24 @@ sub push_row {
 }
 
 sub apply_action {
-  my ($self, $row, $item) = @_;
-  if ($row->{$item}) {
+  my ($self, $sense, $item) = @_;
+  if ($sense->{$item}) {
     my $action = $self->${\"${item}_action"};
 
-    my $value = delete $row->{$item};
+    my $value = delete $sense->{$item};
     @$value = grep { /\w/ } @$value; # ensure at least one word char present
     return unless @$value;
 
     if ($action eq 'merge') {
-      push @{$row->{gloss}}, @$value;
+      push @{$sense->{gloss}}, @$value;
     } elsif ($action =~ /^merge_(\d+)$/) {
-      push @{$row->{gloss}}, grep { length() <= $1 } @$value;
+      push @{$sense->{gloss}}, grep { length() <= $1 } @$value;
     } elsif ($action eq 'prefer') {
-      $row->{gloss} = $value;
+      $sense->{gloss} = $value;
     } elsif ($action =~ /^prefer_(\d+)$/) {
-      $row->{gloss} = $value unless all { length() <= $1 } @$value;
-    } elsif ($action eq 'disprefer' and !$row->{gloss}) {
-      $row->{gloss} = $value;
+      $sense->{gloss} = $value unless all { length() <= $1 } @$value;
+    } elsif ($action eq 'disprefer' and !$sense->{gloss}) {
+      $sense->{gloss} = $value;
     }
   }
 }

@@ -2,6 +2,7 @@ package Lexicon::Util;
 use v5.14;
 use Moo::Role;
 use Encode::Simple qw(decode decode_lax);
+use Try::Tiny;
 use Unicode::Normalize 'NFC';
 
 sub to_array {
@@ -30,9 +31,10 @@ sub apply_encodings {
     return decode_lax($encodings->[0], $txt);
   } else {
     foreach my $encoding (@$encodings) {
-      my $new_txt;
-      eval { $new_txt = decode($encoding, $txt) };
-      return $new_txt unless $@;
+      try {
+        my $new_txt = decode($encoding, $txt);
+        return $new_txt;
+      };
     }
   }
 
