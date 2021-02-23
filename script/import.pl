@@ -16,7 +16,7 @@ my $config = $json->decode(read_text('config.json'));
 my $importer = Lexicon::Importer->new(db_url => $config->{db});
 
 sub import_lexicon {
-  my ($source_title, $path, $args) = @_;
+  my ($source_title, $parser_type, $args) = @_;
   $args->{path} = "dict/$args->{path}";
   my $parser = "Lexicon::Parser::$parser_type"->new($args);
   $importer->import_lexicon($source_title, $parser);

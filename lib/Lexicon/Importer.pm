@@ -36,6 +36,8 @@ sub import_lexicon {
 
   say "\nstarting import: $source_title";
 
+  my %seen_record_ids;
+
   try {
     my $db = $self->db;
     my $tx = $db->begin;
@@ -56,8 +58,18 @@ sub import_lexicon {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       next unless length $entry->{headword};
 
-      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/, jsonify_record($entry->{record}))->array->[0];
-INSERT INTO entry (source_id, headword, headword_normalized, pos, root, data)
+      my $record_id = $seen_record_ids($entry->{record});
+      unless ($record_id) {
+        $record_id = $db->query(<<'EOF', jsonify_record($entry->{record}))->array->[0];
+INSERT INTO record (data)
+VALUES (?)
+RETURNING id
+EOF
+        $seen_record_ids($entry->{record}) = $record_id;
+      }
+
+      my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/, $record_id)->array->[0];
+INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
 VALUES (?, ?, ?, ?, ?, ?)
 RETURING id
 EOF
