@@ -71,7 +71,7 @@ EOF
       my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/, $record_id)->array->[0];
 INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
 VALUES (?, ?, ?, ?, ?, ?)
-RETURING id
+RETURNING id
 EOF
 
       foreach my $sense (@{$entry->{sense}||[]}) {
