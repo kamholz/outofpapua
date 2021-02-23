@@ -43,14 +43,14 @@ sub import_lexicon {
     my $tx = $db->begin;
 
     # look for source id
-    my $source_id = $db->query('SELECT id FROM source WHERE title = ?', $source_title)->array->[0];
+    my $source_id = select_single($db, 'SELECT id FROM source WHERE title = ?', $source_title);
     # not found, create new source
     unless ($source_id) {
       $source_id = $db->query('INSERT INTO source (title) VALUES (?) RETURNING id', $source_title)->array->[0];
     }
 
     die 'source entries already exist, aborting'
-      if $db->query('SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)->array->[0];
+      if select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id);
 
     my $entries = $parser->read_entries;
 
@@ -58,14 +58,14 @@ sub import_lexicon {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       next unless length $entry->{headword};
 
-      my $record_id = $seen_record_ids($entry->{record});
+      my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
         $record_id = $db->query(<<'EOF', jsonify_record($entry->{record}))->array->[0];
 INSERT INTO record (data)
 VALUES (?)
 RETURNING id
 EOF
-        $seen_record_ids($entry->{record}) = $record_id;
+        $seen_record_ids{$entry->{record}} = $record_id;
       }
 
       my $entry_id = $db->query(<<'EOF', $source_id, map { ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/, $record_id)->array->[0];
@@ -106,13 +106,21 @@ sub jsonify_record {
   return $json->encode([ map { [ $_->[0], ensure_nfc($_->[1]) ] } @$record ]);
 }
 
+sub select_single {
+  my ($db, $query, @values) = @_;
+  my $row = $db->query($query, @values)->array;
+  return $row ? $row->[0] : undef;
+}
+
 sub get_language_id {
   my ($self, $iso6393) = @_;
   state $iso_corrected = $self->iso_corrected;
   state %language_cache;
   $iso6393 = $iso_corrected->{$iso6393} // $iso6393;
   if (!exists $language_cache{$iso6393}) {
-    $language_cache{$iso6393} = $self->db->query('SELECT id FROM language WHERE iso6393 = ?', $iso6393)->array->[0];
+    my $id = select_single($self->db, 'SELECT id FROM language WHERE iso6393 = ?', $iso6393);
+    die "ISO 639-3 code not found: $iso6393" unless $id;
+    $language_cache{$iso6393} = $id;
   }
   return $language_cache{$iso6393};
 }
