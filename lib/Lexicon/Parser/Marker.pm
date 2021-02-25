@@ -37,7 +37,12 @@ has gloss => (
   lazy => 1,
   default => sub {
     my $self = shift;
-    return { ge => $self->lang_english, gr => $self->lang_regional, gn => $self->lang_national };
+    return {
+      ge => $self->lang_english,
+      gr => $self->lang_regional,
+      gn => $self->lang_national,
+      g  => 'und',
+    };
   },
 );
 
@@ -47,7 +52,12 @@ has reverse => (
   lazy => 1,
   default => sub {
     my $self = shift;
-    return { re => $self->lang_english, rr => $self->lang_regional, rn => $self->lang_national };
+    return {
+      re => $self->lang_english,
+      rr => $self->lang_regional,
+      rn => $self->lang_national,
+      r  => 'und',
+    };
   },
 );
 
@@ -57,7 +67,12 @@ has definition => (
   lazy => 1,
   default => sub {
     my $self = shift;
-    return { de => $self->lang_english, dr => $self->lang_regional, dn => $self->lang_national };
+    return {
+      de => $self->lang_english,
+      dr => $self->lang_regional,
+      dn => $self->lang_national,
+      d  => 'und',
+    };
   },
 );
 
@@ -91,7 +106,14 @@ sub read_entries {
   my $seen_pos;
 
   foreach my $line ($self->parse) {
-    my ($marker, $txt, $headword_flag) = @$line;
+    my ($marker_orig, $txt, $headword_flag) = @$line;
+
+    my ($marker, $lang);
+    if ($marker_orig =~ /^(.+)_([A-Z][a-z]{2})$/) {
+      ($marker, $lang) = ($1, lc $2);
+    } else {
+      $marker = $marker_orig;
+    }
 
     if ($headword->{$marker} or $headword_flag) {
       $self->push_entry($entries, $entry);
@@ -105,16 +127,16 @@ sub read_entries {
       }
       $entry->{pos} = $seen_pos = $txt;
     } elsif (exists $gloss->{$marker}) {
-      $self->add_gloss($entry, 'gloss', $txt, $gloss->{$marker});
+      $self->add_gloss($entry, 'gloss', $txt, $lang // $gloss->{$marker});
     } elsif (exists $reverse->{$marker}) {
-      $self->add_gloss($entry, 'reverse', $txt, $reverse->{$marker});
+      $self->add_gloss($entry, 'reverse', $txt, $lang // $reverse->{$marker});
     } elsif (exists $definition->{$marker}) {
-      $self->add_gloss($entry, 'definition', $txt, $definition->{$marker});
+      $self->add_gloss($entry, 'definition', $txt, $lang // $definition->{$marker});
     } elsif ($sense->{$marker}) {
       $self->add_sense($entry);
     }
 
-    push @{$entry->{record}}, [$marker, $txt];
+    push @{$entry->{record}}, [$marker_orig, $txt];
   }
   $self->push_entry($entries, $entry);
 

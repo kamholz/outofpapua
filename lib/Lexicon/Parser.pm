@@ -2,7 +2,7 @@ package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::Util 'all';
+use List::Util qw(all any);
 use List::UtilsBy 'uniq_by';
 
 with 'Lexicon::Util';
@@ -92,7 +92,7 @@ sub parse {
 sub push_entry {
   my ($self, $entries, $entry) = @_;
 
-  if (%{$entry||{}}) {
+  if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
     foreach my $sense (@{$entry->{sense}||[]}) {
       $self->apply_action($sense, 'reverse');
       $self->apply_action($sense, 'definition');
