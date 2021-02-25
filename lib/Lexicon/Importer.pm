@@ -113,7 +113,7 @@ sub get_language_id {
       ? 'SELECT id FROM language WHERE iso6393 = ?'
       : 'SELECT l.id FROM language l JOIN iso6391 i ON (i.iso6393 = l.iso6393) WHERE i.iso6391 = ?';
     my $id = select_single($self->db, $query, $code);
-    die "ISO 639-3 code not found: $iso6393" unless $id;
+    die "ISO 639-3 code not found: $code" unless $id;
     $language_cache{$code} = $id;
   }
   return $language_cache{$code};
