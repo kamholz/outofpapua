@@ -84,7 +84,7 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/record headword gloss reverse definition sense/) {
+  foreach my $att (grep { defined $attr->{$_} } qw/record headword sense/) {
     $attr->{$att} = to_array_map($attr->{$att});
   }
 
