@@ -20,13 +20,6 @@ has pg => (
   builder => sub { Mojo::Pg->new(shift->db_url) },
 );
 
-has iso_corrected => (
-  is => 'ro',
-  default => sub { {
-    en => 'eng',
-  } },
-);
-
 sub db {
   return shift->pg->db;
 }
@@ -113,16 +106,17 @@ sub select_single {
 }
 
 sub get_language_id {
-  my ($self, $iso6393) = @_;
-  state $iso_corrected = $self->iso_corrected;
+  my ($self, $code) = @_;
   state %language_cache;
-  $iso6393 = $iso_corrected->{$iso6393} // $iso6393;
-  if (!exists $language_cache{$iso6393}) {
-    my $id = select_single($self->db, 'SELECT id FROM language WHERE iso6393 = ?', $iso6393);
+  if (!exists $language_cache{$code}) {
+    my $query = length $code == 3
+      ? 'SELECT id FROM language WHERE iso6393 = ?'
+      : 'SELECT l.id FROM language l JOIN iso6391 i ON (i.iso6393 = l.iso6393) WHERE i.iso6391 = ?';
+    my $id = select_single($self->db, $query, $code);
     die "ISO 639-3 code not found: $iso6393" unless $id;
-    $language_cache{$iso6393} = $id;
+    $language_cache{$code} = $id;
   }
-  return $language_cache{$iso6393};
+  return $language_cache{$code};
 }
 
 1;
