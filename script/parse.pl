@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 use v5.14;
-use lib 'lib';
+use lib 'perllib';
 use Data::Dumper;
 use File::Slurper 'read_text';
 use JSON::MaybeXS;
