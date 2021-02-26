@@ -25,7 +25,7 @@ sub db {
 }
 
 sub import_lexicon {
-  my ($self, $source_title, $parser) = @_;
+  my ($self, $source_title, $parser, $delete_existing) = @_;
 
   say "\nstarting import: $source_title";
 
@@ -42,8 +42,11 @@ sub import_lexicon {
       $source_id = $db->query('INSERT INTO source (title) VALUES (?) RETURNING id', $source_title)->array->[0];
     }
 
-    die 'source entries already exist, aborting'
-      if select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id);
+    if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
+      die 'source entries already exist, aborting' unless $delete_existing;
+      say 'deleting existing entries';
+      $db->query('SELECT delete_source_entries(?)', $source_id);
+    }
 
     my $entries = $parser->read_entries;
 
