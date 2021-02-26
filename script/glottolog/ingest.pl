@@ -7,7 +7,7 @@ use Mojo::Pg;
 use Text::CSV 'csv';
 
 my $json = JSON->new;
-my $config = $json->decode(read_text("$Bin/config.json"));
+my $config = $json->decode(read_text('config.json'));
 my $db = Mojo::Pg->new($config->{db})->db;
 
 my $rows = csv(in => "$Bin/languoid.csv", headers => 'auto', encoding => 'utf-8', empty_is_undef => 1);
