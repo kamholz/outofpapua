@@ -28,6 +28,7 @@ if (@ARGV) {
 
 sub parse_lexicon {
   my ($source_title, $args) = @_;
+  die "no parser given" unless $args->{parser};
   $args->{path} = "dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
   my $parser = $parser_class->new($args);

@@ -19,7 +19,7 @@ if (@ARGV) {
   my $dict = $config->{dictionaries};
   my $source_title = shift @ARGV;
   if (exists $dict->{$source_title}) {
-    import_lexicon($source_title, $dict->{$source_title});
+    import_lexicon($source_title, $dict->{$source_title}, shift @ARGV);
   } else {
     say "Unknown source: $source_title";
   }
@@ -28,10 +28,11 @@ if (@ARGV) {
 }
 
 sub import_lexicon {
-  my ($source_title, $args) = @_;
+  my ($source_title, $args, $delete_existing) = @_;
+  die "no parser given" unless $args->{parser};
   $args->{path} = "dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
-  $importer->import_lexicon($source_title, $parser_class->new($args));
+  $importer->import_lexicon($source_title, $parser_class->new($args), $delete_existing);
 }
 
 1;

@@ -55,7 +55,7 @@ has lang_regional => (
   default => 'und',
 );
 
-# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', or 'drop'
+# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
 has 'reverse_action' => (
   is => 'ro',
   default => 'merge',
@@ -63,7 +63,7 @@ has 'reverse_action' => (
 
 has 'definition_action' => (
   is => 'ro',
-  default => 'drop',
+  default => 'ignore',
 );
 
 around BUILDARGS => sub {
@@ -128,6 +128,7 @@ sub apply_action {
   my ($self, $sense, $item) = @_;
   if ($sense->{$item}) {
     my $action = $self->${\"${item}_action"};
+    return if $action eq 'ignore';
 
     my $value = delete $sense->{$item};
     @$value = grep { $_->[0] =~ /\w/ } @$value; # ensure at least one word char present
