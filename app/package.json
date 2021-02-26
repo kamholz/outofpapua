@@ -1,0 +1,28 @@
+{
+  "name": "outofpapua-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamholz/outofpapua.git"
+  },
+  "author": "David Kamholz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamholz/outofpapua/issues"
+  },
+  "homepage": "https://github.com/kamholz/outofpapua#readme",
+  "dependencies": {
+    "fastify": "^3.12.0",
+    "knex": "^0.21.18",
+    "pg": "^8.5.1",
+    "point-of-view": "^4.13.0"
+  },
+  "devDependencies": {
+    "fastify-static": "^4.0.1"
+  }
+}
