@@ -56,7 +56,7 @@ sub import_lexicon {
 
       my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
-        $record_id = $db->query(<<'EOF', jsonify_record($entry->{record}))->array->[0];
+        $record_id = select_single($db, <<'EOF', jsonify_record($entry->{record}));
 INSERT INTO record (data)
 VALUES (?)
 RETURNING id
@@ -64,7 +64,7 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      my $entry_id = $db->query(<<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/), $record_id)->array->[0];
+      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/), $record_id);
 INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
 VALUES (?, ?, ?, ?, ?, ?)
 RETURNING id
@@ -73,7 +73,7 @@ EOF
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
 
-        my $sense_id = $db->query(<<'EOF', $entry_id)->array->[0];
+        my $sense_id = select_single($db, <<'EOF', $entry_id);
 INSERT INTO sense (entry_id) VALUES (?)
 RETURNING id
 EOF
@@ -85,6 +85,20 @@ EOF
             $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt) VALUES (?, ?, ?)",
               $sense_id, $language_id, $val->[0]);
           }
+        }
+
+        my $seq = 1;
+        foreach my $ex (@{$sense->{example}||[]}) {
+          my ($txt, @trans) = @$ex;
+          my $example_id = select_single($db, <<'EOF', $sense_id, $seq, $txt);
+INSERT INTO sense_example (sense_id, seq, txt) VALUES (?, ?, ?)
+RETURNING id
+EOF
+          foreach my $tr (@trans) {
+            my $language_id = $self->get_language_id($tr->[1]);
+            $db->query('INSERT INTO sense_example_translation (sense_example_id, language_id, txt) VALUES (?, ?, ?)', $example_id, $language_id, $tr->[0]);
+          }
+          $seq++;
         }
       }
     }
@@ -116,7 +130,7 @@ sub get_language_id {
       ? 'SELECT id FROM language WHERE iso6393 = ?'
       : 'SELECT l.id FROM language l JOIN iso6391 i ON (i.iso6393 = l.iso6393) WHERE i.iso6391 = ?';
     my $id = select_single($self->db, $query, $code);
-    die "ISO 639-3 code not found: $code" unless $id;
+    die "ISO 639 code not found: $code" unless $id;
     $language_cache{$code} = $id;
   }
   return $language_cache{$code};

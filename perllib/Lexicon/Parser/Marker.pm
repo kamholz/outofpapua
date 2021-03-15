@@ -76,6 +76,27 @@ has definition => (
   },
 );
 
+# marker(s) for example
+has example => (
+  is => 'ro',
+  default => sub { to_array_map('xv') },
+);
+
+# marker(s) for example translation
+has example_trans => (
+  is => 'ro',
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    return {
+      xe => $self->lang_english,
+      xr => $self->lang_regional,
+      xn => $self->lang_national,
+      x  => 'und',
+    };
+  },
+);
+
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
@@ -96,14 +117,16 @@ sub read_entries {
   my $headword = $self->headword;
   my $record = $self->record;
   my $pos = $self->pos;
+  my $sense = $self->sense;
   my $gloss = $self->gloss;
   my $reverse = $self->reverse;
   my $definition = $self->definition;
-  my $sense = $self->sense;
+  my $example = $self->example;
+  my $example_trans = $self->example_trans;
 
   my $entries = [];
   my $entry = {};
-  my $seen_pos;
+  my ($seen_pos, $seen_example);
 
   foreach my $line ($self->parse) {
     my ($marker_orig, $txt, $headword_flag) = @$line;
@@ -113,6 +136,10 @@ sub read_entries {
       ($marker, $lang) = ($1, lc $2);
     } else {
       $marker = $marker_orig;
+    }
+
+    if ($seen_example) {
+      $seen_example = undef unless $example_trans->{$marker};
     }
 
     if ($headword->{$marker} or $headword_flag) {
@@ -134,6 +161,10 @@ sub read_entries {
       $self->add_gloss($entry, 'definition', $txt, $lang // $definition->{$marker});
     } elsif ($sense->{$marker}) {
       $self->add_sense($entry);
+    } elsif ($example->{$marker}) {
+      $seen_example = $self->add_example($entry, $txt);
+    } elsif ($example_trans->{$marker}) {
+      push @$seen_example, [$txt, $lang // $example_trans->{$marker}] if $seen_example;
     }
 
     push @{$entry->{record}}, [$marker_orig, $txt];

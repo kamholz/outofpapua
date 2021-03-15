@@ -170,6 +170,16 @@ sub add_gloss {
   push(@{$entry->{sense}[-1]{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
 }
 
+sub add_example {
+  my ($self, $entry, $txt) = @_;
+  my $example = [$txt];
+  if (!@{$entry->{sense}||[]}) {
+    push @{$entry->{sense}}, {};
+  }
+  push @{$entry->{sense}[-1]{example}}, $example;
+  return $example;
+}
+
 sub extract_glosses {
   my ($self, $txt) = @_;
 
