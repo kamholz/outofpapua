@@ -1,28 +1,28 @@
 {
-  "name": "outofpapua-frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kamholz/outofpapua.git"
-  },
-  "author": "David Kamholz",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kamholz/outofpapua/issues"
-  },
-  "homepage": "https://github.com/kamholz/outofpapua#readme",
-  "dependencies": {
-    "fastify": "^3.12.0",
-    "knex": "^0.21.18",
-    "pg": "^8.5.1",
-    "point-of-view": "^4.13.0"
-  },
-  "devDependencies": {
-    "fastify-static": "^4.0.1"
-  }
+	"name": "svelte",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"start": "svelte-kit start",
+		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "^1.0.0-next.12",
+		"@sveltejs/kit": "^1.0.0-next.75",
+		"cookie": "^0.4.1",
+		"dotenv": "^8.2.0",
+		"eslint": "^7.22.0",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-svelte3": "^3.1.0",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^0.95.4",
+		"pg": "^8.6.0",
+		"sass": "^1.0.0",
+		"svelte": "^3.37.0",
+		"svelte-preprocess": "^4.0.0",
+		"vite": "^2.1.0"
+	},
+	"type": "module"
 }
