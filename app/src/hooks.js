@@ -1,26 +1,20 @@
 import cookie from 'cookie';
 import config from '$config';
-import * as auth from '$db/auth';
+import * as auth from '$lib/auth';
 
-export async function getContext({ headers }) {
-  const context = {};
-  let userId;
+export function getContext({ headers }) {
+  const context = {
+    userId: null
+  };
 
   const cookies = cookie.parse(headers.cookie || '');
-  if (cookies.jwt) {
-    userId = auth.verifyAccessToken(cookies.jwt);
-  } else {
-    console.log("no access token");
+  if (cookies.accesstoken) {
+    context.userId = auth.verifyAccessToken(cookies.accesstoken);
   }
 
-  //const user = await auth.getUser(userId);
-
-  // return {
-  //   user: (await db.get_user(cookies.session_id)) || { guest: true }
-  // };
   return context;
 }
 
 export function getSession({ context }) {
-  return {};
+  return { userId: context.userId };
 }

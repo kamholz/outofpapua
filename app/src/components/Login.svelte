@@ -1,5 +1,5 @@
 <script>
-  import { session } from '$app/stores';
+  import { userSession } from '$stores';
 
   let username;
   let password;
@@ -9,12 +9,15 @@
       method: 'POST',
       body: new URLSearchParams({ username, password })
     });
-    console.log(res);
+    if (res.ok) {
+      const json = await res.json();
+      $userSession.user = json.user;
+    }
   };
 </script>
 
-{#if $session.user}
-  Logged in as {$session.user}
+{#if $userSession.user}
+  Logged in as {$userSession.user.fullname}
 {:else}
   <form on:submit|preventDefault={handleSubmit}>
     Username: <input type="text" name="username" bind:value={username}><br>

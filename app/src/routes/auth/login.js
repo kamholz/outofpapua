@@ -1,5 +1,5 @@
 import config from '$config';
-import * as auth from '$db/auth';
+import * as auth from '$lib/auth';
 
 export async function post({ body }) {
   let status = 401;
@@ -9,15 +9,12 @@ export async function post({ body }) {
   if (body.has('username') && body.has('password')) {
     const user = await auth.checkUserPassword(body.get('username'), body.get('password'));
     if (user) {
-      const accessToken = auth.makeAccessToken(user.id);
-      const refreshToken = auth.makeAndStoreRefreshToken(user.id);
-
       status = 200;
-      headers['set-cookie'] = [auth.makeAccessTokenCookie(accessToken), auth.makeRefreshTokenCookie(refreshToken)];
-      resBody.session = {
-        fullname: user.fullname,
-        admin: user.admin
-      };
+      headers['set-cookie'] = [
+        auth.makeAccessTokenCookie(auth.makeAccessToken(user.id)),
+        auth.makeRefreshTokenCookie(auth.makeRefreshToken(user.id))
+      ];
+      resBody.user = user;
     }
   }
 

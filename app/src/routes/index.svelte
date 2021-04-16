@@ -1,5 +1,6 @@
 <script>
   import Counter from '$components/Counter.svelte';
+  import { userSession } from '$stores';
 </script>
 
 <svelte:head>

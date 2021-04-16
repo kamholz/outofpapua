@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
-import knex from '$db/knex';
+import knex from '$lib/knex';
 
 export async function getUser(userId) {
   const rows = await knex('usr')
@@ -28,21 +28,13 @@ export function makeAccessToken(userId) {
   });
 }
 
-export function makeAndStoreRefreshToken(userId) {
+export function makeRefreshToken(userId) {
   const payload = makePayload(userId);
   const refreshToken = jwt.sign(payload, config.REFRESH_TOKEN_SECRET, {
     algorithm: 'HS256',
     expiresIn: Number(config.REFRESH_TOKEN_LIFE)
   });
-  storeRefreshToken(userId, refreshToken);
   return refreshToken;
-}
-
-function storeRefreshToken(userId, refreshToken) {
-  knex('usr_token').insert({
-    usr_id: userId,
-    refresh_token: refreshToken
-  }).then(() => {});
 }
 
 function makePayload(userId) {
@@ -54,7 +46,6 @@ export function verifyAccessToken(accessToken) {
     const payload = jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
     return payload.loggedInAs;
   } catch (e) {
-    console.log(e);
     return null;
   }
 }
@@ -64,13 +55,12 @@ export function verifyRefreshToken(refreshToken) {
     const payload = jwt.verify(refreshToken, config.REFRESH_TOKEN_SECRET);
     return payload.loggedInAs;
   } catch (e) {
-    console.log(e);
     return null;
   }
 }
 
 export function makeAccessTokenCookie(accessToken) {
-  return cookie.serialize('jwt', accessToken, {
+  return cookie.serialize('accesstoken', accessToken, {
     httpOnly: true,
     maxAge: config.ACCESS_TOKEN_LIFE,
     path: '/',
@@ -80,7 +70,7 @@ export function makeAccessTokenCookie(accessToken) {
 }
 
 export function makeRefreshTokenCookie(refreshToken) {
-  return cookie.serialize('jwt_refresh', refreshToken, {
+  return cookie.serialize('refreshtoken', refreshToken, {
     httpOnly: true,
     maxAge: config.REFRESH_TOKEN_LIFE,
     path: '/',

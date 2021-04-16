@@ -22,7 +22,7 @@ module.exports = {
 				alias: {
 					'$components': path.resolve('./src/components'),
 					'$config': path.resolve('./src/config'),
-					'$db': path.resolve('./src/db'),
+					'$stores': path.resolve('./src/stores'),
 				}
 			},
 			ssr: {
