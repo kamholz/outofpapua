@@ -1,22 +1,21 @@
 <script>
-  import { writable } from 'svelte/store';
   import { userSession } from '$stores';
   import { login, logout } from '$actions/auth';
 
   let username = $userSession.user && $userSession.user.username;
   let password;
   let error = null;
-  const loggingIn = writable(false);
+  let loggingIn = false;
 
   async function handleLogin() {
-    $loggingIn = true;
+    loggingIn = true;
     try {
       $userSession.user = await login(username, password);
       password = null;
     } catch (e) {
       error = e;
     } finally {
-      $loggingIn = false;
+      loggingIn = false;
     }
   }
 
@@ -30,7 +29,7 @@
   Logged in as {$userSession.user.fullname}
   <button on:click={handleLogout}>Logout</button>
 {:else}
-  {#if $loggingIn}
+  {#if loggingIn}
     Logging you in...
   {:else}
     <form on:submit|preventDefault={handleLogin}>
