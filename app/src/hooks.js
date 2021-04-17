@@ -1,6 +1,5 @@
 import cookie from 'cookie';
-import config from '$config';
-import * as auth from '$lib/auth';
+import * as auth from '$data/auth';
 
 export function getContext({ headers }) {
   const context = {

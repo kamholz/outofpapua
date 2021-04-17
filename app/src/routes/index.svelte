@@ -1,50 +1,59 @@
-<script>
-  import Counter from '$components/Counter.svelte';
-  import { userSession } from '$stores';
+<script context="module">
+  import SearchForm from '$components/SearchForm.svelte';
+  import { normalize } from '$utils/form';
+
+  let query = {};
+  let result;
+
+  export async function load({ page, fetch }) {
+    query = Object.fromEntries(page.query);
+    for (const attr in query) {
+      query[attr] = normalize(query[attr]);
+      if (query[attr] === null) {
+        delete query[attr];
+      }
+    }
+    if (['headword','gloss'].some(attr => attr in query)) {
+      const res = await fetch('/search.json' + '?' + new URLSearchParams(query));
+      if (res.ok) {
+        result = await res.json();
+      }
+    }
+
+    return {};
+  }
 </script>
 
 <svelte:head>
-  <title>Hello world!</title>
+  <title>Out of Papua</title>
 </svelte:head>
 
 <main>
-  <h1>Hello world!</h1>
+  <h1>Out of Papua</h1>
 
-  <Counter />
+  <SearchForm {...query} />
 
-  <p>Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte apps.</p>
+  {#if result}
+    <h2>Search results</h2>
+    <table>
+      <thead>
+        <th>Source</th>
+        <th>Headword</th>
+        <th>POS</th>
+        <th>Gloss</th>
+        <th>Gloss Language</th>
+      </thead>
+      <tbody>
+        {#each result as row}
+          <tr>
+            <td>{row.source}</td>
+            <td>{row.headword}</td>
+            <td>{row.pos}</td>
+            <td>{row.gloss}</td>
+            <td>{row.gloss_language}</td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  {/if}
 </main>
-
-<style lang="scss">
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4rem;
-    font-weight: 100;
-    line-height: 1.1;
-    margin: 4rem auto;
-    max-width: 14rem;
-  }
-
-  p {
-    max-width: 14rem;
-    margin: 2rem auto;
-    line-height: 1.35;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      max-width: none;
-    }
-
-    p {
-      max-width: none;
-    }
-  }
-</style>

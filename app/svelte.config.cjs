@@ -20,9 +20,12 @@ module.exports = {
 		vite: {
 			resolve: {
 				alias: {
+					'$actions': path.resolve('./src/actions'),
 					'$components': path.resolve('./src/components'),
 					'$config': path.resolve('./src/config'),
+					'$data': path.resolve('./src/data'),
 					'$stores': path.resolve('./src/stores'),
+					'$utils': path.resolve('./src/utils')
 				}
 			},
 			ssr: {

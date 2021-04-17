@@ -1,18 +1,18 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
-import knex from '$lib/knex';
+import knex from '$data/knex';
 
 export async function getUser(userId) {
   const rows = await knex('usr')
-    .select('id','fullname','admin')
+    .select('id','username','fullname','admin')
     .where({ id: userId });
   return rows.length ? rows[0] : null;
 }
 
 export async function checkUserPassword(username, password) {
   const rows = await knex('usr')
-    .select('id','fullname','admin')
+    .select('id','username','fullname','admin')
     .where({
       username: username,
       password: knex.raw('crypt(?, password)', password)
@@ -73,6 +73,20 @@ export function makeRefreshTokenCookie(refreshToken) {
   return cookie.serialize('refreshtoken', refreshToken, {
     httpOnly: true,
     maxAge: config.REFRESH_TOKEN_LIFE,
+    path: '/',
+    sameSite: true,
+    secure: true,
+  });
+}
+
+export function makeExpiredCookies() {
+  return [makeExpiredCookie('accesstoken'), makeExpiredCookie('refreshtoken')];
+}
+
+function makeExpiredCookie(name) {
+  return cookie.serialize(name, '', {
+    expires: new Date(0),
+    httpOnly: true,
     path: '/',
     sameSite: true,
     secure: true,
