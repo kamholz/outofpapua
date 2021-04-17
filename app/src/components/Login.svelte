@@ -10,7 +10,7 @@
   async function handleLogin() {
     loggingIn = true;
     try {
-      $userSession.user = await login(username, password);
+      await login(username, password);
       password = null;
     } catch (e) {
       error = e;
@@ -18,16 +18,11 @@
       loggingIn = false;
     }
   }
-
-  async function handleLogout() {
-    await logout();
-    $userSession.user = null;
-  }
 </script>
 
 {#if $userSession.user}
   Logged in as {$userSession.user.fullname}
-  <button on:click={handleLogout}>Logout</button>
+  <button on:click={logout}>Logout</button>
 {:else}
   {#if loggingIn}
     Logging you in...
