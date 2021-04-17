@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import * as auth from '$lib/auth';
+import * as auth from '$data/auth';
 
 export function get({ headers }) {
   let status = 401;
