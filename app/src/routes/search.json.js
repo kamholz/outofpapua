@@ -1,6 +1,16 @@
 import knex from '$data/knex';
+import { normalizeQuery } from '$utils/form';
 
 export async function get({ query }) {
+  query = normalizeQuery(query);
+
+  if (!['headword','gloss'].some(attr => attr in query)) {
+    return {
+      status: 400,
+      body: ""
+    };
+  }
+
   const q = knex('entry')
     .join('source', 'source.id', 'entry.source_id')
     .join('sense', 'sense.entry_id', 'entry.id')
@@ -10,11 +20,11 @@ export async function get({ query }) {
     .select('language.name as language', 'entry.headword','entry.pos','sense_gloss.txt as gloss','language2.name as gloss_language')
     .orderBy('language.name','entry.headword','entry.pos','sense_gloss.txt','language2.name');
 
-  if (query.has('headword')) {
-    q.where('entry.headword', query.get('headword'));
+  if ('headword' in query) {
+    q.where('entry.headword', query.headword);
   }
-  if (query.has('gloss')) {
-    q.where('sense_gloss.txt', query.get('gloss'));
+  if ('gloss' in query) {
+    q.where('sense_gloss.txt', query.gloss);
   }
 
   const rows = await q;

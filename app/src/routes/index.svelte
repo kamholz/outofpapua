@@ -1,18 +1,12 @@
 <script context="module">
   import SearchForm from '$components/SearchForm.svelte';
-  import { normalize } from '$utils/form';
+  import { normalizeQuery } from '$utils/form';
 
   let query = {};
   let result;
 
   export async function load({ page, fetch }) {
-    query = Object.fromEntries(page.query);
-    for (const attr in query) {
-      query[attr] = normalize(query[attr]);
-      if (query[attr] === null) {
-        delete query[attr];
-      }
-    }
+    query = normalizeQuery(page.query);
     if (['headword','gloss'].some(attr => attr in query)) {
       const res = await fetch('/search.json' + '?' + new URLSearchParams(query));
       if (res.ok) {
