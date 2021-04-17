@@ -37,7 +37,7 @@
     <h2>Search results</h2>
     <table>
       <thead>
-        <th>Source</th>
+        <th>Language</th>
         <th>Headword</th>
         <th>POS</th>
         <th>Gloss</th>
@@ -46,7 +46,7 @@
       <tbody>
         {#each result as row}
           <tr>
-            <td>{row.source}</td>
+            <td>{row.language}</td>
             <td>{row.headword}</td>
             <td>{row.pos}</td>
             <td>{row.gloss}</td>
