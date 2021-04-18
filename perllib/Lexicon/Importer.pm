@@ -25,7 +25,7 @@ sub db {
 }
 
 sub import_lexicon {
-  my ($self, $source_title, $parser, $delete_existing) = @_;
+  my ($self, $source_title, $lang_code, $parser, $delete_existing) = @_;
 
   say "\nstarting import: $source_title";
 
@@ -39,7 +39,8 @@ sub import_lexicon {
     my $source_id = select_single($db, 'SELECT id FROM source WHERE title = ?', $source_title);
     # not found, create new source
     unless ($source_id) {
-      $source_id = $db->query('INSERT INTO source (title) VALUES (?) RETURNING id', $source_title)->array->[0];
+      my $lang_id = $self->get_language_id($lang_code);
+      $source_id = select_single($db, 'INSERT INTO source (title, language_id) VALUES (?, ?) RETURNING id', $source_title, $lang_id);
     }
 
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {

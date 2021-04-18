@@ -30,9 +30,11 @@ if (@ARGV) {
 sub import_lexicon {
   my ($source_title, $args, $delete_existing) = @_;
   die "no parser given" unless $args->{parser};
+  die "no lang_target given" unless $args->{lang_target};
   $args->{path} = "dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
-  $importer->import_lexicon($source_title, $parser_class->new($args), $delete_existing);
+  my $lang_target = delete $args->{lang_target};
+  $importer->import_lexicon($source_title, $lang_target, $parser_class->new($args), $delete_existing);
 }
 
 1;
