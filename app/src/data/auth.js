@@ -15,7 +15,7 @@ export async function checkUserPassword(username, password) {
     .select('id','username','fullname','admin')
     .where({
       username: username,
-      password: knex.raw('crypt(?, password)', password)
+      password: knex.raw('pgcrypto.crypt(?, password)', password)
     });
   return rows.length ? rows[0] : null;
 }
