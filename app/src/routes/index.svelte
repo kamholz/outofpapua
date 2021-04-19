@@ -1,6 +1,6 @@
 <script context="module">
   import SearchForm from '$components/SearchForm.svelte';
-  import { normalizeQuery } from '$utils/form';
+  import { normalizeQuery } from '$utils';
 
   let query = {};
   let result;

@@ -46,6 +46,7 @@ export function verifyAccessToken(accessToken) {
     const payload = jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
     return payload.loggedInAs;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -55,6 +56,7 @@ export function verifyRefreshToken(refreshToken) {
     const payload = jwt.verify(refreshToken, config.REFRESH_TOKEN_SECRET);
     return payload.loggedInAs;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }

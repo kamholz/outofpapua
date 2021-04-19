@@ -1,5 +1,5 @@
 import knex from '$data/knex';
-import { normalizeQuery } from '$utils/form';
+import { normalizeQuery } from '$utils';
 
 export async function get({ query }) {
   query = normalizeQuery(query);

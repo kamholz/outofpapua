@@ -3,12 +3,12 @@ import * as auth from '$data/auth';
 
 export function getContext({ headers }) {
   const context = {
-    userId: null
+    authed: false
   };
 
   const cookies = cookie.parse(headers.cookie || '');
-  if (cookies.accesstoken) {
-    context.userId = auth.verifyAccessToken(cookies.accesstoken);
+  if (cookies.accesstoken && auth.verifyAccessToken(cookies.accesstoken)) {
+    context.authed = true;
   }
 
   return context;
@@ -16,6 +16,6 @@ export function getContext({ headers }) {
 
 export function getSession({ context }) {
   return {
-    userId: context.userId
+    authed: context.authed
   };
 }

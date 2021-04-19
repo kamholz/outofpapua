@@ -8,18 +8,21 @@ export async function post({ body }) {
   if (body.has('username') && body.has('password')) {
     const user = await auth.checkUserPassword(body.get('username'), body.get('password'));
     if (user) {
-      status = 200;
-      resHeaders['set-cookie'] = [
-        auth.makeAccessTokenCookie(auth.makeAccessToken(user.id)),
-        auth.makeRefreshTokenCookie(auth.makeRefreshToken(user.id))
-      ];
-      resBody.user = user;
+      return {
+        status: 200,
+        headers: {
+          'set-cookie': [
+            auth.makeAccessTokenCookie(auth.makeAccessToken(user.id)),
+            auth.makeRefreshTokenCookie(auth.makeRefreshToken(user.id))
+          ]
+        },
+        body: { user }
+      }
     }
   }
 
   return {
-    status,
-    resHeaders,
-    body: resBody
+    status: 401,
+    body: ""
   };
 }

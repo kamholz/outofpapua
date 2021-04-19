@@ -1,6 +1,8 @@
 <script>
   import { page } from '$app/stores';
-  const path = $page.path;
+  import { userSession } from '$stores';
+  let path;
+  $: path = $page.path;
 </script>
 
 <nav>
@@ -8,7 +10,9 @@
     <li class:active={path === '/'}><a href="/">Search</a></li>
     <li class:active={path === '/languages'}><a href="/languages">Languages</a></li>
     <li class:active={path === '/dictionaries'}><a href="/dictionaries">Dictionaries</a></li>
-    <li class:active={path === '/users'}><a href="/users">Users</a></li>
+    {#if $userSession.user}
+      <li class:active={path === '/users'}><a href="/users">Users</a></li>
+    {/if}
   </ul>
 </nav>
 

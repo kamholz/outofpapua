@@ -13,3 +13,13 @@ function normalizeValue(txt) {
   txt = txt.trim();
   return txt === '' ? null : txt;
 }
+
+export function pageUrl(page) {
+  console.log(page);
+  let url = `http://${page.host}${page.path}`;
+  if (page.query.values().next().done) { // no query params
+    return url;
+  } else {
+    return url + '?' + page.query.toString();
+  }
+}
