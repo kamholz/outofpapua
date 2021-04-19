@@ -15,5 +15,7 @@ export function getContext({ headers }) {
 }
 
 export function getSession({ context }) {
-  return { userId: context.userId };
+  return {
+    userId: context.userId
+  };
 }

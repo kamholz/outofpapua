@@ -5,7 +5,7 @@
   let query = {};
   let result;
 
-  export async function load({ page, fetch }) {
+  export async function load({ page, fetch, session }) {
     query = normalizeQuery(page.query);
     if (['headword','gloss'].some(attr => attr in query)) {
       const res = await fetch('/search.json' + '?' + new URLSearchParams(query));
@@ -51,3 +51,21 @@
     </table>
   {/if}
 </main>
+
+<style lang="scss">
+  table {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  th {
+    text-align: start;
+    border-block-end: 1px solid black;
+  }
+
+  th, td {
+    border-inline-end: 1px solid black;
+    padding-block: 3px;
+    padding-inline: 5px;
+  }
+</style>

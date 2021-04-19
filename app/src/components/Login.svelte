@@ -20,20 +20,49 @@
   }
 </script>
 
+<div id="login">
 {#if $userSession.user}
-  Logged in as {$userSession.user.fullname}
+  <span>Logged in as <strong>{$userSession.user.fullname}</strong></span>
   <button on:click={logout}>Logout</button>
 {:else}
   {#if loggingIn}
-    Logging you in...
+    <span>Logging in...</span>
   {:else}
     <form on:submit|preventDefault={handleLogin}>
-      Email: <input type="text" name="username" bind:value={username}><br>
-      Password: <input type="password" name="password" bind:value={password}><br>
-      <input type="submit">
+      <label for="username">Email:</label>
+      <input type="text" name="username" bind:value={username}>
+      <label for="password">Password:</label>
+      <input type="password" name="password" bind:value={password}>
+      <button type="submit">Login</button>
     </form>
     {#if error}
       <span>{error}</span>
     {/if}
   {/if}
 {/if}
+</div>
+
+<style>
+  #login {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 85%;
+  }
+
+  label {
+    margin-inline-start: 0.75em;
+  }
+
+  input[type="text"] {
+    inline-size: 12em;
+  }
+
+  input[type="password"] {
+    inline-size: 7em;
+  }
+
+  button {
+    margin-inline-start: 0.75em;
+  }
+</style>
