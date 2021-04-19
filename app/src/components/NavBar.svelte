@@ -16,7 +16,9 @@
   </ul>
 </nav>
 
-<style>
+<style lang="scss">
+  @import '../vars.scss';
+
   ul {
     display: flex;
     justify-content: flex-start;
@@ -29,7 +31,7 @@
     margin-inline-end: 1em;
     padding-block: 0.35em;
     padding-inline: 0.75em;
-    background-color: lightgray;
+    background-color: $lightgray;
   }
 
   li.active {

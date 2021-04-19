@@ -28,9 +28,8 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', ...match(query.gloss, caseSensitive));
   }
 
-  const rows = await q;
   return {
-    body: rows
+    body: await q
   };
 }
 
