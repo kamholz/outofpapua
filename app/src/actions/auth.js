@@ -10,9 +10,9 @@ export async function login(username, password) {
   if (res.ok) {
     const { user } = await res.json();
     userSession.update(v => ({...v, user}));
+  } else {
+    throw new Error('login failed');
   }
-
-  throw new Error('login failed');
 }
 
 export async function logout() {

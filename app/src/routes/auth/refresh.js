@@ -1,30 +1,33 @@
 import cookie from 'cookie';
 import * as auth from '$data/auth';
 
-export function get({ headers, query }) {
-  const cookies = cookie.parse(headers.cookie || '');
-  if (cookies.refreshtoken) {
-    const userId = auth.verifyRefreshToken(cookies.refreshtoken);
-    if (userId) {
-      const output = {
+export function get({ headers, query, host }) {
+  const output = query.has('redirect')
+    ?
+      {
+        status: 302,
         headers: {
-         'set-cookie': auth.makeAccessTokenCookie(auth.makeAccessToken(userId)),
+          location: `http://${host}/`,
         },
+        body: ""
+      }
+    :
+      {
+        status: 401,
+        headers: {},
         body: ""
       };
 
-      if (query.has('redirect')) {
-        output.status = 302;
-        output.headers.location = query.get('redirect');
-      } else {
-        output.status = 200;
-      }
-      return output;
+  const cookies = cookie.parse(headers.cookie || '');
+  const cookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
+  if (cookie) {
+    output.headers['set-cookie'] = cookie;
+    if (query.has('redirect')) {
+      output.headers.location = query.get('redirect');
+    } else {
+      output.status = 200;
     }
   }
 
-  return {
-    status: 401,
-    body: ""
-  };
+  return output;
 }

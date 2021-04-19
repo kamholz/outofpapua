@@ -3,12 +3,14 @@ import * as auth from '$data/auth';
 
 export function getContext({ headers }) {
   const context = {
-    authed: false
+    authed: false,
+    admin: false,
   };
 
   const cookies = cookie.parse(headers.cookie || '');
-  if (cookies.accesstoken && auth.verifyAccessToken(cookies.accesstoken)) {
-    context.authed = true;
+  const authContext = auth.verifyAccessTokenCookie(cookies);
+  if (authContext) {
+    Object.assign(context, authContext);
   }
 
   return context;
@@ -16,6 +18,7 @@ export function getContext({ headers }) {
 
 export function getSession({ context }) {
   return {
-    authed: context.authed
+    authed: context.authed,
+    admin: context.admin,
   };
 }

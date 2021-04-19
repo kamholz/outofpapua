@@ -20,49 +20,8 @@ export async function checkUserPassword(username, password) {
   return rows.length ? rows[0] : null;
 }
 
-export function makeAccessToken(userId) {
-  const payload = makePayload(userId);
-  return jwt.sign(payload, config.ACCESS_TOKEN_SECRET, {
-    algorithm: 'HS256',
-    expiresIn: Number(config.ACCESS_TOKEN_LIFE)
-  });
-}
-
-export function makeRefreshToken(userId) {
-  const payload = makePayload(userId);
-  const refreshToken = jwt.sign(payload, config.REFRESH_TOKEN_SECRET, {
-    algorithm: 'HS256',
-    expiresIn: Number(config.REFRESH_TOKEN_LIFE)
-  });
-  return refreshToken;
-}
-
-function makePayload(userId) {
-  return { loggedInAs: userId };
-}
-
-export function verifyAccessToken(accessToken) {
-  try {
-    const payload = jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
-    return payload.loggedInAs;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
-export function verifyRefreshToken(refreshToken) {
-  try {
-    const payload = jwt.verify(refreshToken, config.REFRESH_TOKEN_SECRET);
-    return payload.loggedInAs;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
-export function makeAccessTokenCookie(accessToken) {
-  return cookie.serialize('accesstoken', accessToken, {
+export function makeAccessTokenCookie(user) {
+  return cookie.serialize('accesstoken', makeAccessToken(user), {
     httpOnly: true,
     maxAge: config.ACCESS_TOKEN_LIFE,
     path: '/',
@@ -71,14 +30,76 @@ export function makeAccessTokenCookie(accessToken) {
   });
 }
 
-export function makeRefreshTokenCookie(refreshToken) {
-  return cookie.serialize('refreshtoken', refreshToken, {
+function makeAccessToken(user) {
+  return jwt.sign(makePayload(user), config.ACCESS_TOKEN_SECRET, {
+    algorithm: 'HS256',
+    expiresIn: Number(config.ACCESS_TOKEN_LIFE),
+  });
+}
+
+export function makeRefreshTokenCookie(user) {
+  return cookie.serialize('refreshtoken', makeRefreshToken(user), {
     httpOnly: true,
     maxAge: config.REFRESH_TOKEN_LIFE,
     path: '/',
     sameSite: true,
     secure: true,
   });
+}
+
+function makeRefreshToken(user) {
+  return jwt.sign(makePayload(user), config.REFRESH_TOKEN_SECRET, {
+    algorithm: 'HS256',
+    expiresIn: Number(config.REFRESH_TOKEN_LIFE),
+  });
+}
+
+function makePayload(user) {
+  return { id: user.id, admin: user.admin };
+}
+
+function contextFromPayload(payload) {
+  return { authed: true, admin: payload.admin };
+}
+
+export function verifyAccessTokenCookie(cookies) {
+  if (cookies.accesstoken) {
+    const payload = verifyAccessToken(cookies.accesstoken);
+    if (payload) {
+      return contextFromPayload(payload);
+    }
+  }
+
+  return null;
+}
+
+function verifyAccessToken(accessToken) {
+  try {
+    return jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export function makeAccessTokenCookieFromRefreshToken(cookies) {
+  if (cookies.refreshtoken) {
+    const payload = verifyRefreshToken(cookies.refreshtoken);
+    if (payload) {
+      return makeAccessTokenCookie(payload);
+    }
+  }
+
+  return null;
+}
+
+function verifyRefreshToken(refreshToken) {
+  try {
+    return jwt.verify(refreshToken, config.REFRESH_TOKEN_SECRET);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
 
 export function makeExpiredCookies() {

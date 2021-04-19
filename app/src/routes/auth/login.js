@@ -12,8 +12,8 @@ export async function post({ body }) {
         status: 200,
         headers: {
           'set-cookie': [
-            auth.makeAccessTokenCookie(auth.makeAccessToken(user.id)),
-            auth.makeRefreshTokenCookie(auth.makeRefreshToken(user.id))
+            auth.makeAccessTokenCookie(user),
+            auth.makeRefreshTokenCookie(user),
           ]
         },
         body: { user }
