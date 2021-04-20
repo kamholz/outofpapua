@@ -1,5 +1,6 @@
 <script context="module">
   import Table from '$components/Table.svelte';
+  import * as crud from '$actions/crud';
   import { boolean } from '$lib/util';
 
   export async function load({ fetch, session }) {
@@ -46,7 +47,7 @@
 <main>
   <h2>Languages</h2>
   {#if rows}
-    <Table {columns} {rows} {editable} />
+    <Table {columns} {rows} {editable} on:update={crud.update("languages")} />
   {:else}
     <span>error</span>
   {/if}

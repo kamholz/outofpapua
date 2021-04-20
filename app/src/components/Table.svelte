@@ -1,10 +1,11 @@
 <script>
-  import { tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
+  const dispatch = createEventDispatcher();
 
   export let columns;
   export let rows;
   export let editable = false;
-  let editingCell;
+  let editingCell = null;
 
   for (const column of columns) {
     if (!('value' in column)) {
@@ -13,30 +14,43 @@
   }
 
   async function handleClick(e, column, row) {
-    editingCell = [column, row];
+    editingCell = { column, row };
     await tick();
-    e.target.focus();
+    e.currentTarget.focus();
 
-    const range = new Range();
-    range.selectNode(e.target);
     const sel = window.getSelection();
+    const range = new Range();
+    range.selectNode(e.currentTarget.firstChild);
     sel.empty();
     sel.addRange(range);
   }
 
-  function handleBlur() {
+  function handleBlur(e) {
     editingCell = null;
+    const sel = window.getSelection();
+    sel.empty();
+  }
+
+  function handleKeyDown(e) {
+    if (e.currentTarget.isContentEditable && e.keyCode === 13) { // enter
+      e.preventDefault();
+      const { row, column } = editingCell;
+      if (e.currentTarget.textContent !== row[column.key]) {
+        dispatch('update', { id: row.id, row: { [column.key]: e.currentTarget.textContent } });
+      }
+      e.currentTarget.blur();
+    }
   }
 
   function match(editingCell, column, row) {
-    return editingCell && editingCell[0] === column && editingCell[1] === row ? 'true' : null;
+    return editingCell && editingCell.column === column && editingCell.row === row ? 'true' : null;
   }
 </script>
 
 <table>
   <thead>
     {#each columns as column}
-      <th>{column.title}</th>
+      <th><span>{column.title}</span></th>
     {/each}
   </thead>
   <tbody>
@@ -51,10 +65,11 @@
                 contenteditable={match(editingCell, column, row)}
                 on:click={e => handleClick(e, column, row)}
                 on:blur={handleBlur}
-              >{column.value(row)}</td>
+                on:keydown={match(editingCell, column, row) && handleKeyDown}
+              ><span>{column.value(row)}</span></td>
             {/if}
           {:else}
-            <td>{column.value(row)}</td>
+            <td><span>{column.value(row)}</span></td>
           {/if}
         {/each}
       </tr>
