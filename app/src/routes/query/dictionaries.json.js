@@ -1,4 +1,4 @@
-import knex from '$data/knex';
+import knex from '$lib/knex';
 
 export async function get() {
   const q = knex('source')

@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import * as auth from '$data/auth';
+import * as auth from '$lib/auth';
 
 export async function getContext({ headers }) {
   const context = {

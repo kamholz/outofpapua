@@ -5,32 +5,30 @@ const pkg = require('./package.json');
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: sveltePreprocess(),
-	kit: {
-		// By default, `npm run build` will create a standard Node app.
-		// You can create optimized builds for different platforms by
-		// specifying a different adapter
-		adapter: node(),
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: sveltePreprocess(),
+  kit: {
+    // By default, `npm run build` will create a standard Node app.
+    // You can create optimized builds for different platforms by
+    // specifying a different adapter
+    adapter: node(),
 
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+    // hydrate the <div id="svelte"> element in src/app.html
+    target: '#svelte',
 
-		vite: {
-			resolve: {
-				alias: {
-					'$actions': path.resolve('./src/actions'),
-					'$components': path.resolve('./src/components'),
-					'$config': path.resolve('./src/config'),
-					'$data': path.resolve('./src/data'),
-					'$stores': path.resolve('./src/stores'),
-					'$utils': path.resolve('./src/utils')
-				}
-			},
-			ssr: {
-				noExternal: Object.keys(pkg.dependencies || {})
-			}
-		}
-	}
+    vite: {
+      resolve: {
+        alias: {
+          '$actions': path.resolve('./src/actions'),
+          '$components': path.resolve('./src/components'),
+          '$config': path.resolve('./src/config'),
+          '$stores': path.resolve('./src/stores'),
+        }
+      },
+      ssr: {
+        noExternal: Object.keys(pkg.dependencies || {})
+      }
+    }
+  }
 };

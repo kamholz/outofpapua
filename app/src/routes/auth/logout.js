@@ -1,4 +1,4 @@
-import * as auth from '$data/auth';
+import * as auth from '$lib/auth';
 
 export function get() {
   return {

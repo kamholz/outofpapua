@@ -1,7 +1,7 @@
 <script context="module">
   import Table from '$components/Table.svelte';
   import SearchForm from '$components/SearchForm.svelte';
-  import { normalizeQuery } from '$utils';
+  import { normalizeQuery } from '$lib/util';
 
   let query = {};
 
