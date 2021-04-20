@@ -118,7 +118,15 @@ export function redirectToRefresh(request) {
     status: 302,
     headers: {
       location: '/auth/refresh?' + new URLSearchParams({ redirect: pageUrl(request) }),
-    },
-    body: ""
+    }
   };
+}
+
+export function requireAuth(handler) {
+  return (req) => {
+    if (!req.context.user) {
+      return { status: 401 };
+    }
+    return handler(req);
+  }
 }

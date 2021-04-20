@@ -6,7 +6,6 @@ export function get() {
     headers: {
       'set-cookie': auth.makeExpiredCookies(),
       'cache-control': 'no-store',
-    },
-    body: ""
+    }
   };
 }

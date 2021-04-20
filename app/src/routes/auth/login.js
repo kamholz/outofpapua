@@ -20,7 +20,6 @@ export async function post({ body }) {
   }
 
   return {
-    status: 401,
-    body: ""
+    status: 401
   };
 }

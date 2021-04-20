@@ -7,8 +7,7 @@ export async function get({ query }) {
 
   if (!['headword','gloss'].some(attr => attr in query)) {
     return {
-      status: 400,
-      body: ""
+      status: 400
     };
   }
 

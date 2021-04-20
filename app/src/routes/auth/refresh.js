@@ -8,14 +8,12 @@ export function get({ headers, query, host }) {
         status: 302,
         headers: {
           location: `http://${host}/`,
-        },
-        body: ""
+        }
       }
     :
       {
         status: 401,
-        headers: {},
-        body: ""
+        headers: {}
       };
 
   const cookies = cookie.parse(headers.cookie || '');
