@@ -1,19 +1,24 @@
 <script context="module">
   import Table from '$components/Table.svelte';
+  import { boolean } from '$lib/util';
 
-  export async function load({ fetch }) {
-      const res = await fetch('/api/languages.json');
-      if (res.ok) {
-        return { props: { rows: await res.json() } };
-      }
-
-    return {};
+  export async function load({ fetch, session }) {
+    const props = {
+      editable: session.user !== null
+    };
+    const res = await fetch('/api/languages.json');
+    if (res.ok) {
+      props.rows = await res.json();
+    }
+    return { props };
   }
 
   const columns = [
     {
       key: 'name',
       title: 'Language',
+      editable: true,
+      type: 'text',
     },
     {
       key: 'iso6393',
@@ -22,23 +27,26 @@
     {
       key: 'is_proto',
       title: 'Proto-language',
-      value: row => row.is_proto ? 'yes' : 'no',
+      value: row => boolean(row.is_proto),
     },
     {
       key: 'parent_name',
       title: 'Parent',
+      editable: true,
+      type: 'protolanguage',
     }
   ];
 </script>
 
 <script>
   export let rows;
+  export let editable;
 </script>
 
 <main>
   <h2>Languages</h2>
   {#if rows}
-    <Table {columns} {rows} />
+    <Table {columns} {rows} {editable} />
   {:else}
     <span>error</span>
   {/if}

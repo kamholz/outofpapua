@@ -22,3 +22,7 @@ export function pageUrl(page) {
     return url + '?' + page.query.toString();
   }
 }
+
+export function boolean(value) {
+  return value ? 'yes' : 'no';
+}

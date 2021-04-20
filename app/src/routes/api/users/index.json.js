@@ -1,13 +1,11 @@
 import knex from '$lib/knex';
 import { requireAuth } from '$lib/auth';
 
-export const get = requireAuth(handleGet);
-
-async function handleGet() {
+export const get = requireAuth(async () => {
   const q = knex('usr')
-    .select('username','fullname','admin')
+    .select('id','username','fullname','admin')
     .orderBy('fullname');
   return {
     body: await q
   };
-}
+});

@@ -6,15 +6,15 @@
   let query = {};
 
   export async function load({ page, fetch }) {
+    const props = {};
     query = normalizeQuery(page.query);
     if (['headword','gloss'].some(attr => attr in query)) {
       const res = await fetch('/api/search.json' + '?' + new URLSearchParams(query));
       if (res.ok) {
-        return { props: { rows: await res.json() } };
+        props.rows = await res.json();
       }
     }
-
-    return {};
+    return { props };
   }
 
   const columns = [
