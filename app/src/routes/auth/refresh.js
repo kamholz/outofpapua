@@ -19,14 +19,16 @@ export function get({ headers, query, host }) {
       };
 
   const cookies = cookie.parse(headers.cookie || '');
-  const cookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
-  if (cookie) {
-    output.headers['set-cookie'] = cookie;
+  const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
+  if (newCookie) {
+    output.headers['set-cookie'] = newCookie;
     if (query.has('redirect')) {
       output.headers.location = query.get('redirect');
     } else {
       output.status = 200;
     }
+  } else {
+    output.headers['set-cookie'] = auth.makeExpiredCookies();
   }
 
   return output;

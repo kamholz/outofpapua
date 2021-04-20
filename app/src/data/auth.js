@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
 import knex from '$data/knex';
+import { pageUrl } from '$utils';
 
 export async function getUser(userId) {
   const rows = await knex('usr')
@@ -55,18 +56,14 @@ function makeRefreshToken(user) {
 }
 
 function makePayload(user) {
-  return { id: user.id, admin: user.admin };
+  return { id: user.id };
 }
 
-function contextFromPayload(payload) {
-  return { authed: true, admin: payload.admin };
-}
-
-export function verifyAccessTokenCookie(cookies) {
+export async function verifyAccessTokenCookie(cookies) {
   if (cookies.accesstoken) {
     const payload = verifyAccessToken(cookies.accesstoken);
     if (payload) {
-      return contextFromPayload(payload);
+      return await getUser(payload.id);
     }
   }
 
@@ -114,4 +111,14 @@ function makeExpiredCookie(name) {
     sameSite: true,
     secure: true,
   });
+}
+
+export function redirectToRefresh(request) {
+  return {
+    status: 302,
+    headers: {
+      location: '/auth/refresh?' + new URLSearchParams({ redirect: pageUrl(request) }),
+    },
+    body: ""
+  };
 }

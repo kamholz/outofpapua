@@ -15,7 +15,6 @@ function normalizeValue(txt) {
 }
 
 export function pageUrl(page) {
-  console.log(page);
   let url = `http://${page.host}${page.path}`;
   if (page.query.values().next().done) { // no query params
     return url;

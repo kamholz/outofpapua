@@ -1,6 +1,5 @@
 <script>
-  import { page } from '$app/stores';
-  import { userSession } from '$stores';
+  import { page, session } from '$app/stores';
   let path;
   $: path = $page.path;
 </script>
@@ -10,7 +9,7 @@
     <li class:active={path === '/'}><a href="/">Search</a></li>
     <li class:active={path === '/languages'}><a href="/languages">Languages</a></li>
     <li class:active={path === '/dictionaries'}><a href="/dictionaries">Dictionaries</a></li>
-    {#if $userSession.user}
+    {#if $session.user}
       <li class:active={path === '/users'}><a href="/users">Users</a></li>
     {/if}
   </ul>

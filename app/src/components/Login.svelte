@@ -1,8 +1,8 @@
 <script>
-  import { userSession } from '$stores';
+  import { session } from '$app/stores';
   import { login, logout } from '$actions/auth';
 
-  let username = $userSession.user && $userSession.user.username;
+  let username = $session.user && $session.user.username;
   let password;
   let error = null;
   let loggingIn = false;
@@ -21,8 +21,8 @@
 </script>
 
 <div id="login">
-{#if $userSession.user}
-  <span>Logged in as <strong>{$userSession.user.fullname}</strong></span>
+{#if $session.user}
+  <span>Logged in as <strong>{$session.user.fullname}</strong></span>
   <button on:click={logout}>Logout</button>
 {:else}
   {#if loggingIn}
