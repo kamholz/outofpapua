@@ -2,7 +2,7 @@
   import Table from '$components/Table.svelte';
 
   export async function load({ fetch }) {
-      const res = await fetch('/db/languages.json');
+      const res = await fetch('/api/languages.json');
       if (res.ok) {
         return { props: { rows: await res.json() } };
       }

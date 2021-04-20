@@ -2,7 +2,7 @@
   import Table from '$components/Table.svelte';
 
   export async function load({ fetch }) {
-      const res = await fetch('/db/dictionaries.json');
+      const res = await fetch('/api/dictionaries.json');
       if (res.ok) {
         return { props: { rows: await res.json() } };
       }
