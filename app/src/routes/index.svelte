@@ -8,7 +8,7 @@
   export async function load({ page, fetch }) {
     query = normalizeQuery(page.query);
     if (['headword','gloss'].some(attr => attr in query)) {
-      const res = await fetch('/query/search.json' + '?' + new URLSearchParams(query));
+      const res = await fetch('/db/search.json' + '?' + new URLSearchParams(query));
       if (res.ok) {
         return { props: { rows: await res.json() } };
       }
