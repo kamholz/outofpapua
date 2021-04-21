@@ -17,6 +17,7 @@
     {
       key: 'title',
       title: 'Title',
+      editable: true,
     },
     {
       key: 'language',
@@ -25,6 +26,7 @@
     {
       key: 'reference',
       title: 'Reference',
+      editable: true,
     }
   ];
 </script>

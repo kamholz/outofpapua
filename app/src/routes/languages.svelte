@@ -15,14 +15,13 @@
     return { props };
   }
 
-  const update = crud.updater("languages");
+  const handleUpdate = crud.handleUpdate('languages');
 
   const columns = [
     {
       key: 'name',
       title: 'Language',
       editable: true,
-      type: 'text',
     },
     {
       key: 'iso6393',
@@ -46,20 +45,6 @@
   export let rows;
   export let editable;
   let error = null;
-
-  async function handleUpdate(e) {
-    const { onSuccess } = e.detail;
-    try {
-      await update(e.detail);
-      if (onSuccess) {
-        onSuccess();
-      }
-      error = null;
-    } catch (err) {
-      console.log(err);
-      error = err;
-    }
-  }
 </script>
 
 <main>
@@ -68,6 +53,11 @@
     <Error message={error} />
   {/if}
   {#if rows}
-    <Table {columns} {rows} {editable} on:update={handleUpdate} />
+    <Table
+      {columns}
+      {rows}
+      {editable}
+      on:update={async (e) => error = await handleUpdate(e)}
+    />
   {/if}
 </main>
