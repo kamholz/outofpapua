@@ -26,3 +26,13 @@ export function pageUrl(page) {
 export function boolean(value) {
   return value ? 'yes' : 'no';
 }
+
+export function filteredParams(formData, set) {
+  const params = {};
+  for (const [key,value] of formData.entries()) {
+    if (set.has(key)) {
+      params[key] = value;
+    }
+  }
+  return params;
+}

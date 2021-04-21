@@ -1,5 +1,6 @@
 <script context="module">
   import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
   import * as crud from '$actions/crud';
   import { boolean } from '$lib/util';
 
@@ -13,6 +14,8 @@
     }
     return { props };
   }
+
+  const update = crud.updater("languages");
 
   const columns = [
     {
@@ -42,13 +45,29 @@
 <script>
   export let rows;
   export let editable;
+  let error = null;
+
+  async function handleUpdate(e) {
+    const { onSuccess } = e.detail;
+    try {
+      await update(e.detail);
+      if (onSuccess) {
+        onSuccess();
+      }
+      error = null;
+    } catch (err) {
+      console.log(err);
+      error = err;
+    }
+  }
 </script>
 
 <main>
   <h2>Languages</h2>
+  {#if error}
+    <Error message={error} />
+  {/if}
   {#if rows}
-    <Table {columns} {rows} {editable} on:update={crud.update("languages")} />
-  {:else}
-    <span>error</span>
+    <Table {columns} {rows} {editable} on:update={handleUpdate} />
   {/if}
 </main>

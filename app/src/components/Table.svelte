@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
   export let columns;
@@ -13,16 +13,8 @@
     }
   }
 
-  async function handleClick(e, column, row) {
-    editingCell = { column, row };
-    await tick();
-    e.currentTarget.focus();
-
-    const sel = window.getSelection();
-    const range = new Range();
-    range.selectNode(e.currentTarget.firstChild);
-    sel.empty();
-    sel.addRange(range);
+  async function handleClick(e, { row, column }) {
+    editingCell = { row, column };
   }
 
   function handleBlur(e) {
@@ -31,18 +23,40 @@
     sel.empty();
   }
 
-  function handleKeyDown(e) {
-    if (e.currentTarget.isContentEditable && e.keyCode === 13) { // enter
+  function handleKeyDown(e, { row, column }) {
+    if (e.keyCode === 13) { // enter
       e.preventDefault();
-      const { row, column } = editingCell;
-      if (e.currentTarget.textContent !== row[column.key]) {
-        dispatch('update', { id: row.id, row: { [column.key]: e.currentTarget.textContent } });
+      const elt = e.currentTarget;
+      const text = elt.textContent.trim();
+      if (text === row[column.key]) { // nothing to do
+        elt.blur();
+      } else {
+        dispatch('update', {
+          id: row.id,
+          row: { [column.key]: text },
+          onSuccess: () => {
+            row[column.key] = text;
+            elt.blur();
+          }
+        });
       }
-      e.currentTarget.blur();
+      function finish() {
+        elt.blur();
+      }
     }
   }
 
-  function match(editingCell, column, row) {
+  function mountEditCell(elt) {
+    elt.focus();
+
+    const sel = window.getSelection();
+    const range = new Range();
+    range.selectNode(elt.firstChild);
+    sel.empty();
+    sel.addRange(range);
+  }
+
+  function match(editingCell, { row, column }) {
     return editingCell && editingCell.column === column && editingCell.row === row ? 'true' : null;
   }
 </script>
@@ -60,12 +74,16 @@
           {#if editable && column.editable}
             {#if column.type === 'checkbox'}
               <td><input type="checkbox" checked={row[column.key]} on:click={e => column.handleUpdate(row, e.target.checked)}></td>
+            {:else if match(editingCell, { row, column })}
+              <td
+                contenteditable="true"
+                use:mountEditCell
+                on:blur={handleBlur}
+                on:keydown={e => handleKeyDown(e, { row, column })}
+              ><span>{column.value(row)}</span></td>
             {:else}
               <td
-                contenteditable={match(editingCell, column, row)}
-                on:click={e => handleClick(e, column, row)}
-                on:blur={handleBlur}
-                on:keydown={match(editingCell, column, row) && handleKeyDown}
+                on:click={e => handleClick(e, { row, column })}
               ><span>{column.value(row)}</span></td>
             {/if}
           {:else}
@@ -83,23 +101,23 @@
   table {
     border: 1px solid black;
     border-collapse: collapse;
-  }
 
-  tr:nth-child(even) {
-    background-color: $lightgray;
-  }
+    tr:nth-child(even) {
+      background-color: $lightgray;
+    }
 
-  th {
-    text-align: start;
-    border-block-end: 1px solid black;
-  }
+    th {
+      text-align: start;
+      border-block-end: 1px solid black;
+    }
 
-  th, td {
-    padding-block: 3px;
-    padding-inline: 10px;
-  }
+    th, :global(td) {
+      padding-block: 3px;
+      padding-inline: 10px;
+    }
 
-  td[contenteditable="true"] {
-    background-color: white;
+    :global(td[contenteditable="true"]) {
+      background-color: white;
+    }
   }
 </style>

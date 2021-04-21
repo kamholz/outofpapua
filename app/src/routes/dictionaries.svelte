@@ -1,5 +1,6 @@
 <script context="module">
   import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
 
   export async function load({ fetch, session }) {
     const props = {
@@ -31,13 +32,15 @@
 <script>
   export let rows;
   export let editable;
+  let error = null;
 </script>
 
 <main>
   <h2>Dictionaries</h2>
+  {#if error}
+    <Error message={error} />
+  {/if}
   {#if rows}
     <Table {columns} {rows} {editable} />
-  {:else}
-    <span>error</span>
   {/if}
 </main>

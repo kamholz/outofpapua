@@ -1,5 +1,6 @@
 <script context="module">
   import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
   import { boolean } from '$lib/util';
 
   export async function load({ fetch }) {
@@ -30,13 +31,15 @@
 
 <script>
   export let rows;
+  let error = null;
 </script>
 
 <main>
   <h2>Users</h2>
+  {#if error}
+    <Error message={error} />
+  {/if}
   {#if rows}
     <Table {columns} {rows} />
-  {:else}
-    <span>error</span>
   {/if}
 </main>
