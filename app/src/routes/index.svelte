@@ -1,15 +1,14 @@
 <script context="module">
   import Table from '$components/Table.svelte';
-  import SearchForm from '$components/SearchForm.svelte';
+  import Form from '$components/Form.svelte';
   import { normalizeQuery } from '$lib/util';
 
-  let query = {};
-
   export async function load({ page, fetch }) {
-    const props = {};
-    query = normalizeQuery(page.query);
-    if (['headword','gloss'].some(attr => attr in query)) {
-      const res = await fetch('/api/search.json' + '?' + new URLSearchParams(query));
+    const props = {
+      query: normalizeQuery(page.query)
+    };
+    if (['headword','gloss'].some(attr => attr in props.query)) {
+      const res = await fetch('/api/search.json' + '?' + new URLSearchParams(props.query));
       if (res.ok) {
         props.rows = await res.json();
       }
@@ -39,14 +38,32 @@
       title: 'Gloss Language',
     }
   ];
+
+  const fields = [
+    {
+      name: 'headword',
+      label: 'Headword',
+      type: 'text',
+    },
+    {
+      name: 'gloss',
+      label: 'Gloss',
+      type: 'text',
+    },
+    {
+      label: 'Search',
+      type: 'submit',
+    }
+  ];
 </script>
 
 <script>
   export let rows;
+  export let query;
 </script>
 
 <main>
-  <SearchForm {...query} />
+  <Form {fields} values={query} />
 
   {#if rows}
     <h2>Search results</h2>
