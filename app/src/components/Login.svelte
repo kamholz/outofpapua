@@ -3,7 +3,7 @@
   import { login, logout } from '$actions/auth';
   import { goto } from '$app/navigation';
 
-  let username = $session.user?.username;
+  export let username;
   let password;
   let error = null;
   let loggingIn = false;
@@ -36,21 +36,21 @@
 </script>
 
 <div id="login">
-{#if $session.user}
-  <span>Logged in as <strong>{$session.user.fullname}</strong></span>
-  <button on:click={handleLogout}>Logout</button>
-{:else}
-  <form on:submit|preventDefault={handleLogin}>
-    <label for="username">Email:</label>
-    <input type="text" name="username" bind:value={username}>
-    <label for="password">Password:</label>
-    <input type="password" name="password" bind:value={password}>
-    <button type="submit" disabled={loggingIn}>Login</button>
-  </form>
-  {#if error}
-    <span>{error}</span>
+  {#if $session.user}
+    <span>Logged in as: <a href="/profile"><strong>{$session.user.fullname}</strong></a></span>
+    <button on:click={handleLogout}>Logout</button>
+  {:else}
+    {#if error}
+      <span>{error}</span>
+    {/if}
+    <form on:submit|preventDefault={handleLogin}>
+      <label for="username">Email:</label>
+      <input type="text" name="username" bind:value={username}>
+      <label for="password">Password:</label>
+      <input type="password" name="password" bind:value={password}>
+      <button type="submit" disabled={loggingIn}>Login</button>
+    </form>
   {/if}
-{/if}
 </div>
 
 <style>

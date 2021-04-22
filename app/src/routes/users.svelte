@@ -1,8 +1,4 @@
 <script context="module">
-  import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
-  import { boolean } from '$lib/util';
-
   export async function load({ fetch, session }) {
     if (!session.user) {
       return { status: 401, error: 'Unauthorized' };
@@ -18,7 +14,9 @@
 </script>
 
 <script>
-  import { session } from '$app/stores';
+  import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
+  import { boolean } from '$lib/util';
 
   export let rows;
   let error = null;

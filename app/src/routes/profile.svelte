@@ -1,5 +1,5 @@
 <script context="module">
-  export async function load({ fetch, session }) {
+  export async function load({ session }) {
     if (!session.user) {
       return { status: 401, error: 'Unauthorized' };
     }
@@ -9,5 +9,26 @@
 
 <script>
   import { session } from '$app/stores';
-  export let id = $session.user?.id;
+  import Form from '$components/Form.svelte';
+
+  const fields = [
+    {
+      name: 'username',
+      label: 'Email',
+      type: 'text',
+    },
+    {
+      name: 'fullname',
+      label: 'Full name',
+      type: 'text',
+    },
+    {
+      label: 'Save',
+      type: 'submit',
+    }
+  ];
 </script>
+
+<main>
+  <Form {fields} values={$session.user} />
+</main>

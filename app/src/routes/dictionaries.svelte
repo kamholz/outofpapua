@@ -1,7 +1,4 @@
 <script context="module">
-  import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
-
   export async function load({ fetch, session }) {
     const props = {
       editable: session.user !== null
@@ -12,6 +9,15 @@
     }
     return { props };
   }
+</script>
+
+<script>
+  import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
+
+  export let rows;
+  export let editable;
+  let error = null;
 
   const columns = [
     {
@@ -29,12 +35,6 @@
       editable: true,
     }
   ];
-</script>
-
-<script>
-  export let rows;
-  export let editable;
-  let error = null;
 </script>
 
 <main>

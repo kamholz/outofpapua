@@ -18,7 +18,7 @@
   class="fas fa-spinner fa-pulse"
 />
 {/if}
-<Login />
+<Login username={$session.user?.username} />
 <NavBar />
 
 <slot />

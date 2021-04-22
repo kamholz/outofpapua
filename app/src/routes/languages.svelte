@@ -1,9 +1,4 @@
 <script context="module">
-  import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
-  import * as crud from '$actions/crud';
-  import { boolean } from '$lib/util';
-
   export async function load({ fetch, session }) {
     const props = {
       editable: session.user !== null
@@ -14,6 +9,18 @@
     }
     return { props };
   }
+</script>
+
+<script>
+  import { session } from '$app/stores';
+  import Table from '$components/Table.svelte';
+  import Error from '$components/Error.svelte';
+  import * as crud from '$actions/crud';
+  import { boolean } from '$lib/util';
+
+  export let rows;
+  export let editable;
+  let error = null;
 
   const columns = [
     {
@@ -39,14 +46,6 @@
   ];
 
   const handleUpdate = crud.handleUpdate('languages');
-</script>
-
-<script>
-  import { session } from '$app/stores';
-
-  export let rows;
-  export let editable;
-  let error = null;
 
   async function doUpdate(e) {
     $session.loading++;

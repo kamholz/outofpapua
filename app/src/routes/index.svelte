@@ -1,6 +1,4 @@
 <script context="module">
-  import Table from '$components/Table.svelte';
-  import Form from '$components/Form.svelte';
   import { normalizeQuery } from '$lib/util';
 
   export async function load({ page, fetch }) {
@@ -15,6 +13,14 @@
     }
     return { props };
   }
+</script>
+
+<script>
+  import Table from '$components/Table.svelte';
+  import Form from '$components/Form.svelte';
+
+  export let rows;
+  export let query;
 
   const columns = [
     {
@@ -55,11 +61,6 @@
       type: 'submit',
     }
   ];
-</script>
-
-<script>
-  export let rows;
-  export let query;
 </script>
 
 <main>
