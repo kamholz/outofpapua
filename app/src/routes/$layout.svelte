@@ -25,5 +25,4 @@
 
 <style>
   @import '../app.scss';
-  @import '../../static/fontawesome.css';
 </style>
