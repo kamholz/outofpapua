@@ -18,13 +18,6 @@ module.exports = {
     target: '#svelte',
 
     vite: {
-      css: {
-        postcss: {
-          plugins: [
-            require('postcss-import'),
-          ]
-        }
-      },
       resolve: {
         alias: {
           '$actions': path.resolve('./src/actions'),
