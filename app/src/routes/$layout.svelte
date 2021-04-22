@@ -1,5 +1,5 @@
 <script>
-  import Fa from 'svelte-fa/src/fa.svelte';
+  import Icon from 'svelte-awesome';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
   import { session } from '$app/stores';
@@ -12,10 +12,10 @@
 </svelte:head>
 
 {#if $session.loading > 0}
-<Fa
+<Icon
   id="spinner"
-  icon={faSpinner}
-  class="fas fa-spinner fa-pulse"
+  data={faSpinner}
+  pulse
 />
 {/if}
 <Login username={$session.user?.username} />

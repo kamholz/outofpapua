@@ -26,9 +26,9 @@ module.exports = {
           '$stores': path.resolve('./src/stores'),
         }
       },
-      ssr: {
-        noExternal: Object.keys(pkg.dependencies || {})
-      }
+      // ssr: {
+      //   noExternal: Object.keys(pkg.dependencies || {})
+      // }
     }
   }
 };
