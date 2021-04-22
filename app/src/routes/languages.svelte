@@ -15,8 +15,6 @@
     return { props };
   }
 
-  const handleUpdate = crud.handleUpdate('languages');
-
   const columns = [
     {
       key: 'name',
@@ -39,12 +37,22 @@
       type: 'protolanguage',
     }
   ];
+
+  const handleUpdate = crud.handleUpdate('languages');
 </script>
 
 <script>
+  import { session } from '$app/stores';
+
   export let rows;
   export let editable;
   let error = null;
+
+  async function doUpdate(e) {
+    $session.loading++;
+    await handleUpdate(e);
+    $session.loading--;
+  }
 </script>
 
 <main>
@@ -57,7 +65,7 @@
       {columns}
       {rows}
       {editable}
-      on:update={async (e) => error = await handleUpdate(e)}
+      on:update={doUpdate}
     />
   {/if}
 </main>
