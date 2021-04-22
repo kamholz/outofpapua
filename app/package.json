@@ -28,6 +28,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "svelte-fa": "^2.2.0",
     "svelte-local-storage-store": "^0.1.4"
   }
 }

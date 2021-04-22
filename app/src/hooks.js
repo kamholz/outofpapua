@@ -19,14 +19,20 @@ export async function getContext({ headers }) {
 export function getSession({ context }) {
   return {
     user: context.user,
+    loading: 0,
   };
 }
 
 export function handle({ request, render }) {
-  const { context } = request;
+  const { context, params } = request;
 
+  // silent refresh
   if (!context.user && context.haveRefreshToken && request.path !== '/auth/refresh') {
     return auth.redirectToRefresh(request);
+  }
+
+  if (params && 'id' in params && !params.id.match(/^[0-9]+$/)) {
+    return { status: 400 };
   }
 
   return render(request);

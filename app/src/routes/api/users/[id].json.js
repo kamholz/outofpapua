@@ -5,15 +5,13 @@ import { filteredParams } from '$lib/util';
 const updatable = new Set(['username','fullname','admin']);
 
 export const post = requireAuth(async ({ params, body, context }) => {
-  if (!params.id.match(/^[0-9]+$/)) {
-    return { status: 400 };
-  }
-  if (context.user.id !== params.id && !context.user.admin) {
+  const { user } = context;
+  if (!user.admin && user.id !== params.id) {
     return { status: 400 };
   }
 
   const toUpdate = filteredParams(body, updatable);
-  if ('admin' in toUpdate && (!context.user.admin || context.user.id === params.id)) {
+  if ('admin' in toUpdate && (!user.admin || user.id === params.id)) {
     return { status: 400 };
   }
   if (Object.keys(toUpdate).length) {
@@ -25,6 +23,8 @@ export const post = requireAuth(async ({ params, body, context }) => {
       console.log(e);
       return { status: 500 };
     }
+    return { status: 200, body: "" };
   }
-  return { status: 200, body: "" };
+
+  return { status: 400 };
 });
