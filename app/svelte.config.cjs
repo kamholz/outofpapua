@@ -20,15 +20,12 @@ module.exports = {
     vite: {
       resolve: {
         alias: {
-          '$actions': path.resolve('./src/actions'),
-          '$components': path.resolve('./src/components'),
-          '$config': path.resolve('./src/config'),
-          '$stores': path.resolve('./src/stores'),
+          $actions: path.resolve('./src/actions'),
+          $components: path.resolve('./src/components'),
+          $config: path.resolve('./src/config'),
+          $stores: path.resolve('./src/stores'),
         }
-      },
-      // ssr: {
-      //   noExternal: Object.keys(pkg.dependencies || {})
-      // }
+      }
     }
   }
 };
