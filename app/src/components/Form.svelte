@@ -1,12 +1,16 @@
 <script>
+  export let action = null;
+  export let method = null;
+  export let loading = false;
   export let fields;
   export let values = {};
+  export let style = null;
 </script>
   
-<form on:submit>
+<form on:submit {action} {method} {style}>
   {#each fields as field}
     {#if field.type === 'submit'}
-      <button type="submit">{field.label}</button>
+      <button type="submit" disabled={loading}>{field.label}</button>
     {:else}
       <div>
         {#if field.type === 'text'}
@@ -25,7 +29,7 @@
   form {
     border: 1px solid gray;
     padding: 10px;
-    width: fit-content;
+    width: 18em;
 
     display: flex;
     flex-direction: column;
@@ -45,12 +49,12 @@
 
   label {
     margin-inline-end: 10px;
-    width: 6em;
+    width: 40%;
     text-align: right;
   }
 
   input {
-    width: 12em;
+    width: 60%;
   }
 
   input[type="checkbox"] {

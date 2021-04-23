@@ -1,34 +1,13 @@
 <script context="module">
-  export async function load({ session }) {
-    if (!session.user) {
-      return { status: 401, error: 'Unauthorized' };
-    }
-    return {};
-  }
+  import { requireAuthLoad } from '$actions/auth';
+  export const load = requireAuthLoad();
 </script>
 
 <script>
   import { session } from '$app/stores';
-  import Form from '$components/Form.svelte';
-
-  const fields = [
-    {
-      name: 'username',
-      label: 'Email',
-      type: 'text',
-    },
-    {
-      name: 'fullname',
-      label: 'Full name',
-      type: 'text',
-    },
-    {
-      label: 'Save',
-      type: 'submit',
-    }
-  ];
+  import ProfilePage from '$components/ProfilePage.svelte';
 </script>
 
 <main>
-  <Form {fields} values={$session.user} />
+  <ProfilePage user={$session.user} />
 </main>

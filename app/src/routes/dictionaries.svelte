@@ -13,7 +13,7 @@
 
 <script>
   import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
+  import Alert from '$components/Alert.svelte';
 
   export let rows;
   export let editable;
@@ -40,7 +40,7 @@
 <main>
   <h2>Dictionaries</h2>
   {#if error}
-    <Error message={error} />
+    <Alert type="error" message={error} />
   {/if}
   {#if rows}
     <Table {columns} {rows} {editable} />

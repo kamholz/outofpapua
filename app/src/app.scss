@@ -9,31 +9,22 @@ body {
   margin-inline: auto;
 }
 
-h1 {
-  margin-block: 1rem;
-  margin-inline: auto;
-  max-width: 14rem;
-  line-height: 1.1;
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-block: 0.83em;
+  margin-inline: 0;
 }
 
-p {
-  max-width: 14rem;
-  margin: 2rem auto;
-  line-height: 1.35;
+h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-block: 1em;
+  margin-inline: 0;
 }
 
 #spinner {
   position: fixed;
   left: 20px;
   top: 20px;
-}
-
-@media (min-width: 480px) {
-  h1 {
-    max-width: none;
-  }
-
-  p {
-    max-width: none;
-  }
 }

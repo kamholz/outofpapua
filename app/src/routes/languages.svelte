@@ -14,7 +14,7 @@
 <script>
   import { session } from '$app/stores';
   import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
+  import Alert from '$components/Alert.svelte';
   import * as crud from '$actions/crud';
   import { boolean } from '$lib/util';
 
@@ -57,7 +57,7 @@
 <main>
   <h2>Languages</h2>
   {#if error}
-    <Error message={error} />
+    <Alert type="error" message={error} />
   {/if}
   {#if rows}
     <Table

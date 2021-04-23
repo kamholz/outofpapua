@@ -36,3 +36,11 @@ export function filteredParams(formData, set) {
   }
   return params;
 }
+
+export function adminOrSelf(loggedInUser, userId) {
+  return loggedInUser.admin || loggedInUser.id == userId;
+}
+
+export function adminNotSelf(loggedInUser, userId) {
+  return loggedInUser.admin && loggedInUser.id != userId;
+}

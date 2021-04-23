@@ -15,7 +15,7 @@
 
 <script>
   import Table from '$components/Table.svelte';
-  import Error from '$components/Error.svelte';
+  import Alert from '$components/Alert.svelte';
   import { boolean } from '$lib/util';
 
   export let rows;
@@ -41,7 +41,7 @@
 <main>
   <h2>Users</h2>
   {#if error}
-    <Error message={error} />
+    <Alert type="error" message={error} />
   {/if}
   {#if rows}
     <Table

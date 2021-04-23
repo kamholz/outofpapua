@@ -18,8 +18,9 @@
 <script>
   import Table from '$components/Table.svelte';
   import Form from '$components/Form.svelte';
+  import Alert from '$components/Alert.svelte';
 
-  export let rows;
+  export let rows = null;
   export let query;
 
   const columns = [
@@ -64,10 +65,12 @@
 </script>
 
 <main>
+  <h2>Search</h2>
+  <h3>test</h3>
   <Form {fields} values={query} />
 
   {#if rows}
-    <h2>Search results</h2>
+    <h3>Search results</h3>
     <Table {columns} {rows} />
   {/if}
 </main>

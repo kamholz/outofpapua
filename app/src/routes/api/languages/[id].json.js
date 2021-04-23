@@ -5,9 +5,6 @@ import { filteredParams } from '$lib/util';
 const updatable = new Set(['name','parent_id']);
 
 export const post = requireAuth(async ({ params, body }) => {
-  if (!params.id.match(/^[0-9]+$/)) {
-    return { status: 400 };
-  }
   const toUpdate = filteredParams(body, updatable);
   if (Object.keys(toUpdate).length) {
     try {

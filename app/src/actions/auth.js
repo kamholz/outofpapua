@@ -18,3 +18,13 @@ export async function logout() {
   await fetch('/auth/logout');
   session.update(v => ({...v, user: null}));
 }
+
+export function requireAuthLoad(handler) {
+  handler = handler ?? (() => ({}));
+  return (req) => {
+    if (!req.session.user) {
+      return { status: 401, error: 'Unauthorized' };
+    }
+    return handler(req);
+  }
+}

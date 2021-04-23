@@ -22,7 +22,8 @@
     display: flex;
     justify-content: flex-start;
     margin-inline: 0;
-    padding-inline: 0;
+    margin-block: 0 1em;
+    padding: 0;
     list-style: none;
   }
 

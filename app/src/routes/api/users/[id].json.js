@@ -1,17 +1,23 @@
 import knex from '$lib/knex';
-import { requireAuth } from '$lib/auth';
-import { filteredParams } from '$lib/util';
+import { requireAuth, getUser } from '$lib/auth';
+import { filteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
 
 const updatable = new Set(['username','fullname','admin']);
 
+export const get = requireAuth(async ({ params }) => {
+  return {
+    body: await getUser(params.id)
+  };
+});
+
 export const post = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
-  if (!user.admin && user.id !== params.id) {
+  if (!adminOrSelf(user, params.id)) {
     return { status: 400 };
   }
 
   const toUpdate = filteredParams(body, updatable);
-  if ('admin' in toUpdate && (!user.admin || user.id === params.id)) {
+  if ('admin' in toUpdate && !adminNotSelf(user, params.id)) {
     return { status: 400 };
   }
   if (Object.keys(toUpdate).length) {
