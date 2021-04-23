@@ -24,8 +24,8 @@ export const post = requireAuth(async ({ params, body, context }) => {
       await knex('usr')
         .where('id', params.id)
         .update(toUpdate);
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
       return { status: 500 };
     }
     return { status: 200, body: "" };

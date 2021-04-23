@@ -6,6 +6,7 @@
 
   export let user;
   export let admin = false;
+  let passwordValues = {};
   let error1 = null;
   let error2 = null;
   let success1 = false;
@@ -70,21 +71,22 @@
     }
   }
 
-  function handleValidation2(e) {
+  function handleValidation2 (e) {
     const { form } = e.detail;
     form.elements.new_confirm.setCustomValidity('');
   }
 
-  async function handleUpdate2(e) {
+  async function handleUpdate2 (e) {
     const { form, values } = e.detail;
     if (values.new === values.new_confirm) {
       try {
         await updatePassword(user.id, { current_pass: values.current, new_pass: values.new });
         success2 = true;
         error2 = false;
+        passwordValues = {};
       } catch (err) {
         success2 = false;
-        error2 = err;
+        error2 = err.message;
       }
     } else {
       form.elements.new_confirm.setCustomValidity('Passwords do not match');
@@ -113,7 +115,8 @@
 {/if}
 <Form
   method="POST"
-  fields={fields2} 
+  fields={fields2}
+  values={passwordValues}
   submitLabel="Change"
   style="width: 22em"
   on:beforesubmit={handleValidation2}

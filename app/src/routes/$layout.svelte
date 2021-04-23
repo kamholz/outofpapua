@@ -13,7 +13,7 @@
 
 {#if $session.loading > 0}
 <Icon
-  id="spinner"
+  class="loading"
   data={faSpinner}
   pulse
 />

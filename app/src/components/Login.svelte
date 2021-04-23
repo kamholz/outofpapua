@@ -14,8 +14,9 @@
     try {
       await login(username, password);
       password = null;
+      error = null;
     } catch (e) {
-      error = e;
+      error = e.message;
     } finally {
       loggingIn = false;
       $session.loading--;
@@ -26,9 +27,11 @@
     try {
       $session.loading++;
       await logout();
+      error = null;
+      $session.user = null;
       goto('/');
     } catch (e) {
-      error = e;
+      error = e.message;
     } finally {
       $session.loading--;
     }
@@ -36,13 +39,13 @@
 </script>
 
 <div id="login">
+  {#if error}
+    <span class="error">{error}</span>
+  {/if}
   {#if $session.user}
     <span>Logged in as: <a href="/profile"><strong>{$session.user.fullname}</strong></a></span>
     <button on:click={handleLogout}>Logout</button>
   {:else}
-    {#if error}
-      <span>{error}</span>
-    {/if}
     <form on:submit|preventDefault={handleLogin}>
       <label for="username">Email:</label>
       <input type="text" name="username" bind:value={username}>
@@ -53,27 +56,37 @@
   {/if}
 </div>
 
-<style>
+<style lang="scss">
   #login {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-size: 85%;
-  }
 
-  label {
-    margin-inline-start: 0.75em;
-  }
+    .error {
+      padding: .3em .6em;
+      border-radius: .2em;
+      margin-inline-end: .4em;
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid transparent;
+      border-color: #f5c6cb;
+    }
 
-  input[type="text"] {
-    inline-size: 12em;
-  }
+    label {
+      margin-inline-start: 0.75em;
+    }
 
-  input[type="password"] {
-    inline-size: 7em;
-  }
+    input[type="text"] {
+      inline-size: 12em;
+    }
 
-  button {
-    margin-inline-start: 0.75em;
+    input[type="password"] {
+      inline-size: 7em;
+    }
+
+    button {
+      margin-inline-start: 0.75em;
+    }
   }
 </style>

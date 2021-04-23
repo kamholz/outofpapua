@@ -15,8 +15,12 @@ export async function login(username, password) {
 }
 
 export async function logout() {
-  await fetch('/auth/logout');
-  session.update(v => ({...v, user: null}));
+  const res = await fetch('/auth/logout');
+  if (res.ok) {
+    session.update(v => ({...v, user: null}));
+  } else {
+    throw new Error('logout error');
+  }
 }
 
 export function requireAuthLoad(handler) {
@@ -38,9 +42,9 @@ export async function updatePassword(userId, values) {
     let error;
     try {
       error = (await res.json()).error;
-    } catch (err) {
-      throw 'Password change failed';
+    } catch (e) {
+      throw new Error('Password change failed');
     }
-    throw `Password change failed: ${error}`;
+    throw new Error(`Password change failed: ${error}`);
   }
 }

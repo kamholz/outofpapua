@@ -20,8 +20,8 @@ export const post = requireAuth(async ({ params, body, context }) => {
     await knex('usr')
       .where('id', params.id)
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.get('new_pass')) });
-  } catch (err) {
-    console.log(err);
+  } catch (e) {
+    console.log(e);
     return { status: 500 };
   }
   return { status: 200, body: "" };
