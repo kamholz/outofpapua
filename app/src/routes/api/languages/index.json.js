@@ -13,8 +13,5 @@ export async function get() {
         .where('source.language_id', knex.ref('language.id'))
     })
     .orderBy('language.name');
-
-  return {
-    body: await q
-  };
+  return { body: await q };
 }

@@ -3,10 +3,12 @@
   import { makeDeleter } from '$actions/crud';
 
   export const load = requireAuthLoad(async ({ fetch }) => {
+    const rows = await loadUsers(fetch);
+    if (!rows) {
+      return { status: 500, error: 'Internal error' };
+    }
     return {
-      props: {
-        rows: await loadUsers(fetch)
-      }
+      props: { rows }
     };
   });
 

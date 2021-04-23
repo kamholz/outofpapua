@@ -4,21 +4,21 @@
   export const load = requireAuthLoad(async ({ page: { params }, session, fetch }) => {
     if (params.id == session.user.id) {
       return { status: 400, error: 'Bad request' };
-    } else {
-      try {
-        const res = await fetch(`/api/users/${params.id}.json`);
-        if (res.ok) {
-          return { 
-            props: { 
-              user: await res.json() 
-            } 
-          };
-        }
-      } catch (e) {
+    }
+    try {
+      const res = await fetch(`/api/users/${params.id}.json`);
+      if (res.ok) {
+        return {
+          props: { 
+            user: await res.json() 
+          }
+        };
+      } else {
         return { status: 500, error: 'Internal error' };
       }
+    } catch (e) {
+      return { status: 500, error: 'Internal error' };
     }
-    return {};
   });
 </script>
 

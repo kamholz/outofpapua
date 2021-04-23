@@ -27,7 +27,11 @@ export function boolean(value) {
   return value ? 'yes' : 'no';
 }
 
-export function filteredParams(formData, set) {
+export function getParams(formData) {
+  return formData ? Object.fromEntries(formData) : {};
+}
+
+export function getFilteredParams(formData, set) {
   if (!formData) {
     return {};
   }

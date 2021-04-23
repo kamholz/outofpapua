@@ -6,9 +6,7 @@ export async function get({ query }) {
   const caseSensitive = false;
 
   if (!['headword','gloss'].some(attr => attr in query)) {
-    return {
-      status: 400
-    };
+    return { status: 400 };
   }
 
   const q = knex('entry')
@@ -27,9 +25,7 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', ...match(query.gloss, caseSensitive));
   }
 
-  return {
-    body: await q
-  };
+  return { body: await q };
 }
 
 function match(value, caseSensitive) {

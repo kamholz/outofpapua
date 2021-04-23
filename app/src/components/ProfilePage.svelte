@@ -11,6 +11,8 @@
   let error2 = null;
   let success1 = false;
   let success2 = false;
+  let loading1 = false;
+  let loading2 = false;
 
   const fields1 = [
     {
@@ -61,14 +63,16 @@
 
   async function handleUpdate1(e) {
     const { values } = e.detail;
+    loading1 = true;
+    success1 = false;
+    error1 = null;
     try {
       await updater({ id: user.id, values });
       success1 = true;
-      error1 = null;
     } catch (err) {
-      success1 = false;
       error1 = 'Update failed';
     }
+    loading1 = false;
   }
 
   function handleValidation2 (e) {
@@ -79,15 +83,17 @@
   async function handleUpdate2 (e) {
     const { form, values } = e.detail;
     if (values.new === values.new_confirm) {
+      loading2 = true;
+      success2 = false;
+      error2 = null;
       try {
         await updatePassword(user.id, { current_pass: values.current, new_pass: values.new });
         success2 = true;
-        error2 = false;
         passwordValues = {};
       } catch (err) {
-        success2 = false;
         error2 = err.message;
       }
+      loading2 = false;
     } else {
       form.elements.new_confirm.setCustomValidity('Passwords do not match');
       form.reportValidity();
@@ -98,26 +104,28 @@
 <h2>Profile</h2>
 <Alert type="error" message={error1} />
 {#if success1}
-  <Alert type="error" message={"Changes saved successfully"} />
+  <Alert type="success" message={"Changes saved"} />
 {/if}
 <Form
   method="POST"
   fields={fields1} 
   values={user}
   submitLabel="Save"
+  loading={loading1}
   on:submit={handleUpdate1}
 />
 
 <h3>Change password</h3>
 <Alert type="error" message={error2} />
 {#if success2}
-  <Alert type="error" message={"Password changed successfully"} />
+  <Alert type="success" message={"Password changed"} />
 {/if}
 <Form
   method="POST"
   fields={fields2}
   values={passwordValues}
   submitLabel="Change"
+  loading={loading2}
   style="width: 22em"
   on:beforesubmit={handleValidation2}
   on:submit={handleUpdate2}

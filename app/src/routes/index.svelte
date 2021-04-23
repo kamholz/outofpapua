@@ -7,9 +7,10 @@
     };
     if (['headword','gloss'].some(attr => attr in props.query)) {
       const res = await fetch('/api/search.json' + '?' + new URLSearchParams(props.query));
-      if (res.ok) {
-        props.rows = await res.json();
+      if (!res.ok) {
+        return { status: 500, error: 'Internal error' };
       }
+      props.rows = await res.json();
     }
     return { props };
   }
@@ -18,7 +19,7 @@
 <script>
   import Table from '$components/Table.svelte';
   import Form from '$components/Form.svelte';
-  import Alert from '$components/Alert.svelte';
+  //import Alert from '$components/Alert.svelte';
 
   export let rows = null;
   export let query;

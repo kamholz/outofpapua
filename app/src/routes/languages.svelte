@@ -4,9 +4,10 @@
       editable: session.user !== null
     };
     const res = await fetch('/api/languages.json');
-    if (res.ok) {
-      props.rows = await res.json();
+    if (!res.ok) {
+      return { status: 500, error: 'Internal error' };
     }
+    props.rows = await res.json();
     return { props };
   }
 </script>

@@ -5,7 +5,5 @@ export async function get() {
     .join('language', 'language.id', 'source.language_id')
     .select('source.id', 'source.title', 'source.reference', 'language.name as language')
     .orderBy('source.title');
-  return {
-    body: await q
-  };
+  return { body: await q };
 }
