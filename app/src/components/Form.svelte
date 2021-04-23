@@ -32,31 +32,25 @@
     display: flex;
     flex-direction: column;
 
-    & > div {
-      display: flex;
-      justify-content: flex-start;
+    > div {
+      display: grid;
+      grid-template-columns: 40% 60%;
       align-items: center;
       margin-block: 6px;
+
+      label {
+        margin-inline-end: 10px;
+        text-align: end;
+      }
+
+      input[type="checkbox"] {
+        margin: 0;
+      }
     }
 
-    & > button {
+    > button {
       align-self: flex-end;
       margin-block: 6px;
     }
-  }
-
-  label {
-    margin-inline-end: 10px;
-    width: 40%;
-    text-align: right;
-  }
-
-  input {
-    width: 60%;
-  }
-
-  input[type="checkbox"] {
-    margin: 0;
-    width: unset;
   }
 </style>
