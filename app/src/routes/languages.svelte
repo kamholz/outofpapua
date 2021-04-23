@@ -56,9 +56,7 @@
 
 <main>
   <h2>Languages</h2>
-  {#if error}
-    <Alert type="error" message={error} />
-  {/if}
+  <Alert type="error" message={error} />
   {#if rows}
     <Table
       {columns}

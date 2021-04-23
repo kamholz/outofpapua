@@ -39,9 +39,7 @@
 
 <main>
   <h2>Dictionaries</h2>
-  {#if error}
-    <Alert type="error" message={error} />
-  {/if}
+  <Alert type="error" message={error} />
   {#if rows}
     <Table {columns} {rows} {editable} />
   {/if}

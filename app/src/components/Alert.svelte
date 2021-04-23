@@ -3,7 +3,9 @@
   export let type;
 </script>
 
-<div class={type}>{message}</div>
+{#if message}
+  <div class={type}>{message}</div>
+{/if}
 
 <style lang="scss">
   div {

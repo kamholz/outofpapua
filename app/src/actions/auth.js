@@ -28,3 +28,19 @@ export function requireAuthLoad(handler) {
     return handler(req);
   }
 }
+
+export async function updatePassword(userId, values) {
+  const res = await fetch(`/api/users/${userId}-password.json`, {
+    method: 'POST',
+    body: new URLSearchParams(values),
+  });
+  if (!res.ok) {
+    let error;
+    try {
+      error = (await res.json()).error;
+    } catch (err) {
+      throw 'Password change failed';
+    }
+    throw `Password change failed: ${error}`;
+  }
+}

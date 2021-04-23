@@ -28,6 +28,9 @@ export function boolean(value) {
 }
 
 export function filteredParams(formData, set) {
+  if (!formData) {
+    return {};
+  }
   const params = {};
   for (const [key,value] of formData.entries()) {
     if (set.has(key)) {

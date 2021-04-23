@@ -15,7 +15,6 @@ export const post = requireAuth(async ({ params, body, context }) => {
   if (!adminOrSelf(user, params.id)) {
     return { status: 400 };
   }
-
   const toUpdate = filteredParams(body, updatable);
   if ('admin' in toUpdate && !adminNotSelf(user, params.id)) {
     return { status: 400 };
@@ -25,8 +24,8 @@ export const post = requireAuth(async ({ params, body, context }) => {
       await knex('usr')
         .where('id', params.id)
         .update(toUpdate);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
       return { status: 500 };
     }
     return { status: 200, body: "" };

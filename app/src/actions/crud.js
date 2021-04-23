@@ -4,16 +4,8 @@ export function makeUpdater(type) {
       method: 'POST',
       body: new URLSearchParams(values),
     });
-    if (res.ok) {
-      return;
-    } else {
-      let json;
-      try {
-        json = await res.json();
-      } catch (e) {
-        throw res;
-      }
-      throw json.message;
+    if (!res.ok) {
+      throw new Error('unknown error');
     }
   }
 }
@@ -29,7 +21,7 @@ export function handleUpdate(type) {
       }
       return null;
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       return err;
     }
   }
