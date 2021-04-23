@@ -56,18 +56,13 @@
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
-    },
-    {
-      label: 'Search',
-      type: 'submit',
     }
   ];
 </script>
 
 <main>
   <h2>Search</h2>
-  <h3>test</h3>
-  <Form {fields} values={query} />
+  <Form {fields} values={query} submitLabel="Search" />
 
   {#if rows}
     <h3>Search results</h3>

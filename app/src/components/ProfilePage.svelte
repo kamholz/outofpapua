@@ -15,10 +15,6 @@
       name: 'fullname',
       label: 'Full name',
       type: 'text',
-    },
-    {
-      label: 'Save',
-      type: 'submit',
     }
   ];
 
@@ -37,15 +33,11 @@
       name: 'new2',
       label: 'Confirm password',
       type: 'password',
-    },
-    {
-      label: 'Update',
-      type: 'submit',
     }
   ];
 
   if (admin) {
-    fields1.splice(-1, 0, {
+    fields1.push({
       name: 'admin',
       label: 'Admin',
       type: 'checkbox',
@@ -63,12 +55,14 @@
   method="POST"
   fields={fields1} 
   values={user}
+  submitLabel="Save"
   on:submit={handleUpdate}
 />
 <h3>Change password</h3>
 <Form 
   method="POST"
   fields={fields2} 
+  submitLabel="Update"
   style="width: 25em"
   on:submit={handleUpdate}
 />

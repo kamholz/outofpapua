@@ -4,25 +4,23 @@
   export let loading = false;
   export let fields;
   export let values = {};
+  export let submitLabel;
   export let style = null;
 </script>
   
 <form on:submit {action} {method} {style}>
   {#each fields as field}
-    {#if field.type === 'submit'}
-      <button type="submit" disabled={loading}>{field.label}</button>
-    {:else}
-      <div>
-        {#if field.type === 'text'}
-          <label for={field.name}>{field.label}:</label><input type="text" name={field.name} bind:value={values[field.name]}>
-        {:else if field.type === 'password'}
-          <label for={field.name}>{field.label}:</label><input type="password" name={field.name} bind:value={values[field.name]}>
-        {:else if field.type === 'checkbox'}
-          <label for={field.name}>{field.label}:</label><input type="checkbox" name={field.name} bind:value={values[field.name]}>
-        {/if}
-      </div>
-    {/if}
+    <div>
+      {#if field.type === 'text'}
+        <label for={field.name}>{field.label}:</label><input type="text" name={field.name} bind:value={values[field.name]}>
+      {:else if field.type === 'password'}
+        <label for={field.name}>{field.label}:</label><input type="password" name={field.name} bind:value={values[field.name]}>
+      {:else if field.type === 'checkbox'}
+        <label for={field.name}>{field.label}:</label><input type="checkbox" name={field.name} bind:value={values[field.name]}>
+      {/if}
+    </div>
   {/each}
+  <button type="submit" disabled={loading}>{submitLabel}</button>
 </form>
 
 <style lang="scss">
