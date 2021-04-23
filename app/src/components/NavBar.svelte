@@ -1,16 +1,14 @@
 <script>
   import { page, session } from '$app/stores';
-  let path;
-  $: path = $page.path;
 </script>
 
 <nav>
   <ul>
-    <li class:active={path === '/'}><a href="/">Search</a></li>
-    <li class:active={path === '/languages'}><a href="/languages">Languages</a></li>
-    <li class:active={path === '/dictionaries'}><a href="/dictionaries">Dictionaries</a></li>
+    <li class:active={$page.path === '/'}><a href="/">Search</a></li>
+    <li class:active={$page.path === '/languages'}><a href="/languages">Languages</a></li>
+    <li class:active={$page.path === '/dictionaries'}><a href="/dictionaries">Dictionaries</a></li>
     {#if $session.user}
-      <li class:active={path === '/users'}><a href="/users">Users</a></li>
+      <li class:active={$page.path === '/users'}><a href="/users">Users</a></li>
     {/if}
   </ul>
 </nav>

@@ -13,11 +13,11 @@ export const get = requireAuth(async ({ params }) => {
 export const post = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
   if (!adminOrSelf(user, params.id)) {
-    return { status: 400 };
+    return { status: 401 };
   }
   const toUpdate = filteredParams(body, updatable);
   if ('admin' in toUpdate && !adminNotSelf(user, params.id)) {
-    return { status: 400 };
+    return { status: 401 };
   }
   if (Object.keys(toUpdate).length) {
     try {
@@ -32,4 +32,20 @@ export const post = requireAuth(async ({ params, body, context }) => {
   }
 
   return { status: 400 };
+});
+
+export const del = requireAuth(async ({ params, context }) => {
+  const { user } = context;
+  if (!adminNotSelf(user, params.id)) {
+    return { status: 401 };
+  }
+  try {
+    await knex('usr')
+      .where('id', params.id)
+      .del();
+  } catch (e) {
+    console.log(e);
+    return { status: 500 };
+  }
+  return { status: 200, body: "" };
 });

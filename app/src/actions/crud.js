@@ -5,7 +5,7 @@ export function makeUpdater(type) {
       body: new URLSearchParams(values),
     });
     if (!res.ok) {
-      throw new Error('unknown error');
+      throw new Error('could not update');
     }
   }
 }
@@ -23,6 +23,17 @@ export function handleUpdate(type) {
     } catch (err) {
       //console.log(err);
       return err;
+    }
+  }
+}
+
+export function makeDeleter(type) {
+  return async function(id) {
+    const res = await fetch(`/api/${type}/${id}.json`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      throw new Error('could not delete');
     }
   }
 }

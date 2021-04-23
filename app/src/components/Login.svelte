@@ -17,24 +17,22 @@
       error = null;
     } catch (e) {
       error = e.message;
-    } finally {
-      loggingIn = false;
-      $session.loading--;
     }
+    loggingIn = false;
+    $session.loading--;
   }
 
   async function handleLogout() {
+    $session.loading++;
     try {
-      $session.loading++;
       await logout();
       error = null;
       $session.user = null;
       goto('/');
     } catch (e) {
       error = e.message;
-    } finally {
-      $session.loading--;
     }
+    $session.loading--;
   }
 </script>
 

@@ -3,10 +3,7 @@ import { requireAuth, checkUserPassword } from '$lib/auth';
 
 export const post = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
-  if (!body) {
-    return { status: 400 };
-  }
-  if (
+  if (!body ||
     !body.has('new_pass') ||
     (!user.admin && (user.id !== params.id || !body.has('current_pass')))
   ) {

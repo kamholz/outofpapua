@@ -1,19 +1,23 @@
 <script context="module">
-  export async function load({ fetch, session }) {
-    if (!session.user) {
-      return { status: 401, error: 'Unauthorized' };
-    }
+  import { requireAuthLoad } from '$actions/auth';
+  import { makeDeleter } from '$actions/crud';
 
-    const props = {};
+  export const load = requireAuthLoad(async ({ fetch }) => {
+    return {
+      props: {
+        rows: await loadUsers(fetch)
+      }
+    };
+  });
+
+  async function loadUsers(fetch) {
     const res = await fetch('/api/users.json');
-    if (res.ok) {
-      props.rows = await res.json();
-    }
-    return { props };
+    return res.ok ? await res.json() : null;
   }
 </script>
 
 <script>
+  import { session } from '$app/stores';
   import Table from '$components/Table.svelte';
   import Alert from '$components/Alert.svelte';
   import { boolean } from '$lib/util';
@@ -36,6 +40,31 @@
       value: v => boolean(v.admin),
     }
   ];
+
+  const controls = $session.user.admin
+    ?
+      [
+        {
+          type: 'delete',
+          key: 'fullname',
+          candelete: row => row.id !== $session.user.id,
+        }
+      ]
+    :
+      null;
+
+  const del = makeDeleter('users');
+
+  async function handleDelete(e) {
+    $session.loading++;
+    try {
+      await del(e.detail.id);
+      rows = await loadUsers(fetch);
+    } catch (err) {
+      error = err.message;
+    }
+    $session.loading--;
+  }
 </script>
 
 <main>
@@ -45,6 +74,8 @@
     <Table
       {columns}
       {rows}
+      {controls}
+      on:delete={handleDelete}
     />
   {/if}
 </main>

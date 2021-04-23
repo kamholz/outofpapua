@@ -1,10 +1,12 @@
 <script>
   import TableCell from '$components/TableCell.svelte';
+  import TableControls from '$components/TableControls.svelte';
 
   export let columns;
   export let rows;
   export let editable = false;
   let editingCell = null;
+  export let controls = null;
 
   for (const column of columns) {
     if (!('value' in column)) {
@@ -25,6 +27,9 @@
     {#each columns as column}
       <th><span>{column.title}</span></th>
     {/each}
+    {#if controls}
+      <th></th>
+    {/if}
   </thead>
   <tbody>
     {#each rows as row}
@@ -32,6 +37,9 @@
         {#each columns as column}
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
         {/each}
+        {#if controls}
+          <TableControls {row} {controls} on:delete on:edit />
+        {/if}
       </tr>
     {/each}
   </tbody>
