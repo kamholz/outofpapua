@@ -4,6 +4,7 @@
   
   export let action = null;
   export let method = null;
+  export let preventDefault = true;
   export let loading = false;
   export let fields;
   export let values = {};
@@ -11,6 +12,7 @@
   export let style = null;
 
   function handleSubmit(e) {
+    e.preventDefault();
     const form = e.currentTarget;
     dispatch('beforesubmit', { form, values });
     if (form.checkValidity()) {
@@ -22,8 +24,8 @@
 </script>
   
 <form 
-  on:submit|preventDefault={handleSubmit}
-  noValidate
+  on:submit={preventDefault && handleSubmit}
+  noValidate={preventDefault}
   {action}
   {method}
   {style}

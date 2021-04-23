@@ -63,7 +63,12 @@
 
 <main>
   <h2>Search</h2>
-  <Form {fields} values={query} submitLabel="Search" />
+  <Form
+    {fields}
+    values={query}
+    submitLabel="Search"
+    preventDefault={false}
+  />
 
   {#if rows}
     <h3>Search results</h3>
