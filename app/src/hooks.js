@@ -19,7 +19,6 @@ export async function getContext({ headers }) {
 export function getSession({ context }) {
   return {
     user: context.user,
-    loading: 0,
   };
 }
 

@@ -1,5 +1,6 @@
 <script>
   import { session } from '$app/stores';
+  import { pageLoading } from '$stores';
   import { login, logout } from '$actions/auth';
   import { goto } from '$app/navigation';
 
@@ -10,7 +11,7 @@
 
   async function handleLogin() {
     loggingIn = true;
-    $session.loading++;
+    $pageLoading++;
     try {
       await login(username, password);
       password = null;
@@ -19,11 +20,11 @@
       error = e.message;
     }
     loggingIn = false;
-    $session.loading--;
+    $pageLoading--;
   }
 
   async function handleLogout() {
-    $session.loading++;
+    $pageLoading++;
     try {
       await logout();
       error = null;
@@ -32,7 +33,7 @@
     } catch (e) {
       error = e.message;
     }
-    $session.loading--;
+    $pageLoading--;
   }
 </script>
 

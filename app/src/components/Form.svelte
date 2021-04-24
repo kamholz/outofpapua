@@ -10,6 +10,8 @@
   export let values = {};
   export let submitLabel;
   export let style = null;
+  let className = null;
+  export { className as class };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -35,6 +37,7 @@
   {action}
   {method}
   {style}
+  class={className}
 >
 
   {#each fields as field}

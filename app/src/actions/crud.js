@@ -1,6 +1,6 @@
 export function makeCreater(type) {
   return async function(values) {
-    const res = await fetch(`/api/${type}/create.json`, {
+    const res = await fetch(`/api/${type}.json`, {
       method: 'POST',
       body: new URLSearchParams(values),
     });
@@ -23,7 +23,7 @@ export function makeUpdater(type) {
   }
 }
 
-export function doUpdate(type) {
+export function updateFromCell(type) {
   const update = makeUpdater(type);
   return async (e) => {
     const { onSuccess } = e.detail;

@@ -17,61 +17,24 @@
 </script>
 
 <script>
-  import Table from '$components/Table.svelte';
-  import Form from '$components/Form.svelte';
+  import SearchTable from '$components/tables/SearchTable.svelte';
+  import SearchForm from '$components/forms/SearchForm.svelte';
   //import Alert from '$components/Alert.svelte';
 
   export let rows = null;
   export let query;
-
-  const columns = [
-    {
-      key: 'language',
-      title: 'Language',
-    },
-    {
-      key: 'headword',
-      title: 'Headword',
-    },
-    {
-      key: 'pos',
-      title: 'POS',
-    },
-    {
-      key: 'gloss',
-      title: 'Gloss',
-    },
-    {
-      key: 'gloss_language',
-      title: 'Gloss Language',
-    }
-  ];
-
-  const fields = [
-    {
-      name: 'headword',
-      label: 'Headword',
-      type: 'text',
-    },
-    {
-      name: 'gloss',
-      label: 'Gloss',
-      type: 'text',
-    }
-  ];
 </script>
 
 <main>
   <h2>Search</h2>
-  <Form
-    {fields}
-    values={query}
-    submitLabel="Search"
-    preventDefault={false}
+  <SearchForm
+    {query}
   />
 
   {#if rows}
     <h3>Search results</h3>
-    <Table {columns} {rows} />
+    <SearchTable
+      {rows} 
+    />
   {/if}
 </main>

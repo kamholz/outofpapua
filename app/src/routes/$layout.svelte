@@ -3,6 +3,7 @@
   import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
   import { session } from '$app/stores';
+  import { pageLoading } from '$stores';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
 </script>
@@ -11,7 +12,7 @@
   <title>Out of Papua</title>
 </svelte:head>
 
-{#if $session.loading > 0}
+{#if $pageLoading > 0}
 <Icon
   class="loading"
   data={faSpinner}

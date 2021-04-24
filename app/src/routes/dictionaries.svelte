@@ -13,12 +13,10 @@
 </script>
 
 <script>
-  import Table from '$components/Table.svelte';
-  import Alert from '$components/Alert.svelte';
+  import DictionaryTable from '$components/tables/DictionaryTable.svelte';
 
   export let rows;
   export let editable;
-  let error = null;
 
   const columns = [
     {
@@ -40,8 +38,9 @@
 
 <main>
   <h2>Dictionaries</h2>
-  <Alert type="error" message={error} />
-  {#if rows}
-    <Table {columns} {rows} {editable} />
-  {/if}
+  <DictionaryTable
+    {columns}
+    {rows} 
+    {editable} 
+  />
 </main>

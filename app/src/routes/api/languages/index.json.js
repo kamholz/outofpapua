@@ -1,4 +1,6 @@
 import knex from '$lib/knex';
+import { requireAuth } from '$lib/auth';
+import { getFilteredParams } from '$lib/util';
 
 export async function get() {
   const q = knex('language')
@@ -12,6 +14,27 @@ export async function get() {
         .from('source')
         .where('source.language_id', knex.ref('language.id'))
     })
-    .orderBy('language.name');
+    .orderBy(knex.raw('lower(language.name)'));
   return { body: await q };
 }
+
+const required = new Set(['name']);
+
+export const post = requireAuth(async ({ body }) => {
+  const params = getFilteredParams(body, required);
+  if (Object.keys(params).length !== required.size) {
+    return { status: 400 };
+  }
+  const rows = await
+    knex.with('inserted', q => {
+      q.from('language')
+      .returning('id')
+      .insert(params);
+    })
+    .from('protolanguage')
+    .returning('id')
+    .insert(function () {
+      this.select('id').from('inserted');
+    })
+  return rows.length ? { body: { id: rows[0] } } : { status: 500 };
+});
