@@ -3,19 +3,14 @@
   import { makeDeleter } from '$actions/crud';
 
   export const load = requireAuthLoad(async ({ fetch }) => {
-    const rows = await loadUsers(fetch);
-    if (!rows) {
+    const res = await fetch('/api/users.json');
+    if (!res.ok) {
       return { status: 500, error: 'Internal error' };
     }
     return {
-      props: { rows }
+      props: { rows: await res.json() }
     };
   });
-
-  async function loadUsers(fetch) {
-    const res = await fetch('/api/users.json');
-    return res.ok ? await res.json() : null;
-  }
 </script>
 
 <script>
@@ -47,26 +42,12 @@
     ?
       [
         {
-          type: 'delete',
-          key: 'fullname',
-          candelete: row => row.id !== $session.user.id,
+          type: 'edit',
+          link: row => row.id === $session.user.id ? '/profile' : `/profile/${row.id}`,
         }
       ]
     :
       null;
-
-  const del = makeDeleter('users');
-
-  async function handleDelete(e) {
-    $session.loading++;
-    try {
-      await del(e.detail.id);
-      rows = await loadUsers(fetch);
-    } catch (err) {
-      error = err.message;
-    }
-    $session.loading--;
-  }
 </script>
 
 <main>
@@ -77,7 +58,6 @@
       {columns}
       {rows}
       {controls}
-      on:delete={handleDelete}
     />
   {/if}
 </main>

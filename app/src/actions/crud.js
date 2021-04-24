@@ -5,24 +5,18 @@ export function makeUpdater(type) {
       body: new URLSearchParams(values),
     });
     if (!res.ok) {
-      throw new Error('could not update');
+      throw new Error('Could not update');
     }
   }
 }
 
 export function handleUpdate(type) {
-  const updater = makeUpdater(type);
+  const update = makeUpdater(type);
   return async (e) => {
     const { onSuccess } = e.detail;
-    try {
-      await updater(e.detail);
-      if (onSuccess) {
-        onSuccess();
-      }
-      return null;
-    } catch (err) {
-      //console.log(err);
-      return err;
+    await update(e.detail);
+    if (onSuccess) {
+      onSuccess();
     }
   }
 }
@@ -33,7 +27,7 @@ export function makeDeleter(type) {
       method: 'DELETE',
     });
     if (!res.ok) {
-      throw new Error('could not delete');
+      throw new Error('Could not delete');
     }
   }
 }

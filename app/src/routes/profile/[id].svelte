@@ -23,9 +23,8 @@
 </script>
 
 <script>
-  import { session } from '$app/stores';
   import ProfilePage from '$components/ProfilePage.svelte';
-  export let user = $session.user;
+  export let user;
 </script>
 
 <main>

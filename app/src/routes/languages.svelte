@@ -50,7 +50,12 @@
 
   async function doUpdate(e) {
     $session.loading++;
-    await handleUpdate(e);
+    try {
+      error = null;
+      await handleUpdate(e);
+    } catch (err) {
+      error = err.message;
+    }
     $session.loading--;
   }
 </script>

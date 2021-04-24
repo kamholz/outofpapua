@@ -34,6 +34,9 @@ export function requireAuthLoad(handler) {
 }
 
 export async function updatePassword(userId, values) {
+  if (values.current_password === undefined) {
+    delete values.current_password;
+  }
   const res = await fetch(`/api/users/${userId}-password.json`, {
     method: 'POST',
     body: new URLSearchParams(values),
