@@ -16,7 +16,7 @@
 
   function handleEdit(e) {
     if (editingCell !== e.detail) {
-      editingCell?.blur();
+      editingCell?.dispatchEvent(new Event('deactivate'));
       editingCell = e.detail;
     }
   }
@@ -62,7 +62,7 @@
     }
 
     th, :global(td) {
-      padding-block: 3px;
+      padding-block: 6px;
       padding-inline: 10px;
     }
 

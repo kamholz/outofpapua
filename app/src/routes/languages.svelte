@@ -3,12 +3,24 @@
     const props = {
       editable: session.user !== null
     };
-    const res = await fetch('/api/languages.json');
-    if (!res.ok) {
+    const loaded = await loadLanguages(fetch, props.editable);
+    if (!loaded) {
       return { status: 500, error: 'Internal error' };
     }
-    props.rows = await res.json();
+    props.rows = loaded.rows;
+    props.parentSuggest = loaded.parentSuggest;
     return { props };
+  }
+
+  export async function loadLanguages(fetch, editable) {
+    const res = await fetch('/api/languages.json');
+    if (!res.ok) {
+      return null;
+    }
+    const rows = await res.json();
+    //const parentSuggest = editable ? rows.filter(v => v.is_proto) : null;
+    const parentSuggest = editable ? rows.filter(v => 1) : null;
+    return { rows, parentSuggest };
   }
 </script>
 
@@ -21,6 +33,7 @@
 
   export let rows;
   export let editable;
+  export let parentSuggest;
   let error = null;
 
   const columns = [
@@ -28,6 +41,7 @@
       key: 'name',
       title: 'Language',
       editable: true,
+      type: 'text',
     },
     {
       key: 'iso6393',
@@ -42,7 +56,12 @@
       key: 'parent_name',
       title: 'Parent',
       editable: true,
-      type: 'protolanguage',
+      type: 'autocomplete',
+      autocomplete: {
+        data: parentSuggest,
+        extract: item => item.name,
+      },
+      autocompleteValue: row => row.parent_name,
     }
   ];
 

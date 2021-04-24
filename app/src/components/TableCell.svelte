@@ -1,47 +1,60 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
+  import Typeahead from 'svelte-typeahead';
 
   export let row;
   export let column;
   export let editable;
   export let active = false;
-  let elt;
+  let td;
+  let autocompleteRef;
 
-  function mountEditCell(elt) {
-    dispatch('edit', elt);
-    elt.focus();
-
-    const sel = window.getSelection();
-    const range = new Range();
-    range.selectNode(elt.firstChild);
-    sel.empty();
-    sel.addRange(range);
+  async function mountEditCell(td) {
+    dispatch('edit', td);
+    if (column.type === 'text') {
+      td.focus();
+      const sel = window.getSelection();
+      const range = new Range();
+      range.selectNode(td.firstChild);
+      sel.empty();
+      sel.addRange(range);
+    } else if (column.type === 'autocomplete') {
+      await tick();
+      if (autocompleteRef) {
+        autocompleteRef.focus();
+        autocompleteRef.select();
+      }
+    }
   }
 
   async function handleClick(e) {
     active = true;
   }
 
-  function handleBlur(e) {
+  function handleDeactivate(e) {
     active = false;
-    const sel = window.getSelection();
-    sel.empty();
+    if (column.type === 'text') {
+      const sel = window.getSelection();
+      sel.empty();
+    }
   }
 
   function handleKeyDown(e) {
     if (e.keyCode === 13) { // enter
+      console.log('hello');
+      return;
       e.preventDefault();
-      const text = elt.textContent.trim();
+      const text = td.textContent.trim();
       if (text === row[column.key]) { // nothing to do
-        elt.blur();
+        td.blur();
       } else {
         dispatch('update', {
           id: row.id,
           values: { [column.key]: text },
           onSuccess: () => {
             row[column.key] = text;
-            elt.blur();
+            td.blur();
           }
         });
       }
@@ -74,13 +87,31 @@
       on:click={handleCheckbox}
     ></td>
   {:else if active}
-    <td
-      contenteditable="true"
-      bind:this={elt}
-      use:mountEditCell
-      on:blur={handleBlur}
-      on:keydown={handleKeyDown}
-    ><span>{column.value(row)}</span></td>
+    {#if column.type === 'autocomplete'}
+      <td
+        class="autocomplete"
+        bind:this={td}
+        use:mountEditCell
+        on:deactivate={handleDeactivate}
+      ><Typeahead
+        value={column.autocompleteValue?.(row) || "test"}
+        placeholder=""
+        focusAfterSelect
+        hideLabel
+        limit={10}
+        {...column.autocomplete}
+        bind:searchRef={autocompleteRef}
+      /></td>
+    {:else}
+      <td
+        contenteditable="true"
+        bind:this={td}
+        use:mountEditCell
+        on:deactivate={handleDeactivate}
+        on:blur={handleDeactivate}
+        on:keydown={handleKeyDown}
+      ><span>{column.value(row)}</span></td>
+    {/if}
   {:else}
     <td
       on:click={handleClick}
@@ -90,3 +121,32 @@
   <td><span>{column.value(row)}</span></td>
 {/if}
 
+<style lang="scss">
+  td.autocomplete {
+    padding-block: 0;
+
+    :global([data-svelte-typeahead]) {
+      :global(input) {
+        margin: 0;
+        padding-block: 4px;
+        padding-inline: 3px;
+        inline-size: 10em;
+      }
+
+      :global(ul) {
+        margin: 0;
+        margin-block-start: 3px;
+      }
+
+      :global(li) {
+        cursor: default;
+      }
+
+      :global(mark) {
+        color: unset;
+        background-color: unset;
+        font-weight: bold;
+      }
+    }
+  }
+</style>
