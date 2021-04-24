@@ -1,10 +1,10 @@
 <script>
   import { goto } from '$app/navigation';
   import { session } from '$app/stores';
-  import Form from '$components/Form.svelte';
-  import Alert from '$components/Alert.svelte';
   import * as crud from '$actions/crud';
   import { updatePassword } from '$actions/auth';
+  import Form from '$components/Form.svelte';
+  import Alert from '$components/Alert.svelte';
 
   export let user;
   export let admin = false;
@@ -124,7 +124,6 @@
   <Alert type="success" message={"Changes saved"} />
 {/if}
 <Form
-  method="POST"
   fields={fields1} 
   values={user}
   submitLabel="Save"
@@ -138,7 +137,6 @@
   <Alert type="success" message={"Password changed"} />
 {/if}
 <Form
-  method="POST"
   fields={fields2}
   values={passwordValues}
   submitLabel="Change"

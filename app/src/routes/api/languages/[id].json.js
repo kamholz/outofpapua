@@ -4,7 +4,7 @@ import { getFilteredParams } from '$lib/util';
 
 const updatable = new Set(['name','parent_id']);
 
-export const post = requireAuth(async ({ params, body }) => {
+export const put = requireAuth(async ({ params, body }) => {
   const toUpdate = getFilteredParams(body, updatable);
   if (!Object.keys(toUpdate).length) {
     return { status: 400 };

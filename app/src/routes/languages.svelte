@@ -26,10 +26,11 @@
 
 <script>
   import { session } from '$app/stores';
-  import Table from '$components/Table.svelte';
-  import Alert from '$components/Alert.svelte';
   import * as crud from '$actions/crud';
   import { boolean } from '$lib/util';
+  import Table from '$components/Table.svelte';
+  import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
 
   export let rows;
   export let editable;
@@ -65,9 +66,18 @@
     }
   ];
 
-  const handleUpdate = crud.handleUpdate('languages');
+  const fields = [
+    {
+      name: 'name',
+      label: 'Name',
+      type: 'text',
+      required: true,
+    }
+  ];
 
-  async function doUpdate(e) {
+  const doUpdate = crud.doUpdate('languages');
+
+  async function handleUpdate(e) {
     $session.loading++;
     try {
       error = null;
@@ -82,12 +92,26 @@
 <main>
   <h2>Languages</h2>
   <Alert type="error" message={error} />
-  {#if rows}
-    <Table
-      {columns}
-      {rows}
-      {editable}
-      on:update={doUpdate}
+  <Table
+    {columns}
+    {rows}
+    {editable}
+    on:update={handleUpdate}
+  />
+
+  {#if editable}
+    <h3>Create proto-language</h3>
+    <Form
+      {fields}
+      submitLabel="Create"
+      class="create-protolang"
+      on:submit={handleSubmit}
     />
   {/if}
 </main>
+
+<style>
+  :global(.create-protolang > div) {
+    grid-template-columns: 30% 70% !important;
+  }
+</style>

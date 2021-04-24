@@ -38,7 +38,7 @@ export async function updatePassword(userId, values) {
     delete values.current_password;
   }
   const res = await fetch(`/api/users/${userId}-password.json`, {
-    method: 'POST',
+    method: 'PUT',
     body: new URLSearchParams(values),
   });
   if (!res.ok) {

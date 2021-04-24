@@ -4,5 +4,5 @@ import { getFilteredParams } from '$lib/util';
 
 const updatable = new Set(['name','parent_id']);
 
-export const post = requireAuth(async ({ params, body }) => {
+export const put = requireAuth(async ({ params, body }) => {
 });

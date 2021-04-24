@@ -1,5 +1,5 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   
   export let action = null;
@@ -11,9 +11,15 @@
   export let submitLabel;
   export let style = null;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const form = e.currentTarget;
+    for (const field of fields) { // normalize whitespace
+      if (field.type === 'text') {
+        values[field.name] = values[field.name].trim();
+      }
+    }
+    await tick();
     dispatch('beforesubmit', { form, values });
     if (form.checkValidity()) {
       dispatch('submit', { form, values });
@@ -30,6 +36,7 @@
   {method}
   {style}
 >
+
   {#each fields as field}
     <div>
       {#if field.type === 'text'}

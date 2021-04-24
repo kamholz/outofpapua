@@ -9,7 +9,7 @@ export const get = requireAuth(async ({ params }) => {
   return user ? { body: user } : { status: 404 };
 });
 
-export const post = requireAuth(async ({ params, body, context }) => {
+export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };

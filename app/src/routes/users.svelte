@@ -15,9 +15,9 @@
 
 <script>
   import { session } from '$app/stores';
+  import { boolean } from '$lib/util';
   import Table from '$components/Table.svelte';
   import Alert from '$components/Alert.svelte';
-  import { boolean } from '$lib/util';
 
   export let rows;
   let error = null;

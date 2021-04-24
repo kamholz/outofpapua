@@ -2,7 +2,7 @@ import knex from '$lib/knex';
 import { requireAuth, checkUserPassword } from '$lib/auth';
 import { getParams } from '$lib/util';
 
-export const post = requireAuth(async ({ params, body, context }) => {
+export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
   body = getParams(body);
   if (!('new_password' in body) ||
