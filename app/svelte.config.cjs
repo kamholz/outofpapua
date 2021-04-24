@@ -1,7 +1,6 @@
 const path = require('path');
 const sveltePreprocess = require('svelte-preprocess');
 const node = require('@sveltejs/adapter-node');
-const pkg = require('./package.json');
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
