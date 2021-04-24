@@ -10,6 +10,23 @@
   let td;
   let autocompleteRef;
 
+  function isEditable(value, row) {
+    return typeof(value) === 'function'
+      ? value(row)
+      : value;
+  }
+
+  function handleCheckbox(e) {
+    const value = e.currentTarget.checked;
+    dispatch('update', {
+      id: row.id,
+      values: { [column.key]: value },
+      onSuccess: () => {
+        row[column.key] = value;
+      }
+    });
+  }
+
   async function mountEditCell(td) {
     dispatch('edit', td);
     if (column.type === 'text') {
@@ -28,11 +45,11 @@
     }
   }
 
-  async function handleClick(e) {
+  function handleClick() {
     active = true;
   }
 
-  function handleDeactivate(e) {
+  function handleDeactivate() {
     active = false;
     if (column.type === 'text') {
       const sel = window.getSelection();
@@ -40,10 +57,16 @@
     }
   }
 
+  function handleFocusOut() {
+    setTimeout(() => {
+      if (document.activeElement !== autocompleteRef) {
+        active = false;
+      }
+    }, 100);
+  }
+
   function handleKeyDown(e) {
     if (e.keyCode === 13) { // enter
-      console.log('hello');
-      return;
       e.preventDefault();
       const text = td.textContent.trim();
       if (text === row[column.key]) { // nothing to do
@@ -59,23 +82,6 @@
         });
       }
     }
-  }
-
-  function handleCheckbox(e) {
-    const value = e.currentTarget.checked;
-    dispatch('update', {
-      id: row.id,
-      values: { [column.key]: value },
-      onSuccess: () => {
-        row[column.key] = value;
-      }
-    });
-  }
-
-  function isEditable(value, row) {
-    return typeof(value) === 'function'
-      ? value(row)
-      : value;
   }
 </script>
 
@@ -93,6 +99,7 @@
         bind:this={td}
         use:mountEditCell
         on:deactivate={handleDeactivate}
+        on:focusout={handleFocusOut}
       ><Typeahead
         value={column.autocompleteValue?.(row) || "test"}
         placeholder=""
