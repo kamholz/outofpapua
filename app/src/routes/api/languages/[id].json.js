@@ -3,10 +3,10 @@ import { requireAuth } from '$lib/auth';
 import { getFilteredParams } from '$lib/util';
 
 const table = 'language';
-const updatable = new Set(['name','parent_id']);
+const allowed = new Set(['name','parent_id']);
 
 export const put = requireAuth(async ({ params, body }) => {
-  const toUpdate = getFilteredParams(body, updatable);
+  const toUpdate = getFilteredParams(body, allowed);
   if (!Object.keys(toUpdate).length) {
     return { status: 400 };
   }

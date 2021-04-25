@@ -1,13 +1,30 @@
 import knex from '$lib/knex';
-import { normalizeQuery } from '$lib/util';
+import { applyPageParams, applySortParams, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
+
+const allowed = new Set(['headword','gloss','page','pagesize','sort','asc']);
+const boolean = new Set(['asc','case']);
+const defaults = {
+  asc: true,
+  case: false,
+  page: 1,
+  pagesize: 100,
+  sort: 'language',
+};
+const sortCols = {
+  language: 'language.name',
+  headword: 'lower(entry.headword)',
+  pos: 'lower(entry.pos)',
+  gloss: 'lower(sense_gloss.txt)',
+  gloss_language: 'language2.name',
+};
 
 export async function get({ query }) {
-  query = normalizeQuery(query);
-  const caseSensitive = false;
-
+  query = getFilteredParams(normalizeQuery(query), allowed);
   if (!['headword','gloss'].some(attr => attr in query)) {
     return { status: 400 };
   }
+  setBooleanParams(query, boolean);
+  query = {...defaults, ...query};
 
   const q = knex('entry')
     .join('source', 'source.id', 'entry.source_id')
@@ -16,14 +33,16 @@ export async function get({ query }) {
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .join('language as language2', 'language2.id', 'sense_gloss.language_id')
     .select('language.name as language', 'entry.headword','entry.pos','sense_gloss.txt as gloss','language2.name as gloss_language')
-    .orderBy('language.name','entry.headword','entry.pos','sense_gloss.txt','language2.name');
 
   if ('headword' in query) {
-    q.where('entry.headword', ...match(query.headword, caseSensitive));
+    q.where('entry.headword', ...match(query.headword, query.case));
   }
   if ('gloss' in query) {
-    q.where('sense_gloss.txt', ...match(query.gloss, caseSensitive));
+    q.where('sense_gloss.txt', ...match(query.gloss, query.case));
   }
+
+  applyPageParams(q, query);
+  applySortParams(q, query, sortCols, ['language','headword','gloss','gloss_language']);
 
   return { body: await q };
 }

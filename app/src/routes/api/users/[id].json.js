@@ -3,7 +3,7 @@ import { requireAuth, getUser } from '$lib/auth';
 import { getFilteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
 
 const table = 'usr';
-const updatable = new Set(['username','fullname','admin']);
+const allowed = new Set(['username','fullname','admin']);
 
 export const get = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
@@ -15,7 +15,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
   }
-  const toUpdate = getFilteredParams(body, updatable);
+  const toUpdate = getFilteredParams(body, allowed);
   if ('admin' in toUpdate && !adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
