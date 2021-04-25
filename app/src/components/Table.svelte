@@ -32,9 +32,9 @@
     {/if}
   </thead>
   <tbody>
-    {#each rows as row}
+    {#each rows as row (row.id)}
       <tr>
-        {#each columns as column}
+        {#each columns as column (column.key)}
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
         {/each}
         {#if controls}

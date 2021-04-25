@@ -2,6 +2,7 @@ import knex from '$lib/knex';
 import { requireAuth, getUser } from '$lib/auth';
 import { getFilteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
 
+const table = 'usr';
 const updatable = new Set(['username','fullname','admin']);
 
 export const get = requireAuth(async ({ params }) => {
@@ -21,7 +22,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
   if (!Object.keys(toUpdate).length) {
     return { status: 400 };
   }
-  const ids = await knex('usr')
+  const ids = await knex(table)
     .where('id', params.id)
     .returning('id')
     .update(toUpdate);
@@ -33,7 +34,7 @@ export const del = requireAuth(async ({ params, context }) => {
   if (!adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
-  const ids = await knex('usr')
+  const ids = await knex(table)
     .where('id', params.id)
     .returning('id')
     .del();

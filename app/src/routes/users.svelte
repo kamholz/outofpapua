@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  import { session } from '$app/stores';
   import UserTable from '$components/tables/UserTable.svelte';
 
   export let rows;
@@ -22,5 +23,6 @@
   <h2>Users</h2>
   <UserTable
     {rows}
+    admin={$session.user.admin}
   />
 </main>

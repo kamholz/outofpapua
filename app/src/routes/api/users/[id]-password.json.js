@@ -1,6 +1,8 @@
 import knex from '$lib/knex';
 import { requireAuth, checkUserPassword } from '$lib/auth';
 
+const table = 'usr';
+
 export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
   if (!('new_password' in body) ||
@@ -12,7 +14,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
   if ('current_password' in body && !(await checkUserPassword(user.username, body.current_password))) {
     return { status: 400, body: { error: 'Current password is incorrect' } };
   }
-  const ids = await knex('usr')
+  const ids = await knex(table)
     .where('id', params.id)
     .returning('id')
     .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) });

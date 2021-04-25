@@ -4,6 +4,7 @@
   import Table from '$components/Table.svelte';
 
   export let rows;
+  export let admin = false;
 
   const columns = [
     {
@@ -21,7 +22,7 @@
     }
   ];
 
-  const controls = $session.user.admin
+  const controls = admin
     ?
       [
         {

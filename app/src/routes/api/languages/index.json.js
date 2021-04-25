@@ -2,11 +2,13 @@ import knex from '$lib/knex';
 import { requireAuth } from '$lib/auth';
 import { getFilteredParams } from '$lib/util';
 
+const table = 'language';
+
 export async function get() {
-  const q = knex('language')
+  const q = knex(table)
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
-    .select('language.id', 'language.name', 'language.iso6393', 'parent.name as parent_name', knex.raw('protolanguage.id is not null as is_proto'))
+    .select('language.id', 'language.name', 'language.iso6393', 'language.parent_id', 'parent.name as parent_name', knex.raw('protolanguage.id is not null as is_proto'))
     .whereNotNull('protolanguage.id')
     .orWhereExists(function () {
       this
@@ -27,7 +29,7 @@ export const post = requireAuth(async ({ body }) => {
   }
   const rows = await
     knex.with('inserted', q => {
-      q.from('language')
+      q.from(table)
       .returning('id')
       .insert(params);
     })

@@ -69,6 +69,9 @@
     if (e.keyCode === 13) { // enter
       e.preventDefault();
       const text = td.textContent.trim();
+      if (text === "") {
+        text = null;
+      }
       if (text === row[column.key]) { // nothing to do
         handleDeactivate();
       } else {
@@ -86,7 +89,7 @@
 
   function handleAutocompleteSelect(e) {
     const { selected, original } = e.detail;
-    const { initialValue, updateKey, updateValue } = column.autocomplete;
+    const { initialValue, serializedValue, updateKey, updateValue } = column.autocomplete;
     if (selected === initialValue(row)) { // nothing to do
       handleDeactivate();
     } else {
@@ -95,7 +98,7 @@
         id: row.id,
         values: { [updateKey]: updatedValue },
         onSuccess: () => {
-          row[column.key] = selected;
+          row[column.key] = serializedValue(selected);
           handleDeactivate();
         }
       });
@@ -119,6 +122,7 @@
         on:deactivate={handleDeactivate}
         on:focusout={handleFocusOut}
       ><Typeahead
+        data={column.autocomplete.getData()}
         value={column.autocomplete.initialValue?.(row) || ""}
         placeholder=""
         focusAfterSelect

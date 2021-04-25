@@ -3,11 +3,11 @@
     const props = {
       editable: session.user !== null
     };
-    const loaded = await loadLanguages(fetch, props.editable);
-    if (!loaded) {
+    const rows = await loadLanguages(fetch, props.editable);
+    if (!rows) {
       return { status: 500, error: 'Internal error' };
     }
-    Object.assign(props, loaded);
+    props.rows = rows;
     return { props };
   }
 
@@ -16,9 +16,7 @@
     if (!res.ok) {
       return null;
     }
-    const rows = await res.json();
-    const parentSuggest = editable ? rows.filter(v => v.is_proto) : null;
-    return { rows, parentSuggest };
+    return await res.json();
   }
 </script>
 
@@ -28,10 +26,9 @@
 
   export let rows;
   export let editable;
-  export let parentSuggest;
 
   async function handleRefresh() {
-    ({ rows, parentSuggest } = await loadLanguages(fetch, editable));
+    rows = await loadLanguages(fetch, editable);
   }
 </script>
 
@@ -40,7 +37,7 @@
   <LanguageTable 
     {rows}
     {editable}
-    {parentSuggest}
+    on:refresh={handleRefresh}
   />
 
   {#if editable}

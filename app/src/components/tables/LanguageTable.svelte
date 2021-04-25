@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
   import { boolean } from '$lib/util';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
@@ -7,7 +9,6 @@
 
   export let editable;
   export let rows;
-  export let parentSuggest;
   let error = null;
 
   const columns = [
@@ -33,23 +34,50 @@
       type: 'autocomplete',
       autocomplete: {
         component: {
-          data: parentSuggest,
           extract: item => item.name,
+          filter: item => !item.is_proto,
         },
+        getData: () => rows,
         initialValue: row => row.parent_name ?? "",
+        serializedValue: value => value === "" ? null : value,
         updateKey: 'parent_id',
         updateValue: item => item.id,
       },
     }
   ];
 
+  const controls = editable
+    ?
+      [
+        {
+          type: 'delete',
+          candelete: row => row.is_proto,
+          confirm: row => confirm(`Are you sure you want to delete "${row.name}"?`),
+        }
+      ]
+    :
+      null;
+
   const updateFromCell = crud.updateFromCell('languages');
+  const del = crud.makeDeleter('languages');
 
   async function handleUpdate(e) {
     $pageLoading++;
     try {
       error = null;
       await updateFromCell(e);
+    } catch (err) {
+      error = err.message;
+    }
+    $pageLoading--;
+  }
+
+  async function handleDelete(e) {
+    $pageLoading++;
+    try {
+      error = null;
+      await del(e.detail.id);
+      dispatch('refresh');
     } catch (err) {
       error = err.message;
     }
@@ -62,5 +90,7 @@
   {columns}
   {rows}
   {editable}
+  {controls}
   on:update={handleUpdate}
+  on:delete={handleDelete}
 />
