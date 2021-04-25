@@ -62,7 +62,7 @@
       if (document.activeElement !== autocompleteRef) {
         active = false;
       }
-    }, 100);
+    }, 300);
   }
 
   function handleKeyDown(e) {
@@ -70,17 +70,35 @@
       e.preventDefault();
       const text = td.textContent.trim();
       if (text === row[column.key]) { // nothing to do
-        td.blur();
+        handleDeactivate();
       } else {
         dispatch('update', {
           id: row.id,
           values: { [column.key]: text },
           onSuccess: () => {
             row[column.key] = text;
-            td.blur();
+            handleDeactivate();
           }
         });
       }
+    }
+  }
+
+  function handleAutocompleteSelect(e) {
+    const { selected, original } = e.detail;
+    const { initialValue, updateKey, updateValue } = column.autocomplete;
+    if (selected === initialValue(row)) { // nothing to do
+      handleDeactivate();
+    } else {
+      const updatedValue = original ? updateValue(original) : null;
+      dispatch('update', {
+        id: row.id,
+        values: { [updateKey]: updatedValue },
+        onSuccess: () => {
+          row[column.key] = selected;
+          handleDeactivate();
+        }
+      });
     }
   }
 </script>
@@ -101,13 +119,14 @@
         on:deactivate={handleDeactivate}
         on:focusout={handleFocusOut}
       ><Typeahead
-        value={column.autocompleteValue?.(row) || "test"}
+        value={column.autocomplete.initialValue?.(row) || ""}
         placeholder=""
         focusAfterSelect
         hideLabel
         limit={10}
-        {...column.autocomplete}
+        {...column.autocomplete.component}
         bind:searchRef={autocompleteRef}
+        on:select={handleAutocompleteSelect}
       /></td>
     {:else}
       <td

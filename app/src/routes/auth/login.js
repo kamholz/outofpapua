@@ -1,8 +1,6 @@
 import * as auth from '$lib/auth';
-import { getParams } from '$lib/util';
 
 export async function post({ body }) {
-  body = getParams(body);
   if (!('username' in body && 'password' in body)) {
     return { status: 400 };
   }

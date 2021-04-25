@@ -1,10 +1,8 @@
 import knex from '$lib/knex';
 import { requireAuth, checkUserPassword } from '$lib/auth';
-import { getParams } from '$lib/util';
 
 export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
-  body = getParams(body);
   if (!('new_password' in body) ||
     (!user.admin && user.id != params.id) || // only admins can modify other user's password
     ('current_password' in body === (user.admin && user.id != params.id)) // opposite of logical xor

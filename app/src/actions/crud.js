@@ -2,7 +2,10 @@ export function makeCreater(type) {
   return async function(values) {
     const res = await fetch(`/api/${type}.json`, {
       method: 'POST',
-      body: new URLSearchParams(values),
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(values),
     });
     if (!res.ok) {
       throw new Error('Could not create');
@@ -15,7 +18,10 @@ export function makeUpdater(type) {
   return async function({ id, values }) {
     const res = await fetch(`/api/${type}/${id}.json`, {
       method: 'PUT',
-      body: new URLSearchParams(values),
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(values),
     });
     if (!res.ok) {
       throw new Error('Could not update');

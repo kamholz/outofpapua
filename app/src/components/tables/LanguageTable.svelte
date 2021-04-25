@@ -32,10 +32,14 @@
       editable: true,
       type: 'autocomplete',
       autocomplete: {
-        data: parentSuggest,
-        extract: item => item.name,
+        component: {
+          data: parentSuggest,
+          extract: item => item.name,
+        },
+        initialValue: row => row.parent_name ?? "",
+        updateKey: 'parent_id',
+        updateValue: item => item.id,
       },
-      autocompleteValue: row => row.parent_name,
     }
   ];
 

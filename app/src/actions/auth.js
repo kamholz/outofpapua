@@ -3,7 +3,10 @@ import { session } from '$app/stores';
 export async function login(username, password) {
   const res = await fetch('/auth/login', {
     method: 'POST',
-    body: new URLSearchParams({ username, password })
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ username, password })
   });
 
   if (res.ok) {
@@ -39,7 +42,10 @@ export async function updatePassword(userId, values) {
   }
   const res = await fetch(`/api/users/${userId}-password.json`, {
     method: 'PUT',
-    body: new URLSearchParams(values),
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(values),
   });
   if (!res.ok) {
     let error;

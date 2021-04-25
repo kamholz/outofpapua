@@ -17,8 +17,7 @@
       return null;
     }
     const rows = await res.json();
-    //const parentSuggest = editable ? rows.filter(v => v.is_proto) : null;
-    const parentSuggest = editable ? rows.filter(v => 1) : null;
+    const parentSuggest = editable ? rows.filter(v => v.is_proto) : null;
     return { rows, parentSuggest };
   }
 </script>

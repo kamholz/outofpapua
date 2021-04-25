@@ -27,16 +27,12 @@ export function boolean(value) {
   return value ? 'yes' : 'no';
 }
 
-export function getParams(formData) {
-  return formData ? Object.fromEntries(formData) : {};
-}
-
-export function getFilteredParams(formData, set) {
-  if (!formData) {
+export function getFilteredParams(body, set) {
+  if (!body) {
     return {};
   }
   const params = {};
-  for (const [key,value] of formData.entries()) {
+  for (const [key,value] of Object.entries(body)) {
     if (set.has(key)) {
       params[key] = value;
     }
