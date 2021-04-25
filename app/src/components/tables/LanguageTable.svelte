@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { boolean } from '$lib/util';
+  import { boolean, nullify, stringify } from '$lib/util';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
   import Alert from '$components/Alert.svelte';
@@ -33,15 +33,15 @@
       editable: true,
       type: 'autocomplete',
       autocomplete: {
-        component: {
+        data: rows,
+        initialValue: row => stringify(row.parent_name),
+        serializedValue: nullify,
+        updateKey: 'parent_id',
+        updateValue: item => item.id,
+        restprops: {
           extract: item => item.name,
           filter: item => !item.is_proto,
         },
-        getData: () => rows,
-        initialValue: row => row.parent_name ?? "",
-        serializedValue: value => value === "" ? null : value,
-        updateKey: 'parent_id',
-        updateValue: item => item.id,
       },
     }
   ];

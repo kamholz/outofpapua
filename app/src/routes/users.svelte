@@ -1,4 +1,5 @@
 <script context="module">
+  import { writable } from 'svelte/store';
   import { requireAuthLoad } from '$actions/auth';
 
   export const load = requireAuthLoad(async ({ fetch, session }) => {
@@ -7,7 +8,7 @@
       return { status: 500, error: 'Internal error' };
     }
     return {
-      props: { rows: await res.json() }
+      props: { rows: writable(await res.json()) }
     };
   });
 </script>

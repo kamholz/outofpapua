@@ -1,4 +1,6 @@
 <script context="module">
+  import { writable } from 'svelte/store';
+
   export async function load({ fetch, session }) {
     const props = {
       editable: session.user !== null
@@ -7,7 +9,7 @@
     if (!res.ok) {
       return { status: 500, error: 'Internal error' };
     }
-    props.rows = await res.json();
+    props.rows = writable(await res.json());
     return { props };
   }
 </script>

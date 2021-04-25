@@ -104,7 +104,7 @@ export function makeExpiredCookies() {
 }
 
 function makeExpiredCookie(name) {
-  return cookie.serialize(name, '', {
+  return cookie.serialize(name, "", {
     expires: new Date(0),
     httpOnly: true,
     path: '/',

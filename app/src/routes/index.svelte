@@ -1,4 +1,5 @@
 <script context="module">
+  import { writable } from 'svelte/store';
   import { normalizeQuery } from '$lib/util';
 
   export async function load({ page, fetch }) {
@@ -10,7 +11,7 @@
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
       }
-      props.rows = await res.json();
+      props.rows = writable(await res.json());
     }
     return { props };
   }

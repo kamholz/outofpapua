@@ -10,8 +10,7 @@ export function normalizeQuery(urlSearchParams) {
 }
 
 function normalizeValue(txt) {
-  txt = txt.trim();
-  return txt === '' ? null : txt;
+  return nullify(txt.trim());
 }
 
 export function pageUrl(page) {
@@ -46,4 +45,12 @@ export function adminOrSelf(loggedInUser, userId) {
 
 export function adminNotSelf(loggedInUser, userId) {
   return loggedInUser.admin && loggedInUser.id != userId;
+}
+
+export function nullify(txt) {
+  return txt === "" ? null : txt;
+}
+
+export function stringify(txt) {
+  return txt ?? "";
 }

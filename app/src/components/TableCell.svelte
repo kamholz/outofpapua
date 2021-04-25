@@ -2,18 +2,19 @@
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import Typeahead from 'svelte-typeahead';
+  import { nullify } from '$lib/util';
 
   export let row;
   export let column;
   export let editable;
   export let active = false;
-  let td;
   let autocompleteRef;
+  const dataStore = column.autocomplete?.data;
 
-  function isEditable(value, row) {
-    return typeof(value) === 'function'
-      ? value(row)
-      : value;
+  function isEditable(row) {
+    return typeof(column.editable) === 'function'
+      ? column.editable(row)
+      : column.editable;
   }
 
   function handleCheckbox(e) {
@@ -68,10 +69,7 @@
   function handleKeyDown(e) {
     if (e.keyCode === 13) { // enter
       e.preventDefault();
-      const text = td.textContent.trim();
-      if (text === "") {
-        text = null;
-      }
+      const text = nullify(e.currentTarget.textContent.trim());
       if (text === row[column.key]) { // nothing to do
         handleDeactivate();
       } else {
@@ -106,7 +104,7 @@
   }
 </script>
 
-{#if editable && isEditable(column.editable, row)}
+{#if editable && isEditable(row)}
   {#if column.type === 'checkbox'}
     <td><input
       type="checkbox"
@@ -117,38 +115,44 @@
     {#if column.type === 'autocomplete'}
       <td
         class="autocomplete"
-        bind:this={td}
         use:mountEditCell
         on:deactivate={handleDeactivate}
         on:focusout={handleFocusOut}
-      ><Typeahead
-        data={column.autocomplete.getData()}
-        value={column.autocomplete.initialValue?.(row) || ""}
-        placeholder=""
-        focusAfterSelect
-        hideLabel
-        limit={10}
-        {...column.autocomplete.component}
-        bind:searchRef={autocompleteRef}
-        on:select={handleAutocompleteSelect}
-      /></td>
+      >
+        <Typeahead
+          data={$dataStore}
+          value={column.autocomplete.initialValue?.(row) ?? ""}
+          placeholder=""
+          focusAfterSelect
+          hideLabel
+          limit={10}
+          {...column.autocomplete.restprops}
+          bind:searchRef={autocompleteRef}
+          on:select={handleAutocompleteSelect}
+        />
+      </td>
     {:else}
       <td
         contenteditable="true"
-        bind:this={td}
         use:mountEditCell
         on:deactivate={handleDeactivate}
         on:blur={handleDeactivate}
         on:keydown={handleKeyDown}
-      ><span>{column.value(row)}</span></td>
+      >
+        <span>{column.value(row)}</span>
+      </td>
     {/if}
   {:else}
     <td
       on:click={handleClick}
-    ><span>{column.value(row)}</span></td>
+    >
+      <span>{column.value(row)}</span>
+    </td>
   {/if}
 {:else}
-  <td><span>{column.value(row)}</span></td>
+  <td>
+    <span>{column.value(row)}</span>
+  </td>
 {/if}
 
 <style lang="scss">

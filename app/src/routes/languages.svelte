@@ -1,17 +1,19 @@
 <script context="module">
+  import { writable } from 'svelte/store';
+
   export async function load({ fetch, session }) {
     const props = {
       editable: session.user !== null
     };
-    const rows = await loadLanguages(fetch, props.editable);
+    const rows = await loadLanguages(fetch);
     if (!rows) {
       return { status: 500, error: 'Internal error' };
     }
-    props.rows = rows;
+    props.rows = writable(rows);
     return { props };
   }
 
-  export async function loadLanguages(fetch, editable) {
+  export async function loadLanguages(fetch) {
     const res = await fetch('/api/languages.json');
     if (!res.ok) {
       return null;
@@ -28,7 +30,7 @@
   export let editable;
 
   async function handleRefresh() {
-    rows = await loadLanguages(fetch, editable);
+    $rows = await loadLanguages(fetch);
   }
 </script>
 

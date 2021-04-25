@@ -1,16 +1,17 @@
 <script>
+  import { stringify } from '$lib/util';
   import TableCell from '$components/TableCell.svelte';
   import TableControls from '$components/TableControls.svelte';
 
   export let columns;
   export let rows;
   export let editable = false;
-  let editingCell = null;
   export let controls = null;
+  let editingCell = null;
 
   for (const column of columns) {
     if (!('value' in column)) {
-      column.value = row => row[column.key] ?? '';
+      column.value = row => stringify(row[column.key]);
     }
   }
 
@@ -32,7 +33,7 @@
     {/if}
   </thead>
   <tbody>
-    {#each rows as row (row.id)}
+    {#each $rows as row (row.id)}
       <tr>
         {#each columns as column (column.key)}
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />

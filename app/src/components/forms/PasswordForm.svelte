@@ -37,7 +37,7 @@
 
   function handleValidation(e) {
     const { form } = e.detail;
-    form.elements.new_confirm.setCustomValidity('');
+    form.elements.new_confirm.setCustomValidity("");
   }
 
   async function handleUpdate(e) {

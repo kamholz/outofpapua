@@ -16,7 +16,7 @@ export function get({ headers, query, host }) {
         headers: {}
       };
 
-  const cookies = cookie.parse(headers.cookie || '');
+  const cookies = cookie.parse(headers.cookie || "");
   const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
   if (newCookie) {
     output.headers['set-cookie'] = newCookie;

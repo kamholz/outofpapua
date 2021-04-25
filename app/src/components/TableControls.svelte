@@ -6,7 +6,7 @@
 
   export let row;
   export let controls;
-  let scale = 0.9;
+  const scale = 0.9;
 
   const iconMap = {
     delete: faTrash,
