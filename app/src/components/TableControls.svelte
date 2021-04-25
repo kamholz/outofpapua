@@ -13,6 +13,13 @@
     edit: faEdit,
   };
 
+  for (const control of controls) {
+    const can = `can${control.type}`;
+    if (!(can in control)) {
+      control[can] = () => true;
+    }
+  }
+
   function handleClick(control) {
     if (control.type !== 'delete' || control.confirm(row)) {
       dispatch(control.type, row);
@@ -22,7 +29,7 @@
 
 <td>
 {#each controls as control}
-  {#if !control[`can${control.type}`] || control[`can${control.type}`](row)}
+  {#if control[`can${control.type}`](row)}
     {#if control.link}
       <a href={control.link(row)}>
         <Icon data={iconMap[control.type]} {scale} />
