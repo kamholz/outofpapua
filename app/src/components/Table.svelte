@@ -7,7 +7,7 @@
   export let rows;
   export let editable = false;
   export let controls = null;
-  let editingCell = null;
+  let editingCell;
 
   for (const column of columns) {
     if (!('value' in column)) {
