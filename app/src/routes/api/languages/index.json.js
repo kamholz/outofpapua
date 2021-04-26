@@ -34,9 +34,9 @@ export async function get({ query }) {
     );
 
   if ('borrowedfrom' in query) {
-    q.whereRaw('language.include_in_borrowed_from_list');
+    q.whereRaw('language.flag_borrowed_from');
   } else {
-    q.whereRaw('language.include_in_language_list');
+    q.whereRaw('language.flag_language_list');
   }
 
   applySortParams(q, query, sortCols, ['name']);
