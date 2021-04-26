@@ -30,6 +30,7 @@
     padding-block: 0.35em;
     padding-inline: 0.75em;
     background-color: $lightgray;
+    border-radius: 3px;
   }
 
   li.active {
