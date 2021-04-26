@@ -17,7 +17,11 @@ export async function get() {
         .where('source.language_id', knex.ref('language.id'))
     })
     .orderBy(knex.raw('lower(language.name)'));
-  return { body: await q };
+  return {
+    body: {
+      rows: await q,
+    }
+  };
 }
 
 const required = new Set(['name']);

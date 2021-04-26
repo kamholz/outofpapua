@@ -18,7 +18,8 @@
     if (!res.ok) {
       return null;
     }
-    return await res.json();
+    const json = await res.json();
+    return json.rows;
   }
 </script>
 

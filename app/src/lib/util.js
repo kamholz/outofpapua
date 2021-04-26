@@ -19,6 +19,20 @@ export function normalizeQuery(urlSearchParams) {
   return query;
 }
 
+export function serializeQuery(query) {
+  const newQuery = {};
+  for (const [key,value] of Object.entries(query)) {
+    if (value === true) {
+      newQuery[key] = '1';
+    } else if (value === false) {
+      newQuery[key] = '0';
+    } else {
+      newQuery[key] = value;
+    }
+  }
+  return new URLSearchParams(newQuery);
+}
+
 export function getFilteredParams(body, set) {
   if (!body) {
     return {};

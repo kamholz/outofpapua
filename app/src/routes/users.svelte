@@ -7,8 +7,9 @@
     if (!res.ok) {
       return { status: 500, error: 'Internal error' };
     }
+    const json = await res.json();
     return {
-      props: { rows: writable(await res.json()) }
+      props: { rows: writable(json.rows) }
     };
   });
 </script>

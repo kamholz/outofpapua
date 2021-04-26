@@ -7,5 +7,9 @@ export const get = requireAuth(async () => {
   const q = knex(table)
     .select('id','username','fullname','admin')
     .orderBy('fullname');  
-  return { body: await q };
+  return {
+    body: {
+      rows: await q,
+    }
+  };
 });

@@ -32,7 +32,13 @@ export async function get({ query }) {
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .join('language as language2', 'language2.id', 'sense_gloss.language_id')
-    .select('language.name as language', 'entry.headword','entry.pos','sense_gloss.txt as gloss','language2.name as gloss_language')
+    .select(
+      'language.name as language',
+      'entry.headword','entry.pos',
+      'sense_gloss.txt as gloss',
+      'language2.name as gloss_language',
+      knex.raw("(entry.id || '|' || sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),
+    );
 
   if ('headword' in query) {
     q.where('entry.headword', ...match(query.headword, query.case));
@@ -44,7 +50,12 @@ export async function get({ query }) {
   applyPageParams(q, query);
   applySortParams(q, query, sortCols, ['language','headword','gloss','gloss_language']);
 
-  return { body: await q };
+  return {
+    body: {
+      query,
+      rows: await q,
+    }
+  };
 }
 
 function match(value, caseSensitive) {

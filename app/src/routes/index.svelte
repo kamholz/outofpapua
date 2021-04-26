@@ -11,7 +11,9 @@
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
       }
-      props.rows = writable(await res.json());
+      const json = await res.json();
+      props.rows = writable(json.rows);
+      props.query = json.query;
     }
     return { props };
   }
@@ -34,7 +36,8 @@
   {#if rows}
     <h3>Search results</h3>
     <SearchTable
-      {rows} 
+      {rows}
+      {query}
     />
   {/if}
 </main>
