@@ -3,7 +3,7 @@ import { requireAuth } from '$lib/auth';
 import { getFilteredParams } from '$lib/util';
 
 const table = 'language';
-const allowed = new Set(['name','parent_id']);
+const allowed = new Set(['name','parent_id','note']);
 
 export const put = requireAuth(async ({ params, body }) => {
   const toUpdate = getFilteredParams(body, allowed);

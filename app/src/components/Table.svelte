@@ -2,12 +2,14 @@
   import Icon from 'svelte-awesome';
   import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
   import { serializeQuery, stringify } from '$lib/util';
+  import Pagination from '$components/Pagination.svelte';
   import TableCell from '$components/TableCell.svelte';
   import TableControls from '$components/TableControls.svelte';
 
   export let columns;
   export let rows;
   export let query = null;
+  export let numPages = null;
   export let sortable = false;
   export let editable = false;
   export let controls = null;
@@ -34,9 +36,13 @@
       sortQuery.sort = key;
       sortQuery.asc = true;
     }
-    return '?' + serializeQuery(sortQuery);
+    return serializeQuery(sortQuery);
   }
 </script>
+
+{#if 0 && numPages}
+  <Pagination {query} {numPages} />
+{/if}
 
 <table>
   <thead>
@@ -46,7 +52,7 @@
           <a href={getSortQuery(column.key, query)}>
             {column.title}
             {#if column.key === query.sort}
-              <Icon data={query.asc ? faCaretDown : faCaretUp} />
+              <Icon data={query.asc ? faCaretUp : faCaretDown} />
             {/if}
           </a>
         {:else}
@@ -71,6 +77,10 @@
     {/each}
   </tbody>
 </table>
+
+{#if 0 && numPages}
+  <Pagination {query} {numPages} />
+{/if}
 
 <style lang="scss">
   @import '../vars.scss';

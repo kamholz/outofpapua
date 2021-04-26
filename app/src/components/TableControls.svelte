@@ -45,7 +45,6 @@
 
 <style>
   td :global(.fa-icon) {
-    vertical-align: middle;
     color: #034f84;
   }
 

@@ -7,8 +7,9 @@
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
 
-  export let editable;
   export let rows;
+  export let query;
+  export let editable;
   let error = null;
 
   const columns = [
@@ -20,7 +21,7 @@
     },
     {
       key: 'iso6393',
-      title: 'ISO 639-3 Code',
+      title: 'ISO 639-3',
     },
     {
       key: 'is_proto',
@@ -89,8 +90,10 @@
 <Table
   {columns}
   {rows}
+  {query}
   {editable}
   {controls}
+  sortable
   on:update={handleUpdate}
   on:delete={handleDelete}
 />

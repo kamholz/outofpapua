@@ -14,6 +14,7 @@
       const json = await res.json();
       props.rows = writable(json.rows);
       props.query = json.query;
+      props.numPages = json.numPages;
     }
     return { props };
   }
@@ -25,6 +26,7 @@
 
   export let rows = null;
   export let query;
+  export let numPages;
 </script>
 
 <main>
@@ -38,6 +40,7 @@
     <SearchTable
       {rows}
       {query}
+      {numPages}
     />
   {/if}
 </main>

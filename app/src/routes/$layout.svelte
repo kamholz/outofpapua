@@ -1,4 +1,5 @@
 <script>
+  import '../app.scss';
   import Icon from 'svelte-awesome';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -23,7 +24,3 @@
 <NavBar />
 
 <slot />
-
-<style>
-  @import '../app.scss';
-</style>

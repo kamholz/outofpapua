@@ -3,11 +3,16 @@
 
   export let rows;
   export let query;
+  export let numPages;
 
   const columns = [
     {
       key: 'language',
       title: 'Language',
+    },
+    {
+      key: 'source',
+      title: 'Source',
     },
     {
       key: 'headword',
@@ -32,5 +37,6 @@
   {columns}
   {rows}
   {query}
+  {numPages}
   sortable
 />

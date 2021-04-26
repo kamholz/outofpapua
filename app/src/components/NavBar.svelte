@@ -6,7 +6,7 @@
   <ul>
     <li class:active={$page.path === '/'}><a href="/">Search</a></li>
     <li class:active={$page.path === '/languages'}><a href="/languages">Languages</a></li>
-    <li class:active={$page.path === '/dictionaries'}><a href="/dictionaries">Dictionaries</a></li>
+    <li class:active={$page.path === '/sources'}><a href="/sources">Sources</a></li>
     {#if $session.user}
       <li class:active={$page.path === '/users'}><a href="/users">Users</a></li>
     {/if}

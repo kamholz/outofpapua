@@ -1,17 +1,17 @@
 import knex from '$lib/knex';
-import { applyPageParams, applySortParams, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
+import { applyPageParams, applySortParams, getCount, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
 
 const allowed = new Set(['headword','gloss','page','pagesize','sort','asc']);
-const boolean = new Set(['asc','case']);
+const boolean = new Set(['asc']);
 const defaults = {
   asc: true,
-  case: false,
   page: 1,
   pagesize: 100,
   sort: 'language',
 };
 const sortCols = {
   language: 'language.name',
+  source: 'source.title',
   headword: 'lower(entry.headword)',
   pos: 'lower(entry.pos)',
   gloss: 'lower(sense_gloss.txt)',
@@ -32,36 +32,33 @@ export async function get({ query }) {
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .join('language as language2', 'language2.id', 'sense_gloss.language_id')
-    .select(
-      'language.name as language',
-      'entry.headword','entry.pos',
-      'sense_gloss.txt as gloss',
-      'language2.name as gloss_language',
-      knex.raw("(entry.id || '|' || sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),
-    );
 
   if ('headword' in query) {
-    q.where('entry.headword', ...match(query.headword, query.case));
+    q.where('entry.headword', '~*', query.headword);
   }
   if ('gloss' in query) {
-    q.where('sense_gloss.txt', ...match(query.gloss, query.case));
+    q.where('sense_gloss.txt', '~*', query.gloss);
   }
 
-  applyPageParams(q, query);
+  const count = await getCount(q);
+
+  q.select(
+    'language.name as language',
+    'source.reference as source',
+    'entry.headword','entry.pos',
+    'sense_gloss.txt as gloss',
+    'language2.name as gloss_language',
+    knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),
+  );
+
+  const numPages = applyPageParams(q, query, count);
   applySortParams(q, query, sortCols, ['language','headword','gloss','gloss_language']);
 
   return {
     body: {
       query,
+      numPages,
       rows: await q,
     }
   };
-}
-
-function match(value, caseSensitive) {
-  if (caseSensitive) {
-    return ['~', value];
-  } else {
-    return ['~*', value];
-  }
 }

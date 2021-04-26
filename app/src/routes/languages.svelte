@@ -1,25 +1,27 @@
 <script context="module">
   import { writable } from 'svelte/store';
+  import { normalizeQuery, optionalQuery, serializeQuery } from '$lib/util';
 
-  export async function load({ fetch, session }) {
+  export async function load({ fetch, page: { query }, session }) {
     const props = {
-      editable: session.user !== null
+      editable: session.user !== null,
+      query: normalizeQuery(query),
     };
-    const rows = await loadLanguages(fetch);
-    if (!rows) {
+    const json = await loadLanguages(fetch, optionalQuery(query));
+    if (!json) {
       return { status: 500, error: 'Internal error' };
     }
-    props.rows = writable(rows);
+    props.rows = writable(json.rows);
+    props.query = json.query;
     return { props };
   }
 
-  export async function loadLanguages(fetch) {
-    const res = await fetch('/api/languages.json');
+  export async function loadLanguages(fetch, queryStr) {
+    const res = await fetch('/api/languages.json' + queryStr);
     if (!res.ok) {
       return null;
     }
-    const json = await res.json();
-    return json.rows;
+    return await res.json();
   }
 </script>
 
@@ -28,10 +30,11 @@
   import CreateProtoLanguageForm from '$components/forms/CreateProtoLanguageForm.svelte';
 
   export let rows;
+  export let query;
   export let editable;
 
   async function handleRefresh() {
-    $rows = await loadLanguages(fetch);
+    $rows = (await loadLanguages(fetch, serializeQuery(query))).rows;
   }
 </script>
 
@@ -39,6 +42,7 @@
   <h2>Languages</h2>
   <LanguageTable 
     {rows}
+    {query}
     {editable}
     on:refresh={handleRefresh}
   />

@@ -2,6 +2,7 @@
   import Table from '$components/Table.svelte';
 
   export let rows;
+  export let query;
   export let editable;
 
   const columns = [
@@ -24,6 +25,8 @@
 
 <Table
   {columns}
-  {rows} 
-  {editable} 
+  {rows}
+  {query}
+  {editable}
+  sortable
 />

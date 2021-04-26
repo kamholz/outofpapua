@@ -1,24 +1,49 @@
 import knex from '$lib/knex';
 import { requireAuth } from '$lib/auth';
-import { getFilteredParams } from '$lib/util';
+import { applySortParams, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
 
 const table = 'language';
 
-export async function get() {
+const boolean = new Set(['asc']);
+const defaults = {
+  asc: true,
+  sort: 'name',
+};
+const sortCols = {
+  name: 'lower(language.name)',
+  iso6393: 'language.iso6393',
+  is_proto: 'protolanguage.id is not null',
+  parent_name: 'parent.name',
+};
+
+export async function get({ query }) {
+  query = normalizeQuery(query);
+  setBooleanParams(query, boolean);
+  query = {...defaults, ...query};
+
   const q = knex(table)
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
-    .select('language.id', 'language.name', 'language.iso6393', 'language.parent_id', 'parent.name as parent_name', knex.raw('protolanguage.id is not null as is_proto'))
-    .whereNotNull('protolanguage.id')
-    .orWhereExists(function () {
-      this
-        .select('*')
-        .from('source')
-        .where('source.language_id', knex.ref('language.id'))
-    })
-    .orderBy(knex.raw('lower(language.name)'));
+    .select(
+      'language.id',
+      'language.name',
+      'language.iso6393',
+      'language.parent_id',
+      'parent.name as parent_name',
+      knex.raw('protolanguage.id is not null as is_proto')
+    );
+
+  if ('borrowedfrom' in query) {
+    q.whereRaw('language.include_in_borrowed_from_list');
+  } else {
+    q.whereRaw('language.include_in_language_list');
+  }
+
+  applySortParams(q, query, sortCols, ['name']);
+
   return {
     body: {
+      query,
       rows: await q,
     }
   };
