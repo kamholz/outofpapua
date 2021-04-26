@@ -1,6 +1,7 @@
-import knex from '$lib/knex';
+import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 import { getFilteredParams } from '$lib/util';
+import errors from '$lib/errors';
 
 const table = 'language';
 const allowed = new Set(['name','parent_id','note']);
@@ -8,19 +9,29 @@ const allowed = new Set(['name','parent_id','note']);
 export const put = requireAuth(async ({ params, body }) => {
   const toUpdate = getFilteredParams(body, allowed);
   if (!Object.keys(toUpdate).length) {
-    return { status: 400 };
+    return { status: 400, body: { error: errors.noupdatable } };
   }
-  const rows = await knex(table)
-    .where('id', params.id)
-    .returning('id')
-    .update(toUpdate);
-  return rows.length ? { status: 200, body: "" } : { status: 404 };
+  try {
+    const rows = await knex(table)
+      .where('id', params.id)
+      .returning('id')
+      .update(toUpdate);
+    return rows.length ? { status: 200, body: "" } : { status: 404 };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
 });
 
 export const del = requireAuth(async ({ params }) => {
-  const ids = await knex(table)
-    .where('id', params.id)
-    .returning('id')
-    .del();
-  return ids.length ? { status: 200, body: "" } : { status: 404 };
+  try {
+    const ids = await knex(table)
+      .where('id', params.id)
+      .returning('id')
+      .del();
+    return ids.length ? { status: 200, body: "" } : { status: 404 };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);    
+  }
 });

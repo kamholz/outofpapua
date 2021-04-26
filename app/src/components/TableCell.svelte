@@ -49,9 +49,7 @@
       />
     {/if}
   {:else}
-    <td
-      on:click={handleActivate}
-    >
+    <td on:click={handleActivate}>
       <span>{column.value(row)}</span>
     </td>
   {/if}

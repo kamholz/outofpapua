@@ -8,7 +8,11 @@ export function makeCreater(type) {
       body: JSON.stringify(values),
     });
     if (!res.ok) {
-      throw new Error('Could not create');
+      if (res.status === 400) {
+        throw new Error('Could not create: ' + (await res.json()).error);
+      } else {
+        throw new Error('Could not create');
+      }
     }
     return await res.json();
   }
@@ -24,7 +28,11 @@ export function makeUpdater(type) {
       body: JSON.stringify(values),
     });
     if (!res.ok) {
-      throw new Error('Could not update');
+      if (res.status === 400) {
+        throw new Error('Could not update: ' + (await res.json()).error);
+      } else {
+        throw new Error('Could not update');
+      }
     }
   }
 }

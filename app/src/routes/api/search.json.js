@@ -1,5 +1,5 @@
-import knex from '$lib/knex';
-import { applyPageParams, applySortParams, getCount, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
+import { applyPageParams, applySortParams, getCount, knex } from '$lib/db';
+import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
 
 const allowed = new Set(['headword','gloss','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
@@ -21,9 +21,9 @@ const sortCols = {
 export async function get({ query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!['headword','gloss'].some(attr => attr in query)) {
-    return { status: 400 };
+    return { status: 400, body: { error: 'insufficient search parameters' } };
   }
-  setBooleanParams(query, boolean);
+  parseBooleanParams(query, boolean);
   query = {...defaults, ...query};
 
   const q = knex('entry')

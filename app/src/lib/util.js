@@ -38,7 +38,7 @@ export function serializeQuery(query) {
       newQuery[key] = value;
     }
   }
-  return '?' + new URLSearchParams(newQuery);
+  return optionalQuery(new URLSearchParams(newQuery));
 }
 
 export function getFilteredParams(body, set) {
@@ -54,7 +54,7 @@ export function getFilteredParams(body, set) {
   return params;
 }
 
-export function setBooleanParams(query, set) {
+export function parseBooleanParams(query, set) {
   for (const key of set) {
     if (key in query) {
       query[key] = query[key] === '0' ? false : true;
@@ -62,44 +62,20 @@ export function setBooleanParams(query, set) {
   }
 }
 
-// pagination and sorting
-
-const pageMax = 1000;
-
-export function applyPageParams(q, query, count) {
-  const pageSize = Math.min(query.pagesize, pageMax);
-  const numPages = Math.ceil(count / pageSize);
-
-  let page = Number(query.page);
-  if (page < 1) {
-    page = 1;
-  } else if (page > numPages) {
-    page = numPages;
-  }
-
-  q.limit(pageSize);
-  if (page > 1) {
-    q.offset((page-1) * pageSize);
-  }
-
-  return numPages;
-}
-
-export function applySortParams(q, query, sortCols, restCols) {
-  const querySort = 'sort' in query && query.sort in sortCols && query.sort;
-  if (querySort) {
-    q.orderByRaw(sortCols[querySort] + (query.asc ? ' asc nulls last' : ' desc nulls last'));
-  }
-  for (const col of restCols) {
-    if (col !== querySort) {
-      q.orderByRaw(sortCols[col]);
+export function parseSetParams(query, set) {
+  for (const key of set) {
+    if (key in query) {
+      query[key] = new Set([query[key].split(',')]);
     }
   }
 }
 
-export async function getCount(q) {
-  const counts = await q.clone().count({ count: '*' });
-  return Number(counts[0].count);
+export function serializeSetParams(query, set) {
+  for (const key of set) {
+    if (key in query) {
+      query[key] = [...query[key]].join(',');
+    }
+  }
 }
 
 // authorization

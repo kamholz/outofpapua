@@ -1,5 +1,5 @@
-import knex from '$lib/knex';
-import { applySortParams, normalizeQuery, setBooleanParams } from '$lib/util';
+import { applySortParams, knex } from '$lib/db';
+import { normalizeQuery, parseBooleanParams } from '$lib/util';
 
 const table = 'source';
 
@@ -16,7 +16,7 @@ const sortCols = {
 
 export async function get({ query }) {
   query = normalizeQuery(query);
-  setBooleanParams(query, boolean);
+  parseBooleanParams(query, boolean);
   query = {...defaults, ...query};
 
   const q = knex(table)

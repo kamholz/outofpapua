@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
-import knex from '$lib/knex';
+import { knex } from '$lib/db';
 import { pageUrl } from '$lib/util';
 
 export async function getUser(userId) {

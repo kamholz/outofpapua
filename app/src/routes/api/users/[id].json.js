@@ -1,6 +1,7 @@
-import knex from '$lib/knex';
+import { knex, sendPgError } from '$lib/db';
 import { requireAuth, getUser } from '$lib/auth';
 import { getFilteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
+import errors from '$lib/errors';
 
 const table = 'usr';
 const allowed = new Set(['username','fullname','admin']);
@@ -20,13 +21,18 @@ export const put = requireAuth(async ({ params, body, context }) => {
     return { status: 401 };
   }
   if (!Object.keys(toUpdate).length) {
-    return { status: 400 };
+    return { status: 400, body: { error: errors.noupdatable } };
   }
-  const ids = await knex(table)
-    .where('id', params.id)
-    .returning('id')
-    .update(toUpdate);
-  return ids.length ? { status: 200, body: "" } : { status: 404 };
+  try {
+    const ids = await knex(table)
+      .where('id', params.id)
+      .returning('id')
+      .update(toUpdate);
+    return ids.length ? { status: 200, body: "" } : { status: 404 };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
 });
 
 export const del = requireAuth(async ({ params, context }) => {
@@ -34,9 +40,14 @@ export const del = requireAuth(async ({ params, context }) => {
   if (!adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
-  const ids = await knex(table)
-    .where('id', params.id)
-    .returning('id')
-    .del();
-  return ids.length ? { status: 200, body: "" } : { status: 404 };
+  try {
+    const ids = await knex(table)
+      .where('id', params.id)
+      .returning('id')
+      .del();
+    return ids.length ? { status: 200, body: "" } : { status: 404 };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
 });

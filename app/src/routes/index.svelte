@@ -31,9 +31,7 @@
 
 <main>
   <h2>Search</h2>
-  <SearchForm
-    {query}
-  />
+  <SearchForm {query} />
 
   {#if rows}
     <h3>Search results</h3>

@@ -1,6 +1,7 @@
-import knex from '$lib/knex';
+import { applySortParams, knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { applySortParams, getFilteredParams, normalizeQuery, setBooleanParams } from '$lib/util';
+import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import errors from '$lib/errors';
 
 const table = 'language';
 
@@ -18,7 +19,7 @@ const sortCols = {
 
 export async function get({ query }) {
   query = normalizeQuery(query);
-  setBooleanParams(query, boolean);
+  parseBooleanParams(query, boolean);
   query = {...defaults, ...query};
 
   const q = knex(table)
@@ -33,10 +34,16 @@ export async function get({ query }) {
       knex.raw('protolanguage.id is not null as is_proto')
     );
 
-  if ('borrowedfrom' in query) {
-    q.whereRaw('language.flag_borrowed_from');
-  } else {
-    q.whereRaw('language.flag_language_list');
+  switch (query.category) {
+    case 'borrowedfrom':
+      q.whereRaw('language.flag_language_list or language.flag_borrowed_from');
+      break;
+    case 'gloss':
+      q.whereRaw('language.flag_gloss_language');
+      break;
+    default:
+      q.whereRaw('language.flag_language_list');
+      break;
   }
 
   applySortParams(q, query, sortCols, ['name']);
@@ -54,18 +61,23 @@ const required = new Set(['name']);
 export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
-    return { status: 400 };
+    return { status: 400, body: { error: errors.missing } };
   }
-  const rows = await
-    knex.with('inserted', q => {
-      q.from(table)
+  try {
+    const rows = await
+      knex.with('inserted', q => {
+        q.from(table)
+        .returning('id')
+        .insert(params);
+      })
+      .from('protolanguage')
       .returning('id')
-      .insert(params);
-    })
-    .from('protolanguage')
-    .returning('id')
-    .insert(function () {
-      this.select('id').from('inserted');
-    })
-  return rows.length ? { body: { id: rows[0] } } : { status: 500 };
+      .insert(function () {
+        this.select('id').from('inserted');
+      });
+    return rows.length ? { body: { id: rows[0] } } : { status: 500 };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
 });

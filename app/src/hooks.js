@@ -31,7 +31,7 @@ export function handle({ request, render }) {
   }
 
   if (params && 'id' in params && !params.id.match(/^[0-9]+$/)) {
-    return { status: 400 };
+    return { status: 400, body: { error: 'invalid id' } };
   }
 
   return render(request);
