@@ -18,7 +18,7 @@
     const form = e.currentTarget;
     for (const field of fields) { // normalize whitespace
       if (field.type === 'text') {
-        values[field.name] = values[field.name].trim();
+        values[field.name] = values[field.name]?.trim();
       }
     }
     await tick();
@@ -40,7 +40,7 @@
   class={className}
 >
 
-  {#each fields as field}
+  {#each fields as field (field.name)}
     <div>
       {#if field.type === 'text'}
         <label for={field.name}>{field.label}:</label>

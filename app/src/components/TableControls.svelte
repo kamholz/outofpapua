@@ -43,12 +43,17 @@
 {/each}
 </td>
 
-<style>
-  td :global(.fa-icon) {
-    color: #034f84;
-  }
+<style lang="scss">
+  td {
+    a {
+      text-decoration: none;
+    }
 
-  td :global(.fa-icon):hover {
-    color: #92a8d1;
+    :global(.fa-icon) {
+      color: #034f84;
+      &:hover {
+        color: #92a8d1;
+      }
+    }
   }
 </style>

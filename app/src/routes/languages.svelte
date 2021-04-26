@@ -7,7 +7,7 @@
       editable: session.user !== null,
       query: normalizeQuery(query),
     };
-    const json = await loadLanguages(fetch, optionalQuery(query));
+    const json = await reload(fetch, optionalQuery(query));
     if (!json) {
       return { status: 500, error: 'Internal error' };
     }
@@ -16,12 +16,9 @@
     return { props };
   }
 
-  export async function loadLanguages(fetch, queryStr) {
+  export async function reload(fetch, queryStr) {
     const res = await fetch('/api/languages.json' + queryStr);
-    if (!res.ok) {
-      return null;
-    }
-    return await res.json();
+    return res.ok ? await res.json() : null;
   }
 </script>
 
@@ -34,7 +31,7 @@
   export let editable;
 
   async function handleRefresh() {
-    $rows = (await loadLanguages(fetch, serializeQuery(query))).rows;
+    $rows = (await reload(fetch, serializeQuery(query))).rows;
   }
 </script>
 

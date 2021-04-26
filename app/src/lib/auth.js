@@ -130,3 +130,12 @@ export function requireAuth(handler) {
     return handler(req);
   }
 }
+
+export function requireAdmin(handler) {
+  return (req) => {
+    if (!req.context.user?.admin) {
+      return { status: 401 };
+    }
+    return handler(req);
+  }
+}

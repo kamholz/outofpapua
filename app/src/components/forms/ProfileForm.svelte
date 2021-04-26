@@ -1,5 +1,4 @@
 <script>
-  import { session } from '$app/stores';
   import * as crud from '$actions/crud';
   import Form from '$components/Form.svelte';
   import Alert from '$components/Alert.svelte';
