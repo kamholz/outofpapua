@@ -32,6 +32,10 @@
       value: row => boolean(row.is_proto),
     },
     {
+      key: 'numentries',
+      title: '#Entries',
+    },
+    {
       key: 'parent_name',
       title: 'Parent',
       editable: true,

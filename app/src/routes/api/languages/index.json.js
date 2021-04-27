@@ -1,6 +1,6 @@
 import { applySortParams, knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import errors from '$lib/errors';
 
 const table = 'language';
@@ -15,7 +15,9 @@ const sortCols = {
   iso6393: 'language.iso6393',
   is_proto: 'protolanguage.id is not null',
   parent_name: 'parent.name',
+  numentries: 'count(entry.id)',
 };
+const strip = new Set(['numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
@@ -46,8 +48,17 @@ export async function get({ query }) {
       break;
   }
 
+  if ('numentries' in query) {
+    q
+      .leftJoin('source', 'source.language_id', 'language.id')
+      .leftJoin('entry', 'entry.source_id', 'source.id')
+      .count('entry.id as numentries')
+      .groupBy('language.id', 'protolanguage.id', 'parent.name');
+  }
+
   applySortParams(q, query, sortCols, ['name']);
 
+  stripParams(query, strip);
   return {
     body: {
       query,

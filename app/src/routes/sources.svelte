@@ -1,20 +1,23 @@
 <script context="module">
   import { writable } from 'svelte/store';
-  import { normalizeQuery } from '$lib/util';
+  import { normalizeQuery, serializeQuery } from '$lib/util';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
       editable: session.user !== null,
-      query: normalizeQuery(query),
     };
-    const res = await fetch('/api/sources.json?' + query);
-    if (!res.ok) {
+    const json = await reload(fetch, normalizeQuery(query));
+    if (!json) {
       return { status: 500, error: 'Internal error' };
     }
-    const json = await res.json();
-    props.rows = writable(json.rows);
-    props.query = json.query;
+    Object.assign(props, json);
+    props.rows = writable(props.rows);
     return { props };
+  }
+
+  export async function reload(fetch, query) {
+    const res = await fetch('/api/sources.json' + serializeQuery({...query, numentries: 1}));
+    return res.ok ? await res.json() : null;
   }
 </script>
 

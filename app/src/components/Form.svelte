@@ -51,7 +51,7 @@
   form {
     border: 1px solid gray;
     padding: 10px;
-    width: 18em;
+    width: var(--formwidth, 18em);
 
     display: flex;
     flex-direction: column;

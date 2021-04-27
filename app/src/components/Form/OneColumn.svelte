@@ -41,7 +41,7 @@
 <style lang="scss">
   div {
     display: grid;
-    grid-template-columns: 43% 57%;
+    grid-template-columns: var(--gridtemplate, 43% 57%);
     align-items: center;
     margin-block: 6px;
 

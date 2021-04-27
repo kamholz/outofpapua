@@ -41,12 +41,6 @@
   {fields}
   values={createValues}
   submitLabel="Create"
-  class="create-protolang"
+  style="--gridtemplate: 30% 70%"
   on:submit={handleCreate}
 />
-
-<style>
-  :global(.create-protolang > div) {
-    grid-template-columns: 30% 70% !important;
-  }
-</style>

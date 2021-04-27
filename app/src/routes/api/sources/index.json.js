@@ -1,5 +1,5 @@
 import { applySortParams, knex } from '$lib/db';
-import { normalizeQuery, parseBooleanParams } from '$lib/util';
+import { normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 
 const table = 'source';
 
@@ -12,7 +12,9 @@ const sortCols = {
   title: 'lower(source.title)',
   reference: 'source.reference',
   language: 'language.name',
+  numentries: 'count(entry.id)',
 };
+const strip = new Set(['numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
@@ -29,8 +31,16 @@ export async function get({ query }) {
       'language.name as language'
     );
  
+  if ('numentries' in query) {
+    q
+      .leftJoin('entry', 'entry.source_id', 'source.id')
+      .count('entry.id as numentries')
+      .groupBy('source.id', 'language.name');
+  }
+
   applySortParams(q, query, sortCols, ['title','language','reference']);
  
+  stripParams(query, strip);
   return {
     body: {
       query,

@@ -5,19 +5,18 @@
   export async function load({ fetch, page: { query }, session }) {
     const props = {
       editable: session.user !== null,
-      query: normalizeQuery(query),
     };
-    const json = await reload(fetch, optionalQuery(query));
+    const json = await reload(fetch, normalizeQuery(query));
     if (!json) {
       return { status: 500, error: 'Internal error' };
     }
-    props.rows = writable(json.rows);
-    props.query = json.query;
+    Object.assign(props, json);
+    props.rows = writable(props.rows);
     return { props };
   }
 
-  export async function reload(fetch, queryStr) {
-    const res = await fetch('/api/languages.json' + queryStr);
+  export async function reload(fetch, query) {
+    const res = await fetch('/api/languages.json' + serializeQuery({...query, numentries: 1}));
     return res.ok ? await res.json() : null;
   }
 </script>
@@ -31,7 +30,7 @@
   export let editable;
 
   async function handleRefresh() {
-    $rows = (await reload(fetch, serializeQuery(query))).rows;
+    $rows = (await reload(fetch, query)).rows;
   }
 </script>
 

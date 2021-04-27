@@ -78,6 +78,14 @@ export function serializeSetParams(query, set) {
   }
 }
 
+export function stripParams(query, set) {
+  for (const key of set) {
+    if (key in query) {
+      delete query[key];
+    }
+  }
+}
+
 // authorization
 
 export function adminOrSelf(loggedInUser, userId) {

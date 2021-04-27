@@ -70,7 +70,7 @@
   values={passwordValues}
   submitLabel="Change"
   {loading}
-  style="width: 22em"
+  style="--formwidth: 22em"
   on:beforesubmit={handleValidation}
   on:submit={handleUpdate}
 />

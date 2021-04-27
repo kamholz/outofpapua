@@ -20,6 +20,10 @@
       title: 'Language',
     },
     {
+      key: 'numentries',
+      title: '#Entries',
+    },
+    {
       key: 'reference',
       title: 'Reference',
       editable: true,
