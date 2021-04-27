@@ -3,6 +3,7 @@
   import { preferences } from '$stores';
 
   export let query;
+  export let lang;
   export let glosslang;
 
   const fields = [
@@ -19,7 +20,7 @@
     {
       name: 'glosslang',
       label: 'Gloss languages',
-      type: 'glosslang',
+      type: 'languages',
       options: glosslang,
     }
   ];

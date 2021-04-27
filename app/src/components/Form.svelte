@@ -72,7 +72,7 @@
           bind:checked={values[field.name]}
           required={field.required}
         >
-      {:else if field.type === 'glosslang'}
+      {:else if field.type === 'languages'}
         <Svelecte
           options={field.options}
           labelField="name"
@@ -82,9 +82,8 @@
           searchable={false}
           placeholder=""
           bind:value={values[field.name]}
-          on:change={() => console.log(values[field.name])}
         />
-        <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name])}>
+        <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
       {/if}
     </div>
   {/each}

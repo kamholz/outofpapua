@@ -3,7 +3,7 @@
   import * as suggest from '$actions/suggest';
   import { normalizeQuery, parseArrayNumParams } from '$lib/util';
 
-  const arrayNumParams = new Set(['glosslang']);
+  const arrayNumParams = new Set(['lang','glosslang']);
 
   export async function load({ page: { query }, fetch }) {
     const props = {};
@@ -20,8 +20,9 @@
       props.query = query;
     }
 
-    props.glosslang = await suggest.glosslang(fetch);
-    if (!props.glosslang) {
+    props.langSuggest = await suggest.lang(fetch);
+    props.glosslangSuggest = await suggest.glosslang(fetch);
+    if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500, error: 'Internal error' };
     }
 
@@ -34,7 +35,8 @@
   import SearchForm from '$components/forms/SearchForm.svelte';
 
   export let rows = null;
-  export let glosslang;
+  export let langSuggest;
+  export let glosslangSuggest;
   export let query;
   export let numPages;
 </script>
@@ -43,7 +45,8 @@
   <h2>Search</h2>
   <SearchForm
     {query}
-    {glosslang}
+    {langSuggest}
+    {glosslangSuggest}
   />
 
   {#if rows}

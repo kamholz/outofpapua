@@ -17,7 +17,7 @@ const sortCols = {
   parent_name: 'parent.name',
   numentries: 'count(entry.id)',
 };
-const strip = new Set(['numentries']);
+const strip = new Set(['category','numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
@@ -35,6 +35,12 @@ export async function get({ query }) {
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto')
     );
+
+  if (query.category === 'descendants') {
+    q
+      .from('language_with_descendants as language')
+      .select('language.descendants');
+  }
 
   switch (query.category) {
     case 'borrowedfrom':
