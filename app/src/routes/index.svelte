@@ -42,7 +42,7 @@
 </script>
 
 <main>
-  <h2>Search</h2>
+  <h2>Search entries</h2>
   <SearchForm
     {query}
     {langSuggest}

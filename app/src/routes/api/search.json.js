@@ -42,10 +42,10 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
   if ('lang' in query) {
-    q.where('source.language_id', arrayCmp(query.lang));
+    q.where('source.language_id', arrayCmp(new Set(query.lang)));
   }
   if ('glosslang' in query) {
-    q.where('sense_gloss.language_id', arrayCmp(query.glosslang));
+    q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
   }
 
   const count = await getCount(q);

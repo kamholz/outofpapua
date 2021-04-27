@@ -1,19 +1,19 @@
-import knex from 'knex';
+import knexModule from 'knex';
 import config from '$config';
 
-const knexObj = knex({
+const knex = knexModule({
   client: 'pg',
   connection: {
     host:     config.PGHOST,
     database: config.PGDATABASE,
   }
 });
-export { knexObj as knex };
+export { knex as knex };
 
 export function arrayCmp(param) {
   return param.length === 1
     ? param[0]
-    : knexObj.raw('any(?)', [param]);
+    : knex.raw('any(?)', [[...param]]);
 }
 
 // pagination and sorting
