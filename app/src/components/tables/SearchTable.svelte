@@ -3,7 +3,7 @@
 
   export let rows;
   export let query;
-  export let numPages;
+  export let numPages = null;
 
   const columns = [
     {

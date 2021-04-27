@@ -1,8 +1,9 @@
-import { applyPageParams, applySortParams, getCount, knex } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
+import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseBooleanParams } from '$lib/util';
 
-const allowed = new Set(['headword','gloss','page','pagesize','sort','asc']);
+const allowed = new Set(['headword','gloss','glosslang','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
+const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
@@ -24,6 +25,7 @@ export async function get({ query }) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);
+  parseArrayNumParams(query, arrayNumParams);
   query = {...defaults, ...query};
 
   const q = knex('entry')
@@ -38,6 +40,9 @@ export async function get({ query }) {
   }
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);
+  }
+  if ('glosslang' in query) {
+    q.where('sense_gloss.language_id', arrayCmp(query.glosslang));
   }
 
   const count = await getCount(q);

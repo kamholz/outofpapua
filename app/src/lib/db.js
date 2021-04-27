@@ -13,7 +13,7 @@ export { knexObj as knex };
 export function arrayCmp(param) {
   return param.length === 1
     ? param[0]
-    : knex.raw('any(?)', [param]);
+    : knexObj.raw('any(?)', [param]);
 }
 
 // pagination and sorting

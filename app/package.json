@@ -9,8 +9,8 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "^1.0.0-next.16",
-    "@sveltejs/kit": "^1.0.0-next.90",
+    "@sveltejs/adapter-node": "^1.0.0-next.17",
+    "@sveltejs/kit": "^1.0.0-next.91",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte3": "^3.1.0",
@@ -18,8 +18,8 @@
     "prettier-plugin-svelte": "^2.2.0",
     "sass": "^1.0.0",
     "svelte": "^3.37.0",
-    "svelte-preprocess": "^4.0.0",
-    "vite": "^2.1.0"
+    "svelte-preprocess": "^4.7.1",
+    "vite": "^2.2.3"
   },
   "type": "module",
   "dependencies": {
@@ -31,6 +31,7 @@
     "pg": "^8.6.0",
     "svelte-awesome": "^2.3.1",
     "svelte-local-storage-store": "^0.1.4",
+    "svelte-select": "^3.17.0",
     "svelte-typeahead": "kamholz/svelte-typeahead"
   }
 }

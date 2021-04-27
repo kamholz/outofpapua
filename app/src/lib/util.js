@@ -62,20 +62,40 @@ export function parseBooleanParams(query, set) {
   }
 }
 
-export function parseSetParams(query, set) {
-  for (const key of set) {
+export function parseArrayParams(query, iterable) {
+  for (const key of iterable) {
     if (key in query) {
-      query[key] = new Set([query[key].split(',')]);
+      query[key] = parseArrayParam(query[key]);
     }
   }
 }
 
-export function serializeSetParams(query, set) {
-  for (const key of set) {
+export function parseArrayParam(param) {
+  return param.split(',');
+}
+
+export function parseArrayNumParams(query, iterable) {
+  for (const key of iterable) {
     if (key in query) {
-      query[key] = [...query[key]].join(',');
+      query[key] = parseArrayNumParam(query[key]);
     }
   }
+}
+
+export function parseArrayNumParam(param) {
+  return param.split(',').map(v => Number(v));
+}
+
+export function serializeArrayParams(query, iterable) {
+  for (const key of iterable) {
+    if (key in query) {
+      query[key] = serializeArrayParam(query[key]);
+    }
+  }
+}
+
+export function serializeArrayParam(param) {
+  return [...param].join(',');
 }
 
 export function stripParams(query, set) {
