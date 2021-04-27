@@ -1,5 +1,6 @@
 <script context="module">
   import { writable } from 'svelte/store';
+  import * as suggest from '$actions/suggest';
   import { normalizeQuery, parseArrayNumParams } from '$lib/util';
 
   const arrayNumParams = new Set(['glosslang']);
@@ -19,13 +20,9 @@
       props.query = query;
     }
 
-    const res = await fetch('/api/languages.json?category=gloss');
-    if (res.ok) {
-      props.glosslang = (await res.json()).rows;
-      if ('glosslang' in props.query) {
-        const set = new Set(props.query.glosslang);
-        props.query.glosslang = props.glosslang.filter(v => set.has(v.id));
-      }
+    props.glosslang = await suggest.glosslang(fetch);
+    if (!props.glosslang) {
+      return { status: 500, error: 'Internal error' };
     }
 
     return { props };

@@ -2,7 +2,7 @@
 	import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { serializeArrayParam } from '$lib/util';
-  import Select from 'svelte-select';
+  import Svelecte from '$lib/svelecte';
   
   export let action = null;
   export let method = null;
@@ -21,10 +21,6 @@
     for (const field of fields) { // normalize whitespace
       if (field.type === 'text') {
         values[field.name] = values[field.name]?.trim();
-      } else if (field.type === 'glosslang') {
-        values[field.name] = values[field.name].map(v => v.id);
-        console.log(values[field.name]);
-        throw 'blah';
       }
     }
     await tick();
@@ -34,12 +30,6 @@
     } else {
       form.reportValidity();
     }
-  }
-
-  function serializeMultiselectValue(value, key) {
-    return value
-      ? serializeArrayParam(value.map(v => v[key]))
-      : "";
   }
 </script>
   
@@ -83,18 +73,18 @@
           required={field.required}
         >
       {:else if field.type === 'glosslang'}
-        <Select
-          items={field.options}
-          isMulti
-          isSearchable={false}
-          hideEmptyState
-          optionIdentifier="id"
+        <Svelecte
+          options={field.options}
+          labelField="name"
+          valueField="id"
+          multiple
+          clearable
+          searchable={false}
           placeholder=""
-          getOptionLabel={option => option.name}
-          getSelectionLabel={option => option?.name}
-          bind:selectedValue={values[field.name]}
+          bind:value={values[field.name]}
+          on:change={() => console.log(values[field.name])}
         />
-        <input type="hidden" name={field.name} value={serializeMultiselectValue(values[field.name], 'id')}>
+        <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name])}>
       {/if}
     </div>
   {/each}
@@ -125,37 +115,17 @@
       input[type="checkbox"] {
         margin: 0;
       }
+
+      :global(.svelecte-control) {
+        :global(.sv-control) {
+          border: 1px solid gray;
+        }
+      }
     }
 
     > button {
       align-self: flex-end;
       margin-block: 6px;
-    }
-
-    // svelte-select
-    --border: 1px solid gray;
-    --borderRadius: 2px;
-    --height: 30px;
-    --multiSelectPadding: 0 30px 0 6px;
-
-    --multiItemHeight: 22px;
-    --multiItemMargin: 4px 3px 0 0;
-    --multiItemPadding: 0 10px 0 10px;
-    --multiLabelMargin: 0 4px 0 0;
-    --multiClearTop: 2px;
-
-    --clearSelectRight: 6px;
-    --clearSelectTop: 6px;
-    --clearSelectBottom: 6px;
-    --clearSelectWidth: 18px;
-
-    --indicatorRight: 6px;
-    --indicatorTop: 6px;
-    --indicatorWidth: 20px;
-    --indicatorHeight: 20px;
-
-    :global(.multiSelectItem_label) {
-      font-size: 13px;
     }
   }
 </style>
