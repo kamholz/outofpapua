@@ -7,7 +7,7 @@
   export let column;
   let td;
   let autocompleteRef;
-  const { data, rowValue, serializedValue, updateKey, updateValue } = column.autocomplete;
+  const { data, filter, restprops, rowValue, serializedValue, updateKey, updateValue } = column.autocomplete;
 
   onMount(async () => {
     dispatch('edit', td);
@@ -15,7 +15,7 @@
     autocompleteRef.select();
   });
 
-  function handleAutocompleteSelect(e) {
+  function handleSelect(e) {
     const { selected, original } = e.detail;
     if (selected === rowValue(row)) { // nothing to do
       dispatch('deactivate');
@@ -50,14 +50,15 @@
 >
   <Typeahead
     data={$data}
-    value={column.autocomplete.rowValue?.(row) ?? ""}
+    value={rowValue?.(row) ?? ""}
     placeholder=""
     focusAfterSelect
     hideLabel
-    limit={10}
-    {...column.autocomplete.restprops}
+    limit={15}
+    filter={filter?.(row)}
+    {...restprops}
     bind:searchRef={autocompleteRef}
-    on:select={handleAutocompleteSelect}
+    on:select={handleSelect}
   />
 </td>
 

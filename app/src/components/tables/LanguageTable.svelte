@@ -46,6 +46,7 @@
         serializedValue: nullify,
         updateKey: 'parent_id',
         updateValue: item => item?.id ?? null,
+        filter: row => (item => item.id === row.id), // remove self
         restprops: {
           extract: item => item.name,
         },

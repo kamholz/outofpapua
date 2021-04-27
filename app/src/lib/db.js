@@ -66,6 +66,8 @@ function formatPgError(e) {
       return `"${e.column}" value cannot be empty`;
     case '23505': // unique_violation
       return 'value already exists elsewhere, must be unique';
+    case 'P0001': // raise exception
+      return 'tried to set parent language to descendant';
     default:
       return 'unknown error';
   }
