@@ -3,8 +3,8 @@
   import { preferences } from '$stores';
 
   export let query;
-  export let lang;
-  export let glosslang;
+  export let langSuggest;
+  export let glosslangSuggest;
 
   const fields = [
     {
@@ -18,10 +18,16 @@
       type: 'text',
     },
     {
+      name: 'lang',
+      label: 'Languages',
+      type: 'languages',
+      options: langSuggest,
+    },
+    {
       name: 'glosslang',
       label: 'Gloss languages',
       type: 'languages',
-      options: glosslang,
+      options: glosslangSuggest,
     }
   ];
 </script>

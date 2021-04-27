@@ -79,7 +79,7 @@
           valueField="id"
           multiple
           clearable
-          searchable={false}
+          searchable
           placeholder=""
           bind:value={values[field.name]}
         />
@@ -118,6 +118,11 @@
       :global(.svelecte-control) {
         :global(.sv-control) {
           border: 1px solid gray;
+        }
+
+        :global(.highlight) {
+          background-color: unset;
+          font-weight: bold;
         }
       }
     }

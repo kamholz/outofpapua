@@ -1,9 +1,9 @@
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
 import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseBooleanParams } from '$lib/util';
 
-const allowed = new Set(['headword','gloss','glosslang','page','pagesize','sort','asc']);
+const allowed = new Set(['headword','gloss','glosslang','lang','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
-const arrayNumParams = new Set(['glosslang']);
+const arrayNumParams = new Set(['lang','glosslang']);
 const defaults = {
   asc: true,
   page: 1,
@@ -40,6 +40,9 @@ export async function get({ query }) {
   }
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);
+  }
+  if ('lang' in query) {
+    q.where('source.language_id', arrayCmp(query.lang));
   }
   if ('glosslang' in query) {
     q.where('sense_gloss.language_id', arrayCmp(query.glosslang));
