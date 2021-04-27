@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { derived } from 'svelte/store';
   import { boolean, nullify, stringify } from '$lib/util';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
@@ -11,6 +12,8 @@
   export let query;
   export let editable;
   let error = null;
+
+  const parents = derived(rows, $rows => $rows.filter(row => row.is_proto));
 
   const columns = [
     {
@@ -34,14 +37,13 @@
       editable: true,
       type: 'autocomplete',
       autocomplete: {
-        data: rows,
-        initialValue: row => stringify(row.parent_name),
+        data: parents,
+        rowValue: row => stringify(row.parent_name),
         serializedValue: nullify,
         updateKey: 'parent_id',
-        updateValue: item => item.id,
+        updateValue: item => item?.id ?? null,
         restprops: {
           extract: item => item.name,
-          filter: item => !item.is_proto,
         },
       },
     }

@@ -7,7 +7,7 @@
   export let column;
   let td;
   let autocompleteRef;
-  const dataStore = column.autocomplete.data;
+  const { data, rowValue, serializedValue, updateKey, updateValue } = column.autocomplete;
 
   onMount(async () => {
     dispatch('edit', td);
@@ -17,16 +17,16 @@
 
   function handleAutocompleteSelect(e) {
     const { selected, original } = e.detail;
-    const { initialValue, serializedValue, updateKey, updateValue } = column.autocomplete;
-    if (selected === initialValue(row)) { // nothing to do
+    if (selected === rowValue(row)) { // nothing to do
       dispatch('deactivate');
     } else {
-      const updatedValue = original ? updateValue(original) : null;
+      const updatedValue = updateValue(original);
       dispatch('update', {
         id: row.id,
         values: { [updateKey]: updatedValue },
         onSuccess: () => {
           row[column.key] = serializedValue(selected);
+          row[updateKey] = updatedValue;
           dispatch('deactivate');
         }
       });
@@ -49,8 +49,8 @@
   on:focusout={handleFocusOut}
 >
   <Typeahead
-    data={$dataStore}
-    value={column.autocomplete.initialValue?.(row) ?? ""}
+    data={$data}
+    value={column.autocomplete.rowValue?.(row) ?? ""}
     placeholder=""
     focusAfterSelect
     hideLabel

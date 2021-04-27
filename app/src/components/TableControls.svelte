@@ -28,7 +28,7 @@
 </script>
 
 <td>
-{#each controls as control}
+{#each controls as control (control.type)}
   {#if control[`can${control.type}`](row)}
     {#if control.link}
       <a href={control.link(row)}>
