@@ -23,7 +23,7 @@
 </script>
 
 <script>
-  import ProfilePage from './_page.svelte';
+  import ProfilePage from './_Page.svelte';
   export let user;
 </script>
 
