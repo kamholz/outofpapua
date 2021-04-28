@@ -16,7 +16,9 @@ export const put = requireAuth(async ({ params, body }) => {
       .where('id', params.id)
       .returning('id')
       .update(toUpdate);
-    return rows.length ? { status: 200, body: "" } : { status: 404 };
+    if (rows.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);
@@ -29,7 +31,9 @@ export const del = requireAuth(async ({ params }) => {
       .where('id', params.id)
       .returning('id')
       .del();
-    return ids.length ? { status: 200, body: "" } : { status: 404 };
+    if (ids.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);    

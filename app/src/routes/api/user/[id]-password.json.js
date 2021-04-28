@@ -22,7 +22,9 @@ export const put = requireAuth(async ({ params, body, context }) => {
       .where('id', params.id)
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) });
-    return ids.length ? { status: 200, body: "" } : { status: 404 };
+    if (ids.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);

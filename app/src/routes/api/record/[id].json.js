@@ -11,5 +11,7 @@ export async function get({ params }) {
       'source.title as source_title',
       'source.reference as source_reference'
     );
-  return rows.length ? { status: 200, body: rows[0] } : { status: 404 };
+  if (rows.length) {
+    return { body: rows[0] };
+  }
 }

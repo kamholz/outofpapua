@@ -23,7 +23,9 @@ export async function get({ params }) {
       knex.raw('protolanguage.id is not null as is_proto')
     )
     .groupBy('source.id', 'protolanguage.id', 'language.name');
-  return rows.length ? { status: 200, body: rows[0] } : { status: 404 };
+  if (rows.length) {
+    return { body: rows[0] };
+  }
 }
 
 export const put = requireAuth(async ({ params, body }) => {
@@ -32,11 +34,13 @@ export const put = requireAuth(async ({ params, body }) => {
     return { status: 400, body: { error: errors.noupdatable } };
   }
   try {
-    const rows = await knex(table)
+    const ids = await knex(table)
       .where('id', params.id)
       .returning('id')
       .update(toUpdate);
-    return rows.length ? { status: 200, body: "" } : { status: 404 };
+    if (ids.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);

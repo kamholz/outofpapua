@@ -8,7 +8,9 @@ const allowed = new Set(['username','fullname','admin']);
 
 export const get = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
-  return user ? { body: user } : { status: 404 };
+  if (user) {
+    return { body: user };
+  }
 });
 
 export const put = requireAuth(async ({ params, body, context }) => {
@@ -28,7 +30,9 @@ export const put = requireAuth(async ({ params, body, context }) => {
       .where('id', params.id)
       .returning('id')
       .update(toUpdate);
-    return ids.length ? { status: 200, body: "" } : { status: 404 };
+    if (ids.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);
@@ -45,7 +49,9 @@ export const del = requireAuth(async ({ params, context }) => {
       .where('id', params.id)
       .returning('id')
       .del();
-    return ids.length ? { status: 200, body: "" } : { status: 404 };
+    if (ids.length) {
+      return { body: "" };
+    }
   } catch (e) {
     console.log(e);
     return sendPgError(e);
