@@ -13,7 +13,7 @@
   });
 
   export async function reload(fetch) {
-    const res = await fetch('/api/users.json');
+    const res = await fetch('/api/user.json');
     return res.ok ? await res.json() : null;
   }
 </script>

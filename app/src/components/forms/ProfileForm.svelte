@@ -32,7 +32,7 @@
     });
   }
 
-  const update = crud.makeUpdater('users');
+  const update = crud.makeUpdater('user');
 
   async function handleUpdate(e) {
     const { values } = e.detail;

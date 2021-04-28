@@ -16,7 +16,7 @@
   }
 
   export async function reload(fetch, query) {
-    const res = await fetch('/api/languages.json' + serializeQuery({...query, numentries: 1}));
+    const res = await fetch('/api/language.json' + serializeQuery({...query, numentries: 1}));
     return res.ok ? await res.json() : null;
   }
 </script>

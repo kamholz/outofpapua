@@ -36,7 +36,7 @@
     }
 ];
 
-  const create = crud.makeCreater('users');
+  const create = crud.makeCreater('user');
 
   function handleValidation(e) {
     const { form } = e.detail;

@@ -66,8 +66,8 @@
     :
       null;
 
-  const updateFromCell = crud.updateFromCell('languages');
-  const del = crud.makeDeleter('languages');
+  const updateFromCell = crud.updateFromCell('language');
+  const del = crud.makeDeleter('language');
 
   async function handleUpdate(e) {
     $pageLoading++;

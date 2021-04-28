@@ -1,7 +1,7 @@
 import { serializeArrayParam } from '$lib/util';
 
 export async function lang(fetch) {
-  const res = await fetch('/api/languages.json?category=descendants');
+  const res = await fetch('/api/language.json?category=descendants');
   if (!res.ok) {
     return null;
   }
@@ -17,7 +17,7 @@ export async function lang(fetch) {
 }
 
 export async function glosslang(fetch) {
-  const res = await fetch('/api/languages.json?category=gloss');
+  const res = await fetch('/api/language.json?category=gloss');
   if (!res.ok) {
     return null;
   }

@@ -18,7 +18,7 @@
     }
   ];  
 
-  const creater = crud.makeCreater('languages');
+  const creater = crud.makeCreater('language');
 
   async function handleCreate(e) {
     const { values } = e.detail;

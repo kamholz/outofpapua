@@ -30,7 +30,7 @@
     }
   ];
 
-  const updateFromCell = crud.updateFromCell('sources');
+  const updateFromCell = crud.updateFromCell('source');
 
   async function handleUpdate(e) {
     $pageLoading++;

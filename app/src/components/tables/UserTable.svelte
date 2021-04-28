@@ -34,29 +34,10 @@
         {
           type: 'edit',
           link: row => row.id === $session.user.id ? '/profile' : `/profile/${row.id}`,
-        },
-        {
-          type: 'delete',
-          candelete: row => !row.admin,
-          confirm: row => confirm(`Are you sure you want to delete user "${row.fullname}"?`),
         }
       ]
     :
       null;
-
-  const del = crud.makeDeleter('users');
-
-  async function handleDelete(e) {
-    $pageLoading++;
-    try {
-      error = null;
-      await del(e.detail.id);
-      dispatch('refresh');
-    } catch (err) {
-      error = err.message;
-    }
-    $pageLoading--;
-  }
 </script>
 
 <Alert type="error" message={error} />
@@ -64,5 +45,4 @@
   {columns}
   {rows}
   {controls}
-  on:delete={handleDelete}
 />

@@ -10,7 +10,7 @@
   export let admin = false;
   let error = null;
 
-  const del = crud.makeDeleter('users');
+  const del = crud.makeDeleter('user');
 
   async function handleDelete(e) {
     if (confirm(`Are you sure you want to delete user "${user.fullname}"?`)) {

@@ -6,7 +6,7 @@
       return { status: 400, error: 'Bad request' };
     }
     try {
-      const res = await fetch(`/api/users/${params.id}.json`);
+      const res = await fetch(`/api/user/${params.id}.json`);
       if (res.ok) {
         return {
           props: { 
