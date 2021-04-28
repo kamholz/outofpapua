@@ -31,7 +31,6 @@
     "pg": "^8.6.0",
     "svelecte": "kamholz/svelecte",
     "svelte-awesome": "^2.3.1",
-    "svelte-local-storage-store": "^0.1.4",
-    "svelte-typeahead": "kamholz/svelte-typeahead"
+    "svelte-local-storage-store": "^0.1.4"
   }
 }

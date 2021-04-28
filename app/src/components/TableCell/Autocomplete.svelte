@@ -1,32 +1,36 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
-  import Typeahead from 'svelte-typeahead';
+  import Svelecte from '$lib/svelecte';
 
   export let row;
   export let column;
+  const { filter, options, labelField, rowKey, valueField } = column.autocomplete;
   let td;
-  let autocompleteRef;
-  const { data, filter, restprops, rowValue, serializedValue, updateKey, updateValue } = column.autocomplete;
+  let focus;
+
+  let filteredOptions = $options;
+  if (filter) {
+    filteredOptions = filteredOptions.filter(option => filter(option, row));
+  }
 
   onMount(async () => {
     dispatch('edit', td);
-    autocompleteRef.focus();
-    autocompleteRef.select();
+    focus();
   });
 
   function handleSelect(e) {
-    const { selected, original } = e.detail;
-    if (selected === rowValue(row)) { // nothing to do
+    const option = e.detail;
+    const value = option?.[valueField] ?? null;
+    if (value === row[rowKey]) { // nothing to do
       dispatch('deactivate');
     } else {
-      const updatedValue = updateValue(original);
       dispatch('update', {
         id: row.id,
-        values: { [updateKey]: updatedValue },
+        values: { [rowKey]: value },
         onSuccess: () => {
-          row[column.key] = serializedValue(selected);
-          row[updateKey] = updatedValue;
+          row[column.key] = option?.[labelField] ?? null;
+          row[rowKey] = value;
           dispatch('deactivate');
         }
       });
@@ -34,11 +38,7 @@
   }
 
   function handleFocusOut() {
-    setTimeout(() => {
-      if (document.activeElement !== autocompleteRef) {
-        dispatch('deactivate');
-      }
-    }, 300);
+    dispatch('deactivate');
   }
 </script>
 
@@ -48,17 +48,17 @@
   on:deactivate
   on:focusout={handleFocusOut}
 >
-  <Typeahead
-    data={$data}
-    value={rowValue?.(row) ?? ""}
+  <Svelecte
+    options={filteredOptions}
+    value={row[rowKey]}
+    {valueField}
+    {labelField}
+    searchField={labelField}
     placeholder=""
-    focusAfterSelect
-    hideLabel
-    limit={15}
-    filter={filter?.(row)}
-    {...restprops}
-    bind:searchRef={autocompleteRef}
-    on:select={handleSelect}
+    searchable
+    clearable
+    on:change={handleSelect}
+    bind:focus
   />
 </td>
 
@@ -66,27 +66,12 @@
   td.autocomplete {
     padding-block: 0;
 
-    :global([data-svelte-typeahead]) {
-      :global(input) {
-        margin: 0;
-        padding-block: 4px;
-        padding-inline: 3px;
-        inline-size: 10em;
-      }
-
-      :global(ul) {
-        margin: 0;
-        margin-block-start: 3px;
-      }
-
-      :global(li) {
-        cursor: default;
-      }
-
-      :global(mark) {
-        color: unset;
-        background-color: unset;
-        font-weight: bold;
+    :global(.svelecte-control) {
+      :global(.sv-control) {
+        background-color: white;
+        min-height: unset;
+        height: 30px;
+        width: 16em;
       }
     }
   }

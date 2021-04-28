@@ -3,8 +3,8 @@ import Svelecte, { config } from 'svelecte';
 Object.assign(config, {
   placeholder: '',
   i18n: {
-    empty: 'No options remaining',
-    nomatch: 'No matching options',
+    empty: 'No options',
+    nomatch: 'Nothing found',
     max: num => `Maximum items ${num} selected`,
     fetchBefore: 'Type to search',
     fetchEmpty: 'No data related to your search',

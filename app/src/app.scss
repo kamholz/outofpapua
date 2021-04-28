@@ -53,3 +53,16 @@ button {
 .fa-icon {
   vertical-align: middle;
 }
+
+// svelecte
+
+.svelecte-control {
+  .highlight {
+    background-color: unset;
+    font-weight: bold;
+  }
+
+  .sv-control.is-active {
+    box-shadow: 0 0 0 1px #015fcc;
+  }
+}

@@ -90,6 +90,7 @@
           <Svelecte
             options={field.options}
             labelField="name"
+            searchField="name"
             valueField="id"
             multiple
             clearable
@@ -127,13 +128,8 @@
       }
 
       :global(.svelecte-control) {
-        :global(.sv-control) {
+        :global(.sv-control:not(.is-active)) {
           border: 1px solid gray;
-        }
-
-        :global(.highlight) {
-          background-color: unset;
-          font-weight: bold;
         }
       }
     }

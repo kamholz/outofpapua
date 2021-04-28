@@ -41,15 +41,11 @@
       editable: true,
       type: 'autocomplete',
       autocomplete: {
-        data: parents,
-        rowValue: row => stringify(row.parent_name),
-        serializedValue: nullify,
-        updateKey: 'parent_id',
-        updateValue: item => item?.id ?? null,
-        filter: row => (item => item.id === row.id), // remove self
-        restprops: {
-          extract: item => item.name,
-        },
+        options: parents,
+        valueField: 'id',
+        labelField: 'name',
+        rowKey: 'parent_id',
+        filter: (option, row) => option.id !== row.id, // remove self
       },
     }
   ];

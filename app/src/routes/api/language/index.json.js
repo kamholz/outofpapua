@@ -39,6 +39,7 @@ export async function get({ query }) {
   if (query.category === 'descendants') {
     q
       .from('language_with_descendants as language')
+      .whereRaw('language.flag_language_list')
       .select('language.descendants');
   } else if (query.category === 'proto') {
     q.whereNotNull('protolanguage.id');
