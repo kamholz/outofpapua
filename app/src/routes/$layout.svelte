@@ -3,7 +3,7 @@
   import Icon from 'svelte-awesome';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-  import { session } from '$app/stores';
+  import { session, navigating } from '$app/stores';
   import { pageLoading } from '$stores';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
@@ -13,12 +13,10 @@
   <title>Out of Papua</title>
 </svelte:head>
 
-{#if $pageLoading > 0}
-<Icon
-  class="loading"
-  data={faSpinner}
-  pulse
-/>
+{#if $navigating || $pageLoading > 0}
+<div class="loading">
+  <Icon data={faSpinner} pulse />
+</div>
 {/if}
 <Login username={$session.user?.username} />
 <NavBar />

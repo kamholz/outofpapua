@@ -3,7 +3,7 @@
 
   export let rows;
   export let query;
-  export let numPages = null;
+  export let pageCount = null;
 
   const columns = [
     {
@@ -37,6 +37,6 @@
   {columns}
   {rows}
   {query}
-  {numPages}
+  {pageCount}
   sortable
 />

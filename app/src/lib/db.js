@@ -22,13 +22,13 @@ const pageMax = 1000;
 
 export function applyPageParams(q, query, count) {
   const pageSize = Math.min(query.pagesize, pageMax);
-  const numPages = Math.ceil(count / pageSize);
+  const pageCount = Math.ceil(count / pageSize);
 
   let page = Number(query.page);
   if (page < 1) {
     page = 1;
-  } else if (page > numPages) {
-    page = numPages;
+  } else if (page > pageCount) {
+    page = pageCount;
   }
 
   q.limit(pageSize);
@@ -36,7 +36,10 @@ export function applyPageParams(q, query, count) {
     q.offset((page-1) * pageSize);
   }
 
-  return numPages;
+  query.page = page;
+  query.pagesize = pageSize;
+
+  return pageCount;
 }
 
 export function applySortParams(q, query, sortCols, restCols) {

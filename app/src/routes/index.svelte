@@ -38,7 +38,7 @@
   export let langSuggest;
   export let glosslangSuggest;
   export let query;
-  export let numPages;
+  export let pageCount;
 </script>
 
 <main>
@@ -49,12 +49,22 @@
     {glosslangSuggest}
   />
 
-  {#if rows}
+  {#if $rows}
     <h3>Search results</h3>
-    <SearchTable
-      {rows}
-      {query}
-      {numPages}
-    />
+    {#if $rows.length}
+      <SearchTable
+        {rows}
+        {query}
+        {pageCount}
+      />
+    {:else}
+      <div>nothing found</div>
+    {/if}
   {/if}
 </main>
+
+<style>
+  div {
+    font-style: italic;
+  }
+</style>

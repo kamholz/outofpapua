@@ -59,13 +59,13 @@ export async function get({ query }) {
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),
   );
 
-  const numPages = applyPageParams(q, query, count);
+  const pageCount = applyPageParams(q, query, count);
   applySortParams(q, query, sortCols, ['language','headword','gloss','gloss_language']);
 
   return {
     body: {
       query,
-      numPages,
+      pageCount,
       rows: await q,
     }
   };

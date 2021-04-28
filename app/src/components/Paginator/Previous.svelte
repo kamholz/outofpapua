@@ -5,4 +5,8 @@
   export let url;
 </script>
 
-<li><a href={url}><Icon data={faCaretLeft} /></a></li>
+{#if url}
+  <a class="arrow" href={url}><Icon data={faCaretLeft} /></a>
+{:else}
+  <span class="arrow"><Icon data={faCaretLeft} /></span>
+{/if}
