@@ -20,7 +20,7 @@
 
 <script>
   import { session } from '$app/stores';
-  import UserTable from '$components/tables/UserTable.svelte';
+  import UsersTable from '$components/tables/UsersTable.svelte';
   import NewUserForm from '$components/forms/NewUserForm.svelte';
 
   export let rows;
@@ -31,7 +31,7 @@
 </script>
 
 <h2>Users</h2>
-<UserTable
+<UsersTable
   {rows}
   admin={$session.user?.admin}
   on:refresh={handleRefresh}

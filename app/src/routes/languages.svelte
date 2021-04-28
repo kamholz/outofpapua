@@ -22,7 +22,7 @@
 </script>
 
 <script>
-  import LanguageTable from '$components/tables/LanguageTable.svelte';
+  import LanguagesTable from '$components/tables/LanguagesTable.svelte';
   import CreateProtoLanguageForm from '$components/forms/CreateProtoLanguageForm.svelte';
 
   export let rows;
@@ -35,7 +35,7 @@
 </script>
 
 <h2>Languages</h2>
-<LanguageTable
+<LanguagesTable
   {rows}
   {query}
   {editable}

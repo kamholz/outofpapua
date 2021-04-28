@@ -22,7 +22,7 @@
 </script>
 
 <script>
-  import SourceTable from '$components/tables/SourceTable.svelte';
+  import SourcesTable from '$components/tables/SourcesTable.svelte';
 
   export let rows;
   export let query;
@@ -30,7 +30,7 @@
 </script>
 
 <h2>Sources</h2>
-<SourceTable
+<SourcesTable
   {rows}
   {query}
   {editable}
