@@ -43,47 +43,63 @@
 >
   {#each fields as field (field.name)}
     <div>
-      <label for={field.name}>{field.label}:</label>
-      {#if field.type === 'text'}
-        <input
-          type="text"
-          name={field.name}
-          bind:value={values[field.name]}
-          required={field.required}
-        >
-      {:else if field.type === 'email'}
-        <input
-          type="email"
-          name={field.name}
-          bind:value={values[field.name]}
-          required={field.required}
-        >
-      {:else if field.type === 'password'}
-        <input
-          type="password"
-          name={field.name}
-          bind:value={values[field.name]}
-          required={field.required}
-        >
-      {:else if field.type === 'checkbox'}
-        <input
-          type="checkbox"
-          name={field.name}
-          bind:checked={values[field.name]}
-          required={field.required}
-        >
-      {:else if field.type === 'languages'}
-        <Svelecte
-          options={field.options}
-          labelField="name"
-          valueField="id"
-          multiple
-          clearable
-          searchable
-          placeholder=""
-          bind:value={values[field.name]}
-        />
-        <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+      {#if field.static}
+        <span class="label">
+          {field.label}:
+        </span>
+        <span>
+          {values[field.name] ?? ""}
+        </span>
+      {:else}
+        <label for={field.name}>{field.label}:</label>
+        {#if field.type === 'text'}
+          <input
+            type="text"
+            name={field.name}
+            bind:value={values[field.name]}
+            required={field.required}
+          >
+        {:else if field.type === 'email'}
+          <input
+            type="email"
+            name={field.name}
+            bind:value={values[field.name]}
+            required={field.required}
+          >
+        {:else if field.type === 'password'}
+          <input
+            type="password"
+            name={field.name}
+            bind:value={values[field.name]}
+            required={field.required}
+          >
+        {:else if field.type === 'checkbox'}
+          <input
+            type="checkbox"
+            name={field.name}
+            bind:checked={values[field.name]}
+            required={field.required}
+          >
+        {:else if field.type === 'textarea'}
+          <textarea
+            name={field.name}
+            bind:value={values[field.name]}
+            required={field.required}
+          />
+          <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+        {:else if field.type === 'languages'}
+          <Svelecte
+            options={field.options}
+            labelField="name"
+            valueField="id"
+            multiple
+            clearable
+            searchable
+            placeholder=""
+            bind:value={values[field.name]}
+          />
+          <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+        {/if}
       {/if}
     </div>
   {/each}
@@ -106,7 +122,7 @@
       align-items: center;
       margin-block: 6px;
 
-      label {
+      label, .label {
         margin-inline-end: 10px;
         text-align: end;
       }

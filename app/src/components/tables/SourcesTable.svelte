@@ -1,4 +1,5 @@
 <script>
+  import { session } from '$app/stores';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
   import Alert from '$components/Alert.svelte';
@@ -30,6 +31,13 @@
     }
   ];
 
+  const controls = [
+    {
+      type: $session.user ? 'edit' : 'view',
+      link: row => `/sources/${row.id}`,
+    }
+  ];
+
   const updateFromCell = crud.updateFromCell('source');
 
   async function handleUpdate(e) {
@@ -50,6 +58,7 @@
   {rows}
   {query}
   {editable}
+  {controls}
   sortable
   on:update={handleUpdate}
 />

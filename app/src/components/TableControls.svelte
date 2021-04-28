@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+  import { faTrash, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
@@ -11,6 +11,7 @@
   const iconMap = {
     delete: faTrash,
     edit: faEdit,
+    view: faInfoCircle,
   };
 
   for (const control of controls) {

@@ -27,7 +27,7 @@ export async function get({ query }) {
       'source.id',
       'source.title',
       'source.reference',
-      'source.reference_full',
+      //'source.reference_full',
       'language.name as language'
     );
  
