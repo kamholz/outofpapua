@@ -1,3 +1,11 @@
+export async function lang(fetch) {
+  const res = await fetch('/api/language.json');
+  if (!res.ok) {
+    return null;
+  }
+  return (await res.json()).rows;
+}
+
 export async function langPlus(fetch) {
   const res = await fetch('/api/language.json?category=descendants');
   if (!res.ok) {
@@ -14,8 +22,24 @@ export async function langPlus(fetch) {
   return suggestRows;
 }
 
+export async function protolang(fetch) {
+  const res = await fetch('/api/language.json?category=proto');
+  if (!res.ok) {
+    return null;
+  }
+  return (await res.json()).rows;
+}
+
 export async function glosslang(fetch) {
   const res = await fetch('/api/language.json?category=gloss');
+  if (!res.ok) {
+    return null;
+  }
+  return (await res.json()).rows;
+}
+
+export async function borrowlang(fetch) {
+  const res = await fetch('/api/language.json?category=borrow');
   if (!res.ok) {
     return null;
   }

@@ -40,18 +40,14 @@ export async function get({ query }) {
     q
       .from('language_with_descendants as language')
       .select('language.descendants');
-  }
-
-  switch (query.category) {
-    case 'borrowedfrom':
-      q.whereRaw('language.flag_language_list or language.flag_borrowed_from');
-      break;
-    case 'gloss':
-      q.whereRaw('language.flag_gloss_language');
-      break;
-    default:
-      q.whereRaw('language.flag_language_list');
-      break;
+  } else if (query.category === 'proto') {
+    q.whereNotNull('protolanguage.id');
+  } else if (query.category === 'borrow') {
+    q.whereRaw('language.flag_language_list or language.flag_borrowed_from');
+  } else if (query.category === 'gloss') {
+    q.whereRaw('language.flag_gloss_language');
+  } else {
+    q.whereRaw('language.flag_language_list');
   }
 
   if ('numentries' in query) {
@@ -63,8 +59,8 @@ export async function get({ query }) {
   }
 
   applySortParams(q, query, sortCols, ['name']);
-
   stripParams(query, strip);
+
   return {
     body: {
       query,
