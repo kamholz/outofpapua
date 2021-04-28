@@ -8,11 +8,9 @@
   export let editable;
   export let active = false;
 
-  function isEditable(row) {
-    return typeof(column.editable) === 'function'
-      ? column.editable(row)
-      : column.editable;
-  }
+  const { link, type, value } = column;
+  const cellEditable = editable &&
+    (typeof(column.editable) === 'function' ? column.editable(row) : column.editable);
 
   function handleActivate() {
     active = true;
@@ -23,15 +21,15 @@
   }
 </script>
 
-{#if editable && isEditable(row)}
-  {#if column.type === 'checkbox'}
+{#if cellEditable}
+  {#if type === 'checkbox'}
     <TableCellCheckbox
       {row}
       {column}
       on:update
     />
   {:else if active}
-    {#if column.type === 'autocomplete'}
+    {#if type === 'autocomplete'}
       <TableCellAutocomplete
         {row}
         {column}
@@ -50,11 +48,15 @@
     {/if}
   {:else}
     <td on:click={handleActivate}>
-      <span>{column.value(row)}</span>
+      <span>{value(row)}</span>
     </td>
   {/if}
 {:else}
   <td>
-    <span>{column.value(row)}</span>
+    {#if link}
+      <a href={link(row)}>{value(row)}</a>
+    {:else}
+      <span>{value(row)}</span>
+    {/if}
   </td>
 {/if}

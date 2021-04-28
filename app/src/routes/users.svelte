@@ -30,18 +30,16 @@
   }
 </script>
 
-<main>
-  <h2>Users</h2>
-  <UserTable
-    {rows}
-    admin={$session.user?.admin}
+<h2>Users</h2>
+<UserTable
+  {rows}
+  admin={$session.user?.admin}
+  on:refresh={handleRefresh}
+/>
+
+{#if $session.user?.admin}
+  <h3>Create new user</h3>
+  <NewUserForm
     on:refresh={handleRefresh}
   />
-
-  {#if $session.user?.admin}
-    <h3>Create new user</h3>
-    <NewUserForm
-      on:refresh={handleRefresh}
-    />
-  {/if}
-</main>
+{/if}

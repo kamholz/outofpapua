@@ -21,4 +21,6 @@
 <Login username={$session.user?.username} />
 <NavBar />
 
+<main>
 <slot />
+</main>

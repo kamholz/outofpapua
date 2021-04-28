@@ -1,9 +1,10 @@
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams } from '$lib/util';
 
 const allowed = new Set(['headword','gloss','glosslang','lang','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
-const arrayNumParams = new Set(['lang','glosslang']);
+const arrayParams = new Set(['lang']);
+const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
@@ -25,6 +26,7 @@ export async function get({ query }) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);
+  parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);
   query = {...defaults, ...query};
 
@@ -42,7 +44,10 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
   if ('lang' in query) {
-    q.where('source.language_id', arrayCmp(new Set(query.lang)));
+    const flatLang = query.lang
+      .map(v => v.split('|').map(v => Number(v)))
+      .flat();
+    q.where('source.language_id', arrayCmp(new Set(flatLang)));
   }
   if ('glosslang' in query) {
     q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
@@ -53,7 +58,9 @@ export async function get({ query }) {
   q.select(
     'language.name as language',
     'source.reference as source',
-    'entry.headword','entry.pos',
+    'entry.headword',
+    'entry.pos',
+    'entry.record_id',
     'sense_gloss.txt as gloss',
     'language2.name as gloss_language',
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),

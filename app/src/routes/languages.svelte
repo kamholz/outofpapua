@@ -34,19 +34,17 @@
   }
 </script>
 
-<main>
-  <h2>Languages</h2>
-  <LanguageTable 
-    {rows}
-    {query}
-    {editable}
+<h2>Languages</h2>
+<LanguageTable
+  {rows}
+  {query}
+  {editable}
+  on:refresh={handleRefresh}
+/>
+
+{#if editable}
+  <h3>Create proto-language</h3>
+  <CreateProtoLanguageForm
     on:refresh={handleRefresh}
   />
-
-  {#if editable}
-    <h3>Create proto-language</h3>
-    <CreateProtoLanguageForm
-      on:refresh={handleRefresh}
-    />
-  {/if}
-</main>
+{/if}

@@ -27,6 +27,4 @@
   export let user;
 </script>
 
-<main>
-  <ProfilePage {user} admin={true} />
-</main>
+<ProfilePage {user} admin={true} />

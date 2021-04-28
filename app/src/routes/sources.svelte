@@ -29,11 +29,9 @@
   export let editable;
 </script>
 
-<main>
-  <h2>Sources</h2>
-  <SourceTable
-    {rows}
-    {query}
-    {editable} 
-  />
-</main>
+<h2>Sources</h2>
+<SourceTable
+  {rows}
+  {query}
+  {editable}
+/>

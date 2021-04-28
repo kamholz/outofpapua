@@ -89,9 +89,11 @@
     border: 1px solid black;
     border-collapse: collapse;
 
-    a, a:visited {
-      color: black;
-      text-decoration: none;
+    thead {
+      a, a:visited {
+        color: black;
+        text-decoration: none;
+      }
     }
 
     tr:nth-child(even) {

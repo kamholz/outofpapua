@@ -17,6 +17,7 @@
     {
       key: 'headword',
       title: 'Headword',
+      link: row => `/record/${row.record_id}`,
     },
     {
       key: 'pos',

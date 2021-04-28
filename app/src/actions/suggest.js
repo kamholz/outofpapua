@@ -1,6 +1,4 @@
-import { serializeArrayParam } from '$lib/util';
-
-export async function lang(fetch) {
+export async function langPlus(fetch) {
   const res = await fetch('/api/language.json?category=descendants');
   if (!res.ok) {
     return null;
@@ -10,7 +8,7 @@ export async function lang(fetch) {
   for (const row of rows) {
     suggestRows.push(row);
     if (row.descendants?.length > 1) {
-      suggestRows.push({ id: serializeArrayParam(row.descendants), name: `${row.name}+` });
+      suggestRows.push({ id: row.descendants.join('|'), name: `${row.name}+` });
     }
   }
   return suggestRows;

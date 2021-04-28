@@ -10,6 +10,4 @@
   delete user.admin;
 </script>
 
-<main>
-  <ProfilePage {user} />
-</main>
+<ProfilePage {user} />
