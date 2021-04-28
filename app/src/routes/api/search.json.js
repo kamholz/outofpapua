@@ -1,5 +1,6 @@
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, isNumber, normalizeQuery, 
+  parseArrayNumParams, parseArrayParams, parseBooleanParams, partitionPlus } from '$lib/util';
 
 const allowed = new Set(['headword','gloss','glosslang','lang','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
@@ -44,10 +45,18 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
   if ('lang' in query) {
-    const flatLang = query.lang
-      .map(v => v.split('|').map(v => Number(v)))
-      .flat();
-    q.where('source.language_id', arrayCmp(new Set(flatLang)));
+    let [lang, langPlus] = partitionPlus(query.lang);
+    if (langPlus.length) {
+      const descendants = await knex('language_with_descendants')
+        .where('id', arrayCmp(new Set(langPlus)))
+        .pluck('descendants');
+      for (const d of descendants) {
+        lang.push(...d);
+      }
+    }
+    if (lang.length) {
+      q.where('source.language_id', arrayCmp(new Set(lang)));
+    }
   }
   if ('glosslang' in query) {
     q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));

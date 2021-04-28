@@ -78,18 +78,27 @@ export function parseArrayNumParams(query, iterable) {
   for (const key of iterable) {
     if (key in query) {
       query[key] = parseArrayNumParam(query[key]);
+      if (!query[key].length) {
+        delete query[key];
+      }
     }
   }
 }
 
 export function parseArrayNumParam(param) {
-  return param.split(',').map(v => Number(v));
+  return param.split(',')
+    .filter(v => isNumber(v))
+    .map(v => Number(v));
 }
 
 export function serializeArrayParams(query, iterable) {
   for (const key of iterable) {
     if (key in query) {
-      query[key] = serializeArrayParam(query[key]);
+      if (query[key].length) {
+        query[key] = serializeArrayParam(query[key]);
+      } else {
+        delete query[key];
+      }
     }
   }
 }
@@ -104,6 +113,20 @@ export function stripParams(query, set) {
       delete query[key];
     }
   }
+}
+
+export function isNumber(str) {
+  return str.match(/^[0-9]+$/);
+}
+
+export function partitionPlus(array) {
+  let [single, plus] = array.reduce(([single,plus], v) => {
+    return v.match(/\+$/) ? [single, [...plus, v.replace(/\+$/,'')]] : [[...single, v], plus];
+  }, [[], []]);
+  return [
+    single.filter(v => isNumber(v)).map(v => Number(v)),
+    plus.filter(v => isNumber(v)).map(v => Number(v))
+  ];
 }
 
 // authorization

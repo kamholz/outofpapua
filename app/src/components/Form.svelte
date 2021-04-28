@@ -86,7 +86,6 @@
             bind:value={values[field.name]}
             required={field.required}
           />
-          <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
         {:else if field.type === 'languages'}
           <Svelecte
             options={field.options}
