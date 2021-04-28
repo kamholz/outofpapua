@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { fade } from 'svelte/transition';
   import Svelecte from '$lib/svelecte';
 
   export let row;
@@ -47,6 +48,7 @@
   bind:this={td}
   on:deactivate
   on:focusout={handleFocusOut}
+  in:fade={{duration: 200}}
 >
   <Svelecte
     options={filteredOptions}

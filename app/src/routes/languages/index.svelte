@@ -22,6 +22,7 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
   import LanguagesTable from './_Table.svelte';
   import CreateLanguageForm from './_CreateForm.svelte';
 
@@ -34,6 +35,7 @@
   }
 </script>
 
+<div in:fade={{ duration: 200 }}>
 <h2>Languages</h2>
 <LanguagesTable
   {rows}
@@ -48,3 +50,4 @@
     on:refresh={handleRefresh}
   />
 {/if}
+</div>

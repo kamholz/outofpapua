@@ -19,6 +19,7 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
   import { session } from '$app/stores';
   import UsersTable from './_Table.svelte';
   import CreateUserForm from './_CreateForm.svelte';
@@ -30,6 +31,7 @@
   }
 </script>
 
+<div in:fade={{ duration: 200 }}>
 <h2>Users</h2>
 <UsersTable
   {rows}
@@ -43,3 +45,4 @@
     on:refresh={handleRefresh}
   />
 {/if}
+</div>

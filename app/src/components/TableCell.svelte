@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition';
   import TableCellAutocomplete from '$components/TableCell/Autocomplete.svelte';
   import TableCellCheckbox from '$components/TableCell/Checkbox.svelte';
   import TableCellInput from '$components/TableCell/Input.svelte';
@@ -47,7 +48,10 @@
       />
     {/if}
   {:else}
-    <td on:click={handleActivate}>
+    <td
+      on:click={handleActivate}
+      in:fade|local={{duration: 300}}
+    >
       <span>{value(row)}</span>
     </td>
   {/if}

@@ -9,11 +9,14 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
   import { session } from '$app/stores';
   import SourceForm from './_Form.svelte';
 
   export let source;
 </script>
 
+<div in:fade={{ duration: 200 }}>
 <h3>Source: {source.title}, {source.reference}</h3>
 <SourceForm editable={$session.user} {source} />
+</div>

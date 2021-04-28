@@ -33,6 +33,7 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
   import SearchTable from './_SearchTable.svelte';
   import SearchForm from './_SearchForm.svelte';
 
@@ -43,6 +44,7 @@
   export let pageCount;
 </script>
 
+<div in:fade={{ duration: 200 }}>
 <h2>Search entries</h2>
 <SearchForm
   {query}
@@ -59,12 +61,13 @@
       {pageCount}
     />
   {:else}
-    <div>nothing found</div>
+    <div class="notfound">nothing found</div>
   {/if}
 {/if}
+</div>
 
 <style>
-  div {
+  .notfound {
     font-style: italic;
   }
 </style>

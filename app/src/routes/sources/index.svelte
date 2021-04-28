@@ -22,6 +22,7 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
   import SourcesTable from './_Table.svelte';
 
   export let rows;
@@ -29,9 +30,11 @@
   export let editable;
 </script>
 
+<div in:fade={{ duration: 200 }}>
 <h2>Sources</h2>
 <SourcesTable
   {rows}
   {query}
   {editable}
 />
+</div>

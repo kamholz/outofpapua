@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { fade } from 'svelte/transition';
   import { nullify } from '$lib/util';
 
   export let row;
@@ -43,6 +44,7 @@
   on:deactivate
   on:blur={() => dispatch('deactivate')}
   on:keydown={handleKeyDown}
+  in:fade={{duration: 200}}
 >
   <span>{column.value(row)}</span>
 </td>

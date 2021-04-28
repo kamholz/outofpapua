@@ -9,10 +9,13 @@
 </script>
 
 <script>
+  import { fade } from 'svelte/transition';
+
   export let record;
 </script>
 
-<h3>Entry from {record.source_title}, {record.source_reference}</h3>
+<div in:fade={{ duration: 200 }}>
+<h2>Entry from {record.source_title}, {record.source_reference}</h2>
 <table>
   <thead>
     <tr>
@@ -29,6 +32,7 @@
     {/each}
   </tbody>
 </table>
+</div>
 
 <style lang="scss">
   @import '../../vars.scss';

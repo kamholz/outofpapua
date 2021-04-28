@@ -1,7 +1,7 @@
 <script>
   import '../app.scss';
   import Icon from 'svelte-awesome';
-  import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+  import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
   import { session, navigating } from '$app/stores';
   import { pageLoading } from '$stores';
