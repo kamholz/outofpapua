@@ -27,6 +27,8 @@
 </div>
 
 <style lang="scss">
+  @import '../vars.scss';
+
   .record {
     border: 1px solid gray;
     padding: 10px;
@@ -39,15 +41,15 @@
       display: grid;
       grid-template-columns: var(--gridtemplate, 43% 57%);
       align-items: center;
-      margin-block: 6px;
+      padding-block: 6px;
 
       .label {
-        margin-inline-end: 10px;
+        margin-inline-end: 12px;
         text-align: end;
       }
 
-      .value {
-        margin: 0;
+      &:nth-child(even) {
+        background-color: $lightgray;
       }
     }
   }

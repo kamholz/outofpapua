@@ -22,8 +22,8 @@
 </script>
 
 <script>
-  import LanguagesTable from '$components/tables/LanguagesTable.svelte';
-  import CreateLanguageForm from '$components/forms/CreateLanguageForm.svelte';
+  import LanguagesTable from './_Table.svelte';
+  import CreateLanguageForm from './_CreateForm.svelte';
 
   export let rows;
   export let query;

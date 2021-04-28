@@ -5,7 +5,7 @@
 
 <script>
   import { session } from '$app/stores';
-  import ProfilePage from '$components/pages/ProfilePage.svelte';
+  import ProfilePage from './_Page.svelte';
   const user = {...$session.user};
   delete user.admin;
 </script>

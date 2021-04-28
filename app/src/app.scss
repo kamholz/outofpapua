@@ -1,26 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: sans-serif;
   font-size: 16px;
 }
 
 body {
-  padding: 20px;
-  margin-block: 0;
-  margin-inline: auto;
+  margin: 28px;
 }
 
 h2 {
   font-size: 1.5em;
   font-weight: bold;
   margin-block: 0.83em;
-  margin-inline: 0;
 }
 
 h3 {
   font-size: 1.17em;
   font-weight: bold;
   margin-block: 1em;
-  margin-inline: 0;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  padding-block: 1px;
+  padding-inline: 2px;
+}
+
+textarea {
+  padding-block: 2px;
+  padding-inline: 2px;
+}
+
+button {
+  margin-inline-start: 10px;
+  padding-block: 1px;
+  padding-inline: 6px;
 }
 
 .loading {

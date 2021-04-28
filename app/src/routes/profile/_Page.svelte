@@ -2,8 +2,8 @@
   import { goto } from '$app/navigation';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
-  import ProfileForm from '$components/forms/ProfileForm.svelte';
-  import PasswordForm from '$components/forms/PasswordForm.svelte';
+  import ProfileForm from './_ProfileForm.svelte';
+  import PasswordForm from './_PasswordForm.svelte';
   import Alert from '$components/Alert.svelte';
 
   export let user;

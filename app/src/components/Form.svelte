@@ -109,25 +109,21 @@
 <style lang="scss">
   form {
     border: 1px solid gray;
-    padding: 10px;
-    width: var(--formwidth, 18em);
+    padding: 12px;
+    width: var(--formwidth, 19em);
 
     display: flex;
     flex-direction: column;
 
     > div {
       display: grid;
-      grid-template-columns: var(--gridtemplate, 43% 57%);
+      grid-template-columns: var(--gridtemplate, 42% 58%);
       align-items: center;
       margin-block: 6px;
 
       label, .label {
-        margin-inline-end: 10px;
+        margin-inline-end: 12px;
         text-align: end;
-      }
-
-      input[type="checkbox"] {
-        margin: 0;
       }
 
       :global(.svelecte-control) {
@@ -144,7 +140,7 @@
 
     > button {
       align-self: flex-end;
-      margin-block: 6px;
+      margin-block: 9px 3px;
     }
   }
 </style>

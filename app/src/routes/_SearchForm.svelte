@@ -29,7 +29,7 @@
       type: 'languages',
       options: glosslangSuggest,
     }
-  ];
+  ]
 </script>
 
 <Form
@@ -37,7 +37,7 @@
   values={query}
   submitLabel="Search"
   preventDefault={false}
-  style="--formwidth: 30em; --gridtemplate: 30% 70%"
+  style="--formwidth: 31em; --gridtemplate: 33% 67%"
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.pagesize}>

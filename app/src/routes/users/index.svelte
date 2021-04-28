@@ -20,8 +20,8 @@
 
 <script>
   import { session } from '$app/stores';
-  import UsersTable from '$components/tables/UsersTable.svelte';
-  import CreateUserForm from '$components/forms/CreateUserForm.svelte';
+  import UsersTable from './_Table.svelte';
+  import CreateUserForm from './_CreateForm.svelte';
 
   export let rows;
 

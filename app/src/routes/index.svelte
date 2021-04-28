@@ -33,8 +33,8 @@
 </script>
 
 <script>
-  import SearchTable from '$components/tables/SearchTable.svelte';
-  import SearchForm from '$components/forms/SearchForm.svelte';
+  import SearchTable from './_SearchTable.svelte';
+  import SearchForm from './_SearchForm.svelte';
 
   export let rows = null;
   export let langSuggest;

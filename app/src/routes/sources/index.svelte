@@ -22,7 +22,7 @@
 </script>
 
 <script>
-  import SourcesTable from '$components/tables/SourcesTable.svelte';
+  import SourcesTable from './_Table.svelte';
 
   export let rows;
   export let query;

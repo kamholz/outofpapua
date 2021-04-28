@@ -10,7 +10,7 @@
 
 <script>
   import { session } from '$app/stores';
-  import SourceForm from '$components/forms/SourceForm.svelte';
+  import SourceForm from './_Form.svelte';
 
   export let source;
 </script>

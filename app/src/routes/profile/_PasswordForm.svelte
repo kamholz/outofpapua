@@ -70,7 +70,7 @@
   values={passwordValues}
   submitLabel="Change"
   {loading}
-  style="--formwidth: 22em"
+  style="--formwidth: 23em; --gridtemplate: 50% 50%"
   on:beforesubmit={handleValidation}
   on:submit={handleUpdate}
 />
