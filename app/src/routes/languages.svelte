@@ -23,7 +23,7 @@
 
 <script>
   import LanguagesTable from '$components/tables/LanguagesTable.svelte';
-  import CreateProtoLanguageForm from '$components/forms/CreateProtoLanguageForm.svelte';
+  import CreateLanguageForm from '$components/forms/CreateLanguageForm.svelte';
 
   export let rows;
   export let query;
@@ -44,7 +44,7 @@
 
 {#if editable}
   <h3>Create proto-language</h3>
-  <CreateProtoLanguageForm
+  <CreateLanguageForm
     on:refresh={handleRefresh}
   />
 {/if}

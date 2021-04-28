@@ -21,7 +21,7 @@
 <script>
   import { session } from '$app/stores';
   import UsersTable from '$components/tables/UsersTable.svelte';
-  import NewUserForm from '$components/forms/NewUserForm.svelte';
+  import CreateUserForm from '$components/forms/CreateUserForm.svelte';
 
   export let rows;
 
@@ -39,7 +39,7 @@
 
 {#if $session.user?.admin}
   <h3>Create new user</h3>
-  <NewUserForm
+  <CreateUserForm
     on:refresh={handleRefresh}
   />
 {/if}
