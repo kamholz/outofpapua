@@ -1,5 +1,5 @@
-import knexModule from 'knex';
 import config from '$config';
+import knexModule from 'knex';
 
 const knex = knexModule({
   client: 'pg',

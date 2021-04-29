@@ -1,11 +1,11 @@
 // string and parameter validation
 
 export function nullify(txt) {
-  return txt === "" ? null : txt;
+  return txt === '' ? null : txt;
 }
 
 export function stringify(txt) {
-  return txt ?? "";
+  return txt ?? '';
 }
 
 export function normalizeQuery(urlSearchParams) {

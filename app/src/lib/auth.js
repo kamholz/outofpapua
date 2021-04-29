@@ -1,8 +1,6 @@
 import config from '$config';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
-import config from '$config';
 import { knex } from '$lib/db';
 
 const scheme = config.HTTP_SCHEME || 'http';
