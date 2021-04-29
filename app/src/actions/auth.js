@@ -6,12 +6,12 @@ export async function login(username, password) {
     headers: {
       'content-type': 'application/json',
     },
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password }),
   });
 
   if (res.ok) {
     const { user } = await res.json();
-    session.update(v => ({...v, user}));
+    session.update((v) => ({ ...v, user }));
   } else {
     throw new Error('login failed');
   }
@@ -20,7 +20,7 @@ export async function login(username, password) {
 export async function logout() {
   const res = await fetch('/auth/logout');
   if (res.ok) {
-    session.update(v => ({...v, user: null}));
+    session.update((v) => ({ ...v, user: null }));
   } else {
     throw new Error('logout error');
   }
@@ -33,7 +33,7 @@ export function requireAuthLoad(handler) {
       return { status: 401, error: 'Unauthorized' };
     }
     return handler(req);
-  }
+  };
 }
 
 export async function updatePassword(userId, values) {
@@ -50,7 +50,7 @@ export async function updatePassword(userId, values) {
   if (!res.ok) {
     let error;
     try {
-      error = (await res.json()).error;
+      ({ error } = await res.json());
     } catch (e) {
       throw new Error('Password change failed');
     }

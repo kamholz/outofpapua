@@ -1,5 +1,5 @@
 export function makeCreater(type) {
-  return async function(values) {
+  return async function (values) {
     const res = await fetch(`/api/${type}.json`, {
       method: 'POST',
       headers: {
@@ -14,12 +14,12 @@ export function makeCreater(type) {
         throw new Error('Could not create');
       }
     }
-    return await res.json();
-  }
+    return res.json();
+  };
 }
 
 export function makeUpdater(type) {
-  return async function({ id, values }) {
+  return async function ({ id, values }) {
     const res = await fetch(`/api/${type}/${id}.json`, {
       method: 'PUT',
       headers: {
@@ -34,7 +34,7 @@ export function makeUpdater(type) {
         throw new Error('Could not update');
       }
     }
-  }
+  };
 }
 
 export function updateFromCell(type) {
@@ -45,16 +45,16 @@ export function updateFromCell(type) {
     if (onSuccess) {
       onSuccess();
     }
-  }
+  };
 }
 
 export function makeDeleter(type) {
-  return async function(id) {
+  return async function (id) {
     const res = await fetch(`/api/${type}/${id}.json`, {
       method: 'DELETE',
     });
     if (!res.ok) {
       throw new Error('Could not delete');
     }
-  }
+  };
 }

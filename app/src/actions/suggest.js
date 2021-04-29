@@ -11,7 +11,7 @@ export async function langPlus(fetch) {
   if (!res.ok) {
     return null;
   }
-  const rows = (await res.json()).rows;
+  const { rows } = await res.json();
   const suggestRows = [];
   for (const row of rows) {
     suggestRows.push(row);

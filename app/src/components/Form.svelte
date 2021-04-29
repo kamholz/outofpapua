@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, onMount, tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { serializeArrayParam, stringify } from '$lib/util';
   import Svelecte from '$lib/svelecte';
@@ -18,7 +18,7 @@
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.currentTarget;
-    for (const field of fields) { // normalize whitespace
+    for (const { name, type } of fields) { // normalize whitespace
       if (type === 'text') {
         values[name] = values[name]?.trim();
       }
