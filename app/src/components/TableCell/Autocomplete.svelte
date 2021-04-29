@@ -6,7 +6,7 @@
 
   export let row;
   export let column;
-  const { filter, options, labelField, rowKey, valueField } = column.autocomplete;
+  const { filter, options, labelField, rowKey, searchField, valueField } = column.autocomplete;
   let td;
   let focus;
 
@@ -55,7 +55,7 @@
     value={row[rowKey]}
     {valueField}
     {labelField}
-    searchField={labelField}
+    searchField={searchField || labelField}
     placeholder=""
     searchable
     clearable
