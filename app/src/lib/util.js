@@ -141,15 +141,6 @@ export function adminNotSelf(loggedInUser, userId) {
 
 // misc
 
-export function pageUrl(page) {
-  let url = `http://${page.host}${page.path}`;
-  if (page.query.values().next().done) { // no query params
-    return url;
-  } else {
-    return url + '?' + page.query.toString();
-  }
-}
-
 export function boolean(value) {
   return value ? 'yes' : 'no';
 }

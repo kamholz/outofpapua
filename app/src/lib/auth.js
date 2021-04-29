@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
 import { knex } from '$lib/db';
-import { pageUrl } from '$lib/util';
+
+const scheme = config.HTTP_SCHEME || 'http';
 
 export async function getUser(userId) {
   const rows = await knex('usr')
@@ -120,6 +121,15 @@ export function redirectToRefresh(request) {
       location: '/auth/refresh?' + new URLSearchParams({ redirect: pageUrl(request) }),
     }
   };
+}
+
+function pageUrl(page) {
+  let url = `${scheme}://${page.host}${page.path}`;
+  if (page.query.values().next().done) { // no query params
+    return url;
+  } else {
+    return url + '?' + page.query.toString();
+  }
 }
 
 export function requireAuth(handler) {
