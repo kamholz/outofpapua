@@ -5,11 +5,11 @@ Object.assign(config, {
   i18n: {
     empty: 'No options remaining',
     nomatch: 'Nothing found',
-    max: num => `Maximum items ${num} selected`,
+    max: (num) => `Maximum items ${num} selected`,
     fetchBefore: 'Type to search',
     fetchEmpty: 'No data related to your search',
-    collapsedSelection: count => `${count} selected`
-  },  
+    collapsedSelection: (count) => `${count} selected`,
+  },
 });
 
 export default Svelecte;

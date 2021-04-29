@@ -4,9 +4,9 @@ import config from '$config';
 const knex = knexModule({
   client: 'pg',
   connection: {
-    host:     config.PGHOST,
+    host: config.PGHOST,
     database: config.PGDATABASE,
-  }
+  },
 });
 export { knex as knex };
 
@@ -33,7 +33,7 @@ export function applyPageParams(q, query, count) {
 
   q.limit(pageSize);
   if (page > 1) {
-    q.offset((page-1) * pageSize);
+    q.offset((page - 1) * pageSize);
   }
 
   query.page = page;

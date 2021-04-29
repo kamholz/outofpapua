@@ -13,10 +13,10 @@ export async function post({ body }) {
         'set-cookie': [
           auth.makeAccessTokenCookie(user),
           auth.makeRefreshTokenCookie(user),
-        ]
+        ],
       },
-      body: { user }
-    }
+      body: { user },
+    };
   } else {
     return { status: 401 };
   }

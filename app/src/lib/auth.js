@@ -1,3 +1,5 @@
+import config from '$config';
+import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import config from '$config';
@@ -7,17 +9,17 @@ const scheme = config.HTTP_SCHEME || 'http';
 
 export async function getUser(userId) {
   const row = await knex('usr')
-    .first('id','username','fullname','admin')
+    .first('id', 'username', 'fullname', 'admin')
     .where({ id: userId });
   return row ?? null;
 }
 
 export async function checkUserPassword(username, password) {
   const row = await knex('usr')
-    .first('id','username','fullname','admin')
+    .first('id', 'username', 'fullname', 'admin')
     .where({
-      username: username,
-      password: knex.raw('pgcrypto.crypt(?, password)', password)
+      username,
+      password: knex.raw('pgcrypto.crypt(?, password)', password),
     });
   return row ?? null;
 }
@@ -105,7 +107,7 @@ export function makeExpiredCookies() {
 }
 
 function makeExpiredCookie(name) {
-  return cookie.serialize(name, "", {
+  return cookie.serialize(name, '', {
     expires: new Date(0),
     httpOnly: true,
     path: '/',
@@ -119,12 +121,12 @@ export function redirectToRefresh(request) {
     status: 302,
     headers: {
       location: '/auth/refresh?' + new URLSearchParams({ redirect: pageUrl(request) }),
-    }
+    },
   };
 }
 
 function pageUrl(page) {
-  let url = `${scheme}://${page.host}${page.path}`;
+  const url = `${scheme}://${page.host}${page.path}`;
   if (page.query.values().next().done) { // no query params
     return url;
   } else {
@@ -138,7 +140,7 @@ export function requireAuth(handler) {
       return { status: 401 };
     }
     return handler(req);
-  }
+  };
 }
 
 export function requireAdmin(handler) {
@@ -147,5 +149,5 @@ export function requireAdmin(handler) {
       return { status: 401 };
     }
     return handler(req);
-  }
+  };
 }

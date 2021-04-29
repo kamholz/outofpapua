@@ -20,7 +20,7 @@ const strip = new Set(['numentries']);
 export async function get({ query }) {
   query = normalizeQuery(query);
   parseBooleanParams(query, boolean);
-  query = {...defaults, ...query};
+  query = { ...defaults, ...query };
 
   const q = knex(table)
     .join('language', 'language.id', 'source.language_id')
@@ -32,7 +32,7 @@ export async function get({ query }) {
       //'source.reference_full',
       'language.name as language'
     );
- 
+
   if ('numentries' in query) {
     q
       .leftJoin('entry', 'entry.source_id', 'source.id')
@@ -40,19 +40,19 @@ export async function get({ query }) {
       .groupBy('source.id', 'language.name');
   }
 
-  applySortParams(q, query, sortCols, ['title','language','reference']);
- 
+  applySortParams(q, query, sortCols, ['title', 'language', 'reference']);
+
   stripParams(query, strip);
   return {
     body: {
       query,
       rows: await q,
-    }
+    },
   };
 }
 
-const allowed = new Set(['language_id','note','reference','reference_full','title']);
-const required = new Set(['language_id','reference','title']);
+const allowed = new Set(['language_id', 'note', 'reference', 'reference_full', 'title']);
+const required = new Set(['language_id', 'reference', 'title']);
 
 export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, allowed);

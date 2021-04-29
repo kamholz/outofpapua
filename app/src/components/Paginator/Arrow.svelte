@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+  import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
   export let url;
   export let dir;

@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+  import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
   import { serializeQuery, stringify } from '$lib/util';
   import Paginator from '$components/Paginator.svelte';
   import TableCell from '$components/TableCell.svelte';
@@ -17,7 +17,7 @@
 
   for (const column of columns) {
     if (!('value' in column)) {
-      column.value = row => stringify(row[column.key]);
+      column.value = (row) => stringify(row[column.key]);
     }
   }
 
@@ -29,7 +29,7 @@
   }
 
   function getSortQuery(key, query) {
-    const sortQuery = {...query};
+    const sortQuery = { ...query };
     if (key === query.sort) {
       sortQuery.asc = !sortQuery.asc;
     } else {

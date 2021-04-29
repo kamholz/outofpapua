@@ -7,16 +7,16 @@ const table = 'usr';
 
 export const get = requireAuth(async () => {
   const q = knex(table)
-    .select('id','username','fullname','admin')
-    .orderBy('fullname');  
+    .select('id', 'username', 'fullname', 'admin')
+    .orderBy('fullname');
   return {
     body: {
       rows: await q,
-    }
+    },
   };
 });
 
-const required = new Set(['username','fullname','password']);
+const required = new Set(['username', 'fullname', 'password']);
 
 export const post = requireAdmin(async ({ body }) => {
   const params = getFilteredParams(body, required);

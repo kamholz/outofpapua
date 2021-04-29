@@ -50,7 +50,7 @@
   {:else}
     <td
       on:click={handleActivate}
-      in:fade|local={{duration: 300}}
+      in:fade|local={{ duration: 300 }}
     >
       <span>{value(row)}</span>
     </td>

@@ -9,7 +9,7 @@
       values: { [column.key]: value },
       onSuccess: () => {
         row[column.key] = value;
-      }
+      },
     });
   }
 </script>

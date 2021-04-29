@@ -4,7 +4,7 @@ import { getFilteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
 import errors from '$lib/errors';
 
 const table = 'usr';
-const allowed = new Set(['username','fullname','admin']);
+const allowed = new Set(['username', 'fullname', 'admin']);
 
 export const get = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
@@ -31,7 +31,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
       .returning('id')
       .update(updateParams);
     if (ids.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);
@@ -50,7 +50,7 @@ export const del = requireAuth(async ({ params, context }) => {
       .returning('id')
       .del();
     if (ids.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);

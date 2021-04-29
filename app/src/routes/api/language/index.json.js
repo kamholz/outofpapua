@@ -17,12 +17,12 @@ const sortCols = {
   parent_name: 'parent.name',
   numentries: 'count(entry.id)',
 };
-const strip = new Set(['category','numentries']);
+const strip = new Set(['category', 'numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
   parseBooleanParams(query, boolean);
-  query = {...defaults, ...query};
+  query = { ...defaults, ...query };
 
   const q = knex(table)
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
@@ -66,7 +66,7 @@ export async function get({ query }) {
     body: {
       query,
       rows: await q,
-    }
+    },
   };
 }
 
@@ -79,7 +79,7 @@ export const post = requireAuth(async ({ body }) => {
   }
   try {
     const ids = await
-      knex.with('inserted', q => {
+      knex.with('inserted', (q) => {
         q.from(table)
         .returning('id')
         .insert(params);

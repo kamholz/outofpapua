@@ -1,8 +1,8 @@
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
-import { getFilteredParams, isNumber, normalizeQuery, 
+import { getFilteredParams, normalizeQuery,
   parseArrayNumParams, parseArrayParams, parseBooleanParams, partitionPlus } from '$lib/util';
 
-const allowed = new Set(['headword','gloss','glosslang','category','lang','page','pagesize','sort','asc']);
+const allowed = new Set(['headword', 'gloss', 'glosslang', 'category', 'lang', 'page', 'pagesize', 'sort', 'asc']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -24,20 +24,20 @@ const sortCols = {
 
 export async function get({ query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
-  if (!['headword','gloss'].some(attr => attr in query)) {
+  if (!['headword', 'gloss'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);
-  query = {...defaults, ...query};
+  query = { ...defaults, ...query };
 
   const q = knex('entry')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .join('language as language2', 'language2.id', 'sense_gloss.language_id')
+    .join('language as language2', 'language2.id', 'sense_gloss.language_id');
 
   if ('headword' in query) {
     q.where('entry.headword', '~*', query.headword);
@@ -46,7 +46,7 @@ export async function get({ query }) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
   if ('lang' in query) {
-    let [lang, langPlus] = partitionPlus(query.lang);
+    const [lang, langPlus] = partitionPlus(query.lang);
     if (langPlus.length) {
       const descendants = await knex('language_with_descendants')
         .where('id', arrayCmp(new Set(langPlus)))
@@ -83,17 +83,17 @@ export async function get({ query }) {
     'entry.record_id',
     'sense_gloss.txt as gloss',
     'language2.name as gloss_language',
-    knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id"),
+    knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")
   );
 
   const pageCount = applyPageParams(q, query, count);
-  applySortParams(q, query, sortCols, ['language','headword','gloss','gloss_language']);
+  applySortParams(q, query, sortCols, ['language', 'headword', 'gloss', 'gloss_language']);
 
   return {
     body: {
       query,
       pageCount,
       rows: await q,
-    }
+    },
   };
 }

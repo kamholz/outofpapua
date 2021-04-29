@@ -4,7 +4,7 @@ import { getFilteredParams } from '$lib/util';
 import errors from '$lib/errors';
 
 const table = 'language';
-const allowed = new Set(['name','parent_id','note']);
+const allowed = new Set(['name', 'parent_id', 'note']);
 
 export const put = requireAuth(async ({ params, body }) => {
   const updateParams = getFilteredParams(body, allowed);
@@ -17,7 +17,7 @@ export const put = requireAuth(async ({ params, body }) => {
       .returning('id')
       .update(updateParams);
     if (rows.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);
@@ -36,6 +36,6 @@ export const del = requireAuth(async ({ params }) => {
     }
   } catch (e) {
     console.log(e);
-    return sendPgError(e);    
+    return sendPgError(e);
   }
 });

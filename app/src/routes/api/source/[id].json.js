@@ -39,7 +39,7 @@ export const put = requireAuth(async ({ params, body }) => {
       .returning('id')
       .update(updateParams);
     if (ids.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);

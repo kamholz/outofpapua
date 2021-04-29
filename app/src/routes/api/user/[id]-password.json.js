@@ -1,5 +1,5 @@
 import { knex, sendPgError } from '$lib/db';
-import { requireAuth, checkUserPassword } from '$lib/auth';
+import { checkUserPassword, requireAuth } from '$lib/auth';
 import errors from '$lib/errors';
 
 const table = 'usr';

@@ -21,15 +21,15 @@ export function normalizeQuery(urlSearchParams) {
 
 export function optionalQuery(urlSearchParams) {
   const str = urlSearchParams.toString();
-  return str === "" ? "" : '?' + str;
+  return str === '' ? '' : '?' + str;
 }
 
 export function serializeQuery(query) {
   if (Object.entries(query).length === 0) {
-    return "";
+    return '';
   }
   const newQuery = {};
-  for (const [key,value] of Object.entries(query)) {
+  for (const [key, value] of Object.entries(query)) {
     if (value === true) {
       newQuery[key] = '1';
     } else if (value === false) {
@@ -46,7 +46,7 @@ export function getFilteredParams(body, set) {
     return {};
   }
   const params = {};
-  for (const [key,value] of Object.entries(body)) {
+  for (const [key, value] of Object.entries(body)) {
     if (set.has(key)) {
       params[key] = value;
     }
@@ -57,7 +57,7 @@ export function getFilteredParams(body, set) {
 export function parseBooleanParams(query, set) {
   for (const key of set) {
     if (key in query) {
-      query[key] = query[key] === '0' ? false : true;
+      query[key] = query[key] !== '0';
     }
   }
 }
@@ -87,8 +87,8 @@ export function parseArrayNumParams(query, iterable) {
 
 export function parseArrayNumParam(param) {
   return param.split(',')
-    .filter(v => isNumber(v))
-    .map(v => Number(v));
+    .filter((v) => isNumber(v))
+    .map((v) => Number(v));
 }
 
 export function serializeArrayParams(query, iterable) {
@@ -120,12 +120,13 @@ export function isNumber(str) {
 }
 
 export function partitionPlus(array) {
-  let [single, plus] = array.reduce(([single,plus], v) => {
-    return v.match(/\+$/) ? [single, [...plus, v.replace(/\+$/,'')]] : [[...single, v], plus];
+  // eslint-disable-next-line arrow-body-style
+  const [single, plus] = array.reduce(([single, plus], v) => {
+    return v.match(/\+$/) ? [single, [...plus, v.replace(/\+$/, '')]] : [[...single, v], plus];
   }, [[], []]);
   return [
-    single.filter(v => isNumber(v)).map(v => Number(v)),
-    plus.filter(v => isNumber(v)).map(v => Number(v))
+    single.filter((v) => isNumber(v)).map((v) => Number(v)),
+    plus.filter((v) => isNumber(v)).map((v) => Number(v)),
   ];
 }
 

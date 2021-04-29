@@ -13,7 +13,7 @@
   );
 
   function pageUrl(page) {
-    return '?' + new URLSearchParams({...query, page});
+    return '?' + new URLSearchParams({ ...query, page });
   }
 </script>
 
@@ -27,7 +27,7 @@
     <Number num={2} {page} {pageUrl} />
   {/if}
   {#each pagesToDisplay as i (i)}
-    <Number num={i+1} {page} {pageUrl} />
+    <Number num={i + 1} {page} {pageUrl} />
   {/each}
   {#if page + pageWidth < pageCount - 2}
     <span>…</span>

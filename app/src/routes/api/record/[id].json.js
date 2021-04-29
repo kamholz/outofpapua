@@ -5,9 +5,9 @@ export async function get({ params }) {
     .join('source', 'source.id', 'record.source_id')
     .where('record.id', params.id)
     .first(
-      'record.id', 
-      'record.data', 
-      'record.source_id', 
+      'record.id',
+      'record.data',
+      'record.source_id',
       'source.title as source_title',
       'source.reference as source_reference'
     );

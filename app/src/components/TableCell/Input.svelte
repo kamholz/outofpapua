@@ -9,7 +9,7 @@
   let td;
 
   onMount(() => {
-      dispatch('edit', td);
+    dispatch('edit', td);
       td.focus();
       const sel = window.getSelection();
       const range = new Range();
@@ -31,7 +31,7 @@
           onSuccess: () => {
             row[column.key] = text;
             dispatch('deactivate');
-          }
+          },
         });
       }
     }
@@ -44,7 +44,7 @@
   on:deactivate
   on:blur={() => dispatch('deactivate')}
   on:keydown={handleKeyDown}
-  in:fade={{duration: 200}}
+  in:fade={{ duration: 200 }}
 >
   <span>{column.value(row)}</span>
 </td>

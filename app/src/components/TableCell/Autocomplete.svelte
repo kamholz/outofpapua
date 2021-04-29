@@ -12,7 +12,7 @@
 
   let filteredOptions = $options;
   if (filter) {
-    filteredOptions = filteredOptions.filter(option => filter(option, row));
+    filteredOptions = filteredOptions.filter((option) => filter(option, row));
   }
 
   onMount(async () => {
@@ -33,7 +33,7 @@
           row[column.key] = option?.[labelField] ?? null;
           row[rowKey] = value;
           dispatch('deactivate');
-        }
+        },
       });
     }
   }
@@ -48,7 +48,7 @@
   bind:this={td}
   on:deactivate
   on:focusout={handleFocusOut}
-  in:fade={{duration: 200}}
+  in:fade={{ duration: 200 }}
 >
   <Svelecte
     options={filteredOptions}
