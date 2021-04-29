@@ -1,5 +1,6 @@
-import { applySortParams, knex } from '$lib/db';
-import { normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
+import { applySortParams, knex, sendPgError } from '$lib/db';
+import { getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
+import { requireAuth } from '$lib/auth';
 
 const table = 'source';
 
@@ -23,6 +24,7 @@ export async function get({ query }) {
 
   const q = knex(table)
     .join('language', 'language.id', 'source.language_id')
+    .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .select(
       'source.id',
       'source.title',
@@ -48,3 +50,29 @@ export async function get({ query }) {
     }
   };
 }
+
+const allowed = new Set(['language_id','note','reference','reference_full','title']);
+const required = new Set(['language_id','reference','title']);
+
+export const post = requireAuth(async ({ body }) => {
+  const params = getFilteredParams(body, allowed);
+  if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
+    return { status: 400, body: { error: errors.missing } };
+  }
+  try {
+    const proto = await knex('protolanguage')
+      .where({ id: params.language_id })
+      .first('id');
+    if (!proto) {
+      return { status: 400, body: { error: 'can only create new source for proto-languages' } };
+    }
+
+    const ids = await knex(table)
+      .returning('id')
+      .insert(params);
+    return { body: { id: ids[0] } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+});

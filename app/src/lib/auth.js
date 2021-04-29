@@ -6,20 +6,20 @@ import { knex } from '$lib/db';
 const scheme = config.HTTP_SCHEME || 'http';
 
 export async function getUser(userId) {
-  const rows = await knex('usr')
-    .select('id','username','fullname','admin')
+  const row = await knex('usr')
+    .first('id','username','fullname','admin')
     .where({ id: userId });
-  return rows.length ? rows[0] : null;
+  return row ?? null;
 }
 
 export async function checkUserPassword(username, password) {
-  const rows = await knex('usr')
-    .select('id','username','fullname','admin')
+  const row = await knex('usr')
+    .first('id','username','fullname','admin')
     .where({
       username: username,
       password: knex.raw('pgcrypto.crypt(?, password)', password)
     });
-  return rows.length ? rows[0] : null;
+  return row ?? null;
 }
 
 export function makeAccessTokenCookie(user) {

@@ -78,7 +78,7 @@ export const post = requireAuth(async ({ body }) => {
     return { status: 400, body: { error: errors.missing } };
   }
   try {
-    const rows = await
+    const ids = await
       knex.with('inserted', q => {
         q.from(table)
         .returning('id')
@@ -89,7 +89,7 @@ export const post = requireAuth(async ({ body }) => {
       .insert(function () {
         this.select('id').from('inserted');
       });
-    return rows.length ? { body: { id: rows[0] } } : { status: 500 };
+    return { body: { id: ids[0] } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

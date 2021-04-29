@@ -1,5 +1,5 @@
 <script>
-  import { boolean } from '$lib/util';
+  import { boolean, stringify } from '$lib/util';
 
   export let fields;
   export let values = {};
@@ -19,7 +19,7 @@
         {#if field.type === 'checkbox'}
           {boolean(values[field.name])}
         {:else}
-          {values[field.name] ?? ""}
+          {stringify(values[field.name])}
         {/if}
       </span>
     </div>

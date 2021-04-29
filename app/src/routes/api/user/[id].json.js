@@ -18,18 +18,18 @@ export const put = requireAuth(async ({ params, body, context }) => {
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
   }
-  const toUpdate = getFilteredParams(body, allowed);
-  if ('admin' in toUpdate && !adminNotSelf(user, params.id)) {
+  const updateParams = getFilteredParams(body, allowed);
+  if ('admin' in updateParams && !adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
-  if (!Object.keys(toUpdate).length) {
+  if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noupdatable } };
   }
   try {
     const ids = await knex(table)
       .where('id', params.id)
       .returning('id')
-      .update(toUpdate);
+      .update(updateParams);
     if (ids.length) {
       return { body: "" };
     }

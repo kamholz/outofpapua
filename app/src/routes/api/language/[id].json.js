@@ -7,15 +7,15 @@ const table = 'language';
 const allowed = new Set(['name','parent_id','note']);
 
 export const put = requireAuth(async ({ params, body }) => {
-  const toUpdate = getFilteredParams(body, allowed);
-  if (!Object.keys(toUpdate).length) {
+  const updateParams = getFilteredParams(body, allowed);
+  if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noupdatable } };
   }
   try {
     const rows = await knex(table)
       .where('id', params.id)
       .returning('id')
-      .update(toUpdate);
+      .update(updateParams);
     if (rows.length) {
       return { body: "" };
     }

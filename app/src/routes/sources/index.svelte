@@ -1,6 +1,7 @@
 <script context="module">
   import { writable } from 'svelte/store';
   import { normalizeQuery, serializeQuery } from '$lib/util';
+  import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -12,6 +13,9 @@
     }
     Object.assign(props, json);
     props.rows = writable(props.rows);
+    if (props.editable) {
+      props.protolangSuggest = await suggest.protolang(fetch);
+    }
     return { props };
   }
 
@@ -24,10 +28,16 @@
 <script>
   import { fade } from 'svelte/transition';
   import SourcesTable from './_Table.svelte';
+  import CreateSourceForm from './_CreateForm.svelte';
 
   export let rows;
   export let query;
   export let editable;
+  export let protolangSuggest = null;
+
+  async function handleRefresh() {
+    $rows = (await reload(fetch, query)).rows;
+  }
 </script>
 
 <div in:fade={{ duration: 200 }}>
@@ -36,5 +46,14 @@
   {rows}
   {query}
   {editable}
+  on:refresh={handleRefresh}
 />
 </div>
+
+{#if editable}
+  <h3>Create new proto-language source</h3>
+  <CreateSourceForm
+    {protolangSuggest}
+    on:refresh={handleRefresh}
+  />
+{/if}

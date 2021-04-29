@@ -6,7 +6,7 @@
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
 
-  let createValues = {};
+  let values = {};
   let error = null;
 
   const fields = [
@@ -20,17 +20,16 @@
 
   const creater = crud.makeCreater('language');
 
-  async function handleCreate(e) {
-    const { values } = e.detail;
+  async function handleCreate() {
     $pageLoading++;
     try {
       error = null;
       await creater(values);
-      createValues = {};
+      values = {};
       dispatch('refresh');
-    } catch (err) {
-      console.log(err);
-      err = err.message;
+    } catch (e) {
+      console.log(e);
+      error = e.message;
     }
     $pageLoading--;
   }
@@ -39,7 +38,7 @@
 <Alert type="error" message={error} />
 <Form
   {fields}
-  values={createValues}
+  bind:values
   submitLabel="Create"
   style="--gridtemplate: 30% 70%"
   on:submit={handleCreate}

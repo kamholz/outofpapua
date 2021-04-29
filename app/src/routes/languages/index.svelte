@@ -1,6 +1,6 @@
 <script context="module">
   import { writable } from 'svelte/store';
-  import { normalizeQuery, optionalQuery, serializeQuery } from '$lib/util';
+  import { normalizeQuery, serializeQuery } from '$lib/util';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -47,7 +47,7 @@
 {#if editable}
   <h3>Create proto-language</h3>
   <CreateLanguageForm
-    on:refresh={handleRefresh}
+    on:create={handleRefresh}
   />
 {/if}
 </div>

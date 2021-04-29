@@ -1,4 +1,4 @@
-import { knex } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
 import { getFilteredParams } from '$lib/util';
 import errors from '$lib/errors';
@@ -24,9 +24,13 @@ export const post = requireAdmin(async ({ body }) => {
     return { status: 400, body: { error: errors.missing } };
   }
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);
-  const rows = await
-    knex(table)
+  try {
+    const ids = await knex(table)
       .returning('id')
       .insert(params);
-  return rows.length ? { body: { id: rows[0] } } : { status: 500 };
+    return { body: { id: ids[0] } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
 });

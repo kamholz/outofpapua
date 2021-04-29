@@ -1,16 +1,16 @@
 <script>
-	import { createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher, onMount, tick } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { serializeArrayParam } from '$lib/util';
+  import { serializeArrayParam, stringify } from '$lib/util';
   import Svelecte from '$lib/svelecte';
   
-  export let action = null;
-  export let method = null;
-  export let preventDefault = true;
-  export let loading = false;
   export let fields;
   export let values = {};
   export let submitLabel;
+  export let action = null;
+  export let method = null;
+  export let browserSubmit = false;
+  export let loading = false;
   export let style = null;
   let className = null;
   export { className as class };
@@ -33,11 +33,11 @@
   }
 </script>
   
-<form 
-  on:submit={preventDefault && handleSubmit}
-  noValidate={preventDefault}
+<form
+  on:submit={!browserSubmit && handleSubmit}
   {action}
   {method}
+  noValidate={!browserSubmit}
   {style}
   class={className}
 >
@@ -48,7 +48,7 @@
           {field.label}:
         </span>
         <span>
-          {values[field.name] ?? ""}
+          {stringify(values[field.name])}
         </span>
       {:else}
         <label for={field.name}>{field.label}:</label>
@@ -84,13 +84,13 @@
           <span>
             {#each field.options as option (option.value)}
               <label class="radiolabel">
-                  <input
-                  type="radio"
-                  name={field.name}
-                  value={option.value}
-                  checked={values[field.name] === option.value}
-                  bind:group={values[field.name]}
-                  required={field.required}
+                <input
+                type="radio"
+                name={field.name}
+                value={option.value}
+                checked={values[field.name] === option.value}
+                bind:group={values[field.name]}
+                required={field.required}
                 >
                 <span>{option.label}</span>
               </label>
@@ -102,6 +102,20 @@
             bind:value={values[field.name]}
             required={field.required}
           />
+        {:else if field.type === 'language'}
+          <Svelecte
+            options={field.options}
+            labelField="name"
+            searchField="name"
+            valueField="id"
+            clearable
+            searchable
+            placeholder=""
+            bind:value={values[field.name]}
+          />
+          {#if browserSubmit}
+            <input type="hidden" name={field.name} value={stringify(values[field.name])}>
+          {/if}
         {:else if field.type === 'languages'}
           <Svelecte
             options={field.options}
@@ -114,7 +128,9 @@
             placeholder=""
             bind:value={values[field.name]}
           />
-          <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+          {#if browserSubmit}
+            <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+          {/if}
         {/if}
       {/if}
     </div>

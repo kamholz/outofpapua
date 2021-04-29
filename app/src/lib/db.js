@@ -55,8 +55,8 @@ export function applySortParams(q, query, sortCols, restCols) {
 }
 
 export async function getCount(q) {
-  const counts = await q.clone().count({ count: '*' });
-  return Number(counts[0].count);
+  const count = await q.clone().count({ count: '*' }).first();
+  return Number(count.count);
 }
 
 export function sendPgError(e) {

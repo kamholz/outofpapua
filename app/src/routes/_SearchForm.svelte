@@ -46,7 +46,7 @@
   {fields}
   values={query}
   submitLabel="Search"
-  preventDefault={false}
+  browserSubmit
   style="--formwidth: 33em; --gridtemplate: 32% 68%"
 >
   <svelte:fragment slot="hidden">
