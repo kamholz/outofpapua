@@ -6,12 +6,12 @@ export async function getContext({ headers }) {
     user: null,
   };
 
-  const cookies = cookie.parse(headers.cookie || "");
+  const cookies = cookie.parse(headers.cookie || '');
   const user = await auth.verifyAccessTokenCookie(cookies);
   if (user) {
     context.user = user;
   }
-  context.haveRefreshToken = cookies.refreshtoken ? true : false;
+  context.haveRefreshToken = Boolean(cookies.refreshtoken);
 
   return context;
 }

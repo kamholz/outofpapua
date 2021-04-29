@@ -1,7 +1,7 @@
 import path from 'path';
 import dotenv from 'dotenv';
 
-let env = {};
+const env = {};
 
 load('.env');
 //load('.env.local');

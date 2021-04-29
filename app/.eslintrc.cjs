@@ -58,7 +58,7 @@ module.exports = {
     'rest-spread-spacing': 'error',
     'semi': 'error',
     'semi-style': 'error',
-    'sort-imports': 'error',
+    'sort-imports': ['error', { memberSyntaxSortOrder: ['none', 'single', 'multiple', 'all'] }];
     'space-before-function-paren': ['error', { anonymous: 'always', asyncArrow: 'always', named: 'never' }],
     'space-in-parens': 'error',
     'space-infix-ops': 'error',
