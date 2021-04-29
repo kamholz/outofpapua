@@ -14,11 +14,14 @@
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
       }
-      Object.assign(props, await res.json());
+      Object.assign(props, await res.json()); // populates props.query, props.pageCount
       props.rows = writable(props.rows);
     } else {
       parseArrayParams(query, arrayParams);
       parseArrayNumParams(query, arrayNumParams);
+      if (!('category' in query)) {
+        query.category = 'lang';
+      }
       props.query = query;
     }
 
@@ -41,7 +44,7 @@
   export let langSuggest;
   export let glosslangSuggest;
   export let query;
-  export let pageCount;
+  export let pageCount = null;
 </script>
 
 <div in:fade={{ duration: 200 }}>

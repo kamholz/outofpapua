@@ -18,6 +18,16 @@
       type: 'text',
     },
     {
+      name: 'category',
+      label: 'Include',
+      type: 'radio',
+      options: [
+        { label: 'Languages', value: 'lang' },
+        { label: 'Proto-languages', value: 'proto' },
+        { label: 'Both', value: 'both' },
+      ]
+    },
+    {
       name: 'lang',
       label: 'Languages',
       type: 'languages',
@@ -28,7 +38,7 @@
       label: 'Gloss languages',
       type: 'languages',
       options: glosslangSuggest,
-    }
+    },
   ]
 </script>
 
@@ -37,7 +47,7 @@
   values={query}
   submitLabel="Search"
   preventDefault={false}
-  style="--formwidth: 31em; --gridtemplate: 33% 67%"
+  style="--formwidth: 33em; --gridtemplate: 32% 68%"
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.pagesize}>

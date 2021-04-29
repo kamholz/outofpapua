@@ -80,6 +80,22 @@
             bind:checked={values[field.name]}
             required={field.required}
           >
+        {:else if field.type === 'radio'}
+          <span>
+            {#each field.options as option (option.value)}
+              <label class="radiolabel">
+                  <input
+                  type="radio"
+                  name={field.name}
+                  value={option.value}
+                  checked={values[field.name] === option.value}
+                  bind:group={values[field.name]}
+                  required={field.required}
+                >
+                <span>{option.label}</span>
+              </label>
+            {/each}
+          </span>
         {:else if field.type === 'textarea'}
           <textarea
             name={field.name}
@@ -125,6 +141,14 @@
       label, .label {
         margin-inline-end: 12px;
         text-align: end;
+      }
+
+      .radiolabel {
+        margin-inline-end: 12px;
+        text-align: start;
+        * {
+          vertical-align: middle;
+        }
       }
 
       :global(.svelecte-control) {

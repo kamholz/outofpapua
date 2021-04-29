@@ -2,7 +2,7 @@ import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib
 import { getFilteredParams, isNumber, normalizeQuery, 
   parseArrayNumParams, parseArrayParams, parseBooleanParams, partitionPlus } from '$lib/util';
 
-const allowed = new Set(['headword','gloss','glosslang','lang','page','pagesize','sort','asc']);
+const allowed = new Set(['headword','gloss','glosslang','category','lang','page','pagesize','sort','asc']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -11,6 +11,7 @@ const defaults = {
   page: 1,
   pagesize: 100,
   sort: 'language',
+  category: 'lang',
 };
 const sortCols = {
   language: 'language.name',
@@ -60,6 +61,16 @@ export async function get({ query }) {
   }
   if ('glosslang' in query) {
     q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
+  }
+
+  if (query.category === 'lang') {
+    q.whereNotExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    });
+  } else if (query.category === 'proto') {
+    q.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    });
   }
 
   const count = await getCount(q);
