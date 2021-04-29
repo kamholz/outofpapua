@@ -40,6 +40,6 @@
   {fields}
   bind:values
   submitLabel="Create"
-  style="--gridtemplate: 30% 70%"
+  style="--formwidth: 21em; --gridtemplate: 28% 72%"
   on:submit={handleCreate}
 />

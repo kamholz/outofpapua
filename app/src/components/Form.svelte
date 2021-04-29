@@ -19,8 +19,8 @@
     e.preventDefault();
     const form = e.currentTarget;
     for (const field of fields) { // normalize whitespace
-      if (field.type === 'text') {
-        values[field.name] = values[field.name]?.trim();
+      if (type === 'text') {
+        values[name] = values[name]?.trim();
       }
     }
     await tick();
@@ -41,84 +41,84 @@
   {style}
   class={className}
 >
-  {#each fields as field (field.name)}
+  {#each fields as { name, label, options, required, type, uneditable } (name)}
     <div>
-      {#if field.static}
+      {#if uneditable}
         <span class="label">
-          {field.label}:
+          {label}:
         </span>
         <span>
-          {stringify(values[field.name])}
+          {stringify(values[name])}
         </span>
       {:else}
-        <label for={field.name}>{field.label}:</label>
-        {#if field.type === 'text'}
+        <label for={name}>{label}:</label>
+        {#if type === 'text'}
           <input
             type="text"
-            name={field.name}
-            bind:value={values[field.name]}
-            required={field.required}
+            {name}
+            bind:value={values[name]}
+            {required}
           >
-        {:else if field.type === 'email'}
+        {:else if type === 'email'}
           <input
             type="email"
-            name={field.name}
-            bind:value={values[field.name]}
-            required={field.required}
+            {name}
+            bind:value={values[name]}
+            {required}
           >
-        {:else if field.type === 'password'}
+        {:else if type === 'password'}
           <input
             type="password"
-            name={field.name}
-            bind:value={values[field.name]}
-            required={field.required}
+            {name}
+            bind:value={values[name]}
+            {required}
           >
-        {:else if field.type === 'checkbox'}
+        {:else if type === 'checkbox'}
           <input
             type="checkbox"
-            name={field.name}
-            bind:checked={values[field.name]}
-            required={field.required}
+            {name}
+            bind:checked={values[name]}
+            {required}
           >
-        {:else if field.type === 'radio'}
+        {:else if type === 'radio'}
           <span>
-            {#each field.options as option (option.value)}
+            {#each options as { label, value } (value)}
               <label class="radiolabel">
                 <input
-                type="radio"
-                name={field.name}
-                value={option.value}
-                checked={values[field.name] === option.value}
-                bind:group={values[field.name]}
-                required={field.required}
+                  type="radio"
+                  {name}
+                  {value}
+                  checked={values[name] === value}
+                  bind:group={values[name]}
+                  {required}
                 >
-                <span>{option.label}</span>
+                <span>{label}</span>
               </label>
             {/each}
           </span>
-        {:else if field.type === 'textarea'}
+        {:else if type === 'textarea'}
           <textarea
-            name={field.name}
-            bind:value={values[field.name]}
-            required={field.required}
+            {name}
+            bind:value={values[name]}
+            {required}
           />
-        {:else if field.type === 'language'}
+        {:else if type === 'language'}
           <Svelecte
-            options={field.options}
+            {options}
             labelField="name"
             searchField="name"
             valueField="id"
             clearable
             searchable
             placeholder=""
-            bind:value={values[field.name]}
+            bind:value={values[name]}
           />
           {#if browserSubmit}
-            <input type="hidden" name={field.name} value={stringify(values[field.name])}>
+            <input type="hidden" {name} value={stringify(values[name])}>
           {/if}
-        {:else if field.type === 'languages'}
+        {:else if type === 'languages'}
           <Svelecte
-            options={field.options}
+            {options}
             labelField="name"
             searchField="name"
             valueField="id"
@@ -126,10 +126,10 @@
             clearable
             searchable
             placeholder=""
-            bind:value={values[field.name]}
+            bind:value={values[name]}
           />
           {#if browserSubmit}
-            <input type="hidden" name={field.name} value={serializeArrayParam(values[field.name] ?? [])}>
+            <input type="hidden" {name} value={serializeArrayParam(values[name] ?? [])}>
           {/if}
         {/if}
       {/if}

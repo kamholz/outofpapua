@@ -12,14 +12,14 @@
   {style}
   class="record"
 >
-  {#each fields as field (field.name)}
+  {#each fields as { label, name, type } (name)}
     <div>
-      <span class="label">{field.label}:</span>
+      <span class="label">{label}:</span>
       <span class="value">
-        {#if field.type === 'checkbox'}
-          {boolean(values[field.name])}
+        {#if type === 'checkbox'}
+          {boolean(values[name])}
         {:else}
-          {stringify(values[field.name])}
+          {stringify(values[name])}
         {/if}
       </span>
     </div>

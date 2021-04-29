@@ -46,17 +46,17 @@
 
 <table>
   <thead>
-    {#each columns as column (column.key)}
+    {#each columns as { key, title } (key)}
       <th>
         {#if sortable}
-          <a href={getSortQuery(column.key, query)}>
-            {column.title}
-            {#if column.key === query.sort}
+          <a href={getSortQuery(key, query)}>
+            {title}
+            {#if key === query.sort}
               <Icon data={query.asc ? faCaretUp : faCaretDown} />
             {/if}
           </a>
         {:else}
-          <span>{column.title}</span>
+          <span>{title}</span>
         {/if}
       </th>
     {/each}

@@ -16,13 +16,13 @@
       name: 'language_name',
       label: 'Language',
       type: 'text',
-      static: !source.is_proto,
+      uneditable: !source.is_proto,
     },
     {
       name: 'numentries',
       label: '# Entries',
       type: 'text',
-      static: true,
+      uneditable: true,
     },
     {
       name: 'reference',
