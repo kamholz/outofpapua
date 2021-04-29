@@ -1,7 +1,8 @@
-import { knex, sendPgError } from '$lib/db';
-import { requireAuth } from '$lib/auth';
-import { getFilteredParams } from '$lib/util';
 import errors from '$lib/errors';
+import { getFilteredParams } from '$lib/util';
+import { requireAuth } from '$lib/auth';
+
+import { knex, sendPgError } from '$lib/db';
 
 const table = 'language';
 const allowed = new Set(['name', 'parent_id', 'note']);
@@ -32,7 +33,7 @@ export const del = requireAuth(async ({ params }) => {
       .returning('id')
       .del();
     if (ids.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);

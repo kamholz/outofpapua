@@ -1,6 +1,7 @@
+import errors from '$lib/errors';
+
 import { knex, sendPgError } from '$lib/db';
 import { checkUserPassword, requireAuth } from '$lib/auth';
-import errors from '$lib/errors';
 
 const table = 'usr';
 
@@ -23,7 +24,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) });
     if (ids.length) {
-      return { body: "" };
+      return { body: '' };
     }
   } catch (e) {
     console.log(e);

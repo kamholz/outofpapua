@@ -1,7 +1,8 @@
-import { knex, sendPgError } from '$lib/db';
-import { requireAuth, getUser } from '$lib/auth';
-import { getFilteredParams, adminOrSelf, adminNotSelf } from '$lib/util';
 import errors from '$lib/errors';
+
+import { adminNotSelf, adminOrSelf, getFilteredParams } from '$lib/util';
+import { getUser, requireAuth } from '$lib/auth';
+import { knex, sendPgError } from '$lib/db';
 
 const table = 'usr';
 const allowed = new Set(['username', 'fullname', 'admin']);

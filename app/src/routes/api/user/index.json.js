@@ -1,7 +1,8 @@
+import errors from '$lib/errors';
+import { getFilteredParams } from '$lib/util';
+
 import { knex, sendPgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
-import { getFilteredParams } from '$lib/util';
-import errors from '$lib/errors';
 
 const table = 'usr';
 
