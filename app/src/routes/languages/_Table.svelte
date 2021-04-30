@@ -11,7 +11,6 @@
   export let rows;
   export let query;
   export let editable;
-  let error = null;
 
   const parents = derived(rows, ($rows) => $rows.filter((row) => row.is_proto));
 
@@ -64,32 +63,31 @@
 
   const updateFromCell = crud.updateFromCell('language');
   const del = crud.makeDeleter('language');
+  let promise;
 
   async function handleUpdate(e) {
     $pageLoading++;
     try {
-      error = null;
-      await updateFromCell(e);
-    } catch (err) {
-      error = err.message;
-    }
+      promise = updateFromCell(e);
+      await promise;
+    } catch (err) {}
     $pageLoading--;
   }
 
   async function handleDelete(e) {
     $pageLoading++;
     try {
-      error = null;
-      await del(e.detail.id);
+      promise = del(e.detail.id);
+      await promise;
       dispatch('refresh');
-    } catch (err) {
-      error = err.message;
-    }
+    } catch (err) {}
     $pageLoading--;
   }
 </script>
 
-<Alert type="error" message={error} />
+{#await promise catch { message }}
+  <Alert type="error" {message} />
+{/await}
 <Table
   {columns}
   {rows}

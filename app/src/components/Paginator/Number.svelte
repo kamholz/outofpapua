@@ -12,8 +12,8 @@
 
 <style>
   a, span {
-    inline-size: 24px;
-    block-size: 24px;
+    padding-inline: 9px;
+    padding-block: 3px;
     display: flex;
     justify-content: center;
     align-items: center;

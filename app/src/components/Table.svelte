@@ -13,6 +13,7 @@
   export let rows;
   export let query = null;
   export let pageCount = null;
+  export let rowCount = null;
   export let sortable = false;
   export let editable = false;
   export let paginated = false;

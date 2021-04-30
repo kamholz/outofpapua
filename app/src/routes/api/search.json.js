@@ -1,3 +1,4 @@
+import config from '$config';
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
 import { getFilteredParams, normalizeQuery,
   parseArrayNumParams, parseArrayParams, parseBooleanParams, partitionPlus } from '$lib/util';
@@ -9,7 +10,7 @@ const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: 100,
+  pagesize: Number(config.PAGESIZE),
   sort: 'language',
   category: 'lang',
 };
@@ -73,7 +74,7 @@ export async function get({ query }) {
     });
   }
 
-  const count = await getCount(q);
+  const rowCount = await getCount(q);
 
   q.select(
     'language.name as language',
@@ -86,13 +87,14 @@ export async function get({ query }) {
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")
   );
 
-  const pageCount = applyPageParams(q, query, count);
+  const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['language', 'headword', 'gloss', 'gloss_language']);
 
   return {
     body: {
       query,
       pageCount,
+      rowCount,
       rows: await q,
     },
   };

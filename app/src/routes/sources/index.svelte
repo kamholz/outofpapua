@@ -45,7 +45,6 @@
 <SourcesTable
   {rows}
   {query}
-  {editable}
   on:refresh={handleRefresh}
 />
 </div>

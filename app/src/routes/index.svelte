@@ -14,7 +14,7 @@
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
       }
-      Object.assign(props, await res.json()); // populates props.query, props.pageCount
+      Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
       props.rows = writable(props.rows);
     } else {
       parseArrayParams(query, arrayParams);
@@ -45,6 +45,7 @@
   export let glosslangSuggest;
   export let query;
   export let pageCount = null;
+  export let rowCount = null;
 </script>
 
 <div in:fade={{ duration: 200 }}>
@@ -62,6 +63,7 @@
       {rows}
       {query}
       {pageCount}
+      {rowCount}
     />
   {:else}
     <div class="notfound">nothing found</div>

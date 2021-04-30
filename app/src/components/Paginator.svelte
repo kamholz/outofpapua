@@ -48,9 +48,9 @@
     max-inline-size: 480px;
     border: 2px solid #666;
     border-radius: 4px;
-    padding: 4px;
-    margin-block-start: 20px;
-    margin-block-end: 20px;
+    padding-block: 6px;
+    padding-inline: 4px;
+    margin-block: 20px;
     color: grey;
 
     :global(a) {

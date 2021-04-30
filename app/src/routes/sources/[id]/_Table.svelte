@@ -4,17 +4,8 @@
   export let rows;
   export let query;
   export let pageCount;
-  export let rowCount;
 
   const columns = [
-    {
-      key: 'language',
-      title: 'Language',
-    },
-    {
-      key: 'source',
-      title: 'Source',
-    },
     {
       key: 'headword',
       title: 'Headword',
@@ -42,5 +33,4 @@
   sortable
   paginated
   {pageCount}
-  {rowCount}
 />
