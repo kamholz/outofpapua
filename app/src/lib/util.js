@@ -133,10 +133,12 @@ export function partitionPlus(array) {
 // authorization
 
 export function adminOrSelf(loggedInUser, userId) {
+  // eslint-disable-next-line eqeqeq
   return loggedInUser.admin || loggedInUser.id == userId;
 }
 
 export function adminNotSelf(loggedInUser, userId) {
+  // eslint-disable-next-line eqeqeq
   return loggedInUser.admin && loggedInUser.id != userId;
 }
 

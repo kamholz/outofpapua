@@ -6,6 +6,7 @@
 
   export let query;
   export let pageCount;
+  // eslint-disable-next-line prefer-destructuring
   $: page = query.page;
   $: pagesToDisplay = [...Array(pageCount).keys()].slice(
     Math.max(page - pageWidth - 1, 1),

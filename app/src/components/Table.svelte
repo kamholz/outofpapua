@@ -1,10 +1,10 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
-  import { serializeQuery, stringify } from '$lib/util';
   import Paginator from '$components/Paginator.svelte';
   import TableCell from '$components/TableCell.svelte';
   import TableControls from '$components/TableControls.svelte';
+  import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+  import { serializeQuery, stringify } from '$lib/util';
 
   export let columns;
   export let rows;

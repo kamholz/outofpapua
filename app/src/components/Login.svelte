@@ -1,8 +1,8 @@
 <script>
-  import { session } from '$app/stores';
-  import { pageLoading } from '$stores';
-  import { login, logout } from '$actions/auth';
   import { goto } from '$app/navigation';
+  import { login, logout } from '$actions/auth';
+  import { pageLoading } from '$stores';
+  import { session } from '$app/stores';
 
   export let username;
   let password;

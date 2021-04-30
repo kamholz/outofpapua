@@ -25,7 +25,7 @@
         { label: 'Languages', value: 'lang' },
         { label: 'Proto-languages', value: 'proto' },
         { label: 'Both', value: 'both' },
-      ]
+      ],
     },
     {
       name: 'lang',
@@ -39,7 +39,7 @@
       type: 'languages',
       options: glosslangSuggest,
     },
-  ]
+  ];
 </script>
 
 <Form

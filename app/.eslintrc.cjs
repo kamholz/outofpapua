@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: ['eslint:recommended'],
-  plugins: ['svelte3'],
+  plugins: ['sort-imports-es6-autofix', 'svelte3'],
   overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
   parserOptions: {
     sourceType: 'module',
@@ -26,7 +26,10 @@ module.exports = {
     'eqeqeq': 'error',
     'eol-last': 'error',
     'func-call-spacing': 'error',
-    'indent': ['error', 2, { ignoredNodes: ['AwaitExpression', 'MemberExpression'], SwitchCase: 1 }],
+    'indent': [
+      'error', 2,
+      { ignoredNodes: ['AwaitExpression', 'MemberExpression'], SwitchCase: 1 },
+    ],
     'key-spacing': 'error',
     'keyword-spacing': 'error',
     'max-len': ['error', { code: 120 }],
@@ -45,7 +48,7 @@ module.exports = {
     'no-whitespace-before-property': 'error',
     'object-curly-spacing': ['error', 'always'],
     'object-shorthand': 'error',
-    'operator-linebreak': 'error',
+    //'operator-linebreak': 'error',
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
     'prefer-destructuring': 'error',
@@ -58,8 +61,14 @@ module.exports = {
     'rest-spread-spacing': 'error',
     'semi': 'error',
     'semi-style': 'error',
-    'sort-imports': ['error', { memberSyntaxSortOrder: ['none', 'single', 'multiple', 'all'] }];
-    'space-before-function-paren': ['error', { anonymous: 'always', asyncArrow: 'always', named: 'never' }],
+    'sort-imports-es6-autofix/sort-imports-es6': [
+      'error',
+      { memberSyntaxSortOrder: ['none', 'single', 'multiple', 'all'] },
+    ],
+    'space-before-function-paren': [
+      'error',
+      { anonymous: 'always', asyncArrow: 'always', named: 'never' }
+    ],
     'space-in-parens': 'error',
     'space-infix-ops': 'error',
     'template-curly-spacing': 'error',

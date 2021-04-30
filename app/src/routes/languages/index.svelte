@@ -1,6 +1,6 @@
 <script context="module">
-  import { writable } from 'svelte/store';
   import { normalizeQuery, serializeQuery } from '$lib/util';
+  import { writable } from 'svelte/store';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -16,15 +16,15 @@
   }
 
   export async function reload(fetch, query) {
-    const res = await fetch('/api/language.json' + serializeQuery({...query, numentries: 1}));
-    return res.ok ? await res.json() : null;
+    const res = await fetch('/api/language.json' + serializeQuery({ ...query, numentries: 1 }));
+    return res.ok ? res.json() : null;
   }
 </script>
 
 <script>
-  import { fade } from 'svelte/transition';
-  import LanguagesTable from './_Table.svelte';
   import CreateLanguageForm from './_CreateForm.svelte';
+  import LanguagesTable from './_Table.svelte';
+  import { fade } from 'svelte/transition';
 
   export let rows;
   export let query;

@@ -1,6 +1,6 @@
 <script context="module">
-  import { writable } from 'svelte/store';
   import { normalizeQuery, serializeQuery } from '$lib/util';
+  import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { query }, session }) {
@@ -20,15 +20,15 @@
   }
 
   export async function reload(fetch, query) {
-    const res = await fetch('/api/source.json' + serializeQuery({...query, numentries: 1}));
-    return res.ok ? await res.json() : null;
+    const res = await fetch('/api/source.json' + serializeQuery({ ...query, numentries: 1 }));
+    return res.ok ? res.json() : null;
   }
 </script>
 
 <script>
-  import { fade } from 'svelte/transition';
-  import SourcesTable from './_Table.svelte';
   import CreateSourceForm from './_CreateForm.svelte';
+  import SourcesTable from './_Table.svelte';
+  import { fade } from 'svelte/transition';
 
   export let rows;
   export let query;

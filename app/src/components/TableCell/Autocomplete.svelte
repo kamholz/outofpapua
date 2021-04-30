@@ -1,8 +1,8 @@
 <script>
+  import Svelecte from '$lib/svelecte';
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
-  import Svelecte from '$lib/svelecte';
 
   export let row;
   export let column;
@@ -15,7 +15,7 @@
     filteredOptions = filteredOptions.filter((option) => filter(option, row));
   }
 
-  onMount(async () => {
+  onMount(() => {
     dispatch('edit', td);
     focus();
   });

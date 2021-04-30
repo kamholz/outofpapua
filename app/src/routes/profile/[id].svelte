@@ -2,6 +2,7 @@
   import { requireAuthLoad } from '$actions/auth';
 
   export const load = requireAuthLoad(async ({ page: { params }, session, fetch }) => {
+    // eslint-disable-next-line eqeqeq
     if (params.id == session.user.id) {
       return { status: 400, error: 'Bad request' };
     }
@@ -9,9 +10,9 @@
       const res = await fetch(`/api/user/${params.id}.json`);
       if (res.ok) {
         return {
-          props: { 
-            user: await res.json() 
-          }
+          props: {
+            user: await res.json(),
+          },
         };
       } else {
         return { status: 500, error: 'Internal error' };

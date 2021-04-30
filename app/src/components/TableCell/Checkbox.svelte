@@ -1,4 +1,7 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   export let row;
   export let column;
 

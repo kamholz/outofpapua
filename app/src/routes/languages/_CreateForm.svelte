@@ -1,10 +1,10 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+  import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
-  import Alert from '$components/Alert.svelte';
-  import Form from '$components/Form.svelte';
 
   let values = {};
   let error = null;
@@ -15,8 +15,8 @@
       label: 'Name',
       type: 'text',
       required: true,
-    }
-  ];  
+    },
+  ];
 
   const creater = crud.makeCreater('language');
 

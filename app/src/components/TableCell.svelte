@@ -1,8 +1,8 @@
 <script>
-  import { fade } from 'svelte/transition';
   import TableCellAutocomplete from '$components/TableCell/Autocomplete.svelte';
   import TableCellCheckbox from '$components/TableCell/Checkbox.svelte';
   import TableCellInput from '$components/TableCell/Input.svelte';
+  import { fade } from 'svelte/transition';
 
   export let row;
   export let column;

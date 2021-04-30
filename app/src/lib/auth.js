@@ -60,11 +60,11 @@ function makePayload(user) {
   return { id: user.id };
 }
 
-export async function verifyAccessTokenCookie(cookies) {
+export function verifyAccessTokenCookie(cookies) {
   if (cookies.accesstoken) {
     const payload = verifyAccessToken(cookies.accesstoken);
     if (payload) {
-      return await getUser(payload.id);
+      return getUser(payload.id);
     }
   }
 

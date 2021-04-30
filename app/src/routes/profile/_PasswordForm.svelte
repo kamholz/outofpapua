@@ -1,7 +1,7 @@
 <script>
-  import { updatePassword } from '$actions/auth';
-  import Form from '$components/Form.svelte';
   import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
+  import { updatePassword } from '$actions/auth';
 
   export let user;
   export let admin = false;
@@ -28,7 +28,7 @@
       label: 'Confirm password',
       type: 'password',
       required: true,
-    }
+    },
   ];
 
   if (admin) {
@@ -37,7 +37,7 @@
 
   function handleValidation(e) {
     const { form } = e.detail;
-    form.elements.new_confirm.setCustomValidity("");
+    form.elements.new_confirm.setCustomValidity('');
   }
 
   async function handleUpdate(e) {
@@ -63,7 +63,7 @@
 
 <Alert type="error" message={error} />
 {#if success}
-  <Alert type="success" message={"Password changed"} />
+  <Alert type="success" message={'Password changed'} />
 {/if}
 <Form
   {fields}

@@ -1,8 +1,8 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faEdit, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { faEdit, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 
   export let row;
   export let controls;
@@ -36,7 +36,7 @@
         <Icon data={iconMap[control.type]} {scale} />
       </a>
     {:else}
-      <span on:click={(e) => handleClick(control)}>
+      <span on:click={() => handleClick(control)}>
         <Icon data={iconMap[control.type]} {scale} on:click={handleClick} />
       </span>
     {/if}

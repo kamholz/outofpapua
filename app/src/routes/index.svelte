@@ -1,7 +1,7 @@
 <script context="module">
+  import { normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
-  import { normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
 
   const arrayParams = new Set(['lang']);
   const arrayNumParams = new Set(['glosslang']);
@@ -9,7 +9,7 @@
   export async function load({ page: { query }, fetch }) {
     const props = {};
     query = normalizeQuery(query);
-    if (['headword','gloss'].some(attr => attr in query)) {
+    if (['headword', 'gloss'].some((attr) => attr in query)) {
       const res = await fetch('/api/search.json?' + new URLSearchParams(query));
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
@@ -36,9 +36,9 @@
 </script>
 
 <script>
-  import { fade } from 'svelte/transition';
-  import SearchTable from './_SearchTable.svelte';
   import SearchForm from './_SearchForm.svelte';
+  import SearchTable from './_SearchTable.svelte';
+  import { fade } from 'svelte/transition';
 
   export let rows = null;
   export let langSuggest;

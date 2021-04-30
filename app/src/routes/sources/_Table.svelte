@@ -1,9 +1,9 @@
 <script>
-  import { session } from '$app/stores';
-  import { pageLoading } from '$stores';
-  import * as crud from '$actions/crud';
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
+  import { pageLoading } from '$stores';
+  import { session } from '$app/stores';
+  import * as crud from '$actions/crud';
 
   export let rows;
   export let query;
@@ -28,14 +28,14 @@
       key: 'reference',
       title: 'Reference',
       editable: true,
-    }
+    },
   ];
 
   const controls = [
     {
       type: $session.user ? 'edit' : 'view',
-      link: row => `/sources/${row.id}`,
-    }
+      link: (row) => `/sources/${row.id}`,
+    },
   ];
 
   const updateFromCell = crud.updateFromCell('source');

@@ -9,9 +9,9 @@
 </script>
 
 <script>
+  import EditSourceForm from './_EditForm.svelte';
   import { fade } from 'svelte/transition';
   import { session } from '$app/stores';
-  import EditSourceForm from './_EditForm.svelte';
 
   export let source;
 </script>

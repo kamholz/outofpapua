@@ -1,19 +1,19 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  import { derived } from 'svelte/store';
-  import { boolean, nullify, stringify } from '$lib/util';
-  import { pageLoading } from '$stores';
-  import * as crud from '$actions/crud';
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
-
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+  import { boolean } from '$lib/util';
+  import { derived } from 'svelte/store';
+  import { pageLoading } from '$stores';
+  import * as crud from '$actions/crud';
+  
   export let rows;
   export let query;
   export let editable;
   let error = null;
 
-  const parents = derived(rows, $rows => $rows.filter(row => row.is_proto));
+  const parents = derived(rows, ($rows) => $rows.filter((row) => row.is_proto));
 
   const columns = [
     {
@@ -29,7 +29,7 @@
     {
       key: 'is_proto',
       title: 'Proto-language',
-      value: row => boolean(row.is_proto),
+      value: (row) => boolean(row.is_proto),
     },
     {
       key: 'numentries',
@@ -47,20 +47,20 @@
         rowKey: 'parent_id',
         filter: (option, row) => option.id !== row.id, // remove self
       },
-    }
+    },
   ];
 
   const controls = editable
     ?
-      [
-        {
-          type: 'delete',
-          candelete: row => row.is_proto,
-          confirm: row => confirm(`Are you sure you want to delete "${row.name}"?`),
-        }
-      ]
+    [
+      {
+        type: 'delete',
+        candelete: (row) => row.is_proto,
+        confirm: (row) => confirm(`Are you sure you want to delete "${row.name}"?`),
+      },
+    ]
     :
-      null;
+    null;
 
   const updateFromCell = crud.updateFromCell('language');
   const del = crud.makeDeleter('language');

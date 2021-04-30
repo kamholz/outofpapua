@@ -1,10 +1,10 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+  import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
-  import Alert from '$components/Alert.svelte';
-  import Form from '$components/Form.svelte';
 
   export let protolangSuggest;
   let values = {};

@@ -1,16 +1,17 @@
 import errors from '$lib/errors';
-
-import { knex, sendPgError } from '$lib/db';
 import { checkUserPassword, requireAuth } from '$lib/auth';
+import { knex, sendPgError } from '$lib/db';
 
 const table = 'usr';
 
 export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;
+  // eslint-disable-next-line eqeqeq
   if (!user.admin && user.id != params.id) { // only admins can modify other user's password
     return { status: 401 };
   }
   if (!('new_password' in body) ||
+    // eslint-disable-next-line eqeqeq
     ('current_password' in body === (user.admin && user.id != params.id)) // opposite of logical xor
   ) {
     return { status: 400, body: { error: errors.missing } };

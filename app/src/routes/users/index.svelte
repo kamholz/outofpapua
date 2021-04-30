@@ -1,28 +1,28 @@
 <script context="module">
-  import { writable } from 'svelte/store';
   import { requireAuthLoad } from '$actions/auth';
+  import { writable } from 'svelte/store';
 
-  export const load = requireAuthLoad(async ({ fetch, session }) => {
+  export const load = requireAuthLoad(async ({ fetch }) => {
     const json = await reload(fetch);
     if (!json) {
       return { status: 500, error: 'Internal error' };
     }
     return {
-      props: { rows: writable(json.rows) }
+      props: { rows: writable(json.rows) },
     };
   });
 
   export async function reload(fetch) {
     const res = await fetch('/api/user.json');
-    return res.ok ? await res.json() : null;
+    return res.ok ? res.json() : null;
   }
 </script>
 
 <script>
+  import CreateUserForm from './_CreateForm.svelte';
+  import UsersTable from './_Table.svelte';
   import { fade } from 'svelte/transition';
   import { session } from '$app/stores';
-  import UsersTable from './_Table.svelte';
-  import CreateUserForm from './_CreateForm.svelte';
 
   export let rows;
 

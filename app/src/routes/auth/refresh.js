@@ -1,22 +1,23 @@
-import cookie from 'cookie';
 import * as auth from '$lib/auth';
+
+import cookie from 'cookie';
 
 export function get({ headers, query, host }) {
   const output = query.has('redirect')
     ?
-      {
-        status: 302,
-        headers: {
-          location: `http://${host}/`,
-        }
-      }
+    {
+      status: 302,
+      headers: {
+        location: `http://${host}/`,
+      },
+    }
     :
-      {
-        status: 401,
-        headers: {}
-      };
+    {
+      status: 401,
+      headers: {},
+    };
 
-  const cookies = cookie.parse(headers.cookie || "");
+  const cookies = cookie.parse(headers.cookie || '');
   const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
   if (newCookie) {
     output.headers['set-cookie'] = newCookie;

@@ -1,7 +1,7 @@
+import errors from '$lib/errors';
+import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { getFilteredParams } from '$lib/util';
-import errors from '$lib/errors';
 
 const table = 'source';
 
@@ -27,6 +27,8 @@ export async function get({ params }) {
     return { body: row };
   }
 }
+
+const allowed = new Set(['language_id', 'note', 'reference', 'reference_full', 'title']);
 
 export const put = requireAuth(async ({ params, body }) => {
   const updateParams = getFilteredParams(body, allowed);

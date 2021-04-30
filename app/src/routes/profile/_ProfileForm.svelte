@@ -1,7 +1,7 @@
 <script>
-  import * as crud from '$actions/crud';
-  import Form from '$components/Form.svelte';
   import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
+  import * as crud from '$actions/crud';
 
   export let user;
   export let admin = false;
@@ -21,7 +21,7 @@
       label: 'Full name',
       type: 'text',
       required: true,
-    }
+    },
   ];
 
   if (admin) {
@@ -51,7 +51,7 @@
 
 <Alert type="error" message={error} />
 {#if success}
-  <Alert type="success" message={"Changes saved"} />
+  <Alert type="success" message={'Changes saved'} />
 {/if}
 <Form
   {fields}

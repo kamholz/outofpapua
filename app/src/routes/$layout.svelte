@@ -1,12 +1,11 @@
 <script>
   import '../app.scss';
   import Icon from 'svelte-awesome';
-  import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-
-  import { session, navigating } from '$app/stores';
-  import { pageLoading } from '$stores';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
+  import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+  import { navigating, session } from '$app/stores';
+  import { pageLoading } from '$stores';
 </script>
 
 <svelte:head>

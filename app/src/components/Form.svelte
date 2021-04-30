@@ -1,8 +1,8 @@
 <script>
+  import Svelecte from '$lib/svelecte';
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { serializeArrayParam, stringify } from '$lib/util';
-  import Svelecte from '$lib/svelecte';
   
   export let fields;
   export let values = {};

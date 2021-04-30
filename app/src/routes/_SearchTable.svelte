@@ -17,7 +17,7 @@
     {
       key: 'headword',
       title: 'Headword',
-      link: row => `/records/${row.record_id}`,
+      link: (row) => `/records/${row.record_id}`,
     },
     {
       key: 'pos',
@@ -30,7 +30,7 @@
     {
       key: 'gloss_language',
       title: 'Gloss Language',
-    }
+    },
   ];
 </script>
 

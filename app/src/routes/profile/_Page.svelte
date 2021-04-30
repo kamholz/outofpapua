@@ -1,11 +1,11 @@
 <script>
+  import Alert from '$components/Alert.svelte';
+  import PasswordForm from './_PasswordForm.svelte';
+  import ProfileForm from './_ProfileForm.svelte';
   import { fade } from 'svelte/transition';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
-  import ProfileForm from './_ProfileForm.svelte';
-  import PasswordForm from './_PasswordForm.svelte';
-  import Alert from '$components/Alert.svelte';
 
   export let user;
   export let admin = false;
@@ -13,7 +13,7 @@
 
   const del = crud.makeDeleter('user');
 
-  async function handleDelete(e) {
+  async function handleDelete() {
     if (confirm(`Are you sure you want to delete user "${user.fullname}"?`)) {
       $pageLoading++;
       try {

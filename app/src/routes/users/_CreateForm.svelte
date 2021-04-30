@@ -1,9 +1,9 @@
 <script>
+  import Alert from '$components/Alert.svelte';
+  import Form from '$components/Form.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import * as crud from '$actions/crud';
-  import Form from '$components/Form.svelte';
-  import Alert from '$components/Alert.svelte';
 
   let error = null;
   let success = false;
@@ -33,14 +33,14 @@
       label: 'Confirm password',
       type: 'password',
       required: true,
-    }
-];
+    },
+  ];
 
   const create = crud.makeCreater('user');
 
   function handleValidation(e) {
     const { form } = e.detail;
-    form.elements.password_confirm.setCustomValidity("");
+    form.elements.password_confirm.setCustomValidity('');
   }
 
   async function handleCreate(e) {
@@ -66,7 +66,7 @@
 
 <Alert type="error" message={error} />
 {#if success}
-  <Alert type="success" message={"New user created"} />
+  <Alert type="success" message={'New user created'} />
 {/if}
 <Form
   {fields}
