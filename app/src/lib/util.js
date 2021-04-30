@@ -115,6 +115,14 @@ export function stripParams(query, set) {
   }
 }
 
+export function stripEmptyArrayParams(query) {
+  for (const [key, value] of Object.entries(query)) {
+    if (Array.isArray(value) && value.length === 0) {
+      delete query[key];
+    }
+  }
+}
+
 export function isNumber(str) {
   return str.match(/^[0-9]+$/);
 }

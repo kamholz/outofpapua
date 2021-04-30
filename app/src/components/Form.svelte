@@ -114,7 +114,12 @@
             bind:value={values[name]}
           />
           {#if browserSubmit}
-            <input type="hidden" {name} value={stringify(values[name])}>
+            <input
+              type="hidden"
+              {name}
+              value={values[name]}
+              disabled={!values[name]?.length}
+            >
           {/if}
         {:else if type === 'languages'}
           <Svelecte
@@ -129,7 +134,12 @@
             bind:value={values[name]}
           />
           {#if browserSubmit}
-            <input type="hidden" {name} value={serializeArrayParam(values[name] ?? [])}>
+            <input
+              type="hidden"
+              {name}
+              value={serializeArrayParam(values[name] ?? [])}
+              disabled={!values[name]?.length}
+            >
           {/if}
         {/if}
       {/if}

@@ -1,5 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
+  import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import Paginator from '$components/Paginator.svelte';
   import TableCell from '$components/TableCell.svelte';
   import TableControls from '$components/TableControls.svelte';
@@ -81,6 +82,8 @@
 {#if pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
+
+<PageSizeSelect {query} />
 
 <style lang="scss">
   @import '../vars.scss';
