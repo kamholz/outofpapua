@@ -4,7 +4,6 @@
   export let rows;
   export let query;
   export let pageCount;
-  export let rowCount;
 
   const columns = [
     {
@@ -42,5 +41,4 @@
   sortable
   paginated
   {pageCount}
-  {rowCount}
 />

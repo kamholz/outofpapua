@@ -32,13 +32,15 @@
 </script>
 
 <div in:fade={{ duration: 200 }}>
-  <h2>Entries: {source.title}, {source.reference}</h2>
+  <h2>{source.title}, {source.reference}</h2>
+  <div class="total">
+    Total glosses: {rowCount}
+  </div>
   {#if $rows.length}
     <SourceTable
       {rows}
       {query}
       {pageCount}
-      {rowCount}
     />
   {:else}
     <div class="notfound">no entries</div>
@@ -46,6 +48,10 @@
 </div>
 
 <style>
+  .total {
+    margin-block: 20px;
+  }
+
   .notfound {
     font-style: italic;
   }

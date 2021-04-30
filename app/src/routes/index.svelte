@@ -58,12 +58,14 @@
 
 {#if $rows}
   <h3>Search results</h3>
+  <div class="total">
+    Total: {rowCount}
+  </div>
   {#if $rows.length}
     <SearchTable
       {rows}
       {query}
       {pageCount}
-      {rowCount}
     />
   {:else}
     <div class="notfound">nothing found</div>
@@ -72,6 +74,10 @@
 </div>
 
 <style>
+  .total {
+    margin-block: 20px;
+  }
+
   .notfound {
     font-style: italic;
   }
