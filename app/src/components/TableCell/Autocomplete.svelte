@@ -48,7 +48,7 @@
   bind:this={td}
   on:deactivate
   on:focusout={handleFocusOut}
-  in:fade={{ duration: 200 }}
+  in:fade|local={{ duration: 200 }}
 >
   <Svelecte
     options={filteredOptions}

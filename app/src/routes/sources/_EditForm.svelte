@@ -1,6 +1,9 @@
 <script>
+  import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
+  import { pageLoading } from '$stores';
+  import * as crud from '$actions/crud';
 
   export let source;
   export let editable;
@@ -41,14 +44,35 @@
       type: 'textarea',
     },
   ];
+
+  const update = crud.makeUpdater('source');
+  let promise;
+
+  async function handleUpdate(e) {
+    const { values } = e.detail;
+    $pageLoading++;
+    try {
+      promise = update({ id: source.id, values });
+      await promise;
+    } catch (e) {}
+    $pageLoading--;
+  }
 </script>
 
 {#if editable}
+  {#if promise}
+    {#await promise then done}
+      <Alert type="success" message="Changes saved" />
+    {:catch { message }}
+      <Alert type="error" {message} />
+    {/await}
+  {/if}
   <Form
     {fields}
     values={source}
     submitLabel="Save"
     style="--formwidth: 35em; --gridtemplate: 30% 70%"
+    on:submit={handleUpdate}
   />
 {:else}
   <Record

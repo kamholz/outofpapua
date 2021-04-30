@@ -1,13 +1,11 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
+  import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
 
   export let user;
   export let admin = false;
-  let error = null;
-  let success = false;
-  let loading = false;
 
   const fields = [
     {
@@ -33,30 +31,29 @@
   }
 
   const update = crud.makeUpdater('user');
+  let promise;
 
   async function handleUpdate(e) {
     const { values } = e.detail;
-    loading = true;
-    success = false;
-    error = null;
+    $pageLoading++;
     try {
-      await update({ id: user.id, values });
-      success = true;
-    } catch (err) {
-      error = 'Update failed';
-    }
-    loading = false;
+      promise = update({ id: user.id, values });
+      await promise;
+    } catch (err) {}
+    $pageLoading--;
   }
 </script>
 
-<Alert type="error" message={error} />
-{#if success}
-  <Alert type="success" message={'Changes saved'} />
+{#if promise}
+  {#await promise then done}
+    <Alert type="success" message="Changes saved" />
+  {:catch { message }}
+    <Alert type="error" {message} />
+  {/await}
 {/if}
 <Form
   {fields}
   values={user}
   submitLabel="Save"
-  {loading}
   on:submit={handleUpdate}
 />

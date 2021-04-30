@@ -47,7 +47,7 @@
 {#if editable}
   <h3>Create proto-language</h3>
   <CreateLanguageForm
-    on:create={handleRefresh}
+    on:refresh={handleRefresh}
   />
 {/if}
 </div>

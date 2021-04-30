@@ -2,6 +2,7 @@
   import Svelecte from '$lib/svelecte';
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { pageLoading } from '$stores';
   import { serializeArrayParam, stringify } from '$lib/util';
   
   export let fields;
@@ -10,7 +11,6 @@
   export let action = null;
   export let method = null;
   export let browserSubmit = false;
-  export let loading = false;
   export let style = null;
   let className = null;
   export { className as class };
@@ -145,7 +145,7 @@
       {/if}
     </div>
   {/each}
-  <button type="submit" disabled={loading}>{submitLabel}</button>
+  <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
   <slot name="hidden" />
 </form>
 

@@ -1,10 +1,12 @@
 <script>
+  import { slide } from 'svelte/transition';
+
   export let message;
   export let type;
 </script>
 
 {#if message}
-  <div class={type}>{message}</div>
+  <div class={type} in:slide>{message}</div>
 {/if}
 
 <style lang="scss">

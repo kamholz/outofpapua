@@ -3,11 +3,8 @@
   import Form from '$components/Form.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
-
-  let error = null;
-  let success = false;
-  let loading = false;
 
   const fields = [
     {
@@ -37,6 +34,7 @@
   ];
 
   const create = crud.makeCreater('user');
+  let promise;
 
   function handleValidation(e) {
     const { form } = e.detail;
@@ -46,17 +44,13 @@
   async function handleCreate(e) {
     const { form, values } = e.detail;
     if (values.password === values.password_confirm) {
-      loading = true;
-      success = false;
-      error = null;
+      $pageLoading++;
       try {
-        await create(values);
+        promise = create(values);
+        await promise;
         dispatch('refresh');
-        success = true;
-      } catch (err) {
-        error = 'Create user failed';
-      }
-      loading = false;
+      } catch (err) {}
+      $pageLoading--;
     } else {
       form.elements.password_confirm.setCustomValidity('Passwords do not match');
       form.reportValidity();
@@ -64,14 +58,16 @@
   }
 </script>
 
-<Alert type="error" message={error} />
-{#if success}
-  <Alert type="success" message={'New user created'} />
+{#if promise}
+  {#await promise then done}
+    <Alert type="success" message="New user created" />
+  {:catch { message }}
+    <Alert type="error" message="Create user failed" />
+  {/await}
 {/if}
 <Form
   {fields}
   submitLabel="Create"
-  {loading}
   style="--formwidth: 26em"
   on:beforesubmit={handleValidation}
   on:submit={handleCreate}

@@ -38,6 +38,7 @@
   {columns}
   {rows}
   {query}
-  {pageCount}
   sortable
+  paginated
+  {pageCount}
 />

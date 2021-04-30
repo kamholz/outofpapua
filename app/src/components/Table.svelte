@@ -5,7 +5,9 @@
   import TableCell from '$components/TableCell.svelte';
   import TableControls from '$components/TableControls.svelte';
   import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+  import { fly } from 'svelte/transition';
   import { serializeQuery, stringify } from '$lib/util';
+  import { sineIn, sineOut } from 'svelte/easing';
 
   export let columns;
   export let rows;
@@ -13,6 +15,7 @@
   export let pageCount = null;
   export let sortable = false;
   export let editable = false;
+  export let paginated = false;
   export let controls = null;
   let editingCell;
 
@@ -41,7 +44,7 @@
   }
 </script>
 
-{#if pageCount > 1}
+{#if paginated && pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
 
@@ -67,7 +70,7 @@
   </thead>
   <tbody>
     {#each $rows as row (row.id)}
-      <tr>
+      <tr in:fly={{ easing: sineIn }} out:fly={{ easing: sineOut }}>
         {#each columns as column (column.key)}
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
         {/each}
@@ -79,11 +82,12 @@
   </tbody>
 </table>
 
-{#if pageCount > 1}
-  <Paginator {query} {pageCount} />
+{#if paginated}
+  {#if pageCount > 1}
+    <Paginator {query} {pageCount} />
+  {/if}
+  <PageSizeSelect {query} />
 {/if}
-
-<PageSizeSelect {query} />
 
 <style lang="scss">
   @import '../vars.scss';

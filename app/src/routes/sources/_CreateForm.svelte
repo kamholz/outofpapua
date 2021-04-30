@@ -8,7 +8,6 @@
 
   export let protolangSuggest;
   let values = {};
-  let error = null;
 
   const fields = [
     {
@@ -42,6 +41,7 @@
   ];
 
   const creater = crud.makeCreater('source');
+  let promise;
 
   async function handleCreate() {
     if (!values.language_id) {
@@ -51,19 +51,18 @@
 
     $pageLoading++;
     try {
-      error = null;
-      await creater(values);
+      promise = creater(values);
+      await promise;
       values = {};
       dispatch('refresh');
-    } catch (e) {
-      console.log(e);
-      error = e.message;
-    }
+    } catch (e) {}
     $pageLoading--;
   }
 </script>
 
-<Alert type="error" message={error} />
+{#await promise catch {message}}
+  <Alert type="error" {message} />
+{/await}
 <Form
   {fields}
   bind:values
