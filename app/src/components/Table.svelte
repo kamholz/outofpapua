@@ -71,7 +71,7 @@
   </thead>
   <tbody>
     {#each $rows as row (row.id)}
-      <tr in:fly={{ easing: sineIn }} out:fly={{ easing: sineOut }}>
+      <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
         {#each columns as column (column.key)}
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
         {/each}
