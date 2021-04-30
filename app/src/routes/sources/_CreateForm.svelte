@@ -45,7 +45,7 @@
 
   async function handleCreate() {
     if (!values.language_id) {
-      error = 'Proto-language is required';
+      promise = Promise.reject({ message: 'Proto-language is required' });
       return;
     }
 

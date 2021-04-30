@@ -33,6 +33,7 @@ module.exports = {
     'key-spacing': 'error',
     'keyword-spacing': 'error',
     'max-len': ['error', { code: 120 }],
+    'no-empty': ['error', { allowEmptyCatch: true }],
     'no-implicit-coercion': 'error',
     'no-lonely-if': 'error',
     'no-mixed-operators': 'error',
