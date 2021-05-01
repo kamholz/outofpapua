@@ -19,6 +19,12 @@ has 'headword' => (
   default => sub { to_array_map(['lx','se']) },
 );
 
+# marker(s) for headword in citation form
+has 'headword_citation' => (
+  is => 'ro',
+  default => sub { to_array_map([]) },
+);
+
 # marker(s) for new sense
 has 'sense' => (
   is => 'ro',
@@ -97,6 +103,12 @@ has 'example_trans' => (
   },
 );
 
+# marker(s) for record's page_num
+has 'page_num' => (
+  is => 'ro',
+  default => sub { to_array_map('bib_Eng') },
+);
+
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
@@ -105,7 +117,7 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/record headword sense/) {
+  foreach my $att (grep { defined $attr->{$_} } qw/headword headword_citation page_num record sense/) {
     $attr->{$att} = to_array_map($attr->{$att});
   }
 
@@ -115,6 +127,7 @@ around BUILDARGS => sub {
 sub read_entries {
   my ($self) = @_;
   my $headword = $self->headword;
+  my $headword_citation = $self->headword_citation;
   my $record = $self->record;
   my $pos = $self->pos;
   my $sense = $self->sense;
@@ -123,6 +136,7 @@ sub read_entries {
   my $definition = $self->definition;
   my $example = $self->example;
   my $example_trans = $self->example_trans;
+  my $page_num = $self->page_num;
 
   my $entries = [];
   my $entry = {};
@@ -130,6 +144,12 @@ sub read_entries {
 
   foreach my $line ($self->parse) {
     my ($marker_orig, $txt, $headword_flag) = @$line;
+
+    # don't save page_num in record, just in $entry
+    if ($page_num->{$marker_orig}) {
+      $entry->{page_num} = $txt;
+      next;
+    }
 
     my ($marker, $lang);
     if ($marker_orig =~ /^(.+)_([A-Z][a-z]{2})$/) {
@@ -147,6 +167,8 @@ sub read_entries {
       $entry = $self->reset_entry($entry, $record->{$marker} ? 'record' : 'headword');
       $seen_pos = undef;
       $entry->{headword} = normalize_headword($txt);
+    } elsif ($headword_citation->{$marker}) {
+      $entry->{headword_citation} = normalize_headword($txt);
     } elsif ($pos->{$marker}) {
       if (defined $seen_pos and $seen_pos ne $txt) {
         $self->push_entry($entries, $entry);

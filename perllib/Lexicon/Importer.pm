@@ -49,6 +49,11 @@ sub import_lexicon {
     my $entries = $parser->read_entries;
 
     foreach my $entry (@{$entries||[]}) {
+      # if headword_citation is present, it means plain headword is the root form
+      if (length $entry->{headword_citation}) {
+        ($entry->{headword}, $entry->{root}) = ($entry->{headword_citation}, $entry->{headword});
+      }
+
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       next unless length $entry->{headword};
 
@@ -62,9 +67,9 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/), $record_id);
-INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
-VALUES (?, ?, ?, ?, ?, ?)
+      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root page_num/), $record_id);
+INSERT INTO entry (source_id, headword, headword_normalized, pos, root, page_num, record_id)
+VALUES (?, ?, ?, ?, ?, ?, ?)
 RETURNING id
 EOF
 

@@ -57,8 +57,8 @@ sub read_entries {
       if ($col->[0] eq 'headword') {
         $entry->{headword} = $value;
         push @{$entry->{record}}, [['lx', $value]];
-      } elsif ($col->[0] eq 'pagenum') {
-        $entry->{pagenum} = $value;
+      } elsif ($col->[0] eq 'page_num') {
+        $entry->{page_num} = $value;
       } elsif ($col->[0] eq 'gloss') {
         $self->add_gloss($entry, 'gloss', $value, $col->[1]);
         push @{$entry->{record}}, [[marker_with_code('g', $col->[1]), $value]];

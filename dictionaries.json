@@ -8,9 +8,8 @@
   },
   "Saweru dictionary": {
     "lang_target": "swr",
-    "path": "Saweru/Saweru.db",
-    "parser": "Marker",
-    "headword": ["lx","lc"]
+    "path": "Fieldworks/Saweru.db",
+    "parser": "Marker"
   },
   "Wamesa dictionary": {
     "lang_target": "wad",
@@ -28,9 +27,9 @@
   },
   "Yawa dictionary": {
     "lang_target": "yva",
-    "path": "Yawa/Yawa.db",
+    "path": "Fieldworks/Yawa.db",
     "parser": "Marker",
-    "headword": ["lx","lc"]
+    "headword_citation": "lc"
   },
   "Yawa Kijne": {
     "lang_target": "yva",
@@ -41,7 +40,7 @@
       ["headword"],
       ["gloss", "nld"],
       ["gloss", "eng"],
-      ["pagenum"]
+      ["page_num"]
     ]
   },
   "Yawa Anceaux": {
