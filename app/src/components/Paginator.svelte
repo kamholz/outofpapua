@@ -1,6 +1,7 @@
 <script>
   import Arrow from '$components/Paginator/Arrow.svelte';
   import Number from '$components/Paginator/Number.svelte';
+  import { serializeQuery } from '$lib/util';
 
   const pageWidth = 2;
 
@@ -14,7 +15,7 @@
   );
 
   function pageUrl(page) {
-    return '?' + new URLSearchParams({ ...query, page });
+    return '?' + new URLSearchParams(serializeQuery({ ...query, page }));
   }
 </script>
 
