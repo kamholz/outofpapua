@@ -1,7 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { preferences } from '$stores';
-  import { stripEmptyArrayParams } from '$lib/util';
+  import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
   export let query;
   const values = [100, 500, 1000, 2000];
@@ -9,7 +9,7 @@
   function handleSelect(e) {
     const { value } = e.target;
     $preferences.pagesize = value;
-    const newQuery = { ...query, page: 1, pagesize: value };
+    const newQuery = serializeQuery({ ...query, page: 1, pagesize: value });
     stripEmptyArrayParams(newQuery);
     goto('?' + new URLSearchParams(newQuery));
   }
