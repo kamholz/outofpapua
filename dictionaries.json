@@ -45,6 +45,13 @@
     ]
   },
   "Yawa Anceaux": {
-
+    "lang_target": "yva",
+    "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
+    "parser": "Spreadsheet",
+    "sheet": "Anceaux list",
+    "columns": [
+      ["gloss", "eng"],
+      ["headword"]
+    ]
   }
 }
