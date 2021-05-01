@@ -37,6 +37,7 @@ sub import_lexicon {
     unless ($source_id) {
       my $lang_id = $self->get_language_id($lang_code);
       $source_id = select_single($db, 'INSERT INTO source (title, language_id) VALUES (?, ?) RETURNING id', $source_title, $lang_id);
+      $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
     }
 
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
