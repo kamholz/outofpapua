@@ -27,7 +27,7 @@ export async function get({ params, query }) {
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .join('language', 'language.id', 'sense_gloss.language_id')
-    .where('source.id', params.id);
+    .where('source.id', Number(params.id));
 
   const rowCount = await getCount(q);
 

@@ -21,7 +21,7 @@ export const put = requireAuth(async ({ params, body, context }) => {
   }
   try {
     const ids = await knex(table)
-      .where('id', params.id)
+      .where('id', Number(params.id))
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) });
     if (ids.length) {

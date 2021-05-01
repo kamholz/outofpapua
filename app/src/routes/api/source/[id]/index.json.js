@@ -11,7 +11,7 @@ export async function get({ params }) {
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .leftJoin('entry', 'entry.source_id', 'source.id')
     .count('entry.id as numentries')
-    .where('source.id', params.id)
+    .where('source.id', Number(params.id))
     .first(
       'source.id',
       'source.title',
@@ -37,7 +37,7 @@ export const put = requireAuth(async ({ params, body }) => {
   }
   try {
     const ids = await knex(table)
-      .where('id', params.id)
+      .where('id', Number(params.id))
       .returning('id')
       .update(updateParams);
     if (ids.length) {

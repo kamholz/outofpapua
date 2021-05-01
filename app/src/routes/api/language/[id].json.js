@@ -14,7 +14,7 @@ export const put = requireAuth(async ({ params, body }) => {
   }
   try {
     const rows = await knex(table)
-      .where('id', params.id)
+      .where('id', Number(params.id))
       .returning('id')
       .update(updateParams);
     if (rows.length) {
@@ -29,7 +29,7 @@ export const put = requireAuth(async ({ params, body }) => {
 export const del = requireAuth(async ({ params }) => {
   try {
     const ids = await knex(table)
-      .where('id', params.id)
+      .where('id', Number(params.id))
       .returning('id')
       .del();
     if (ids.length) {
