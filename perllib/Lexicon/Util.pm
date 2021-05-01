@@ -5,7 +5,7 @@ use Encode::Simple qw(decode decode_lax);
 use Try::Tiny;
 use Unicode::Normalize 'NFC';
 
-my %fix_code = (
+my %code3 = (
   en => 'eng',
   id => 'ind',
 );
@@ -54,7 +54,7 @@ sub ensure_nfc {
 sub get_text_sil {
   my ($el) = @_;
   $el = $el->at('AStr Run');
-  my $code = fix_code($el->attr('ws'));
+  my $code = code3($el->attr('ws'));
   my $txt = $el->text;
   $txt =~ s/^\s+|\s+$//g;
   $txt =~ s/\s+/ /g;
@@ -78,9 +78,9 @@ sub collect_record_sil {
   }
 }
 
-sub fix_code {
+sub code3 {
   my ($code) = @_;
-  return $fix_code{$code} // $code;
+  return $code3{$code} // $code;
 }
 
 sub marker_with_code {

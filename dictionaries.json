@@ -31,5 +31,20 @@
     "path": "Yawa/Yawa.db",
     "parser": "Marker",
     "headword": ["lx","lc"]
-  }  
+  },
+  "Yawa Kijne": {
+    "lang_target": "yva",
+    "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
+    "parser": "Spreadsheet",
+    "sheet": "Kijne Mantembu",
+    "columns": [
+      ["headword"],
+      ["gloss", "nld"],
+      ["gloss", "eng"],
+      ["pagenum"]
+    ]
+  },
+  "Yawa Anceaux": {
+
+  }
 }

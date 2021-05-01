@@ -8,6 +8,7 @@ use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;
 use Lexicon::Parser::Marker;
+use Lexicon::Parser::Spreadsheet;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 

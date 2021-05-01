@@ -95,22 +95,22 @@ sub read_entries {
 
       my $gloss_elt = $sense_elt->at('Gloss');
       if ($gloss_elt) {
-        foreach my $lang ([$lang_english, 'ge'], [$lang_national, 'gn'], [$lang_regional, 'gr']) {
-          my $gloss = get_text_fw($gloss_elt, $lang->[0]);
+        foreach my $lang ($lang_english, $lang_national, $lang_regional) {
+          my $gloss = get_text_fw($gloss_elt, $lang);
           if (length $gloss) {
-            $self->add_gloss($entry, 'gloss', $gloss, $lang->[0]);
-            push @{$entry->{record}}, [$lang->[1], $gloss];
+            $self->add_gloss($entry, 'gloss', $gloss, $lang);
+            push @{$entry->{record}}, [marker_with_code('g', code3($lang)), $gloss];
           }
         }
       }
 
       my $definition_elt = $sense_elt->at('Definition');
       if ($definition_elt) {
-        foreach my $lang ([$lang_english, 'de'], [$lang_national, 'dn'], [$lang_regional, 'dr']) {
-          my $definition = get_text_sil_lang($definition_elt, $lang->[0]);
+        foreach my $lang ($lang_english, $lang_national, $lang_regional) {
+          my $definition = get_text_sil_lang($definition_elt, $lang);
           if (length $definition) {
-            $self->add_gloss($entry, 'definition', $definition, $lang->[0]);
-            push @{$entry->{record}}, [$lang->[1], $definition];
+            $self->add_gloss($entry, 'definition', $definition, $lang);
+            push @{$entry->{record}}, [marker_with_code('d', code3($lang)), $definition];
           }
         }
       }
