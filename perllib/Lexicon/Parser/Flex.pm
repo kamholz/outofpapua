@@ -6,6 +6,10 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
+has 'lang_target' => (
+  is => 'ro',
+);
+
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
@@ -31,7 +35,7 @@ sub read_entries {
 
       my $pos = $sense->at('MoMorphSynAnalysisLink_MLPartOfSpeech');
       if ($pos) {
-        $pos = get_text_sil($pos);
+        ($pos) = get_text_sil($pos);
         if (defined $seen_pos and $seen_pos ne $pos) {
           $self->push_entry($entries, $entry);
           $entry = $self->reset_entry($entry, 'pos');
@@ -46,14 +50,24 @@ sub read_entries {
 
       my $gloss = $sense->at('LexSense_Definition');
       if ($gloss) {
-        $gloss = get_text_sil($gloss);
+        ($gloss) = get_text_sil($gloss);
         $self->add_gloss($entry, 'gloss', $gloss, $lang_english);
-        push @{$entry->{record}}, ['ge', $gloss];
+        push @{$entry->{record}}, ['g_Eng', $gloss];
       }
 
       foreach my $example ($sense->find('LexExampleSentence')->each) {
-        collect_record_sil($entry->{record}, $example->at('LexExampleSentence_Example'), 'xv');
-        collect_record_sil($entry->{record}, $example->at('CmTranslation_Translation'), 'xe');
+        my $xv = $example->at('LexExampleSentence_Example');
+        if ($xv) {
+          my ($txt) = get_text_sil($xv);
+          my $example_obj = $self->add_example($entry, $txt);
+          push @{$entry->{record}}, [marker_with_code('xv', $self->lang_target), $txt];
+
+          foreach my $x ($example->find('CmTranslation_Translation')->each) {
+            my ($txt, $code) = get_text_sil($x);
+            push @$example_obj, [$txt, $code];
+            push @{$entry->{record}}, [marker_with_code('x', $code), $txt];
+          }
+        }
       }
 
       $self->push_entry($entries, $entry);

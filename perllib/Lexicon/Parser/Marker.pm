@@ -8,31 +8,31 @@ extends 'Lexicon::Parser';
 with 'Lexicon::Util';
 
 # marker(s) for new record
-has record => (
+has 'record' => (
   is => 'ro',
   default => sub { to_array_map('lx') },
 );
 
 # marker(s) for headword
-has headword => (
+has 'headword' => (
   is => 'ro',
   default => sub { to_array_map(['lx','se']) },
 );
 
 # marker(s) for new sense
-has sense => (
+has 'sense' => (
   is => 'ro',
   default => sub { to_array_map('sn') },
 );
 
 # marker(s) for part of speech
-has pos => (
+has 'pos' => (
   is => 'ro',
   default => sub { to_array_map('ps') },
 );
 
 # marker(s) for gloss
-has gloss => (
+has 'gloss' => (
   is => 'ro',
   lazy => 1,
   default => sub {
@@ -47,7 +47,7 @@ has gloss => (
 );
 
 # marker(s) for reverse lookup form
-has reverse => (
+has 'reverse' => (
   is => 'ro',
   lazy => 1,
   default => sub {
@@ -62,7 +62,7 @@ has reverse => (
 );
 
 # marker(s) for definition
-has definition => (
+has 'definition' => (
   is => 'ro',
   lazy => 1,
   default => sub {
@@ -77,13 +77,13 @@ has definition => (
 );
 
 # marker(s) for example
-has example => (
+has 'example' => (
   is => 'ro',
   default => sub { to_array_map('xv') },
 );
 
 # marker(s) for example translation
-has example_trans => (
+has 'example_trans' => (
   is => 'ro',
   lazy => 1,
   default => sub {

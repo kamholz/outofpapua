@@ -12,7 +12,7 @@ binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
 if (@ARGV) {
-  my $dict = JSON->new->decode(read_text('dictionariers.json'));
+  my $dict = JSON->new->decode(read_text('dictionaries.json'));
   my $source_title = shift @ARGV;
   if (exists $dict->{$source_title}) {
     parse_lexicon($source_title, $dict->{$source_title});
@@ -26,7 +26,7 @@ if (@ARGV) {
 sub parse_lexicon {
   my ($source_title, $args) = @_;
   die "no parser given" unless $args->{parser};
-  $args->{path} = "dict/$args->{path}";
+  $args->{path} = "../dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
   my $parser = $parser_class->new($args);
   say Dumper($parser->read_entries);

@@ -40,17 +40,17 @@ has 'strip' => (
   is => 'ro',
 );
 
-has lang_english => (
+has 'lang_english' => (
   is => 'ro',
   default => 'eng',
 );
 
-has lang_national => (
+has 'lang_national' => (
   is => 'ro',
   default => 'und',
 );
 
-has lang_regional => (
+has 'lang_regional' => (
   is => 'ro',
   default => 'und',
 );

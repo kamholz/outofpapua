@@ -11,7 +11,7 @@ has '+lang_english' => (
   default => 'en',
 );
 
-has lang_target => (
+has 'lang_target' => (
   is => 'ro',
 );
 
