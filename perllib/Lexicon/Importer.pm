@@ -10,14 +10,10 @@ my $json = JSON->new;
 
 with 'Lexicon::Util';
 
-has 'db_url' => (
-  is => 'ro',
-);
-
 has 'pg' => (
   is => 'ro',
   lazy => 1,
-  builder => sub { Mojo::Pg->new(shift->db_url) },
+  builder => sub { Mojo::Pg->new },
 );
 
 sub db {
