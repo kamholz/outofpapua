@@ -15,7 +15,7 @@
   import { stringify } from '$lib/util';
 
   export let source;
-  let reference = stringify(source.reference);
+  const reference = stringify(source.reference);
 </script>
 
 <div in:fade={{ duration: 200 }}>

@@ -29,7 +29,7 @@
   export let query;
   export let pageCount;
   export let rowCount;
-  let reference = stringify(source.reference);
+  const reference = stringify(source.reference);
 </script>
 
 <div in:fade={{ duration: 200 }}>
