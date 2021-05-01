@@ -11,10 +11,6 @@ has '+lang_english' => (
   default => 'en',
 );
 
-has 'lang_target' => (
-  is => 'ro',
-);
-
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;

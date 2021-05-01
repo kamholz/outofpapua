@@ -6,10 +6,6 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-has 'lang_target' => (
-  is => 'ro',
-);
-
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;

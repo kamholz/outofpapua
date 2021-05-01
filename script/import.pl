@@ -32,8 +32,7 @@ sub import_lexicon {
   die "no lang_target given" unless $args->{lang_target};
   $args->{path} = "../dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
-  my $lang_target = delete $args->{lang_target};
-  $importer->import_lexicon($source_title, $lang_target, $parser_class->new($args), $delete_existing);
+  $importer->import_lexicon($source_title, $args->{lang_target}, $parser_class->new($args), $delete_existing);
 }
 
 1;

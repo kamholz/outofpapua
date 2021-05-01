@@ -7,10 +7,6 @@ use Spreadsheet::ParseXLSX;
 extends 'Lexicon::Parser';
 with 'Lexicon::Util';
 
-has 'lang_target' => (
-  is => 'ro',
-);
-
 has 'sheet' => (
   is => 'ro',
 );

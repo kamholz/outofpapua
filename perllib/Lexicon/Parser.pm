@@ -40,6 +40,10 @@ has 'strip' => (
   is => 'ro',
 );
 
+has 'lang_target' => (
+  is => 'ro',
+);
+
 has 'lang_english' => (
   is => 'ro',
   default => 'eng',
