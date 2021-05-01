@@ -1,0 +1,35 @@
+{
+  "Ambai dictionary": {
+    "lang_target": "amk",
+    "path": "Ambai Lexicon.db",
+    "parser": "Marker",
+    "lang_national": "ind",
+    "reverse_action": "drop"
+  },
+  "Saweru dictionary": {
+    "lang_target": "swr",
+    "path": "Saweru/Saweru.db",
+    "parser": "Marker",
+    "headword": ["lx","lc"]
+  },
+  "Wamesa dictionary": {
+    "lang_target": "wad",
+    "path": "Wamesa_all.db",
+    "parser": "Marker",
+    "encoding": "cp1252",
+    "gloss": {
+      "ge": "eng",
+      "gi": "ind"
+    },
+    "definition": {
+      "de": "eng",
+      "di": "ind"
+    }
+  },
+  "Yawa dictionary": {
+    "lang_target": "yva",
+    "path": "Yawa/Yawa.db",
+    "parser": "Marker",
+    "headword": ["lx","lc"]
+  }  
+}

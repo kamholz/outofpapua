@@ -2,11 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 const env = {};
-
 load('.env');
-//load('.env.local');
-load(`.env.${import.meta.env.MODE}`);
-//load(`.env.${import.meta.env.MODE}.local`);
 
 function load(filename) {
   const result = dotenv.config({ path: path.resolve(process.cwd(), filename) });

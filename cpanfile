@@ -1,4 +1,5 @@
 requires 'Cpanel::JSON::XS', '4.25';
+requires 'Dotenv', '0.002';
 requires 'Encode::Simple', '1.0';
 requires 'File::Slurper', '0.012';
 requires 'JSON::MaybeXS', '1.004003';

@@ -11,11 +11,8 @@ use Lexicon::Parser::Marker;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
-my $json = JSON->new;
-my $config = $json->decode(read_text('config.json'));
-
 if (@ARGV) {
-  my $dict = $config->{dictionaries};
+  my $dict = JSON->new->decode(read_text('dictionariers.json'));
   my $source_title = shift @ARGV;
   if (exists $dict->{$source_title}) {
     parse_lexicon($source_title, $dict->{$source_title});

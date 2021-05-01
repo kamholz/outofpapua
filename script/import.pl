@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use v5.14;
 use lib 'perllib';
+use Dotenv -load => 'app/.env';
 use File::Slurper 'read_text';
 use JSON::MaybeXS;
 use Lexicon::Importer;
@@ -11,12 +12,9 @@ use Lexicon::Parser::Marker;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
-my $json = JSON->new;
-my $config = $json->decode(read_text('config.json'));
-my $importer = Lexicon::Importer->new(db_url => $config->{db});
-
 if (@ARGV) {
-  my $dict = $config->{dictionaries};
+  my $importer = Lexicon::Importer->new(db_url => $config->{db});
+  my $dict = JSON->new->decode(read_text('dictionaries.json'));
   my $source_title = shift @ARGV;
   if (exists $dict->{$source_title}) {
     import_lexicon($source_title, $dict->{$source_title}, shift @ARGV);
