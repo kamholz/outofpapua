@@ -13,8 +13,9 @@ use Lexicon::Parser::Spreadsheet;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
+my $importer = Lexicon::Importer->new;
+
 if (@ARGV) {
-  my $importer = Lexicon::Importer->new;
   my $dict = JSON->new->decode(read_text('dictionaries.json'));
   my $source_title = shift @ARGV;
   if (exists $dict->{$source_title}) {
