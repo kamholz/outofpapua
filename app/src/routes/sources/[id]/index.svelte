@@ -12,11 +12,13 @@
   import EditSourceForm from './_EditForm.svelte';
   import { fade } from 'svelte/transition';
   import { session } from '$app/stores';
+  import { stringify } from '$lib/util';
 
   export let source;
+  let reference = stringify(source.reference);
 </script>
 
 <div in:fade={{ duration: 200 }}>
-<h3>Source: {source.title}, {source.reference}</h3>
+<h3>Source: {source.title}{reference && `, ${reference}`}</h3>
 <EditSourceForm editable={$session.user} {source} />
 </div>

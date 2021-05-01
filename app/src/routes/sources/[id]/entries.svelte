@@ -1,5 +1,5 @@
 <script context="module">
-  import { optionalQuery } from '$lib/util';
+  import { optionalQuery, stringify } from '$lib/util';
   import { writable } from 'svelte/store';
 
   export async function load({ page: { params, query }, fetch }) {
@@ -29,10 +29,11 @@
   export let query;
   export let pageCount;
   export let rowCount;
+  let reference = stringify(source.reference);
 </script>
 
 <div in:fade={{ duration: 200 }}>
-  <h2>{source.title}, {source.reference}</h2>
+  <h2>{source.title}{reference && `, ${reference}`}</h2>
   <div class="total">
     Total glosses: {rowCount}
   </div>
