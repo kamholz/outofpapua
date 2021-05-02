@@ -14,7 +14,7 @@ export function transaction(context, cb) {
   const userId = context.user?.id;
   return knex.transaction(async (trx) => {
     if (userId) {
-      await knex.select(knex.raw("set_config('outofpapua.usr_id', ?::text, true)", userId));
+      await trx.select(knex.raw("set_config('outofpapua.usr_id', ?::text, true)", userId));
     }
     return cb(trx);
   });
