@@ -167,7 +167,3 @@ export function adminNotSelf(loggedInUser, userId) {
 export function boolean(value) {
   return value ? 'yes' : 'no';
 }
-
-export function booleanTernary(value) {
-  return value === null ? 'unknown' : boolean(value);
-}

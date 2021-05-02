@@ -31,7 +31,7 @@
 <div class="set">
   {#if editable || set.note}
     <div class="item">
-      <span class="label">Notes:</span>
+      <div class="label">Notes:</div>
       {#if editable}
         <textarea name="note" bind:value={note} />
       {:else}
@@ -41,11 +41,9 @@
     <hr>
   {/if}  
 
-  {#each members as member, i (member.entry_id)}
+  {#each members as member (member.entry_id)}
     <SetMember {member} />
-    {#if i !== members.length - 1}
-      <hr>
-    {/if}
+    <hr>
   {/each}
 </div>
 
@@ -54,7 +52,7 @@
 <style lang="scss">
   .set {
     textarea {
-      inline-size: 30em;
+      inline-size: 100%;
       block-size: 4em;
     }
 
