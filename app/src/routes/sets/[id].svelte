@@ -20,9 +20,9 @@
   export let set;
   export let editable;
   let { members } = set;
+  let note = set.note;
 
   setContext('editable', editable);
-  set.note = "test note";
 </script>
 
 <div in:fade={{ duration: 200 }}>
@@ -33,7 +33,7 @@
     <div class="item">
       <span class="label">Notes:</span>
       {#if editable}
-        <textarea name="note" value={set.note} />
+        <textarea name="note" bind:value={note} />
       {:else}
         <span>{set.note}</span>
       {/if}  

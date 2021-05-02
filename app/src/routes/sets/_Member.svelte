@@ -10,7 +10,7 @@
   const values = {
     inherited: member.inherited,
     borrowed: member.borrowed,
-    note: 'test set member note',
+    note: member.note,
   };
 
   function handleClick(type) {
