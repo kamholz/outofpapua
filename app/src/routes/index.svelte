@@ -57,9 +57,8 @@
 />
 
 {#if $rows}
-  <h3>Search results</h3>
   <div class="total">
-    Total: {rowCount}
+    Total found: {rowCount}
   </div>
   {#if $rows.length}
     <SearchTable
