@@ -15,22 +15,66 @@
 <script>
   import SetMember from './_Member.svelte';
   import { fade } from 'svelte/transition';
+  import { setContext } from 'svelte';
 
   export let set;
   export let editable;
+  let { members } = set;
+
+  setContext('editable', editable);
+  set.note = "test note";
 </script>
 
 <div in:fade={{ duration: 200 }}>
 <h2>Set {set.id}</h2>
 
-{#if set.note !== null}
-  <div>
-    Notes: {set.note}
-  </div>
-{/if}
+<div class="set">
+  {#if editable || set.note}
+    <div class="item">
+      <span class="label">Notes:</span>
+      {#if editable}
+        <textarea name="note" value={set.note} />
+      {:else}
+        <span>{set.note}</span>
+      {/if}  
+    </div>
+    <hr>
+  {/if}  
 
-{#each set.members as member (member.entry_id)}
-  <SetMember {member} {editable} />
-{/each}
+  {#each members as member, i (member.entry_id)}
+    <SetMember {member} />
+    {#if i !== members.length - 1}
+      <hr>
+    {/if}
+  {/each}
+</div>
 
 </div>
+
+<style lang="scss">
+  .set {
+    textarea {
+      inline-size: 30em;
+      block-size: 4em;
+    }
+
+    :global(.item) {
+      display: flex;
+      justify-content: flex-start;
+
+      :global(.label) {
+        flex-shrink: 0;
+        inline-size: 10em;
+        margin-inline-end: 6px;
+        font-weight: bold;
+      }
+    }
+
+    hr {
+      margin-block: 20px;
+      block-size: 2px;
+      background-color: black;
+      border: none;
+    }
+  }
+</style>
