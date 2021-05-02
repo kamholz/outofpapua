@@ -68,9 +68,9 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root page_num/), $record_id);
-INSERT INTO entry (source_id, headword, headword_normalized, pos, root, page_num, record_id)
-VALUES (?, ?, ?, ?, ?, ?, ?)
+      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/), $record_id);
+INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
+VALUES (?, ?, ?, ?, ?, ?)
 RETURNING id
 EOF
 
