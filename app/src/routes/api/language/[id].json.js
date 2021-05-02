@@ -36,9 +36,7 @@ export const del = requireAuth(async ({ context, params }) => {
       .returning('id')
       .del()
     );
-    if (ids.length) {
-      return { body: '' };
-    }
+    return { body: { deleted: ids.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

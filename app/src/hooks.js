@@ -30,8 +30,12 @@ export function handle({ request, render }) {
     return auth.redirectToRefresh(request);
   }
 
-  if (params && 'id' in params && !params.id.match(/^[0-9]+$/)) {
-    return { status: 400, body: { error: 'invalid id' } };
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      if (!value.match(/^[0-9]+$/)) {
+        return { status: 400, body: { error: `invalid ${key}` } };
+      }
+    }
   }
 
   return render(request);

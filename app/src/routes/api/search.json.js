@@ -11,7 +11,7 @@ const defaults = {
   asc: true,
   page: 1,
   pagesize: Number(config.PAGESIZE),
-  sort: 'language',
+  sort: 'headword',
   category: 'lang',
 };
 const sortCols = {
