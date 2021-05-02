@@ -1,4 +1,4 @@
-// string and parameter validation
+// primitives
 
 export function nullify(txt) {
   return txt === '' ? null : txt;
@@ -7,6 +7,12 @@ export function nullify(txt) {
 export function stringify(txt) {
   return txt ?? '';
 }
+
+export function isNumber(str) {
+  return str.match(/^[0-9]+$/);
+}
+
+// query/object conversion
 
 export function normalizeQuery(urlSearchParams) {
   const query = Object.fromEntries(urlSearchParams);
@@ -41,31 +47,41 @@ export function serializeQuery(query) {
   return optionalQuery(new URLSearchParams(newQuery));
 }
 
-export function getFilteredParams(body, set) {
-  if (!body) {
+// param objects
+
+export function ensureNfcParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      params[key] = params[key].normalize();
+    }
+  }
+}
+
+export function getFilteredParams(params, set) {
+  if (!params) {
     return {};
   }
-  const params = {};
-  for (const [key, value] of Object.entries(body)) {
+  const newParams = {};
+  for (const [key, value] of Object.entries(params)) {
     if (set.has(key)) {
-      params[key] = value;
+      newParams[key] = value;
     }
   }
-  return params;
+  return newParams;
 }
 
-export function parseBooleanParams(query, set) {
-  for (const key of set) {
-    if (key in query) {
-      query[key] = query[key] !== '0';
-    }
-  }
-}
-
-export function parseArrayParams(query, iterable) {
+export function parseBooleanParams(params, iterable) {
   for (const key of iterable) {
-    if (key in query) {
-      query[key] = parseArrayParam(query[key]);
+    if (key in params) {
+      params[key] = params[key] !== '0';
+    }
+  }
+}
+
+export function parseArrayParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      params[key] = parseArrayParam(params[key]);
     }
   }
 }
@@ -74,12 +90,12 @@ export function parseArrayParam(param) {
   return param.split(',');
 }
 
-export function parseArrayNumParams(query, iterable) {
+export function parseArrayNumParams(params, iterable) {
   for (const key of iterable) {
-    if (key in query) {
-      query[key] = parseArrayNumParam(query[key]);
-      if (!query[key].length) {
-        delete query[key];
+    if (key in params) {
+      params[key] = parseArrayNumParam(params[key]);
+      if (!params[key].length) {
+        delete params[key];
       }
     }
   }
@@ -91,13 +107,13 @@ export function parseArrayNumParam(param) {
     .map((v) => Number(v));
 }
 
-export function serializeArrayParams(query, iterable) {
+export function serializeArrayParams(params, iterable) {
   for (const key of iterable) {
-    if (key in query) {
-      if (query[key].length) {
-        query[key] = serializeArrayParam(query[key]);
+    if (key in params) {
+      if (params[key].length) {
+        params[key] = serializeArrayParam(params[key]);
       } else {
-        delete query[key];
+        delete params[key];
       }
     }
   }
@@ -107,24 +123,20 @@ export function serializeArrayParam(param) {
   return [...param].join(',');
 }
 
-export function stripParams(query, set) {
-  for (const key of set) {
-    if (key in query) {
-      delete query[key];
+export function stripParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      delete params[key];
     }
   }
 }
 
-export function stripEmptyArrayParams(query) {
-  for (const [key, value] of Object.entries(query)) {
+export function stripEmptyArrayParams(params) {
+  for (const [key, value] of Object.entries(params)) {
     if (Array.isArray(value) && value.length === 0) {
-      delete query[key];
+      delete params[key];
     }
   }
-}
-
-export function isNumber(str) {
-  return str.match(/^[0-9]+$/);
 }
 
 export function partitionPlus(array) {

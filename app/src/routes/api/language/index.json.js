@@ -1,12 +1,12 @@
 import errors from '$lib/errors';
+import { applySortParams, knex, sendPgError } from '$lib/db';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
+import { nfc, required, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
-import { applySortParams, knex, sendPgError } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
-
-const table = 'language';
-
 const boolean = new Set(['asc']);
+const strip = new Set(['category', 'numentries']);
+
 const defaults = {
   asc: true,
   sort: 'name',
@@ -18,7 +18,6 @@ const sortCols = {
   parent_name: 'parent.name',
   numentries: 'count(entry.id)',
 };
-const strip = new Set(['category', 'numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
@@ -71,13 +70,12 @@ export async function get({ query }) {
   };
 }
 
-const required = new Set(['name']);
-
 export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
+  ensureNfcParams(params, nfc);
   try {
     const ids = await
       knex.with('inserted', (q) => {

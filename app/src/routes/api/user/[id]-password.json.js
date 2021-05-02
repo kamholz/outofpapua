@@ -1,8 +1,7 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
 import { knex, sendPgError } from '$lib/db';
-
-const table = 'usr';
+import { table } from './_params';
 
 export const put = requireAuth(async ({ params, body, context }) => {
   const { user } = context;

@@ -1,9 +1,8 @@
 import errors from '$lib/errors';
+import { allowed, nfc, required, table } from './_params';
 import { applySortParams, knex, sendPgError } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
-
-const table = 'source';
 
 const boolean = new Set(['asc']);
 const defaults = {
@@ -52,14 +51,12 @@ export async function get({ query }) {
   };
 }
 
-const allowed = new Set(['language_id', 'note', 'reference', 'reference_full', 'title']);
-const required = new Set(['language_id', 'reference', 'title']);
-
 export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
+  ensureNfcParams(params, nfc);
   try {
     const proto = await knex('protolanguage')
       .where({ id: params.language_id })
