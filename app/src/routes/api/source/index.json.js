@@ -5,6 +5,7 @@ import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams,
 import { requireAuth } from '$lib/auth';
 
 const boolean = new Set(['asc']);
+const strip = new Set(['category', 'numentries']);
 const defaults = {
   asc: true,
   sort: 'title',
@@ -15,7 +16,6 @@ const sortCols = {
   language: 'language.name',
   numentries: 'count(entry.id)',
 };
-const strip = new Set(['numentries']);
 
 export async function get({ query }) {
   query = normalizeQuery(query);
@@ -24,14 +24,18 @@ export async function get({ query }) {
 
   const q = knex(table)
     .join('language', 'language.id', 'source.language_id')
-    .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .select(
       'source.id',
       'source.title',
       'source.reference',
-      //'source.reference_full',
       'language.name as language'
     );
+
+  if (query.category === 'proto') {
+    q.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
+    });
+  }
 
   if ('numentries' in query) {
     q
@@ -41,8 +45,8 @@ export async function get({ query }) {
   }
 
   applySortParams(q, query, sortCols, ['title', 'language', 'reference']);
-
   stripParams(query, strip);
+
   return {
     body: {
       query,

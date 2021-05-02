@@ -1,9 +1,6 @@
 export async function lang(fetch) {
   const res = await fetch('/api/language.json');
-  if (!res.ok) {
-    return null;
-  }
-  return (await res.json()).rows;
+  return res.ok ? (await res.json()).rows : null;
 }
 
 export async function langPlus(fetch) {
@@ -24,24 +21,20 @@ export async function langPlus(fetch) {
 
 export async function protolang(fetch) {
   const res = await fetch('/api/language.json?category=proto');
-  if (!res.ok) {
-    return null;
-  }
-  return (await res.json()).rows;
+  return res.ok ? (await res.json()).rows : null;
 }
 
 export async function glosslang(fetch) {
   const res = await fetch('/api/language.json?category=gloss');
-  if (!res.ok) {
-    return null;
-  }
-  return (await res.json()).rows;
+  return res.ok ? (await res.json()).rows : null;
 }
 
 export async function borrowlang(fetch) {
   const res = await fetch('/api/language.json?category=borrow');
-  if (!res.ok) {
-    return null;
-  }
-  return (await res.json()).rows;
+  return res.ok ? (await res.json()).rows : null;
+}
+
+export async function protosource(fetch) {
+  const res = await fetch('/api/source.json?category=proto');
+  return res.ok ? (await res.json()).rows : null;
 }
