@@ -1,8 +1,8 @@
 import errors from '$lib/errors';
 import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams } from '$lib/util';
 import { getUser, requireAuth } from '$lib/auth';
-import { knex, sendPgError } from '$lib/db';
 import { nfc, table } from './_params';
+import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['username', 'fullname', 'admin']);
 
@@ -13,7 +13,7 @@ export const get = requireAuth(async ({ params }) => {
   }
 });
 
-export const put = requireAuth(async ({ params, body, context }) => {
+export const put = requireAuth(async ({ body, context, params }) => {
   const { user } = context;
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
@@ -27,10 +27,12 @@ export const put = requireAuth(async ({ params, body, context }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .update(updateParams);
+      .update(updateParams)
+    );
     if (ids.length) {
       return { body: '' };
     }
@@ -40,16 +42,18 @@ export const put = requireAuth(async ({ params, body, context }) => {
   }
 });
 
-export const del = requireAuth(async ({ params, context }) => {
+export const del = requireAuth(async ({ context, params }) => {
   const { user } = context;
   if (!adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .del();
+      .del()
+    );
     if (ids.length) {
       return { body: '' };
     }

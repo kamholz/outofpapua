@@ -1,22 +1,24 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { knex, sendPgError } from '$lib/db';
 import { nfc, table } from './_params';
 import { requireAuth } from '$lib/auth';
+import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['name', 'parent_id', 'note']);
 
-export const put = requireAuth(async ({ params, body }) => {
+export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noupdatable } };
   }
   ensureNfcParams(updateParams, nfc);
   try {
-    const rows = await knex(table)
+    const rows = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .update(updateParams);
+      .update(updateParams)
+    );
     if (rows.length) {
       return { body: '' };
     }
@@ -26,12 +28,14 @@ export const put = requireAuth(async ({ params, body }) => {
   }
 });
 
-export const del = requireAuth(async ({ params }) => {
+export const del = requireAuth(async ({ context, params }) => {
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .del();
+      .del()
+    );
     if (ids.length) {
       return { body: '' };
     }

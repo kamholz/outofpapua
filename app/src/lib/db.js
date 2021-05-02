@@ -10,6 +10,16 @@ const knex = knexModule({
 });
 export { knex as knex };
 
+export function transaction(context, cb) {
+  const userId = context.user?.id;
+  return knex.transaction(async (trx) => {
+    if (userId) {
+      await knex.select(knex.raw("set_config('outofpapua.usr_id', ?::text, true)", userId));
+    }
+    return cb(trx);
+  });
+}
+
 export function arrayCmp(param) {
   return param.length === 1
     ? param[0]

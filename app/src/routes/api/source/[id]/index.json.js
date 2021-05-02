@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed, nfc, table } from '../_params';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { knex, sendPgError } from '$lib/db';
+import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export async function get({ params }) {
@@ -27,17 +27,19 @@ export async function get({ params }) {
   }
 }
 
-export const put = requireAuth(async ({ params, body }) => {
+export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noupdatable } };
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .update(updateParams);
+      .update(updateParams)
+    );
     if (ids.length) {
       return { body: '' };
     }

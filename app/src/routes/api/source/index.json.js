@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { allowed, nfc, required, table } from './_params';
-import { applySortParams, knex, sendPgError } from '$lib/db';
+import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
@@ -51,7 +51,7 @@ export async function get({ query }) {
   };
 }
 
-export const post = requireAuth(async ({ body }) => {
+export const post = requireAuth(async ({ body, context }) => {
   const params = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -65,9 +65,11 @@ export const post = requireAuth(async ({ body }) => {
       return { status: 400, body: { error: 'can only create new source for proto-languages' } };
     }
 
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .returning('id')
-      .insert(params);
+      .insert(params)
+    );
     return { body: { id: ids[0] } };
   } catch (e) {
     console.log(e);

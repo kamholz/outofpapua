@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { knex, sendPgError } from '$lib/db';
+import { knex, sendPgError, transaction } from '$lib/db';
 import { nfc, table } from './_params';
 import { requireAdmin, requireAuth } from '$lib/auth';
 
@@ -17,7 +17,7 @@ export const get = requireAuth(async () => {
 
 const required = new Set(['username', 'fullname', 'password']);
 
-export const post = requireAdmin(async ({ body }) => {
+export const post = requireAdmin(async ({ body, context }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -25,9 +25,11 @@ export const post = requireAdmin(async ({ body }) => {
   ensureNfcParams(params, nfc);
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .returning('id')
-      .insert(params);
+      .insert(params)
+    );
     return { body: { id: ids[0] } };
   } catch (e) {
     console.log(e);

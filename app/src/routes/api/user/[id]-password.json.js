@@ -1,9 +1,9 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
-import { knex, sendPgError } from '$lib/db';
+import { knex, sendPgError, transaction } from '$lib/db';
 import { table } from './_params';
 
-export const put = requireAuth(async ({ params, body, context }) => {
+export const put = requireAuth(async ({ body, context, params }) => {
   const { user } = context;
   // eslint-disable-next-line eqeqeq
   if (!user.admin && user.id != params.id) { // only admins can modify other user's password
@@ -19,10 +19,12 @@ export const put = requireAuth(async ({ params, body, context }) => {
     return { status: 400, body: { error: 'current password is incorrect' } };
   }
   try {
-    const ids = await knex(table)
+    const ids = await transaction(context, (trx) =>
+      trx(table)
       .where('id', Number(params.id))
       .returning('id')
-      .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) });
+      .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) })
+    );
     if (ids.length) {
       return { body: '' };
     }
