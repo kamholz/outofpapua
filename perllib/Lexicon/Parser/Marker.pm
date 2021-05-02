@@ -145,7 +145,7 @@ sub read_entries {
   foreach my $line ($self->parse) {
     my ($marker_orig, $txt, $headword_flag) = @$line;
 
-    # don't save page_num in record, just in $entry
+    # don't save page_num in record, just in entry
     if ($page_num->{$marker_orig}) {
       $entry->{page_num} = $txt;
       next;

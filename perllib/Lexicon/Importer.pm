@@ -25,6 +25,7 @@ sub import_lexicon {
 
   say "\nstarting import: $source_title";
 
+  # key is stringified object reference
   my %seen_record_ids;
 
   try {
@@ -59,9 +60,9 @@ sub import_lexicon {
 
       my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
-        $record_id = select_single($db, <<'EOF', jsonify_record($entry->{record}));
-INSERT INTO record (data)
-VALUES (?)
+        $record_id = select_single($db, <<'EOF', jsonify_record($entry->{record}), $entry->{page_num});
+INSERT INTO record (data, page_num)
+VALUES (?, ?)
 RETURNING id
 EOF
         $seen_record_ids{$entry->{record}} = $record_id;
