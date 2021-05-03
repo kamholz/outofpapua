@@ -82,7 +82,7 @@
 <div class="item">
   <div class="label">
     <p>
-      {source.language_name} <a href="/records/{entry.record_id}"><em>{entry.headword}</em></a>
+      <span>{source.language_name} </span><a href="/records/{entry.record_id}"><em>{entry.headword}</em></a>
     </p>
     <p>
       {source.reference}
