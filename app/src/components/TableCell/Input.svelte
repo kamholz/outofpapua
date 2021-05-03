@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
-  import { nullify } from '$lib/util';
+  import { normalizeParam } from '$lib/util';
 
   export let row;
   export let column;
@@ -21,7 +21,7 @@
   function handleKeyDown(e) {
     if (e.keyCode === 13) { // enter
       e.preventDefault();
-      const text = nullify(e.currentTarget.textContent.trim());
+      const text = normalizeParam(e.currentTarget.textContent);
       if (text === row[column.key]) { // nothing to do
         dispatch('deactivate');
       } else {

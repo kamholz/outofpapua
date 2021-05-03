@@ -25,6 +25,7 @@ export function get({ headers, query, host }) {
       output.headers.location = query.get('redirect');
     } else {
       output.status = 200;
+      output.body = '';
     }
   } else {
     output.headers['set-cookie'] = auth.makeExpiredCookies();

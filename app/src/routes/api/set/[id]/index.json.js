@@ -20,7 +20,7 @@ export async function get({ params }) {
 export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.noupdatable } };
+    return { status: 400, body: { error: errors.no_updatable } };
   }
   try {
     const ids = await transaction(context, (trx) =>

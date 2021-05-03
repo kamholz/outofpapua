@@ -1,17 +1,75 @@
 <script>
+  import Alert from '$components/Alert.svelte';
   import Glosses from './_Glosses.svelte';
+  import Svelecte from 'svelecte';
   import { getContext } from 'svelte';
-  const editable = getContext('editable');
+  import { normalizeParam } from '$lib/util';
+  import { pageLoading } from '$stores';
+  import { slide } from 'svelte/transition';
 
   export let member;
+  export let promises = { pending: {}, fulfilled: {} };
+
   const { entry, source } = member;
   const { senses } = entry;
+  const { set, editable, borrowlangSuggest } = getContext('props');
   const values = {
-    origin: member.origin,
     note: member.note,
+    origin: member.origin,
+    origin_language_id: member.origin_language_id,
+    origin_language_name: member.origin_language_name,
   };
+
+  async function handleUpdate(key) {
+    if (typeof values[key] === 'string' || values[key] instanceof String) {
+      values[key] = normalizeParam(values[key]);
+    }
+    if (member[key] === values[key]) {
+      return;
+    }
+    $pageLoading++;
+    let promise;
+    try {
+      promise = sendUpdate(key);
+      promises.pending[key] = promise;
+      await promise;
+      member[key] = values[key];
+      if (key === 'origin' && member[key] !== 'borrowed') {
+        member.origin_language_id = values.origin_language_id = null;
+      }
+    } catch (e) {
+      values[key] = member[key];
+    }
+    if (promise && promise === promises.pending[key]) { // handle race condition (unlikely)
+      promises.pending[key] = null;
+      promises.fulfilled[key] = promise;
+    }
+    $pageLoading--;
+  }
+
+  async function sendUpdate(key) {
+    const res = await fetch(`/api/set/${set.id}/member/${member.entry_id}.json`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ [key]: values[key] }),
+    });
+    if (!res.ok) {
+      if (res.status === 400) {
+        throw new Error('Could not update: ' + (await res.json()).error);
+      } else {
+        throw new Error('Could not update');
+      }
+    }
+  }
 </script>
 
+{#each Object.keys(promises.fulfilled).sort() as key (key)}
+  {#await promises.fulfilled[key] catch { message }}
+    <Alert type="error" {message} />
+  {/await}
+{/each}
 <div class="item">
   <div class="label">
     <p>
@@ -36,7 +94,7 @@
     {:else}
       {#each entry.senses as sense, i (sense.id)}
         <li>
-          <span>Sense {i+1}:</span>
+          <span>Sense {i + 1}:</span>
           <span class="indent"><Glosses {sense} /></span>  
         </li>
       {/each}
@@ -46,15 +104,36 @@
       {#if editable}
         <span class="radios">
           <label>
-            <input type="radio" name="origin_{member.entry_id}" value="inherited" bind:group={values.origin}>
+            <input
+              type="radio"
+              name="origin_{member.entry_id}"
+              value="inherited"
+              disabled={promises.pending.origin}
+              bind:group={values.origin}
+              on:change={() => handleUpdate('origin')}
+            >
             inherited
           </label>
           <label>
-            <input type="radio" name="origin_{member.entry_id}" value="borrowed" bind:group={values.origin}>
+            <input
+              type="radio"
+              name="origin_{member.entry_id}"
+              value="borrowed"
+              disabled={promises.pending.origin}
+              bind:group={values.origin}
+              on:change={() => handleUpdate('origin')}
+            >
             borrowed
           </label>
           <label>
-            <input type="radio" name="origin_{member.entry_id}" value={null} bind:group={values.origin}>
+            <input
+              type="radio"
+              name="origin_{member.entry_id}"
+              value={null}
+              disabled={promises.pending.origin}
+              bind:group={values.origin}
+              on:change={() => handleUpdate('origin')}
+            >
             unknown
           </label>
         </span>
@@ -62,10 +141,42 @@
         <span>{values.origin ?? 'unknown'}</span>
       {/if}
     </li>
+    {#if member.origin === 'borrowed'}
+      {#if editable}
+        <li transition:slide>
+          <span></span>
+          <span class="autocomplete">
+            <span class="autocomplete-label">Language:</span>
+            <Svelecte
+              options={borrowlangSuggest}
+              labelField="name"
+              searchField="name"
+              valueField="id"
+              clearable
+              searchable
+              placeholder=""
+              disabled={promises.pending.origin_language_id}
+              bind:value={values.origin_language_id}
+              on:change={() => handleUpdate('origin_language_id')}
+            />
+          </span>
+        </li>
+      {:else if values.origin_language_name}
+        <li>
+          <span></span>
+          <span>Language: {values.origin_language_name}</span>
+        </li>
+      {/if}
+    {/if}
     {#if editable}
       <li>
         <span>Notes:</span>
-        <textarea name="note_{member.entry_id}" bind:value={values.note} />
+        <textarea
+          name="note_{member.entry_id}"
+          disabled={promises.pending.note}
+          bind:value={values.note}
+          on:change={() => handleUpdate('note')}
+        />
       </li>
     {:else if values.note}
       <li>
@@ -114,5 +225,18 @@
     input {
       margin-inline-start: 4px;
     }    
+  }
+
+  .autocomplete {
+    display: flex;
+    align-items: center;
+
+    .autocomplete-label {
+      margin-inline-end: 10px;
+    }
+
+    :global(.svelecte-control) {
+      inline-size: 16em;
+    }
   }
 </style>

@@ -25,6 +25,10 @@ export function normalizeQuery(urlSearchParams) {
   return query;
 }
 
+export function normalizeParam(txt) {
+  return nullify(txt.trim());
+}
+
 export function optionalQuery(urlSearchParams) {
   const str = urlSearchParams.toString();
   return str === '' ? '' : '?' + str;

@@ -9,6 +9,9 @@ export const post = requireAuth(async ({ body, context }) => {
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
+  if (params.origin === 'inherited' && params.origin_language_id) {
+    return { status: 400, body: { error: errors.origin_lang } };
+  }
   try {
     const ids = await transaction(context, (trx) =>
       trx(table)
