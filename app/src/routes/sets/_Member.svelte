@@ -151,7 +151,7 @@
       {/if}
     </li>
     {#if member.origin === 'borrowed' && editable}
-      <li transition:slide>
+      <li transition:slide|local>
         <span></span>
         <span class="autocomplete">
           <span class="autocomplete-label">Language:</span>
