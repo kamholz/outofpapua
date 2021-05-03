@@ -57,7 +57,7 @@
   }
 
   async function sendUpdate(key) {
-    const res = await fetch(`/api/set/${set.id}/member/${member.entry_id}.json`, {
+    const res = await fetch(`/api/set/${set.id}/member/${entry.id}.json`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -115,7 +115,7 @@
           <label>
             <input
               type="radio"
-              name="origin_{member.entry_id}"
+              name="origin_{entry.id}"
               value="inherited"
               disabled={promises.pending.origin}
               bind:group={values.origin}
@@ -126,7 +126,7 @@
           <label>
             <input
               type="radio"
-              name="origin_{member.entry_id}"
+              name="origin_{entry.id}"
               value="borrowed"
               disabled={promises.pending.origin}
               bind:group={values.origin}

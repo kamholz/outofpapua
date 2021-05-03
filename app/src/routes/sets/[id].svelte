@@ -106,7 +106,7 @@
     <hr>
   {/if}  
 
-  {#each members as member (member.entry_id)}
+  {#each members as member (member.entry.id)}
     <SetMember {member} />
     <hr>
   {/each}
