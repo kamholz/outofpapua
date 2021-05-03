@@ -171,3 +171,15 @@ export function adminNotSelf(loggedInUser, userId) {
 export function boolean(value) {
   return value ? 'yes' : 'no';
 }
+
+export function englishFirst(a, b) {
+  if (a === 'English' && b !== 'English') {
+    return -1;
+  } else if (b === 'English' && a !== 'English') {
+    return 1;
+  } else if (a === b) {
+    return 0;
+  } else {
+    return a < b ? -1 : 1;
+  }
+}

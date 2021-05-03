@@ -41,8 +41,8 @@ export async function get({ query }) {
       'entry.headword',
       'entry.pos',
       'entry.senses',
-      'language.name',
-      'source.reference'
+      'language.name as language_name',
+      'source.reference as source_reference'
     )
     .orderBy('language.name', 'entry.headword', 'source.reference')
     .limit(max);
