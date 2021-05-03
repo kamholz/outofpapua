@@ -75,7 +75,7 @@ function verifyAccessToken(accessToken) {
   try {
     return jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return null;
   }
 }
@@ -95,7 +95,7 @@ function verifyRefreshToken(refreshToken) {
   try {
     return jwt.verify(refreshToken, config.REFRESH_TOKEN_SECRET);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     return null;
   }
 }
