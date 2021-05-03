@@ -20,7 +20,7 @@ const sortCols = {
   headword: 'lower(entry.headword)',
   pos: 'lower(entry.pos)',
   gloss: 'lower(sense_gloss.txt)',
-  gloss_language: 'language2.name',
+  gloss_language: 'gloss_language.name',
 };
 
 export async function get({ query }) {
@@ -38,7 +38,7 @@ export async function get({ query }) {
     .join('language', 'language.id', 'source.language_id')
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .join('language as language2', 'language2.id', 'sense_gloss.language_id');
+    .join('language as gloss_language', 'gloss_language.id', 'sense_gloss.language_id');
 
   if ('headword' in query) {
     q.where('entry.headword', '~*', query.headword);
@@ -84,7 +84,7 @@ export async function get({ query }) {
     'entry.record_id',
     'entry.set_id',
     'sense_gloss.txt as gloss',
-    'language2.name as gloss_language',
+    'gloss_language.name as gloss_language',
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")
   );
 

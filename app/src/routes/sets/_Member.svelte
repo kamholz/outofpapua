@@ -19,7 +19,7 @@
     origin_language_id: member.origin_language_id,
     origin_language_name: member.origin_language_name,
   };
-  const options = [ ...borrowlangSuggest ].filter(v => v.id !== source.language_id);
+  const options = [...borrowlangSuggest].filter((v) => v.id !== source.language_id);
 
   function originSummary() {
     let origin = values.origin ?? 'unknown';

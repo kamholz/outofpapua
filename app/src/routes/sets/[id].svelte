@@ -31,12 +31,11 @@
   export let set;
   export let editable;
   export let borrowlangSuggest = null;
-  let { members } = set;
-  let values = {
+  const { members } = set;
+  const values = {
     note: set.note,
   };
-  let note = set.note;
-  let promises = { pending: {}, fulfilled: {} };
+  const promises = { pending: {}, fulfilled: {} };
 
   setContext('props', { set, editable, borrowlangSuggest });
 
