@@ -10,7 +10,7 @@
     const props = {};
     query = normalizeQuery(query);
     if (['headword', 'gloss'].some((attr) => attr in query)) {
-      const res = await fetch('/api/search.json?' + new URLSearchParams(query));
+      const res = await fetch('/api/entry/glosses.json?' + new URLSearchParams(query));
       if (!res.ok) {
         return { status: 500, error: 'Internal error' };
       }

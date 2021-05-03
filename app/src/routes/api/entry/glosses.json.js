@@ -82,6 +82,7 @@ export async function get({ query }) {
     'entry.headword',
     'entry.pos',
     'entry.record_id',
+    'entry.set_id',
     'sense_gloss.txt as gloss',
     'language2.name as gloss_language',
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")

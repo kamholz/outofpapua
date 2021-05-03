@@ -2,7 +2,7 @@
   import Icon from 'svelte-awesome';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { faEdit, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faBezierCurve, faEdit, faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 
   export let row;
   export let controls;
@@ -11,13 +11,14 @@
   const iconMap = {
     delete: faTrash,
     edit: faEdit,
+    set: faBezierCurve,
     view: faInfoCircle,
   };
 
   for (const control of controls) {
-    const can = `can${control.type}`;
-    if (!(can in control)) {
-      control[can] = () => true;
+    const has = `has_${control.type}`;
+    if (!(has in control)) {
+      control[has] = () => true;
     }
   }
 
@@ -30,7 +31,7 @@
 
 <td>
 {#each controls as control (control.type)}
-  {#if control[`can${control.type}`](row)}
+  {#if control[`has_${control.type}`](row)}
     {#if control.link}
       <a href={control.link(row)}>
         <Icon data={iconMap[control.type]} {scale} />

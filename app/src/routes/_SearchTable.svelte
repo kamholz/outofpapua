@@ -32,12 +32,21 @@
       title: 'Gloss Language',
     },
   ];
+
+  const controls = [
+    {
+      type: 'set',
+      has_set: (row) => row.set_id,
+      link: (row) => `/sets/${row.set_id}`,
+    },
+  ];
 </script>
 
 <Table
   {columns}
   {rows}
   {query}
+  {controls}
   sortable
   paginated
   {pageCount}
