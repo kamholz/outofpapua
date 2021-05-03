@@ -4,7 +4,7 @@ import { knex } from '$lib/db';
 const allowed = new Set(['max', 'noset', 'search']);
 const boolean = new Set(['noset']);
 const defaults = {
-  max: 20,
+  max: 100,
   noset: true,
 };
 

@@ -1,5 +1,3 @@
-import { englishFirst } from '$lib/util';
-
 export async function lang(fetch) {
   const res = await fetch('/api/language.json');
   return res.ok ? (await res.json()).rows : null;
@@ -41,17 +39,18 @@ export async function protosource(fetch) {
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function set_member(fetch, search) {
+export async function set_member(search) {
   const res = await fetch('/api/entry.json?' + new URLSearchParams({ search, noset: 1 }));
   if (!res.ok) {
     return null;
   }
   const { rows } = await res.json();
-  return rows.map((row) =>
-    row.senses.map((sense) =>
-      Object.keys(sense.glosses).sort(englishFirst).map((language) =>
-        sense.glosses[language].join(', ') + ` (${language})`
-      )
-    )
-  );
+  for (const row of rows) {
+    row.senses = row.senses.map((sense) =>
+      sense.glosses.map(({ language, txt }) =>
+        `‘${txt.join(', ')}’ (${language})`
+      ).join('; ')
+    );
+  }
+  return rows;
 }

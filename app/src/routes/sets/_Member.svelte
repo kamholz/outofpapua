@@ -1,7 +1,6 @@
 <script>
   import Alert from '$components/Alert.svelte';
-  import Glosses from './_Glosses.svelte';
-  import Svelecte from 'svelecte';
+  import Svelecte from '$lib/svelecte';
   import { getContext } from 'svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
@@ -27,6 +26,12 @@
       origin += ` from ${values.origin_language_name}`;
     }
     return origin;
+  }
+
+  function senseGlosses(sense) {
+    return sense.glosses.map(({ language, txt }) =>
+      `‘${txt.join(', ')}’ (${language})`
+    ).join('; ');
   }
 
   async function handleUpdate(key) {
@@ -92,13 +97,13 @@
     {#if senses.length === 1}
       <li>
         <span>Glosses:</span>
-        <span class="indent"><Glosses sense={senses[0]} /></span>
+        <span class="indent">{senseGlosses(senses[0])}</span>
       </li>
     {:else}
       {#each entry.senses as sense, i (sense.id)}
         <li>
           <span>Sense {i + 1}:</span>
-          <span class="indent"><Glosses {sense} /></span>  
+          <span class="indent">{senseGlosses(sense)}</span>
         </li>
       {/each}
     {/if}
