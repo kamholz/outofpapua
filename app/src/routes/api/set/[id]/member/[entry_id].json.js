@@ -1,8 +1,10 @@
 import errors from '$lib/errors';
-import { allowed, table } from '../_params';
 import { getFilteredParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
+import { table } from '../_params';
+
+export const allowed = new Set(['note', 'origin', 'origin_language_id']);
 
 export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
@@ -18,8 +20,8 @@ export const put = requireAuth(async ({ body, context, params }) => {
   try {
     const ids = await transaction(context, (trx) =>
       trx(table)
-      .where({ set_id: Number(params.id), entry_id: Number(params.entry_id) })
-      .returning('set_id')
+      .where({ entry_id: Number(params.entry_id) })
+      .returning('entry_id')
       .update(updateParams)
     );
     if (ids.length) {
@@ -35,8 +37,8 @@ export const del = requireAuth(async ({ context, params }) => {
   try {
     const ids = await transaction(context, (trx) =>
       trx(table)
-      .where({ set_id: Number(params.id), entry_id: Number(params.entry_id) })
-      .returning('set_id')
+      .where({ entry_id: Number(params.entry_id) })
+      .returning('entry_id')
       .del()
     );
     return { body: { deleted: ids.length } };
