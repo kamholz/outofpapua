@@ -33,7 +33,7 @@
 {#each controls as control (control.type)}
   {#if control[`has_${control.type}`](row)}
     {#if control.link}
-      <a href={control.link(row)}>
+      <a href={control.link(row)} sveltekit:prefetch>
         <Icon data={iconMap[control.type]} {scale} />
       </a>
     {:else}

@@ -171,3 +171,7 @@ export function adminNotSelf(loggedInUser, userId) {
 export function boolean(value) {
   return value ? 'yes' : 'no';
 }
+
+export function mungeRegex(txt) {
+  return txt.replace(/^\*/, '\\*');
+}

@@ -4,11 +4,11 @@
 
 <nav>
   <ul>
-    <li class:active={$page.path === '/'}><a href="/">Search</a></li>
-    <li class:active={$page.path === '/languages'}><a href="/languages">Languages</a></li>
-    <li class:active={$page.path === '/sources'}><a href="/sources">Sources</a></li>
+    <li class:active={$page.path === '/'}><a href="/" sveltekit:prefetch>Search</a></li>
+    <li class:active={$page.path === '/languages'}><a href="/languages" sveltekit:prefetch>Languages</a></li>
+    <li class:active={$page.path === '/sources'}><a href="/sources" sveltekit:prefetch>Sources</a></li>
     {#if $session.user}
-      <li class:active={$page.path === '/users'}><a href="/users">Users</a></li>
+      <li class:active={$page.path === '/users'}><a href="/users" sveltekit:prefetch>Users</a></li>
     {/if}
   </ul>
 </nav>

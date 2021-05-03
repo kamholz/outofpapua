@@ -42,7 +42,7 @@
     <span class="error">{error}</span>
   {/if}
   {#if $session.user}
-    <span>Logged in as: <a href="/profile"><strong>{$session.user.fullname}</strong></a></span>
+    <span>Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
     <button on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin}>

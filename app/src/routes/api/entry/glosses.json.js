@@ -1,7 +1,7 @@
 import config from '$config';
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
-import { getFilteredParams, normalizeQuery,
-  parseArrayNumParams, parseArrayParams, parseBooleanParams, partitionPlus } from '$lib/util';
+import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
+  partitionPlus } from '$lib/util';
 
 const allowed = new Set(['headword', 'gloss', 'glosslang', 'category', 'lang', 'page', 'pagesize', 'sort', 'asc']);
 const boolean = new Set(['asc']);
@@ -41,7 +41,7 @@ export async function get({ query }) {
     .join('language as gloss_language', 'gloss_language.id', 'sense_gloss.language_id');
 
   if ('headword' in query) {
-    q.where('entry.headword', '~*', query.headword);
+    q.where('entry.headword', '~*', mungeRegex(query.headword));
   }
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);

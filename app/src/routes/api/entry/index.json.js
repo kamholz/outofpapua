@@ -1,4 +1,4 @@
-import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
 import { knex } from '$lib/db';
 
 const allowed = new Set(['max', 'noset', 'search']);
@@ -15,15 +15,16 @@ export async function get({ query }) {
   }
   parseBooleanParams(query, boolean);
   const { max, noset, search } = { ...defaults, ...query };
+  const mungedSearch = mungeRegex(search);
 
   const q1 = knex('entry')
-    .where('entry.headword', '~*', search)
+    .where('entry.headword', '~*', mungedSearch)
     .select('entry.id');
 
   const q2 = knex('entry')
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .where('sense_gloss.txt', '~*', search)
+    .where('sense_gloss.txt', '~*', mungedSearch)
     .select('entry.id');
 
   if (noset) {

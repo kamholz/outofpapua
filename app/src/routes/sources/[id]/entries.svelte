@@ -34,10 +34,10 @@
 
 <div in:fade={{ duration: 200 }}>
   <h2>{source.title}{reference && `, ${reference}`}</h2>
-  <div class="total">
-    Total glosses: {rowCount}
-  </div>
   {#if $rows.length}
+    <div class="total">
+      Total glosses: {rowCount}
+    </div>
     <SourceTable
       {rows}
       {query}
