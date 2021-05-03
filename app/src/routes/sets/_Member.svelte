@@ -88,12 +88,6 @@
     </p>
   </div>
   <ul>
-    {#if entry.pos}
-      <li>
-        <span>POS:</span>
-        <span>{entry.pos}</span>
-      </li>
-    {/if}
     {#if senses.length === 1}
       <li>
         <span>Glosses:</span>
@@ -106,6 +100,12 @@
           <span class="indent"><Glosses {sense} /></span>  
         </li>
       {/each}
+    {/if}
+    {#if entry.pos}
+      <li>
+        <span>POS:</span>
+        <span>{entry.pos}</span>
+      </li>
     {/if}
     <li>
       <span>Origin:</span>
