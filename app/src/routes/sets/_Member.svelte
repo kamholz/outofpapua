@@ -19,6 +19,7 @@
     origin_language_id: member.origin_language_id,
     origin_language_name: member.origin_language_name,
   };
+  const options = [ ...borrowlangSuggest ].filter(v => v.id !== source.language_id);
 
   function originSummary() {
     let origin = values.origin ?? 'unknown';
@@ -155,7 +156,7 @@
         <span class="autocomplete">
           <span class="autocomplete-label">Language:</span>
           <Svelecte
-            options={borrowlangSuggest}
+            {options}
             labelField="name"
             searchField="name"
             valueField="id"
