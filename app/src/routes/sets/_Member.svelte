@@ -20,6 +20,14 @@
     origin_language_name: member.origin_language_name,
   };
 
+  function originSummary() {
+    let origin = values.origin ?? 'unknown';
+    if (origin === 'borrowed' && values.origin_language_name) {
+      origin += ` from ${values.origin_language_name}`;
+    }
+    return origin;
+  }
+
   async function handleUpdate(key) {
     if (typeof values[key] === 'string' || values[key] instanceof String) {
       values[key] = normalizeParam(values[key]);
@@ -138,35 +146,28 @@
           </label>
         </span>
       {:else}
-        <span>{values.origin ?? 'unknown'}</span>
+        <span>{originSummary()}</span>
       {/if}
     </li>
-    {#if member.origin === 'borrowed'}
-      {#if editable}
-        <li transition:slide>
-          <span></span>
-          <span class="autocomplete">
-            <span class="autocomplete-label">Language:</span>
-            <Svelecte
-              options={borrowlangSuggest}
-              labelField="name"
-              searchField="name"
-              valueField="id"
-              clearable
-              searchable
-              placeholder=""
-              disabled={promises.pending.origin_language_id}
-              bind:value={values.origin_language_id}
-              on:change={() => handleUpdate('origin_language_id')}
-            />
-          </span>
-        </li>
-      {:else if values.origin_language_name}
-        <li>
-          <span></span>
-          <span>Language: {values.origin_language_name}</span>
-        </li>
-      {/if}
+    {#if member.origin === 'borrowed' && editable}
+      <li transition:slide>
+        <span></span>
+        <span class="autocomplete">
+          <span class="autocomplete-label">Language:</span>
+          <Svelecte
+            options={borrowlangSuggest}
+            labelField="name"
+            searchField="name"
+            valueField="id"
+            clearable
+            searchable
+            placeholder=""
+            disabled={promises.pending.origin_language_id}
+            bind:value={values.origin_language_id}
+            on:change={() => handleUpdate('origin_language_id')}
+          />
+        </span>
+      </li>
     {/if}
     {#if editable}
       <li>
