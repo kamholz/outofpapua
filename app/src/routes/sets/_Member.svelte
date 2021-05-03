@@ -91,7 +91,7 @@
     {#if senses.length === 1}
       <li>
         <span>Glosses:</span>
-        <span class="indent"><Glosses sense={senses[0]} /> this is a bunch more text to see what's going on with the indent and whether it works right or works wrong</span>  
+        <span class="indent"><Glosses sense={senses[0]} /></span>
       </li>
     {:else}
       {#each entry.senses as sense, i (sense.id)}
