@@ -11,7 +11,7 @@
   export let controls;
   const scale = 0.9;
 
-  const componentMap  = {
+  const componentMap = {
     delete: TableControlDelete,
     edit: TableControlEdit,
     select: TableControlSelect,

@@ -1,18 +1,21 @@
 <script>
   import Icon from 'svelte-awesome';
+  import SetSummary from '$components/SetSummary.svelte';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
 
   export let control;
   export let row;
   export let scale;
+  $: setId = control.getSetId(row);
 </script>
 
-{#if control.hasSet(row)}
-  <a href={control.link(row)} sveltekit:prefetch>
-    <Icon data={faBezierCurve} {scale} class={control.hasSet(row)} label="Set" />
-  </a>
+{#if setId}
+  <SetSummary
+    href={control.link(row)}
+    {setId}
+  >
+    <Icon data={faBezierCurve} {scale} label="Set" />
+  </SetSummary>
 {:else}
-  <a href>
-    <Icon data={faBezierCurve} {scale} class="hidden" />
-  </a>
+  <Icon data={faBezierCurve} {scale} class="hidden" />
 {/if}

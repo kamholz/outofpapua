@@ -10,6 +10,7 @@
 
   const selection = writable({});
   setContext('selection', selection);
+  setContext('setSummaryCache', writable({}));
 
   const columns = [
     {
@@ -42,7 +43,7 @@
   const controls = [
     {
       type: 'set',
-      hasSet: (row) => row.set_id,
+      getSetId: (row) => row.set_id,
       link: (row) => `/sets/${row.set_id}`,
     },
   ];

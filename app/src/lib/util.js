@@ -178,7 +178,7 @@ export function mungeRegex(txt) {
 
 export function escapeHtml(txt) {
   return txt
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }

@@ -23,8 +23,8 @@ module.exports = {
           $components: path.resolve('./src/components'),
           $config: path.resolve('./src/config'),
           $stores: path.resolve('./src/stores'),
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 };
