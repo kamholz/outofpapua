@@ -3,7 +3,7 @@ import { getFilteredParams, isIdArray } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
-export const post = requireAuth(async ({ body, context }) => {
+export const post = requireAuth(async ({ body, locals }) => {
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {
@@ -14,7 +14,7 @@ export const post = requireAuth(async ({ body, context }) => {
   }
   const params = getFilteredParams(body, allowed);
   try {
-    const id = await transaction(context, async (trx) => {
+    const id = await transaction(locals, async (trx) => {
       const ids = await trx(table)
         .returning('id')
         .insert(params);

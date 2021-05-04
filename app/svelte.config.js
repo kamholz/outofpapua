@@ -1,9 +1,9 @@
-const path = require('path');
-const sveltePreprocess = require('svelte-preprocess');
-const node = require('@sveltejs/adapter-node');
+import node from '@sveltejs/adapter-node';
+import path from 'path';
+import sveltePreprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
-module.exports = {
+const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: sveltePreprocess(),
@@ -28,3 +28,5 @@ module.exports = {
     },
   },
 };
+
+export default config;

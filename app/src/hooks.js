@@ -1,34 +1,14 @@
 import cookie from 'cookie';
 import * as auth from '$lib/auth';
 
-export async function getContext({ headers }) {
-  const context = {
-    user: null,
-  };
-
-  const cookies = cookie.parse(headers.cookie || '');
-  const user = await auth.verifyAccessTokenCookie(cookies);
-  if (user) {
-    context.user = user;
-  }
-  context.haveRefreshToken = Boolean(cookies.refreshtoken);
-
-  return context;
-}
-
-export function getSession({ context }) {
+export function getSession({ locals }) {
   return {
-    user: context.user,
+    user: locals.user,
   };
 }
 
-export function handle({ request, render }) {
-  const { context, params } = request;
-
-  // silent refresh
-  if (!context.user && context.haveRefreshToken && request.path !== '/auth/refresh') {
-    return auth.redirectToRefresh(request);
-  }
+export async function handle({ request, render }) {
+  const { headers, locals, params } = request;
 
   if (params) {
     for (const [key, value] of Object.entries(params)) {
@@ -36,6 +16,14 @@ export function handle({ request, render }) {
         return { status: 400, body: { error: `invalid ${key}` } };
       }
     }
+  }
+
+  const cookies = cookie.parse(headers.cookie || '');
+  locals.user = await auth.verifyAccessTokenCookie(cookies);
+
+  // silent refresh
+  if (!locals.user && cookies.refreshtoken && request.path !== '/auth/refresh') {
+    return auth.redirectToRefresh(request);
   }
 
   return render(request);

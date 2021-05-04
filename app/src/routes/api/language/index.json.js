@@ -70,14 +70,14 @@ export async function get({ query }) {
   };
 }
 
-export const post = requireAuth(async ({ body, context }) => {
+export const post = requireAuth(async ({ body, locals }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx.with('inserted', (q) => {
         q.from(table)
         .returning('id')

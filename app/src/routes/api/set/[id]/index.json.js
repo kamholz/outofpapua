@@ -17,7 +17,7 @@ export async function get({ params }) {
   }
 }
 
-export const put = requireAuth(async ({ body, context, params }) => {
+export const put = requireAuth(async ({ body, locals, params }) => {
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {
@@ -32,7 +32,7 @@ export const put = requireAuth(async ({ body, context, params }) => {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    const found = await transaction(context, async (trx) => {
+    const found = await transaction(locals, async (trx) => {
       const id = Number(params.id);
       let found = false;
       if (haveUpdateParams) {
@@ -65,9 +65,9 @@ export const put = requireAuth(async ({ body, context, params }) => {
   }
 });
 
-export const del = requireAuth(async ({ context, params }) => {
+export const del = requireAuth(async ({ locals, params }) => {
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')

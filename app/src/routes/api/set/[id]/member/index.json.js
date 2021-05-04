@@ -7,7 +7,7 @@ import { table } from '../_params';
 export const allowed = new Set(['entry_id', 'note', 'origin', 'origin_language_id']);
 export const required = new Set(['entry_id']);
 
-export const post = requireAuth(async ({ body, context, params }) => {
+export const post = requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -16,7 +16,7 @@ export const post = requireAuth(async ({ body, context, params }) => {
     return { status: 400, body: { error: errors.originLang } };
   }
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx.with('updated', (q) => {
         q.from('entry')
         .update({ set_id: Number(params.id) });

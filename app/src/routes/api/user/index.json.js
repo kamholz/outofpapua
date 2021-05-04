@@ -17,7 +17,7 @@ export const get = requireAuth(async () => {
 
 const required = new Set(['username', 'fullname', 'password']);
 
-export const post = requireAdmin(async ({ body, context }) => {
+export const post = requireAdmin(async ({ body, locals }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -25,7 +25,7 @@ export const post = requireAdmin(async ({ body, context }) => {
   ensureNfcParams(params, nfc);
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .returning('id')
       .insert(params)

@@ -13,8 +13,8 @@ export const get = requireAuth(async ({ params }) => {
   }
 });
 
-export const put = requireAuth(async ({ body, context, params }) => {
-  const { user } = context;
+export const put = requireAuth(async ({ body, locals, params }) => {
+  const { user } = locals;
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
   }
@@ -27,7 +27,7 @@ export const put = requireAuth(async ({ body, context, params }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')
@@ -42,13 +42,13 @@ export const put = requireAuth(async ({ body, context, params }) => {
   }
 });
 
-export const del = requireAuth(async ({ context, params }) => {
-  const { user } = context;
+export const del = requireAuth(async ({ locals, params }) => {
+  const { user } = locals;
   if (!adminNotSelf(user, params.id)) {
     return { status: 401 };
   }
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')

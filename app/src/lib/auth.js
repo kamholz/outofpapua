@@ -134,7 +134,7 @@ function pageUrl(page) {
 
 export function requireAuth(handler) {
   return (req) => {
-    if (!req.context.user) {
+    if (!req.locals.user) {
       return { status: 401 };
     }
     return handler(req);
@@ -143,7 +143,7 @@ export function requireAuth(handler) {
 
 export function requireAdmin(handler) {
   return (req) => {
-    if (!req.context.user?.admin) {
+    if (!req.locals.user?.admin) {
       return { status: 401 };
     }
     return handler(req);

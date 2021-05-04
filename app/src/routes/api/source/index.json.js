@@ -55,7 +55,7 @@ export async function get({ query }) {
   };
 }
 
-export const post = requireAuth(async ({ body, context }) => {
+export const post = requireAuth(async ({ body, locals }) => {
   const params = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -69,7 +69,7 @@ export const post = requireAuth(async ({ body, context }) => {
       return { status: 400, body: { error: 'can only create new source for proto-languages' } };
     }
 
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .returning('id')
       .insert(params)

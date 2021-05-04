@@ -6,7 +6,7 @@ import { table } from '../_params';
 
 export const allowed = new Set(['note', 'origin', 'origin_language_id']);
 
-export const put = requireAuth(async ({ body, context, params }) => {
+export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -18,7 +18,7 @@ export const put = requireAuth(async ({ body, context, params }) => {
     updateParams.origin_language_id = null;
   }
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where({ entry_id: Number(params.entry_id) })
       .returning('entry_id')
@@ -33,9 +33,9 @@ export const put = requireAuth(async ({ body, context, params }) => {
   }
 });
 
-export const del = requireAuth(async ({ context, params }) => {
+export const del = requireAuth(async ({ locals, params }) => {
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where({ entry_id: Number(params.entry_id) })
       .returning('entry_id')

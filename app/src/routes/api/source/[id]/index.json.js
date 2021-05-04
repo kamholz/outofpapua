@@ -27,14 +27,14 @@ export async function get({ params }) {
   }
 }
 
-export const put = requireAuth(async ({ body, context, params }) => {
+export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')

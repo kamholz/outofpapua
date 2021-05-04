@@ -6,14 +6,14 @@ import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['name', 'parent_id', 'note']);
 
-export const put = requireAuth(async ({ body, context, params }) => {
+export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   ensureNfcParams(updateParams, nfc);
   try {
-    const rows = await transaction(context, (trx) =>
+    const rows = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')
@@ -28,9 +28,9 @@ export const put = requireAuth(async ({ body, context, params }) => {
   }
 });
 
-export const del = requireAuth(async ({ context, params }) => {
+export const del = requireAuth(async ({ locals, params }) => {
   try {
-    const ids = await transaction(context, (trx) =>
+    const ids = await transaction(locals, (trx) =>
       trx(table)
       .where('id', Number(params.id))
       .returning('id')
