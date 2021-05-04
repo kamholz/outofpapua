@@ -1,9 +1,15 @@
 <script>
   import Table from '$components/Table.svelte';
+  import { session } from '$app/stores';
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
   export let pageCount;
+
+  const selection = writable({});
+  setContext('selection', selection);
 
   const columns = [
     {
@@ -36,10 +42,26 @@
   const controls = [
     {
       type: 'set',
-      has_set: (row) => row.set_id,
+      hasSet: (row) => row.set_id,
       link: (row) => `/sets/${row.set_id}`,
     },
   ];
+
+  // if ($session.user) {
+  //   controls.push({
+  //     type: 'select',
+  //   });
+  // }
+
+  function handleSelect(e) {
+    const row = e.detail;
+    if ($selection[row.id]) {
+      $selection[row.id] = null;
+    } else {
+      $selection[row.id] = row;
+      console.log('selecting');
+    }
+  }
 </script>
 
 <Table
@@ -50,4 +72,6 @@
   sortable
   paginated
   {pageCount}
+  highlight
+  on:select={handleSelect}
 />

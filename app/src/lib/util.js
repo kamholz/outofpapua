@@ -175,3 +175,10 @@ export function boolean(value) {
 export function mungeRegex(txt) {
   return txt.replace(/^\*/, '\\*');
 }
+
+export function escapeHtml(txt) {
+  return txt
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}

@@ -54,8 +54,8 @@
     [
       {
         type: 'delete',
+        canDelete: (row) => row.is_proto,
         confirm: (row) => confirm(`Are you sure you want to delete "${row.name}"?`),
-        has_delete: (row) => row.is_proto,
       },
     ]
     :

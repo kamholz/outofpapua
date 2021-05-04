@@ -17,6 +17,7 @@
   export let editable = false;
   export let paginated = false;
   export let controls = null;
+  export let highlight = false;
   let editingCell;
 
   for (const column of columns) {
@@ -48,7 +49,7 @@
   <Paginator {query} {pageCount} />
 {/if}
 
-<table>
+<table class:hoverhighlight={highlight}>
   <thead>
     {#each columns as { key, title } (key)}
       <th>
@@ -75,7 +76,7 @@
           <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
         {/each}
         {#if controls}
-          <TableControls {row} {controls} on:delete on:edit />
+          <TableControls {row} {controls} on:delete on:select />
         {/if}
       </tr>
     {/each}
@@ -96,6 +97,16 @@
     border: 1px solid black;
     border-collapse: collapse;
 
+    &.hoverhighlight {
+      tr:nth-child(even):hover {
+        background-color: #d6d6d6;
+      }
+
+      tr:nth-child(odd):hover {
+        background-color: #f5f5f5;
+      }
+    }
+
     thead {
       a, a:visited {
         color: black;
@@ -105,6 +116,10 @@
 
     tr:nth-child(even) {
       background-color: $lightgray;
+    }
+
+    tr:nth-child(odd) {
+      background-color: white;
     }
 
     th {

@@ -43,7 +43,7 @@
     border-collapse: collapse;
 
     tr:nth-child(even) {
-      background-color: $lightgray;
+      background-color: $lightergray;
     }
 
     th {
