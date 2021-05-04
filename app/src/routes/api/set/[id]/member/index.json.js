@@ -13,7 +13,7 @@ export const post = requireAuth(async ({ body, context, params }) => {
     return { status: 400, body: { error: errors.missing } };
   }
   if (insertParams.origin === 'inherited' && insertParams.origin_language_id) {
-    return { status: 400, body: { error: errors.origin_lang } };
+    return { status: 400, body: { error: errors.originLang } };
   }
   try {
     const ids = await transaction(context, (trx) =>
@@ -24,6 +24,8 @@ export const post = requireAuth(async ({ body, context, params }) => {
       .from(table)
       .returning('id')
       .insert(insertParams)
+      .onConflict('entry_id')
+      .merge()
     );
     return { body: { id: ids[0] } };
   } catch (e) {

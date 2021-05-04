@@ -9,7 +9,7 @@ const allowed = new Set(['name', 'parent_id', 'note']);
 export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.no_updatable } };
+    return { status: 400, body: { error: errors.noUpdatable } };
   }
   ensureNfcParams(updateParams, nfc);
   try {

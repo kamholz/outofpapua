@@ -1,16 +1,10 @@
 <script>
   import Table from '$components/Table.svelte';
   import { session } from '$app/stores';
-  import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
   export let pageCount;
-
-  const selection = writable({});
-  setContext('selection', selection);
-  setContext('setSummaryCache', writable({}));
 
   const columns = [
     {
@@ -48,20 +42,11 @@
     },
   ];
 
-  // if ($session.user) {
-  //   controls.push({
-  //     type: 'select',
-  //   });
-  // }
-
-  function handleSelect(e) {
-    const row = e.detail;
-    if ($selection[row.id]) {
-      $selection[row.id] = null;
-    } else {
-      $selection[row.id] = row;
-      console.log('selecting');
-    }
+  if ($session.user) {
+    controls.push({
+      type: 'select',
+      canSelect: () => true,
+    });
   }
 </script>
 
@@ -74,5 +59,4 @@
   paginated
   {pageCount}
   highlight
-  on:select={handleSelect}
 />

@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { allowed, table } from '../_params';
-import { getFilteredParams } from '$lib/util';
+import { getFilteredParams, isIdArray } from '$lib/util';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
@@ -18,18 +18,45 @@ export async function get({ params }) {
 }
 
 export const put = requireAuth(async ({ body, context, params }) => {
+  let members;
+  if ('members' in body) {
+    if (!isIdArray(body.members)) {
+      return { status: 400 };
+    }
+    ({ members } = body);
+    delete body.members;
+  }
   const updateParams = getFilteredParams(body, allowed);
-  if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.no_updatable } };
+  const haveUpdateParams = Object.keys(updateParams).length;
+  if (!members && !haveUpdateParams) {
+    return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    const ids = await transaction(context, (trx) =>
-      trx(table)
-      .where('id', Number(params.id))
-      .returning('id')
-      .update(updateParams)
-    );
-    if (ids.length) {
+    const found = await transaction(context, async (trx) => {
+      const id = Number(params.id);
+      let found = false;
+      if (haveUpdateParams) {
+        const ids = await trx(table)
+          .where('id', id)
+          .returning('id')
+          .update(updateParams);
+        if (ids.length) {
+          found = true;
+        }
+      }
+      if (members) {
+        const ids = await trx('entry')
+          .where('set_id', '!=', id)
+          .where('id', trx.raw('any(?)', [members]))
+          .returning('id')
+          .update({ set_id: id });
+        if (ids.length) {
+          found = true;
+        }
+      }
+      return found;
+    });
+    if (found) {
       return { body: '' };
     }
   } catch (e) {

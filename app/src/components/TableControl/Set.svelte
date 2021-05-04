@@ -17,5 +17,7 @@
     <Icon data={faBezierCurve} {scale} label="Set" />
   </SetSummary>
 {:else}
-  <Icon data={faBezierCurve} {scale} class="hidden" />
+  <a href>
+    <Icon data={faBezierCurve} {scale} class="hidden" />
+  </a>
 {/if}

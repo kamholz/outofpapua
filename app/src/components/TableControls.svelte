@@ -1,9 +1,9 @@
 <script>
-  import TableControlDelete from '$components/TableControls/Delete.svelte';
-  import TableControlEdit from '$components/TableControls/Edit.svelte';
-  import TableControlSelect from '$components/TableControls/Select.svelte';
-  import TableControlSet from '$components/TableControls/Set.svelte';
-  import TableControlView from '$components/TableControls/View.svelte';
+  import TableControlDelete from '$components/TableControl/Delete.svelte';
+  import TableControlEdit from '$components/TableControl/Edit.svelte';
+  import TableControlSelect from '$components/TableControl/Select.svelte';
+  import TableControlSet from '$components/TableControl/Set.svelte';
+  import TableControlView from '$components/TableControl/View.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
@@ -34,6 +34,8 @@
 
 <style lang="scss">
   td {
+    display: flex;
+
     :global(a) {
       text-decoration: none;
     }

@@ -27,9 +27,3 @@
     {/each}
   </select>
 </form>
-
-<style>
-  form {
-    margin-block: 28px;
-  }
-</style>

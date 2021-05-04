@@ -182,3 +182,7 @@ export function escapeHtml(txt) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 }
+
+export function isIdArray(param) {
+  return Array.isArray(param) && param.every((v) => typeof v === 'number');
+}

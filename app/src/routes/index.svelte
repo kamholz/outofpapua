@@ -1,4 +1,5 @@
 <script context="module">
+  import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import { normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
@@ -38,7 +39,9 @@
 <script>
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
+  import SearchTableControls from './_SearchTableControls.svelte';
   import { fade } from 'svelte/transition';
+  import { setContext } from 'svelte';
 
   export let rows = null;
   export let langSuggest;
@@ -46,6 +49,18 @@
   export let query;
   export let pageCount = null;
   export let rowCount = null;
+
+  const selection = writable({});
+  setContext('selection', selection);
+  setContext('setSummaryCache', writable({}));
+
+  function handleClear() {
+    $selection = {};
+  }
+
+  function handleLink() {
+
+  }
 </script>
 
 <div in:fade={{ duration: 200 }}>
@@ -57,24 +72,38 @@
 />
 
 {#if $rows}
-  <div class="total">
-    Total found: {rowCount}
+  <div class="container">
+    <div class="controls">
+      <div>
+        Total found: {rowCount}
+      </div>
+      <SearchTableControls on:clear={handleClear} on:link={handleLink} />
+    </div>
+    {#if $rows.length}
+      <SearchTable
+        {rows}
+        {query}
+        {pageCount}
+      />
+      <div class="controls">
+        <PageSizeSelect {query} />
+        <SearchTableControls on:clear={handleClear} on:link={handleLink} />
+      </div>
+    {:else}
+      <div class="notfound">nothing found</div>
+    {/if}
   </div>
-  {#if $rows.length}
-    <SearchTable
-      {rows}
-      {query}
-      {pageCount}
-    />
-  {:else}
-    <div class="notfound">nothing found</div>
-  {/if}
 {/if}
 </div>
 
 <style>
-  .total {
+  .container {
+    display: inline-block;
+  }
+  .controls {
     margin-block: 20px;
+    display: flex;
+    justify-content: space-between;
   }
 
   .notfound {

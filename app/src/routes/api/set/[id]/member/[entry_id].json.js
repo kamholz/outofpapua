@@ -9,10 +9,10 @@ export const allowed = new Set(['note', 'origin', 'origin_language_id']);
 export const put = requireAuth(async ({ body, context, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.no_updatable } };
+    return { status: 400, body: { error: errors.noUpdatable } };
   }
   if (updateParams.origin === 'inherited' && updateParams.origin_language_id) {
-    return { status: 400, body: { error: errors.origin_lang } };
+    return { status: 400, body: { error: errors.originLang } };
   }
   if ('origin' in updateParams && updateParams.origin !== 'borrowed') {
     updateParams.origin_language_id = null;

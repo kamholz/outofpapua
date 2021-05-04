@@ -23,7 +23,7 @@ export const put = requireAuth(async ({ body, context, params }) => {
     return { status: 401 };
   }
   if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.no_updatable } };
+    return { status: 400, body: { error: errors.noUpdatable } };
   }
   ensureNfcParams(params, nfc);
   try {
