@@ -35,7 +35,6 @@
   }
 </script>
 
-<div in:fade={{ duration: 200 }}>
 <h2>Languages</h2>
 <LanguagesTable
   {rows}
@@ -50,4 +49,3 @@
     on:refresh={handleRefresh}
   />
 {/if}
-</div>

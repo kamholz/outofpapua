@@ -2,7 +2,6 @@
   import Alert from '$components/Alert.svelte';
   import PasswordForm from './_PasswordForm.svelte';
   import ProfileForm from './_ProfileForm.svelte';
-  import { fade } from 'svelte/transition';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
@@ -28,7 +27,6 @@
   }
 </script>
 
-<div in:fade={{ duration: 200 }}>
 <h2>Profile</h2>
 <Alert type="error" message={error} />
 <ProfileForm
@@ -45,7 +43,6 @@
 {#if admin && !user.admin}
   <button on:click={handleDelete}>Delete User</button>
 {/if}
-</div>
 
 <style>
   button {

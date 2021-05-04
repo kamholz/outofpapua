@@ -22,7 +22,6 @@
 
 <script>
   import SourceTable from './_Table.svelte';
-  import { fade } from 'svelte/transition';
 
   export let source;
   export let rows;
@@ -32,21 +31,19 @@
   const reference = stringify(source.reference);
 </script>
 
-<div in:fade={{ duration: 200 }}>
-  <h2>{source.title}{reference && `, ${reference}`}</h2>
-  {#if $rows.length}
-    <div class="total">
-      Total glosses: {rowCount}
-    </div>
-    <SourceTable
-      {rows}
-      {query}
-      {pageCount}
-    />
-  {:else}
-    <div class="notfound">no entries</div>
-  {/if}
-</div>
+<h2>{source.title}{reference && `, ${reference}`}</h2>
+{#if $rows.length}
+  <div class="total">
+    Total glosses: {rowCount}
+  </div>
+  <SourceTable
+    {rows}
+    {query}
+    {pageCount}
+  />
+{:else}
+  <div class="notfound">no entries</div>
+{/if}
 
 <style>
   .total {

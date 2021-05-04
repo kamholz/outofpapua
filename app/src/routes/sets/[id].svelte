@@ -23,7 +23,6 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import SetMember from './_Member.svelte';
-  import { fade } from 'svelte/transition';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
@@ -79,7 +78,6 @@
   }
 </script>
 
-<div in:fade={{ duration: 200 }}>
 <h2>Set {set.id}</h2>
 
 <div class="set">
@@ -109,8 +107,6 @@
     <SetMember {member} />
     <hr>
   {/each}
-</div>
-
 </div>
 
 <style lang="scss">

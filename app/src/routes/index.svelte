@@ -63,7 +63,6 @@
   }
 </script>
 
-<div in:fade={{ duration: 200 }}>
 <h2>Search entries</h2>
 <SearchForm
   {query}
@@ -94,7 +93,6 @@
     {/if}
   </div>
 {/if}
-</div>
 
 <style>
   .container {

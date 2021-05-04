@@ -28,7 +28,6 @@
 <script>
   import CreateSourceForm from './_CreateForm.svelte';
   import SourcesTable from './_Table.svelte';
-  import { fade } from 'svelte/transition';
 
   export let rows;
   export let query;
@@ -40,14 +39,12 @@
   }
 </script>
 
-<div in:fade={{ duration: 200 }}>
 <h2>Sources</h2>
 <SourcesTable
   {rows}
   {query}
   on:refresh={handleRefresh}
 />
-</div>
 
 {#if editable}
   <h3>Create new proto-language source</h3>
