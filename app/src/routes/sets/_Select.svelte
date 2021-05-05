@@ -16,7 +16,7 @@
         output += `<div class="set-suggest"><div></div><div>${escape(sense)}</div></div>`;
       }
     } else {
-      output += `<div></div></div>`;
+      output += '<div></div></div>';
     }
     return output;
   }

@@ -3,8 +3,8 @@
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
-  import { fade } from 'svelte/transition';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+  import { fade } from 'svelte/transition';
   import { navigating, page, session } from '$app/stores';
   import { pageLoading } from '$stores';
 </script>

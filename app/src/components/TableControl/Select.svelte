@@ -1,19 +1,18 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { createEventDispatcher, getContext } from 'svelte';
-  const dispatch = createEventDispatcher();
-  import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
+  import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
+  import { getContext } from 'svelte';
 
   export let control;
   export let row;
   export let scale;
 
   const selection = getContext('selection');
-  let id = row.id;
+  const [id] = row;
 
   function handleSelect() {
-    let newSelection = { ...$selection };
+    const newSelection = { ...$selection };
     if ($selection[id]) {
       delete newSelection[id];
     } else {

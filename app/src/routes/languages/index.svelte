@@ -24,7 +24,6 @@
 <script>
   import CreateLanguageForm from './_CreateForm.svelte';
   import LanguagesTable from './_Table.svelte';
-  import { fade } from 'svelte/transition';
 
   export let rows;
   export let query;

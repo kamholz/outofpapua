@@ -4,6 +4,6 @@
 </script>
 
 <div>
-  <button on:click={() => dispatch('clear')}>Clear Selected</button>
+  <button on:click={() => dispatch('clear')}>Clear Selection</button>
   <button on:click={() => dispatch('link')}>Link Selected</button>
 </div>

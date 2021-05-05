@@ -2,16 +2,17 @@
   import Alert from '$components/Alert.svelte';
   import Icon from 'svelte-awesome';
   import Svelecte from '$lib/svelecte';
-  import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+  import { faCaretDown, faCaretRight, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
-  import { slide, fly } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
 
   export let member;
-  export let collapsed = false;
+  export let collapsed;
+  const [id] = member.entry;
   const scale = 1.5;
-  let promises = { pending: {}, fulfilled: {} };
+  const promises = { pending: {}, fulfilled: {} };
   
   const { entry, source } = member;
   const { senses } = entry;
@@ -22,10 +23,12 @@
     origin_language_id: member.origin_language_id,
     origin_language_name: member.origin_language_name,
   };
-  const options = [...borrowlangSuggest].filter((v) => v.id !== source.language_id);
+  const options = editable
+    ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
+    : null;
 
   function toggleCollapsed() {
-    collapsed = !collapsed;
+    collapsed[id] = !collapsed[id];
   }
 
   function originSummary() {
@@ -91,7 +94,7 @@
   }
 </script>
 
-{#if collapsed}
+{#if collapsed[id]}
   <div class="item">
     <div class="indicator-collapsed" on:click={toggleCollapsed}>
       <Icon data={faCaretRight} {scale} />
@@ -118,7 +121,7 @@
         {source.reference}
       </p>
     </div>
-    <ul>
+    <ul class="details">
       {#if senses.length === 1}
         <li>
           <span>Glosses:</span>
@@ -151,7 +154,7 @@
                 bind:group={values.origin}
                 on:change={() => handleUpdate('origin')}
               >
-              inherited
+              <span>inherited</span>
             </label>
             <label>
               <input
@@ -162,7 +165,7 @@
                 bind:group={values.origin}
                 on:change={() => handleUpdate('origin')}
               >
-              borrowed
+            <span>borrowed</span>
             </label>
             <label>
               <input
@@ -173,7 +176,7 @@
                 bind:group={values.origin}
                 on:change={() => handleUpdate('origin')}
               >
-              unknown
+            <span>unknown</span>
             </label>
           </span>
         {:else}
@@ -217,17 +220,17 @@
         </li>
       {/if}
     </ul>
+    {#if editable}
+      <div class="delete">
+        <Icon data={faTrash} />
+      </div>
+    {/if}
   </div>
 {/if}
 
 <style lang="scss">
   .indicator, .indicator-collapsed {
-    flex-shrink: 0;
     inline-size: 2em;
-
-    :global(.fa-icon:hover) {
-      color: gray;
-    }
   }
 
   :global(.indicator .fa-icon) {
@@ -244,6 +247,16 @@
     }
   }
 
+  .details {
+    flex-grow: 1;
+  }
+
+  .delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
   li {
     display: flex;
 
@@ -253,8 +266,7 @@
 
     > :first-child {
       flex-shrink: 0;
-      inline-size: 6em;
-      align-self: top;
+      inline-size: 5.5em;
     }
   }
 
@@ -272,14 +284,14 @@
   }
 
   .radios {
-    label, input {
-      vertical-align: middle;
-    }
+    display: flex;
     label {
-      margin-inline-end: 8px; 
+      margin-inline-end: 16px;
+      display: flex;
+      align-items: center;
     }
     input {
-      margin-inline-start: 4px;
+      margin-inline-end: 4px;
     }    
   }
 

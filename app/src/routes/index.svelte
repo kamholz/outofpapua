@@ -40,7 +40,6 @@
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
   import SearchTableControls from './_SearchTableControls.svelte';
-  import { fade } from 'svelte/transition';
   import { setContext } from 'svelte';
 
   export let rows = null;

@@ -36,14 +36,16 @@
     note: set.note,
   };
   const promises = { pending: {}, fulfilled: {} };
-  const collapsed = {};
+  const collapsed = Object.fromEntries(
+    members.map((member) => [member.entry.id, false])
+  );
 
   setContext('props', { set, editable, borrowlangSuggest });
 
   function collapseAll(state) {
     for (const member of members) {
-      if (collapsed[member.entry_id] != state) {
-        collapsed[member.entry_id] = state;
+      if (collapsed[member.entry.id] !== state) {
+        collapsed[member.entry.id] = state;
       }
     }
   }
@@ -122,7 +124,7 @@
   <!--Select /-->
 
   {#each members as member (member.entry.id)}
-    <Member {member} collapsed={collapsed[member.entry_id]} />
+    <Member {member} {collapsed} />
     <hr>
   {/each}
 </div>
@@ -141,7 +143,11 @@
 
     :global(.item) {
       display: flex;
-      justify-content: flex-start;
+      position: relative;
+
+      :global(.fa-icon:hover) {
+        color: gray;
+      }
 
       :global(.label) {
         flex-shrink: 0;
