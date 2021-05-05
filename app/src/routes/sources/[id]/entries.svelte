@@ -32,8 +32,13 @@
 </script>
 
 <h2>{source.title}{reference && `, ${reference}`}</h2>
+{#if source.reference_full}
+  <div class="info">
+    Full reference: {source.reference_full}
+  </div>
+{/if}
 {#if $rows.length}
-  <div class="total">
+  <div class="info">
     Total glosses: {rowCount}
   </div>
   <SourceTable
@@ -46,8 +51,10 @@
 {/if}
 
 <style>
-  .total {
+  .info {
     margin-block: 20px;
+    text-indent: -1em;
+    padding-inline-start: 1em;
   }
 
   .notfound {
