@@ -111,7 +111,7 @@
       <Alert type="error" {message} />
     {/await}
   {/each}
-  <div class="set-item" transition:slide|local={{ duration: 200 }}>
+  <div class="set-item" transition:slide={{ duration: 200 }}>
     <div class="indicator" on:click={toggleCollapsed}>
       <Icon data={faCaretDown} {scale} />
     </div>

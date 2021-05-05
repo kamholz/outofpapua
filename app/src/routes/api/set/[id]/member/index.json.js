@@ -20,7 +20,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
       trx.with('updated', (q) => {
         q.from('entry')
         .update({ set_id: Number(params.id) })
-        .where({ entry_id: insertParams.entry_id });
+        .where({ id: insertParams.entry_id });
       })
       .from(table)
       .returning('entry_id')
