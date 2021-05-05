@@ -131,7 +131,7 @@
 
   {#if editable}
     <div class="set-item">
-      <div class="set-item-label top add-entry">Link entry:</div>
+      <div class="set-item-label top add-entry">Add entry:</div>
       <Select on:select={(e) => handleAddMember(e.detail)} />
     </div>
     <hr>
