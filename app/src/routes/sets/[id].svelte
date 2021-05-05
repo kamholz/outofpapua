@@ -58,11 +58,13 @@
   }
 
   async function handleRefresh() {
-    set = await reload(fetch, set.id);
-    if (!set) {
+    const newSet = await reload(fetch, set.id);
+    if (newSet) {
+      set = newSet;
+      values.note = set.note;
+    } else {
       goto('/');
     }
-    values.note = set.note;
   }
 
   async function handleUpdate(key) {
