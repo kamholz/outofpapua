@@ -1,5 +1,5 @@
 <script>
-  import Svelecte from '$lib/svelecte';
+  import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$stores';
@@ -103,14 +103,8 @@
             {required}
           />
         {:else if type === 'language'}
-          <Svelecte
+          <SvelecteLanguage
             {options}
-            labelField="name"
-            searchField="name"
-            valueField="id"
-            clearable
-            searchable
-            placeholder=""
             bind:value={values[name]}
           />
           {#if browserSubmit}
@@ -122,15 +116,9 @@
             >
           {/if}
         {:else if type === 'languages'}
-          <Svelecte
+          <SvelecteLanguage
             {options}
-            labelField="name"
-            searchField="name"
-            valueField="id"
             multiple
-            clearable
-            searchable
-            placeholder=""
             bind:value={values[name]}
           />
           {#if browserSubmit}
@@ -174,12 +162,6 @@
         text-align: start;
         * {
           vertical-align: middle;
-        }
-      }
-
-      :global(.svelecte-control) {
-        :global(.sv-control:not(.is-active)) {
-          border: 1px solid gray;
         }
       }
     }

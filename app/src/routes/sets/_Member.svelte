@@ -1,16 +1,19 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Icon from 'svelte-awesome';
-  import Svelecte from '$lib/svelecte';
+  import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
   import { faCaretDown, faCaretRight, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { slide } from 'svelte/transition';
+  import * as crudSetMember from '$actions/crud/setmember';
 
   export let member;
   export let collapsed;
-  const [id] = member.entry;
+  const { id } = member.entry;
   const scale = 1.5;
   const promises = { pending: {}, fulfilled: {} };
   
@@ -59,7 +62,7 @@
     $pageLoading++;
     let promise;
     try {
-      promise = sendUpdate(key);
+      promise = crudSetMember.update({ set_id: set.id, entry_id: entry.id, values: { [key]: values[key] } });
       promises.pending[key] = promise;
       await promise;
       member[key] = values[key];
@@ -69,33 +72,32 @@
     } catch (e) {
       values[key] = member[key];
     }
-    if (promise && promise === promises.pending[key]) { // handle race condition (unlikely)
+    if (promise && promise === promises.pending[key]) {
       promises.pending[key] = null;
       promises.fulfilled[key] = promise;
     }
     $pageLoading--;
   }
 
-  async function sendUpdate(key) {
-    const res = await fetch(`/api/set/${set.id}/member/${entry.id}.json`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({ [key]: values[key] }),
-    });
-    if (!res.ok) {
-      if (res.status === 400) {
-        throw new Error('Could not update: ' + (await res.json()).error);
-      } else {
-        throw new Error('Could not update');
-      }
+  async function handleDelete() {
+    $pageLoading++;
+    let promise;
+    try {
+      promise = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
+      promises.pending.delete = promise;
+      await promise;
+      dispatch('refresh');
+    } catch (e) {}
+    if (promise && promise === promises.pending.delete) {
+      promises.pending.delete = null;
+      promises.fulfilled.delete = promise;
     }
+    $pageLoading--;
   }
 </script>
 
 {#if collapsed[id]}
-  <div class="item">
+  <div class="set-item">
     <div class="indicator-collapsed" on:click={toggleCollapsed}>
       <Icon data={faCaretRight} {scale} />
     </div>
@@ -109,11 +111,11 @@
       <Alert type="error" {message} />
     {/await}
   {/each}
-  <div class="item" transition:slide|local={{ duration: 200 }}>
+  <div class="set-item" transition:slide|local={{ duration: 200 }}>
     <div class="indicator" on:click={toggleCollapsed}>
       <Icon data={faCaretDown} {scale} />
     </div>
-    <div class="label">
+    <div class="set-item-label">
       <p>
         <span>{source.language_name} </span><a href="/records/{entry.record_id}" sveltekit:prefetch><em>{entry.headword}</em></a>
       </p>
@@ -148,7 +150,6 @@
             <label>
               <input
                 type="radio"
-                name="origin_{entry.id}"
                 value="inherited"
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
@@ -159,7 +160,6 @@
             <label>
               <input
                 type="radio"
-                name="origin_{entry.id}"
                 value="borrowed"
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
@@ -170,7 +170,6 @@
             <label>
               <input
                 type="radio"
-                name="origin_{member.entry_id}"
                 value={null}
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
@@ -186,16 +185,10 @@
       {#if member.origin === 'borrowed' && editable}
         <li transition:slide|local>
           <span></span>
-          <span class="autocomplete">
-            <span class="autocomplete-label">Language:</span>
-            <Svelecte
+          <span class="originlang">
+            <span class="label">Language:</span>
+            <SvelecteLanguage
               {options}
-              labelField="name"
-              searchField="name"
-              valueField="id"
-              clearable
-              searchable
-              placeholder=""
               disabled={promises.pending.origin_language_id}
               bind:value={values.origin_language_id}
               on:change={() => handleUpdate('origin_language_id')}
@@ -207,7 +200,6 @@
         <li>
           <span>Notes:</span>
           <textarea
-            name="note_{member.entry_id}"
             disabled={promises.pending.note}
             bind:value={values.note}
             on:change={() => handleUpdate('note')}
@@ -221,7 +213,7 @@
       {/if}
     </ul>
     {#if editable}
-      <div class="delete">
+      <div class="delete" on:click={handleDelete}>
         <Icon data={faTrash} />
       </div>
     {/if}
@@ -295,11 +287,11 @@
     }    
   }
 
-  .autocomplete {
+  .originlang {
     display: flex;
     align-items: center;
 
-    .autocomplete-label {
+    .label {
       margin-inline-end: 10px;
     }
 

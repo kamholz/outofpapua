@@ -9,7 +9,7 @@ export const post = requireAuth(async ({ body, locals }) => {
     if (!isIdArray(body.members)) {
       return { status: 400 };
     }
-    ({ members } = body);
+    members = body.members;
     delete body.members;
   }
   const params = getFilteredParams(body, allowed);
@@ -24,7 +24,9 @@ export const post = requireAuth(async ({ body, locals }) => {
           .where('id', trx.raw('any(?)', [members]))
           .update({ set_id: id });
         await trx('set_member')
-          .insert(members.map((v) => ({ entry_id: v })));
+          .insert(members.map((v) => ({ entry_id: v })))
+          .onConflict('entry_id')
+          .ignore();
       }
       return id;
     });

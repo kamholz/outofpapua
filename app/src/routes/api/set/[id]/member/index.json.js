@@ -19,15 +19,16 @@ export const post = requireAuth(async ({ body, locals, params }) => {
     const ids = await transaction(locals, (trx) =>
       trx.with('updated', (q) => {
         q.from('entry')
-        .update({ set_id: Number(params.id) });
+        .update({ set_id: Number(params.id) })
+        .where({ entry_id: insertParams.entry_id });
       })
       .from(table)
-      .returning('id')
+      .returning('entry_id')
       .insert(insertParams)
       .onConflict('entry_id')
-      .merge()
+      .ignore()
     );
-    return { body: { id: ids[0] } };
+    return { body: { entry_id: ids[0] } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

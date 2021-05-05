@@ -1,15 +1,17 @@
 <script context="module">
+  import * as crudSet from '$actions/crud/set';
+  import * as crudSetMember from '$actions/crud/setmember';
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
     const props = {
       editable: session.user !== null,
     };
-    const res = await fetch(`/api/set/${params.id}.json`);
-    if (!res.ok) {
+    const set = await reload(fetch, params.id);
+    if (!set) {
       return { status: 500, error: 'Internal error' };
     }
-    props.set = await res.json();
+    props.set = set;
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
@@ -17,6 +19,11 @@
       }
     }
     return { props };
+  }
+
+  async function reload(fetch, id) {
+    const res = await fetch(`/api/set/${id}.json`);
+    return res.ok ? res.json() : null;
   }
 </script>
 
@@ -31,62 +38,63 @@
   export let set;
   export let editable;
   export let borrowlangSuggest = null;
-  const { members } = set;
-  const values = {
+  $: members = set.members;
+  $: values = {
     note: set.note,
   };
   const promises = { pending: {}, fulfilled: {} };
-  const collapsed = Object.fromEntries(
-    members.map((member) => [member.entry.id, false])
-  );
+  const collapsed = {};
 
   setContext('props', { set, editable, borrowlangSuggest });
 
   function collapseAll(state) {
     for (const member of members) {
-      if (collapsed[member.entry.id] !== state) {
+      if ((collapsed[member.entry.id] ?? false) !== state) {
         collapsed[member.entry.id] = state;
       }
     }
   }
 
-  async function handleNoteUpdate() {
-    values.note = normalizeParam(values.note);
-    if (set.note === values.note) {
+  async function handleRefresh() {
+    set = await reload(fetch, set.id);
+  }
+
+  async function handleUpdate(key) {
+    values[key] = normalizeParam(values[key]);
+    if (set[key] === values[key]) {
       return;
     }
     $pageLoading++;
     let promise;
     try {
-      promise = sendNoteUpdate();
-      promises.pending.note = promise;
+      promise = crudSet.update({ id: set.id, values: { [key]: values[key] } });
+      promises.pending[key] = promise;
       await promise;
-      set.note = values.note;
+      set[key] = values[key];
     } catch (e) {
-      values.note = set.note;
+      values[key] = set[key];
     }
-    if (promise && promise === promises.pending.note) { // handle race condition (unlikely)
-      promises.pending.note = null;
-      promises.fulfilled.note = promise;
+    if (promise && promise === promises.pending[key]) {
+      promises.pending[key] = null;
+      promises.fulfilled[key] = promise;
     }
     $pageLoading--;
   }
 
-  async function sendNoteUpdate() {
-    const res = await fetch(`/api/set/${set.id}.json`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({ note: values.note }),
-    });
-    if (!res.ok) {
-      if (res.status === 400) {
-        throw new Error('Could not update: ' + (await res.json()).error);
-      } else {
-        throw new Error('Could not update');
-      }
+  async function handleAddMember(entry) {
+    $pageLoading++;
+    let promise;
+    try {
+      promise = crudSetMember.create({ set_id: set.id, values: { entry_id: entry.id } });
+      promises.pending.add = promise;
+      await promise;
+      handleRefresh();
+    } catch (e) {}
+    if (promise && promise === promises.pending.add) {
+      promises.pending.add = null;
+      promises.fulfilled.add = promise;
     }
+    $pageLoading--;
   }
 </script>
 
@@ -99,14 +107,14 @@
     {/await}
   {/each}
   {#if editable || set.note}
-    <div class="item">
-      <div class="label notes">Notes:</div>
+    <div class="set-item">
+      <div class="set-item-label top">Notes:</div>
       {#if editable}
         <textarea
           name="note"
           disabled={promises.pending.note}
           bind:value={values.note}
-          on:change={() => handleNoteUpdate('note')}
+          on:change={() => handleUpdate('note')}
         />
       {:else}
         <span>{set.note}</span>
@@ -115,16 +123,22 @@
     <hr>
   {/if}  
 
+  {#if editable}
+    <div class="set-item">
+      <div class="set-item-label top add-entry">Add entry:</div>
+      <Select on:select={(e) => handleAddMember(e.detail)} />
+    </div>
+    <hr>
+  {/if}
+
   <div>
     <button on:click={() => collapseAll(true)}>Collapse All</button>
     <button on:click={() => collapseAll(false)}>Expand All</button>
   </div>
   <hr>
 
-  <!--Select /-->
-
   {#each members as member (member.entry.id)}
-    <Member {member} {collapsed} />
+    <Member {member} {collapsed} on:refresh={handleRefresh} />
     <hr>
   {/each}
 </div>
@@ -141,7 +155,7 @@
       block-size: 4em;
     }
 
-    :global(.item) {
+    :global(.set-item) {
       display: flex;
       position: relative;
 
@@ -149,15 +163,17 @@
         color: gray;
       }
 
-      :global(.label) {
+      :global(.set-item-label) {
         flex-shrink: 0;
         inline-size: 10em;
         margin-inline-end: 12px;
         font-weight: bold;
       }
-      
-      :global(.label.notes) {
-        inline-size: 4em;
+      :global(.set-item-label.top) {
+        inline-size: 6em;
+      }
+      :global(.set-item-label.add-entry) {
+        align-self: center;
       }
     }
 

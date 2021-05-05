@@ -50,7 +50,7 @@ export async function updatePassword(userId, values) {
   if (!res.ok) {
     let error;
     try {
-      ({ error } = await res.json());
+      error = (await res.json()).error;
     } catch (e) {
       throw new Error('Password change failed');
     }

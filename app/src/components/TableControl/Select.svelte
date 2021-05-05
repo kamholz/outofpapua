@@ -9,7 +9,7 @@
   export let scale;
 
   const selection = getContext('selection');
-  const [id] = row;
+  const { id } = row;
 
   function handleSelect() {
     const newSelection = { ...$selection };

@@ -3,7 +3,8 @@ import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib
 import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   partitionPlus } from '$lib/util';
 
-const allowed = new Set(['headword', 'gloss', 'glosslang', 'category', 'lang', 'page', 'pagesize', 'sort', 'asc']);
+const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'page', 'pagesize',
+  'set', 'sort']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -12,7 +13,8 @@ const defaults = {
   page: 1,
   pagesize: Number(config.PAGESIZE),
   sort: 'headword',
-  category: 'lang',
+  langcat: 'lang',
+  set: 'both',
 };
 const sortCols = {
   language: 'language.name',
@@ -43,9 +45,27 @@ export async function get({ query }) {
   if ('headword' in query) {
     q.where('entry.headword', '~*', mungeRegex(query.headword));
   }
+
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
+
+  if (query.set === 'linked') {
+    q.whereNotNull('entry.set_id');
+  } else if (query.set === 'unlinked') {
+    q.whereNull('entry.set_id');
+  }
+
+  if (query.langcat === 'lang') {
+    q.whereNotExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    });
+  } else if (query.langcat === 'proto') {
+    q.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    });
+  }
+
   if ('lang' in query) {
     const [lang, langPlus] = partitionPlus(query.lang);
     if (langPlus.length) {
@@ -60,18 +80,9 @@ export async function get({ query }) {
       q.where('source.language_id', arrayCmp(new Set(lang)));
     }
   }
+
   if ('glosslang' in query) {
     q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
-  }
-
-  if (query.category === 'lang') {
-    q.whereNotExists(function () {
-      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
-    });
-  } else if (query.category === 'proto') {
-    q.whereExists(function () {
-      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
-    });
   }
 
   const rowCount = await getCount(q);
@@ -83,6 +94,7 @@ export async function get({ query }) {
     'entry.pos',
     'entry.record_id',
     'entry.set_id',
+    'entry.id as entry_id',
     'sense_gloss.txt as gloss',
     'gloss_language.name as gloss_language',
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")

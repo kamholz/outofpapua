@@ -18,8 +18,18 @@
       type: 'text',
     },
     {
-      name: 'category',
-      label: 'Include',
+      name: 'set',
+      label: 'Sets',
+      type: 'radio',
+      options: [
+        { label: 'Linked', value: 'linked' },
+        { label: 'Unlinked', value: 'unlinked' },
+        { label: 'Both', value: 'both' },
+      ],
+    },
+    {
+      name: 'langcat',
+      label: 'Language category',
       type: 'radio',
       options: [
         { label: 'Languages', value: 'lang' },
@@ -47,7 +57,7 @@
   values={query}
   submitLabel="Search"
   browserSubmit
-  style="--formwidth: 33em; --gridtemplate: 32% 68%"
+  style="--formwidth: 35em; --gridtemplate: 32% 68%"
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.pagesize}>

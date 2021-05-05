@@ -1,10 +1,10 @@
 <script>
   import Table from '$components/Table.svelte';
-  import { session } from '$app/stores';
 
   export let rows;
   export let query;
   export let pageCount;
+  export let linkable;
 
   const columns = [
     {
@@ -42,10 +42,9 @@
     },
   ];
 
-  if ($session.user) {
+  if (linkable) {
     controls.push({
       type: 'select',
-      canSelect: () => true,
     });
   }
 </script>

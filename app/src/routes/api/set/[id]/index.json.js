@@ -23,7 +23,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     if (!isIdArray(body.members)) {
       return { status: 400 };
     }
-    ({ members } = body);
+    members = body.members;
     delete body.members;
   }
   const updateParams = getFilteredParams(body, allowed);
@@ -46,13 +46,17 @@ export const put = requireAuth(async ({ body, locals, params }) => {
       }
       if (members) {
         const ids = await trx('entry')
-          .where('set_id', '!=', id)
+          .whereRaw('set_id is distinct from ?', id)
           .where('id', trx.raw('any(?)', [members]))
           .returning('id')
           .update({ set_id: id });
         if (ids.length) {
           found = true;
         }
+        await trx('set_member')
+          .insert(members.map((v) => ({ entry_id: v })))
+          .onConflict('entry_id')
+          .ignore();
       }
       return found;
     });
