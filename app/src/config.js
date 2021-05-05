@@ -7,9 +7,7 @@ load('.env');
 function load(filename) {
   const result = dotenv.config({ path: path.resolve(process.cwd(), filename) });
   if (!result.error) {
-    for (const [key, value] of Object.entries(result.parsed)) {
-      env[key] = value;
-    }
+    Object.assign(env, result.parsed);
   }
 }
 

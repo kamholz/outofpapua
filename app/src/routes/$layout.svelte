@@ -3,10 +3,17 @@
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
+  import { browser } from '$app/env';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
+  import { io } from "socket.io-client";
   import { navigating, page, session } from '$app/stores';
   import { pageLoading } from '$stores';
+
+  if (browser) { // import.meta.env.WEBSOCKET
+    const socket = io('https://database.outofpapua.com/socket.io/');
+    socket.send('hello');
+  }
 </script>
 
 <svelte:head>
