@@ -39,7 +39,7 @@ export async function protosource(fetch) {
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function set_member(search) {
+export async function setMember(search) {
   const res = await fetch('/api/entry.json?' + new URLSearchParams({ search, noset: 1 }));
   if (!res.ok) {
     return null;

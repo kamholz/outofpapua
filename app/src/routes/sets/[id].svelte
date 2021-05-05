@@ -22,7 +22,8 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
-  import SetMember from './_Member.svelte';
+  import Member from './_Member.svelte';
+  import Select from './_Select.svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
@@ -35,8 +36,17 @@
     note: set.note,
   };
   const promises = { pending: {}, fulfilled: {} };
+  const collapsed = {};
 
   setContext('props', { set, editable, borrowlangSuggest });
+
+  function collapseAll(state) {
+    for (const member of members) {
+      if (collapsed[member.entry_id] != state) {
+        collapsed[member.entry_id] = state;
+      }
+    }
+  }
 
   async function handleNoteUpdate() {
     values.note = normalizeParam(values.note);
@@ -88,7 +98,7 @@
   {/each}
   {#if editable || set.note}
     <div class="item">
-      <div class="label">Notes:</div>
+      <div class="label notes">Notes:</div>
       {#if editable}
         <textarea
           name="note"
@@ -103,14 +113,27 @@
     <hr>
   {/if}  
 
+  <div>
+    <button on:click={() => collapseAll(true)}>Collapse All</button>
+    <button on:click={() => collapseAll(false)}>Expand All</button>
+  </div>
+  <hr>
+
+  <!--Select /-->
+
   {#each members as member (member.entry.id)}
-    <SetMember {member} />
+    <Member {member} collapsed={collapsed[member.entry_id]} />
     <hr>
   {/each}
 </div>
 
 <style lang="scss">
   .set {
+    button {
+      margin-inline-start: 0;
+      margin-inline-end: 10px;
+    }
+
     textarea {
       inline-size: 100%;
       block-size: 4em;
@@ -123,8 +146,12 @@
       :global(.label) {
         flex-shrink: 0;
         inline-size: 10em;
-        margin-inline-end: 6px;
+        margin-inline-end: 12px;
         font-weight: bold;
+      }
+      
+      :global(.label.notes) {
+        inline-size: 4em;
       }
     }
 
