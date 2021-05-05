@@ -38,10 +38,11 @@
   export let set;
   export let editable;
   export let borrowlangSuggest = null;
-  $: members = set.members;
-  $: values = {
+  const values = {
     note: set.note,
   };
+  $: members = set.members;
+
   const promises = { pending: {}, fulfilled: {} };
   const collapsed = {};
 
@@ -57,6 +58,7 @@
 
   async function handleRefresh() {
     set = await reload(fetch, set.id);
+    values.note = set.note;
   }
 
   async function handleUpdate(key) {
@@ -125,7 +127,7 @@
 
   {#if editable}
     <div class="set-item">
-      <div class="set-item-label top add-entry">Add entry:</div>
+      <div class="set-item-label top add-entry">Link entry:</div>
       <Select on:select={(e) => handleAddMember(e.detail)} />
     </div>
     <hr>
