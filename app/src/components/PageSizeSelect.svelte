@@ -16,7 +16,7 @@
 </script>
 
 <form>
-  <label for="pagesize">Results per page:</label>
+  <label for="pagesize">Rows per page:</label>
   <select
     name="pagesize"
     value={query.pagesize}

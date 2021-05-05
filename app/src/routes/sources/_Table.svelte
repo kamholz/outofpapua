@@ -1,5 +1,6 @@
 <script>
   import Table from '$components/Table.svelte';
+  import { preferences } from '$stores';
   import { session } from '$app/stores';
 
   export let rows;
@@ -9,7 +10,7 @@
     {
       key: 'title',
       title: 'Title',
-      link: (row) => `/sources/${row.id}/entries`,
+      link: (row) => `/sources/${row.id}/entries?pagesize=${$preferences.pagesize}`,
     },
     {
       key: 'language',

@@ -21,6 +21,7 @@
 </script>
 
 <script>
+  import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SourceTable from './_Table.svelte';
 
   export let source;
@@ -46,6 +47,7 @@
     {query}
     {pageCount}
   />
+  <PageSizeSelect {query} />
 {:else}
   <div class="notfound">no entries</div>
 {/if}
