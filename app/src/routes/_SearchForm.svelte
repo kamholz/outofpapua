@@ -29,7 +29,7 @@
     },
     {
       name: 'langcat',
-      label: 'Language category',
+      label: 'Language type',
       type: 'radio',
       options: [
         { label: 'Languages', value: 'lang' },

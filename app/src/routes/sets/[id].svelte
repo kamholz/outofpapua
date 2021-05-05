@@ -1,4 +1,5 @@
 <script context="module">
+  import { goto } from '$app/navigation';
   import * as crudSet from '$actions/crud/set';
   import * as crudSetMember from '$actions/crud/setmember';
   import * as suggest from '$actions/suggest';
@@ -58,6 +59,9 @@
 
   async function handleRefresh() {
     set = await reload(fetch, set.id);
+    if (!set) {
+      goto('/');
+    }
     values.note = set.note;
   }
 
