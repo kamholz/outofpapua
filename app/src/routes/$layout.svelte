@@ -10,9 +10,9 @@
   import { navigating, page, session } from '$app/stores';
   import { pageLoading } from '$stores';
 
-  if (browser) { // import.meta.env.WEBSOCKET
-    const socket = io('https://database.outofpapua.com/socket.io/');
-    socket.send('hello');
+  if (browser) {
+    const socket = io(import.meta.env.WEBSOCKET);
+    setInterval(() => socket.send('hello'), 1000);
   }
 </script>
 
