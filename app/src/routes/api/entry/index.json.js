@@ -8,6 +8,10 @@ const defaults = {
   noset: true,
 };
 
+function hasSet() {
+  this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+}
+
 export async function get({ query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!('search' in query)) {
@@ -28,8 +32,8 @@ export async function get({ query }) {
     .select('entry.id');
 
   if (noset) {
-    q1.whereNull('entry.set_id');
-    q2.whereNull('entry.set_id');
+    q1.whereNotExists(hasSet);
+    q2.whereNotExists(hasSet);
   }
 
   const q = knex

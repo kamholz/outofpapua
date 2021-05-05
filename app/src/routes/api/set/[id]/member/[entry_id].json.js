@@ -36,10 +36,10 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 export const del = requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
-      trx('entry')
-      .where({ id: Number(params.entry_id) })
-      .returning('id')
-      .update({ set_id: null }) // auto-propagates to set_member
+      trx('set_member')
+      .where({ entry_id: Number(params.entry_id) })
+      .returning('entry_id')
+      .del()
     );
     return { body: { deleted: ids.length } };
   } catch (e) {

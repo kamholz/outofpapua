@@ -51,9 +51,12 @@ export async function get({ query }) {
   }
 
   if (query.set === 'linked') {
-    q.whereNotNull('entry.set_id');
-  } else if (query.set === 'unlinked') {
-    q.whereNull('entry.set_id');
+    q.join('set_member', 'set_member.entry_id', 'entry.id');
+  } else {
+    q.leftJoin('set_member', 'set_member.entry_id', 'entry.id');
+    if (query.set === 'unlinked') {
+      q.whereNull('set_member.set_id');
+    }
   }
 
   if (query.langcat === 'lang') {
@@ -93,8 +96,8 @@ export async function get({ query }) {
     'entry.headword',
     'entry.pos',
     'entry.record_id',
-    'entry.set_id',
     'entry.id as entry_id',
+    'set_member.set_id',
     'sense_gloss.txt as gloss',
     'gloss_language.name as gloss_language',
     knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")

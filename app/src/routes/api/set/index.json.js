@@ -9,7 +9,7 @@ export const post = requireAuth(async ({ body, locals }) => {
     if (!isIdArray(body.members)) {
       return { status: 400 };
     }
-    members = body.members;
+    ({ members } = body);
     delete body.members;
   }
   const params = getFilteredParams(body, allowed);
@@ -20,13 +20,11 @@ export const post = requireAuth(async ({ body, locals }) => {
         .insert(params);
       const [id] = ids;
       if (members) {
-        await trx('entry')
-          .where('id', trx.raw('any(?)', [members]))
-          .update({ set_id: id });
         await trx('set_member')
-          .insert(members.map((v) => ({ entry_id: v })))
-          .onConflict('entry_id')
-          .ignore();
+          .insert(members.map((v) => ({ entry_id: v, set_id: id })));
+        // would override existing set membership
+        // .onConflict('entry_id')
+        // .merge(['set_id']);
       }
       return id;
     });

@@ -16,17 +16,14 @@ export const post = requireAuth(async ({ body, locals, params }) => {
     return { status: 400, body: { error: errors.originLang } };
   }
   try {
+    insertParams.set_id = Number(params.id);
     const ids = await transaction(locals, (trx) =>
-      trx.with('updated', (q) => {
-        q.from('entry')
-        .update({ set_id: Number(params.id) })
-        .where({ id: insertParams.entry_id });
-      })
-      .from(table)
+      trx(table)
       .returning('entry_id')
       .insert(insertParams)
-      .onConflict('entry_id')
-      .ignore()
+      // would override existing set membership
+      // .onConflict('entry_id')
+      // .merge([...]);
     );
     return { body: { entry_id: ids[0] } };
   } catch (e) {
