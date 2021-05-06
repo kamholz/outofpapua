@@ -3,16 +3,33 @@
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
-  // import { browser } from '$app/env';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
-  // import { io } from "socket.io-client";
   import { navigating, page, session } from '$app/stores';
+  // import { onMount } from 'svelte';
   import { pageLoading } from '$stores';
+  // import { registerListener, broadcast } from '$lib/socket';
 
-  // if (browser) {
-  //   const socket = io(import.meta.env.WEBSOCKET);
-  //   setInterval(() => socket.send('hello'), 1000);
+  // let broadcasts = [];
+
+  // onMount(() => {
+  //   registerListener(receiveBroadcast);
+  //   setInterval(() => {
+  //     broadcast($session.user, `did thing #${count}`);
+  //     count++;
+  //   }, 1000);
+  // });
+
+  // async function receiveBroadcast(data) {
+  //   if (data.user !== $session.user?.fullname) {
+  //     data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  //     broadcasts.push(data);
+  //     broadcasts = broadcasts;
+  //   }
+  // }
+
+  // function clearBroadcasts() {
+  //   broadcasts = [];
   // }
 </script>
 
@@ -35,3 +52,50 @@
   </div>
 {/key}
 </main>
+
+<!-- {#if broadcasts.length}
+  <div id="activity" bind:this={activity} transition:fade={{ duration: 200 }}>
+    <ul>
+      {#each broadcasts as { user, action, time }}
+        <li transition:slide>
+          <span><b>{time}</b> {user} {action}</span>
+        </li>
+      {/each}
+    </ul>
+    <span class="close" on:click={clearBroadcasts}>
+      <Icon data={faTimes} />
+    </span>
+  </div>
+{/if}
+
+<style lang="scss">
+  #activity {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    inline-size: 250px;
+    max-block-size: 250px;
+    border-radius: 6px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 14px;
+    overflow: hidden;
+
+    ul {
+      margin-block-start: 8px;
+    }
+
+    li {
+      margin-inline-start: 1.25em;
+    }
+
+    span.close {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      &:hover {
+        color: gray;
+      }
+    }
+  }
+</style> -->

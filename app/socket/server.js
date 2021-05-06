@@ -2,11 +2,16 @@ import { Server } from 'socket.io';
 import { createServer } from 'http';
 
 const httpServer = createServer();
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
 
-io.on('connection', (client) => {
-  client.on('message', (data) => {
-    console.log(data);
+io.on('connection', (socket) => {
+  socket.on('message', (data) => {
+    socket.broadcast.emit('message', data);
   });
 });
 
