@@ -7,6 +7,7 @@ export async function get({ params }) {
     .first(
       'record.id',
       'record.data',
+      'record.page_num',
       'record.source_id',
       'source.title as source_title',
       'source.reference as source_reference'

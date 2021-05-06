@@ -13,6 +13,11 @@
 </script>
 
 <h2>Entry from {record.source_title}, {record.source_reference}</h2>
+{#if record.page_num}
+  <div>
+    Page number: {record.page_num}
+  </div>
+{/if}
 <table>
   <thead>
     <tr>
@@ -32,6 +37,10 @@
 
 <style lang="scss">
   @import '../../vars.scss';
+
+  div {
+    margin-block-end: 16px;
+  }
 
   table {
     max-width: 600px;
