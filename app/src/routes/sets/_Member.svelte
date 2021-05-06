@@ -225,7 +225,7 @@
     inline-size: 2em;
   }
 
-  :global(.indicator .fa-icon) {
+  .indicator :global(.fa-icon) {
     vertical-align: top;
     margin: 0;
     position: relative;
