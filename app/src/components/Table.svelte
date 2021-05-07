@@ -23,6 +23,9 @@
     if (!('value' in column)) {
       column.value = (row) => stringify(row[column.key]);
     }
+    if (column.link && !('prefetch' in column)) {
+      column.prefetch = true;
+    }
   }
 
   function handleEdit(e) {

@@ -9,7 +9,7 @@
   export let editable;
   export let active = false;
 
-  const { link, type, value } = column;
+  const { link, prefetch, type, value } = column;
   const cellEditable = editable &&
     (typeof(column.editable) === 'function' ? column.editable(row) : column.editable);
 
@@ -58,7 +58,11 @@
 {:else}
   <td>
     {#if link}
-      <a href={link(row)} sveltekit:prefetch>{value(row)}</a>
+      {#if prefetch}
+        <a href={link(row)} sveltekit:prefetch>{value(row)}</a>
+      {:else}
+        <a href={link(row)}>{value(row)}</a>
+      {/if}
     {:else}
       <span>{value(row)}</span>
     {/if}

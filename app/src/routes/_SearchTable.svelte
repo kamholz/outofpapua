@@ -39,6 +39,7 @@
       type: 'set',
       getSetId: (row) => row.set_id,
       link: (row) => `/sets/${row.set_id}`,
+      prefetch: false,
     },
   ];
 
