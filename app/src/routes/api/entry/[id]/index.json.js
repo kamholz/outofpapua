@@ -30,3 +30,23 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     return sendPgError(e);
   }
 });
+
+export const del = requireAuth(async ({ locals, params }) => {
+  try {
+    const id = Number(params.id);
+    const proto = await isProto(id);
+    if (!proto) {
+      return { status: 400, body: { error: 'can only delete entries from protolanguage sources' } };
+    }
+    const ids = await transaction(locals, (trx) =>
+      trx(table)
+      .where('id', id)
+      .returning('id')
+      .del()
+    );
+    return { body: { deleted: ids.length } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+});
