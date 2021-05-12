@@ -154,6 +154,22 @@ export function partitionPlus(array) {
   ];
 }
 
+export function validGlossesOrDefinitions(list) {
+  if (Array.isArray(list)) {
+    if (list.every((v) =>
+      typeof v === 'object' &&
+      Object.keys(v).length === 2 &&
+      'txt' in v &&
+      'language_id' in v &&
+      typeof v.txt === 'string' &&
+      typeof v.language_id === 'number'
+    )) {
+      return true;
+    }
+  }
+  return false;
+}
+
 // authorization
 
 export function adminOrSelf(loggedInUser, userId) {

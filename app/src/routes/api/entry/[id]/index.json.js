@@ -1,13 +1,16 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { nfc, table } from './_params';
+import { isProto, nfc, table } from '../_params';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
-const allowed = new Set(['name', 'parent_id', 'note']);
+const allowedAll = new Set(['headword_normalized', 'note', 'pos', 'root']);
+const allowedProto = new Set([...allowedAll, 'headword', 'pos', 'source_id']);
 
 export const put = requireAuth(async ({ body, locals, params }) => {
-  const updateParams = getFilteredParams(body, allowed);
+  const id = Number(params.id);
+  const proto = await isProto(id);
+  const updateParams = getFilteredParams(body, proto ? allowedProto : allowedAll);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
@@ -15,32 +18,13 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   try {
     const rows = await transaction(locals, (trx) =>
       trx(table)
-      .where('id', Number(params.id))
+      .where('id', id)
       .returning('id')
       .update(updateParams)
     );
     if (rows.length) {
       return { body: '' };
     }
-  } catch (e) {
-    console.log(e);
-    return sendPgError(e);
-  }
-});
-
-export const del = requireAuth(async ({ locals, params }) => {
-  try {
-    const id = Number(params.id);
-    const ids = await transaction(locals, (trx) =>
-      trx(table)
-      .where('id', id)
-      .whereExists(function () {
-        this.select('*').from('protolanguage').where('protolanguage.id', id);
-      })
-      .returning('id')
-      .del()
-    );
-    return { body: { deleted: ids.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

@@ -2,6 +2,7 @@ import config from '$config';
 import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
 import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   partitionPlus } from '$lib/util';
+import { table } from './_params';
 
 const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'page', 'pagesize',
   'set', 'sort']);
@@ -35,7 +36,7 @@ export async function get({ query }) {
   parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
-  const q = knex('entry')
+  const q = knex(table)
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
     .join('sense', 'sense.entry_id', 'entry.id')

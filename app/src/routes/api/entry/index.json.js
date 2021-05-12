@@ -1,5 +1,8 @@
-import { getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
-import { knex } from '$lib/db';
+import errors from '$lib/errors';
+import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { knex, sendPgError, transaction } from '$lib/db';
+import { nfc, table } from './_params';
+import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['max', 'noset', 'search']);
 const boolean = new Set(['noset']);
@@ -21,11 +24,11 @@ export async function get({ query }) {
   const { max, noset, search } = { ...defaults, ...query };
   const mungedSearch = mungeRegex(search);
 
-  const q1 = knex('entry')
+  const q1 = knex(table)
     .where('entry.headword', '~*', mungedSearch)
     .select('entry.id');
 
-  const q2 = knex('entry')
+  const q2 = knex(table)
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .where('sense_gloss.txt', '~*', mungedSearch)
@@ -58,3 +61,37 @@ export async function get({ query }) {
     },
   };
 }
+
+const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'pos', 'root', 'source_id']);
+const requiredCreate = new Set(['headword', 'source_id']);
+
+export const post = requireAuth(async ({ body, locals }) => {
+  const params = getFilteredParams(body, allowedCreate);
+  if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
+    return { status: 400, body: { error: errors.missing } };
+  }
+  ensureNfcParams(params, nfc);
+  try {
+    const proto = (await knex.first(
+      knex.raw(
+        'exists ?',
+        knex('source')
+        .join('protolanguage', 'protolanguage.id', 'source.language_id')
+        .where('source.id', params.source_id)
+      )
+    )).length;
+    if (!proto) {
+      return { status: 400, body: { error: 'source does not exist or is not for protolanguage' } };
+    }
+
+    const ids = await transaction(locals, (trx) =>
+      trx(table)
+      .returning('id')
+      .insert(params)
+    );
+    return { body: { id: ids[0] } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+});
