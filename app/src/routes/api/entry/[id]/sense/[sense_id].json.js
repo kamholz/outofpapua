@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { getFilteredParams } from '$lib/util';
-import { isProto } from '../_params';
+import { isProto } from '../../_params';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 import { table } from './_params';
