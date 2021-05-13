@@ -42,7 +42,7 @@
   const values = {
     note: set.note,
   };
-  $: members = set.members;
+  $: ({ members } = set);
 
   const promises = { pending: {}, fulfilled: {} };
   const collapsed = {};

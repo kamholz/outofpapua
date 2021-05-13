@@ -17,7 +17,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    const rows = await transaction(locals, async (trx) => {
+    await transaction(locals, async (trx) => {
       let senseId;
       const senseIds = await trx('sense')
         .where('entry_id', entryId)
@@ -30,34 +30,30 @@ export const put = requireAuth(async ({ body, locals, params }) => {
           .insert({ entry_id: entryId });
         [senseId] = ids;
       } else {
-        return { status: 400, body: { error: 'entry has more than one sense, not sure what to do' } };
+        throw 'entry has more than one sense, not sure what to do';
       }
       if (updateParams.gloss) {
-        const error = await performUpdate('gloss', trx, senseId, updateParams);
-        if (error) {
-          return error;
-        }
+        await performUpdate('gloss', trx, senseId, updateParams);
       }
       if (updateParams.definition) {
-        const error = await performUpdate('definition', trx, senseId, updateParams);
-        if (error) {
-          return error;
-        }
+        await performUpdate('definition', trx, senseId, updateParams);
       }
     });
-    if (rows.length) {
-      return { body: '' };
-    }
+    return { body: '' };
   } catch (e) {
-    console.log(e);
-    return sendPgError(e);
+    if (typeof e === 'string') {
+      return { status: 400, error: e };
+    } else {
+      console.log(e);
+      return sendPgError(e);
+    }
   }
 });
 
 async function performUpdate(type, trx, senseId, params) {
   const param = params[type];
   if (!validGlossesOrDefinitions(param)) {
-    return { status: 400, error: `malformed "${type}" parameter` };
+    throw `malformed "${type}" parameter`;
   }
   for (const obj of param) {
     obj.txt = obj.txt.normalize();

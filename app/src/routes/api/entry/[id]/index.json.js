@@ -38,12 +38,15 @@ export const del = requireAuth(async ({ locals, params }) => {
     if (!proto) {
       return { status: 400, body: { error: 'can only delete entries from protolanguage sources' } };
     }
-    const ids = await transaction(locals, (trx) =>
-      trx(table)
-      .where('id', id)
-      .returning('id')
-      .del()
-    );
+    const ids = await transaction(locals, (trx) => {
+      trx('sense')
+        .where({ entry_id: id })
+        .del();
+      return trx(table)
+        .where('id', id)
+        .returning('id')
+        .del();
+    });
     return { body: { deleted: ids.length } };
   } catch (e) {
     console.log(e);
