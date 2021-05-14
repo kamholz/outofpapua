@@ -173,7 +173,7 @@
 
       :global(.set-item-label) {
         flex-shrink: 0;
-        inline-size: 10em;
+        inline-size: 12em;
         margin-inline-end: 12px;
         font-weight: bold;
       }

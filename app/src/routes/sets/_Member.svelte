@@ -4,9 +4,9 @@
   import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
+  import { entryUrl, normalizeParam } from '$lib/util';
   import { faCaretDown, faCaretRight, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
-  import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { slide } from 'svelte/transition';
   import * as crudSetMember from '$actions/crud/setmember';
@@ -102,7 +102,7 @@
       <Icon data={faCaretRight} {scale} />
     </div>
     <div class="info-collapsed">
-      <span>{source.language_name} <a href="/records/{entry.record_id}" sveltekit:prefetch><em>{entry.headword}</em></a></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{summaryGlosses(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+      <span>{source.language_name} <a href={entryUrl(entry)} sveltekit:prefetch><em>{entry.headword}</em></a></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{summaryGlosses(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
     </div>  
   </div>
 {:else}
@@ -117,7 +117,7 @@
     </div>
     <div class="set-item-label">
       <p>
-        <span>{source.language_name} </span><a href="/records/{entry.record_id}" sveltekit:prefetch><em>{entry.headword}</em></a>
+        <span>{source.language_name} </span><a href={entryUrl(entry)} sveltekit:prefetch><em>{entry.headword}</em></a>
       </p>
       <p>
         {source.reference}

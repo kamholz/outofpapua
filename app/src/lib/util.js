@@ -202,3 +202,7 @@ export function escapeHtml(txt) {
 export function isIdArray(param) {
   return Array.isArray(param) && param.every((v) => typeof v === 'number');
 }
+
+export function entryUrl(entry) {
+  return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
+}

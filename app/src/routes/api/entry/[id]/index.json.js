@@ -1,12 +1,31 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
 import { isProto, nfc, table } from '../_params';
+import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { sendPgError, transaction } from '$lib/db';
 
 const allowedAll = new Set(['headword_normalized', 'note', 'pos', 'root']);
 const allowedProto = new Set([...allowedAll, 'headword', 'pos', 'source_id']);
 
+export async function get({ params }) {
+  const row = await knex('entry_with_senses_full as entry')
+    .join('source', 'source.id', 'entry.source_id')
+    .where('entry.id', Number(params.id))
+    .first(
+      'entry.id',
+      'entry.headword',
+      'entry.headword_normalized',
+      'entry.root',
+      'entry.pos',
+      'entry.note',
+      'entry.senses',
+      'source.title as source_title',
+      'source.reference as source_reference'
+    );
+  if (row) {
+    return { body: row };
+  }
+}
 export const put = requireAuth(async ({ body, locals, params }) => {
   const id = Number(params.id);
   const proto = await isProto(id);

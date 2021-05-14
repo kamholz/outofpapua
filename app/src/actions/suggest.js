@@ -36,7 +36,11 @@ export async function borrowlang(fetch) {
 
 export async function protosource(fetch) {
   const res = await fetch('/api/source.json?category=proto');
-  return res.ok ? (await res.json()).rows : null;
+  if (!res.ok) {
+    return null;
+  }
+  const { rows } = await res.json();
+  return rows.map((row) => ({ id: row.id, name: `${row.title}: ${row.reference}` }));
 }
 
 export async function setMember(search) {
