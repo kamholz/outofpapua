@@ -18,7 +18,7 @@
   export let entry;
 </script>
 
-<h2>Entry from {entry.source_title}, {entry.source_reference}</h2>
+<h2>Entry from {entry.source_reference}</h2>
 
 <h3>{entry.headword}</h3>
 

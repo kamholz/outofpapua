@@ -19,7 +19,7 @@ const defaults = {
 };
 const sortCols = {
   language: 'language.name',
-  source: 'source.title',
+  source: 'source.reference',
   headword: 'lower(entry.headword)',
   pos: 'lower(entry.pos)',
   gloss: 'lower(sense_gloss.txt)',

@@ -10,22 +10,10 @@
 
   const fields = [
     {
-      name: 'title',
-      label: 'Title',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'language_name',
       label: 'Language',
       type: 'text',
       uneditable: !source.is_proto,
-    },
-    {
-      name: 'numentries',
-      label: '# Entries',
-      type: 'text',
-      uneditable: true,
     },
     {
       name: 'reference',
@@ -37,6 +25,12 @@
       name: 'reference_full',
       label: 'Full Reference',
       type: 'textarea',
+    },
+    {
+      name: 'numentries',
+      label: '# Entries',
+      type: 'text',
+      uneditable: true,
     },
     {
       name: 'note',

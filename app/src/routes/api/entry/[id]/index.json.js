@@ -19,7 +19,6 @@ export async function get({ params }) {
       'entry.pos',
       'entry.note',
       'entry.senses',
-      'source.title as source_title',
       'source.reference as source_reference'
     );
   if (row) {

@@ -17,12 +17,6 @@
       options: protolangSuggest,
     },
     {
-      name: 'title',
-      label: 'Title',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'reference',
       label: 'Short Reference',
       type: 'text',

@@ -8,10 +8,9 @@ const boolean = new Set(['asc']);
 const strip = new Set(['category', 'numentries']);
 const defaults = {
   asc: true,
-  sort: 'title',
+  sort: 'reference',
 };
 const sortCols = {
-  title: 'lower(source.title)',
   reference: 'source.reference',
   language: 'language.name',
   numentries: 'count(entry.id)',
@@ -26,7 +25,6 @@ export async function get({ query }) {
     .join('language', 'language.id', 'source.language_id')
     .select(
       'source.id',
-      'source.title',
       'source.reference',
       'language.name as language'
     );
@@ -44,7 +42,7 @@ export async function get({ query }) {
       .groupBy('source.id', 'language.name');
   }
 
-  applySortParams(q, query, sortCols, ['title', 'language', 'reference']);
+  applySortParams(q, query, sortCols, ['reference', 'language']);
   stripParams(query, strip);
 
   return {

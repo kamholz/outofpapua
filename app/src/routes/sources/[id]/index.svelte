@@ -14,8 +14,7 @@
   import { stringify } from '$lib/util';
 
   export let source;
-  const reference = stringify(source.reference);
 </script>
 
-<h3>Source: {source.title}{reference && `, ${reference}`}</h3>
+<h3>Source: {source.reference}</h3>
 <EditSourceForm editable={$session.user} {source} />

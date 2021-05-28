@@ -8,8 +8,8 @@
 
   const columns = [
     {
-      key: 'title',
-      title: 'Title',
+      key: 'reference',
+      title: 'Reference',
       link: (row) => `/sources/${row.id}/entries?pagesize=${$preferences.pagesize}`,
     },
     {
@@ -19,11 +19,7 @@
     {
       key: 'numentries',
       title: '#Entries',
-    },
-    {
-      key: 'reference',
-      title: 'Reference',
-    },
+    }
   ];
 
   const controls = [

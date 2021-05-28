@@ -40,7 +40,7 @@ export async function protosource(fetch) {
     return null;
   }
   const { rows } = await res.json();
-  return rows.map((row) => ({ id: row.id, name: `${row.title}: ${row.reference}` }));
+  return rows.map((row) => ({ id: row.id, name: row.reference }));
 }
 
 export async function setMember(search) {

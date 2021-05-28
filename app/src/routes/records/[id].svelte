@@ -12,7 +12,7 @@
   export let record;
 </script>
 
-<h2>Entry from {record.source_title}, {record.source_reference}</h2>
+<h2>Entry from {record.source_reference}</h2>
 {#if record.page_num}
   <div>
     Page number: {record.page_num}

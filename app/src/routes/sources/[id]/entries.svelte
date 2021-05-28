@@ -29,10 +29,9 @@
   export let query;
   export let pageCount;
   export let rowCount;
-  const reference = stringify(source.reference);
 </script>
 
-<h2>{source.title}{reference && `, ${reference}`}</h2>
+<h2>{source.reference}</h2>
 {#if source.reference_full}
   <div class="info">
     Full reference: {source.reference_full}

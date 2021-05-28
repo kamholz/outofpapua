@@ -13,7 +13,6 @@ export async function get({ params }) {
     .where('source.id', Number(params.id))
     .first(
       'source.id',
-      'source.title',
       'source.reference',
       'source.reference_full',
       'source.language_id',
