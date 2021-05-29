@@ -74,13 +74,15 @@ VALUES (?, ?, ?, ?, ?, ?)
 RETURNING id
 EOF
 
+      my $sense_seq = 1;
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
 
-        my $sense_id = select_single($db, <<'EOF', $entry_id);
-INSERT INTO sense (entry_id) VALUES (?)
+        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq);
+INSERT INTO sense (entry_id, seq) VALUES (?, ?)
 RETURNING id
 EOF
+        $sense_seq++;
 
         foreach my $item (qw/gloss definition/) {
           foreach my $val (@{$sense->{$item}||[]}) {
@@ -91,18 +93,19 @@ EOF
           }
         }
 
-        my $seq = 1;
+        my $example_seq = 1;
         foreach my $ex (@{$sense->{example}||[]}) {
           my ($txt, @trans) = @$ex;
-          my $example_id = select_single($db, <<'EOF', $sense_id, $seq, $txt);
+          my $example_id = select_single($db, <<'EOF', $sense_id, $example_seq, $txt);
 INSERT INTO sense_example (sense_id, seq, txt) VALUES (?, ?, ?)
 RETURNING id
 EOF
+          $example_seq++;
+
           foreach my $tr (@trans) {
             my $language_id = $self->get_language_id($tr->[1]);
             $db->query('INSERT INTO sense_example_translation (sense_example_id, language_id, txt) VALUES (?, ?, ?)', $example_id, $language_id, $tr->[0]);
           }
-          $seq++;
         }
       }
     }
