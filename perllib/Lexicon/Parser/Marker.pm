@@ -170,11 +170,6 @@ sub read_entries {
     } elsif ($headword_citation->{$marker}) {
       $entry->{headword_citation} = normalize_headword($txt);
     } elsif ($pos->{$marker}) {
-      # if (defined $seen_pos and $seen_pos ne $txt) {
-      #   $self->push_entry($entries, $entry);
-      #   $entry = $self->reset_entry($entry, 'pos');
-      # }
-      # $entry->{pos} = $seen_pos = $txt;
       $seen_pos = $txt;
     } elsif (exists $gloss->{$marker}) {
       $self->add_gloss($entry, 'gloss', $txt, $lang // $gloss->{$marker}, $seen_pos);
@@ -185,7 +180,7 @@ sub read_entries {
     } elsif ($sense->{$marker}) {
       $self->add_sense($entry);
     } elsif ($example->{$marker}) {
-      $seen_example = $self->add_example($entry, $txt, $pos);
+      $seen_example = $self->add_example($entry, $txt, $seen_pos);
     } elsif ($example_trans->{$marker}) {
       push @$seen_example, [$txt, $lang // $example_trans->{$marker}] if $seen_example;
     }

@@ -118,11 +118,6 @@ sub reset_entry {
     return {
       record => $entry->{record},
     };
-  } elsif ($context eq 'pos') {
-    my $new_entry = { %$entry };
-    delete $new_entry->{sense};
-    delete $new_entry->{pos};
-    return $new_entry;
   } else {
     return {};
   }
