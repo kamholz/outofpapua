@@ -21,9 +21,9 @@ sub db {
 }
 
 sub import_lexicon {
-  my ($self, $source_title, $lang_code, $parser, $delete_existing) = @_;
+  my ($self, $source_reference, $lang_code, $parser, $delete_existing) = @_;
 
-  say "\nstarting import: $source_title";
+  say "\nstarting import: $source_reference";
 
   # key is stringified object reference
   my %seen_record_ids;
@@ -33,11 +33,11 @@ sub import_lexicon {
     my $tx = $db->begin;
 
     # look for source id
-    my $source_id = select_single($db, 'SELECT id FROM source WHERE title = ?', $source_title);
+    my $source_id = select_single($db, 'SELECT id FROM source WHERE reference = ?', $source_reference);
     # not found, create new source
     unless ($source_id) {
       my $lang_id = $self->get_language_id($lang_code);
-      $source_id = select_single($db, 'INSERT INTO source (title, language_id) VALUES (?, ?) RETURNING id', $source_title, $lang_id);
+      $source_id = select_single($db, 'INSERT INTO source (reference, language_id) VALUES (?, ?) RETURNING id', $source_reference, $lang_id);
       $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
     }
 
@@ -68,9 +68,9 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized pos root/), $record_id);
-INSERT INTO entry (source_id, headword, headword_normalized, pos, root, record_id)
-VALUES (?, ?, ?, ?, ?, ?)
+      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_normalized root/), $record_id);
+INSERT INTO entry (source_id, headword, headword_normalized, root, record_id)
+VALUES (?, ?, ?, ?, ?)
 RETURNING id
 EOF
 
@@ -78,8 +78,8 @@ EOF
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
 
-        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq);
-INSERT INTO sense (entry_id, seq) VALUES (?, ?)
+        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq, $sense->{pos});
+INSERT INTO sense (entry_id, seq, pos) VALUES (?, ?, ?)
 RETURNING id
 EOF
         $sense_seq++;

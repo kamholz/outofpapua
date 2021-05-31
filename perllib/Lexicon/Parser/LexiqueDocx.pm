@@ -20,6 +20,8 @@ sub read_entries {
     merge_records_docx($p);
 
     my $entry;
+    my $seen_pos;
+    my $seen_example;
 
     foreach my $r ($p->find('r')->each) {
       my $type = get_type_docx($r);
@@ -29,25 +31,30 @@ sub read_entries {
       next unless length $txt;
 
       if ($type eq 'Lexeme' or $type eq 'Subentry') {
+        $seen_pos = $seen_example = undef;
         $entry->{headword} = normalize_headword($txt);
         push @{$entry->{record}}, ['lx', $entry->{headword}];
       } elsif ($type eq 'DefinitionE') {
-        $self->add_gloss($entry, 'gloss', $txt, $lang_english);
+        $self->add_gloss($entry, 'gloss', $txt, $lang_english, $seen_pos);
         push @{$entry->{record}}, ['ge', $txt];
       } elsif ($type eq 'Partofspeech') {
-        $entry->{pos} = $txt;
+        $seen_pos = $txt;
         push @{$entry->{record}}, ['ps', $txt];
       } elsif ($type eq 'Definitionn') {
-        $self->add_gloss($entry, 'gloss', $txt, $lang_national);
+        $self->add_gloss($entry, 'gloss', $txt, $lang_national, $seen_pos);
         push @{$entry->{record}}, ['gn', $txt];
       } elsif ($type eq 'Examplev') {
+        $seen_example = $self->add_example($entry, $txt, $seen_pos);
         push @{$entry->{record}}, ['xv', $txt];
       } elsif ($type eq 'ExamplefreetransE') {
+        push @$seen_example, [$txt, $lang_english] if $seen_example;
         push @{$entry->{record}}, ['xe', $txt];
       } elsif ($type eq 'Examplefreetransn') {
+        push @$seen_example, [$txt, $lang_national] if $seen_example;
         push @{$entry->{record}}, ['xn', $txt];
       } elsif ($type eq 'Examplefreetransr') {
-        #push @{$entry->{record}}, ['xr', $txt];
+        push @$seen_example, [$txt, $lang_regional] if $seen_example;
+        push @{$entry->{record}}, ['xr', $txt];
       } elsif ($type =~ /^(?:flabel|Reference|Definitionr|Encyclopedicinfo[Er]|Notesgeneral)$/) {
         $txt =~ s/\s*\.+$//;
         push @{$entry->{record}}, ['', $txt] if length $txt;

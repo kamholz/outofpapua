@@ -14,18 +14,18 @@ binmode STDERR, ':encoding(utf-8)';
 
 if (@ARGV) {
   my $dict = JSON->new->decode(read_text('dictionaries.json'));
-  my $source_title = shift @ARGV;
-  if (exists $dict->{$source_title}) {
-    parse_lexicon($source_title, $dict->{$source_title});
+  my $source_reference = shift @ARGV;
+  if (exists $dict->{$source_reference}) {
+    parse_lexicon($source_reference, $dict->{$source_reference});
   } else {
-    say "Unknown source: $source_title";
+    say "Unknown source: $source_reference";
   }
 } else {
-  say "Usage: $0 source_title";
+  say "Usage: $0 source_reference";
 }
 
 sub parse_lexicon {
-  my ($source_title, $args) = @_;
+  my ($source_reference, $args) = @_;
   die "no parser given" unless $args->{parser};
   $args->{path} = "../dict/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};

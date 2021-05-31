@@ -56,6 +56,7 @@ sub read_entries {
     my $seen_pos;
     my $current_sense = 0;
     foreach my $sense_elt (map { $_->{element} } $get_obj->($entry_elt, 'Senses')) {
+      $self->add_sense($entry);
       $current_sense++;
       push @{$entry->{record}}, ['sn', "$current_sense"] if $current_sense > 1;
 
@@ -75,18 +76,8 @@ sub read_entries {
           }
         }
       }
-
       if (length $pos) {
-        if (defined $seen_pos and $seen_pos ne $pos) {
-          $self->push_entry($entries, $entry);
-          $entry = $self->reset_entry($entry, 'pos');
-        } else {
-          $self->add_sense($entry);
-        }
-        $entry->{pos} = $seen_pos = $pos;
         push @{$entry->{record}}, ['ps', $pos];
-      } else {
-        $self->add_sense($entry);
       }
 
       my $gloss_elt = $sense_elt->at('Gloss');
@@ -94,7 +85,7 @@ sub read_entries {
         foreach my $lang ($lang_english, $lang_national, $lang_regional) {
           my $gloss = get_text_fw($gloss_elt, $lang);
           if (length $gloss) {
-            $self->add_gloss($entry, 'gloss', $gloss, $lang);
+            $self->add_gloss($entry, 'gloss', $gloss, $lang, $pos);
             push @{$entry->{record}}, [marker_with_code('g', code3($lang)), $gloss];
           }
         }
@@ -105,7 +96,7 @@ sub read_entries {
         foreach my $lang ($lang_english, $lang_national, $lang_regional) {
           my $definition = get_text_sil_lang($definition_elt, $lang);
           if (length $definition) {
-            $self->add_gloss($entry, 'definition', $definition, $lang);
+            $self->add_gloss($entry, 'definition', $definition, $lang, $pos);
             push @{$entry->{record}}, [marker_with_code('d', code3($lang)), $definition];
           }
         }

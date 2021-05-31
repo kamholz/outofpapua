@@ -160,7 +160,7 @@ sub add_sense {
 }
 
 sub add_gloss {
-  my ($self, $entry, $item, $txt, $lang) = @_;
+  my ($self, $entry, $item, $txt, $lang, $pos) = @_;
 
   my $pre = $self->${\"${item}_preprocess"};
   if ($pre) {
@@ -168,17 +168,21 @@ sub add_gloss {
     return if $txt =~ /^\s*$/;
   }
 
-  if (!@{$entry->{sense}||[]}) {
-    push @{$entry->{sense}}, {};
+  if (@{$entry->{sense}||[]}) {
+    $entry->{sense}[-1]{pos} //= $pos;
+  } else {
+    push @{$entry->{sense}}, { pos => $pos };
   }
   push(@{$entry->{sense}[-1]{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
 }
 
 sub add_example {
-  my ($self, $entry, $txt) = @_;
+  my ($self, $entry, $txt, $pos) = @_;
   my $example = [$txt];
-  if (!@{$entry->{sense}||[]}) {
-    push @{$entry->{sense}}, {};
+  if (@{$entry->{sense}||[]}) {
+    $entry->{sense}[-1]{pos} //= $pos;
+  } else {
+    push @{$entry->{sense}}, { pos => $pos };
   }
   push @{$entry->{sense}[-1]{example}}, $example;
   return $example;

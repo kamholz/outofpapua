@@ -1,17 +1,17 @@
 {
-  "Ambai dictionary": {
+  "Price (2021)": {
     "lang_target": "amk",
     "path": "Ambai Lexicon.db",
     "parser": "Marker",
     "lang_national": "ind",
     "reverse_action": "drop"
   },
-  "Saweru dictionary": {
+  "Donohue (20xx)": {
     "lang_target": "swr",
     "path": "Fieldworks/Saweru.db",
     "parser": "Marker"
   },
-  "Wamesa dictionary": {
+  "Gasser (20xx)": {
     "lang_target": "wad",
     "path": "Wamesa_all.db",
     "parser": "Marker",
@@ -25,13 +25,13 @@
       "di": "ind"
     }
   },
-  "Yawa dictionary": {
+  "Jones (20xx)": {
     "lang_target": "yva",
     "path": "Fieldworks/Yawa.db",
     "parser": "Marker",
     "headword_citation": "lc"
   },
-  "Yawa Kijne": {
+  "Kijne (19xx)": {
     "lang_target": "yva",
     "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
     "parser": "Spreadsheet",
@@ -43,7 +43,7 @@
       ["page_num"]
     ]
   },
-  "Yawa Anceaux": {
+  "Anceaux (19xx)": {
     "lang_target": "yva",
     "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
     "parser": "Spreadsheet",
