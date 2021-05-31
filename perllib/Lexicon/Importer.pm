@@ -85,11 +85,13 @@ EOF
         $sense_seq++;
 
         foreach my $item (qw/gloss definition/) {
+          my $seq = 1;
           foreach my $val (@{$sense->{$item}||[]}) {
             my $language_id = $self->get_language_id($val->[1]);
             die "no language found for gloss: $val->[0]" unless $language_id;
-            $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt) VALUES (?, ?, ?)",
-              $sense_id, $language_id, $val->[0]);
+            $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt, seq) VALUES (?, ?, ?, ?)",
+              $sense_id, $language_id, $val->[0], $seq);
+            $seq++;
           }
         }
 
