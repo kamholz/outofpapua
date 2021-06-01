@@ -1,10 +1,11 @@
 const graceMs = 300;
 
-export default function popover(node, { popperRef, popperOptions, show, hide, prefetch }) {
+export default function popover(node, { popperRef, popperOptions, popoverRef, activate, show, hide, prefetch }) {
   const actions = popperRef(node, popperOptions);
   let timeout;
   let waitingToShow = false;
   let waitingToHide = false;
+  let open = false;
 
   const onMouseEnter = () => {
     if (waitingToHide) {
@@ -31,15 +32,40 @@ export default function popover(node, { popperRef, popperOptions, show, hide, pr
       }, graceMs);
     }
   };
+  const onClick = () => {
+    open = !open;
+    if (open) {
+      show();
+    } else {
+      hide();
+    }
+  };
+  const onWindowClick = (e) => {
+    if (open && !(node.contains(e.target) || popoverRef()?.contains(e.target))) {
+      open = false;
+      hide();
+    }
+  };
 
-  node.addEventListener('mouseenter', onMouseEnter);
-  node.addEventListener('mouseleave', onMouseLeave);
+  if (activate === 'hover') {
+    node.addEventListener('mouseenter', onMouseEnter);
+    node.addEventListener('mouseleave', onMouseLeave);
+  } else if (activate === 'click') {
+    node.addEventListener('click', onClick);
+    window.addEventListener('click', onWindowClick);
+  }
 
   return {
     destroy() {
       actions.destroy?.();
-      node.removeEventListener('mouseenter', onMouseEnter);
-      node.removeEventListener('mouseleave', onMouseLeave);
+
+      if (activate === 'hover') {
+        node.removeEventListener('mouseenter', onMouseEnter);
+        node.removeEventListener('mouseleave', onMouseLeave);
+      } else if (activate === 'click') {
+        node.removeEventListener('click', onClick);
+        window.removeEventListener('click', onWindowClick);
+      }
     },
   };
 }

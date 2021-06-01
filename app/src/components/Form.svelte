@@ -8,6 +8,7 @@
   export let fields;
   export let values = {};
   export let submitLabel;
+  export let help = null;
   export let action = null;
   export let method = null;
   export let browserSubmit = false;
@@ -133,7 +134,12 @@
       {/if}
     </div>
   {/each}
-  <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
+  <div class="controls">
+    <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
+    {#if help}
+      <svelte:component this={help} />
+    {/if}
+  </div>
   <slot name="hidden" />
 </form>
 
@@ -166,9 +172,15 @@
       }
     }
 
-    > button {
-      align-self: flex-end;
+    > .controls {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
       margin-block: 9px 3px;
+    }
+
+    :global(.fa-icon:hover) {
+      color: gray;
     }
   }
 </style>

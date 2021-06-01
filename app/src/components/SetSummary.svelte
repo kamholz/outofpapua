@@ -39,6 +39,7 @@
   sveltekit:prefetch
   use:popover={{
     popperRef,
+    activate: 'hover',
     show: () => showPopover = true,
     hide: () => showPopover = false,
     prefetch: fetchSet,

@@ -1,5 +1,6 @@
 <script>
   import Form from '$components/Form.svelte';
+  import RegexHelp from '$components/RegexHelp.svelte';
   import { preferences } from '$stores';
 
   export let query;
@@ -57,6 +58,7 @@
   values={query}
   submitLabel="Search"
   browserSubmit
+  help={RegexHelp}
   style="--formwidth: 35em; --gridtemplate: 32% 68%"
 >
   <svelte:fragment slot="hidden">

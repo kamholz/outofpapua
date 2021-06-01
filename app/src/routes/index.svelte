@@ -83,7 +83,7 @@
     }
     $pageLoading++;
     try {
-      const members = current.map((v) => v.entry_id);
+      const members = current.map((v) => v.id);
       const existingSet = current.find((v) => v.set_id !== null);
       if (existingSet) {
         const id = existingSet.set_id;
@@ -117,7 +117,7 @@
       <div>
         Total found: {rowCount}
       </div>
-      {#if editable && query.set !== 'linked'}
+      {#if editable && query.set !== 'linked' && $rows.length}
         <SearchTableControls on:clear={handleClear} on:link={handleLink} />
       {/if}
     </div>
@@ -130,7 +130,7 @@
       />
       <div class="controls">
         <PageSizeSelect {query} />
-        {#if editable && query.set !== 'linked'}
+        {#if editable && query.set !== 'linked' && $rows.length}
           <SearchTableControls on:clear={handleClear} on:link={handleLink} />
         {/if}
       </div>
