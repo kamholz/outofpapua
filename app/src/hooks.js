@@ -7,7 +7,7 @@ export function getSession({ locals }) {
   };
 }
 
-export async function handle({ request, render }) {
+export async function handle({ request, resolve }) {
   const { headers, locals, params } = request;
 
   if (params) {
@@ -26,5 +26,5 @@ export async function handle({ request, render }) {
     return auth.redirectToRefresh(request);
   }
 
-  return render(request);
+  return resolve(request);
 }
