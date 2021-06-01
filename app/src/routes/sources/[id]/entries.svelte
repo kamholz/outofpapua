@@ -1,5 +1,6 @@
 <script context="module">
   import { optionalQuery } from '$lib/util';
+  import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
   export async function load({ page: { params, query }, fetch }) {
@@ -22,6 +23,7 @@
 
 <script>
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
 
   export let source;
@@ -29,6 +31,9 @@
   export let query;
   export let pageCount;
   export let rowCount;
+
+  const setSummaryCache = writable({});
+  setContext('setSummaryCache', setSummaryCache);
 </script>
 
 <h2>{source.reference}</h2>
@@ -37,6 +42,12 @@
     Cite this source as: {source.reference_full}
   </div>
 {/if}
+
+<h3>Search entries</h3>
+<SearchForm
+  {query}
+/>
+
 {#if $rows.length}
   <div class="info">
     Total glosses: {rowCount}

@@ -1,14 +1,15 @@
 import config from '$config';
-import { applyPageParams, applySortParams, getCount, knex } from '$lib/db';
-import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
+import { getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
 
-const allowed = new Set(['page', 'pagesize', 'sort', 'asc']);
+const allowed = new Set(['asc', 'gloss', 'headword', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
 const defaults = {
   asc: true,
   page: 1,
   pagesize: Number(config.PAGESIZE),
   sort: 'headword',
+  set: 'both',
 };
 const sortCols = {
   headword: 'lower(entry.headword)',
@@ -20,9 +21,19 @@ export async function get({ params, query }) {
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
-  const q = knex('entry_with_senses as entry')
+  const subq = knex('entry')
+    .select('entry.id')
+    .where('entry.source_id', Number(params.id))
+    .distinct();
+
+  applyEntrySearchParams(subq, query);
+
+  const q = knex
+    .from(subq.as('found'))
+    .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
-    .where('source.id', Number(params.id));
+    .join('language', 'language.id', 'source.language_id')
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id');
 
   const rowCount = await getCount(q);
 
@@ -30,7 +41,8 @@ export async function get({ params, query }) {
     'entry.id',
     'entry.headword',
     'entry.senses',
-    'entry.record_id'
+    'entry.record_id',
+    'set_member.set_id'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);

@@ -18,12 +18,22 @@
       multilang: true,
     },
   ];
+
+  const controls = [
+    {
+      type: 'set',
+      getSetId: (row) => row.set_id,
+      link: (row) => `/sets/${row.set_id}`,
+      prefetch: false,
+    },
+  ];
 </script>
 
 <Table
   {columns}
   {rows}
   {query}
+  {controls}
   sortable
   paginated
   {pageCount}

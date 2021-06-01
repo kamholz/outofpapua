@@ -1,6 +1,6 @@
 import config from '$config';
-import { applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
-import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
+import { getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   partitionPlus } from '$lib/util';
 import { table } from './_params';
 
@@ -46,24 +46,7 @@ export async function get({ query }) {
     }
   }
 
-  if ('headword' in query) {
-    subq.where('entry.headword', '~*', mungeRegex(query.headword));
-  }
-
-  if ('gloss' in query) {
-    subq
-      .join('sense', 'sense.entry_id', 'entry.id')
-      .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-      .where('sense_gloss.txt', '~*', query.gloss);
-  }
-
-  if (query.set === 'linked') {
-    subq.join('set_member', 'set_member.entry_id', 'entry.id');
-  } else if (query.set === 'unlinked') {
-    subq
-      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
-      .whereNull('set_member.set_id');
-  }
+  applyEntrySearchParams(subq, query);
 
   if (query.langcat === 'lang') {
     joinSource();

@@ -1,5 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
+import { mungeRegex } from '$lib/util';
 
 const knex = knexModule({
   client: 'pg',
@@ -61,6 +62,27 @@ export function applySortParams(q, query, sortCols, restCols) {
     if (col !== querySort) {
       q.orderByRaw(sortCols[col]);
     }
+  }
+}
+
+export function applyEntrySearchParams(q, query) {
+  if ('headword' in query) {
+    q.where('entry.headword', '~*', mungeRegex(query.headword));
+  }
+
+  if ('gloss' in query) {
+    q
+      .join('sense', 'sense.entry_id', 'entry.id')
+      .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
+      .where('sense_gloss.txt', '~*', query.gloss);
+  }
+
+  if (query.set === 'linked') {
+    q.join('set_member', 'set_member.entry_id', 'entry.id');
+  } else if (query.set === 'unlinked') {
+    q
+      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
+      .whereNull('set_member.set_id');
   }
 }
 
