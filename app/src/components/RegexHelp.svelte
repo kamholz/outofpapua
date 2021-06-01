@@ -30,7 +30,29 @@
     <h1>Regular expression reference</h1>
     <div class="items">
       <div>
-        <h2>Character classes:</h2>
+        <h2>Boundaries:</h2>
+        <dl>
+          <dt>^</dt>
+          <dd>start of string</dd>
+          <dt>$</dt>
+          <dd>end of string</dd>
+          <dt>\y</dt>
+          <dd>word boundary</dd>
+        </dl>
+      </div>
+      <div>
+        <h2>Quantifiers:</h2>
+        <dl>
+          <dt>+</dt>
+          <dd>one or more</dd>
+          <dt>*</dt>
+          <dd>zero or more</dd>
+          <dt>?</dt>
+          <dd>zero or one</dd>
+        </dl>
+      </div>
+      <div>
+        <h2>Characters:</h2>
         <dl>
           <dt>.</dt>
           <dd>any character</dd>
@@ -38,17 +60,19 @@
           <dd>word character</dd>
           <dt>\W</dt>
           <dd>non-word character</dd>
-        </dl>  
+          <dt>[abc]</dt>
+          <dd>custom set</dd>
+          <dt>[^abc]</dt>
+          <dd>negated set</dd>
+        </dl>
       </div>
       <div>
-        <h2>Wildcards:</h2>
+        <h2>Other:</h2>
         <dl>
-          <dt>+</dt>
-          <dd>zero or more</dd>
-          <dt>*</dt>
-          <dd>zero or more</dd>
-          <dt>?</dt>
-          <dd>zero o one</dd>
+          <dt>|</dt>
+          <dd>or (e.g. <span class="code">a|b</span>)</dd>
+          <dt>()</dt>
+          <dd>grouping</dd>
         </dl>  
       </div>
     </div>
@@ -77,25 +101,29 @@
     font-size: 14px;
 
     .items {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      max-height: 100px;
+      column-count: 2;
+      > div {
+        break-inside: avoid;
+      }
     }
 
     dl {
       display: flex;
       flex-wrap: wrap;
-      width: 20em;
+      width: 15em;
       margin-inline-start: 1em;
+      margin-block-end: 0.35em;
     }
     dt {
-      flex: 0 0 10%;
+      flex: 0 0 30%;
       font-family: monospace;
       margin-block-end: 6px;
     }
     dd {
-      flex: 0 0 90%;
+      flex: 0 0 70%;
+    }
+    .code {
+      font-family: monospace;
     }
   }
 </style>
