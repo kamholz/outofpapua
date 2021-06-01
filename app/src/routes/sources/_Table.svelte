@@ -19,7 +19,7 @@
     {
       key: 'numentries',
       title: '#Entries',
-    }
+    },
   ];
 
   const controls = [

@@ -47,7 +47,6 @@ export async function get({ query }) {
     .select(
       'entry.id',
       'entry.headword',
-      'entry.pos',
       'entry.senses',
       'language.name as language_name',
       'source.reference as source_reference'

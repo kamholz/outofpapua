@@ -43,8 +43,8 @@
   }
 
   function glosses(sense) {
-    return sense.glosses.map(({ language, txt }) =>
-      `‘${txt.join(', ')}’ (${language})`
+    return sense.glosses.map(({ language_name, txt }) =>
+      `‘${txt.join(', ')}’ (${language_name})`
     ).join('; ');
   }
 

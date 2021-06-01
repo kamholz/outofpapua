@@ -21,16 +21,10 @@
       link: (row) => `/records/${row.record_id}`,
     },
     {
-      key: 'pos',
-      title: 'POS',
-    },
-    {
-      key: 'gloss',
-      title: 'Gloss',
-    },
-    {
-      key: 'gloss_language',
-      title: 'Gloss Language',
+      key: 'senses',
+      title: 'Glosses',
+      type: 'senses',
+      multilang: !(query.glosslang?.length === 1),
     },
   ];
 

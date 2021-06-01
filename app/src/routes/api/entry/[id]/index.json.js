@@ -16,7 +16,6 @@ export async function get({ params }) {
       'entry.headword',
       'entry.headword_normalized',
       'entry.root',
-      'entry.pos',
       'entry.note',
       'entry.senses',
       'source.reference as source_reference'

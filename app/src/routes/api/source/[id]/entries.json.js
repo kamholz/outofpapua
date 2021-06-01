@@ -12,9 +12,7 @@ const defaults = {
 };
 const sortCols = {
   headword: 'lower(entry.headword)',
-  pos: 'lower(entry.pos)',
-  gloss: 'lower(sense_gloss.txt)',
-  gloss_language: 'language.name',
+  senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
 export async function get({ params, query }) {
@@ -22,26 +20,21 @@ export async function get({ params, query }) {
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
-  const q = knex('entry')
+  const q = knex('entry_with_senses as entry')
     .join('source', 'source.id', 'entry.source_id')
-    .join('sense', 'sense.entry_id', 'entry.id')
-    .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .join('language', 'language.id', 'sense_gloss.language_id')
     .where('source.id', Number(params.id));
 
   const rowCount = await getCount(q);
 
   q.select(
+    'entry.id',
     'entry.headword',
-    'entry.pos',
-    'entry.record_id',
-    'sense_gloss.txt as gloss',
-    'language.name as gloss_language',
-    knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")
+    'entry.senses',
+    'entry.record_id'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);
-  applySortParams(q, query, sortCols, ['headword', 'pos', 'gloss', 'gloss_language']);
+  applySortParams(q, query, sortCols, ['headword', 'senses']);
 
   return {
     body: {

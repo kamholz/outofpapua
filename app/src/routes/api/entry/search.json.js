@@ -21,9 +21,7 @@ const sortCols = {
   language: 'language.name',
   source: 'source.reference',
   headword: 'lower(entry.headword)',
-  pos: 'lower(entry.pos)',
-  gloss: 'lower(sense_gloss.txt)',
-  gloss_language: 'gloss_language.name',
+  senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
 export async function get({ query }) {
@@ -36,37 +34,46 @@ export async function get({ query }) {
   parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
-  const q = knex(table)
-    .join('source', 'source.id', 'entry.source_id')
-    .join('language', 'language.id', 'source.language_id')
-    .join('sense', 'sense.entry_id', 'entry.id')
-    .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .join('language as gloss_language', 'gloss_language.id', 'sense_gloss.language_id');
+  const subq = knex(table)
+    .select('entry.id')
+    .distinct();
 
-  if ('headword' in query) {
-    q.where('entry.headword', '~*', mungeRegex(query.headword));
-  }
-
-  if ('gloss' in query) {
-    q.where('sense_gloss.txt', '~*', query.gloss);
-  }
-
-  if (query.set === 'linked') {
-    q.join('set_member', 'set_member.entry_id', 'entry.id');
-  } else {
-    q.leftJoin('set_member', 'set_member.entry_id', 'entry.id');
-    if (query.set === 'unlinked') {
-      q.whereNull('set_member.set_id');
+  let joinedSource = false;
+  function joinSource() {
+    if (!joinedSource) {
+      subq.join('source', 'source.id', 'entry.source_id');
+      joinedSource = true;
     }
   }
 
+  if ('headword' in query) {
+    subq.where('entry.headword', '~*', mungeRegex(query.headword));
+  }
+
+  if ('gloss' in query) {
+    subq
+      .join('sense', 'sense.entry_id', 'entry.id')
+      .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
+      .where('sense_gloss.txt', '~*', query.gloss);
+  }
+
+  if (query.set === 'linked') {
+    subq.join('set_member', 'set_member.entry_id', 'entry.id');
+  } else if (query.set === 'unlinked') {
+    subq
+      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
+      .whereNull('set_member.set_id');
+  }
+
   if (query.langcat === 'lang') {
-    q.whereNotExists(function () {
-      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    joinSource();
+    subq.whereNotExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
     });
   } else if (query.langcat === 'proto') {
-    q.whereExists(function () {
-      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    joinSource();
+    subq.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
     });
   }
 
@@ -81,38 +88,50 @@ export async function get({ query }) {
       }
     }
     if (lang.length) {
+      joinSource();
       q.where('source.language_id', arrayCmp(new Set(lang)));
     }
   }
 
-  if ('glosslang' in query) {
-    q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
-  }
+  const q = knex
+    .from(subq.as('found'))
+    .join('entry_with_senses as entry', 'entry.id', 'found.id')
+    .join('source', 'source.id', 'entry.source_id')
+    .join('language', 'language.id', 'source.language_id')
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id');
 
   const rowCount = await getCount(q);
 
   q.select(
+    'entry.id',
+    'entry.headword',
+    'entry.senses',
+    'entry.record_id',
     'language.name as language',
     'source.reference as source',
-    'entry.headword',
-    'entry.pos',
-    'entry.record_id',
-    'entry.id as entry_id',
-    'set_member.set_id',
-    'sense_gloss.txt as gloss',
-    'gloss_language.name as gloss_language',
-    knex.raw("(sense.id || '|' || sense_gloss.language_id || '|' || sense_gloss.txt) as id")
+    'set_member.set_id'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);
-  applySortParams(q, query, sortCols, ['language', 'headword', 'gloss', 'gloss_language']);
+  applySortParams(q, query, sortCols, ['language', 'headword']);
+
+  const rows = await q;
+
+  if ('glosslang' in query) {
+    const set = new Set(query.glosslang);
+    for (const row of rows) {
+      for (const sense of row.senses) {
+        sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+      }
+    }
+  }
 
   return {
     body: {
       query,
       pageCount,
       rowCount,
-      rows: await q,
+      rows,
     },
   };
 }

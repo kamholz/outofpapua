@@ -1,5 +1,5 @@
 <script context="module">
-  import { optionalQuery, stringify } from '$lib/util';
+  import { optionalQuery } from '$lib/util';
   import { writable } from 'svelte/store';
 
   export async function load({ page: { params, query }, fetch }) {
@@ -46,7 +46,9 @@
     {query}
     {pageCount}
   />
-  <PageSizeSelect {query} />
+  <div class="controls">
+    <PageSizeSelect {query} />
+  </div>
 {:else}
   <div class="notfound">no entries</div>
 {/if}
@@ -60,5 +62,9 @@
 
   .notfound {
     font-style: italic;
+  }
+
+  .controls {
+    margin-block: 20px;
   }
 </style>

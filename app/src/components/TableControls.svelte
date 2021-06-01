@@ -21,19 +21,21 @@
 </script>
 
 <td>
-{#each controls as control (control.type)}
-  <svelte:component
-    this={componentMap[control.type]}
-    {control}
-    {row}
-    {scale}
-    on:click={() => dispatch(control.type, row)}
-  />
-{/each}
+  <div class="controls">
+    {#each controls as control (control.type)}
+      <svelte:component
+        this={componentMap[control.type]}
+        {control}
+        {row}
+        {scale}
+        on:click={() => dispatch(control.type, row)}
+      />
+    {/each}
+  </div>
 </td>
 
 <style lang="scss">
-  td {
+  .controls {
     display: flex;
 
     :global(a) {

@@ -3,8 +3,8 @@
   const { definitions, glosses } = sense;
 
   function summary(item) {
-    return item.map(({ language, txt }) =>
-      `‘${txt.join(', ')}’ (${language})`
+    return item.map(({ language_name, txt }) =>
+      `‘${txt.join(', ')}’ (${language_name})`
     ).join('; ');
   }
 </script>

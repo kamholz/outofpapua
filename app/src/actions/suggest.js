@@ -51,8 +51,8 @@ export async function setMember(search) {
   const { rows } = await res.json();
   for (const row of rows) {
     row.senses = row.senses.map((sense) =>
-      sense.glosses.map(({ language, txt }) =>
-        `‘${txt.join(', ')}’ (${language})`
+      sense.glosses.map(({ language_name, txt }) =>
+        `‘${txt.join(', ')}’ (${language_name})`
       ).join('; ')
     );
   }

@@ -2,6 +2,7 @@
   import TableCellAutocomplete from '$components/TableCell/Autocomplete.svelte';
   import TableCellCheckbox from '$components/TableCell/Checkbox.svelte';
   import TableCellInput from '$components/TableCell/Input.svelte';
+  import TableCellSenses from '$components/TableCell/Senses.svelte';
   import { fade } from 'svelte/transition';
 
   export let row;
@@ -56,11 +57,18 @@
     </td>
   {/if}
 {:else}
-  <td>
-    {#if link}
-      <a href={link(row)} sveltekit:prefetch={prefetch ?? null}>{value(row)}</a>
-    {:else}
-      <span>{value(row)}</span>
-    {/if}
-  </td>
+  {#if type === 'senses'}
+    <TableCellSenses
+      senses={value(row)}
+      multilang={column.multilang}
+    />
+  {:else}
+    <td>
+      {#if link}
+        <a href={link(row)} sveltekit:prefetch={prefetch ?? null}>{value(row)}</a>
+      {:else}
+        <span>{value(row)}</span>
+      {/if}
+    </td>
+  {/if}
 {/if}
