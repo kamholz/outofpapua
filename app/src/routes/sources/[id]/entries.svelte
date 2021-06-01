@@ -34,7 +34,7 @@
 <h2>{source.reference}</h2>
 {#if source.reference_full}
   <div class="info">
-    Full reference: {source.reference_full}
+    Cite this source as: {source.reference_full}
   </div>
 {/if}
 {#if $rows.length}
