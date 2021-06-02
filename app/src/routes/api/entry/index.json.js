@@ -61,7 +61,7 @@ export async function get({ query }) {
   };
 }
 
-const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'pos', 'root', 'source_id']);
+const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 
 export const post = requireAuth(async ({ body, locals }) => {

@@ -42,6 +42,10 @@
     return origin;
   }
 
+  function mungePos(pos) {
+    return pos.replace(/\.$/, '');
+  }
+
   function glosses(sense) {
     return sense.glosses.map(({ language_name, txt }) =>
       `‘${txt.join(', ')}’ (${language_name})`
@@ -127,21 +131,15 @@
       {#if senses.length === 1}
         <li>
           <span>Glosses:</span>
-          <span class="indent">{glosses(senses[0])}</span>
+          <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glosses(senses[0])}</span>
         </li>
       {:else}
         {#each entry.senses as sense, i (sense.id)}
           <li>
             <span>Sense {i + 1}:</span>
-            <span class="indent">{glosses(sense)}</span>
+            <span class="indent">{#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glosses(sense)}</span>
           </li>
         {/each}
-      {/if}
-      {#if entry.pos}
-        <li>
-          <span>POS:</span>
-          <span>{entry.pos}</span>
-        </li>
       {/if}
       <li>
         <span>Origin:</span>

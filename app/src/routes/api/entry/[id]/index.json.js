@@ -4,8 +4,8 @@ import { isProto, nfc, table } from '../_params';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-const allowedAll = new Set(['headword_normalized', 'note', 'pos', 'root']);
-const allowedProto = new Set([...allowedAll, 'headword', 'pos', 'source_id']);
+const allowedAll = new Set(['headword_normalized', 'note', 'root']);
+const allowedProto = new Set([...allowedAll, 'headword', 'source_id']);
 
 export async function get({ params }) {
   const row = await knex('entry_with_senses_full as entry')

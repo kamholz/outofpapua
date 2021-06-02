@@ -4,18 +4,18 @@ import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 import { table } from '../_params';
 
-export const allowed = new Set(['note', 'origin', 'origin_language_id']);
+export const allowed = new Set(['note', 'origin', 'origin_language_id', 'reflex']);
 
 export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
-  if (updateParams.origin === 'inherited' && updateParams.origin_language_id) {
-    return { status: 400, body: { error: errors.originLang } };
-  }
   if ('origin' in updateParams && updateParams.origin !== 'borrowed') {
-    updateParams.origin_language_id = null;
+    if (updateParams.origin_language_id) {
+      return { status: 400, body: { error: errors.originLang } };
+    }
+    updateParams.origin_language_id = null; // clear any existing origin_language_id
   }
   try {
     const ids = await transaction(locals, (trx) =>

@@ -4,7 +4,7 @@ import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 import { table } from '../_params';
 
-export const allowed = new Set(['entry_id', 'note', 'origin', 'origin_language_id']);
+export const allowed = new Set(['entry_id', 'note', 'origin', 'origin_language_id', 'reflex']);
 export const required = new Set(['entry_id']);
 
 export const post = requireAuth(async ({ body, locals, params }) => {
@@ -12,7 +12,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
-  if (insertParams.origin === 'inherited' && insertParams.origin_language_id) {
+  if (insertParams.origin_language_id && insertParams.origin !== 'borrowed') {
     return { status: 400, body: { error: errors.originLang } };
   }
   try {

@@ -55,8 +55,9 @@ async function performUpdate(type, trx, senseId, params) {
   if (!validGlossesOrDefinitions(param)) {
     throw `malformed "${type}" parameter`;
   }
-  for (const obj of param) {
+  for (const [i, obj] of param.entries()) {
     obj.txt = obj.txt.normalize();
+    obj.seq = i + 1;
   }
   const table = `sense_${type}`;
   await trx(table)
