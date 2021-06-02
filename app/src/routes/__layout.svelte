@@ -58,7 +58,7 @@
     <ul>
       {#each broadcasts as { user, action, time }}
         <li transition:slide>
-          <span><b>{time}</b> {user} {action}</span>
+          <span><strong>{time}</strong> {user} {action}</span>
         </li>
       {/each}
     </ul>

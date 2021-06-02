@@ -1,4 +1,5 @@
 <script>
+  import Reflex from '$components/Reflex.svelte';
   import popover from '$lib/popover';
   import { createPopperActions } from 'svelte-popperjs';
   import { fade } from 'svelte/transition';
@@ -51,8 +52,8 @@
   <div class="popover" use:popperContent transition:fade|local={{ duration: 200 }}>
     <div class="title">Set {set.id}</div>
     <ul>
-      {#each set.members as { entry, source } (entry.id)}
-        <li>{source.language_name} <b>{entry.headword}</b> {glosses(entry)}</li>
+      {#each set.members as { entry, reflex, source } (entry.id)}
+        <li>{source.language_name} <Reflex form={reflex ?? entry.headword} /> {glosses(entry)}</li>
       {/each}
     </ul>
   </div>

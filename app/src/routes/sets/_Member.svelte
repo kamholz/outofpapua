@@ -1,6 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Icon from 'svelte-awesome';
+  import Reflex from '$components/Reflex.svelte';
   import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -18,6 +19,7 @@
   const promises = { pending: {}, fulfilled: {} };
   
   const { entry, source } = member;
+  const reflex = member.reflex ?? entry.headword;
   const { senses } = entry;
   const { set, editable, borrowlangSuggest } = getContext('props');
   const values = {
@@ -106,7 +108,7 @@
       <Icon data={faCaretRight} {scale} />
     </div>
     <div class="info-collapsed">
-      <span>{source.language_name} <a href={entryUrl(entry)} sveltekit:prefetch><em>{entry.headword}</em></a></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{summaryGlosses(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+      <span>{source.language_name} <a href={entryUrl(entry)} sveltekit:prefetch><span class="reflex"><Reflex form={reflex} /></span></a></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{summaryGlosses(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
     </div>  
   </div>
 {:else}
@@ -121,7 +123,7 @@
     </div>
     <div class="set-item-label">
       <p>
-        <span>{source.language_name} </span><a href={entryUrl(entry)} sveltekit:prefetch><em>{entry.headword}</em></a>
+        <span>{source.language_name} </span><a href={entryUrl(entry)} sveltekit:prefetch><span class="reflex"><Reflex form={reflex} /></span></a>
       </p>
       <p>
         {source.reference}
@@ -296,5 +298,10 @@
     :global(.svelecte-control) {
       inline-size: 16em;
     }
+  }
+
+  .reflex {
+    font-weight: normal;
+    font-style: italic;
   }
 </style>

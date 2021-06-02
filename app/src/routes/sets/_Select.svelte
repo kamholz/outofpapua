@@ -8,7 +8,7 @@
   let selection = null;
 
   function renderer(item) {
-    let output = `<div class="set-suggest"><div>${escape(item.language_name)} <b>${escape(item.headword)}</b></div>`;
+    let output = `<div class="set-suggest"><div>${escape(item.language_name)} <strong>${escape(item.headword)}</strong></div>`;
     const { senses } = item;
     if (senses.length) {
       output += `<div>${escape(senses[0])}</div></div>`;
