@@ -101,8 +101,16 @@ function formatPgError(e) {
       return `"${e.column}" value cannot be empty`;
     case '23505': // unique_violation
       return 'value already exists elsewhere, must be unique';
-    case 'P0001': // raise exception
-      return 'tried to set parent language to descendant';
+    case '23514': // check_violation
+    case 'P0001': // raise_exception
+      switch (e.constraint) {
+        case 'language_parent_id_check':
+          return 'tried to set parent language to descendant';
+        case 'set_member_reflex_check':
+          return 'invalid format for reflex';
+        default:
+          return 'unknown error';
+      }
     default:
       return 'unknown error';
   }
