@@ -1,6 +1,6 @@
 import config from '$config';
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
-import { getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);

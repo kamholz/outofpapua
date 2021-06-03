@@ -1,9 +1,9 @@
 <script>
-  import popover from '$lib/popover';
   import Icon from 'svelte-awesome';
+  import popover from '$lib/popover';
   import { createPopperActions } from 'svelte-popperjs';
-  import { fade } from 'svelte/transition';
   import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+  import { fade } from 'svelte/transition';
 
   const [popperRef, popperContent] = createPopperActions({
     modifiers: [

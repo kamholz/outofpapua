@@ -1,7 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Icon from 'svelte-awesome';
-  import Reflex from '$components/Reflex.svelte';
+  import MemberReflex from './_MemberReflex.svelte';
   import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -19,7 +19,6 @@
   const promises = { pending: {}, fulfilled: {} };
   
   const { entry, source } = member;
-  const reflex = member.reflex ?? entry.headword;
   const { senses } = entry;
   const { set, editable, borrowlangSuggest } = getContext('props');
   const values = {
@@ -27,6 +26,7 @@
     origin: member.origin,
     origin_language_id: member.origin_language_id,
     origin_language_name: member.origin_language_name,
+    reflex: member.reflex,
   };
   const options = editable
     ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
@@ -34,6 +34,10 @@
 
   function toggleCollapsed() {
     collapsed[id] = !collapsed[id];
+  }
+
+  function mungePos(pos) {
+    return pos.replace(/\.$/, '');
   }
 
   function originSummary() {
@@ -44,17 +48,13 @@
     return origin;
   }
 
-  function mungePos(pos) {
-    return pos.replace(/\.$/, '');
-  }
-
   function glosses(sense) {
     return sense.glosses.map(({ language_name, txt }) =>
       `‘${txt.join(', ')}’ (${language_name})`
     ).join('; ');
   }
 
-  function summaryGlosses(sense) {
+  function glossesSummary(sense) {
     return `‘${sense.glosses[0].txt.join(', ')}’`;
   }
 
@@ -108,7 +108,7 @@
       <Icon data={faCaretRight} {scale} />
     </div>
     <div class="info-collapsed">
-      <span>{source.language_name} <a href={entryUrl(entry)} sveltekit:prefetch><span class="reflex"><Reflex form={reflex} /></span></a></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{summaryGlosses(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+      <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={member.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
     </div>  
   </div>
 {:else}
@@ -123,7 +123,7 @@
     </div>
     <div class="set-item-label">
       <p>
-        <span>{source.language_name} </span><a href={entryUrl(entry)} sveltekit:prefetch><span class="reflex"><Reflex form={reflex} /></span></a>
+        <span>{source.language_name} </span><MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />
       </p>
       <p>
         {source.reference}
@@ -138,8 +138,12 @@
       {:else}
         {#each entry.senses as sense, i (sense.id)}
           <li>
-            <span>Sense {i + 1}:</span>
-            <span class="indent">{#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glosses(sense)}</span>
+            {#if i === 0}
+              <span>Glosses:</span>
+            {:else}
+              <span></span>
+            {/if}
+            <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glosses(sense)}</span>
           </li>
         {/each}
       {/if}
@@ -298,10 +302,5 @@
     :global(.svelecte-control) {
       inline-size: 16em;
     }
-  }
-
-  .reflex {
-    font-weight: normal;
-    font-style: italic;
   }
 </style>

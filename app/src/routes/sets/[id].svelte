@@ -176,6 +176,11 @@
         inline-size: 12em;
         margin-inline-end: 12px;
         font-weight: bold;
+
+        :global(.fa-icon) {
+          vertical-align: unset;
+          margin-inline-start: 7px;
+        }
       }
       :global(.set-item-label.top) {
         inline-size: 6em;
