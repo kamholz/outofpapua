@@ -1,62 +1,123 @@
+import config from '$config';
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex,
+  sendPgError, transaction } from '$lib/db';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
+  parseBooleanParams, partitionPlus } from '$lib/util';
 import { nfc, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['max', 'noset', 'search']);
-const boolean = new Set(['noset']);
+const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'page', 'pagesize',
+  'set', 'sort']);
+const boolean = new Set(['asc']);
+const arrayParams = new Set(['lang']);
+const arrayNumParams = new Set(['glosslang']);
 const defaults = {
-  max: 100,
-  noset: true,
+  asc: true,
+  page: 1,
+  pagesize: Number(config.PAGESIZE),
+  sort: 'headword',
+  langcat: 'lang',
+  set: 'both',
 };
-
-function hasSet() {
-  this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-}
+const sortCols = {
+  language: 'language.name',
+  source: 'source.reference',
+  headword: 'lower(entry.headword)',
+  senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
+};
 
 export async function get({ query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
-  if (!('search' in query)) {
-    return { status: 400, body: { error: 'no search parameter' } };
+  if (!['headword', 'gloss'].some((attr) => attr in query)) {
+    return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);
-  const { max, noset, search } = { ...defaults, ...query };
-  const mungedSearch = mungeRegex(search);
+  parseArrayParams(query, arrayParams);
+  parseArrayNumParams(query, arrayNumParams);
+  query = { ...defaults, ...query };
 
-  const q1 = knex(table)
-    .where('entry.headword', '~*', mungedSearch)
-    .select('entry.id');
+  const subq = knex(table)
+    .select('entry.id')
+    .distinct();
 
-  const q2 = knex(table)
-    .join('sense', 'sense.entry_id', 'entry.id')
-    .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .where('sense_gloss.txt', '~*', mungedSearch)
-    .select('entry.id');
+  let joinedSource = false;
+  function joinSource() {
+    if (!joinedSource) {
+      subq.join('source', 'source.id', 'entry.source_id');
+      joinedSource = true;
+    }
+  }
 
-  if (noset) {
-    q1.whereNotExists(hasSet);
-    q2.whereNotExists(hasSet);
+  applyEntrySearchParams(subq, query);
+
+  if (query.langcat === 'lang') {
+    joinSource();
+    subq.whereNotExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
+    });
+  } else if (query.langcat === 'proto') {
+    joinSource();
+    subq.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
+    });
+  }
+
+  if ('lang' in query) {
+    const [lang, langPlus] = partitionPlus(query.lang);
+    if (langPlus.length) {
+      const descendants = await knex('language_with_descendants')
+        .where('id', arrayCmp(new Set(langPlus)))
+        .pluck('descendants');
+      for (const d of descendants) {
+        lang.push(...d);
+      }
+    }
+    if (lang.length) {
+      joinSource();
+      q.where('source.language_id', arrayCmp(new Set(lang)));
+    }
   }
 
   const q = knex
-    .from(knex.union([q1, q2]).as('found'))
+    .from(subq.as('found'))
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
-    .select(
-      'entry.id',
-      'entry.headword',
-      'entry.senses',
-      'language.name as language_name',
-      'source.reference as source_reference'
-    )
-    .orderBy('language.name', 'entry.headword', 'source.reference')
-    .limit(max);
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id');
+
+  const rowCount = await getCount(q);
+
+  q.select(
+    'entry.id',
+    'entry.headword',
+    'entry.senses',
+    'entry.record_id',
+    'language.name as language',
+    'source.reference as source',
+    'set_member.set_id'
+  );
+
+  const pageCount = applyPageParams(q, query, rowCount);
+  applySortParams(q, query, sortCols, ['language', 'headword']);
+
+  const rows = await q;
+
+  if ('glosslang' in query) {
+    const set = new Set(query.glosslang);
+    for (const row of rows) {
+      for (const sense of row.senses) {
+        sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+      }
+    }
+  }
 
   return {
     body: {
-      rows: await q,
+      query,
+      pageCount,
+      rowCount,
+      rows,
     },
   };
 }

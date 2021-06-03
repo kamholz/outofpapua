@@ -30,7 +30,7 @@
 </script>
 
 <Svelecte
-  fetch={suggest.setMember}
+  fetch={suggest.setmember}
   labelField="headword"
   searchField="headword"
   valueField="id"

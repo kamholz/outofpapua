@@ -40,7 +40,7 @@
   }
 
   async function reload(fetch, query) {
-    const res = await fetch('/api/entry/search.json?' + new URLSearchParams(query));
+    const res = await fetch('/api/entry.json?' + new URLSearchParams(query));
     return res.ok ? res.json() : null;
   }
 </script>

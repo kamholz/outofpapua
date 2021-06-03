@@ -75,6 +75,10 @@ export function applyEntrySearchParams(q, query) {
       .join('sense', 'sense.entry_id', 'entry.id')
       .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
       .where('sense_gloss.txt', '~*', query.gloss);
+
+    if ('glosslang' in query) {
+      q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
+    }
   }
 
   if (query.set === 'linked') {

@@ -43,8 +43,8 @@ export async function protosource(fetch) {
   return rows.map((row) => ({ id: row.id, name: row.reference }));
 }
 
-export async function setMember(search) {
-  const res = await fetch('/api/entry.json?' + new URLSearchParams({ search, noset: 1 }));
+export async function setmember(search) {
+  const res = await fetch('/api/entry/suggest.json?' + new URLSearchParams({ search, noset: 1 }));
   if (!res.ok) {
     return null;
   }
