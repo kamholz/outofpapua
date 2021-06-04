@@ -27,7 +27,7 @@ export function makeAccessTokenCookie(user) {
     httpOnly: true,
     maxAge: config.ACCESS_TOKEN_LIFE,
     path: '/',
-    sameSite: true,
+    sameSite: 'lax',
     secure: true,
   });
 }
@@ -44,7 +44,7 @@ export function makeRefreshTokenCookie(user) {
     httpOnly: true,
     maxAge: config.REFRESH_TOKEN_LIFE,
     path: '/',
-    sameSite: true,
+    sameSite: 'lax',
     secure: true,
   });
 }
