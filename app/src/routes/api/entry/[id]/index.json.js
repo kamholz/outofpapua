@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { isProto, nfc, table } from '../_params';
+import { isEditable, nfc, table } from '../_params';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowedAll = new Set(['headword_normalized', 'note', 'root']);
-const allowedProto = new Set([...allowedAll, 'headword', 'source_id']);
+const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
 export async function get({ params }) {
   const row = await knex('entry_with_senses_full as entry')
@@ -26,8 +26,8 @@ export async function get({ params }) {
 }
 export const put = requireAuth(async ({ body, locals, params }) => {
   const id = Number(params.id);
-  const proto = await isProto(id);
-  const updateParams = getFilteredParams(body, proto ? allowedProto : allowedAll);
+  const editable = await isEditable(id);
+  const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
@@ -51,13 +51,13 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 export const del = requireAuth(async ({ locals, params }) => {
   try {
     const id = Number(params.id);
-    const proto = await isProto(id);
-    if (!proto) {
-      return { status: 400, body: { error: 'can only delete entries from protolanguage sources' } };
+    const editable = await isEditable(id);
+    if (!editable) {
+      return { status: 400, body: { error: errors.editableEntry } };
     }
     const ids = await transaction(locals, (trx) => {
       trx('sense')
-        .where({ entry_id: id })
+        .where('entry_id', id)
         .del();
       return trx(table)
         .where('id', id)

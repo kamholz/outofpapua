@@ -132,16 +132,12 @@ export const post = requireAuth(async ({ body, locals }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    const proto = (await knex.first(
-      knex.raw(
-        'exists ?',
-        knex('source')
-        .join('protolanguage', 'protolanguage.id', 'source.language_id')
-        .where('source.id', params.source_id)
-      )
-    )).length;
-    if (!proto) {
-      return { status: 400, body: { error: 'source does not exist or is not for protolanguage' } };
+    const source = await knex('source')
+      .where('id', params.source_id)
+      .whereRaw('editable')
+      .first('id');
+    if (!source) {
+      return { status: 400, body: { error: 'source does not exist or is not editable' } };
     }
 
     const ids = await transaction(locals, (trx) =>

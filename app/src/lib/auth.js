@@ -8,7 +8,7 @@ const scheme = config.HTTP_SCHEME || 'http';
 export async function getUser(userId) {
   const row = await knex('usr')
     .first('id', 'username', 'fullname', 'admin')
-    .where({ id: userId });
+    .where('id', userId);
   return row ?? null;
 }
 

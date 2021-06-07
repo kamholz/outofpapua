@@ -61,12 +61,13 @@ export const post = requireAuth(async ({ body, locals }) => {
   ensureNfcParams(params, nfc);
   try {
     const proto = await knex('protolanguage')
-      .where({ id: params.language_id })
+      .where('id', params.language_id)
       .first('id');
     if (!proto) {
       return { status: 400, body: { error: 'can only create new source for proto-languages' } };
     }
 
+    params.editable = true;
     const ids = await transaction(locals, (trx) =>
       trx(table)
       .returning('id')

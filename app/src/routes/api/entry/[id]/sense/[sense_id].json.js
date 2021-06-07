@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed, table } from './_params';
 import { getFilteredParams } from '$lib/util';
-import { isProto } from '../../_params';
+import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
@@ -28,9 +28,9 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 
 export const del = requireAuth(async ({ locals, params }) => {
   try {
-    const proto = await isProto(Number(params.id));
-    if (!proto) {
-      return { status: 400, body: { error: 'can only delete senses from protolanguage sources' } };
+    const editable = await isEditable(Number(params.id));
+    if (!editable) {
+      return { status: 400, body: { error: errors.editableEntry } };
     }
     const ids = await transaction(locals, (trx) =>
       trx(table)
