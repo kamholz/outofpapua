@@ -35,6 +35,7 @@
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
   export let set;
   export let editable;
@@ -42,18 +43,25 @@
   const values = {
     note: set.note,
   };
-  $: ({ members } = set);
-
+  let collapsed;
   const promises = { pending: {}, fulfilled: {} };
-  const collapsed = {};
 
-  setContext('props', { set, editable, borrowlangSuggest });
+  $: setContext('props', { set, editable, borrowlangSuggest });
+  $: ({ members } = set);
+  $: members, initCollapsedStores();
+  
+  function initCollapsedStores() {
+    let newCollapsed = {};
+    for (const member of members) {
+      const id = member.entry.id;
+      newCollapsed[id] = collapsed?.[id] ?? writable(false);
+    }
+    collapsed = newCollapsed;
+  }
 
   function collapseAll(state) {
     for (const member of members) {
-      if ((collapsed[member.entry.id] ?? false) !== state) {
-        collapsed[member.entry.id] = state;
-      }
+      collapsed[member.entry.id].set(state);
     }
   }
 
@@ -146,7 +154,7 @@
   <hr>
 
   {#each members as member (member.entry.id)}
-    <Member {member} {collapsed} on:refresh={handleRefresh} />
+    <Member {member} collapsed={collapsed[member.entry.id]} on:refresh={handleRefresh} />
     <hr>
   {/each}
 </div>
