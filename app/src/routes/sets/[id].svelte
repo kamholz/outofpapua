@@ -30,11 +30,14 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
+  import Collapsible from '$components/Collapsible.svelte';
+  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
   import Member from './_Member.svelte';
   import Select from './_Select.svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
+  import { slide } from 'svelte/transition';
   import { writable } from 'svelte/store';
 
   export let set;
@@ -43,25 +46,25 @@
   const values = {
     note: set.note,
   };
-  let collapsed;
+  let collapsedMembers;
+  const collapsedNewEntry = writable(true);
   const promises = { pending: {}, fulfilled: {} };
 
   $: setContext('props', { set, editable, borrowlangSuggest });
   $: ({ members } = set);
-  $: members, initCollapsedStores();
-  
-  function initCollapsedStores() {
+  $: members, initCollapsedMembers();
+
+  function initCollapsedMembers() {
     let newCollapsed = {};
     for (const member of members) {
-      const id = member.entry.id;
-      newCollapsed[id] = collapsed?.[id] ?? writable(false);
+      newCollapsed[member.entry.id] = collapsedMembers?.[member.entry.id] ?? writable(false);
     }
-    collapsed = newCollapsed;
+    collapsedMembers = newCollapsed;
   }
 
   function collapseAll(state) {
     for (const member of members) {
-      collapsed[member.entry.id].set(state);
+      collapsedMembers[member.entry.id].set(state);
     }
   }
 
@@ -141,9 +144,25 @@
 
   {#if editable}
     <div class="set-item">
-      <div class="set-item-label top add-entry">Add entry:</div>
+      <div class="set-item-label top input">Link existing:</div>
       <Select on:select={(e) => handleAddMember(e.detail)} />
     </div>
+    <hr>
+
+    <Collapsible collapsed={collapsedNewEntry}>
+      <div slot="collapsed" class="set-item">
+        <CollapsibleIndicator />
+        <div class="set-item-label top-indicator input">Create entry</div>
+      </div>
+      <svelte:fragment slot="expanded">
+        <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
+          <CollapsibleIndicator />
+          <div class="set-item-label top-indicator input">Create entry:</div>
+          <div>
+          </div>
+        </div>
+      </svelte:fragment>
+    </Collapsible>
     <hr>
   {/if}
 
@@ -154,7 +173,7 @@
   <hr>
 
   {#each members as member (member.entry.id)}
-    <Member {member} collapsed={collapsed[member.entry.id]} on:refresh={handleRefresh} />
+    <Member {member} collapsed={collapsedMembers[member.entry.id]} on:refresh={handleRefresh} />
     <hr>
   {/each}
 </div>
@@ -191,9 +210,12 @@
         }
       }
       :global(.set-item-label.top) {
-        inline-size: 6em;
+        inline-size: 10em;
       }
-      :global(.set-item-label.add-entry) {
+      :global(.set-item-label.top-indicator) {
+        inline-size: 8em;
+      }
+      :global(.set-item-label.input) {
         align-self: center;
       }
     }

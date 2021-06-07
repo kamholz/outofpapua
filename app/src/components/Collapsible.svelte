@@ -6,7 +6,7 @@
   function toggle() {
     $collapsed = !$collapsed;
   }
-  
+
   setContext('props', { collapsed, toggle });
 </script>
 
