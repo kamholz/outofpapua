@@ -32,9 +32,8 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
-  import Collapsible from '$components/Collapsible.svelte';
-  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
   import CreateProtoForm from './_CreateProtoForm.svelte';
+  import FormWrapper from './_FormWrapper.svelte';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
   import { normalizeParam } from '$lib/util';
@@ -51,6 +50,8 @@
   const values = {
     note: set.note,
   };
+  let toggleLinkExisting;
+  let toggleCreateProto;
   const collapsedLinkExisting = writable(true);
   const collapsedCreateProto = writable(true);
   let collapsedMembers;
@@ -149,34 +150,14 @@
   {/if}  
 
   {#if editable}
-    <Collapsible collapsed={collapsedLinkExisting}>
-      <div slot="collapsed" class="set-item">
-        <CollapsibleIndicator />
-        <div class="set-item-label top-indicator input">Link existing</div>
-      </div>
-      <svelte:fragment slot="expanded">
-        <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
-          <CollapsibleIndicator />
-          <div class="set-item-label top-indicator">Link existing:</div>
-          <LinkExistingForm {langSuggest} />
-        </div>
-      </svelte:fragment>
-    </Collapsible>
+    <FormWrapper collapsed={collapsedLinkExisting} label="Link existing">
+      <LinkExistingForm {langSuggest} />
+    </FormWrapper>
     <hr>
 
-    <Collapsible collapsed={collapsedCreateProto}>
-      <div slot="collapsed" class="set-item">
-        <CollapsibleIndicator />
-        <div class="set-item-label top-indicator input">Create protoform</div>
-      </div>
-      <svelte:fragment slot="expanded">
-        <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
-          <CollapsibleIndicator />
-          <div class="set-item-label top-indicator">Create protoform:</div>
-          <CreateProtoForm {sourceSuggest} />
-        </div>
-      </svelte:fragment>
-    </Collapsible>
+    <FormWrapper collapsed={collapsedCreateProto} label="Create protoform">
+      <CreateProtoForm {sourceSuggest} />
+    </FormWrapper>
     <hr>
   {/if}
 
@@ -226,38 +207,45 @@
       :global(.set-item-label.top) {
         inline-size: 6em;
       }
-      :global(.set-item-label.top-indicator) {
-        inline-size: 10em;
-      }
-      :global(.set-item-label.input) {
-        align-self: center;
-      }
 
-      :global(form) {
+      :global(.form) {
         flex-grow: 1;
-        width: unset;
-        padding: 0;
-        border: none;
 
-        :global(> div) {
-          margin: 0;
-          display: flex;
-          align-items: center;
-
-          :global(input) {
-            flex-grow: 1;
-          }
-        }
-
-        :global(> div:not(.controls) > :first-child) {
-          flex-shrink: 0;
-          inline-size: 8.5em;
-        }
-
-        :global(> div:not(:last-child)) {
+        :global(.form-label) {
+          font-weight: bold;
           margin-block-end: 12px;
         }
+
+        :global(form) {
+          flex-grow: 1;
+          width: unset;
+          padding: 0;
+          border: none;
+
+          :global(> div) {
+            margin: 0;
+            display: flex;
+            align-items: center;
+
+            :global(input) {
+              flex-grow: 1;
+            }
+          }
+
+          :global(> div:not(.controls) > :first-child) {
+            flex-shrink: 0;
+            inline-size: 8.5em;
+          }
+
+          :global(> div:not(:last-child)) {
+            margin-block-end: 12px;
+          }
+        }
       }
+    }
+
+    :global(.set-item.collapsed) {
+      align-items: center;
     }
 
     hr {
