@@ -101,6 +101,7 @@
   async function handleRefresh() {
     $rows = (await reload(fetch, query)).rows;
     $setSummaryCache = {};
+    $selection = {};
   }
 </script>
 
