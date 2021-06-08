@@ -4,7 +4,7 @@
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
   import Icon from 'svelte-awesome';
   import MemberReflex from './_MemberReflex.svelte';
-  import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
+  import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { entryUrl, normalizeParam } from '$lib/util';
@@ -184,7 +184,7 @@
             <span></span>
             <span class="originlang">
               <span class="label">Language:</span>
-              <SvelecteLanguage
+              <Svelecte
                 {options}
                 disabled={promises.pending.origin_language_id}
                 bind:value={values.origin_language_id}

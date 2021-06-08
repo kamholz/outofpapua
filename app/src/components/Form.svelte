@@ -1,5 +1,5 @@
 <script>
-  import SvelecteLanguage from '$components/SvelecteLanguage.svelte';
+  import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$stores';
@@ -104,7 +104,7 @@
             {required}
           />
         {:else if type === 'language'}
-          <SvelecteLanguage
+          <Svelecte
             {options}
             bind:value={values[name]}
           />
@@ -117,7 +117,7 @@
             >
           {/if}
         {:else if type === 'languages'}
-          <SvelecteLanguage
+          <Svelecte
             {options}
             multiple
             bind:value={values[name]}

@@ -17,6 +17,7 @@ export async function get({ params }) {
       'source.reference_full',
       'source.language_id',
       'source.note',
+      'source.editable',
       'language.name as language_name',
       knex.raw('protolanguage.id is not null as is_proto')
     )

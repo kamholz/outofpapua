@@ -5,6 +5,7 @@
   export let value = null;
   export let multiple = false;
   export let disabled = false;
+  export let clearable = true;
 </script>
 
 <Svelecte
@@ -14,7 +15,7 @@
   labelField="name"
   searchField="name"
   valueField="id"
-  clearable
+  {clearable}
   searchable
   placeholder=""
   bind:value

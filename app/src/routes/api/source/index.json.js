@@ -33,6 +33,8 @@ export async function get({ query }) {
     q.whereExists(function () {
       this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
     });
+  } else if (query.category === 'editable') {
+    q.whereRaw('source.editable');
   }
 
   if ('numentries' in query) {

@@ -18,6 +18,10 @@
       if (!props.borrowlangSuggest) {
         return { status: 500, error: 'Internal error' };
       }
+      props.sourceSuggest = await suggest.editablesource(fetch);
+      if (!props.sourceSuggest) {
+        return { status: 500, error: 'Internal error' };
+      }
     }
     return { props };
   }
@@ -33,6 +37,7 @@
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
   import Member from './_Member.svelte';
+  import NewEntryForm from './_NewEntryForm.svelte';
   import Select from './_Select.svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
@@ -43,6 +48,7 @@
   export let set;
   export let editable;
   export let borrowlangSuggest = null;
+  export let sourceSuggest = null;
   const values = {
     note: set.note,
   };
@@ -157,10 +163,9 @@
       <svelte:fragment slot="expanded">
         <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
           <CollapsibleIndicator />
-          <div class="set-item-label top-indicator input">Create entry:</div>
-          <div>
-          </div>
-        </div>
+          <div class="set-item-label top-indicator">Create entry:</div>
+          <NewEntryForm {sourceSuggest} />
+  </div>
       </svelte:fragment>
     </Collapsible>
     <hr>
