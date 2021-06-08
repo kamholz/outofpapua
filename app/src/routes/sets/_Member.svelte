@@ -102,7 +102,7 @@
   <div slot="collapsed" class="set-item">
     <CollapsibleIndicator />
     <div class="info-collapsed">
-      <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={member.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+      <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
     </div>  
   </div>
   <svelte:fragment slot="expanded">
