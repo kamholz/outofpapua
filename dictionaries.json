@@ -6,7 +6,7 @@
     "lang_national": "ind",
     "reverse_action": "drop"
   },
-  "Donohue (20xx)": {
+  "Donohue & Ayeri (nd.)": {
     "lang_target": "swr",
     "path": "Fieldworks/Saweru.db",
     "parser": "Marker"
@@ -25,7 +25,7 @@
       "di": "ind"
     }
   },
-  "Jones (20xx)": {
+  "Jones, Paai & Paai (1989)": {
     "lang_target": "yva",
     "path": "Fieldworks/Yawa.db",
     "parser": "Marker",
