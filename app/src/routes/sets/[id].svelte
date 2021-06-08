@@ -15,11 +15,9 @@
     props.set = set;
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
-      if (!props.borrowlangSuggest) {
-        return { status: 500, error: 'Internal error' };
-      }
-      props.sourceSuggest = await suggest.editablesource(fetch);
-      if (!props.sourceSuggest) {
+      props.langSuggest = await suggest.langPlus(fetch);
+      props.sourceSuggest = await suggest.editableSource(fetch);
+      if (!props.borrowlangSuggest || !props.langSuggest || !props.sourceSuggest) {
         return { status: 500, error: 'Internal error' };
       }
     }
@@ -36,9 +34,9 @@
   import Alert from '$components/Alert.svelte';
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import CreateProtoForm from './_CreateProtoForm.svelte';
+  import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
-  import NewEntryForm from './_NewEntryForm.svelte';
-  import Select from './_Select.svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
@@ -48,12 +46,14 @@
   export let set;
   export let editable;
   export let borrowlangSuggest = null;
+  export let langSuggest = null;
   export let sourceSuggest = null;
   const values = {
     note: set.note,
   };
+  const collapsedLinkExisting = writable(true);
+  const collapsedCreateProto = writable(true);
   let collapsedMembers;
-  const collapsedNewEntry = writable(true);
   const promises = { pending: {}, fulfilled: {} };
 
   $: setContext('props', { set, editable, borrowlangSuggest });
@@ -61,7 +61,7 @@
   $: members, initCollapsedMembers();
 
   function initCollapsedMembers() {
-    let newCollapsed = {};
+    const newCollapsed = {};
     for (const member of members) {
       newCollapsed[member.entry.id] = collapsedMembers?.[member.entry.id] ?? writable(false);
     }
@@ -149,23 +149,32 @@
   {/if}  
 
   {#if editable}
-    <div class="set-item">
-      <div class="set-item-label top input">Link existing:</div>
-      <Select on:select={(e) => handleAddMember(e.detail)} />
-    </div>
-    <hr>
-
-    <Collapsible collapsed={collapsedNewEntry}>
+    <Collapsible collapsed={collapsedLinkExisting}>
       <div slot="collapsed" class="set-item">
         <CollapsibleIndicator />
-        <div class="set-item-label top-indicator input">Create entry</div>
+        <div class="set-item-label top-indicator input">Link existing</div>
       </div>
       <svelte:fragment slot="expanded">
         <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
           <CollapsibleIndicator />
-          <div class="set-item-label top-indicator">Create entry:</div>
-          <NewEntryForm {sourceSuggest} />
-  </div>
+          <div class="set-item-label top-indicator">Link existing:</div>
+          <LinkExistingForm {langSuggest} />
+        </div>
+      </svelte:fragment>
+    </Collapsible>
+    <hr>
+
+    <Collapsible collapsed={collapsedCreateProto}>
+      <div slot="collapsed" class="set-item">
+        <CollapsibleIndicator />
+        <div class="set-item-label top-indicator input">Create protoform</div>
+      </div>
+      <svelte:fragment slot="expanded">
+        <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
+          <CollapsibleIndicator />
+          <div class="set-item-label top-indicator">Create protoform:</div>
+          <CreateProtoForm {sourceSuggest} />
+        </div>
       </svelte:fragment>
     </Collapsible>
     <hr>
@@ -215,13 +224,39 @@
         }
       }
       :global(.set-item-label.top) {
-        inline-size: 10em;
+        inline-size: 6em;
       }
       :global(.set-item-label.top-indicator) {
-        inline-size: 8em;
+        inline-size: 10em;
       }
       :global(.set-item-label.input) {
         align-self: center;
+      }
+
+      :global(form) {
+        flex-grow: 1;
+        width: unset;
+        padding: 0;
+        border: none;
+
+        :global(> div) {
+          margin: 0;
+          display: flex;
+          align-items: center;
+
+          :global(input) {
+            flex-grow: 1;
+          }
+        }
+
+        :global(> div:not(.controls) > :first-child) {
+          flex-shrink: 0;
+          inline-size: 8.5em;
+        }
+
+        :global(> div:not(:last-child)) {
+          margin-block-end: 12px;
+        }
       }
     }
 

@@ -1,3 +1,5 @@
+import { serializeArrayParam } from '$lib/util';
+
 export async function lang(fetch) {
   const res = await fetch('/api/language.json');
   return res.ok ? (await res.json()).rows : null;
@@ -34,7 +36,7 @@ export async function borrowlang(fetch) {
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function editablesource(fetch) {
+export async function editableSource(fetch) {
   const res = await fetch('/api/source.json?category=editable&sort=language');
   if (!res.ok) {
     return null;
@@ -43,8 +45,13 @@ export async function editablesource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function setmember(search) {
-  const res = await fetch('/api/entry/suggest.json?' + new URLSearchParams({ search, noset: 1 }));
+export async function setMember(search, match, languages) {
+  console.log({ search, match, languages });
+  const params = new URLSearchParams({ search, match, noset: 1 });
+  if (languages) {
+   params.set('lang', serializeArrayParam(languages));
+  }
+  const res = await fetch('/api/entry/suggest.json?' + params);
   if (!res.ok) {
     return null;
   }

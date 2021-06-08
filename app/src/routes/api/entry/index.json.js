@@ -75,7 +75,7 @@ export async function get({ query }) {
     }
     if (lang.length) {
       joinSource();
-      q.where('source.language_id', arrayCmp(new Set(lang)));
+      subq.where('source.language_id', arrayCmp(new Set(lang)));
     }
   }
 

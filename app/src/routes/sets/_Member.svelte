@@ -8,7 +8,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { entryUrl, normalizeParam } from '$lib/util';
-  import { faCaretDown, faCaretRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
   import { pageLoading } from '$stores';
   import { slide } from 'svelte/transition';
@@ -16,7 +16,6 @@
 
   export let member;
   export let collapsed;
-  const { id } = member.entry;
   const promises = { pending: {}, fulfilled: {} };
   
   const { entry, source } = member;

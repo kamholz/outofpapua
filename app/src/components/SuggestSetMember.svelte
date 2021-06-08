@@ -6,14 +6,16 @@
   import * as suggest from '$actions/suggest';
 
   let selection = null;
+  export let match;
+  export let languages = null;
 
   function renderer(item) {
-    let output = `<div class="set-suggest"><div>${escape(item.language_name)} <strong>${escape(item.headword)}</strong></div>`;
+    let output = `<div class="suggest"><div>${escape(item.language_name)} <strong>${escape(item.headword)}</strong></div>`;
     const { senses } = item;
     if (senses.length) {
       output += `<div>${escape(senses[0])}</div></div>`;
       for (const sense of senses.slice(1)) {
-        output += `<div class="set-suggest"><div></div><div>${escape(sense)}</div></div>`;
+        output += `<div class="suggest"><div></div><div>${escape(sense)}</div></div>`;
       }
     } else {
       output += '<div></div></div>';
@@ -30,7 +32,7 @@
 </script>
 
 <Svelecte
-  fetch={suggest.setmember}
+  fetch={(query) => suggest.setMember(query, match, languages)}
   labelField="headword"
   searchField="headword"
   valueField="id"
@@ -39,13 +41,13 @@
   disableSifter
   disableHighlight
   placeholder=""
-  renderer={renderer}
+  {renderer}
   bind:selection
   on:change={handleSelect}
 />
 
 <style lang="scss">
-  :global(.set-suggest) {
+  :global(.suggest) {
     display: grid;
     grid-template-columns: 20% 80%;
     gap: 6px;

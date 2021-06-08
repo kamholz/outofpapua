@@ -130,6 +130,20 @@
               disabled={!values[name]?.length}
             >
           {/if}
+        {:else if type === 'source'}
+          <Svelecte
+            {options}
+            clearable={false}
+            bind:value={values[name]}
+          />
+          {#if browserSubmit}
+            <input
+              type="hidden"
+              {name}
+              value={values[name]}
+              disabled={!values[name]?.length}
+            >
+          {/if}
         {/if}
       {/if}
     </div>
