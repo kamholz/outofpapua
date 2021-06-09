@@ -1,3 +1,4 @@
+import { maybeLanguageName } from '$lib/util';
 import { serializeArrayParam } from '$lib/util';
 
 export async function lang(fetch) {
@@ -45,7 +46,7 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function setMember(search, match, languages) {
+export async function setMember(search, match, languages, preferences) {
   const params = new URLSearchParams({ search, match, noset: 1 });
   if (languages) {
    params.set('lang', serializeArrayParam(languages));
@@ -58,7 +59,7 @@ export async function setMember(search, match, languages) {
   for (const row of rows) {
     row.senses = row.senses.map((sense) =>
       sense.glosses.map(({ language_name, txt }) =>
-        `‘${txt.join(', ')}’ (${language_name})`
+        `‘${txt.join(', ')}’` + maybeLanguageName(language_name, preferences)
       ).join('; ')
     );
   }

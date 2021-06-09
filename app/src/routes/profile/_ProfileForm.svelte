@@ -5,7 +5,7 @@
   import * as crud from '$actions/crud';
 
   export let user;
-  export let admin = false;
+  export let admin;
 
   const fields = [
     {

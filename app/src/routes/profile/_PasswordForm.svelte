@@ -5,7 +5,7 @@
   import { updatePassword } from '$actions/auth';
 
   export let user;
-  export let admin = false;
+  export let admin;
   let passwordValues = {};
   let promise;
 

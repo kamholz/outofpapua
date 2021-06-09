@@ -1,14 +1,15 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import PasswordForm from './_PasswordForm.svelte';
+  import PreferenceForm from './_PreferenceForm.svelte';
   import ProfileForm from './_ProfileForm.svelte';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$stores';
   import * as crud from '$actions/crud';
 
   export let user;
-  export let admin = false;
-  let error = null;
+  export let admin;
+  let promise;
 
   const del = crud.makeDeleter('user');
 
@@ -16,23 +17,30 @@
     if (confirm(`Are you sure you want to delete user "${user.fullname}"?`)) {
       $pageLoading++;
       try {
-        error = null;
-        await del(user.id);
+        promise = del(user.id);
+        await promise;
         goto('/users');
-      } catch (err) {
-        error = err.message;
-      }
+      } catch (e) {}
       $pageLoading--;
     }
   }
 </script>
 
 <h2>Profile</h2>
-<Alert type="error" message={error} />
+{#if promise}
+  {#await promise catch { message }}
+    <Alert type="error" {message} />
+  {/await}
+{/if}
 <ProfileForm
   {user}
   {admin}
 />
+
+{#if !admin}
+  <h3>Preferences</h3>
+  <PreferenceForm />
+{/if}
 
 <h3>Change password</h3>
 <PasswordForm

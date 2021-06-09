@@ -7,7 +7,7 @@
   
   export let fields;
   export let values = {};
-  export let submitLabel;
+  export let submitLabel = null;
   export let help = null;
   export let action = null;
   export let method = null;
@@ -78,8 +78,10 @@
           <input
             type="checkbox"
             {name}
+            id={name}
             bind:checked={values[name]}
             {required}
+            on:change
           >
         {:else if type === 'radio'}
           <span>
@@ -134,12 +136,16 @@
       {/if}
     </div>
   {/each}
-  <div class="controls">
-    <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
-    {#if help}
-      <svelte:component this={help} />
-    {/if}
-  </div>
+  {#if submitLabel || help}
+    <div class="controls">
+      {#if submitLabel}
+        <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
+      {/if}
+      {#if help}
+        <svelte:component this={help} />
+      {/if}
+    </div>
+  {/if}
   <slot name="hidden" />
 </form>
 

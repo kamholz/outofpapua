@@ -36,6 +36,16 @@ export function requireAuthLoad(handler) {
   };
 }
 
+export function requireAdminLoad(handler) {
+  handler = handler ?? (() => ({}));
+  return (req) => {
+    if (!req.session.user?.admin) {
+      return { status: 401, error: 'Unauthorized' };
+    }
+    return handler(req);
+  };
+}
+
 export async function updatePassword(userId, values) {
   if (values.current_password === undefined) {
     delete values.current_password;

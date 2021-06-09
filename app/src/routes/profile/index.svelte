@@ -12,4 +12,4 @@
   delete user.admin;
 </script>
 
-<ProfilePage {user} />
+<ProfilePage {user} admin={false} />

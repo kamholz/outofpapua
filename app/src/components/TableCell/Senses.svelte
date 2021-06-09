@@ -1,4 +1,7 @@
 <script>
+  import { maybeLanguageName } from '$lib/util';
+  import { preferences } from '$stores';
+
   export let senses;
   export let multilang;
   const multisense = senses.length > 1;
@@ -10,7 +13,7 @@
   function joinGlosses(glosses) {
     if (multilang) {
       return glosses.map(({ language_name, txt }) =>
-        `‘${txt.join(', ')}’ (${language_name})`
+        `‘${txt.join(', ')}’` + maybeLanguageName(language_name, $preferences)
       ).join('; ');
     } else {
       return `‘${glosses[0].txt.join(', ')}’`;

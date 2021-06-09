@@ -206,3 +206,9 @@ export function isIdArray(param) {
 export function entryUrl(entry) {
   return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
 }
+
+export function maybeLanguageName(language_name, preferences) {
+  return preferences?.hideglosslang
+    ? ''
+    : ` (${language_name})`;
+}
