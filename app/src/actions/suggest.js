@@ -46,7 +46,6 @@ export async function editableSource(fetch) {
 }
 
 export async function setMember(search, match, languages) {
-  console.log({ search, match, languages });
   const params = new URLSearchParams({ search, match, noset: 1 });
   if (languages) {
    params.set('lang', serializeArrayParam(languages));

@@ -13,7 +13,7 @@
     {
       name: 'language_id',
       label: 'Proto-language',
-      type: 'language',
+      type: 'suggest',
       options: protolangSuggest,
     },
     {

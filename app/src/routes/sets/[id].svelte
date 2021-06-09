@@ -39,7 +39,6 @@
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
-  import { slide } from 'svelte/transition';
   import { writable } from 'svelte/store';
 
   export let set;
@@ -50,10 +49,7 @@
   const values = {
     note: set.note,
   };
-  let toggleLinkExisting;
-  let toggleCreateProto;
-  const collapsedLinkExisting = writable(true);
-  const collapsedCreateProto = writable(true);
+  let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
 
@@ -108,6 +104,8 @@
   }
 
   async function handleAddMember(entry) {
+    console.log(entry);
+    return;
     $pageLoading++;
     let promise;
     try {
@@ -121,6 +119,10 @@
       promises.fulfilled.add = promise;
     }
     $pageLoading--;
+  }
+
+  async function handleCreateProto() {
+    console.log(createProtoValues);
   }
 </script>
 
@@ -150,13 +152,20 @@
   {/if}  
 
   {#if editable}
-    <FormWrapper collapsed={collapsedLinkExisting} label="Link existing">
-      <LinkExistingForm {langSuggest} />
+    <FormWrapper collapsed={writable(true)} label="Link existing">
+      <LinkExistingForm
+        {langSuggest}
+        on:select={(e) => handleAddMember(e.detail)} 
+      />
     </FormWrapper>
     <hr>
 
-    <FormWrapper collapsed={collapsedCreateProto} label="Create protoform">
-      <CreateProtoForm {sourceSuggest} />
+    <FormWrapper collapsed={writable(true)} label="Create protoform">
+      <CreateProtoForm
+        {sourceSuggest}
+        bind:values={createProtoValues}
+        on:submit={handleCreateProto}
+      />
     </FormWrapper>
     <hr>
   {/if}
@@ -207,45 +216,15 @@
       :global(.set-item-label.top) {
         inline-size: 6em;
       }
-
-      :global(.form) {
-        flex-grow: 1;
-
-        :global(.form-label) {
+      :global(.set-item-label.fullwidth) {
+        inline-size: unset;
+      }
+      :global(.set-item-label.membersummary) {
+        font-weight: unset;
+        :global(> :first-child) {
           font-weight: bold;
-          margin-block-end: 12px;
-        }
-
-        :global(form) {
-          flex-grow: 1;
-          width: unset;
-          padding: 0;
-          border: none;
-
-          :global(> div) {
-            margin: 0;
-            display: flex;
-            align-items: center;
-
-            :global(input) {
-              flex-grow: 1;
-            }
-          }
-
-          :global(> div:not(.controls) > :first-child) {
-            flex-shrink: 0;
-            inline-size: 8.5em;
-          }
-
-          :global(> div:not(:last-child)) {
-            margin-block-end: 12px;
-          }
         }
       }
-    }
-
-    :global(.set-item.collapsed) {
-      align-items: center;
     }
 
     hr {

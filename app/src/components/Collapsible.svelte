@@ -9,8 +9,4 @@
   setContext('props', { collapsed, toggle });
 </script>
 
-{#if $collapsed}
-  <slot name="collapsed" />
-{:else}
-  <slot name="expanded" />
-{/if}
+<slot />

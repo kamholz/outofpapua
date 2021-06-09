@@ -9,21 +9,49 @@
 </script>
 
 <Collapsible {collapsed} bind:toggle>
-  <div slot="collapsed" class="set-item collapsed">
+  <div class="set-item">
     <CollapsibleIndicator />
-    <div class="set-item-label clickable" on:click={toggle}>{label}</div>
+    <div class="set-item-label clickable fullwidth" on:click={toggle}>{label}</div>
   </div>
-  <div slot="expanded" class="set-item" transition:slide={{ duration: 200 }}>
-    <CollapsibleIndicator />
-    <div class="form">
-      <div class="form-label clickable" on:click={toggle}>{label}</div>
+  {#if !$collapsed}
+    <div class="form" transition:slide={{ duration: 200 }}>
       <slot />
     </div>
-  </div>
+  {/if}
 </Collapsible>
 
-<style>
+<style lang="scss">
   .clickable {
     cursor: default;
+  }
+
+  .form {
+    margin-block-start: 12px;
+
+    :global(form) {
+      flex-grow: 1;
+      width: unset;
+      padding: 0;
+      border: none;
+
+      :global(> div) {
+        margin: 0;
+        display: flex;
+        align-items: center;
+
+        :global(input) {
+          flex-grow: 1;
+        }
+      }
+
+      :global(> div:not(.controls) > :first-child) {
+        flex-shrink: 0;
+        inline-size: 8.5em;
+      }
+
+      :global(> div:not(:last-child)) {
+        margin-block-end: 12px;
+      }
+    }
   }
 </style>

@@ -99,29 +99,29 @@
 </script>
 
 <Collapsible {collapsed}>
-  <div slot="collapsed" class="set-item">
-    <CollapsibleIndicator />
-    <div class="info-collapsed">
-      <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
-    </div>  
-  </div>
-  <svelte:fragment slot="expanded">
+  {#if !$collapsed}
     {#each Object.keys(promises.fulfilled).sort() as key (key)}
       {#await promises.fulfilled[key] catch { message }}
         <Alert type="error" {message} />
       {/await}
     {/each}
-    <div class="set-item" transition:slide={{ duration: 200 }}>
-      <CollapsibleIndicator />
-      <div class="set-item-label">
+  {/if}
+  <div class="set-item">
+    <CollapsibleIndicator />
+    <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
+      {#if $collapsed}
+        <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+      {:else}
         <p>
           <span>{source.language_name} </span><MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />
         </p>
         <p>
           {source.reference}
         </p>
-      </div>
-      <ul class="details">
+      {/if}
+    </div>
+    {#if !$collapsed}
+      <ul class="details" transition:slide={{ duration: 200 }}>
         {#if senses.length === 1}
           <li>
             <span>Glosses:</span>
@@ -213,18 +213,11 @@
           <Icon data={faTrash} />
         </div>
       {/if}
-    </div>
-  </svelte:fragment>
+    {/if}
+  </div>
 </Collapsible>
 
 <style lang="scss">
-  .info-collapsed {
-    align-self: center;
-    > :first-child {
-      font-weight: bold;
-    }
-  }
-
   .details {
     flex-grow: 1;
   }

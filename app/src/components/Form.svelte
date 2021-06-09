@@ -103,7 +103,7 @@
             bind:value={values[name]}
             {required}
           />
-        {:else if type === 'language'}
+        {:else if type === 'suggest'}
           <Svelecte
             {options}
             bind:value={values[name]}
@@ -116,7 +116,7 @@
               disabled={!values[name]?.length}
             >
           {/if}
-        {:else if type === 'languages'}
+        {:else if type === 'suggestMulti'}
           <Svelecte
             {options}
             multiple
@@ -127,20 +127,6 @@
               type="hidden"
               {name}
               value={serializeArrayParam(values[name] ?? [])}
-              disabled={!values[name]?.length}
-            >
-          {/if}
-        {:else if type === 'source'}
-          <Svelecte
-            {options}
-            clearable={false}
-            bind:value={values[name]}
-          />
-          {#if browserSubmit}
-            <input
-              type="hidden"
-              {name}
-              value={values[name]}
               disabled={!values[name]?.length}
             >
           {/if}

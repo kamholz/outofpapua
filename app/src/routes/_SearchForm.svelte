@@ -41,13 +41,13 @@
     {
       name: 'lang',
       label: 'Languages',
-      type: 'languages',
+      type: 'suggestMulti',
       options: langSuggest,
     },
     {
       name: 'glosslang',
       label: 'Gloss languages',
-      type: 'languages',
+      type: 'suggestMulti',
       options: glosslangSuggest,
     },
   ];
