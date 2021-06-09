@@ -242,5 +242,12 @@
       [0, "gloss", "eng"],
       [2, "page_num"]
     ]
+  },
+  "Mofu (nd.)": {
+    "lang_target": "bhw",
+    "path": "Biak_dictionary.txt",
+    "parser": "Marker",
+    "split": ",;",
+    "sense": "hm"
   }
 }
