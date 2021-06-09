@@ -1,8 +1,7 @@
 <script context="module">
   import enter from '$lib/enter';
   import { goto } from '$app/navigation';
-  import * as crudSet from '$actions/crud/set';
-  import * as crudSetMember from '$actions/crud/setmember';
+  import * as crud from '$actions/crud';
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
@@ -32,8 +31,8 @@
 </script>
 
 <script>
-  import Alert from '$components/Alert.svelte';
   import AddProtoForm from './_AddProtoForm.svelte';
+  import Alert from '$components/Alert.svelte';
   import FormWrapper from './_FormWrapper.svelte';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
@@ -55,8 +54,9 @@
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
+  const updater = crud.makeUpdater('set');
 
-  $: setContext('props', { set, editable, borrowlangSuggest });
+  $: setContext('set', { set, editable, borrowlangSuggest });
   $: ({ members } = set);
   $: members, initCollapsedMembers();
 
@@ -79,6 +79,8 @@
     if (newSet) {
       set = newSet;
       values.note = set.note;
+      values.title = set.title;
+      createProtoValues = {};
     } else {
       goto('/');
     }
@@ -92,7 +94,7 @@
     $pageLoading++;
     let promise;
     try {
-      promise = crudSet.update({ id: set.id, values: { [key]: values[key] } });
+      promise = updater({ id: set.id, values: { [key]: values[key] } });
       promises.pending[key] = promise;
       await promise;
       set[key] = values[key];
@@ -106,33 +108,11 @@
     $pageLoading--;
   }
 
-  function handleUpdateTitle(e) {
+  function handleUpdateTitle() {
     const value = title.trim();
     values.title = value === String(set.id) ? '' : value;
     title = value === '' ? set.id : value;
     handleUpdate('title');
-  }
-
-  async function handleAddMember(entry) {
-    console.log(entry);
-    return;
-    $pageLoading++;
-    let promise;
-    try {
-      promise = crudSetMember.create({ set_id: set.id, values: { entry_id: entry.id } });
-      promises.pending.add = promise;
-      await promise;
-      handleRefresh();
-    } catch (e) {}
-    if (promise && promise === promises.pending.add) {
-      promises.pending.add = null;
-      promises.fulfilled.add = promise;
-    }
-    $pageLoading--;
-  }
-
-  async function handleAddProto() {
-    console.log(createProtoValues);
   }
 </script>
 
@@ -174,7 +154,7 @@
     <FormWrapper collapsed={writable(true)} label="Link existing">
       <LinkExistingForm
         {langSuggest}
-        on:select={(e) => handleAddMember(e.detail)} 
+        on:refresh={handleRefresh}
       />
     </FormWrapper>
     <hr>
@@ -183,7 +163,7 @@
       <AddProtoForm
         {sourceSuggest}
         bind:values={createProtoValues}
-        on:submit={handleAddProto}
+        on:refresh={handleRefresh}
       />
     </FormWrapper>
     <hr>

@@ -6,7 +6,7 @@
     $collapsed = !$collapsed;
   };
 
-  setContext('props', { collapsed, toggle });
+  setContext('collapsible', { collapsed, toggle });
 </script>
 
 <slot />

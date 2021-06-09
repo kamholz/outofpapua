@@ -52,7 +52,7 @@
   import SearchTableControls from './_SearchTableControls.svelte';
   import { pageLoading } from '$stores';
   import { setContext } from 'svelte';
-  import * as crudSet from '$actions/crud/set';
+  import * as crud from '$actions/crud';
 
   export let rows = null;
   export let editable;
@@ -87,9 +87,9 @@
       const existingSet = current.find((v) => v.set_id !== null);
       if (existingSet) {
         const id = existingSet.set_id;
-        await crudSet.update({ id, values: { members } });
+        await crud.update('set', { id, values: { members } });
       } else {
-        await crudSet.create({ members });
+        await crud.create('set', { members });
       }
       handleRefresh();
     } catch (e) {

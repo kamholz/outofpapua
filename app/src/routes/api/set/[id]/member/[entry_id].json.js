@@ -4,7 +4,7 @@ import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 import { table } from '../_params';
 
-export const allowed = new Set(['note', 'origin', 'origin_language_id', 'reflex']);
+const allowed = new Set(['note', 'origin', 'origin_language_id', 'reflex']);
 
 export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
@@ -36,7 +36,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 export const del = requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
-      trx('set_member')
+      trx(table)
       .where('entry_id', Number(params.entry_id))
       .returning('entry_id')
       .del()

@@ -18,6 +18,10 @@ export function makeCreater(type) {
   };
 }
 
+export function create(type, ...args) {
+  return makeCreater(type)(...args);
+}
+
 export function makeUpdater(type) {
   return async function ({ id, values }) {
     const res = await fetch(`/api/${type}/${id}.json`, {
@@ -35,6 +39,10 @@ export function makeUpdater(type) {
       }
     }
   };
+}
+
+export function update(type, ...args) {
+  return makeUpdater(type)(...args);
 }
 
 export function updateFromCell(type) {
@@ -57,4 +65,8 @@ export function makeDeleter(type) {
       throw new Error('Could not delete');
     }
   };
+}
+
+export function del(type, ...args) {
+  return makeDeleter(type)(...args);
 }

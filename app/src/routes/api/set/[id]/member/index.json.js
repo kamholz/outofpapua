@@ -4,8 +4,8 @@ import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 import { table } from '../_params';
 
-export const allowed = new Set(['entry_id', 'note', 'origin', 'origin_language_id', 'reflex']);
-export const required = new Set(['entry_id']);
+const allowed = new Set(['entry_id', 'note', 'origin', 'origin_language_id', 'reflex']);
+const required = new Set(['entry_id']);
 
 export const post = requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);

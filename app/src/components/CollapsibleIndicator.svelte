@@ -1,7 +1,7 @@
 <script>
   import { getContext } from 'svelte';
 
-  const { collapsed, toggle } = getContext('props');
+  const { collapsed, toggle } = getContext('collapsible');
 </script>
 
 {#if $collapsed}

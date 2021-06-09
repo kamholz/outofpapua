@@ -12,6 +12,7 @@
   import { getContext } from 'svelte';
   import { pageLoading } from '$stores';
   import { slide } from 'svelte/transition';
+  import * as crud from '$actions/crud';
   import * as crudSetMember from '$actions/crud/setmember';
 
   export let member;
@@ -20,7 +21,7 @@
   
   const { entry, source } = member;
   const { senses } = entry;
-  const { set, editable, borrowlangSuggest } = getContext('props');
+  const { set, editable, borrowlangSuggest } = getContext('set');
   const values = {
     note: member.note,
     origin: member.origin,
@@ -88,6 +89,11 @@
       promise = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
       promises.pending.delete = promise;
       await promise;
+      if (source.editable) {
+        promise = crud.del('entry', entry.id);
+        promises.pending.delete = promise;
+        await promise;
+      }
       dispatch('refresh');
     } catch (e) {}
     if (promise && promise === promises.pending.delete) {
@@ -106,7 +112,7 @@
       {/await}
     {/each}
   {/if}
-  <div class="set-item">
+  <div class="set-item" transition:slide={{ duration: 200 }}>
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
@@ -121,7 +127,7 @@
       {/if}
     </div>
     {#if !$collapsed}
-      <ul class="details" transition:slide={{ duration: 200 }}>
+      <ul class="details" transition:slide|local={{ duration: 200 }}>
         {#if senses.length === 1}
           <li>
             <span>Glosses:</span>

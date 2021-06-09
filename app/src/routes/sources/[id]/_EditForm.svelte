@@ -13,7 +13,7 @@
       name: 'language_name',
       label: 'Language',
       type: 'text',
-      uneditable: !source.is_proto,
+      uneditable: !source.editable,
     },
     {
       name: 'reference',

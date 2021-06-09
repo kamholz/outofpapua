@@ -55,8 +55,8 @@ export const del = requireAuth(async ({ locals, params }) => {
     if (!editable) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
-    const ids = await transaction(locals, (trx) => {
-      trx('sense')
+    const ids = await transaction(locals, async (trx) => {
+      await trx('sense')
         .where('entry_id', id)
         .del();
       return trx(table)
