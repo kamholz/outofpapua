@@ -11,4 +11,4 @@
   }
 </script>
 
-{#if before?.length}{before}|{/if}<strong>{reflex}</strong>{#if after?.length}|{after}{/if}
+{#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflex}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
