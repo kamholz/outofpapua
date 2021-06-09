@@ -60,7 +60,7 @@ sub read_entries {
       my ($num, $type, @args) = @$col;
       my $cell = $worksheet->get_cell($row, $num);
       next unless $cell;
-      my $value = $cell->unformatted;
+      my $value = $cell->unformatted =~ s/^\s+|\s+$//gr;
 
       if ($type eq 'headword') {
         my @headwords = split($split_headword, $value);
