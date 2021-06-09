@@ -1,4 +1,5 @@
 <script>
+  import enter from '$lib/enter';
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
@@ -18,22 +19,19 @@
       sel.addRange(range);
   });
 
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) { // enter
-      e.preventDefault();
-      const text = normalizeParam(e.currentTarget.textContent);
-      if (text === row[column.key]) { // nothing to do
-        dispatch('deactivate');
-      } else {
-        dispatch('update', {
-          id: row.id,
-          values: { [column.key]: text },
-          onSuccess: () => {
-            row[column.key] = text;
-            dispatch('deactivate');
-          },
-        });
-      }
+  function handleEnter(e) {
+    const text = normalizeParam(e.currentTarget.textContent);
+    if (text === row[column.key]) { // nothing to do
+      dispatch('deactivate');
+    } else {
+      dispatch('update', {
+        id: row.id,
+        values: { [column.key]: text },
+        onSuccess: () => {
+          row[column.key] = text;
+          dispatch('deactivate');
+        },
+      });
     }
   }
 </script>
@@ -43,7 +41,7 @@
   bind:this={td}
   on:deactivate
   on:blur={() => dispatch('deactivate')}
-  on:keydown={handleKeyDown}
+  use:enter={handleEnter}
   in:fade|local={{ duration: 200 }}
 >
   <span>{column.value(row)}</span>

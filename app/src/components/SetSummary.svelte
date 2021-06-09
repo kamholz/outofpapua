@@ -50,7 +50,7 @@
 </a>
 {#if showPopover && set}
   <div class="popover" use:popperContent transition:fade|local={{ duration: 200 }}>
-    <div class="title">Set {set.id}</div>
+    <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
       {#each set.members as { entry, reflex, source } (entry.id)}
         <li>{source.language_name} <Reflex form={reflex ?? entry.headword} /> {glosses(entry)}</li>

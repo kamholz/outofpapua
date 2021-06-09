@@ -10,6 +10,7 @@ export async function get({ params }) {
     .first(
       'set.id',
       'set.note',
+      'set.title',
       'set.members'
     );
   if (row) {

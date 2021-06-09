@@ -1,4 +1,5 @@
 <script context="module">
+  import enter from '$lib/enter';
   import { goto } from '$app/navigation';
   import * as crudSet from '$actions/crud/set';
   import * as crudSetMember from '$actions/crud/setmember';
@@ -32,7 +33,7 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
-  import CreateProtoForm from './_CreateProtoForm.svelte';
+  import AddProtoForm from './_AddProtoForm.svelte';
   import FormWrapper from './_FormWrapper.svelte';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
@@ -48,7 +49,9 @@
   export let sourceSuggest = null;
   const values = {
     note: set.note,
+    title: set.title,
   };
+  let title = set.title ?? set.id;
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
@@ -103,6 +106,13 @@
     $pageLoading--;
   }
 
+  function handleUpdateTitle(e) {
+    const value = title.trim();
+    values.title = value === String(set.id) ? '' : value;
+    title = value === '' ? set.id : value;
+    handleUpdate('title');
+  }
+
   async function handleAddMember(entry) {
     console.log(entry);
     return;
@@ -121,12 +131,21 @@
     $pageLoading--;
   }
 
-  async function handleCreateProto() {
+  async function handleAddProto() {
     console.log(createProtoValues);
   }
 </script>
 
-<h2>Set {set.id}</h2>
+{#if editable}
+  <h2>Set:&nbsp;<span
+      contenteditable="true"
+      bind:textContent={title}
+      on:blur={handleUpdateTitle}
+      use:enter={(e) => e.currentTarget.blur()}
+    >{title}</span></h2>
+{:else}
+  <h2>Set: {title}</h2>
+{/if}
 
 <div class="set">
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
@@ -160,11 +179,11 @@
     </FormWrapper>
     <hr>
 
-    <FormWrapper collapsed={writable(true)} label="Create protoform">
-      <CreateProtoForm
+    <FormWrapper collapsed={writable(true)} label="Add proto-form">
+      <AddProtoForm
         {sourceSuggest}
         bind:values={createProtoValues}
-        on:submit={handleCreateProto}
+        on:submit={handleAddProto}
       />
     </FormWrapper>
     <hr>
@@ -183,17 +202,30 @@
 </div>
 
 <style lang="scss">
+  [contenteditable="true"] {
+    padding-inline: 6px;
+    border: 0.25px solid #767676;
+    border-radius: 1px;
+  }
+
+  button {
+    margin-inline-start: 0;
+    margin-inline-end: 10px;
+  }
+
+  textarea {
+    inline-size: 100%;
+    block-size: 4em;
+  }
+
+  hr {
+    margin-block: 20px;
+    block-size: 2px;
+    background-color: black;
+    border: none;
+  }
+
   .set {
-    button {
-      margin-inline-start: 0;
-      margin-inline-end: 10px;
-    }
-
-    textarea {
-      inline-size: 100%;
-      block-size: 4em;
-    }
-
     :global(.set-item) {
       display: flex;
       position: relative;
@@ -225,13 +257,6 @@
           font-weight: bold;
         }
       }
-    }
-
-    hr {
-      margin-block: 20px;
-      block-size: 2px;
-      background-color: black;
-      border: none;
     }
   }
 </style>
