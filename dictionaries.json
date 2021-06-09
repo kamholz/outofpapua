@@ -31,26 +31,216 @@
     "parser": "Marker",
     "headword_citation": "lc"
   },
-  "Kijne (19xx)": {
-    "lang_target": "yva",
-    "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
+  "Donohue (nd.)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/3-Saweru words in Donohue phonology paper.xlsx",
     "parser": "Spreadsheet",
-    "sheet": "Kijne Mantembu",
     "columns": [
-      ["headword"],
-      ["gloss", "nld"],
-      ["gloss", "eng"],
-      ["page_num"]
+      [1, "headword"],
+      [0, "gloss", "eng"],
+      [2, "page_num"]
     ]
   },
-  "Anceaux (19xx)": {
-    "lang_target": "yva",
-    "path": "spreadsheets/Anceaux and Kijne word lists Yawa.xlsx",
+  "Donohue (2003)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/4-Saweru words in Donohue stress paper (stress marked).xlsx",
     "parser": "Spreadsheet",
-    "sheet": "Anceaux list",
     "columns": [
-      ["gloss", "eng"],
-      ["headword"]
+      [1, "headword"],
+      [0, "gloss", "eng"],
+      [2, "page_num"]
+    ],
+    "headword_action": "deaccent"
+  },
+  "Donohue (2001)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/5-Saweru words in Donohue split intransitivity paper.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [0, "gloss", "eng"],
+      [2, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998a)": {
+    "lang_target": "Yawa Ambaidiru",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [2, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998b)": {
+    "lang_target": "Yawa Ariepi",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [3, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998c)": {
+    "lang_target": "Yawa Mariadei",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [4, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998d)": {
+    "lang_target": "Yawa Tarau",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [5, "headword"],
+      [6, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998e)": {
+    "lang_target": "Yawa Kampung Baru",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [7, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998f)": {
+    "lang_target": "Yawa Mantembu",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [8, "headword"],
+      [9, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998g)": {
+    "lang_target": "Yawa Turu",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [10, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998h)": {
+    "lang_target": "Yawa Konti Unai",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [11, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998i)": {
+    "lang_target": "Yawa Wadapi-Darat",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [12, "headword"],
+      [13, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998j)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [13, "headword"],
+      [14, "headword"],
+      [15, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Voorhoeve (1975)": {
+    "lang_target": "yva",
+    "path": "spreadsheets/7-Yawa small word list Anceaux.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [0, "gloss", "eng"]
+    ]
+  },
+  "Kijne (nd.a)": {
+    "lang_target": "Yawa Turu",
+    "path": "spreadsheets/8-Turu word list Kijne.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [3, "ph"],
+      [0, "gloss", "eng"],
+      [2, "page_num"]
+    ]
+  },
+  "Kijne (nd.b)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/9-Saweru-Turu word list Kijne.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [4, "ph"],
+      [0, "gloss", "eng"],
+      [3, "page_num"]
+    ],
+    "headword_action": "deaccent"
+  },
+  "Kijne (nd.c)": {
+    "lang_target": "Yawa Turu",
+    "path": "spreadsheets/9-Saweru-Turu word list Kijne.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [2, "headword"],
+      [5, "ph"],
+      [0, "gloss", "eng"],
+      [3, "page_num"]
+    ],
+    "headword_action": "deaccent"
+  },
+  "Kijne (nd.d)": {
+    "lang_target": "Yawa Mantembu",
+    "path": "spreadsheets/10-Mantembu word list Kijne.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [0, "headword"],
+      [3, "ph"],
+      [1, "gloss", "eng"],
+      [2, "page_num"]
+    ]
+  },
+  "Kijne (nd.e)": {
+    "lang_target": "Yawa Ambaidiru",
+    "path": "spreadsheets/11-Ambaidiru word list Kijne.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [3, "ph"],
+      [0, "gloss", "eng"],
+      [2, "page_num"]
     ]
   }
 }

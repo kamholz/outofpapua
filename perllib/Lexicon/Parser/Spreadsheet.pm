@@ -2,7 +2,9 @@ package Lexicon::Parser::Spreadsheet;
 use v5.14;
 use Moo;
 use namespace::clean;
+use List::Util 'uniqstr';
 use Spreadsheet::ParseXLSX;
+use Unicode::Normalize qw/NFC NFD/;
 
 extends 'Lexicon::Parser';
 with 'Lexicon::Util';
@@ -25,6 +27,16 @@ has 'skip' => (
   default => 1,
 );
 
+has 'headword_action' => (
+  is => 'ro',
+  default => '',
+);
+
+has 'split_headword' => (
+  is => 'ro',
+  default => sub { split_regex(';') },
+);
+
 sub read_entries {
   my ($self) = @_;
   my $parser = Spreadsheet::ParseXLSX->new;
@@ -38,35 +50,55 @@ sub read_entries {
   my $entry = {};
   my $entry_per_row = $self->entry_per_row;
   my $columns = $self->columns;
-  my $col_count = @$columns;
+  my $headword_action = $self->headword_action;
+  my $split_headword = $self->split_headword;
 
   my ($row_min, $row_max) = $worksheet->row_range();
   $row_min += $self->skip;
   for my $row ($row_min .. $row_max) {
-    if ($entry_per_row) {
-      $self->push_entry($entries, $entry);
-      $entry = {};
-    }
-    for (my $i = 0; $i < $col_count; $i++) {
-      my $col = $columns->[$i];
-      next unless $col;
-      my $cell = $worksheet->get_cell($row, $i);
+    foreach my $col (@$columns) {
+      my ($num, $type, @args) = @$col;
+      my $cell = $worksheet->get_cell($row, $num);
       next unless $cell;
       my $value = $cell->unformatted;
 
-      if ($col->[0] eq 'headword') {
-        $entry->{headword} = $value;
-        push @{$entry->{record}}, ['lx', $value];
-      } elsif ($col->[0] eq 'page_num') {
-        $entry->{page_num} = $value;
-      } elsif ($col->[0] eq 'gloss') {
-        $self->add_gloss($entry, 'gloss', $value, $col->[1]);
-        push @{$entry->{record}}, [marker_with_code('g', $col->[1]), $value];
+      if ($type eq 'headword') {
+        my @headwords = split($split_headword, $value);
+
+        if ($headword_action eq 'deaccent') {
+          foreach my $headword (map { NFC($_) } @headwords) {
+            my $deaccented = deaccent($headword);
+            push @{$entry->{headword}}, $deaccented;
+            push @{$entry->{record}}, ['lx', $deaccented];
+            push @{$entry->{record}}, ['ph', $headword] if $headword ne $deaccented;
+          }
+        } else {
+          push @{$entry->{headword}}, @headwords;
+          push @{$entry->{record}}, ['lx', $_] for @headwords;
+        }
+      } elsif ($type eq 'page_num') {
+        $entry->{page_num} = "$value";
+      } elsif ($type eq 'gloss') {
+        my $lang = $args[0];
+        $self->add_gloss($entry, 'gloss', $value, $lang);
+        push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
+      } elsif ($type eq 'ph') {
+        push @{$entry->{record}}, ['ph', $value];
       }
+    }
+    if ($entry_per_row) {
+      foreach my $headword (uniqstr @{$entry->{headword}}) {
+        $self->push_entry($entries, { %$entry, headword => $headword });
+      }
+      $entry = {};
     }
   }
 
   return $entries;
+}
+
+sub deaccent {
+  return NFD($_[0]) =~ s/\p{M}//gr;
 }
 
 1;

@@ -135,11 +135,16 @@ sub get_language_id {
   my ($self, $code) = @_;
   state %language_cache;
   if (!exists $language_cache{$code}) {
-    my $query = length $code == 3
-      ? 'SELECT id FROM language WHERE iso6393 = ?'
-      : 'SELECT l.id FROM language l JOIN iso6391 i ON (i.iso6393 = l.iso6393) WHERE i.iso6391 = ?';
+    my $query;
+    if (length $code == 3) {
+      $query = 'SELECT id FROM language WHERE iso6393 = ?';
+    } elsif (length $code == 2) {
+      $query = 'SELECT l.id FROM language l JOIN iso6391 i ON (i.iso6393 = l.iso6393) WHERE i.iso6391 = ?';
+    } else {
+      $query = 'SELECT id FROM language WHERE name = ?';
+    }
     my $id = select_single($self->db, $query, $code);
-    die "ISO 639 code not found: $code" unless $id;
+    die "language not found: $code" unless $id;
     $language_cache{$code} = $id;
   }
   return $language_cache{$code};
