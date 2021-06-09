@@ -257,7 +257,7 @@
 
       :global(> div:not(.controls) > :first-child) {
         flex-shrink: 0;
-        inline-size: 8.5em;
+        inline-size: 10em;
       }
 
       :global(> div:not(:last-child)) {

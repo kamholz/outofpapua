@@ -70,7 +70,7 @@
 
       span {
         flex-shrink: 0;
-        inline-size: 8.5em;
+        inline-size: 10em;
         margin-inline-end: 12px;
         text-align: end;
       }
