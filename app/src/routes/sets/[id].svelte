@@ -238,5 +238,31 @@
         }
       }
     }
+
+    :global(.form form) {
+      flex-grow: 1;
+      width: unset;
+      padding: 0;
+      border: none;
+
+      :global(> div) {
+        margin: 0;
+        display: flex;
+        align-items: center;
+
+        :global(input) {
+          flex-grow: 1;
+        }
+      }
+
+      :global(> div:not(.controls) > :first-child) {
+        flex-shrink: 0;
+        inline-size: 8.5em;
+      }
+
+      :global(> div:not(:last-child)) {
+        margin-block-end: 12px;
+      }
+    }
   }
 </style>
