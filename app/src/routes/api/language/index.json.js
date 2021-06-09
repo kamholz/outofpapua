@@ -13,7 +13,7 @@ const defaults = {
 };
 const sortCols = {
   name: 'lower(language.name)',
-  iso6393: 'language.iso6393',
+  iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
   is_proto: 'protolanguage.id is not null',
   parent_name: 'parent.name',
   numentries: 'count(entry.id)',
@@ -26,11 +26,12 @@ export async function get({ query }) {
 
   const q = knex(table)
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
+    .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .select(
       'language.id',
       'language.name',
-      'language.iso6393',
+      knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
       'language.parent_id',
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto')
@@ -56,7 +57,7 @@ export async function get({ query }) {
       .leftJoin('source', 'source.language_id', 'language.id')
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
-      .groupBy('language.id', 'protolanguage.id', 'parent.name');
+      .groupBy('language.id', 'protolanguage.id', 'parent.id', 'dialect_parent.id');
   }
 
   applySortParams(q, query, sortCols, ['name']);
