@@ -1,3 +1,4 @@
+import { checkError } from '$lib/util';
 import { session } from '$app/stores';
 
 export async function login(username, password) {
@@ -57,13 +58,5 @@ export async function updatePassword(userId, values) {
     },
     body: JSON.stringify(values),
   });
-  if (!res.ok) {
-    let error;
-    try {
-      ({ error } = await res.json());
-    } catch (e) {
-      throw new Error('Password change failed');
-    }
-    throw new Error(`Password change failed: ${error}`);
-  }
+  await checkError(res, 'Password change failed');
 }

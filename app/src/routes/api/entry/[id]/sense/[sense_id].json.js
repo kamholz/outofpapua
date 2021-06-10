@@ -1,25 +1,40 @@
 import errors from '$lib/errors';
 import { allowed, table } from './_params';
 import { getFilteredParams } from '$lib/util';
+import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
-import { sendPgError, transaction } from '$lib/db';
 
 export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
-  if (!Object.keys(updateParams).length) {
-    return { status: 400, body: { error: errors.noUpdatable } };
+  const { glosses } = updateParams;
+  delete updateParams.glosses;
+  const sense_id = Number(params.sense_id);
+
+  const rows = await knex(table)
+    .where('id', sense_id)
+    .select('entry_id');
+  if (!rows.length || rows[0].entry_id !== Number(params.id)) {
+    return;
   }
+
   try {
-    const rows = await transaction(locals, (trx) =>
-      trx(table)
-      .where('id', Number(params.sense_id))
-      .returning('id')
-      .update(updateParams)
-    );
-    if (rows.length) {
-      return { body: '' };
-    }
+    await transaction(locals, async (trx) => {
+      if (Object.keys(updateParams).length) {
+        await trx(table)
+          .where('id', sense_id)
+          .update(updateParams);
+      }
+
+      if (glosses) {
+        await trx('sense_gloss')
+          .where('sense_id', sense_id)
+          .del();
+        const language = await getGlossLanguage();
+        await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
+      }
+    });
+    return { body: '' };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

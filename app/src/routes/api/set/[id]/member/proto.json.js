@@ -1,13 +1,12 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 import { table } from '../_params';
 
 const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
-const glossLanguage = 'eng';
 
 export const post = requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);
@@ -24,14 +23,12 @@ export const post = requireAuth(async ({ body, locals, params }) => {
       return { status: 400, body: { error: 'source does not exist or is not editable' } };
     }
 
-    const language = await knex('language')
-      .where('iso6393', glossLanguage)
-      .first('id');
+    const language = await getGlossLanguage();
     if (!language) {
       return { status: 400, body: { error: 'default gloss language does not exist' } };
     }
 
-    const glosses = parseGlosses(insertParams.glosses);
+    const { glosses } = insertParams;
     delete insertParams.glosses;
 
     const entry_id = await transaction(locals, async (trx) => {
@@ -48,10 +45,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
         .insert({ entry_id, seq: 1 });
       const [sense_id] = senseIds;
 
-      for (const [i, txt] of glosses.entries()) {
-        await trx('sense_gloss')
-          .insert({ sense_id, language_id: language.id, txt, seq: i + 1 });
-      }
+      await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
 
       return entry_id;
     });
@@ -61,9 +55,3 @@ export const post = requireAuth(async ({ body, locals, params }) => {
     return sendPgError(e);
   }
 });
-
-function parseGlosses(glosses) {
-  return glosses
-    .split(/ *[,;] */)
-    .map((v) => v.normalize());
-}

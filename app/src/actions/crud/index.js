@@ -1,3 +1,5 @@
+import { checkError } from '$lib/util';
+
 export function makeCreater(type) {
   return async function (values) {
     const res = await fetch(`/api/${type}.json`, {
@@ -7,13 +9,7 @@ export function makeCreater(type) {
       },
       body: JSON.stringify(values),
     });
-    if (!res.ok) {
-      if (res.status === 400) {
-        throw new Error('Could not create: ' + (await res.json()).error);
-      } else {
-        throw new Error('Could not create');
-      }
-    }
+    await checkError(res, 'Could not create');
     return res.json();
   };
 }
@@ -31,13 +27,7 @@ export function makeUpdater(type) {
       },
       body: JSON.stringify(values),
     });
-    if (!res.ok) {
-      if (res.status === 400) {
-        throw new Error('Could not update: ' + (await res.json()).error);
-      } else {
-        throw new Error('Could not update');
-      }
-    }
+    await checkError(res, 'Could not update');
   };
 }
 
@@ -61,9 +51,7 @@ export function makeDeleter(type) {
     const res = await fetch(`/api/${type}/${id}.json`, {
       method: 'DELETE',
     });
-    if (!res.ok) {
-      throw new Error('Could not delete');
-    }
+    await checkError(res, 'Could not delete');
   };
 }
 

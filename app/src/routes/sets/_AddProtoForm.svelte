@@ -4,6 +4,7 @@
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$stores';
+  import { parseGlosses } from '$lib/util';
   import * as crudSetMember from '$actions/crud/setmember';
 
   export let sourceSuggest;
@@ -41,7 +42,10 @@
   async function handleSubmit() {
     $pageLoading++;
     try {
-      promise = crudSetMember.proto({ set_id: set.id, values });
+      promise = crudSetMember.proto({
+        set_id: set.id,
+        values: { ...values, glosses: parseGlosses(values.glosses) },
+      });
       await promise;
       dispatch('refresh');
     } catch (e) {}

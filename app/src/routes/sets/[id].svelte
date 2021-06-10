@@ -216,8 +216,8 @@
 
       :global(.set-item-label) {
         flex-shrink: 0;
-        inline-size: 12em;
-        margin-inline-end: 12px;
+        inline-size: 16em;
+        margin-inline-end: 16px;
         font-weight: bold;
 
         :global(.fa-icon) {

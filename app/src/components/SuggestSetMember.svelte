@@ -13,7 +13,7 @@
   function renderer(item) {
     let output = `<div class="suggest"><div>${escape(item.language_name)} <strong>${escape(item.headword)}</strong></div>`;
     const { senses } = item;
-    if (senses.length) {
+    if (senses[0]) {
       output += `<div>${escape(senses[0])}</div></div>`;
       for (const sense of senses.slice(1)) {
         output += `<div class="suggest"><div></div><div>${escape(sense)}</div></div>`;

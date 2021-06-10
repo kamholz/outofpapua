@@ -4,6 +4,7 @@
   import { createPopperActions } from 'svelte-popperjs';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
+  import { glossSummaryNoLanguage } from '$lib/util';
 
   export let href;
   export let setId;
@@ -23,14 +24,6 @@
       if (res.ok) {
         $cache[setId] = await res.json();
       }
-    }
-  }
-
-  function glosses({ senses }) {
-    if (senses[0]?.glosses[0]?.txt.length) {
-      return '‘' + senses[0].glosses[0].txt.join(', ') + '’';
-    } else {
-      return '';
     }
   }
 </script>
@@ -53,7 +46,7 @@
     <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
       {#each set.members as { entry, reflex, source } (entry.id)}
-        <li>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /> {glosses(entry)}</li>
+        <li>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} />{#if entry.senses[0]?.glosses?.[0]} {glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
       {/each}
     </ul>
   </div>

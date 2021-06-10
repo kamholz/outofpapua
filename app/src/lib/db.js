@@ -65,6 +65,13 @@ export function applySortParams(q, query, sortCols, restCols) {
   }
 }
 
+export async function getCount(q) {
+  const count = await q.clone().count({ count: '*' }).first();
+  return Number(count.count);
+}
+
+// searching
+
 export function applyEntrySearchParams(q, query) {
   if ('headword' in query) {
     q.where('entry.headword', '~*', mungeRegex(query.headword));
@@ -90,10 +97,24 @@ export function applyEntrySearchParams(q, query) {
   }
 }
 
-export async function getCount(q) {
-  const count = await q.clone().count({ count: '*' }).first();
-  return Number(count.count);
+// glosses
+
+const glossLanguage = 'eng';
+
+export function getGlossLanguage(trx) {
+  return (trx || knex)('language')
+    .where('iso6393', glossLanguage)
+    .first('id');
 }
+
+export async function insertGlosses(trx, { language_id, sense_id, glosses }) {
+  for (const [i, txt] of glosses.entries()) {
+    await trx('sense_gloss')
+      .insert({ sense_id, language_id, txt, seq: i + 1 });
+  }
+}
+
+// error handling
 
 export function sendPgError(e) {
   return { status: 400, body: { error: formatPgError(e) } };

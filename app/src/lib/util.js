@@ -232,3 +232,24 @@ export function maybeLanguageName(language_name, preferences) {
     ? ''
     : ` (${language_name})`;
 }
+
+export async function checkError(res, message) {
+  if (!res.ok) {
+    if (res.status === 400) {
+      throw new Error(message + ': ' + (await res.json()).error);
+    } else {
+      throw new Error(message);
+    }
+  }
+}
+
+export function parseGlosses(param) {
+  return param
+    .trim()
+    .split(/ *[,;] */)
+    .map((v) => v.normalize());
+}
+
+export function joinGosses(glosses) {
+  return glosses.join(', ');
+}

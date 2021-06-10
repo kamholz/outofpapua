@@ -24,6 +24,7 @@ export async function get({ params }) {
     return { body: row };
   }
 }
+
 export const put = requireAuth(async ({ body, locals, params }) => {
   const id = Number(params.id);
   const editable = await isEditable(id);

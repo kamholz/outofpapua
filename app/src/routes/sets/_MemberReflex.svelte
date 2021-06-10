@@ -61,7 +61,7 @@
     font-style: italic;
 
     &[contenteditable="true"] {
-      padding-inline: 3px;
+      padding-inline: 4px;
       font-style: normal;
     }
   }

@@ -3,16 +3,18 @@
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
   import Icon from 'svelte-awesome';
+  import Input from './_Input.svelte';
   import MemberReflex from './_MemberReflex.svelte';
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam } from '$lib/util';
-  import { faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, parseGlosses } from '$lib/util';
+  import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
   import { pageLoading, preferences } from '$stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
+  import * as crudSense from '$actions/crud/sense';
   import * as crudSetMember from '$actions/crud/setmember';
 
   export let member;
@@ -29,9 +31,13 @@
     origin_language_name: member.origin_language_name,
     reflex: member.reflex,
   };
+  $: borrowed = member.origin === 'borrowed';
+  $: inherited = member.origin === 'inherited';
   const options = editable
     ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
     : null;
+  let editingProto = false;
+  let protoValues;
 
   function mungePos(pos) {
     return pos.replace(/\.$/, '');
@@ -55,8 +61,11 @@
     $pageLoading++;
     let promise;
     try {
-      promise = crudSetMember.update({ set_id: set.id, entry_id: entry.id, values: { [key]: values[key] } });
-      promises.pending[key] = promise;
+      promise = promises.pending[key] = crudSetMember.update({
+        set_id: set.id,
+        entry_id: entry.id,
+        values: { [key]: values[key] },
+      });
       await promise;
       member[key] = values[key];
       if (key === 'origin' && member[key] !== 'borrowed') {
@@ -73,15 +82,17 @@
   }
 
   async function handleDelete() {
+    if (!confirm(`Are you sure you want to delete "${entry.headword}" from this set?`)) {
+      return;
+    }
+
     $pageLoading++;
     let promise;
     try {
-      promise = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
-      promises.pending.delete = promise;
+      promise = promises.pending.delete = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
       await promise;
       if (source.editable) {
-        promise = crud.del('entry', entry.id);
-        promises.pending.delete = promise;
+        promise = promises.pending.delete = crud.del('entry', entry.id);
         await promise;
       }
       dispatch('refresh');
@@ -91,6 +102,58 @@
       promises.fulfilled.delete = promise;
     }
     $pageLoading--;
+  }
+
+  function glosses() {
+    return entry.senses[0].glosses[0].txt.join(', ');
+  }
+
+  function handleEditProto() {
+    protoValues = {
+      headword: entry.headword,
+      glosses: glosses(),
+    };
+    editingProto = true;
+  }
+
+  function handleEditProtoCancel() {
+    editingProto = false;
+  }
+
+  async function handleSaveProto() {
+    for (const key of Object.keys(protoValues)) {
+      protoValues[key] = protoValues[key].trim().normalize();
+    }
+
+    $pageLoading++;
+    let promise;
+    try {
+      if (protoValues.headword !== entry.headword) {
+        promise = promises.pending.saveproto = crud.update('entry', {
+          id: entry.id,
+          values: { headword: protoValues.headword },
+        });
+        await promise;
+        entry.headword = protoValues.headword;
+      }
+      if (protoValues.glosses !== glosses()) {
+        const glosses = parseGlosses(protoValues.glosses);
+        promise = promises.pending.saveproto = crudSense.update({
+          entry_id: entry.id,
+          sense_id: entry.senses[0].id,
+          values: { glosses },
+        });
+        await promise;
+        entry.senses[0].glosses[0].txt = glosses;
+      }
+    } catch (e) {}
+
+    if (promise && promise === promises.pending.saveproto) {
+      promises.pending.saveproto = null;
+      promises.fulfilled.saveproto = promise;
+    }
+    $pageLoading--;
+    editingProto = false;
   }
 </script>
 
@@ -106,10 +169,12 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+        <span class:borrowed class:inherited>
+          <span>{source.language_name}<MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+        </span>
       {:else}
         <p>
-          <span>{source.language_name} </span><MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />
+          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
         </p>
         <p>
           {source.reference}
@@ -121,7 +186,11 @@
         {#if senses.length === 1}
           <li>
             <span>Glosses:</span>
-            <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+            {#if editingProto}
+              <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
+            {:else}
+              <span class="indent" class:borrowed class:inherited>{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+            {/if}
           </li>
         {:else}
           {#each entry.senses as sense, i (sense.id)}
@@ -131,7 +200,7 @@
               {:else}
                 <span></span>
               {/if}
-              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
+              <span class="indent" class:borrowed class:inherited>{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
             </li>
           {/each}
         {/if}
@@ -205,8 +274,15 @@
         {/if}
       </ul>
       {#if editable}
-        <div class="delete" on:click={handleDelete}>
-          <Icon data={faTrash} />
+        <div class="controls">
+          {#if source.editable}
+            {#if editingProto}
+              <span on:click={handleSaveProto}><Icon data={faCheckSquare} /></span>
+            {:else}
+              <span on:click={handleEditProto}><Icon data={faEdit} /></span>
+            {/if}
+          {/if}
+          <span on:click={handleDelete}><Icon data={faTrash} /></span>
         </div>
       {/if}
     {/if}
@@ -214,14 +290,26 @@
 </Collapsible>
 
 <style lang="scss">
+  .borrowed {
+    color: crimson;
+  }
+
+  .inherited {
+    color: purple;
+  }
+  
   .details {
     flex-grow: 1;
   }
 
-  .delete {
+  .controls {
     position: absolute;
     right: 0;
     top: 0;
+
+    :global(.fa-icon) {
+      margin-inline: 7px 2px;
+    }
   }
 
   li {
