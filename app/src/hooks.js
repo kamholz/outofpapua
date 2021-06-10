@@ -1,4 +1,5 @@
 import cookie from 'cookie';
+import { defaultPreferences } from '$lib/defaults';
 import * as auth from '$lib/auth';
 
 export async function handle({ request, resolve }) {
@@ -25,6 +26,7 @@ export async function handle({ request, resolve }) {
       locals.preferences = JSON.parse(cookies.preferences);
     } catch (e) {}
   }
+  locals.preferences ||= defaultPreferences;
 
   return resolve(request);
 }
