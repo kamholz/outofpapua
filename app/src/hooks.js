@@ -1,12 +1,6 @@
 import cookie from 'cookie';
 import * as auth from '$lib/auth';
 
-export function getSession({ locals }) {
-  return {
-    user: locals.user,
-  };
-}
-
 export async function handle({ request, resolve }) {
   const { headers, locals, params } = request;
 
@@ -26,5 +20,18 @@ export async function handle({ request, resolve }) {
     return auth.redirectToRefresh(request);
   }
 
+  if (cookies.preferences) {
+    try {
+      locals.preferences = JSON.parse(cookies.preferences);
+    } catch (e) {}
+  }
+
   return resolve(request);
+}
+
+export function getSession({ locals }) {
+  return {
+    preferences: locals.preferences,
+    user: locals.user,
+  };
 }

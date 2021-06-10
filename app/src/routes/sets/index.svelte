@@ -1,6 +1,5 @@
 <script context="module">
   import { normalizeQuery } from '$lib/util';
-  import { preferences } from '$lib/stores';
   import { writable } from 'svelte/store';
 
   export async function load({ fetch, page: { query }, session }) {
@@ -8,7 +7,7 @@
       editable: session.user !== null,
     };
     query = normalizeQuery(query);
-    const json = await reload(fetch, query);
+    const json = await reload(fetch, query, session.preferences);
     if (!json) {
       return { status: 500, error: 'Internal error' };
     }
@@ -18,8 +17,8 @@
     return { props };
   }
 
-  async function reload(fetch, query) {
-    //query.pagesize ??= $preferences.pagesize;
+  async function reload(fetch, query, preferences) {
+    query.pagesize ??= preferences.pagesize;
     const res = await fetch('/api/set.json?' + new URLSearchParams(query));
     return res.ok ? res.json() : null;
   }
@@ -28,6 +27,7 @@
 <script>
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SetTable from './_Table.svelte';
+  // import { preferences } from '$lib/stores';
 
   export let rows;
   // export let editable;

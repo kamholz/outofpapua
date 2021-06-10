@@ -12,7 +12,6 @@
 
   function handleChange(e) {
     $preferences[e.target.name] = e.target.checked;
-    console.log($preferences);
   }
 </script>
 
