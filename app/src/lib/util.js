@@ -12,12 +12,16 @@ export function isNumber(str) {
   return str.match(/^[0-9]+$/);
 }
 
+export function boolean(value) {
+  return value ? 'yes' : 'no';
+}
+
 // query/object conversion
 
 export function normalizeQuery(urlSearchParams) {
   const query = Object.fromEntries(urlSearchParams);
   for (const key of Object.keys(query)) {
-    query[key] = nullify(query[key].trim());
+    query[key] = normalizeParam(query[key]);
     if (query[key] === null) {
       delete query[key];
     }
@@ -51,15 +55,7 @@ export function serializeQuery(query) {
   return optionalQuery(new URLSearchParams(newQuery));
 }
 
-// param objects
-
-export function ensureNfcParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      params[key] = params[key].normalize();
-    }
-  }
-}
+// param object filtering, parsing, and serialization
 
 export function getFilteredParams(params, set) {
   if (!params) {
@@ -72,6 +68,14 @@ export function getFilteredParams(params, set) {
     }
   }
   return newParams;
+}
+
+export function ensureNfcParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      params[key] = params[key].normalize();
+    }
+  }
 }
 
 export function parseBooleanParams(params, iterable) {
@@ -111,22 +115,6 @@ export function parseArrayNumParam(param) {
     .map((v) => Number(v));
 }
 
-export function serializeArrayParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      if (params[key].length) {
-        params[key] = serializeArrayParam(params[key]);
-      } else {
-        delete params[key];
-      }
-    }
-  }
-}
-
-export function serializeArrayParam(param) {
-  return [...param].join(',');
-}
-
 export function stripParams(params, iterable) {
   for (const key of iterable) {
     if (key in params) {
@@ -143,6 +131,22 @@ export function stripEmptyArrayParams(params) {
   }
 }
 
+export function serializeArrayParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      if (params[key].length) {
+        params[key] = serializeArrayParam(params[key]);
+      } else {
+        delete params[key];
+      }
+    }
+  }
+}
+
+export function serializeArrayParam(param) {
+  return [...param].join(',');
+}
+
 export function partitionPlus(array) {
   // eslint-disable-next-line arrow-body-style
   const [single, plus] = array.reduce(([single, plus], v) => {
@@ -152,22 +156,6 @@ export function partitionPlus(array) {
     single.filter((v) => isNumber(v)).map((v) => Number(v)),
     plus.filter((v) => isNumber(v)).map((v) => Number(v)),
   ];
-}
-
-export function validGlossesOrDefinitions(list) {
-  if (Array.isArray(list)) {
-    if (list.every((v) =>
-      typeof v === 'object' &&
-      Object.keys(v).length === 2 &&
-      'txt' in v &&
-      'language_id' in v &&
-      typeof v.txt === 'string' &&
-      typeof v.language_id === 'number'
-    )) {
-      return true;
-    }
-  }
-  return false;
 }
 
 // authorization
@@ -182,30 +170,7 @@ export function adminNotSelf(loggedInUser, userId) {
   return loggedInUser.admin && loggedInUser.id != userId;
 }
 
-// misc
-
-export function boolean(value) {
-  return value ? 'yes' : 'no';
-}
-
-export function mungeRegex(txt) {
-  return txt.replace(/^\*/, '\\*');
-}
-
-export function escapeHtml(txt) {
-  return txt
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-export function isIdArray(param) {
-  return Array.isArray(param) && param.every((v) => typeof v === 'number');
-}
-
-export function entryUrl(entry) {
-  return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
-}
+// gloss formatting and parsing
 
 export function glossesSummary(glosses, preferences) {
   return glosses
@@ -233,16 +198,6 @@ export function maybeLanguageName(language_name, preferences) {
     : ` (${language_name})`;
 }
 
-export async function checkError(res, message) {
-  if (!res.ok) {
-    if (res.status === 400) {
-      throw new Error(message + ': ' + (await res.json()).error);
-    } else {
-      throw new Error(message);
-    }
-  }
-}
-
 export function parseGlosses(param) {
   return param
     .trim()
@@ -252,4 +207,35 @@ export function parseGlosses(param) {
 
 export function joinGosses(glosses) {
   return glosses.join(', ');
+}
+
+// misc
+
+export function mungeRegex(txt) {
+  return txt.replace(/^\*/, '\\*');
+}
+
+export function escapeHtml(txt) {
+  return txt
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+export function isIdArray(param) {
+  return Array.isArray(param) && param.every((v) => typeof v === 'number');
+}
+
+export function entryUrl(entry) {
+  return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
+}
+
+export async function checkError(res, message) {
+  if (!res.ok) {
+    if (res.status === 400) {
+      throw new Error(message + ': ' + (await res.json()).error);
+    } else {
+      throw new Error(message);
+    }
+  }
 }
