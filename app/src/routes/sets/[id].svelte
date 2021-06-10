@@ -151,7 +151,7 @@
   {/if}  
 
   {#if editable}
-    <FormWrapper collapsed={writable(true)} label="Link existing">
+    <FormWrapper collapsed={writable(true)} label="Link existing entry">
       <LinkExistingForm
         {langSuggest}
         on:refresh={handleRefresh}
