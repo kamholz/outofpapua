@@ -11,6 +11,8 @@
   export let entry;
   export let href;
   export let editable = false;
+  export let borrowed = false;
+  export let inherited = false;
 
   let editing = false;
   let editSpanRef;
@@ -52,7 +54,7 @@
     on:keydown={handleKeyDown}
   >{deriveForm(form)}</span>
 {:else}
-  <a {href} sveltekit:prefetch><span class="reflex"><Reflex form={deriveForm(form)} space={true} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <a {href} sveltekit:prefetch><span class="reflex" class:borrowed class:inherited><Reflex form={deriveForm(form)} space={true} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
 {/if}
 
 <style lang="scss">

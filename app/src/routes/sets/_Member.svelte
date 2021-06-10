@@ -169,12 +169,10 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span class:borrowed class:inherited>
-          <span>{source.language_name}<MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
-        </span>
+        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
       {:else}
         <p>
-          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
+          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
         </p>
         <p>
           {source.reference}
@@ -189,7 +187,7 @@
             {#if editingProto}
               <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
             {:else}
-              <span class="indent" class:borrowed class:inherited>{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
             {/if}
           </li>
         {:else}
@@ -290,12 +288,18 @@
 </Collapsible>
 
 <style lang="scss">
-  .borrowed {
+  :global(.borrowed) {
     color: crimson;
+    :global(a) {
+      color: inherit;
+    }
   }
 
-  .inherited {
+  :global(.inherited) {
     color: purple;
+    :global(a) {
+      color: inherit;
+    }
   }
   
   .details {
