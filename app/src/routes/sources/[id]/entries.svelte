@@ -39,7 +39,7 @@
 <h2>{source.reference}</h2>
 {#if source.reference_full}
   <div class="info">
-    <em>Cite this> source as:</em> {source.reference_full}
+    <em>Cite this source as:</em> {source.reference_full}
   </div>
 {/if}
 
