@@ -1,5 +1,4 @@
-import { maybeLanguageName } from '$lib/util';
-import { serializeArrayParam } from '$lib/util';
+import { glossesSummary, serializeArrayParam } from '$lib/util';
 
 export async function lang(fetch) {
   const res = await fetch('/api/language.json');
@@ -57,11 +56,7 @@ export async function setMember(search, match, languages, preferences) {
   }
   const { rows } = await res.json();
   for (const row of rows) {
-    row.senses = row.senses.map((sense) =>
-      sense.glosses.map(({ language_name, txt }) =>
-        `‘${txt.join(', ')}’` + maybeLanguageName(language_name, preferences)
-      ).join('; ')
-    );
+    row.senses = row.senses.map((sense) => glossesSummary(sense.glosses, preferences));
   }
   return rows;
 }

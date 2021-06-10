@@ -13,7 +13,7 @@
       return {
         props: {
           user: await res.json(),
-        }
+        },
       };
     } catch (e) {
       return { status: 500, error: 'Internal error' };

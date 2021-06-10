@@ -7,7 +7,7 @@
       name: 'hideglosslang',
       label: 'Omit gloss language in entries',
       type: 'checkbox',
-    }
+    },
   ];
 
   function handleChange(e) {

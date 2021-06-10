@@ -7,10 +7,10 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { entryUrl, normalizeParam } from '$lib/util';
+  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam } from '$lib/util';
   import { faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
-  import { pageLoading } from '$stores';
+  import { pageLoading, preferences } from '$stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
   import * as crudSetMember from '$actions/crud/setmember';
@@ -43,16 +43,6 @@
       origin += ` from ${values.origin_language_name}`;
     }
     return origin;
-  }
-
-  function glosses(sense) {
-    return sense.glosses.map(({ language_name, txt }) =>
-      `‘${txt.join(', ')}’ (${language_name})`
-    ).join('; ');
-  }
-
-  function glossesSummary(sense) {
-    return `‘${sense.glosses[0].txt.join(', ')}’`;
   }
 
   async function handleUpdate(key) {
@@ -116,7 +106,7 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossesSummary(senses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+        <span>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses.length && senses[0].glosses.length}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
       {:else}
         <p>
           <span>{source.language_name} </span><MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />
@@ -131,7 +121,7 @@
         {#if senses.length === 1}
           <li>
             <span>Glosses:</span>
-            <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glosses(senses[0])}</span>
+            <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
           </li>
         {:else}
           {#each entry.senses as sense, i (sense.id)}
@@ -141,7 +131,7 @@
               {:else}
                 <span></span>
               {/if}
-              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glosses(sense)}</span>
+              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
             </li>
           {/each}
         {/if}

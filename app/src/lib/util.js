@@ -207,6 +207,26 @@ export function entryUrl(entry) {
   return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
 }
 
+export function glossesSummary(glosses, preferences) {
+  return glosses
+    .map((gloss) => glossSummary(gloss, preferences))
+    .join('; ');
+}
+
+export function glossSummary({ language_name, txt }, preferences) {
+  return `‘${txt.join(', ')}’` + maybeLanguageName(language_name, preferences);
+}
+
+export function glossesSummaryNoLanguage(glosses) {
+  return glosses
+    .map((gloss) => glossSummaryNoLanguage(gloss))
+    .join('; ');
+}
+
+export function glossSummaryNoLanguage({ txt }) {
+  return `‘${txt.join(', ')}’`;
+}
+
 export function maybeLanguageName(language_name, preferences) {
   return preferences?.hideglosslang
     ? ''

@@ -1,25 +1,19 @@
 <script>
-  import { maybeLanguageName } from '$lib/util';
+  import { glossesSummary } from '$lib/util';
   import { preferences } from '$stores';
 
   export let sense;
   const { definitions, glosses } = sense;
-
-  function summary(item) {
-    return item.map(({ language_name, txt }) =>
-      `‘${txt.join(', ')}’` + maybeLanguageName(language_name, $preferences)
-    ).join('; ');
-  }
 </script>
 
 {#if glosses.length}
   <div>
-    Glosses: {summary(glosses)}
+    Glosses: {glossesSummary(glosses, $preferences)}
   </div>
 {/if}
 {#if definitions.length}
   <div>
-    Definitions: {summary(definitions)}
+    Definitions: {glossesSummary(definitions, $preferences)}
   </div>
 {/if}
 
