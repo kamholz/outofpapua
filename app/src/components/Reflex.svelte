@@ -1,5 +1,6 @@
 <script>
   export let form;
+  export let space;
   let before, reflex, after;
   $: {
     const match = form.match(/^(.*)\|(.+)\|(.*)$/);
@@ -11,4 +12,8 @@
   }
 </script>
 
-{#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflex}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
+{#if space}
+  {#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflex}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
+{:else}
+  {#if before?.length}{before}|{/if}<strong>{reflex}</strong>{#if after?.length}|{after}{/if}
+{/if}

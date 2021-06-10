@@ -53,7 +53,7 @@
     <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
       {#each set.members as { entry, reflex, source } (entry.id)}
-        <li>{source.language_name} <Reflex form={reflex ?? entry.headword} /> {glosses(entry)}</li>
+        <li>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /> {glosses(entry)}</li>
       {/each}
     </ul>
   </div>

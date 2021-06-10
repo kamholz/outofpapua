@@ -52,7 +52,7 @@
     on:keydown={handleKeyDown}
   >{deriveForm(form)}</span>
 {:else}
-  <a {href} sveltekit:prefetch><span class="reflex"><Reflex form={deriveForm(form)} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <a {href} sveltekit:prefetch><span class="reflex"><Reflex form={deriveForm(form)} space={true} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
 {/if}
 
 <style lang="scss">
