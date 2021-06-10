@@ -1,6 +1,6 @@
 <script>
   import { glossSummaryNoLanguage, glossesSummary } from '$lib/util';
-  import { preferences } from '$stores';
+  import { preferences } from '$lib/stores';
 
   export let senses;
   export let multilang;

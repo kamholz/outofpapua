@@ -3,7 +3,7 @@
   import Form from '$components/Form.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let protolangSuggest;

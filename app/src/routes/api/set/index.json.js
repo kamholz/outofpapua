@@ -1,7 +1,51 @@
+import config from '$config';
 import { allowed, table } from './_params';
-import { getFilteredParams, isIdArray } from '$lib/util';
+import { applyPageParams, applySortParams, getCount, knex, sendPgError, transaction } from '$lib/db';
+import { getFilteredParams, isIdArray, normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
-import { sendPgError, transaction } from '$lib/db';
+
+const allowedSearch = new Set(['asc', 'page', 'pagesize', 'sort']);
+const boolean = new Set(['asc']);
+const defaults = {
+  asc: true,
+  page: 1,
+  pagesize: Number(config.PAGESIZE),
+  sort: 'title',
+};
+const sortCols = {
+  title: "coalesce(set.title, lpad(set.id::text, 10, '0'))",
+};
+
+export async function get({ query }) {
+  query = getFilteredParams(normalizeQuery(query), allowedSearch);
+  parseBooleanParams(query, boolean);
+  query = { ...defaults, ...query };
+
+  const q = knex('set_with_members as set');
+
+  const rowCount = await getCount(q);
+
+  q.select(
+    'set.id',
+    'set.note',
+    knex.raw('coalesce(set.title, set.id::text) as title'),
+    'set.members'
+  );
+
+  const pageCount = applyPageParams(q, query, rowCount);
+  applySortParams(q, query, sortCols, ['title']);
+
+  const rows = await q;
+
+  return {
+    body: {
+      query,
+      pageCount,
+      rowCount,
+      rows,
+    },
+  };
+}
 
 export const post = requireAuth(async ({ body, locals }) => {
   let members;

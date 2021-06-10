@@ -4,7 +4,7 @@
   import PreferenceForm from './_PreferenceForm.svelte';
   import ProfileForm from './_ProfileForm.svelte';
   import { goto } from '$app/navigation';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let user;

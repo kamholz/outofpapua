@@ -5,6 +5,7 @@
 <nav>
   <ul>
     <li class:active={$page.path === '/'}><a href="/" sveltekit:prefetch>Search</a></li>
+    <li class:active={$page.path === '/sets'}><a href="/sets" sveltekit:prefetch>Sets</a></li>
     <li class:active={$page.path === '/languages'}><a href="/languages" sveltekit:prefetch>Languages</a></li>
     <li class:active={$page.path === '/sources'}><a href="/sources" sveltekit:prefetch>Sources</a></li>
     {#if $session.user}

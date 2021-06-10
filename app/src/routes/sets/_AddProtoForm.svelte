@@ -3,7 +3,7 @@
   import Form from '$components/Form.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import { parseGlosses } from '$lib/util';
   import * as crudSetMember from '$actions/crud/setmember';
 

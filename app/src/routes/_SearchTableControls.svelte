@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
 
   const selection = getContext('selection');
   $: emptySelection = !Object.keys($selection).length;

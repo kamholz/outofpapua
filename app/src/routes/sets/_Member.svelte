@@ -11,7 +11,7 @@
   import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, parseGlosses } from '$lib/util';
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
-  import { pageLoading, preferences } from '$stores';
+  import { pageLoading, preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';

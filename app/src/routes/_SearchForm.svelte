@@ -1,7 +1,7 @@
 <script>
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
-  import { preferences } from '$stores';
+  import { preferences } from '$lib/stores';
 
   export let query;
   export let langSuggest;

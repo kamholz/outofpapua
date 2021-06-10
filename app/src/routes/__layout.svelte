@@ -7,7 +7,7 @@
   import { fade } from 'svelte/transition';
   import { navigating, page, session } from '$app/stores';
   // import { onMount } from 'svelte';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   // import { registerListener, broadcast } from '$lib/socket';
 
   // let broadcasts = [];

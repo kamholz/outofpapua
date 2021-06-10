@@ -1,6 +1,6 @@
 <script>
   import Table from '$components/Table.svelte';
-  import { preferences } from '$stores';
+  import { preferences } from '$lib/stores';
   import { session } from '$app/stores';
 
   export let rows;

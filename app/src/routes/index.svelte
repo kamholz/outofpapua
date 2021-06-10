@@ -50,7 +50,7 @@
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
   import SearchTableControls from './_SearchTableControls.svelte';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import * as crud from '$actions/crud';
 

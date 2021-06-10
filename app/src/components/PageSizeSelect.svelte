@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
-  import { preferences } from '$stores';
+  import { preferences } from '$lib/stores';
   import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
   export let query;

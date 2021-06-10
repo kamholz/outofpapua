@@ -61,7 +61,7 @@
     <PageSizeSelect {query} />
   </div>
 {:else}
-  <div class="notfound">no entries</div>
+  <div class="notfound">no entries found</div>
 {/if}
 
 <style>

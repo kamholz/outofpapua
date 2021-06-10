@@ -1,7 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import { updatePassword } from '$actions/auth';
 
   export let user;

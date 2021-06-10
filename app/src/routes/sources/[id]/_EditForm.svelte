@@ -2,7 +2,7 @@
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let source;

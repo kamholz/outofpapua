@@ -37,7 +37,7 @@
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
   import { normalizeParam } from '$lib/util';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 

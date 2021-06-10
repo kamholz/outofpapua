@@ -5,7 +5,7 @@
   const dispatch = createEventDispatcher();
   import { boolean } from '$lib/util';
   import { derived } from 'svelte/store';
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
   
   export let rows;

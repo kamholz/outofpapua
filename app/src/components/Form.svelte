@@ -2,7 +2,7 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { pageLoading } from '$stores';
+  import { pageLoading } from '$lib/stores';
   import { serializeArrayParam, stringify } from '$lib/util';
   
   export let fields;

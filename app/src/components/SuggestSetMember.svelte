@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { escapeHtml as escape } from '$lib/util';
-  import { preferences } from '$stores';
+  import { preferences } from '$lib/stores';
   import * as suggest from '$actions/suggest';
 
   let selection = null;
