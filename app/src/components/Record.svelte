@@ -47,7 +47,7 @@
       }
 
       &:nth-child(even) {
-        background-color: $lightergray;
+        background-color: $lighter_gray;
       }
     }
   }
