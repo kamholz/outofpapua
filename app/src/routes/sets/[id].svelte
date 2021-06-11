@@ -195,62 +195,62 @@
     block-size: 4em;
   }
 
-  .set {
-    :global(.set-item) {
+  .set :global {
+    .set-item {
       display: flex;
       position: relative;
 
-      :global(.fa-icon:hover) {
-        color: gray;
+      .fa-icon:hover {
+        color: $icon_hover;
       }
 
-      :global(.set-item-label) {
+      .set-item-label {
         flex-shrink: 0;
         inline-size: 16em;
         margin-inline-end: 16px;
         font-weight: bold;
 
-        :global(.fa-icon) {
+        .fa-icon {
           vertical-align: unset;
           margin-inline-start: 7px;
         }
       }
-      :global(.set-item-label.top) {
+      .set-item-label.top {
         inline-size: 6em;
       }
-      :global(.set-item-label.fullwidth) {
+      .set-item-label.fullwidth {
         inline-size: unset;
       }
-      :global(.set-item-label.membersummary) {
+      .set-item-label.membersummary {
         font-weight: unset;
-        :global(> :first-child) {
+        > :first-child {
           font-weight: bold;
         }
       }
     }
 
-    :global(.form form) {
+    .form form {
       flex-grow: 1;
       width: unset;
       padding: 0;
       border: none;
 
-      :global(> div) {
+      > div {
         margin: 0;
         display: flex;
         align-items: center;
 
-        :global(input) {
+        input {
           flex-grow: 1;
         }
       }
 
-      :global(> div:not(.controls) > :first-child) {
+      > div:not(.controls) > :first-child {
         flex-shrink: 0;
         inline-size: 10em;
       }
 
-      :global(> div:not(:last-child)) {
+      > div:not(:last-child) {
         margin-block-end: 12px;
       }
     }

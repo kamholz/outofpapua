@@ -68,7 +68,7 @@
   td.autocomplete {
     padding-block: 0;
 
-    :global(.svelecte-control) :global(.sv-control) {
+    :global(.svelecte-control .sv-control) {
       background-color: white;
       min-height: unset;
       height: 30px;

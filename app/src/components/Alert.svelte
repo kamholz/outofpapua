@@ -44,7 +44,7 @@
     right: 0;
 
     :global(.fa-icon:hover) {
-      color: gray;
+      color: $icon_hover;
     }
   }
 </style>

@@ -66,11 +66,9 @@
   on:submit={handleCreate}
 />
 
-<style lang="scss">
-  :global(.create-source-form) {
-    :global(.svelecte-control) :global(.sv-control) {
-      min-height: unset;
-      height: 26px;
-    }
+<style lang="scss" global>
+  .create-source-form .svelecte-control .sv-control {
+    min-height: unset;
+    height: 26px;
   }
 </style>

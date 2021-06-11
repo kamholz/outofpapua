@@ -28,7 +28,7 @@
     margin-inline-end: 1em;
     padding-block: 0.35em;
     padding-inline: 0.75em;
-    background-color: $lightgray;
+    background-color: $light_gray;
     border-radius: 3px;
   }
 
