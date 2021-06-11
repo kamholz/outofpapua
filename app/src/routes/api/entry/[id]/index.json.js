@@ -4,7 +4,7 @@ import { isEditable, nfc, table } from '../_params';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-const allowedAll = new Set(['headword_normalized', 'note', 'root']);
+const allowedAll = new Set(['headword_normalized', 'note', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
 export async function get({ params }) {
@@ -17,6 +17,9 @@ export async function get({ params }) {
       'entry.headword_normalized',
       'entry.root',
       'entry.note',
+      'entry.origin',
+      'entry.origin_language_id',
+      'entry.origin_language_name',
       'entry.senses',
       'source.reference as source_reference'
     );
@@ -31,6 +34,12 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
+  }
+  if ('origin' in updateParams && updateParams.origin !== 'borrowed') {
+    if (updateParams.origin_language_id) {
+      return { status: 400, body: { error: errors.originLang } };
+    }
+    updateParams.origin_language_id = null; // clear any existing origin_language_id
   }
   ensureNfcParams(updateParams, nfc);
   try {

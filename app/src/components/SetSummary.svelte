@@ -45,8 +45,8 @@
   <div class="popover" use:popperContent transition:fade|local={{ duration: 200 }}>
     <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
-      {#each set.members as { entry, origin, reflex, source } (entry.id)}
-        <li><span class:borrowed={origin === 'borrowed'} class:inherited={origin === 'inherited'}>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
+      {#each set.members as { entry, reflex, source } (entry.id)}
+        <li><span class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
       {/each}
     </ul>
   </div>

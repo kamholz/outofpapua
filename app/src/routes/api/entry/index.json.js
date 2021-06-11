@@ -122,13 +122,17 @@ export async function get({ query }) {
   };
 }
 
-const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'root', 'source_id']);
+const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'origin', 'origin_language_id',
+  'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 
 export const post = requireAuth(async ({ body, locals }) => {
   const params = getFilteredParams(body, allowedCreate);
   if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
     return { status: 400, body: { error: errors.missing } };
+  }
+  if (params.origin_language_id && params.origin !== 'borrowed') {
+    return { status: 400, body: { error: errors.originLang } };
   }
   ensureNfcParams(params, nfc);
   try {

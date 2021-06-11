@@ -20,19 +20,20 @@
   export let member;
   export let collapsed;
   const promises = { pending: {}, fulfilled: {} };
-  
+  const memberKeys = new Set(['reflex']);
+
   const { entry, source } = member;
   const { senses } = entry;
   const { set, editable, borrowlangSuggest } = getContext('set');
   const values = {
-    note: member.note,
-    origin: member.origin,
-    origin_language_id: member.origin_language_id,
-    origin_language_name: member.origin_language_name,
+    note: entry.note,
+    origin: entry.origin,
+    origin_language_id: entry.origin_language_id,
+    origin_language_name: entry.origin_language_name,
     reflex: member.reflex,
   };
-  $: borrowed = member.origin === 'borrowed';
-  $: inherited = member.origin === 'inherited';
+  $: borrowed = entry.origin === 'borrowed';
+  $: inherited = entry.origin === 'inherited';
   const options = editable
     ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
     : null;
@@ -55,24 +56,34 @@
     if (typeof values[key] === 'string' || values[key] instanceof String) {
       values[key] = normalizeParam(values[key]);
     }
-    if (member[key] === values[key]) {
+    const obj = memberKeys.has(key) ? member : entry;
+    if (obj[key] === values[key]) {
       return;
     }
     $pageLoading++;
     let promise;
     try {
-      promise = promises.pending[key] = crudSetMember.update({
-        set_id: set.id,
-        entry_id: entry.id,
-        values: { [key]: values[key] },
-      });
-      await promise;
-      member[key] = values[key];
-      if (key === 'origin' && member[key] !== 'borrowed') {
-        member.origin_language_id = values.origin_language_id = null;
+      if (memberKeys.has(key)) {
+        promise = promises.pending[key] = crudSetMember.update({
+          set_id: set.id,
+          entry_id: entry.id,
+          values: { [key]: values[key] },
+        });
+        await promise;
+        member[key] = values[key];
+      } else {
+        promise = promises.pending[key] = crud.update('entry', {
+          id: entry.id,
+          values: { [key]: values[key] },
+        });
+        await promise;
+        entry[key] = values[key];
+        if (key === 'origin' && entry[key] !== 'borrowed') {
+          entry.origin_language_id = values.origin_language_id = null;
+        }
       }
     } catch (e) {
-      values[key] = member[key];
+      values[key] = obj[key];
     }
     if (promise && promise === promises.pending[key]) {
       promises.pending[key] = null;
@@ -241,7 +252,7 @@
             <span>{originSummary()}</span>
           {/if}
         </li>
-        {#if member.origin === 'borrowed' && editable}
+        {#if entry.origin === 'borrowed' && editable}
           <li transition:slide|local>
             <span></span>
             <span class="originlang">
