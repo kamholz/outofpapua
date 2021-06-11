@@ -193,7 +193,7 @@ export function glossSummaryNoLanguage({ txt }) {
 }
 
 export function maybeLanguageName(language_name, preferences) {
-  return preferences?.hideglosslang
+  return preferences?.hideGlossLang
     ? ''
     : ` (${language_name})`;
 }

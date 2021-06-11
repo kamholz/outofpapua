@@ -1,6 +1,6 @@
 import { browser } from '$app/env';
 import { cookieStorage, persist } from 'svelte-persistent-store';
-import { defaultPreferences } from '$lib/defaults';
+import { defaultPreferences } from '$lib/preferences';
 import { derived, writable } from 'svelte/store';
 import { session } from '$app/stores';
 

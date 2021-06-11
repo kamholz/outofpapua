@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { defaultPreferences } from '$lib/defaults';
+import { defaultPreferences } from '$lib/preferences';
 import * as auth from '$lib/auth';
 
 export async function handle({ request, resolve }) {

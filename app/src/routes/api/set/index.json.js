@@ -1,6 +1,6 @@
-import config from '$config';
 import { allowed, table } from './_params';
 import { applyPageParams, applySortParams, getCount, knex, sendPgError, transaction } from '$lib/db';
+import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
@@ -9,7 +9,7 @@ const boolean = new Set(['asc']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: Number(config.PAGESIZE),
+  pagesize: defaultPreferences.pageSizeSet,
   sort: 'name',
 };
 const sortCols = {

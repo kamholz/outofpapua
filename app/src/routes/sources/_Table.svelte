@@ -10,7 +10,7 @@
     {
       key: 'reference',
       title: 'Reference',
-      link: (row) => `/sources/${row.id}/entries?pagesize=${$preferences.pagesize}`,
+      link: (row) => `/sources/${row.id}/entries?pagesize=${$preferences.pageSize}`,
     },
     {
       key: 'language',

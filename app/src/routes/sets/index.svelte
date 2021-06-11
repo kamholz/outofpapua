@@ -18,7 +18,7 @@
   }
 
   async function reload(fetch, query, preferences) {
-    query.pagesize ??= preferences.pagesize;
+    query.pagesize ??= preferences.pageSizeSet;
     const res = await fetch('/api/set.json?' + new URLSearchParams(query));
     return res.ok ? res.json() : null;
   }
@@ -47,7 +47,7 @@
     {pageCount}
   />
   <div class="controls">
-    <PageSizeSelect {query} />
+    <PageSizeSelect {query} preferenceKey="pageSizeSet" />
   </div>
 {:else}
   <div class="notfound">no sets found</div>

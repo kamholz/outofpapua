@@ -29,7 +29,7 @@ export function arrayCmp(param) {
 
 // pagination and sorting
 
-const pageMax = 1000;
+const pageMax = 2000;
 
 export function applyPageParams(q, query, count) {
   const pageSize = Math.min(query.pagesize, pageMax);

@@ -1,7 +1,7 @@
-import config from '$config';
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex,
   sendPgError, transaction } from '$lib/db';
+import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, partitionPlus } from '$lib/util';
 import { nfc, table } from './_params';
@@ -15,7 +15,7 @@ const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: Number(config.PAGESIZE),
+  pagesize: defaultPreferences.pageSize,
   sort: 'headword',
   langcat: 'lang',
   set: 'both',

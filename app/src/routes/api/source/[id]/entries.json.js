@@ -1,5 +1,5 @@
-import config from '$config';
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
+import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'page', 'pagesize', 'set', 'sort']);
@@ -7,7 +7,7 @@ const boolean = new Set(['asc']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: Number(config.PAGESIZE),
+  pagesize: defaultPreferences.pageSize,
   sort: 'headword',
   set: 'both',
 };

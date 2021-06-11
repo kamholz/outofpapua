@@ -1,14 +1,16 @@
 <script>
   import { goto } from '$app/navigation';
+  import { pageSizeValues } from '$lib/preferences';
   import { preferences } from '$lib/stores';
   import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
   export let query;
-  const values = [100, 500, 1000, 2000];
+  export let preferenceKey = 'pageSize';
+  const values = pageSizeValues[preferenceKey];
 
   function handleSelect(e) {
     const { value } = e.target;
-    $preferences.pagesize = value;
+    $preferences[preferenceKey] = value;
     const newQuery = serializeQuery({ ...query, page: 1, pagesize: value });
     stripEmptyArrayParams(newQuery);
     goto('?' + new URLSearchParams(newQuery));
@@ -16,8 +18,9 @@
 </script>
 
 <form>
-  <label for="pagesize">Rows per page:</label>
+  <label for="pagesize">Items per page:</label>
   <select
+    id="pagesize"
     name="pagesize"
     value={query.pagesize}
     on:input={handleSelect}

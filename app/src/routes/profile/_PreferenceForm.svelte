@@ -4,7 +4,7 @@
 
   const fields = [
     {
-      name: 'hideglosslang',
+      name: 'hideGlossLang',
       label: 'Omit gloss language in entries',
       type: 'checkbox',
     },
