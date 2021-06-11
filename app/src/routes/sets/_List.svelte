@@ -1,10 +1,12 @@
 <script>
   import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
+  import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
   export let pageCount;
+  const collapsedRows = $rows.map(() => writable(false));
 </script>
 
 {#if pageCount > 1}
@@ -13,8 +15,8 @@
 
 <hr>
 
-{#each $rows as set (set.id)}
-  <ListItem {set} />
+{#each $rows as set, i (set.id)}
+  <ListItem {set} collapsed={collapsedRows[i]} />
   <hr>
 {/each}
 
