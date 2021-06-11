@@ -202,6 +202,7 @@ export function parseGlosses(param) {
   return param
     .trim()
     .split(/ *[,;] */)
+    .filter((v) => v !== '')
     .map((v) => v.normalize());
 }
 
