@@ -10,10 +10,10 @@ const defaults = {
   asc: true,
   page: 1,
   pagesize: Number(config.PAGESIZE),
-  sort: 'title',
+  sort: 'name',
 };
 const sortCols = {
-  title: "coalesce(set.title, lpad(set.id::text, 10, '0'))",
+  name: "coalesce(set.name, lpad(set.id::text, 10, '0'))",
 };
 
 export async function get({ query }) {
@@ -28,12 +28,12 @@ export async function get({ query }) {
   q.select(
     'set.id',
     'set.note',
-    knex.raw('coalesce(set.title, set.id::text) as title'),
+    knex.raw('coalesce(set.name, set.id::text) as name'),
     'set.members'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);
-  applySortParams(q, query, sortCols, ['title']);
+  applySortParams(q, query, sortCols, ['name']);
 
   const rows = await q;
 

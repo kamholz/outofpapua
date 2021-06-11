@@ -48,9 +48,9 @@
   export let sourceSuggest = null;
   const values = {
     note: set.note,
-    title: set.title,
+    name: set.name,
   };
-  let title = set.title ?? set.id;
+  let name = set.name ?? set.id;
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
@@ -79,7 +79,7 @@
     if (newSet) {
       set = newSet;
       values.note = set.note;
-      values.title = set.title;
+      values.name = set.name;
       createProtoValues = {};
     } else {
       goto('/');
@@ -108,23 +108,23 @@
     $pageLoading--;
   }
 
-  function handleUpdateTitle() {
-    const value = title.trim();
-    values.title = value === String(set.id) ? '' : value;
-    title = value === '' ? set.id : value;
-    handleUpdate('title');
+  function handleUpdateName() {
+    const value = name.trim();
+    values.name = value === String(set.id) ? '' : value;
+    name = value === '' ? set.id : value;
+    handleUpdate('name');
   }
 </script>
 
 {#if editable}
   <h2>Set:&nbsp;<span
       contenteditable="true"
-      bind:textContent={title}
-      on:blur={handleUpdateTitle}
+      bind:textContent={name}
+      on:blur={handleUpdateName}
       use:enter={(e) => e.currentTarget.blur()}
-    >{title}</span></h2>
+    >{name}</span></h2>
 {:else}
-  <h2>Set: {title}</h2>
+  <h2>Set: {name}</h2>
 {/if}
 
 <div class="set">

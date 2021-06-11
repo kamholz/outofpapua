@@ -1,2 +1,2 @@
 export const table = 'set';
-export const allowed = new Set(['note', 'title']);
+export const allowed = new Set(['note', 'name']);

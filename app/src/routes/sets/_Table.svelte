@@ -7,8 +7,8 @@
 
   const columns = [
     {
-      key: 'title',
-      title: 'Title',
+      key: 'name',
+      title: 'Name',
       link: (row) => `/sets/${row.id}`,
     },
   ];
