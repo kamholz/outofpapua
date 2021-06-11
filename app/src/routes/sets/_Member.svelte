@@ -198,7 +198,7 @@
               {:else}
                 <span></span>
               {/if}
-              <span class="indent" class:borrowed class:inherited>{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
+              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
             </li>
           {/each}
         {/if}
