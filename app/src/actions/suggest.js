@@ -36,6 +36,15 @@ export async function borrowlang(fetch) {
   return res.ok ? (await res.json()).rows : null;
 }
 
+export async function source(fetch) {
+  const res = await fetch('/api/source.json?sort=language');
+  if (!res.ok) {
+    return null;
+  }
+  const { rows } = await res.json();
+  return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
+}
+
 export async function editableSource(fetch) {
   const res = await fetch('/api/source.json?category=editable&sort=language');
   if (!res.ok) {

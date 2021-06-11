@@ -1,4 +1,5 @@
 <script>
+  import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
 
   export let rows;
@@ -10,11 +11,22 @@
   <Paginator {query} {pageCount} />
 {/if}
 
+<hr>
+
 {#each $rows as set (set.id)}
-  <h3>Set: {set.title ?? set.id}</h3>
-  <a href="/sets/{set.id}">Link</a>
+  <ListItem {set} />
+  <hr>
 {/each}
 
 {#if pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
+
+<style lang="scss">
+  hr {
+    margin-block: 20px;
+    block-size: 2px;
+    background-color: black;
+    border: none;
+  }
+</style>

@@ -15,9 +15,10 @@
     Object.assign(props, json); // populates query, pageCount, rows, rowCount
     props.rows = writable(props.rows);
 
+    props.sourceSuggest = await suggest.source(fetch);
     props.langSuggest = await suggest.langPlus(fetch);
     props.glosslangSuggest = await suggest.glosslang(fetch);
-    if (!props.langSuggest || !props.glosslangSuggest) {
+    if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
       return { status: 500, error: 'Internal error' };
     }
 
@@ -34,11 +35,12 @@
 <script>
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
-  import SetTable from './_Table.svelte';
+  import SetList from './_List.svelte';
   // import { preferences } from '$lib/stores';
 
   export let rows;
   // export let editable;
+  export let sourceSuggest;
   export let langSuggest;
   export let glosslangSuggest;
   export let query;
@@ -49,6 +51,7 @@
 <h2>Search sets</h2>
 <SearchForm
   {query}
+  {sourceSuggest}
   {langSuggest}
   {glosslangSuggest}
 />
@@ -57,7 +60,7 @@
   <div class="info">
     Total sets found: {rowCount}
   </div>
-  <SetTable
+  <SetList
     {rows}
     {query}
     {pageCount}

@@ -73,6 +73,18 @@ export async function getCount(q) {
 // searching
 
 export function applyEntrySearchParams(q, query) {
+  applyHeadwordGlossSearchParams(q, query);
+
+  if (query.set === 'linked') {
+    q.join('set_member', 'set_member.entry_id', 'entry.id');
+  } else if (query.set === 'unlinked') {
+    q
+      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
+      .whereNull('set_member.set_id');
+  }
+}
+
+export function applyHeadwordGlossSearchParams(q, query) {
   if ('headword' in query) {
     q.where('entry.headword', '~*', mungeRegex(query.headword));
   }
@@ -86,14 +98,6 @@ export function applyEntrySearchParams(q, query) {
     if ('glosslang' in query) {
       q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
     }
-  }
-
-  if (query.set === 'linked') {
-    q.join('set_member', 'set_member.entry_id', 'entry.id');
-  } else if (query.set === 'unlinked') {
-    q
-      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
-      .whereNull('set_member.set_id');
   }
 }
 

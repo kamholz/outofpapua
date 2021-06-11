@@ -1,6 +1,6 @@
 <script>
   export let form;
-  export let space;
+  export let space = true;
   let before, reflex, after;
   $: {
     const match = form.match(/^(.*)\|(.+)\|(.*)$/);

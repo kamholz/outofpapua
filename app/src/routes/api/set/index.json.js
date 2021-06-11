@@ -1,11 +1,15 @@
 import { allowed, table } from './_params';
-import { applyPageParams, applySortParams, getCount, knex, sendPgError, transaction } from '$lib/db';
+import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex, sendPgError,
+  transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { getFilteredParams, isIdArray, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams,
+  parseBooleanParams, partitionPlus } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowedSearch = new Set(['asc', 'page', 'pagesize', 'sort']);
+const allowedSearch = new Set(['asc', 'gloss', 'glosslang', 'headword', 'lang', 'page', 'pagesize', 'sort', 'source']);
 const boolean = new Set(['asc']);
+const arrayParams = new Set(['lang']);
+const arrayNumParams = new Set(['glosslang', 'source']);
 const defaults = {
   asc: true,
   page: 1,
@@ -19,9 +23,49 @@ const sortCols = {
 export async function get({ query }) {
   query = getFilteredParams(normalizeQuery(query), allowedSearch);
   parseBooleanParams(query, boolean);
+  parseArrayParams(query, arrayParams);
+  parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
   const q = knex('set_with_members as set');
+
+  const existsq = knex('set_member')
+    .where('set_member.set_id', knex.ref('set.id'))
+    .join('entry', 'entry.id', 'set_member.entry_id');
+  let existsqNeeded = false;
+
+  if ('headword' in query || 'gloss' in query) {
+    applyHeadwordGlossSearchParams(existsq, query);
+    existsqNeeded = true;
+  }
+
+  if ('lang' in query) {
+    const [lang, langPlus] = partitionPlus(query.lang);
+    if (langPlus.length) {
+      const descendants = await knex('language_with_descendants')
+        .where('id', arrayCmp(new Set(langPlus)))
+        .pluck('descendants');
+      for (const d of descendants) {
+        lang.push(...d);
+      }
+    }
+
+    if (lang.length) {
+      existsq
+        .join('source', 'source.id', 'entry.source_id')
+        .where('source.language_id', arrayCmp(new Set(lang)));
+      existsqNeeded = true;
+    }
+  }
+
+  if ('source' in query) {
+    existsq.where('entry.source_id', arrayCmp(query.source));
+    existsqNeeded = true;
+  }
+
+  if (existsqNeeded) {
+    q.whereExists(existsq);
+  }
 
   const rowCount = await getCount(q);
 
@@ -35,7 +79,19 @@ export async function get({ query }) {
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['name']);
 
+  console.log(q.toString());
   const rows = await q;
+
+  if ('glosslang' in query) {
+    const set = new Set(query.glosslang);
+    for (const { members } of rows) {
+      for (const { entry } of members) {
+        for (const sense of entry.senses) {
+          sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+        }
+      }
+    }
+  }
 
   return {
     body: {
