@@ -26,15 +26,11 @@
     position: relative;
   
     &.error {
-      color: #721c24;
-      background-color: #f8d7da;
-      border-color: #f5c6cb;
+      @include error_color;
     }
 
     &.success {
-      color: #155724;
-      background-color: #d4edda;
-      border-color: #c3e6cb;      
+      @include success_color;
     }
   }
 

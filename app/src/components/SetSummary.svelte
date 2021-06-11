@@ -55,15 +55,7 @@
 <style lang="scss">
   .popover {
     padding: 8px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 4px 4px 8px gray;
-    font-size: 14px;
-  }
-
-  ul {
-    list-style: none;
+    @include popover;
   }
 
   .title {

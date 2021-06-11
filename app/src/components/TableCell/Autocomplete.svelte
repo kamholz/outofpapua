@@ -65,7 +65,7 @@
 </td>
 
 <style lang="scss">
-  td.autocomplete {
+  .autocomplete {
     padding-block: 0;
 
     :global(.svelecte-control .sv-control) {

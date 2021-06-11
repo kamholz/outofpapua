@@ -6,40 +6,35 @@
 
   export let username;
   let password;
-  let error = null;
-  let loggingIn = false;
+  let promise;
 
   async function handleLogin() {
-    loggingIn = true;
     $pageLoading++;
     try {
-      await login(username, password);
+      promise = login(username, password);
+      await promise;
       password = null;
-      error = null;
-    } catch (e) {
-      error = e.message;
-    }
-    loggingIn = false;
+    } catch (e) {}
     $pageLoading--;
   }
 
   async function handleLogout() {
     $pageLoading++;
     try {
-      await logout();
-      error = null;
+      promise = logout();
+      await promise;
       $session.user = null;
       goto('/');
-    } catch (e) {
-      error = e.message;
-    }
+    } catch (e) {}
     $pageLoading--;
   }
 </script>
 
-<div id="login">
-  {#if error}
-    <span class="error">{error}</span>
+<div>
+  {#if promise}
+    {#await promise catch { message} }
+      <span class="error">{message}</span>
+    {/await}
   {/if}
   {#if $session.user}
     <span>Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
@@ -47,16 +42,16 @@
   {:else}
     <form on:submit|preventDefault={handleLogin}>
       <label for="username">Email:</label>
-      <input type="text" name="username" bind:value={username}>
+      <input type="text" id="username" name="username" bind:value={username}>
       <label for="password">Password:</label>
-      <input type="password" name="password" bind:value={password}>
-      <button type="submit" disabled={loggingIn}>Login</button>
+      <input type="password" id="password" name="password" bind:value={password}>
+      <button type="submit" disabled={$pageLoading}>Login</button>
     </form>
   {/if}
 </div>
 
 <style lang="scss">
-  #login {
+  div {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -66,10 +61,8 @@
       padding: .3em .6em;
       border-radius: .2em;
       margin-inline-end: .4em;
-      color: #721c24;
-      background-color: #f8d7da;
+      @include error_color;
       border: 1px solid transparent;
-      border-color: #f5c6cb;
     }
 
     label {

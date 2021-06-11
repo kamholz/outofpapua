@@ -94,11 +94,7 @@
 
   .popover {
     padding: 12px;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 4px 4px 8px gray;
-    font-size: 14px;
+    @include popover;
 
     .items {
       column-count: 2;

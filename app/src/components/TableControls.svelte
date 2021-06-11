@@ -38,14 +38,16 @@
   .controls {
     display: flex;
 
-    :global(a) {
-      text-decoration: none;
-    }
+    :global {
+      a {
+        text-decoration: none;
+      }
 
-    :global(.fa-icon) {
-      color: #034f84;
-      &:hover {
-        color: #92a8d1;
+      .fa-icon {
+        color: #034f84;
+        &:hover {
+          color: #92a8d1;
+        }
       }
     }
   }

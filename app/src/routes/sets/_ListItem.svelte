@@ -17,9 +17,7 @@
 
 <style lang="scss">
   ul {
-    list-style: none;
     padding-left: 1em;
-
     li {
       margin-block: 2px;
     }

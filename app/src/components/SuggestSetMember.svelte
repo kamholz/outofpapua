@@ -47,15 +47,17 @@
   on:change={handleSelect}
 />
 
-<style lang="scss" global>
-  .suggest {
-    display: grid;
-    grid-template-columns: 20% 80%;
-    gap: 6px;
-    white-space: normal;
+<style lang="scss">
+  :global {
+    .suggest {
+      display: grid;
+      grid-template-columns: 20% 80%;
+      gap: 6px;
+      white-space: normal;
 
-    > :first-child {
-      @include indent-small;
+      > :first-child {
+        @include indent-small;
+      }
     }
   }
 </style>

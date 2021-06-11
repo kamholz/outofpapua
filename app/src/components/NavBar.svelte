@@ -17,11 +17,7 @@
 <style lang="scss">
   ul {
     display: flex;
-    justify-content: flex-start;
-    margin-inline: 0;
-    margin-block: 0 1em;
-    padding: 0;
-    list-style: none;
+    margin-block-end: 1em;
   }
 
   li {
@@ -30,17 +26,16 @@
     padding-inline: 0.75em;
     background-color: $light_gray;
     border-radius: 3px;
-  }
-
-  li.active {
-    font-weight: bold;
+    &.active {
+      font-weight: bold;
+    }
   }
 
   a {
     color: black;
     text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 </style>

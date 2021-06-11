@@ -30,3 +30,9 @@
 {:else if entry.senses.length === 1}
   <GlossesDefinitions sense={entry.senses[0]} />
 {/if}
+
+<style>
+  h4 {
+    margin-block: 0.75em 0.25em;
+  }
+</style>

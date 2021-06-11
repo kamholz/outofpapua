@@ -19,6 +19,7 @@
 
 <style lang="scss">
   div {
-    @include indent;
+    padding-inline-start: 2em;
+    text-indent: -1em;
   }
 </style>
