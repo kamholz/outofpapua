@@ -141,7 +141,7 @@
   </div>
 {/if}
 
-<style>
+<style lang="scss">
   .container {
     display: inline-block;
   }
