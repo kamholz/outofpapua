@@ -288,20 +288,6 @@
 </Collapsible>
 
 <style lang="scss">
-  :global(.borrowed) {
-    color: crimson;
-    :global(a) {
-      color: inherit;
-    }
-  }
-
-  :global(.inherited) {
-    color: purple;
-    :global(a) {
-      color: inherit;
-    }
-  }
-  
   .details {
     flex-grow: 1;
   }

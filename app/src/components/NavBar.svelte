@@ -15,8 +15,6 @@
 </nav>
 
 <style lang="scss">
-  @import '../vars.scss';
-
   ul {
     display: flex;
     justify-content: flex-start;

@@ -65,6 +65,20 @@ button {
   }
 }
 
+.borrowed {
+  color: crimson;
+  a {
+    color: inherit;
+  }
+}
+
+.inherited {
+  color: purple;
+  a {
+    color: inherit;
+  }
+}
+
 // svelecte
 
 .svelecte-control {

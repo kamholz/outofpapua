@@ -36,8 +36,6 @@
 </table>
 
 <style lang="scss">
-  @import '../../vars.scss';
-
   div {
     margin-block-end: 16px;
   }

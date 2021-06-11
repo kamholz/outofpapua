@@ -23,10 +23,5 @@
 {/if}
 
 <style lang="scss">
-  hr {
-    margin-block: 20px;
-    block-size: 2px;
-    background-color: black;
-    border: none;
-  }
+  @include hr;
 </style>

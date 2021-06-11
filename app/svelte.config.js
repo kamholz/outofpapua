@@ -6,7 +6,11 @@ import sveltePreprocess from 'svelte-preprocess';
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
-  preprocess: sveltePreprocess(),
+  preprocess: sveltePreprocess({
+    scss: {
+      prependData: "@import 'src/mixins.scss';",
+    },
+  }),
   kit: {
     // By default, `npm run build` will create a standard Node app.
     // You can create optimized builds for different platforms by

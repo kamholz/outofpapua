@@ -1,0 +1,20 @@
+$lightgray: #e0e0e0;
+$lightergray: #e8e8e8;
+
+@mixin hr {
+  hr {
+    margin-block: 20px;
+    block-size: 2px;
+    background-color: black;
+    border: none;
+  }
+}
+
+@mixin contenteditable {
+  [contenteditable="true"] {
+    padding-inline: 6px;
+    border: 0.25px solid #767676;
+    border-radius: 1px;
+    font-weight: normal;
+  }
+}

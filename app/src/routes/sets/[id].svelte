@@ -182,11 +182,8 @@
 </div>
 
 <style lang="scss">
-  [contenteditable="true"] {
-    padding-inline: 6px;
-    border: 0.25px solid #767676;
-    border-radius: 1px;
-  }
+  @include contenteditable;
+  @include hr;
 
   button {
     margin-inline-start: 0;
@@ -196,13 +193,6 @@
   textarea {
     inline-size: 100%;
     block-size: 4em;
-  }
-
-  hr {
-    margin-block: 20px;
-    block-size: 2px;
-    background-color: black;
-    border: none;
   }
 
   .set {

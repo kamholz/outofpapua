@@ -21,11 +21,6 @@
   on:keydown={handleKeyDown}
 />
 
-<style>
-  span {
-    border: 0.25px solid #767676;
-    border-radius: 1px;
-    padding-inline: 4px;
-    font-weight: normal;
-  }
+<style lang="scss">
+  @include contenteditable;
 </style>

@@ -27,8 +27,6 @@
 </div>
 
 <style lang="scss">
-  @import '../vars.scss';
-
   .record {
     border: 1px solid gray;
     padding: 10px;
