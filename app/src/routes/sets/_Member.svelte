@@ -320,8 +320,7 @@
   }
 
   .indent {
-    padding-inline-start: 1em;
-    text-indent: -1em;
+    @include indent;
   }
 
   textarea {

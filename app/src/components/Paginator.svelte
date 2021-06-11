@@ -51,7 +51,7 @@
     border-radius: 4px;
     padding-block: 6px;
     padding-inline: 4px;
-    margin-block: 20px;
+    margin-block: $item_sep;
     color: grey;
 
     :global(a) {

@@ -64,18 +64,13 @@
   <div class="notfound">no entries found</div>
 {/if}
 
-<style>
+<style lang="scss">
   .info {
-    margin-block: 20px;
-    text-indent: -1em;
-    padding-inline-start: 1em;
-  }
-
-  .notfound {
-    font-style: italic;
+    margin-block: $item_sep;
+    @include indent;
   }
 
   .controls {
-    margin-block: 20px;
+    margin-block: $item_sep;
   }
 </style>

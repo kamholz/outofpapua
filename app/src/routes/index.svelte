@@ -145,13 +145,10 @@
   .container {
     display: inline-block;
   }
+
   .controls {
-    margin-block: 20px;
+    margin-block: $item_sep;
     display: flex;
     justify-content: space-between;
-  }
-
-  .notfound {
-    font-style: italic;
   }
 </style>

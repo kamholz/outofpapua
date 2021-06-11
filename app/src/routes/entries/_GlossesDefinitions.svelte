@@ -17,9 +17,8 @@
   </div>
 {/if}
 
-<style>
+<style lang="scss">
   div {
-    padding-left: 2em;
-    text-indent: -1em;
+    @include indent;
   }
 </style>

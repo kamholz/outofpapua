@@ -1,9 +1,10 @@
 $lightgray: #e0e0e0;
 $lightergray: #e8e8e8;
+$item_sep: 20px;
 
 @mixin hr {
   hr {
-    margin-block: 20px;
+    margin-block: $item_sep;
     block-size: 2px;
     background-color: black;
     border: none;
@@ -17,4 +18,14 @@ $lightergray: #e8e8e8;
     border-radius: 1px;
     font-weight: normal;
   }
+}
+
+@mixin indent {
+  padding-inline-start: 1em;
+  text-indent: -1em;
+}
+
+@mixin indent-small {
+  padding-inline-start: 0.75em;
+  text-indent: -0.75em;
 }

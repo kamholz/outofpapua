@@ -27,9 +27,8 @@
   {/each}
 </td>
 
-<style>
+<style lang="scss">
   p {
-    padding-inline-start: 1em;
-    text-indent: -1em;
+    @include indent;
   }
 </style>

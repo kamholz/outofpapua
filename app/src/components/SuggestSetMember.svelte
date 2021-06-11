@@ -55,8 +55,7 @@
     white-space: normal;
 
     :global(> :first-child) {
-      padding-inline-start: 0.75em;
-      text-indent: -0.75em;
+      @include indent-small;
     }
   }
 </style>
