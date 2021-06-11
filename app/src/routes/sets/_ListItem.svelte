@@ -14,7 +14,7 @@
 <Collapsible {collapsed}>
   <div class="header">
     <CollapsibleIndicator />
-    <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>  
+    <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
   </div>
   {#if !$collapsed}
     <ul transition:slide={{ duration: 200 }}>
