@@ -1,6 +1,7 @@
 <script context="module">
   import { normalizeQuery } from '$lib/util';
   import { writable } from 'svelte/store';
+  import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -14,6 +15,12 @@
     Object.assign(props, json); // populates query, pageCount, rows, rowCount
     props.rows = writable(props.rows);
 
+    props.langSuggest = await suggest.langPlus(fetch);
+    props.glosslangSuggest = await suggest.glosslang(fetch);
+    if (!props.langSuggest || !props.glosslangSuggest) {
+      return { status: 500, error: 'Internal error' };
+    }
+
     return { props };
   }
 
@@ -26,20 +33,29 @@
 
 <script>
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import SearchForm from './_SearchForm.svelte';
   import SetTable from './_Table.svelte';
   // import { preferences } from '$lib/stores';
 
   export let rows;
   // export let editable;
+  export let langSuggest;
+  export let glosslangSuggest;
   export let query;
   export let pageCount;
   export let rowCount;
 </script>
 
-<h2>Sets</h2>
+<h2>Search sets</h2>
+<SearchForm
+  {query}
+  {langSuggest}
+  {glosslangSuggest}
+/>
+
 {#if $rows.length}
   <div class="info">
-    Total sets: {rowCount}
+    Total sets found: {rowCount}
   </div>
   <SetTable
     {rows}
