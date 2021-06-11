@@ -79,7 +79,6 @@ export async function get({ query }) {
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['name']);
 
-  console.log(q.toString());
   const rows = await q;
 
   if ('glosslang' in query) {
