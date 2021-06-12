@@ -1,28 +1,23 @@
 <script>
   import Reflex from '$components/Reflex.svelte';
-  import popover from '$lib/popover';
-  import { createPopperActions } from 'svelte-popperjs';
+  import { createPopperActions, popover } from '$lib/popover';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { glossSummaryNoLanguage } from '$lib/util';
 
   export let href;
-  export let setId;
+  export let id;
   const cache = getContext('setSummaryCache');
-  $: set = $cache[setId];
+  $: set = $cache[id];
 
-  const [popperRef, popperContent] = createPopperActions({
-    modifiers: [
-      { name: 'offset', options: { offset: [0, 8] } },
-    ],
-  });
+  const [popperRef, popperContent] = createPopperActions();
   let showPopover = false;
 
   async function fetchSet() {
     if (!set) {
-      const res = await fetch(`/api/set/${setId}.json`);
+      const res = await fetch(`/api/set/${id}.json`);
       if (res.ok) {
-        $cache[setId] = await res.json();
+        $cache[id] = await res.json();
       }
     }
   }

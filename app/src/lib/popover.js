@@ -1,6 +1,16 @@
+import { createPopperActions as createPopperActionsOriginal } from 'svelte-popperjs';
+
 const graceMs = 300;
 
-export default function popover(node, { popperRef, popperOptions, popoverRef, activate, show, hide, prefetch }) {
+export function createPopperActions() {
+  return createPopperActionsOriginal({
+    modifiers: [
+      { name: 'offset', options: { offset: [0, 8] } },
+    ],
+  });
+}
+
+export function popover(node, { popperRef, popperOptions, popoverRef, activate, show, hide, prefetch }) {
   const actions = popperRef(node, popperOptions);
   let timeout;
   let waitingToShow = false;
@@ -35,6 +45,7 @@ export default function popover(node, { popperRef, popperOptions, popoverRef, ac
   const onClick = () => {
     open = !open;
     if (open) {
+      prefetch?.();
       show();
     } else {
       hide();

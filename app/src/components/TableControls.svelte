@@ -1,6 +1,7 @@
 <script>
   import TableControlDelete from '$components/TableControl/Delete.svelte';
   import TableControlEdit from '$components/TableControl/Edit.svelte';
+  import TableControlEntryInfo from '$components/TableControl/EntryInfo.svelte';
   import TableControlSelect from '$components/TableControl/Select.svelte';
   import TableControlSet from '$components/TableControl/Set.svelte';
   import TableControlView from '$components/TableControl/View.svelte';
@@ -14,10 +15,13 @@
   const componentMap = {
     delete: TableControlDelete,
     edit: TableControlEdit,
+    entryinfo: TableControlEntryInfo,
     select: TableControlSelect,
     set: TableControlSet,
     view: TableControlView,
   };
+
+  const dispatchEvent = new Set(['delete', 'select']);
 </script>
 
 <td>
@@ -28,7 +32,7 @@
         {control}
         {row}
         {scale}
-        on:click={() => dispatch(control.type, row)}
+        on:click={dispatchEvent.has(control.type) && (() => dispatch(control.type, row))}
       />
     {/each}
   </div>

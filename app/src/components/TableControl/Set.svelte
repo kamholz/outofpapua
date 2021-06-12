@@ -3,16 +3,14 @@
   import SetSummary from '$components/SetSummary.svelte';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
 
-  export let control;
   export let row;
   export let scale;
-  $: setId = control.getSetId(row);
 </script>
 
-{#if setId}
+{#if row.set_id}
   <SetSummary
-    href={control.link(row)}
-    {setId}
+    href="/sets/{row.set_id}"
+    id={row.set_id}
   >
     <Icon data={faBezierCurve} {scale} label="Set" />
   </SetSummary>

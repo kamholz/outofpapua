@@ -4,6 +4,7 @@
   export let rows;
   export let query;
   export let pageCount;
+  export let editable;
   export let linkable;
 
   const columns = [
@@ -19,6 +20,7 @@
       key: 'headword',
       title: 'Headword',
       link: (row) => `/records/${row.record_id}`,
+      // linkClass: (row) => row.origin,
     },
     {
       key: 'senses',
@@ -31,9 +33,10 @@
   const controls = [
     {
       type: 'set',
-      getSetId: (row) => row.set_id,
-      link: (row) => `/sets/${row.set_id}`,
-      prefetch: false,
+    },
+    {
+      type: 'entryinfo',
+      editable,
     },
   ];
 

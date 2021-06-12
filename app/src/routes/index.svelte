@@ -55,12 +55,12 @@
   import * as crud from '$actions/crud';
 
   export let rows = null;
-  export let editable;
-  export let langSuggest;
-  export let glosslangSuggest;
   export let query;
+  export let editable;
   export let pageCount = null;
   export let rowCount = null;
+  export let langSuggest;
+  export let glosslangSuggest;
 
   const linkable = editable && query.set !== 'linked';
   let selection;
@@ -127,6 +127,7 @@
         {rows}
         {query}
         {pageCount}
+        {editable}
         {linkable}
       />
       <div class="controls">

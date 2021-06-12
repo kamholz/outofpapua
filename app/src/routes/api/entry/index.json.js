@@ -84,13 +84,17 @@ export async function get({ query }) {
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
-    .leftJoin('set_member', 'set_member.entry_id', 'entry.id');
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
+    .leftJoin('language as origin_language', 'origin_language.id', 'entry.origin_language_id');
 
   const rowCount = await getCount(q);
 
   q.select(
     'entry.id',
     'entry.headword',
+    'entry.origin',
+    'entry.origin_language_id',
+    'origin_language.name as origin_language_name',
     'entry.senses',
     'entry.record_id',
     'language.name as language',

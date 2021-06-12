@@ -210,6 +210,16 @@ export function joinGosses(glosses) {
   return glosses.join(', ');
 }
 
+// entry formatting
+
+export function originSummary(entry) {
+  let origin = entry.origin ?? 'unknown';
+  if (origin === 'borrowed' && entry.origin_language_name) {
+    origin += ` from ${entry.origin_language_name}`;
+  }
+  return origin;
+}
+
 // misc
 
 export function mungeRegex(txt) {

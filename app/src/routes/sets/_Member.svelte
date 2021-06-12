@@ -8,7 +8,8 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, parseGlosses } from '$lib/util';
+  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary,
+    parseGlosses } from '$lib/util';
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
   import { pageLoading, preferences } from '$lib/stores';
@@ -42,14 +43,6 @@
 
   function mungePos(pos) {
     return pos.replace(/\.$/, '');
-  }
-
-  function originSummary() {
-    let origin = values.origin ?? 'unknown';
-    if (origin === 'borrowed' && values.origin_language_name) {
-      origin += ` from ${values.origin_language_name}`;
-    }
-    return origin;
   }
 
   async function handleUpdate(key) {
@@ -180,7 +173,7 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary()}</span>
+        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary(values)}</span>
       {:else}
         <p>
           <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
@@ -249,7 +242,7 @@
               </label>
             </span>
           {:else}
-            <span>{originSummary()}</span>
+            <span>{originSummary(values)}</span>
           {/if}
         </li>
         {#if entry.origin === 'borrowed' && editable}

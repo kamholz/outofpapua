@@ -3,8 +3,10 @@
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
-  export async function load({ page: { params, query }, fetch }) {
-    const props = {};
+  export async function load({ fetch, page: { params, query }, session }) {
+    const props = {
+      editable: session.user !== null,
+    };
     let res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
       return { status: 500, error: 'Internal error' };
@@ -29,6 +31,7 @@
   export let source;
   export let rows;
   export let query;
+  export let editable;
   export let pageCount;
   export let rowCount;
 
@@ -56,6 +59,7 @@
     {rows}
     {query}
     {pageCount}
+    {editable}
   />
   <div class="controls">
     <PageSizeSelect {query} />

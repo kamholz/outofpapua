@@ -1,15 +1,10 @@
 <script>
   import Icon from 'svelte-awesome';
-  import popover from '$lib/popover';
-  import { createPopperActions } from 'svelte-popperjs';
+  import { createPopperActions, popover } from '$lib/popover';
   import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
 
-  const [popperRef, popperContent] = createPopperActions({
-    modifiers: [
-      { name: 'offset', options: { offset: [0, 8] } },
-    ],
-  });
+  const [popperRef, popperContent] = createPopperActions();
   let showPopover = false;
   let popoverRef;
 </script>

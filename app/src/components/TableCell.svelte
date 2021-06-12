@@ -65,7 +65,10 @@
   {:else}
     <td>
       {#if link}
-        <a href={link(row)} sveltekit:prefetch={prefetch ?? null}>{value(row)}</a>
+        <a
+          href={link(row)}
+          sveltekit:prefetch={prefetch ?? null}
+        >{value(row)}</a>
       {:else}
         <span>{value(row)}</span>
       {/if}
