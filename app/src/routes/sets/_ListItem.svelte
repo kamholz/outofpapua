@@ -8,7 +8,6 @@
 
   export let set;
   export let collapsed;
-  console.log(collapsed);
 </script>
 
 <Collapsible {collapsed}>

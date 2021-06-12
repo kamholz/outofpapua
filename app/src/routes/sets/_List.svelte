@@ -7,12 +7,23 @@
   export let query;
   export let pageCount;
   const collapsedRows = $rows.map(() => writable(false));
+
+  function collapseAll(state) {
+    for (const [i] of $rows.entries()) {
+      collapsedRows[i].set(state);
+    }
+  }
 </script>
 
 {#if pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
 
+<hr>
+<div>
+  <button on:click={() => collapseAll(true)}>Collapse All</button>
+  <button on:click={() => collapseAll(false)}>Expand All</button>
+</div>
 <hr>
 
 {#each $rows as set, i (set.id)}
