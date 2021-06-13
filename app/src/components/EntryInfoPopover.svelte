@@ -21,7 +21,7 @@
 
   const popover = createPopover({
     hover: true,
-    clkck: true,
+    click: true,
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });
