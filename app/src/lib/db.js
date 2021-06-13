@@ -22,9 +22,10 @@ export function transaction(locals, cb) {
 }
 
 export function arrayCmp(param) {
-  return param.length === 1
-    ? param[0]
-    : knex.raw('any(?)', [[...param]]);
+  const list = [...param];
+  return list.length === 1
+    ? list[0]
+    : knex.raw('any(?)', [list]);
 }
 
 // pagination and sorting

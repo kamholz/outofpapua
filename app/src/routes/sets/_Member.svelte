@@ -5,11 +5,11 @@
   import Icon from 'svelte-awesome';
   import Input from './_Input.svelte';
   import MemberReflex from './_MemberReflex.svelte';
+  import OriginSummary from '$components/OriginSummary.svelte';
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary,
-    parseGlosses } from '$lib/util';
+  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, parseGlosses } from '$lib/util';
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { pageLoading, preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
@@ -174,7 +174,7 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span>, origin: {originSummary(values)}</span>
+        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
       {:else}
         <p>
           <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
