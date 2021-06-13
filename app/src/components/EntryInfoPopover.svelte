@@ -1,6 +1,6 @@
 <script>
   import Svelecte from '$components/Svelecte.svelte';
-  import { createPopperActions, popover } from '$lib/popover';
+  import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
   import { originSummary } from '$lib/util';
   import { pageLoading } from '$lib/stores';
@@ -19,9 +19,12 @@
     ? [...borrowlangSuggest].filter((v) => v.id !== entry.language_id)
     : null;
 
-  const [popperRef, popperContent] = createPopperActions();
+  const popover = createPopover({
+    activate: 'click',
+    show: () => showPopover = true,
+    hide: () => showPopover = false,
+  });
   let showPopover = false;
-  let popoverRef;
 
   async function handleUpdate(key) {
     if (entry[key] === values[key]) {
@@ -50,19 +53,15 @@
   }
 </script>
 
-<span
-  use:popover={{
-    popperRef,
-    popoverRef: () => popoverRef,
-    activate: 'click',
-    show: () => showPopover = true,
-    hide: () => showPopover = false,
-  }}
->
+<span use:popoverTrigger={popover}>
   <slot />
 </span>
 {#if showPopover}
-  <div class="popover" use:popperContent bind:this={popoverRef} transition:fade|local={{ duration: 200 }}>
+  <div
+    class="popover"
+    use:popoverContent={popover}
+    transition:fade|local={{ duration: 200 }}
+  >
     {#if editable}
       <div>
         <div class="label">

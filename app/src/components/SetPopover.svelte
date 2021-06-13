@@ -1,6 +1,6 @@
 <script>
   import Reflex from '$components/Reflex.svelte';
-  import { createPopperActions, popover } from '$lib/popover';
+  import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { glossSummaryNoLanguage } from '$lib/util';
@@ -10,7 +10,12 @@
   const cache = getContext('setSummaryCache');
   $: set = $cache[id];
 
-  const [popperRef, popperContent] = createPopperActions();
+  const popover = createPopover({
+    activate: 'hover',
+    show: () => showPopover = true,
+    hide: () => showPopover = false,
+    prefetch: fetchSet,
+  });
   let showPopover = false;
 
   async function fetchSet() {
@@ -26,18 +31,16 @@
 <a
   {href}
   sveltekit:prefetch
-  use:popover={{
-    popperRef,
-    activate: 'hover',
-    show: () => showPopover = true,
-    hide: () => showPopover = false,
-    prefetch: fetchSet,
-  }}
+  use:popoverTrigger={popover}
 >
   <slot />
 </a>
 {#if showPopover && set}
-  <div class="popover" use:popperContent transition:fade|local={{ duration: 200 }}>
+  <div
+    class="popover"
+    use:popoverContent={popover}
+    transition:fade|local={{ duration: 200 }}
+  >
     <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
       {#each set.members as { entry, reflex, source } (entry.id)}

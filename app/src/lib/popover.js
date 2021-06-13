@@ -1,17 +1,22 @@
-import { createPopperActions as createPopperActionsOriginal } from 'svelte-popperjs';
+import { createPopperActions } from 'svelte-popperjs';
 
 const graceMs = 300;
 
-export function createPopperActions() {
-  return createPopperActionsOriginal({
+export function createPopover(args = {}) {
+  const [popperRef, popperContent] = createPopperActions({
     modifiers: [
       { name: 'offset', options: { offset: [0, 8] } },
     ],
   });
+  return {
+    ...args,
+    popperRef,
+    popperContent,
+  };
 }
 
-export function popover(node, { popperRef, popperOptions, popoverRef, activate, show, hide, prefetch }) {
-  const actions = popperRef(node, popperOptions);
+export function popoverTrigger(node, { activate, hide, popoverRef, popperRef, prefetch, show }) {
+  const actions = popperRef(node);
   let timeout;
   let waitingToShow = false;
   let waitingToHide = false;
@@ -52,7 +57,7 @@ export function popover(node, { popperRef, popperOptions, popoverRef, activate, 
     }
   };
   const onWindowClick = (e) => {
-    if (open && !(node.contains(e.target) || popoverRef()?.contains(e.target))) {
+    if (open && !(node.contains(e.target) || popoverRef?.contains(e.target))) {
       open = false;
       hide();
     }
@@ -79,4 +84,11 @@ export function popover(node, { popperRef, popperOptions, popoverRef, activate, 
       }
     },
   };
+}
+
+export function popoverContent(node, popover) {
+  const { popperContent, popperOptions } = popover;
+  const actions = popperContent(node, popperOptions);
+  popover.popoverRef = node;
+  return actions;
 }

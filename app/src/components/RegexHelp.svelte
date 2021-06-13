@@ -1,27 +1,26 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { createPopperActions, popover } from '$lib/popover';
+  import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
 
-  const [popperRef, popperContent] = createPopperActions();
-  let showPopover = false;
-  let popoverRef;
-</script>
-
-<div
-  use:popover={{
-    popperRef,
-    popoverRef: () => popoverRef,
+  const popover = createPopover({
     activate: 'click',
     show: () => showPopover = true,
     hide: () => showPopover = false,
-  }}
->
+  });
+  let showPopover = false;
+</script>
+
+<div use:popoverTrigger={popover}>
   <Icon data={faQuestionCircle} />
 </div>
 {#if showPopover}
-  <div class="popover" use:popperContent bind:this={popoverRef} transition:fade|local={{ duration: 200 }}>
+  <div
+    class="popover"
+    use:popoverContent={popover}
+    transition:fade|local={{ duration: 200 }}
+  >
     <h1>Regular expression reference</h1>
     <div class="items">
       <div>
