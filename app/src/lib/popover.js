@@ -17,53 +17,51 @@ export function createPopover(args) {
 
 export function popoverTrigger(node, popover) {
   const { click, hide, hover, popoverRef, popperRef, prefetch, show } = popover;
-  const actions = popperRef(node);
   let open = false;
   let clickOpen = false;
   let waitingToShow = false;
   let waitingToHide = false;
   let timeout;
 
-  createClickListeners(node);
-  createHoverListeners(node);
-  popover.createHoverListeners = createHoverListeners;
-  popover.destroyHoverListeners = destroyHoverListeners;
-
-  return {
-    destroy() {
-      actions.destroy?.();
-      destroyClickListeners(node);
-      destroyHoverListeners(node);
-    },
-  };
-
-  function createClickListeners(node) {
+  popover.createClickListeners = function (node) {
     if (click) {
       node.addEventListener('click', onClick);
       window.addEventListener('click', onWindowClick);
     }
-  }
+  };
 
-  function destroyClickListeners() {
+  popover.destroyClickListeners = function (node) {
     if (click) {
       node.removeEventListener('click', onClick);
       window.removeEventListener('click', onWindowClick);
     }
-  }
+  };
 
-  function createHoverListeners(node) {
+  popover.createHoverListeners = function (node) {
     if (hover) {
       node.addEventListener('mouseenter', onMouseEnter);
       node.addEventListener('mouseleave', onMouseLeave);
     }
-  }
+  };
 
-  function destroyHoverListeners(node) {
+  popover.destroyHoverListeners = function (node) {
     if (hover) {
       node.removeEventListener('mouseenter', onMouseEnter);
       node.removeEventListener('mouseleave', onMouseLeave);
     }
-  }
+  };
+
+  const actions = popperRef(node);
+  popover.createClickListeners(node);
+  popover.createHoverListeners(node);
+
+  return {
+    destroy() {
+      actions.destroy?.();
+      popover.destroyClickListeners(node);
+      popover.destroyHoverListeners(node);
+    },
+  };
 
   function onClick() {
     open = clickOpen = !open;
