@@ -5,7 +5,7 @@
   import { fade } from 'svelte/transition';
 
   const popover = createPopover({
-    activate: 'click',
+    click: true,
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });

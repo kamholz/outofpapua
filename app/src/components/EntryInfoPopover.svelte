@@ -20,7 +20,8 @@
     : null;
 
   const popover = createPopover({
-    activate: 'click',
+    hover: true,
+    clkck: true,
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });

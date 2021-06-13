@@ -11,7 +11,7 @@
   $: set = $cache[id];
 
   const popover = createPopover({
-    activate: 'hover',
+    hover: true,
     show: () => showPopover = true,
     hide: () => showPopover = false,
     prefetch: fetchSet,

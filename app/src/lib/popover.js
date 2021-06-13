@@ -15,14 +15,77 @@ export function createPopover(args = {}) {
   };
 }
 
-export function popoverTrigger(node, { activate, hide, popoverRef, popperRef, prefetch, show }) {
+export function popoverTrigger(node, popover) {
+  const { click, hide, hover, popoverRef, popperRef, prefetch, show } = popover;
   const actions = popperRef(node);
-  let timeout;
+  let open = false;
+  let clickOpen = false;
   let waitingToShow = false;
   let waitingToHide = false;
-  let open = false;
+  let timeout;
 
-  const onMouseEnter = () => {
+  createClickListeners(node);
+  createHoverListeners(node);
+  popover.createHoverListeners = createHoverListeners;
+  popover.destroyHoverListeners = destroyHoverListeners;
+
+  return {
+    destroy() {
+      actions.destroy?.();
+      destroyClickListeners(node);
+      destroyHoverListeners(node);
+    },
+  };
+
+  function createClickListeners(node) {
+    if (click) {
+      node.addEventListener('click', onClick);
+      window.addEventListener('click', onWindowClick);
+    }
+  }
+
+  function destroyClickListeners() {
+    if (click) {
+      node.removeEventListener('click', onClick);
+      window.removeEventListener('click', onWindowClick);
+    }
+  }
+
+  function createHoverListeners(node) {
+    if (hover) {
+      node.addEventListener('mouseenter', onMouseEnter);
+      node.addEventListener('mouseleave', onMouseLeave);
+    }
+  }
+
+  function destroyHoverListeners(node) {
+    if (hover) {
+      node.removeEventListener('mouseenter', onMouseEnter);
+      node.removeEventListener('mouseleave', onMouseLeave);
+    }
+  }
+
+  function onClick() {
+    open = clickOpen = !open;
+    if (open) {
+      prefetch?.();
+      show();
+    } else {
+      hide();
+    }
+  }
+
+  function onWindowClick(e) {
+    if (open && !(node.contains(e.target) || popoverRef?.contains(e.target))) {
+      open = false;
+      hide();
+    }
+  }
+
+  function onMouseEnter() {
+    if (clickOpen) {
+      return;
+    }
     if (waitingToHide) {
       clearTimeout(timeout);
       waitingToHide = false;
@@ -34,8 +97,12 @@ export function popoverTrigger(node, { activate, hide, popoverRef, popperRef, pr
         show();
       }, graceMs);
     }
-  };
-  const onMouseLeave = () => {
+  }
+
+  function onMouseLeave() {
+    if (clickOpen) {
+      return;
+    }
     if (waitingToShow) {
       clearTimeout(timeout);
       waitingToShow = false;
@@ -46,49 +113,21 @@ export function popoverTrigger(node, { activate, hide, popoverRef, popperRef, pr
         hide();
       }, graceMs);
     }
-  };
-  const onClick = () => {
-    open = !open;
-    if (open) {
-      prefetch?.();
-      show();
-    } else {
-      hide();
-    }
-  };
-  const onWindowClick = (e) => {
-    if (open && !(node.contains(e.target) || popoverRef?.contains(e.target))) {
-      open = false;
-      hide();
-    }
-  };
-
-  if (activate === 'hover') {
-    node.addEventListener('mouseenter', onMouseEnter);
-    node.addEventListener('mouseleave', onMouseLeave);
-  } else if (activate === 'click') {
-    node.addEventListener('click', onClick);
-    window.addEventListener('click', onWindowClick);
   }
-
-  return {
-    destroy() {
-      actions.destroy?.();
-
-      if (activate === 'hover') {
-        node.removeEventListener('mouseenter', onMouseEnter);
-        node.removeEventListener('mouseleave', onMouseLeave);
-      } else if (activate === 'click') {
-        node.removeEventListener('click', onClick);
-        window.removeEventListener('click', onWindowClick);
-      }
-    },
-  };
 }
 
 export function popoverContent(node, popover) {
-  const { popperContent, popperOptions } = popover;
+  const { createHoverListeners, destroyHoverListeners, popperContent, popperOptions } = popover;
   const actions = popperContent(node, popperOptions);
   popover.popoverRef = node;
-  return actions;
+  createHoverListeners(node);
+  return {
+    destroy() {
+      actions.destroy?.();
+      destroyHoverListeners(node);
+    },
+    update() {
+      actions.update?.();
+    },
+  };
 }
