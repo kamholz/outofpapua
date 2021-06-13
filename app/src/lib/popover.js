@@ -2,7 +2,7 @@ import { createPopperActions } from 'svelte-popperjs';
 
 const graceMs = 300;
 
-export function createPopover(args = {}) {
+export function createPopover(args) {
   const [popperRef, popperContent] = createPopperActions({
     modifiers: [
       { name: 'offset', options: { offset: [0, 8] } },
