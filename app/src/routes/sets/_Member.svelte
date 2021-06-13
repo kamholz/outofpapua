@@ -11,7 +11,6 @@
   import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary,
     parseGlosses } from '$lib/util';
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import { getContext } from 'svelte';
   import { pageLoading, preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
@@ -19,13 +18,15 @@
   import * as crudSetMember from '$actions/crud/setmember';
 
   export let member;
+  export let set;
+  export let editable;
+  export let borrowlangSuggest;
   export let collapsed;
   const promises = { pending: {}, fulfilled: {} };
   const memberKeys = new Set(['reflex']);
 
   const { entry, source } = member;
   const { senses } = entry;
-  const { set, editable, borrowlangSuggest } = getContext('set');
   const values = {
     note: entry.note,
     origin: entry.origin,
@@ -228,7 +229,7 @@
                   bind:group={values.origin}
                   on:change={() => handleUpdate('origin')}
                 >
-              <span>borrowed</span>
+                <span>borrowed</span>
               </label>
               <label>
                 <input
@@ -238,7 +239,7 @@
                   bind:group={values.origin}
                   on:change={() => handleUpdate('origin')}
                 >
-              <span>unknown</span>
+                <span>unknown</span>
               </label>
             </span>
           {:else}
@@ -340,7 +341,7 @@
     }
     input {
       margin-inline-end: 4px;
-    }    
+    }
   }
 
   .originlang {
@@ -351,7 +352,7 @@
       margin-inline-end: 10px;
     }
 
-    :global(.svelecte-control) {
+    :global(.svelecte-control .sv-control) {
       inline-size: 16em;
     }
   }

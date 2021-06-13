@@ -5,6 +5,7 @@
   export let query;
   export let editable;
   export let pageCount;
+  export let borrowlangSuggest;
 
   const columns = [
     {
@@ -28,6 +29,7 @@
     {
       type: 'entryinfo',
       editable,
+      borrowlangSuggest,
     },
   ];
 </script>

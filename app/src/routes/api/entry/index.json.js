@@ -97,6 +97,7 @@ export async function get({ query }) {
     'origin_language.name as origin_language_name',
     'entry.senses',
     'entry.record_id',
+    'language.id as language_id',
     'language.name as language',
     'source.reference as source',
     'set_member.set_id'

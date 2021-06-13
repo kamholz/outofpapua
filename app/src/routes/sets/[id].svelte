@@ -153,6 +153,7 @@
   {#if editable}
     <FormWrapper collapsed={writable(true)} label="Link existing entry">
       <LinkExistingForm
+        {set}
         {langSuggest}
         on:refresh={handleRefresh}
       />
@@ -161,6 +162,7 @@
 
     <FormWrapper collapsed={writable(true)} label="Add proto-form">
       <AddProtoForm
+        {set}
         {sourceSuggest}
         bind:values={createProtoValues}
         on:refresh={handleRefresh}
@@ -176,7 +178,14 @@
   <hr>
 
   {#each members as member (member.entry.id)}
-    <Member {member} collapsed={collapsedMembers[member.entry.id]} on:refresh={handleRefresh} />
+    <Member
+      {member}
+      {set}
+      {editable}
+      {borrowlangSuggest}
+      collapsed={collapsedMembers[member.entry.id]} 
+      on:refresh={handleRefresh}
+    />
     <hr>
   {/each}
 </div>

@@ -35,6 +35,9 @@
     if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500, error: 'Internal error' };
     }
+    if (props.editable) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+    }
 
     return { props };
   }
@@ -61,6 +64,7 @@
   export let rowCount = null;
   export let langSuggest;
   export let glosslangSuggest;
+  export let borrowlangSuggest = null;
 
   const linkable = editable && query.set !== 'linked';
   let selection;
@@ -129,6 +133,7 @@
         {pageCount}
         {editable}
         {linkable}
+        {borrowlangSuggest}
       />
       <div class="controls">
         <PageSizeSelect {query} />

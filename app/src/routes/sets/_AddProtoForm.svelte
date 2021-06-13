@@ -1,15 +1,15 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import { parseGlosses } from '$lib/util';
   import * as crudSetMember from '$actions/crud/setmember';
 
+  export let set;
   export let sourceSuggest;
   export let values;
-  const { set } = getContext('set');
   let promise;
 
   const fields = [

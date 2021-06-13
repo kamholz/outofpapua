@@ -6,6 +6,7 @@
   export let pageCount;
   export let editable;
   export let linkable;
+  export let borrowlangSuggest;
 
   const columns = [
     {
@@ -37,6 +38,7 @@
     {
       type: 'entryinfo',
       editable,
+      borrowlangSuggest,
     },
   ];
 

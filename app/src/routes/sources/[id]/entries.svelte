@@ -2,6 +2,7 @@
   import { optionalQuery } from '$lib/util';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
+  import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params, query }, session }) {
     const props = {
@@ -19,6 +20,10 @@
     Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
     props.rows = writable(props.rows);
 
+    if (props.editable) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+    }
+
     return { props };
   }
 </script>
@@ -34,6 +39,7 @@
   export let editable;
   export let pageCount;
   export let rowCount;
+  export let borrowlangSuggest = null;
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);
@@ -60,6 +66,7 @@
     {query}
     {pageCount}
     {editable}
+    {borrowlangSuggest}
   />
   <div class="controls">
     <PageSizeSelect {query} />

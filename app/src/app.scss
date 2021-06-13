@@ -99,6 +99,10 @@ button {
     box-shadow: 0 0 0 1px #015fcc;
   }
 
+  .sv-control.is-disabled {
+    flex-wrap: nowrap !important;
+  }
+
   .sv-control:not(.is-active) {
     border: 1px solid #767676 !important;
   }
