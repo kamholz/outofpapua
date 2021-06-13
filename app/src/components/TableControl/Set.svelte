@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
-  import SetSummary from '$components/SetSummary.svelte';
+  import SetPopover from '$components/SetPopover.svelte';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
 
   export let row;
@@ -8,12 +8,12 @@
 </script>
 
 {#if row.set_id}
-  <SetSummary
+  <SetPopover
     href="/sets/{row.set_id}"
     id={row.set_id}
   >
     <Icon data={faBezierCurve} {scale} label="Set" />
-  </SetSummary>
+  </SetPopover>
 {:else}
   <a href>
     <Icon data={faBezierCurve} {scale} class="hidden" />
