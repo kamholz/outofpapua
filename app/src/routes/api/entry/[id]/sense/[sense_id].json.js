@@ -9,8 +9,15 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   const { glosses } = updateParams;
   delete updateParams.glosses;
-  const sense_id = Number(params.sense_id);
+  if (!Object.keys(updateParams).length && !glosses) {
+    return { status: 400, body: { error: errors.noUpdatable } };
+  }
+  const editable = await isEditable(Number(params.id));
+  if (!editable) {
+    return { status: 400, body: { error: errors.editableEntry } };
+  }
 
+  const sense_id = Number(params.sense_id);
   const rows = await knex(table)
     .where('id', sense_id)
     .select('entry_id');

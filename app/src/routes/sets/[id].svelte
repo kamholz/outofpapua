@@ -1,5 +1,4 @@
 <script context="module">
-  import enter from '$lib/enter';
   import { goto } from '$app/navigation';
   import * as crud from '$actions/crud';
   import * as suggest from '$actions/suggest';
@@ -36,6 +35,7 @@
   import FormWrapper from './_FormWrapper.svelte';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
+  import keydown from '$lib/keydown';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
@@ -121,7 +121,7 @@
       contenteditable="true"
       bind:textContent={name}
       on:blur={handleUpdateName}
-      use:enter={(e) => e.currentTarget.blur()}
+      use:keydown={{ enter: (e) => e.currentTarget.blur() }}
     >{name}</span></h2>
 {:else}
   <h2>Set: {name}</h2>

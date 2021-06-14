@@ -23,6 +23,9 @@
     if (!('value' in column)) {
       column.value = (row) => stringify(row[column.key]);
     }
+    if (column.editable && !('inputValue' in column)) {
+      column.inputValue = column.value;
+    }
     if (column.link && !('prefetch' in column)) {
       column.prefetch = true;
     }

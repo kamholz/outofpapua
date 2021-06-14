@@ -1,6 +1,7 @@
 <script>
   import Icon from 'svelte-awesome';
   import Reflex from '$components/Reflex.svelte';
+  import keydown from '$lib/keydown';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -23,16 +24,6 @@
     editSpanRef.focus();
   }
 
-  function handleKeyDown(e) {
-    if (e.keyCode === 13) { // enter
-      e.preventDefault();
-      save();
-    } else if (e.keyCode === 27) { // esc
-      e.preventDefault();
-      editing = false;
-    }
-  }
-
   function save() {
     const newForm = normalizeParam(editSpanRef.textContent);
     form = newForm === deriveForm(null) ? null : newForm;
@@ -51,7 +42,7 @@
     contenteditable="true"
     bind:this={editSpanRef}
     on:blur={() => editing && save()}
-    on:keydown={handleKeyDown}
+    use:keydown={{ enter: save, esc: () => editing = false }}
   >{deriveForm(form)}</span>
 {:else}
   <a {href} sveltekit:prefetch><span class="reflex" class:borrowed class:inherited><Reflex form={deriveForm(form)} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}

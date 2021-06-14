@@ -19,7 +19,6 @@
       key: 'name',
       title: 'Language',
       editable: true,
-      type: 'text',
     },
     {
       key: 'iso6393',

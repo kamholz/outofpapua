@@ -1,6 +1,5 @@
 <script context="module">
   import { optionalQuery } from '$lib/util';
-  import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
@@ -32,6 +31,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
+  import { setContext } from 'svelte';
 
   export let source;
   export let rows;
@@ -59,13 +59,14 @@
 
 {#if $rows.length}
   <div class="info">
-    Total glosses: {rowCount}
+    Total entries: {rowCount}
   </div>
   <SourceTable
     {rows}
     {query}
-    {pageCount}
     {editable}
+    {source}
+    {pageCount}
     {borrowlangSuggest}
   />
   <div class="controls">

@@ -10,9 +10,10 @@
   export let editable;
   export let active = false;
 
-  const { link, prefetch, type, value } = column;
+  const { type, value } = column;
   const cellEditable = editable &&
     (typeof(column.editable) === 'function' ? column.editable(row) : column.editable);
+  const href = !cellEditable && column.link && column.link(row);
 
   function handleActivate() {
     active = true;
@@ -23,51 +24,46 @@
   }
 </script>
 
-{#if cellEditable}
-  {#if type === 'checkbox'}
-    <TableCellCheckbox
+{#if type === 'checkbox'}
+  <TableCellCheckbox
+    {row}
+    {column}
+    on:update
+  />
+{:else if active}
+  {#if type === 'autocomplete'}
+    <TableCellAutocomplete
       {row}
       {column}
+      on:edit
       on:update
+      on:deactivate={handleDeactivate}
     />
-  {:else if active}
-    {#if type === 'autocomplete'}
-      <TableCellAutocomplete
-        {row}
-        {column}
-        on:edit
-        on:update
-        on:deactivate={handleDeactivate}
-      />
-    {:else}
-      <TableCellInput
-        {row}
-        {column}
-        on:edit
-        on:update
-        on:deactivate={handleDeactivate}
-      />
-    {/if}
   {:else}
-    <td
-      on:click={handleActivate}
-      in:fade|local={{ duration: 300 }}
-    >
-      <span>{value(row)}</span>
-    </td>
+    <TableCellInput
+      {row}
+      {column}
+      on:edit
+      on:update
+      on:deactivate={handleDeactivate}
+    />
   {/if}
 {:else}
   {#if type === 'senses'}
     <TableCellSenses
+      on:click={cellEditable && handleActivate}
       senses={value(row)}
       multilang={column.multilang}
     />
   {:else}
-    <td>
-      {#if link}
+    <td
+      on:click={cellEditable && handleActivate}
+      in:fade|local={{ duration: 300 }}
+    >
+      {#if href}
         <a
-          href={link(row)}
-          sveltekit:prefetch={prefetch ?? null}
+          {href}
+          sveltekit:prefetch={column.prefetch ?? null}
         >{value(row)}</a>
       {:else}
         <span>{value(row)}</span>

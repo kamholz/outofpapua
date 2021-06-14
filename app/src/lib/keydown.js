@@ -1,4 +1,4 @@
-export default function (node, handler) {
+export default function (node, { enter, esc }) {
   node.addEventListener('keydown', handleKeyDown);
   return {
     destroy() {
@@ -7,9 +7,12 @@ export default function (node, handler) {
   };
 
   function handleKeyDown(e) {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === 13 && enter) {
       e.preventDefault();
-      handler(e);
+      enter(e);
+    } else if (e.keyCode === 27 && esc) {
+      e.preventDefault();
+      esc(e);
     }
   }
 }
