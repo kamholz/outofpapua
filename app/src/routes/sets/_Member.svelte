@@ -175,10 +175,10 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span class:borrowed class:inherited>{source.language_name} <MemberReflex href={entryUrl(entry)} form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+        <span class:borrowed class:inherited>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
       {:else}
         <p>
-          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex href={entryUrl(entry)} bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
+          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
         </p>
         <p>
           {source.reference}

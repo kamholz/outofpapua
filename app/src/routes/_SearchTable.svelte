@@ -21,7 +21,7 @@
     {
       key: 'headword',
       title: 'Headword',
-      link: (row) => !row.source_editable && entryUrl(row),
+      link: (row) => !row.source_editable && row.record_id && `/records/${entry.record_id}`,
       // linkClass: (row) => row.origin,
     },
     {

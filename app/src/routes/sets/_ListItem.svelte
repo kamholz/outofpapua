@@ -1,6 +1,7 @@
 <script>
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import EntryLink from '$components/EntryLink.svelte';
   //import OriginSummary from '$components/OriginSummary.svelte';
   import Reflex from '$components/Reflex.svelte';
   import { entryUrl, glossesSummary } from '$lib/util';
@@ -20,7 +21,7 @@
     <div class="table" transition:slide={{ duration: 200 }}>
       {#each set.members as { entry, reflex, source } (entry.id)}
         <div class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}>
-          <strong>{source.language_name}</strong> <a href={entryUrl(entry)}><Reflex form={reflex ?? entry.headword} /></a>
+          <strong>{source.language_name}</strong> <EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink>
         </div>
         <div>
           {source.reference}

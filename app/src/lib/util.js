@@ -237,10 +237,6 @@ export function isIdArray(param) {
   return Array.isArray(param) && param.every((v) => typeof v === 'number');
 }
 
-export function entryUrl(entry) {
-  return entry.record_id ? `/records/${entry.record_id}` : null;
-}
-
 export async function checkError(res, message) {
   if (!res.ok) {
     if (res.status === 400) {

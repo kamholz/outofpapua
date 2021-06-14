@@ -1,4 +1,5 @@
 <script>
+  import EntryLink from '$components/EntryLink.svelte';
   import Icon from 'svelte-awesome';
   import Reflex from '$components/Reflex.svelte';
   import keydown from '$lib/keydown';
@@ -10,7 +11,6 @@
 
   export let form;
   export let entry;
-  export let href;
   export let editable = false;
   export let borrowed = false;
   export let inherited = false;
@@ -45,7 +45,7 @@
     use:keydown={{ enter: save, esc: () => editing = false }}
   >{deriveForm(form)}</span>
 {:else}
-  <a {href} sveltekit:prefetch><span class="reflex" class:borrowed class:inherited><Reflex form={deriveForm(form)} /></span></a>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <EntryLink {entry}><span class="reflex" class:borrowed class:inherited><Reflex form={deriveForm(form)} /></span></EntryLink>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
 {/if}
 
 <style lang="scss">
