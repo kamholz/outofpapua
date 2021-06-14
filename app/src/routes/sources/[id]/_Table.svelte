@@ -1,7 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
-  import { entryUrl, joinGlosses, parseGlosses } from '$lib/util';
+  import { joinGlosses, parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';
@@ -17,7 +17,7 @@
     {
       key: 'headword',
       title: 'Headword',
-      link: !source.editable && entryUrl,
+      link: !source.editable && ((row) => row.record_id && `/records/${row.record_id}`),
       // linkClass: (row) => row.origin,
       editable: true,
     },
