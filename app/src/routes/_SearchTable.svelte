@@ -1,6 +1,5 @@
 <script>
   import Table from '$components/Table.svelte';
-  import { entryUrl } from '$lib/util';
 
   export let rows;
   export let query;
@@ -21,7 +20,7 @@
     {
       key: 'headword',
       title: 'Headword',
-      link: (row) => !row.source_editable && row.record_id && `/records/${entry.record_id}`,
+      link: (row) => !row.source_editable && row.record_id && `/records/${row.record_id}`,
       // linkClass: (row) => row.origin,
     },
     {

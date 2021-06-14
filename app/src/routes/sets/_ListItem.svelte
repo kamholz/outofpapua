@@ -4,7 +4,7 @@
   import EntryLink from '$components/EntryLink.svelte';
   //import OriginSummary from '$components/OriginSummary.svelte';
   import Reflex from '$components/Reflex.svelte';
-  import { entryUrl, glossesSummary } from '$lib/util';
+  import { glossesSummary } from '$lib/util';
   import { preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
 

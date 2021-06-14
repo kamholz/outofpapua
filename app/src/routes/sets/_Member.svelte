@@ -9,9 +9,8 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { entryUrl, glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary,
-    parseGlosses } from '$lib/util';
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary, parseGlosses } from '$lib/util';
   import { pageLoading, preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
