@@ -1,7 +1,7 @@
 <script>
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
-  import OriginSummary from '$components/OriginSummary.svelte';
+  //import OriginSummary from '$components/OriginSummary.svelte';
   import Reflex from '$components/Reflex.svelte';
   import { entryUrl, glossesSummary } from '$lib/util';
   import { preferences } from '$lib/stores';
@@ -17,13 +17,19 @@
     <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
   </div>
   {#if !$collapsed}
-    <ul transition:slide={{ duration: 200 }}>
+    <div class="table" transition:slide={{ duration: 200 }}>
       {#each set.members as { entry, reflex, source } (entry.id)}
-        <li>
-          <span class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}><strong>{source.language_name}</strong> <a href={entryUrl(entry)}><Reflex form={reflex ?? entry.headword} /></a></span> {#if entry.senses[0]?.glosses?.[0]}<span>{glossesSummary(entry.senses[0].glosses, $preferences)}</span>{/if}<OriginSummary {entry} />
-        </li>
+        <div class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}>
+          <strong>{source.language_name}</strong> <a href={entryUrl(entry)}><Reflex form={reflex ?? entry.headword} /></a>
+        </div>
+        <div>
+          {source.reference}
+        </div>
+        <div>
+          {#if entry.senses[0]?.glosses?.[0]}{glossesSummary(entry.senses[0].glosses, $preferences)}{/if}
+        </div>
       {/each}
-    </ul>
+    </div>
   {/if}
 </Collapsible>
 
@@ -32,10 +38,12 @@
     display: flex;
   }
 
-  ul {
-    padding-left: 2.75em;
+  .table {
     margin-block-start: 6px;
-    li {
+    display: grid;
+    grid-template-columns: 30% 25% auto;
+    column-gap: 14px;
+    > div {
       line-height: 1.5;
       @include indent;
     }
