@@ -11,7 +11,8 @@
   export let languages = null;
 
   function renderer(item) {
-    let output = `<div class="suggest"><div>${escape(item.language_name)} <strong>${escape(item.headword)}</strong></div>`;
+    let output = `<div class="suggest"><div>${escape(item.language_name)} ` +
+      `<strong>${escape(item.headword)}</strong></div>`;
     const { senses } = item;
     if (senses[0]) {
       output += `<div>${escape(senses[0])}</div></div>`;
