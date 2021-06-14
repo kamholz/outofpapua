@@ -2,14 +2,13 @@ import config from '$config';
 import knexModule from 'knex';
 import { mungeRegex } from '$lib/util';
 
-const knex = knexModule({
+export const knex = knexModule({
   client: 'pg',
   connection: {
     host: config.PGHOST,
     database: config.PGDATABASE,
   },
 });
-export { knex as knex };
 
 export function transaction(locals, cb) {
   const userId = locals.user?.id;
