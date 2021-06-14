@@ -238,7 +238,7 @@ export function isIdArray(param) {
 }
 
 export function entryUrl(entry) {
-  return entry.record_id ? `/records/${entry.record_id}` : `/entries/${entry.id}`;
+  return entry.record_id ? `/records/${entry.record_id}` : null;
 }
 
 export async function checkError(res, message) {
