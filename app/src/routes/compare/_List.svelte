@@ -1,14 +1,10 @@
 <script>
-  import { glossesSummary } from '$lib/util';
+  import { glossesSummary, mungePos } from '$lib/util';
   import { preferences } from '$lib/stores';
 
   export let rows;
   export let langName1;
   export let langName2;
-
-  function mungePos(pos) {
-    return pos.replace(/\.$/, '');
-  }
 </script>
 
 <h3>{langName1}</h3>

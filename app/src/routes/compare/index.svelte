@@ -46,7 +46,7 @@
     return {
       lang1: await res1.json(),
       lang2: await res2.json(),
-    }
+    };
   }
 </script>
 
@@ -61,10 +61,12 @@
   export let editable;
   export let langSuggest;
   if (lang1) {
-    lang1.name = langSuggest.find((v) => v.id == query.lang1).name;
+    query.lang1 = Number(query.lang1);
+    lang1.name = langSuggest.find((v) => v.id === query.lang1).name;
   }
   if (lang2) {
-    lang2.name = langSuggest.find((v) => v.id == query.lang2).name;
+    query.lang2 = Number(query.lang2);
+    lang2.name = langSuggest.find((v) => v.id === query.lang2).name;
   }
 </script>
 

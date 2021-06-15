@@ -10,7 +10,8 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-  import { glossSummaryNoLanguage, glossesSummary, normalizeParam, originSummary, parseGlosses } from '$lib/util';
+  import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
+    parseGlosses } from '$lib/util';
   import { pageLoading, preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
@@ -41,10 +42,6 @@
     : null;
   let editingProto = false;
   let protoValues;
-
-  function mungePos(pos) {
-    return pos.replace(/\.$/, '');
-  }
 
   async function handleUpdate(key) {
     if (typeof values[key] === 'string' || values[key] instanceof String) {

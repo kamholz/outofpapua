@@ -1,14 +1,10 @@
 <script>
-  import { glossSummaryNoLanguage, glossesSummary } from '$lib/util';
+  import { glossSummaryNoLanguage, glossesSummary, mungePos } from '$lib/util';
   import { preferences } from '$lib/stores';
 
   export let senses;
   export let multilang;
   const multisense = senses.length > 1;
-
-  function mungePos(pos) {
-    return pos.replace(/\.$/, '');
-  }
 
   function summary(glosses) {
     return multilang

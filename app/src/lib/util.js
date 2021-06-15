@@ -226,6 +226,10 @@ export function mungeRegex(txt) {
   return txt.replace(/^\*/, '\\*');
 }
 
+export function mungePos(pos) {
+  return pos.replace(/\.$/, '');
+}
+
 export function escapeHtml(txt) {
   return txt
     .replace(/&/g, '&amp;')
