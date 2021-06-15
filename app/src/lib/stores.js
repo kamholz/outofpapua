@@ -5,7 +5,14 @@ import { derived, writable } from 'svelte/store';
 import { session } from '$app/stores';
 
 export const pageLoading = writable(0);
+export const preferences = getPreferences();
 
-export const preferences = browser
-  ? persist(writable(defaultPreferences), cookieStorage(), 'preferences')
-  : derived(session, ($session) => $session.preferences);
+function getPreferences() {
+  if (browser) {
+    const preferences = persist(writable(defaultPreferences), cookieStorage(), 'preferences');
+    preferences.update((v) => ({ ...defaultPreferences, ...v }));
+    return preferences;
+  } else {
+    return derived(session, ($session) => ({ ...defaultPreferences, ...$session.preferences }));
+  }
+}

@@ -67,8 +67,8 @@
   export let rowCount = null;
   export let langSuggest;
 
-  const langName1 = langSuggest.find((v) => v.id === query.lang1).name;
-  const langName2 = langSuggest.find((v) => v.id === query.lang2).name;
+  const langName1 = query.lang1 && langSuggest.find((v) => v.id == query.lang1)?.name;
+  const langName2 = query.lang2 && langSuggest.find((v) => v.id == query.lang2)?.name;
 </script>
 
 <h2>Compare languages</h2>

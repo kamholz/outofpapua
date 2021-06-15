@@ -8,6 +8,7 @@
     <li class:active={$page.path === '/sets'}><a href="/sets" sveltekit:prefetch>Sets</a></li>
     <li class:active={$page.path === '/languages'}><a href="/languages" sveltekit:prefetch>Languages</a></li>
     <li class:active={$page.path === '/sources'}><a href="/sources" sveltekit:prefetch>Sources</a></li>
+    <li class:active={$page.path === '/compare'}><a href="/compare" sveltekit:prefetch>Comparison</a></li>
     {#if $session.user}
       <li class:active={$page.path === '/users'}><a href="/users" sveltekit:prefetch>Users</a></li>
     {/if}
