@@ -32,7 +32,7 @@
         {control}
         {row}
         {scale}
-        on:click={dispatchEvent.has(control.type) && (() => dispatch(control.type, row))}
+        on:click={dispatchEvent.has(control.type) ? (() => dispatch(control.type, row)) : null}
       />
     {/each}
   </div>

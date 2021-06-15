@@ -51,13 +51,13 @@
 {:else}
   {#if type === 'senses'}
     <TableCellSenses
-      on:click={cellEditable && handleActivate}
+      on:click={cellEditable ? handleActivate : null}
       senses={value(row)}
       multilang={column.multilang}
     />
   {:else}
     <td
-      on:click={cellEditable && handleActivate}
+      on:click={cellEditable ? handleActivate : null}
       in:fade|local={{ duration: 300 }}
     >
       {#if href}

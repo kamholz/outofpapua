@@ -35,7 +35,7 @@
 </script>
   
 <form
-  on:submit={!browserSubmit && handleSubmit}
+  on:submit={!browserSubmit ? handleSubmit : null}
   {action}
   {method}
   noValidate={!browserSubmit}
