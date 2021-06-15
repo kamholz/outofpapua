@@ -5,6 +5,7 @@
 
   export let query;
   export let langSuggest;
+  export let glosslangSuggest;
 
   const fields = [
     {
@@ -23,6 +24,12 @@
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
+    },
+    {
+      name: 'glosslang',
+      label: 'Gloss languages',
+      type: 'suggestMulti',
+      options: glosslangSuggest,
     },
   ];
 </script>

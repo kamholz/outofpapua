@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex,
-  sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
+  knex, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, partitionPlus } from '$lib/util';
@@ -109,15 +109,7 @@ export async function get({ query }) {
   applySortParams(q, query, sortCols, ['language', 'headword']);
 
   const rows = await q;
-
-  if ('glosslang' in query) {
-    const set = new Set(query.glosslang);
-    for (const row of rows) {
-      for (const sense of row.senses) {
-        sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
-      }
-    }
-  }
+  filterGlosslang(query, rows);
 
   return {
     body: {

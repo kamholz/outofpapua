@@ -23,7 +23,8 @@
 
     props.query = query;
     props.langSuggest = await suggest.lang(fetch);
-    if (!props.langSuggest) {
+    props.glosslangSuggest = await suggest.glosslang(fetch);
+    if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500, error: 'Internal error' };
     }
 
@@ -60,6 +61,7 @@
   export let query;
   export let editable;
   export let langSuggest;
+  export let glosslangSuggest;
   if (lang1) {
     query.lang1 = Number(query.lang1);
     lang1.name = langSuggest.find((v) => v.id === query.lang1).name;
@@ -74,19 +76,17 @@
 <CompareForm
   {query}
   {langSuggest}
+  {glosslangSuggest}
 />
 
 {#if lang1 && lang2}
   {#if lang1?.rowCount || lang2?.rowCount}
-    <!-- <div class="info">
-      Total entries: {rowCount}
-    </div> -->
     <div class="results">
       <div>
-        <CompareList rows={lang1.rows} langName1={lang1.name} langName2={lang2.name} />
+        <CompareList {...lang1} {query} {lang2} />
       </div>
       <div>
-        <CompareList rows={lang2.rows} langName1={lang2.name} langName2={lang1.name} />
+        <CompareList {...lang2} {query} lang2={lang1} />
       </div>
     </div>
     <div class="controls">
@@ -98,7 +98,7 @@
 {/if}
 
 <style lang="scss">
-  .info, .controls, .notfound {
+  .controls, .notfound {
     margin-block: $item_sep;
   }
 

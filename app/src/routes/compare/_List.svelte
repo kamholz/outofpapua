@@ -1,14 +1,24 @@
 <script>
+  import Paginator from '$components/Paginator.svelte';
   import { glossesSummary, mungePos } from '$lib/util';
   import { preferences } from '$lib/stores';
 
+  export let lang2;
+  export let name;
+  export let pageCount;
+  export let rowCount;
+  export let query;
   export let rows;
-  export let langName1;
-  export let langName2;
 </script>
 
-<h3>{langName1}</h3>
+<h3>{name}</h3>
+<div class="info">
+  Total entries: {rowCount}
+</div>
 <hr>
+{#if pageCount > 1}
+  <Paginator {query} {pageCount} />
+{/if}
 {#each $rows as row (row.id)}
   <div>
     <strong>{row.headword}</strong>
@@ -20,12 +30,12 @@
       {/if}
     {/each}
   </div>
-  {#if row.entries2}
+  {#if row.compare_entries}
     <div>
       <br>
-      {langName2} comparisons:
+      {lang2.name} comparisons:
     </div>
-    {#each row.entries2 as { headword, senses } }
+    {#each row.compare_entries as { headword, senses } }
       <div>
         <br>
         <strong>{headword}</strong>
@@ -43,5 +53,9 @@
 {/each}
 
 <style lang="scss">
+  .info {
+    margin-block: $item_sep;
+  }
+
   @include hr;
 </style>

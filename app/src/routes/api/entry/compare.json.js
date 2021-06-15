@@ -1,10 +1,12 @@
-import { applyPageParams, getCount, knex } from '$lib/db';
+import { applyPageParams, arrayCmp, filterGlosslang, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams,
+  parseBooleanParams } from '$lib/util';
 import { nfc } from './_params';
 
-const allowed = new Set(['asc', 'gloss', 'lang1', 'lang2', 'page', 'pagesize', 'sort']);
+const allowed = new Set(['asc', 'gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize', 'sort']);
 const boolean = new Set(['asc']);
+const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
@@ -12,23 +14,34 @@ const defaults = {
 };
 
 function makeQuery(q, query, lang) {
-  q
+  q = q
     .from('entry')
     .join('source', 'source.id', 'entry.source_id')
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-    .where('source.language_id', query[lang])
-    .select(
-      'entry.id',
-      'sense_gloss.language_id',
-      'sense_gloss.txt'
-    );
+    .where('source.language_id', query[lang]);
+
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);
   }
+
+  if ('glosslang' in query) {
+    q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
+  }
+
+  return q;
 }
 
-const entries2 = `
+function makeCte(q, query, lang) {
+  makeQuery(q, query, lang)
+  .select(
+    'entry.id',
+    'sense_gloss.language_id',
+    'sense_gloss.txt'
+  );
+}
+
+const compare_entries = `
   json_agg(
     json_build_object(
       'headword', entry2.headword, 
@@ -44,12 +57,13 @@ export async function get({ query }) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);
+  parseArrayNumParams(query, arrayNumParams);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
   const subq = knex
-    .with('lang1', (cte) => makeQuery(cte, query, 'lang1'))
-    .with('lang2', (cte) => makeQuery(cte, query, 'lang2'))
+    .with('lang1', (cte) => makeCte(cte, query, 'lang1'))
+    .with('lang2', (cte) => makeCte(cte, query, 'lang2'))
     .from('lang1')
     .leftJoin('lang2', function () {
       this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt', 'lang1.txt');
@@ -60,32 +74,21 @@ export async function get({ query }) {
   const q = knex.from(subq.as('found'))
     .join('entry_with_senses as entry1', 'entry1.id', 'found.lang1_id')
     .leftJoin('entry_with_senses as entry2', 'entry2.id', 'found.lang2_id')
-    .groupBy('entry1.id', 'entry1.headword', knex.raw('entry1.senses::jsonb'));
-
-  const rowCount = await getCount(q);
-
-  q
+    .groupBy('entry1.id', 'entry1.headword', knex.raw('entry1.senses::jsonb'))
     .select(
       'entry1.id',
       'entry1.headword',
       knex.raw('entry1.senses::jsonb'),
-      knex.raw(`${entries2} as entries2`)
+      knex.raw(`${compare_entries} as compare_entries`)
     )
-    .orderByRaw(`${entries2} IS NULL`)
+    .orderByRaw(`${compare_entries} IS NULL`)
     .orderByRaw('lower(entry1.headword)');
 
+  const rowCount = await getCount(makeQuery(knex, query, 'lang1'));
   const pageCount = applyPageParams(q, query, rowCount);
 
   const rows = await q;
-
-  // if ('glosslang' in query) {
-  //   const set = new Set(query.glosslang);
-  //   for (const row of rows) {
-  //     for (const sense of row.senses) {
-  //       sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
-  //     }
-  //   }
-  // }
+  filterGlosslang(query, rows, true);
 
   return {
     body: {

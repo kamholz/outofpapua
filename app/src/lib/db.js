@@ -121,6 +121,29 @@ export async function insertGlosses(trx, { language_id, sense_id, glosses }) {
   }
 }
 
+export function filterGlosslang(query, rows, includeCompareEntries) {
+  if ('glosslang' in query) {
+    const set = new Set(query.glosslang);
+    for (const row of rows) {
+      for (const sense of row.senses) {
+        sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+      }
+    }
+
+    if (includeCompareEntries) {
+      for (const row of rows) {
+        if (row.compare_entries) {
+          for (const entry of row.compare_entries) {
+            for (const sense of entry.senses) {
+              sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 // error handling
 
 export function sendPgError(e) {
