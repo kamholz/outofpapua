@@ -35,7 +35,7 @@ const entries2 = `
       'senses', entry2.senses
     )
     ORDER BY entry2.headword
-  ) FILTER (WHERE entry2.headword IS NOT NULL)
+  ) FILTER (WHERE entry2.id IS NOT NULL)
 `;
 
 export async function get({ query }) {
@@ -47,24 +47,30 @@ export async function get({ query }) {
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
-  const q = knex
+  const subq = knex
     .with('lang1', (cte) => makeQuery(cte, query, 'lang1'))
     .with('lang2', (cte) => makeQuery(cte, query, 'lang2'))
-    .from('lang1');
+    .from('lang1')
+    .leftJoin('lang2', function () {
+      this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt', 'lang1.txt');
+    })
+    .select('lang1.id as lang1_id', 'lang2.id as lang2_id')
+    .distinct();
+
+  const q = knex.from(subq.as('found'))
+    .join('entry_with_senses as entry1', 'entry1.id', 'found.lang1_id')
+    .leftJoin('entry_with_senses as entry2', 'entry2.id', 'found.lang2_id')
+    .groupBy('entry1.id', 'entry1.headword', knex.raw('entry1.senses::jsonb'));
 
   const rowCount = await getCount(q);
 
   q
-    .join('entry_with_senses as entry1', 'entry1.id', 'lang1.id')
-    .joinRaw('left join lateral (select distinct lang2.* from lang2 where lang2.txt = lang1.txt) lang2 on true')
-    .leftJoin('entry_with_senses as entry2', 'entry2.id', 'lang2.id')
     .select(
       'entry1.id',
       'entry1.headword',
       knex.raw('entry1.senses::jsonb'),
       knex.raw(`${entries2} as entries2`)
     )
-    .groupBy('entry1.id', 'entry1.headword', knex.raw('entry1.senses::jsonb'))
     .orderByRaw(`${entries2} IS NULL`)
     .orderByRaw('lower(entry1.headword)');
 
