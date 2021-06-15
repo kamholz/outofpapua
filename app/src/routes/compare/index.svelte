@@ -16,9 +16,9 @@
       if (!json) {
         return { status: 500, error: 'Internal error' };
       }
-      Object.assign(props, json); // populates pageCount, rowCount, rows1, rows2
-      props.rows1 = writable(props.rows1);
-      props.rows2 = writable(props.rows2);
+      Object.assign(props, json); // populates lang1, lang2
+      props.lang1.rows = writable(props.lang1.rows);
+      props.lang2.rows = writable(props.lang2.rows);
     }
 
     props.query = query;
@@ -43,14 +43,10 @@
     if (!res2.ok) {
       return null;
     }
-    const props1 = await res1.json();
-    const props2 = await res2.json();
     return {
-      pageCount: Math.max(props1.pageCount, props2.pageCount),
-      rowCount: Math.max(props1.rowCount, props2.rowCount),
-      rows1: props1.rows,
-      rows2: props2.rows,
-    };
+      lang1: await res1.json(),
+      lang2: await res2.json(),
+    }
   }
 </script>
 
@@ -59,16 +55,17 @@
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
 
-  export let rows1 = null;
-  export let rows2 = null;
+  export let lang1 = null;
+  export let lang2 = null;
   export let query;
   export let editable;
-  export let pageCount = null;
-  export let rowCount = null;
   export let langSuggest;
-
-  const langName1 = query.lang1 && langSuggest.find((v) => v.id == query.lang1)?.name;
-  const langName2 = query.lang2 && langSuggest.find((v) => v.id == query.lang2)?.name;
+  if (lang1) {
+    lang1.name = langSuggest.find((v) => v.id == query.lang1).name;
+  }
+  if (lang2) {
+    lang2.name = langSuggest.find((v) => v.id == query.lang2).name;
+  }
 </script>
 
 <h2>Compare languages</h2>
@@ -77,23 +74,25 @@
   {langSuggest}
 />
 
-{#if rowCount}
-  <div class="info">
-    Total entries: {rowCount}
-  </div>
-  <div class="results">
-    <div>
-      <CompareList rows={rows1} {langName1} {langName2} />
+{#if lang1 && lang2}
+  {#if lang1?.rowCount || lang2?.rowCount}
+    <!-- <div class="info">
+      Total entries: {rowCount}
+    </div> -->
+    <div class="results">
+      <div>
+        <CompareList rows={lang1.rows} langName1={lang1.name} langName2={lang2.name} />
+      </div>
+      <div>
+        <CompareList rows={lang2.rows} langName1={lang2.name} langName2={lang1.name} />
+      </div>
     </div>
-    <div>
-      <CompareList rows={rows2} langName1={langName2} langName2={langName1} />
+    <div class="controls">
+      <PageSizeSelect {query} />
     </div>
-  </div>
-  <div class="controls">
-    <PageSizeSelect {query} />
-  </div>
-{:else}
-  <div class="notfound">no entries found</div>
+  {:else}
+    <div class="notfound">no entries found</div>
+  {/if}
 {/if}
 
 <style lang="scss">
