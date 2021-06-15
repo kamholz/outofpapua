@@ -115,7 +115,7 @@
               type="hidden"
               {name}
               value={values[name]}
-              disabled={!values[name]?.length}
+              disabled={values[name] === null}
             >
           {/if}
         {:else if type === 'suggestMulti'}
