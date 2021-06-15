@@ -32,6 +32,9 @@ export function arrayCmp(param) {
 const pageMax = 2000;
 
 export function applyPageParams(q, query, count) {
+  if (!query.pagesize.match(/^[0-9]+$/)) {
+    query.pagesize = Infinity;
+  }
   const pageSize = Math.min(query.pagesize, pageMax);
   const pageCount = Math.ceil(count / pageSize);
 
