@@ -8,7 +8,7 @@ const nfc = new Set(['gloss', 'headword']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: defaultPreferences.pageSize,
+  pagesize: defaultPreferences.tablePageSize,
   sort: 'headword',
   set: 'both',
 };

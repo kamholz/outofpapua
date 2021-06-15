@@ -16,41 +16,59 @@
       if (!json) {
         return { status: 500, error: 'Internal error' };
       }
-      Object.assign(props, json); // populates query, pageCount, rows, rowCount
-      props.rows = writable(props.rows);
-    } else {
-      props.query = query;
+      Object.assign(props, json); // populates pageCount, rowCount, rows1, rows2
+      props.rows1 = writable(props.rows1);
+      props.rows2 = writable(props.rows2);
     }
 
+    props.query = query;
     props.langSuggest = await suggest.lang(fetch);
     if (!props.langSuggest) {
       return { status: 500, error: 'Internal error' };
     }
 
     return { props };
-  }  
+  }
 
   async function reload(fetch, query) {
-    const res = await fetch('/api/entry/compare.json?' + new URLSearchParams(query));
-    return res.ok ? res.json() : null;
+    const res1 = await fetch('/api/entry/compare.json?' + new URLSearchParams(query));
+    if (!res1.ok) {
+      return null;
+    }
+    const res2 = await fetch('/api/entry/compare.json?' + new URLSearchParams({
+      ...query,
+      lang2: query.lang1,
+      lang1: query.lang2,
+    }));
+    if (!res2.ok) {
+      return null;
+    }
+    const props1 = await res1.json();
+    const props2 = await res2.json();
+    return {
+      pageCount: Math.max(props1.pageCount, props2.pageCount),
+      rowCount: Math.max(props1.rowCount, props2.rowCount),
+      rows1: props1.rows,
+      rows2: props2.rows,
+    };
   }
 </script>
 
 <script>
   import CompareForm from './_Form.svelte';
-  import { glossesSummary } from '$lib/util';
-  import { preferences } from '$lib/stores';
+  import CompareList from './_List.svelte';
+  import PageSizeSelect from '$components/PageSizeSelect.svelte';
 
-  export let rows = null;
+  export let rows1 = null;
+  export let rows2 = null;
   export let query;
   export let editable;
   export let pageCount = null;
   export let rowCount = null;
   export let langSuggest;
 
-  function mungePos(pos) {
-    return pos.replace(/\.$/, '');
-  }
+  const langName1 = langSuggest.find((v) => v.id === query.lang1).name;
+  const langName2 = langSuggest.find((v) => v.id === query.lang2).name;
 </script>
 
 <h2>Compare languages</h2>
@@ -59,46 +77,33 @@
   {langSuggest}
 />
 
-<div>
-  Total found: {rowCount}
-</div>
-
-{#if $rows.length}
-  <hr>
-  {#each $rows as row (row.id)}
+{#if rowCount}
+  <div class="info">
+    Total entries: {rowCount}
+  </div>
+  <div class="results">
     <div>
-      <strong>{row.headword}</strong>
-      {#each row.senses as { pos, glosses }, i}
-        {#if glosses.length}
-          <p>
-            {i + 1}. {#if pos}<em>{mungePos(pos)}</em>. {/if}{glossesSummary(glosses, $preferences)}
-          </p>
-        {/if}
-      {/each}
+      <CompareList rows={rows1} {langName1} {langName2} />
     </div>
-    {#if row.entries2}
-      <div>
-        <br>
-        Language 2 comparisons:
-      </div>
-      {#each row.entries2 as { headword, senses } }
-        <div>
-          <br>
-          <strong>{headword}</strong>
-          {#each senses as { pos, glosses }, i}
-            {#if glosses.length}
-              <p>
-                {i + 1}. {#if pos}<em>{mungePos(pos)}</em>. {/if}{glossesSummary(glosses, $preferences)}
-              </p>
-            {/if}
-          {/each}
-        </div>
-      {/each}
-    {/if}
-    <hr>
-  {/each}
+    <div>
+      <CompareList rows={rows2} langName1={langName2} langName2={langName1} />
+    </div>
+  </div>
+  <div class="controls">
+    <PageSizeSelect {query} />
+  </div>
+{:else}
+  <div class="notfound">no entries found</div>
 {/if}
 
 <style lang="scss">
-  @include hr;
+  .info, .controls, .notfound {
+    margin-block: $item_sep;
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 10px;
+  }
 </style>

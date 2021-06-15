@@ -1,14 +1,14 @@
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, getCount, knex } from '$lib/db';
+import { applyPageParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
-import { nfc, table } from './_params';
+import { nfc } from './_params';
 
 const allowed = new Set(['asc', 'gloss', 'lang1', 'lang2', 'page', 'pagesize', 'sort']);
 const boolean = new Set(['asc']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: defaultPreferences.pageSize,
+  pagesize: defaultPreferences.tablePageSize,
 };
 
 function makeQuery(q, query, lang) {
@@ -34,6 +34,7 @@ const entries2 = `
       'headword', entry2.headword, 
       'senses', entry2.senses
     )
+    ORDER BY entry2.headword
   ) FILTER (WHERE entry2.headword IS NOT NULL)
 `;
 

@@ -15,7 +15,7 @@ const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: defaultPreferences.pageSize,
+  pagesize: defaultPreferences.tablePageSize,
   sort: 'headword',
   langcat: 'lang',
   set: 'both',

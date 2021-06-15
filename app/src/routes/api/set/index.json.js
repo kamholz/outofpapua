@@ -13,7 +13,7 @@ const arrayNumParams = new Set(['glosslang', 'source']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: defaultPreferences.pageSizeSet,
+  pagesize: defaultPreferences.listPageSize,
   sort: 'name',
 };
 const sortCols = {
