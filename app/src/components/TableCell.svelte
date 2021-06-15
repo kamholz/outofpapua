@@ -1,8 +1,8 @@
 <script>
+  import Senses from '$components/Senses.svelte';
   import TableCellAutocomplete from '$components/TableCell/Autocomplete.svelte';
   import TableCellCheckbox from '$components/TableCell/Checkbox.svelte';
   import TableCellInput from '$components/TableCell/Input.svelte';
-  import TableCellSenses from '$components/TableCell/Senses.svelte';
   import { fade } from 'svelte/transition';
 
   export let row;
@@ -50,11 +50,9 @@
   {/if}
 {:else}
   {#if type === 'senses'}
-    <TableCellSenses
-      on:click={cellEditable ? handleActivate : null}
-      senses={value(row)}
-      multilang={column.multilang}
-    />
+    <td on:click={cellEditable ? handleActivate : null}>
+      <Senses senses={value(row)} multilang={column.multilang} />
+    </td>
   {:else}
     <td
       on:click={cellEditable ? handleActivate : null}

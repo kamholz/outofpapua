@@ -70,6 +70,8 @@
     query.lang2 = Number(query.lang2);
     lang2.name = langSuggest.find((v) => v.id === query.lang2).name;
   }
+
+  const multilang = !(query.glosslang?.length === 1);
 </script>
 
 <h2>Compare languages</h2>
@@ -83,10 +85,10 @@
   {#if lang1?.rowCount || lang2?.rowCount}
     <div class="results">
       <div>
-        <CompareList {...lang1} {query} {lang2} />
+        <CompareList {...lang1} {query} {lang2} {multilang} />
       </div>
       <div>
-        <CompareList {...lang2} {query} lang2={lang1} />
+        <CompareList {...lang2} {query} lang2={lang1} {multilang} />
       </div>
     </div>
     <div class="controls">

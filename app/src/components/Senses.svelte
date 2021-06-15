@@ -1,9 +1,9 @@
 <script>
-  import { glossSummaryNoLanguage, glossesSummary, mungePos } from '$lib/util';
+  import { glossesSummary, glossSummaryNoLanguage, mungePos } from '$lib/util';
   import { preferences } from '$lib/stores';
 
   export let senses;
-  export let multilang;
+  export let multilang = true;
   const multisense = senses.length > 1;
 
   function summary(glosses) {
@@ -13,15 +13,13 @@
   }
 </script>
 
-<td on:click>
-  {#each senses as { pos, glosses }, i}
-    {#if glosses.length}
-      <p>
-        {#if multisense}{i + 1}. {/if}{#if pos}<em>{mungePos(pos)}</em>. {/if}{summary(glosses)}
-      </p>
-    {/if}
-  {/each}
-</td>
+{#each senses as { pos, glosses }, i}
+  {#if glosses.length}
+    <p>
+      {#if multisense}{i + 1}. {/if}{#if pos}<em>{mungePos(pos)}</em>. {/if}{summary(glosses)}
+    </p>
+  {/if}
+{/each}
 
 <style lang="scss">
   p {
