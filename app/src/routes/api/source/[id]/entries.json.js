@@ -1,9 +1,10 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
+const nfc = new Set(['gloss', 'headword']);
 const defaults = {
   asc: true,
   page: 1,
@@ -19,6 +20,7 @@ const sortCols = {
 export async function get({ params, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   parseBooleanParams(query, boolean);
+  ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
   const subq = knex('entry')

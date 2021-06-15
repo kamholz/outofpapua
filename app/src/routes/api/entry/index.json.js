@@ -35,6 +35,7 @@ export async function get({ query }) {
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);
+  ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
   const subq = knex(table)
