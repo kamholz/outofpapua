@@ -27,6 +27,9 @@
       if (!('set' in query)) {
         query.set = 'both';
       }
+      if (!('origin' in query)) {
+        query.origin = 'all';
+      }
       props.query = query;
     }
 

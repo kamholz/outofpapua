@@ -19,8 +19,19 @@
       type: 'text',
     },
     {
+      name: 'origin',
+      label: 'Origin',
+      type: 'radio',
+      options: [
+        { label: 'Inherited', value: 'inherited' },
+        { label: 'Borrowed', value: 'borrowed' },
+        { label: 'Unknown', value: 'unknown' },
+        { label: 'All', value: 'all' },
+      ],
+    },
+    {
       name: 'set',
-      label: 'Sets',
+      label: 'Set',
       type: 'radio',
       options: [
         { label: 'Linked', value: 'linked' },

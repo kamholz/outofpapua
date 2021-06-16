@@ -85,6 +85,12 @@ export function applyEntrySearchParams(q, query) {
       .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
       .whereNull('set_member.set_id');
   }
+
+  if (query.origin === 'inherited' || query.origin === 'borrowed') {
+    q.where('entry.origin', query.origin);
+  } else if (query.origin === 'unknown') {
+    q.whereNull('entry.origin');
+  }
 }
 
 export function applyHeadwordGlossSearchParams(q, query) {

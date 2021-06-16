@@ -7,13 +7,14 @@ import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams
 import { nfc, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'page', 'pagesize',
+const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page', 'pagesize',
   'set', 'sort']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
+  origin: 'all',
   page: 1,
   pagesize: defaultPreferences.tablePageSize,
   sort: 'headword',

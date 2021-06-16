@@ -55,6 +55,7 @@
     </td>
   {:else}
     <td
+      class={column.class?.(row)}
       on:click={cellEditable ? handleActivate : null}
       in:fade|local={{ duration: 300 }}
     >

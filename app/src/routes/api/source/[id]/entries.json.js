@@ -2,11 +2,12 @@ import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, kne
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
 
-const allowed = new Set(['asc', 'gloss', 'headword', 'page', 'pagesize', 'set', 'sort']);
+const allowed = new Set(['asc', 'gloss', 'headword', 'origin', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
 const nfc = new Set(['gloss', 'headword']);
 const defaults = {
   asc: true,
+  origin: 'all',
   page: 1,
   pagesize: defaultPreferences.tablePageSize,
   sort: 'headword',
