@@ -76,16 +76,17 @@
   export let editable;
   export let langSuggest;
   export let glosslangSuggest;
-  if (lang1) {
+
+  $: if (lang1) {
     query.lang1 = Number(query.lang1);
     lang1.name = langSuggest.find((v) => v.id === query.lang1).name;
   }
-  if (lang2) {
+  $: if (lang2) {
     query.lang2 = Number(query.lang2);
     lang2.name = langSuggest.find((v) => v.id === query.lang2).name;
   }
 
-  const multilang = !(query.glosslang?.length === 1);
+  $: multilang = !(query.glosslang?.length === 1);
 </script>
 
 <h2>Compare languages</h2>
