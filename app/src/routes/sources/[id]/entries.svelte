@@ -70,7 +70,7 @@
     {borrowlangSuggest}
   />
   <div class="controls">
-    <PageSizeSelect {query} />
+    <PageSizeSelect {query} preferenceKey="tablePageSize" />
   </div>
 {:else}
   <div class="notfound">no entries found</div>

@@ -8,7 +8,7 @@
 </script>
 
 {#if url}
-  <a href={url}><Icon data={icon} on:click /></a>
+  <a href={url} on:click><Icon data={icon} /></a>
 {:else}
   <span><Icon data={icon} /></span>
 {/if}

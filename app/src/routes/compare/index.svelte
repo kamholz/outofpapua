@@ -41,7 +41,7 @@
       parseArrayNumParams(query, arrayNumParams);
       props.query = query;
     }
-    props.query = writable(props.query);
+    // props.query = writable(props.query);
 
     return { props };
   }
@@ -76,7 +76,6 @@
   import CompareForm from './_Form.svelte';
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
-  import { setContext } from 'svelte';
 
   export let lang1 = null;
   export let lang2 = null;
@@ -84,8 +83,7 @@
   export let editable;
   export let langSuggest;
   export let glosslangSuggest;
-  $: multilang = !($query.glosslang?.length === 1);
-  setContext('query', query);
+  $: multilang = !(query.glosslang?.length === 1);
 
   async function handleRefresh1(newQuery) {
     $pageLoading++;
@@ -93,7 +91,7 @@
     Object.assign(lang1, await reload1(fetch, newQuery));
     rowStore.set(lang1.rows);
     lang1.rows = rowStore;
-    $query.page1 = Number(newQuery.page1);
+    query.page1 = Number(newQuery.page1);
     $pageLoading--;
     pushState();
 }
@@ -104,19 +102,19 @@
     Object.assign(lang2, await reload2(fetch, newQuery));
     rowStore.set(lang2.rows);
     lang2.rows = rowStore;
-    $query.page2 = Number(newQuery.page2);
+    query.page2 = Number(newQuery.page2);
     $pageLoading--;
     pushState();
   }
 
   function pushState() {
-    history.pushState({}, '', serializeQuery($query));
+    history.pushState({}, '', serializeQuery(query));
   }
 </script>
 
 <h2>Compare languages</h2>
 <CompareForm
-  query={$query}
+  {query}
   {langSuggest}
   {glosslangSuggest}
 />
@@ -128,6 +126,7 @@
         <CompareList 
           {...lang1}
           {lang2}
+          {query}
           pageParam="page1"
           {multilang}
           on:refresh={(e) => handleRefresh1(e.detail)}
@@ -136,6 +135,7 @@
       <div>
         <CompareList
           {...lang2}
+          {query}
           pageParam="page2"
           lang2={lang1}
           {multilang}
@@ -143,7 +143,7 @@
         />
       </div>
     </div>
-    <PageSizeSelect query={$query} preferenceKey="listPageSize" />
+    <PageSizeSelect {query} preferenceKey="listPageSize" />
   {:else}
     <div class="notfound">no entries found</div>
   {/if}

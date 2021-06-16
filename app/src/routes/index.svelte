@@ -139,7 +139,7 @@
         {borrowlangSuggest}
       />
       <div class="controls">
-        <PageSizeSelect {query} />
+        <PageSizeSelect {query} preferenceKey="tablePageSize" />
         {#if editable && query.set !== 'linked' && $rows.length}
           <SearchTableControls on:clear={handleClear} on:link={handleLink} />
         {/if}

@@ -5,7 +5,7 @@
   import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
   export let query;
-  export let preferenceKey = 'tablePageSize';
+  export let preferenceKey;
   const values = pageSizeValues[preferenceKey];
 
   function handleSelect(e) {
