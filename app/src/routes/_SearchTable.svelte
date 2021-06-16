@@ -1,5 +1,6 @@
 <script>
   import Table from '$components/Table.svelte';
+  import { preferences } from '$lib/stores';
 
   export let rows;
   export let query;
@@ -16,6 +17,7 @@
     {
       key: 'source',
       title: 'Source',
+      link: (row) => `/sources/${row.source_id}/entries?pagesize=${$preferences.tablePageSize}`,
     },
     {
       key: 'headword',

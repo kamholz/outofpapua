@@ -6,6 +6,7 @@
 
   export let name;
   export let pageCount;
+  export let pageParam;
   export let rowCount;
   export let query;
   export let rows;
@@ -44,7 +45,7 @@
 
 <hr>
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} />
+  <Paginator {query} {pageCount} {pageParam} />
 {/if}
 {#each $rows as row (row.id)}
   <ListItem entry={row} {lang2} collapsed={collapsedRows[row.id]} {multilang} />

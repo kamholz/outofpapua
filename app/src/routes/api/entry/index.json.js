@@ -101,6 +101,7 @@ export async function get({ query }) {
     'entry.record_id',
     'language.id as language_id',
     'language.name as language',
+    'source.id as source_id',
     'source.reference as source',
     'source.editable as source_editable',
     'set_member.set_id'

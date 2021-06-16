@@ -7,15 +7,17 @@
 
   export let query;
   export let pageCount;
+  export let pageParam = 'page';
+
   // eslint-disable-next-line prefer-destructuring
-  $: page = query.page;
+  $: page = query[pageParam];
   $: pagesToDisplay = [...Array(pageCount).keys()].slice(
     Math.max(page - pageWidth - 1, 1),
     Math.min(page + pageWidth, pageCount - 1)
   );
 
   function pageUrl(page) {
-    return '?' + new URLSearchParams(serializeQuery({ ...query, page }));
+    return '?' + new URLSearchParams(serializeQuery({ ...query, [pageParam]: page }));
   }
 </script>
 
