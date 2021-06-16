@@ -56,9 +56,17 @@
     margin-block: $item_sep;
     color: grey;
 
-    :global(a) {
-      text-decoration: none;
-      color: black;
+    :global {
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      span {
+        .fa-icon, .fa-icon:hover {
+          color: gray;
+        }
+      }
     }
   }
 </style>

@@ -8,13 +8,13 @@
 </script>
 
 {#if url}
-  <a class="arrow" href={url}><Icon data={icon} /></a>
+  <a href={url}><Icon data={icon} /></a>
 {:else}
-  <span class="arrow"><Icon data={icon} /></span>
+  <span><Icon data={icon} /></span>
 {/if}
 
-<style>
-  .arrow {
+<style lang="scss">
+  a, span {
     inline-size: 24px;
     block-size: 24px;
     display: flex;

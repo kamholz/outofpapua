@@ -51,6 +51,9 @@
   <ListItem entry={row} {lang2} collapsed={collapsedRows[row.id]} {multilang} />
   <hr>
 {/each}
+{#if pageCount > 1}
+  <Paginator {query} {pageCount} {pageParam} />
+{/if}
 
 <style lang="scss">
   .info {
