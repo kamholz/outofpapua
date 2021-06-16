@@ -61,9 +61,12 @@ button {
 }
 
 .fa-icon {
+  color: black;
   vertical-align: middle;
   margin-inline: 5px;
-
+  &:hover {
+    color: gray;
+  }
   &.hidden {
     visibility: hidden;
   }

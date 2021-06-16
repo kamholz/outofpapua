@@ -5,7 +5,6 @@
   import { getContext } from 'svelte';
   import { glossSummaryNoLanguage } from '$lib/util';
 
-  export let href;
   export let id;
   const cache = getContext('setSummaryCache');
   $: set = $cache[id];
@@ -29,7 +28,7 @@
 </script>
 
 <a
-  {href}
+  href="/sets/{id}"
   sveltekit:prefetch
   use:popoverTrigger={popover}
 >
@@ -44,7 +43,7 @@
     <div class="title">Set: {set.title ?? set.id}</div>
     <ul>
       {#each set.members as { entry, reflex, source } (entry.id)}
-        <li><span class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
+        <li><span class={entry.origin}>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
       {/each}
     </ul>
   </div>

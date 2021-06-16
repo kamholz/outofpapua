@@ -184,9 +184,5 @@
       justify-content: space-between;
       margin-block: 9px 3px;
     }
-
-    :global(.fa-icon:hover) {
-      color: $icon_hover;
-    }
   }
 </style>

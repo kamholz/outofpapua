@@ -209,10 +209,6 @@
       display: flex;
       position: relative;
 
-      .fa-icon:hover {
-        color: $icon_hover;
-      }
-
       .set-item-label {
         flex-shrink: 0;
         inline-size: 16em;

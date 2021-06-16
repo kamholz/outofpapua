@@ -35,8 +35,6 @@
     origin_language_name: entry.origin_language_name,
     reflex: member.reflex,
   };
-  $: borrowed = entry.origin === 'borrowed';
-  $: inherited = entry.origin === 'inherited';
   const options = editable
     ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
     : null;
@@ -171,10 +169,10 @@
     <CollapsibleIndicator />
     <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
       {#if $collapsed}
-        <span class:borrowed class:inherited>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+        <span class={entry.origin}>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
       {:else}
         <p>
-          <span class:borrowed class:inherited>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} {borrowed} {inherited} on:change={() => handleUpdate('reflex')} />{/if}
+          <span class={entry.origin}>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
         </p>
         <p>
           {source.reference}

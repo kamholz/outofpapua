@@ -9,10 +9,7 @@
 </script>
 
 {#if row.set_id}
-  <SetPopover
-    href="/sets/{row.set_id}"
-    id={row.set_id}
-  >
+  <SetPopover id={row.set_id}>
     <Icon data={faBezierCurve} {scale} label="Set" />
   </SetPopover>
 {:else}

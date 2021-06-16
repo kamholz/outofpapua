@@ -12,8 +12,6 @@
   export let form;
   export let entry;
   export let editable = false;
-  export let borrowed = false;
-  export let inherited = false;
 
   let editing = false;
   let editSpanRef;
@@ -45,7 +43,7 @@
     use:keydown={{ enter: save, esc: () => editing = false }}
   >{deriveForm(form)}</span>
 {:else}
-  <EntryLink {entry}><span class="reflex" class:borrowed class:inherited><Reflex form={deriveForm(form)} /></span></EntryLink>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex form={deriveForm(form)} /></span></EntryLink>{#if editable}<span on:click={handleClick}><Icon data={faEdit} /></span>{/if}
 {/if}
 
 <style lang="scss">

@@ -44,11 +44,15 @@ function makeCte(q, query, lang) {
 const compare_entries = `
   json_agg(
     json_build_object(
-      'headword', entry2.headword, 
-      'senses', entry2.senses
+      'id', compare_entry.id,
+      'headword', compare_entry.headword,
+      'record_id', compare_entry.record_id,
+      'origin', compare_entry.origin,
+      'senses', compare_entry.senses,
+      'set_id', compare_set_member.set_id
     )
-    ORDER BY entry2.headword
-  ) FILTER (WHERE entry2.id IS NOT NULL)
+    ORDER BY compare_entry.headword
+  ) FILTER (WHERE compare_entry.id IS NOT NULL)
 `;
 
 export async function get({ query }) {
@@ -72,17 +76,29 @@ export async function get({ query }) {
     .distinct();
 
   const q = knex.from(subq.as('found'))
-    .join('entry_with_senses as entry1', 'entry1.id', 'found.lang1_id')
-    .leftJoin('entry_with_senses as entry2', 'entry2.id', 'found.lang2_id')
-    .groupBy('entry1.id', 'entry1.headword', knex.raw('entry1.senses::jsonb'))
+    .join('entry_with_senses as entry', 'entry.id', 'found.lang1_id')
+    .leftJoin('entry_with_senses as compare_entry', 'compare_entry.id', 'found.lang2_id')
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
+    .leftJoin('set_member as compare_set_member', 'compare_set_member.entry_id', 'compare_entry.id')
+    .groupBy(
+      'entry.id',
+      'entry.headword',
+      'entry.origin',
+      'entry.record_id', 
+      knex.raw('entry.senses::jsonb'),
+      'set_member.set_id'
+    )
     .select(
-      'entry1.id',
-      'entry1.headword',
-      knex.raw('entry1.senses::jsonb'),
+      'entry.id',
+      'entry.headword',
+      'entry.origin',
+      'entry.record_id',
+      knex.raw('entry.senses::jsonb'),
+      'set_member.set_id',
       knex.raw(`${compare_entries} as compare_entries`)
     )
     .orderByRaw(`${compare_entries} IS NULL`)
-    .orderByRaw('lower(entry1.headword)');
+    .orderByRaw('lower(entry.headword)');
 
   const rowCount = await getCount(makeQuery(knex, query, 'lang1'));
   const pageCount = applyPageParams(q, query, rowCount);

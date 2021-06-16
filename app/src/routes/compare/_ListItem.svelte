@@ -1,23 +1,32 @@
 <script>
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import EntryLink from '$components/EntryLink.svelte';
+  import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
+  import SetPopover from '$components/SetPopover.svelte';
   import { slide } from 'svelte/transition';
+  import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
 
-  export let row;
+  export let entry;
   export let lang2;
   export let collapsed;
   export let multilang;
-  const { headword, senses } = row;
+  const { compare_entries, headword, senses } = entry;
 </script>
 
 <div class="entry">
-  <strong>{headword}</strong>
+  <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
+  {#if entry.set_id}
+    <SetPopover id={entry.set_id}>
+      <Icon data={faBezierCurve} />
+    </SetPopover>
+  {/if}
   <div>
     <Senses {senses} {multilang} />
   </div>
 </div>
-{#if row.compare_entries}
+{#if compare_entries}
   <Collapsible {collapsed}>
     <div class="header">
       <CollapsibleIndicator />
@@ -25,11 +34,16 @@
     </div>
     {#if !$collapsed}
       <ul transition:slide={{ duration: 200 }}>
-        {#each row.compare_entries as { headword, senses } }
+        {#each compare_entries as compare_entry (compare_entry.id)}
           <li>
-            <strong>{headword}</strong>
+            <EntryLink {entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+            {#if compare_entry.set_id}
+              <SetPopover id={compare_entry.set_id}>
+                <Icon data={faBezierCurve} />
+              </SetPopover>
+            {/if}
             <div>
-              <Senses {senses} {multilang} />
+              <Senses senses={compare_entry.senses} {multilang} />
             </div>
           </li>
         {/each}
@@ -44,6 +58,9 @@
     > div {
       margin-inline-start: 12px;
     }
+    // :global(> :first-child) {
+    //   @include indent-small;
+    // }
   }
 
   .header {
@@ -55,10 +72,13 @@
     margin-inline-start: 1em;
     li {
       display: flex;
-      margin-block-start: 2px;
+      margin-block-start: 6px;
       > div {
         margin-inline-start: 12px;
       }
+      // :global(> :first-child) {
+      //   @include indent-small;
+      // }
     }
   }
 </style>

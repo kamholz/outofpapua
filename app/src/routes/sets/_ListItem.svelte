@@ -20,7 +20,7 @@
   {#if !$collapsed}
     <div class="table" transition:slide={{ duration: 200 }}>
       {#each set.members as { entry, reflex, source } (entry.id)}
-        <div class:borrowed={entry.origin === 'borrowed'} class:inherited={entry.origin === 'inherited'}>
+        <div class={entry.origin}>
           <strong>{source.language_name}</strong> <EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink>
         </div>
         <div>
