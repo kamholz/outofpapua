@@ -1,17 +1,21 @@
 <script>
   import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
-  import { setContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+  import { fade } from 'svelte/transition';
+  import { getContext, setContext } from 'svelte';
+  import { normalizeQuery } from '$lib/util';
   import { writable } from 'svelte/store';
 
   export let name;
   export let pageCount;
   export let pageParam;
   export let rowCount;
-  export let query;
   export let rows;
   export let lang2;
   export let multilang;
+  const query = getContext('query');
 
   let collapsedRows;
   $: {
@@ -31,6 +35,12 @@
       collapsedRows[id].set(state);
     }
   }
+
+  function handleClick(e) {
+    e.preventDefault();
+    const query = normalizeQuery(new URL(e.target.href).searchParams);
+    dispatch('refresh', query);
+  }
 </script>
 
 <h3>{name}</h3>
@@ -48,14 +58,18 @@
 
 <hr>
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} {pageParam} />
+  <Paginator query={$query} {pageCount} {pageParam} on:click={handleClick} />
 {/if}
-{#each $rows as row (row.id)}
-  <ListItem entry={row} {lang2} collapsed={collapsedRows[row.id]} {multilang} />
-  <hr>
-{/each}
+{#key $rows}
+  <div transition:fade>
+    {#each $rows as row (row.id)}
+      <ListItem entry={row} {lang2} collapsed={collapsedRows[row.id]} {multilang} />
+      <hr>
+    {/each}
+  </div>
+{/key}
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} {pageParam} />
+  <Paginator query={$query} {pageCount} {pageParam} on:click={handleClick} />
 {/if}
 
 <style lang="scss">

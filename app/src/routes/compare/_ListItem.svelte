@@ -5,8 +5,8 @@
   import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
   import SetPopover from '$components/SetPopover.svelte';
-  import { slide } from 'svelte/transition';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
+  import { slide } from 'svelte/transition';
 
   export let entry;
   export let lang2;
@@ -33,7 +33,7 @@
       {lang2.name} comparisons
     </div>
     {#if !$collapsed}
-      <ul transition:slide={{ duration: 200 }}>
+      <ul transition:slide|local={{ duration: 200 }}>
         {#each compare_entries as compare_entry (compare_entry.id)}
           <li>
             <EntryLink {entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>

@@ -1,5 +1,5 @@
 <script>
-  import { glossesSummary, glossSummaryNoLanguage, mungePos } from '$lib/util';
+  import { glossSummaryNoLanguage, glossesSummary, mungePos } from '$lib/util';
   import { preferences } from '$lib/stores';
 
   export let senses;

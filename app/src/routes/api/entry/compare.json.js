@@ -10,7 +10,7 @@ const arrayNumParams = new Set(['glosslang']);
 const defaults = {
   asc: true,
   page: 1,
-  pagesize: defaultPreferences.tablePageSize,
+  pagesize: defaultPreferences.listPageSize,
 };
 
 function makeQuery(q, query, lang) {
@@ -84,7 +84,7 @@ export async function get({ query }) {
       'entry.id',
       'entry.headword',
       'entry.origin',
-      'entry.record_id', 
+      'entry.record_id',
       knex.raw('entry.senses::jsonb'),
       'set_member.set_id'
     )

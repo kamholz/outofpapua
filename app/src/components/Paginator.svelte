@@ -22,25 +22,25 @@
 </script>
 
 <div>
-  <Arrow dir="previous" url={page > 1 && pageUrl(page - 1)} />
-  <Number num={1} {page} {pageUrl} />
+  <Arrow dir="previous" url={page > 1 && pageUrl(page - 1)} on:click />
+  <Number num={1} {page} {pageUrl} on:click />
   {#if page - pageWidth > 3}
     <span>…</span>
   {/if}
   {#if page - pageWidth === 3}
-    <Number num={2} {page} {pageUrl} />
+    <Number num={2} {page} {pageUrl} on:click />
   {/if}
   {#each pagesToDisplay as i (i)}
-    <Number num={i + 1} {page} {pageUrl} />
+    <Number num={i + 1} {page} {pageUrl} on:click />
   {/each}
   {#if page + pageWidth < pageCount - 2}
     <span>…</span>
   {/if}
   {#if page + pageWidth === pageCount - 2}
-    <Number num={pageCount - 1} {page} {pageUrl} />
+    <Number num={pageCount - 1} {page} {pageUrl} on:click />
   {/if}
   <Number num={pageCount} {page} {pageUrl} />
-  <Arrow dir="next" url={page < pageCount && pageUrl(page + 1)} />
+  <Arrow dir="next" url={page < pageCount && pageUrl(page + 1)} on:click />
 </div>
 
 <style lang="scss">

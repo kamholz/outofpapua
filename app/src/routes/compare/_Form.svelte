@@ -43,6 +43,6 @@
   style="--formwidth: 35em; --gridtemplate: 32% 68%"
 >
   <svelte:fragment slot="hidden">
-    <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
+    <input type="hidden" name="pagesize" value={$preferences.listPageSize}>
   </svelte:fragment>
 </Form>

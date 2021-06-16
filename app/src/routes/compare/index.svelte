@@ -1,5 +1,6 @@
 <script context="module">
   import { normalizeQuery, parseArrayNumParams } from '$lib/util';
+  import { pageLoading } from '$lib/stores';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
@@ -8,7 +9,13 @@
   export async function load({ fetch, page: { query }, session }) {
     const props = {
       editable: session.user !== null,
+      langSuggest: await suggest.lang(fetch),
+      glosslangSuggest: await suggest.glosslang(fetch),
     };
+    if (!props.langSuggest || !props.glosslangSuggest) {
+      return { status: 500, error: 'Internal error' };
+    }
+
     query = normalizeQuery(query);
     if ('lang1' in query && 'lang2' in query) {
       props.lang1 = await reload1(fetch, query);
@@ -25,22 +32,22 @@
         page2: props.lang2.query.page,
       };
       delete props.query.page;
+
+      props.query.lang1 = Number(props.query.lang1);
+      props.query.lang2 = Number(props.query.lang2);
+      props.lang1.name = props.langSuggest.find((v) => v.id === props.query.lang1).name;
+      props.lang2.name = props.langSuggest.find((v) => v.id === props.query.lang2).name;
     } else {
       parseArrayNumParams(query, arrayNumParams);
       props.query = query;
     }
-
-    props.langSuggest = await suggest.lang(fetch);
-    props.glosslangSuggest = await suggest.glosslang(fetch);
-    if (!props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
-    }
+    props.query = writable(props.query);
 
     return { props };
   }
 
   function stripQuery(query) {
-    const newQuery = { ... query};
+    const newQuery = { ...query };
     delete newQuery.page1;
     delete newQuery.page2;
     return newQuery;
@@ -69,6 +76,7 @@
   import CompareForm from './_Form.svelte';
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import { setContext } from 'svelte';
 
   export let lang1 = null;
   export let lang2 = null;
@@ -76,22 +84,33 @@
   export let editable;
   export let langSuggest;
   export let glosslangSuggest;
+  $: multilang = !($query.glosslang?.length === 1);
+  setContext('query', query);
 
-  $: if (lang1) {
-    query.lang1 = Number(query.lang1);
-    lang1.name = langSuggest.find((v) => v.id === query.lang1).name;
-  }
-  $: if (lang2) {
-    query.lang2 = Number(query.lang2);
-    lang2.name = langSuggest.find((v) => v.id === query.lang2).name;
-  }
+  async function handleRefresh1(newQuery) {
+    $pageLoading++;
+    const rowStore = lang1.rows;
+    lang1 = await reload1(fetch, newQuery);
+    rowStore.set(lang1.rows);
+    lang1.rows = rowStore;
+    $query.page1 = Number(newQuery.page1);
+    $pageLoading--;
+}
 
-  $: multilang = !(query.glosslang?.length === 1);
+  async function handleRefresh2(newQuery) {
+    $pageLoading++;
+    const rowStore = lang2.rows;
+    lang2 = await reload2(fetch, newQuery);
+    rowStore.set(lang2.rows);
+    lang2.rows = rowStore;
+    $query.page2 = Number(newQuery.page2);
+    $pageLoading--;
+  }
 </script>
 
 <h2>Compare languages</h2>
 <CompareForm
-  {query}
+  query={$query}
   {langSuggest}
   {glosslangSuggest}
 />
@@ -103,22 +122,22 @@
         <CompareList 
           {...lang1}
           {lang2}
-          {query}
           pageParam="page1"
           {multilang}
+          on:refresh={(e) => handleRefresh1(e.detail)}
         />
       </div>
       <div>
         <CompareList
           {...lang2}
-          {query}
           pageParam="page2"
           lang2={lang1}
           {multilang}
+          on:refresh={(e) => handleRefresh2(e.detail)}
         />
       </div>
     </div>
-    <PageSizeSelect {query} />
+    <PageSizeSelect query={$query} preferenceKey="listPageSize" />
   {:else}
     <div class="notfound">no entries found</div>
   {/if}
