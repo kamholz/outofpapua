@@ -90,7 +90,7 @@
   async function handleRefresh1(newQuery) {
     $pageLoading++;
     const rowStore = lang1.rows;
-    lang1 = await reload1(fetch, newQuery);
+    Object.assign(lang1, await reload1(fetch, newQuery));
     rowStore.set(lang1.rows);
     lang1.rows = rowStore;
     $query.page1 = Number(newQuery.page1);
@@ -100,7 +100,7 @@
   async function handleRefresh2(newQuery) {
     $pageLoading++;
     const rowStore = lang2.rows;
-    lang2 = await reload2(fetch, newQuery);
+    Object.assign(lang2, await reload2(fetch, newQuery));
     rowStore.set(lang2.rows);
     lang2.rows = rowStore;
     $query.page2 = Number(newQuery.page2);
