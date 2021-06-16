@@ -195,8 +195,7 @@
   @include hr;
 
   button {
-    margin-inline-start: 0;
-    margin-inline-end: 10px;
+    margin-inline: 0 10px;
   }
 
   textarea {

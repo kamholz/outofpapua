@@ -36,5 +36,9 @@
 {/if}
 
 <style lang="scss">
+  button {
+    margin-inline: 0 10px;
+  }
+
   @include hr;
 </style>
