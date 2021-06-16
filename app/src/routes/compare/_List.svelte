@@ -13,10 +13,13 @@
   export let lang2;
   export let multilang;
 
-  const collapsedRows = {};
-  for (const row of $rows) {
-    if (row.compare_entries) {
-      collapsedRows[row.id] = writable(false);
+  let collapsedRows;
+  $: {
+    collapsedRows = {};
+    for (const row of $rows) {
+      if (row.compare_entries) {
+        collapsedRows[row.id] = writable(false);
+      }
     }
   }
 
