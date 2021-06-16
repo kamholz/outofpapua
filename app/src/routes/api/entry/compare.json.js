@@ -1,4 +1,4 @@
-import { applyPageParams, arrayCmp, filterGlosslang, getCount, knex } from '$lib/db';
+import { applyPageParams, arrayCmp, filterGlosslang, getCountDistinct, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams } from '$lib/util';
 import { nfc } from './_params';
@@ -96,7 +96,7 @@ export async function get({ query }) {
     .orderByRaw(`${compare_entries} IS NULL`)
     .orderByRaw('lower(entry.headword)');
 
-  const rowCount = await getCount(makeQuery(knex, query, 'lang1'));
+  const rowCount = await getCountDistinct(makeQuery(knex, query, 'lang1'), 'entry.id');
   const pageCount = applyPageParams(q, query, rowCount);
 
   const rows = await q;

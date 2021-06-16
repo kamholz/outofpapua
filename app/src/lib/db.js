@@ -73,6 +73,11 @@ export async function getCount(q) {
   return Number(count.count);
 }
 
+export async function getCountDistinct(q, col) {
+  const count = await q.clone().countDistinct({ count: col }).first();
+  return Number(count.count);
+}
+
 // searching
 
 export function applyEntrySearchParams(q, query) {
