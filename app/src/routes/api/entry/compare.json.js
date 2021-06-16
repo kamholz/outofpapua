@@ -1,14 +1,11 @@
 import { applyPageParams, arrayCmp, filterGlosslang, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams,
-  parseBooleanParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams } from '$lib/util';
 import { nfc } from './_params';
 
-const allowed = new Set(['asc', 'gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize', 'sort']);
-const boolean = new Set(['asc']);
+const allowed = new Set(['gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize']);
 const arrayNumParams = new Set(['glosslang']);
 const defaults = {
-  asc: true,
   page: 1,
   pagesize: defaultPreferences.listPageSize,
 };
@@ -60,7 +57,6 @@ export async function get({ query }) {
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
-  parseBooleanParams(query, boolean);
   parseArrayNumParams(query, arrayNumParams);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };

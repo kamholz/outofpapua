@@ -1,5 +1,5 @@
 <script context="module">
-  import { normalizeQuery, parseArrayNumParams } from '$lib/util';
+  import { normalizeQuery, parseArrayNumParams, serializeQuery } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
@@ -95,6 +95,7 @@
     lang1.rows = rowStore;
     $query.page1 = Number(newQuery.page1);
     $pageLoading--;
+    pushState();
 }
 
   async function handleRefresh2(newQuery) {
@@ -105,6 +106,11 @@
     lang2.rows = rowStore;
     $query.page2 = Number(newQuery.page2);
     $pageLoading--;
+    pushState();
+  }
+
+  function pushState() {
+    history.pushState({}, '', serializeQuery($query));
   }
 </script>
 
