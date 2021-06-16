@@ -91,16 +91,14 @@
         <CompareList {...lang2} {query} lang2={lang1} {multilang} />
       </div>
     </div>
-    <div class="controls">
-      <PageSizeSelect {query} />
-    </div>
+    <PageSizeSelect {query} />
   {:else}
     <div class="notfound">no entries found</div>
   {/if}
 {/if}
 
 <style lang="scss">
-  .controls, .notfound {
+  .notfound {
     margin-block: $item_sep;
   }
 
