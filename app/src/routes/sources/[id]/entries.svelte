@@ -7,6 +7,13 @@
     const props = {
       editable: session.user !== null,
     };
+    if (props.editable) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+      if (!props.borrowlangSuggest) {
+        return { status: 500, error: 'Internal error' };
+      }
+    }
+
     let res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
       return { status: 500, error: 'Internal error' };
@@ -18,10 +25,6 @@
     }
     Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
     props.rows = writable(props.rows);
-
-    if (props.editable) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
-    }
 
     return { props };
   }

@@ -9,7 +9,19 @@
   export async function load({ fetch, page: { query }, session }) {
     const props = {
       editable: session.user !== null,
+      langSuggest: await suggest.langPlus(fetch),
+      glosslangSuggest: await suggest.glosslang(fetch),
     };
+    if (!props.langSuggest || !props.glosslangSuggest) {
+      return { status: 500, error: 'Internal error' };
+    }
+    if (props.editable) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+      if (!props.borrowlangSuggest) {
+        return { status: 500, error: 'Internal error' };
+      }
+    }
+
     query = normalizeQuery(query);
     if (['headword', 'gloss'].some((attr) => attr in query)) {
       const json = await reload(fetch, query);
@@ -31,15 +43,6 @@
         query.origin = 'all';
       }
       props.query = query;
-    }
-
-    props.langSuggest = await suggest.langPlus(fetch);
-    props.glosslangSuggest = await suggest.glosslang(fetch);
-    if (!props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
-    }
-    if (props.editable) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
     }
 
     return { props };

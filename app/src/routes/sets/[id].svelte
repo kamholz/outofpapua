@@ -7,11 +7,6 @@
     const props = {
       editable: session.user !== null,
     };
-    const set = await reload(fetch, params.id);
-    if (!set) {
-      return { status: 500, error: 'Internal error' };
-    }
-    props.set = set;
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       props.langSuggest = await suggest.langPlus(fetch);
@@ -20,6 +15,12 @@
         return { status: 500, error: 'Internal error' };
       }
     }
+
+    props.set = await reload(fetch, params.id);
+    if (!props.set) {
+      return { status: 500, error: 'Internal error' };
+    }
+
     return { props };
   }
 

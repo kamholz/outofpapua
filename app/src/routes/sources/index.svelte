@@ -7,15 +7,20 @@
     const props = {
       editable: session.user !== null,
     };
+    if (props.editable) {
+      props.protolangSuggest = await suggest.protolang(fetch);
+      if (!props.protolangSuggest) {
+        return { status: 500, error: 'Internal error' };
+      }
+    }
+
     const json = await reload(fetch, normalizeQuery(query));
     if (!json) {
       return { status: 500, error: 'Internal error' };
     }
     Object.assign(props, json);
     props.rows = writable(props.rows);
-    if (props.editable) {
-      props.protolangSuggest = await suggest.protolang(fetch);
-    }
+
     return { props };
   }
 

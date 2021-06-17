@@ -10,6 +10,7 @@
   export let entry;
   export let editable;
   export let borrowlangSuggest;
+  export let click;
   const values = {
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,
@@ -21,7 +22,7 @@
 
   const popover = createPopover({
     hover: true,
-    click: true,
+    click,
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });

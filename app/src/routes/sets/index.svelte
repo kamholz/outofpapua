@@ -6,7 +6,20 @@
   export async function load({ fetch, page: { query }, session }) {
     const props = {
       editable: session.user !== null,
+      sourceSuggest: await suggest.source(fetch),
+      langSuggest: await suggest.langPlus(fetch),
+      glosslangSuggest: await suggest.glosslang(fetch),
     };
+    if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
+      return { status: 500, error: 'Internal error' };
+    }
+    if (props.editable) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+      if (!props.borrowlangSuggest) {
+        return { status: 500, error: 'Internal error' };
+      }
+    }
+
     query = normalizeQuery(query);
     const json = await reload(fetch, query, session.preferences);
     if (!json) {
@@ -14,13 +27,6 @@
     }
     Object.assign(props, json); // populates query, pageCount, rows, rowCount
     props.rows = writable(props.rows);
-
-    props.sourceSuggest = await suggest.source(fetch);
-    props.langSuggest = await suggest.langPlus(fetch);
-    props.glosslangSuggest = await suggest.glosslang(fetch);
-    if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
-    }
 
     return { props };
   }
@@ -36,13 +42,13 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SetList from './_List.svelte';
-  // import { preferences } from '$lib/stores';
 
   export let rows;
-  // export let editable;
+  export let editable;
   export let sourceSuggest;
   export let langSuggest;
   export let glosslangSuggest;
+  export let borrowlangSuggest = null;
   export let query;
   export let pageCount;
   export let rowCount;
@@ -64,6 +70,8 @@
     {rows}
     {query}
     {pageCount}
+    {editable}
+    {borrowlangSuggest}
   />
   <div class="controls">
     <PageSizeSelect {query} preferenceKey="listPageSize" />

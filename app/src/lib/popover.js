@@ -115,6 +115,7 @@ export function popoverTrigger(node, popover) {
 }
 
 export function popoverContent(node, popover) {
+  document.body.appendChild(node); // don't inherit local css
   const { createHoverListeners, destroyHoverListeners, popperContent, popperOptions } = popover;
   const actions = popperContent(node, popperOptions);
   popover.popoverRef = node;

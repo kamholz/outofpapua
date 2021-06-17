@@ -13,6 +13,7 @@
   entry={row}
   {editable}
   {borrowlangSuggest}
+  click={true}
 >
   <Icon data={faInfoCircle} {scale} label="Info" />
 </EntryInfoPopover>

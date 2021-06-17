@@ -1,14 +1,16 @@
 <script>
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import EntryInfoPopover from '$components/EntryInfoPopover.svelte';
   import EntryLink from '$components/EntryLink.svelte';
-  //import OriginSummary from '$components/OriginSummary.svelte';
   import Reflex from '$components/Reflex.svelte';
   import { glossesSummary } from '$lib/util';
   import { preferences } from '$lib/stores';
   import { slide } from 'svelte/transition';
 
   export let set;
+  export let editable;
+  export let borrowlangSuggest;
   export let collapsed;
 </script>
 
@@ -21,7 +23,7 @@
     <div class="table" transition:slide={{ duration: 200 }}>
       {#each set.members as { entry, reflex, source } (entry.id)}
         <div class={entry.origin}>
-          <strong>{source.language_name}</strong> <EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink>
+          <strong>{source.language_name}</strong> <EntryInfoPopover {entry} {editable} {borrowlangSuggest} click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
         </div>
         <div>
           {source.reference}
