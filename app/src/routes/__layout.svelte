@@ -13,6 +13,7 @@
   // let broadcasts = [];
 
   // onMount(() => {
+  //   document.body.style.opacity = null;
   //   registerListener(receiveBroadcast);
   //   setInterval(() => {
   //     broadcast($session.user, `did thing #${count}`);

@@ -170,7 +170,6 @@
       }
 
       .radiolabel {
-        margin-inline-end: 12px;
         text-align: start;
         * {
           vertical-align: middle;
