@@ -37,3 +37,7 @@ export function getSession({ locals }) {
     user: locals.user,
   };
 }
+
+export function serverFetch(request) {
+  return fetch(request);
+}
