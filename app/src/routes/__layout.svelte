@@ -44,15 +44,17 @@
 </div>
 {/if}
 <Login username={$session.user?.username} />
-<NavBar />
 
-<main>
-{#key $page.path}
-  <div in:fade={{ duration: 200 }}>
-    <slot />
-  </div>
-{/key}
-</main>
+{#if $session.user}
+  <NavBar />
+  <main>
+  {#key $page.path}
+    <div in:fade={{ duration: 200 }}>
+      <slot />
+    </div>
+  {/key}
+  </main>
+{/if}
 
 <!-- {#if broadcasts.length}
   <div id="activity" bind:this={activity} transition:fade={{ duration: 200 }}>
