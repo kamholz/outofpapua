@@ -109,6 +109,20 @@ has 'page_num' => (
   default => sub { to_array_map('bib_Eng') },
 );
 
+# hash of markers to replace
+has 'replace_marker' => (
+  is => 'ro',
+  default => {
+    vet => 've',
+  },
+);
+
+# marker(s) which, if present, will cause entry not to be added
+has 'filter_entry' => (
+  is => 'ro',
+  default => sub { to_array_map('mn') },
+)
+
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
@@ -117,7 +131,7 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/headword headword_citation page_num record sense/) {
+  foreach my $att (grep { defined $attr->{$_} } qw/filter_entry headword headword_citation page_num record sense/) {
     $attr->{$att} = to_array_map($attr->{$att});
   }
 
@@ -191,6 +205,25 @@ sub read_entries {
 
   return $entries;
 }
+
+# apply filter_entry and replace_marker
+around 'push_entry' => sub {
+  my ($orig, $self, $entries, $entry) = @_;
+
+  my $filter_entry = $self->filter_entry;
+  return if $filter_entry && any { $filter_entry->{$_->[0]} } @{$entry->{record}||[]};
+
+  my $replace_marker = $self->replace_marker;
+  if ($replace_marker) {
+    foreach my $item (@{$entry->{record}||[]}) {
+      if (exists $replace_marker->{$item->[0]}) {
+        $item->[0] = $replace_marker->{$item->[0]};
+      }
+    }
+  }
+
+  return $orig->($self, $entries, $entry);
+};
 
 sub parse {
   my ($self) = @_;
