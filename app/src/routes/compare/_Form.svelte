@@ -32,6 +32,23 @@
       options: glosslangSuggest,
     },
   ];
+
+  function handleValidation(e) {
+    const { form, values } = e.detail;
+    const lang1 = form.elements[0];
+    const lang2 = form.elements[2];
+    lang1.setCustomValidity('');
+    lang2.setCustomValidity('');
+    if (!values.lang1) {
+      lang1.setCustomValidity('Language 1 is required');
+    }
+    if (!values.lang2) {
+      lang2.setCustomValidity('Language 2 is required');
+    }
+    if (values.lang1 === values.lang2) {
+      lang2.setCustomValidity('Language 2 cannot be the same as Language 1');
+    }
+  }
 </script>
 
 <Form
@@ -41,6 +58,7 @@
   browserSubmit
   help={RegexHelp}
   style="--formwidth: 35em; --gridtemplate: 32% 68%"
+  on:beforesubmit={handleValidation}
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.listPageSize}>

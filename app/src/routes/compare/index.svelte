@@ -18,30 +18,21 @@
 
     query = normalizeQuery(query);
     if ('lang1' in query && 'lang2' in query) {
-      props.lang1 = await reload1(fetch, query);
-      props.lang2 = await reload2(fetch, query);
-      if (!props.lang1 || !props.lang2) {
+      const json = await reload(fetch, query);
+      if (!json) {
         return { status: 500, error: 'Internal error' };
       }
-      props.lang1.rows = writable(props.lang1.rows);
-      props.lang2.rows = writable(props.lang2.rows);
-
-      props.query = {
-        ...props.lang1.query,
-        page1: props.lang1.query.page,
-        page2: props.lang2.query.page,
-      };
-      delete props.query.page;
+      Object.assign(props, json); // populates query, pageCount, rows, rowCount
+      props.rows = writable(props.rows);
 
       props.query.lang1 = Number(props.query.lang1);
       props.query.lang2 = Number(props.query.lang2);
-      props.lang1.name = props.langSuggest.find((v) => v.id === props.query.lang1).name;
-      props.lang2.name = props.langSuggest.find((v) => v.id === props.query.lang2).name;
+      props.lang1 = { name: props.langSuggest.find((v) => v.id === props.query.lang1).name };
+      props.lang2 = { name: props.langSuggest.find((v) => v.id === props.query.lang2).name };
     } else {
       parseArrayNumParams(query, arrayNumParams);
       props.query = query;
     }
-    // props.query = writable(props.query);
 
     return { props };
   }
@@ -53,20 +44,10 @@
     return newQuery;
   }
 
-  async function reload1(fetch, query) {
+  async function reload(fetch, query) {
     const res = await fetch('/api/entry/compare.json?' + new URLSearchParams({
       ...stripQuery(query),
-      page: query.page1 ?? 1,
-    }));
-    return res.ok ? res.json() : null;
-  }
-
-  async function reload2(fetch, query) {
-    const res = await fetch('/api/entry/compare.json?' + new URLSearchParams({
-      ...stripQuery(query),
-      page: query.page2 ?? 1,
-      lang2: query.lang1,
-      lang1: query.lang2,
+      page: query.page ?? 1,
     }));
     return res.ok ? res.json() : null;
   }
@@ -77,34 +58,28 @@
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
 
-  export let lang1 = null;
-  export let lang2 = null;
+  export let rows = null;
   export let query;
   export let editable;
+  export let pageCount = null;
+  export let rowCount = null;
+  export let lang1 = null; // name
+  export let lang2 = null; // name
   export let langSuggest;
   export let glosslangSuggest;
   $: multilang = !(query.glosslang?.length === 1);
 
-  async function handleRefresh1(newQuery) {
+  async function handleRefresh(newQuery) {
     $pageLoading++;
-    const rowStore = lang1.rows;
-    Object.assign(lang1, await reload1(fetch, newQuery));
-    rowStore.set(lang1.rows);
-    lang1.rows = rowStore;
-    query.page1 = Number(newQuery.page1);
+    const json = await reload(fetch, newQuery);
+    if (json) {
+      $rows = json.rows;
+      query = json.query;
+      pageCount = json.pageCount;
+      rowCount = json.rowCount;
+      pushState();
+    }
     $pageLoading--;
-    pushState();
-}
-
-  async function handleRefresh2(newQuery) {
-    $pageLoading++;
-    const rowStore = lang2.rows;
-    Object.assign(lang2, await reload2(fetch, newQuery));
-    rowStore.set(lang2.rows);
-    lang2.rows = rowStore;
-    query.page2 = Number(newQuery.page2);
-    $pageLoading--;
-    pushState();
   }
 
   function pushState() {
@@ -119,30 +94,18 @@
   {glosslangSuggest}
 />
 
-{#if lang1 && lang2}
-  {#if lang1?.rowCount || lang2?.rowCount}
-    <div class="results">
-      <div>
-        <CompareList 
-          {...lang1}
-          {lang2}
-          {query}
-          pageParam="page1"
-          {multilang}
-          on:refresh={(e) => handleRefresh1(e.detail)}
-        />
-      </div>
-      <div>
-        <CompareList
-          {...lang2}
-          {query}
-          pageParam="page2"
-          lang2={lang1}
-          {multilang}
-          on:refresh={(e) => handleRefresh2(e.detail)}
-        />
-      </div>
-    </div>
+{#if query.lang1 && query.lang2}
+  {#if rowCount}
+    <CompareList
+      {rows}
+      {query}
+      {rowCount}
+      {pageCount}
+      {lang1}
+      {lang2}
+      {multilang}
+      on:refresh={(e) => handleRefresh(e.detail)}
+    />
     <PageSizeSelect {query} preferenceKey="listPageSize" />
   {:else}
     <div class="notfound">no entries found</div>
@@ -152,11 +115,5 @@
 <style lang="scss">
   .notfound {
     margin-block: $item_sep;
-  }
-
-  .results {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    column-gap: 10px;
   }
 </style>

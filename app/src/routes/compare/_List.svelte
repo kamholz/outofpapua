@@ -8,12 +8,11 @@
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
-  export let name;
-  export let pageCount;
-  export let pageParam;
-  export let rowCount;
   export let rows;
   export let query;
+  export let pageCount;
+  export let rowCount;
+  export let lang1;
   export let lang2;
   export let multilang;
 
@@ -43,7 +42,7 @@
   }
 </script>
 
-<h3>{name}</h3>
+<h3>{lang1.name}</h3>
 <div class="info">
   Total entries: {rowCount}
 </div>
@@ -58,7 +57,7 @@
 
 <hr>
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} {pageParam} on:click={handleClick} />
+  <Paginator {query} {pageCount} on:click={handleClick} />
 {/if}
 {#key $rows}
   <div transition:fade|local>
@@ -69,7 +68,7 @@
   </div>
 {/key}
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} {pageParam} on:click={handleClick} />
+  <Paginator {query} {pageCount} on:click={handleClick} />
 {/if}
 
 <style lang="scss">

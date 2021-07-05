@@ -17,7 +17,9 @@
   export { className as class };
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    if (!browserSubmit) {
+      e.preventDefault();
+    }
     const form = e.currentTarget;
     for (const { name, type } of fields) { // normalize whitespace
       if (type === 'text') {
@@ -27,18 +29,23 @@
     await tick();
     dispatch('beforesubmit', { form, values });
     if (form.checkValidity()) {
-      dispatch('submit', { form, values });
+      if (!browserSubmit) {
+        dispatch('submit', { form, values });
+      }
     } else {
+      if (browserSubmit) {
+        e.preventDefault();
+      }
       form.reportValidity();
     }
   }
 </script>
   
 <form
-  on:submit={!browserSubmit ? handleSubmit : null}
+  on:submit={handleSubmit}
   {action}
   {method}
-  noValidate={!browserSubmit}
+  novalidate
   {style}
   class={className}
 >
