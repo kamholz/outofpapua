@@ -22,7 +22,7 @@ has 'headword' => (
 # marker(s) for headword in citation form
 has 'headword_citation' => (
   is => 'ro',
-  default => sub { to_array_map([]) },
+  default => sub { to_array_map('lc') },
 );
 
 # marker(s) for new sense
@@ -109,19 +109,25 @@ has 'page_num' => (
   default => sub { to_array_map('bib_Eng') },
 );
 
+# marker(s) to skip
+has 'skip_marker' => (
+  is => 'ro',
+  default => sub { to_array_map([]) },
+);
+
 # hash of markers to replace
 has 'replace_marker' => (
   is => 'ro',
-  default => {
+  default => sub { {
     vet => 've',
-  },
+  } },
 );
 
 # marker(s) which, if present, will cause entry not to be added
 has 'filter_entry' => (
   is => 'ro',
   default => sub { to_array_map('mn') },
-)
+);
 
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
@@ -131,7 +137,7 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/filter_entry headword headword_citation page_num record sense/) {
+  foreach my $att (grep { defined $attr->{$_} } qw/filter_entry headword headword_citation page_num record sense skip_marker/) {
     $attr->{$att} = to_array_map($attr->{$att});
   }
 
@@ -151,6 +157,7 @@ sub read_entries {
   my $example = $self->example;
   my $example_trans = $self->example_trans;
   my $page_num = $self->page_num;
+  my $skip_marker = $self->skip_marker;
 
   my $entries = [];
   my $entry = {};
@@ -158,6 +165,7 @@ sub read_entries {
 
   foreach my $line ($self->parse) {
     my ($marker_orig, $txt, $headword_flag) = @$line;
+    next if $skip_marker->{$marker_orig};
 
     # don't save page_num in record, just in entry
     if ($page_num->{$marker_orig}) {

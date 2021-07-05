@@ -59,13 +59,20 @@ has 'lang_regional' => (
   default => 'und',
 );
 
-# valid *_action values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
+# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
 has 'reverse_action' => (
   is => 'ro',
   default => 'merge',
 );
 
+# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
 has 'definition_action' => (
+  is => 'ro',
+  default => 'ignore',
+);
+
+# valid values: 'ignore', 'prefer_root'
+has 'headword_citation_action' => (
   is => 'ro',
   default => 'ignore',
 );
@@ -97,6 +104,8 @@ sub push_entry {
   my ($self, $entries, $entry) = @_;
 
   if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
+    $self->apply_citation_action($entry);
+
     foreach my $sense (@{$entry->{sense}||[]}) {
       $self->apply_action($sense, 'reverse');
       $self->apply_action($sense, 'definition');
@@ -120,6 +129,19 @@ sub reset_entry {
     };
   } else {
     return {};
+  }
+}
+
+sub apply_citation_action {
+  my ($self, $entry) = @_;
+  if (length $entry->{headword_citation}) {
+    my $citation_action = $self->headword_citation_action;
+    if ($citation_action ne 'ignore' and ($entry->{headword} // '') ne $entry->{headword_citation}) {
+      if ($citation_action eq 'prefer_root') {
+        ($entry->{headword}, $entry->{root}) = ($entry->{headword_citation}, $entry->{headword});
+      }
+    }
+    delete $entry->{headword_citation};
   }
 }
 

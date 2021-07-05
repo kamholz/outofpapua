@@ -50,11 +50,6 @@ sub import_lexicon {
     my $entries = $parser->read_entries;
 
     foreach my $entry (@{$entries||[]}) {
-      # if headword_citation is present, it means plain headword is the root form
-      if (length $entry->{headword_citation}) {
-        ($entry->{headword}, $entry->{root}) = ($entry->{headword_citation}, $entry->{headword});
-      }
-
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       next unless length $entry->{headword};
 
