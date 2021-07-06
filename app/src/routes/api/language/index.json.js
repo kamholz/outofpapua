@@ -1,6 +1,7 @@
 import errors from '$lib/errors';
 import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
+  stripParams } from '$lib/util';
 import { nfc, required, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
@@ -19,7 +20,7 @@ const sortCols = {
   numentries: 'count(entry.id)',
 };
 
-export async function get({ query }) {
+export async function get({ locals, query }) {
   query = normalizeQuery(query);
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
@@ -53,8 +54,14 @@ export async function get({ query }) {
   }
 
   if ('numentries' in query) {
+    if (showPublicOnly(locals)) {
+      q.leftJoin('source', function () {
+        this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
+      });
+    } else {
+      q.leftJoin('source', 'source.language_id', 'language.id');
+    }
     q
-      .leftJoin('source', 'source.language_id', 'language.id')
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('language.id', 'protolanguage.id', 'parent.id', 'dialect_parent.id');

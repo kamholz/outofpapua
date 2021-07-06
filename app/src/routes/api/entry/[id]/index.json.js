@@ -1,14 +1,14 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
+import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable, nfc, table } from '../_params';
-import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowedAll = new Set(['headword_normalized', 'note', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
-export async function get({ params }) {
-  const row = await knex('entry_with_senses_full as entry')
+export async function get({ locals, params }) {
+  const q = knex('entry_with_senses_full as entry')
     .join('source', 'source.id', 'entry.source_id')
     .where('entry.id', Number(params.id))
     .first(
@@ -23,6 +23,8 @@ export async function get({ params }) {
       'entry.senses',
       'source.reference as source_reference'
     );
+  filterPublicSources(q, locals);
+  const row = await q;
   if (row) {
     return { body: row };
   }

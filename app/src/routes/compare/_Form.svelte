@@ -35,8 +35,7 @@
 
   function handleValidation(e) {
     const { form, values } = e.detail;
-    const lang1 = form.elements[0];
-    const lang2 = form.elements[2];
+    const [lang1, , lang2] = form.elements;
     lang1.setCustomValidity('');
     lang2.setCustomValidity('');
     if (!values.lang1) {

@@ -74,9 +74,7 @@
     const json = await reload(fetch, newQuery);
     if (json) {
       $rows = json.rows;
-      query = json.query;
-      pageCount = json.pageCount;
-      rowCount = json.rowCount;
+      ({ pageCount, query, rowCount } = json);
       pushState();
     }
     $pageLoading--;

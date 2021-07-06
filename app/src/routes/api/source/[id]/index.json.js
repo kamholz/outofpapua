@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed, nfc, table } from '../_params';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-export async function get({ params }) {
-  const row = await knex(table)
+export async function get({ locals, params }) {
+  const q = knex(table)
     .join('language', 'language.id', 'source.language_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .leftJoin('entry', 'entry.source_id', 'source.id')
@@ -22,6 +22,8 @@ export async function get({ params }) {
       knex.raw('protolanguage.id is not null as is_proto')
     )
     .groupBy('source.id', 'protolanguage.id', 'language.name');
+  filterPublicSources(q, locals);
+  const row = await q;
   if (row) {
     return { body: row };
   }

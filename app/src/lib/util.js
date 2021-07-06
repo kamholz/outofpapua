@@ -250,3 +250,7 @@ export async function checkError(res, message) {
     }
   }
 }
+
+export function showPublicOnly(locals) {
+  return locals.user === null;
+}

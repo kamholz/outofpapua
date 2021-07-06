@@ -1,4 +1,4 @@
-import { applyPageParams, arrayCmp, filterGlosslang, getCountDistinct, knex } from '$lib/db';
+import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams } from '$lib/util';
 import { nfc } from './_params';
@@ -10,13 +10,14 @@ const defaults = {
   pagesize: defaultPreferences.listPageSize,
 };
 
-function makeQuery(q, query, lang) {
+function makeQuery(q, query, lang, locals) {
   q = q
     .from('entry')
     .join('source', 'source.id', 'entry.source_id')
     .join('sense', 'sense.entry_id', 'entry.id')
     .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
     .where('source.language_id', query[lang]);
+  filterPublicSources(q, locals);
 
   if ('gloss' in query) {
     q.where('sense_gloss.txt', '~*', query.gloss);
@@ -29,8 +30,8 @@ function makeQuery(q, query, lang) {
   return q;
 }
 
-function makeCte(q, query, lang) {
-  makeQuery(q, query, lang)
+function makeCte(q, query, lang, locals) {
+  makeQuery(q, query, lang, locals)
   .select(
     'entry.id',
     'sense_gloss.language_id',
@@ -52,7 +53,7 @@ const compare_entries = `
   ) FILTER (WHERE compare_entry.id IS NOT NULL)
 `;
 
-export async function get({ query }) {
+export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
@@ -62,8 +63,8 @@ export async function get({ query }) {
   query = { ...defaults, ...query };
 
   const subq = knex
-    .with('lang1', (cte) => makeCte(cte, query, 'lang1'))
-    .with('lang2', (cte) => makeCte(cte, query, 'lang2'))
+    .with('lang1', (cte) => makeCte(cte, query, 'lang1', locals))
+    .with('lang2', (cte) => makeCte(cte, query, 'lang2', locals))
     .from('lang1')
     .leftJoin('lang2', function () {
       this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt', 'lang1.txt');
@@ -96,7 +97,7 @@ export async function get({ query }) {
     .orderByRaw(`${compare_entries} IS NULL`)
     .orderByRaw('lower(entry.headword)');
 
-  const rowCount = await getCountDistinct(makeQuery(knex, query, 'lang1'), 'entry.id');
+  const rowCount = await getCountDistinct(makeQuery(knex, query, 'lang1', locals), 'entry.id');
   const pageCount = applyPageParams(q, query, rowCount);
 
   const rows = await q;

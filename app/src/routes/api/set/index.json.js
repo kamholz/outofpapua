@@ -2,8 +2,8 @@ import { allowed, table } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
   sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams,
-  parseBooleanParams, partitionPlus } from '$lib/util';
+import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
+  partitionPlus, showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'gloss', 'glosslang', 'headword', 'lang', 'page', 'pagesize', 'sort', 'source']);
@@ -20,19 +20,29 @@ const sortCols = {
   name: "coalesce(set.name, lpad(set.id::text, 10, '0'))",
 };
 
-export async function get({ query }) {
+export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowedSearch);
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
-  const q = knex('set_with_members as set');
+  const publicOnly = showPublicOnly(locals);
+
+  const q = knex(`${publicOnly ? 'set_with_members_public' : 'set_with_members'} as set`);
 
   const existsq = knex('set_member')
     .where('set_member.set_id', knex.ref('set.id'))
     .join('entry', 'entry.id', 'set_member.entry_id');
   let existsqNeeded = false;
+
+  let joinedSource = false;
+  function joinSource() {
+    if (!joinedSource) {
+      existsq.join('source', 'source.id', 'entry.source_id');
+      joinedSource = true;
+    }
+  }
 
   if ('headword' in query || 'gloss' in query) {
     applyHeadwordGlossSearchParams(existsq, query);
@@ -51,9 +61,8 @@ export async function get({ query }) {
     }
 
     if (lang.length) {
-      existsq
-        .join('source', 'source.id', 'entry.source_id')
-        .where('source.language_id', arrayCmp(new Set(lang)));
+      joinSource();
+      existsq.where('source.language_id', arrayCmp(new Set(lang)));
       existsqNeeded = true;
     }
   }
@@ -64,6 +73,10 @@ export async function get({ query }) {
   }
 
   if (existsqNeeded) {
+    if (publicOnly) {
+      joinSource();
+      existsq.where('source.public');
+    }
     q.whereExists(existsq);
   }
 

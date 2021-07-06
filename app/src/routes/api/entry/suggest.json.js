@@ -2,6 +2,7 @@ import errors from '$lib/errors';
 import { arrayCmp, knex } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
   parseBooleanParams, partitionPlus } from '$lib/util';
+import { requireAuth } from '$lib/auth';
 import { table } from './_params';
 
 const allowed = new Set(['lang', 'max', 'match', 'noset', 'search']);
@@ -14,7 +15,7 @@ const defaults = {
   noset: true,
 };
 
-export async function get({ query }) {
+export const get = requireAuth(async ({ query }) => {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (Object.keys(getFilteredParams(query, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -83,4 +84,4 @@ export async function get({ query }) {
       rows: await q,
     },
   };
-}
+});

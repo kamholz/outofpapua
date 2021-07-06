@@ -1,6 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
-import { mungeRegex } from '$lib/util';
+import { mungeRegex, showPublicOnly } from '$lib/util';
 
 export const knex = knexModule({
   client: 'pg',
@@ -112,6 +112,12 @@ export function applyHeadwordGlossSearchParams(q, query) {
     if ('glosslang' in query) {
       q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
     }
+  }
+}
+
+export function filterPublicSources(q, locals) {
+  if (showPublicOnly(locals)) {
+    q.whereRaw('source.public');
   }
 }
 

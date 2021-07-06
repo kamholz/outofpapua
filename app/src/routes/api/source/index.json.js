@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { allowed, nfc, required, table } from './_params';
-import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
+import { applySortParams, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
@@ -16,7 +16,7 @@ const sortCols = {
   numentries: 'count(entry.id)',
 };
 
-export async function get({ query }) {
+export async function get({ locals, query }) {
   query = normalizeQuery(query);
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
@@ -28,6 +28,7 @@ export async function get({ query }) {
       'source.reference',
       'language.name as language'
     );
+  filterPublicSources(q, locals);
 
   if (query.category === 'proto') {
     q.whereExists(function () {

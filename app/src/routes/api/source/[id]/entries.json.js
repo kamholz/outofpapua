@@ -1,6 +1,7 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { table } from '../_params';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'origin', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
@@ -18,15 +19,26 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export async function get({ params, query }) {
+export async function get({ locals, params, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   parseBooleanParams(query, boolean);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
+  const id = Number(params.id);
+
+  if (showPublicOnly(locals)) {
+    const row = await knex(table)
+      .where('id', id)
+      .whereRaw('public')
+      .first('id');
+    if (!row) {
+      return;
+    }
+  }
 
   const subq = knex('entry')
     .select('entry.id')
-    .where('entry.source_id', Number(params.id))
+    .where('entry.source_id', id)
     .distinct();
 
   applyEntrySearchParams(subq, query);

@@ -1,11 +1,12 @@
 import errors from '$lib/errors';
 import { allowed, table } from '../_params';
-import { getFilteredParams, isIdArray } from '$lib/util';
+import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-export async function get({ params }) {
-  const row = await knex('set_with_members as set')
+export async function get({ locals, params }) {
+  const publicOnly = showPublicOnly(locals);
+  const row = await knex(`${publicOnly ? 'set_with_members_public' : 'set_with_members'} as set`)
     .where('set.id', Number(params.id))
     .first(
       'set.id',

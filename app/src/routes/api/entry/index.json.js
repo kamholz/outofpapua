@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
-  knex, sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
+  sendPgError, showPublicOnly, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, partitionPlus } from '$lib/util';
@@ -28,7 +28,7 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export async function get({ query }) {
+export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!['headword', 'gloss'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
@@ -49,6 +49,11 @@ export async function get({ query }) {
       subq.join('source', 'source.id', 'entry.source_id');
       joinedSource = true;
     }
+  }
+
+  if (showPublicOnly(locals)) {
+    joinSource();
+    subq.whereRaw('source.public');
   }
 
   applyEntrySearchParams(subq, query);
