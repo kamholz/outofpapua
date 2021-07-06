@@ -1,5 +1,4 @@
-import { filterPublicSources } from '/db';
-import { knex } from '$lib/db';
+import { filterPublicSources, knex } from '$lib/db';
 
 export async function get({ locals, params }) {
   const q = knex('record_with_source as record')

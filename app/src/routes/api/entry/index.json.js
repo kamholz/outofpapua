@@ -1,9 +1,9 @@
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
-  sendPgError, showPublicOnly, transaction } from '$lib/db';
+  sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
-  parseBooleanParams, partitionPlus } from '$lib/util';
+  parseBooleanParams, partitionPlus, showPublicOnly } from '$lib/util';
 import { nfc, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
