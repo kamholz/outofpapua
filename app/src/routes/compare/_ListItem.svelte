@@ -36,7 +36,7 @@
       <ul transition:slide|local={{ duration: 200 }}>
         {#each compare_entries as compare_entry (compare_entry.id)}
           <li>
-            <EntryLink {entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+            <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
             {#if compare_entry.set_id}
               <SetPopover id={compare_entry.set_id}>
                 <Icon data={faBezierCurve} />
