@@ -145,9 +145,12 @@
   {/each}
   {#if submitLabel || help}
     <div class="controls">
-      {#if submitLabel}
-        <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
-      {/if}
+      <div class="buttons">
+        {#if submitLabel}
+          <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
+        {/if}
+        <slot name="buttons" />
+      </div>
       {#if help}
         <svelte:component this={help} />
       {/if}
@@ -189,6 +192,11 @@
       flex-direction: row-reverse;
       justify-content: space-between;
       margin-block: 9px 3px;
+
+      > .buttons {
+        display: flex;
+        flex-direction: row-reverse;
+      }
     }
   }
 </style>
