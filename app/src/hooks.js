@@ -21,6 +21,16 @@ export async function handle({ request, resolve }) {
     return auth.redirectToRefresh(request);
   }
 
+  // require login
+  if (!locals.user && !request.path.startsWith('/auth/') && request.path !== '/login') {
+    return {
+      status: 302,
+      headers: {
+        location: '/login',
+      },
+    };
+  }
+
   if (cookies.preferences) {
     try {
       locals.preferences = JSON.parse(cookies.preferences);
