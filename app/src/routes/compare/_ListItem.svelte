@@ -5,23 +5,46 @@
   import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
   import SetPopover from '$components/SetPopover.svelte';
-  import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
+  import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
+  import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { slide } from 'svelte/transition';
+  import { writable } from 'svelte/store';
 
   export let entry;
   export let lang2;
   export let collapsed;
   export let multilang;
   const { compare_entries, headword, senses } = entry;
+  const selection = compare_entries ? writable({}) : null;
+
+  function handleSelect(item) {
+    const newSelection = { ...$selection };
+    if ($selection[item.id]) {
+      delete newSelection[item.id];
+    } else {
+      newSelection[item.id] = item;
+    }
+    if (item.set_id) {
+      for (const selectedRow of Object.values(newSelection)) {
+        if (selectedRow.set_id && selectedRow.set_id !== item.set_id) {
+          delete newSelection[selectedRow.id];
+        }
+      }
+    }
+    $selection = newSelection;
+  }
 </script>
 
 <div class="columns">
   <div class="entry">
+    {#if compare_entries}
+      <span on:click={() => handleSelect(entry)}>
+        <Icon data={$selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+      </span>
+    {/if}
     <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
     {#if entry.set_id}
-      <SetPopover id={entry.set_id}>
-        <Icon data={faBezierCurve} />
-      </SetPopover>
+      <SetPopover id={entry.set_id} />
     {/if}
     <div>
       <Senses {senses} {multilang} />
@@ -38,11 +61,12 @@
           <ul transition:slide|local={{ duration: 200 }}>
             {#each compare_entries as compare_entry (compare_entry.id)}
               <li>
+                <span on:click={() => handleSelect(compare_entry)}>
+                  <Icon data={$selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+                </span>
                 <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
                 {#if compare_entry.set_id}
-                  <SetPopover id={compare_entry.set_id}>
-                    <Icon data={faBezierCurve} />
-                  </SetPopover>
+                  <SetPopover id={compare_entry.set_id} />
                 {/if}
                 <div>
                   <Senses senses={compare_entry.senses} {multilang} />

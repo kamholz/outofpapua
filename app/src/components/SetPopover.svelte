@@ -1,6 +1,8 @@
 <script>
+  import Icon from 'svelte-awesome';
   import Reflex from '$components/Reflex.svelte';
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
+  import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { glossSummaryNoLanguage } from '$lib/util';
@@ -32,7 +34,9 @@
   sveltekit:prefetch
   use:popoverTrigger={popover}
 >
-  <slot />
+  <slot>
+    <Icon data={faBezierCurve} />
+  </slot>
 </a>
 {#if showPopover && set}
   <div

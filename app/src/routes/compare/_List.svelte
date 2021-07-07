@@ -62,7 +62,12 @@
 {#key $rows}
   <div transition:fade|local>
     {#each $rows as row (row.id)}
-      <ListItem entry={row} {lang2} collapsed={collapsedRows[row.id]} {multilang} />
+      <ListItem
+        entry={row}
+        {lang2}
+        collapsed={collapsedRows[row.id]}
+        {multilang}
+      />
       <hr>
     {/each}
   </div>
