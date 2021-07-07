@@ -12,7 +12,7 @@
 
 <style>
   div {
-    inline-size: 2em;
+    inline-size: 1.5em;
     cursor: default;
     user-select: none;
   }

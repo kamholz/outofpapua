@@ -15,45 +15,57 @@
   const { compare_entries, headword, senses } = entry;
 </script>
 
-<div class="entry">
-  <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
-  {#if entry.set_id}
-    <SetPopover id={entry.set_id}>
-      <Icon data={faBezierCurve} />
-    </SetPopover>
-  {/if}
-  <div>
-    <Senses {senses} {multilang} />
-  </div>
-</div>
-{#if compare_entries}
-  <Collapsible {collapsed}>
-    <div class="header">
-      <CollapsibleIndicator />
-      {lang2.name} comparisons
-    </div>
-    {#if !$collapsed}
-      <ul transition:slide|local={{ duration: 200 }}>
-        {#each compare_entries as compare_entry (compare_entry.id)}
-          <li>
-            <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
-            {#if compare_entry.set_id}
-              <SetPopover id={compare_entry.set_id}>
-                <Icon data={faBezierCurve} />
-              </SetPopover>
-            {/if}
-            <div>
-              <Senses senses={compare_entry.senses} {multilang} />
-            </div>
-          </li>
-        {/each}
-      </ul>
+<div class="columns">
+  <div class="entry">
+    <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
+    {#if entry.set_id}
+      <SetPopover id={entry.set_id}>
+        <Icon data={faBezierCurve} />
+      </SetPopover>
     {/if}
-  </Collapsible>
-{/if}
+    <div>
+      <Senses {senses} {multilang} />
+    </div>
+  </div>
+  {#if compare_entries}
+    <div class="compare">
+      <Collapsible {collapsed}>
+        <div class="header">
+          <CollapsibleIndicator />
+          {lang2.name} comparisons
+        </div>
+        {#if !$collapsed}
+          <ul transition:slide|local={{ duration: 200 }}>
+            {#each compare_entries as compare_entry (compare_entry.id)}
+              <li>
+                <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+                {#if compare_entry.set_id}
+                  <SetPopover id={compare_entry.set_id}>
+                    <Icon data={faBezierCurve} />
+                  </SetPopover>
+                {/if}
+                <div>
+                  <Senses senses={compare_entry.senses} {multilang} />
+                </div>
+              </li>
+            {/each}
+          </ul>
+        {/if}
+      </Collapsible>
+    </div>
+  {/if}
+</div>
 
 <style lang="scss">
+  .columns {
+    display: flex;
+    > div {
+      flex-basis: 50%;
+    }
+  }
+
   .entry {
+    // flex-grow: 1;
     display: flex;
     > div {
       margin-inline-start: 12px;
@@ -65,7 +77,7 @@
 
   .header {
     display: flex;
-    margin-block: 12px 6px;
+    margin-block: 0 6px;
   }
 
   ul {
@@ -80,5 +92,9 @@
       //   @include indent-small;
       // }
     }
+  }
+
+  .compare {
+    margin-inline-start: 10px;
   }
 </style>
