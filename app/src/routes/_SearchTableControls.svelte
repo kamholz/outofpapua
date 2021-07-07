@@ -4,7 +4,7 @@
   import { pageLoading } from '$lib/stores';
 
   const selection = getContext('selection');
-  $: emptySelection = !Object.keys($selection).length;
+  $: emptySelection = Object.keys($selection).length < 2;
 </script>
 
 <div>

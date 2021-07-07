@@ -37,7 +37,7 @@
 
 <div class="columns">
   <div class="entry">
-    {#if compare_entries}
+    {#if compare_entries && !$collapsed}
       <span on:click={() => handleSelect(entry)}>
         <Icon data={$selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
       </span>
@@ -80,7 +80,15 @@
   {/if}
 </div>
 
+{#if compare_entries && !$collapsed}
+  <button type="button" disabled={Object.keys($selection).length < 2}>Link Selected</button>
+{/if}
+
 <style lang="scss">
+  button {
+    margin-inline: 0;
+  }
+
   .columns {
     display: flex;
     > div {
