@@ -18,10 +18,6 @@ const config = {
     // specifying a different adapter
     adapter: node(),
 
-    prerender: {
-      enabled: false,
-    },
-
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
 
