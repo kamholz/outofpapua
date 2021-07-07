@@ -16,6 +16,8 @@ export async function get({ locals, params }) {
     );
   if (row) {
     return { body: row };
+  } else {
+    return { status: 404, body: '' };
   }
 }
 

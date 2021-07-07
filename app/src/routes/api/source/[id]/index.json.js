@@ -26,6 +26,8 @@ export async function get({ locals, params }) {
   const row = await q;
   if (row) {
     return { body: row };
+  } else {
+    return { status: 404, body: '' };
   }
 }
 

@@ -10,6 +10,8 @@ export const get = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
   if (user) {
     return { body: user };
+  } else {
+    return { status: 404, body: '' };
   }
 });
 
