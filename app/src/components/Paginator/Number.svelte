@@ -7,7 +7,7 @@
 {#if page === num}
   <span>{num}</span>
 {:else}
-  <a href={pageUrl(num)} on:click>{num}</a>
+  <a href={pageUrl(num)}>{num}</a>
 {/if}
 
 <style>

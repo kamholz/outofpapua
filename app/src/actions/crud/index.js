@@ -58,3 +58,21 @@ export function makeDeleter(type) {
 export function del(type, ...args) {
   return makeDeleter(type)(...args);
 }
+
+export async function linkEntries(entries, onSuccess) {
+  if (!entries.length) {
+    return;
+  }
+  try {
+    const members = entries.map((v) => v.id);
+    const existingSet = entries.find((v) => v.set_id !== null);
+    if (existingSet) {
+      await update('set', { id: existingSet.set_id, values: { members } });
+    } else {
+      await create('set', { members });
+    }
+    onSuccess?.();
+  } catch (e) {
+    console.log(e);
+  }
+}

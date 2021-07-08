@@ -1,6 +1,5 @@
 <script context="module">
-  import { normalizeQuery, parseArrayNumParams, serializeQuery } from '$lib/util';
-  import { pageLoading } from '$lib/stores';
+  import { normalizeQuery, parseArrayNumParams } from '$lib/util';
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
@@ -27,8 +26,8 @@
 
       props.query.lang1 = Number(props.query.lang1);
       props.query.lang2 = Number(props.query.lang2);
-      props.lang1 = { name: props.langSuggest.find((v) => v.id === props.query.lang1).name };
-      props.lang2 = { name: props.langSuggest.find((v) => v.id === props.query.lang2).name };
+      props.lang1Name = props.langSuggest.find((v) => v.id === props.query.lang1).name;
+      props.lang2Name = props.langSuggest.find((v) => v.id === props.query.lang2).name;
     } else {
       parseArrayNumParams(query, arrayNumParams);
       props.query = query;
@@ -57,31 +56,31 @@
   import CompareForm from './_Form.svelte';
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import { pageLoading } from '$lib/stores';
+  import { setContext } from 'svelte';
 
   export let rows = null;
   export let query;
   export let editable;
   export let pageCount = null;
   export let rowCount = null;
-  export let lang1 = null; // name
-  export let lang2 = null; // name
+  export let lang1Name = null;
+  export let lang2Name = null;
   export let langSuggest;
   export let glosslangSuggest;
   $: multilang = !(query.glosslang?.length === 1);
 
-  async function handleRefresh(newQuery) {
+  const setSummaryCache = writable({});
+  setContext('setSummaryCache', setSummaryCache);
+
+  async function handleRefresh() {
     $pageLoading++;
-    const json = await reload(fetch, newQuery);
+    const json = await reload(fetch, query);
     if (json) {
       $rows = json.rows;
       ({ pageCount, query, rowCount } = json);
-      pushState();
     }
     $pageLoading--;
-  }
-
-  function pushState() {
-    history.pushState({}, '', serializeQuery(query));
   }
 </script>
 
@@ -97,12 +96,13 @@
     <CompareList
       {rows}
       {query}
+      {editable}
       {rowCount}
       {pageCount}
-      {lang1}
-      {lang2}
+      {lang1Name}
+      {lang2Name}
       {multilang}
-      on:refresh={(e) => handleRefresh(e.detail)}
+      on:refresh={handleRefresh}
     />
     <PageSizeSelect {query} preferenceKey="listPageSize" />
   {:else}

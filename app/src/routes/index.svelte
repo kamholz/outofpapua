@@ -87,24 +87,8 @@
   }
 
   async function handleLink() {
-    const current = Object.values($selection);
-    if (!current.length) {
-      return;
-    }
     $pageLoading++;
-    try {
-      const members = current.map((v) => v.id);
-      const existingSet = current.find((v) => v.set_id !== null);
-      if (existingSet) {
-        const id = existingSet.set_id;
-        await crud.update('set', { id, values: { members } });
-      } else {
-        await crud.create('set', { members });
-      }
-      handleRefresh();
-    } catch (e) {
-      console.log(e);
-    }
+    await crud.linkEntries(Object.values($selection), handleRefresh);
     $pageLoading--;
   }
 

@@ -1,19 +1,16 @@
 <script>
   import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
-  import { normalizeQuery } from '$lib/util';
-  import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
+  export let editable;
   export let pageCount;
   export let rowCount;
-  export let lang1;
-  export let lang2;
+  export let lang1Name;
+  export let lang2Name;
   export let multilang;
 
   let collapsedRows;
@@ -26,26 +23,21 @@
     }
   }
 
-  const setSummaryCache = writable({});
-  setContext('setSummaryCache', setSummaryCache);
-
   function collapseAll(state) {
     for (const id of Object.keys(collapsedRows)) {
       collapsedRows[id].set(state);
     }
   }
-
-  function handleClick(e) {
-    e.preventDefault();
-    const query = normalizeQuery(new URL(e.currentTarget.href).searchParams);
-    dispatch('refresh', query);
-  }
 </script>
 
-<h3>{lang1.name}</h3>
+<h3>{lang1Name}</h3>
 <div class="info">
   Total entries: {rowCount}
 </div>
+
+{#if pageCount > 1}
+  <Paginator {query} {pageCount} />
+{/if}
 
 {#if Object.keys(collapsedRows).length}
   <hr>
@@ -56,24 +48,23 @@
 {/if}
 
 <hr>
-{#if pageCount > 1}
-  <Paginator {query} {pageCount} on:click={handleClick} />
-{/if}
 {#key $rows}
   <div transition:fade|local>
     {#each $rows as row (row.id)}
       <ListItem
         entry={row}
-        {lang2}
+        {lang2Name}
         collapsed={collapsedRows[row.id]}
         {multilang}
+        {editable}
+        on:refresh
       />
       <hr>
     {/each}
   </div>
 {/key}
 {#if pageCount > 1}
-  <Paginator {query} {pageCount} on:click={handleClick} />
+  <Paginator {query} {pageCount} />
 {/if}
 
 <style lang="scss">
