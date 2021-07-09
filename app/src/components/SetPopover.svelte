@@ -33,7 +33,6 @@
   href="/sets/{id}"
   sveltekit:prefetch
   use:popoverTrigger={popover}
-  on:click={() => showPopover = false}
 >
   <slot>
     <Icon data={faBezierCurve} />

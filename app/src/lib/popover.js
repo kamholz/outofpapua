@@ -60,6 +60,7 @@ export function popoverTrigger(node, popover) {
       actions.destroy?.();
       popover.destroyClickListeners(node);
       popover.destroyHoverListeners(node);
+      hide();
     },
   };
 
