@@ -7,6 +7,7 @@
   
   export let fields;
   export let values = {};
+  export let selections = {};
   export let submitLabel = null;
   export let help = null;
   export let action = null;
@@ -116,6 +117,7 @@
           <Svelecte
             {options}
             bind:value={values[name]}
+            bind:selection={selections[name]}
           />
           {#if browserSubmit}
             <input
@@ -130,6 +132,7 @@
             {options}
             multiple
             bind:value={values[name]}
+            bind:selection={selections[name]}
           />
           {#if browserSubmit}
             <input
