@@ -68,7 +68,6 @@
   <svelte:fragment slot="buttons">
     <button
       type="button"
-      disabled={!selections.lang1 && !selections.lang2}
       on:click={() => [selections.lang1, selections.lang2] = [selections.lang2, selections.lang1]}
     >Swap Languages</button>
   </svelte:fragment>

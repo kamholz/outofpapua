@@ -3,7 +3,7 @@
   import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
-  const arrayNumParams = new Set(['lang']);
+  const arrayNumParams = new Set(['glosslang']);
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -36,18 +36,8 @@
     return { props };
   }
 
-  function stripQuery(query) {
-    const newQuery = { ...query };
-    delete newQuery.page1;
-    delete newQuery.page2;
-    return newQuery;
-  }
-
   async function reload(fetch, query) {
-    const res = await fetch('/api/entry/compare.json?' + new URLSearchParams({
-      ...stripQuery(query),
-      page: query.page ?? 1,
-    }));
+    const res = await fetch('/api/entry/compare.json?' + new URLSearchParams(query));
     return res.ok ? res.json() : null;
   }
 </script>
@@ -74,6 +64,7 @@
   setContext('setSummaryCache', setSummaryCache);
 
   async function handleRefresh() {
+    $setSummaryCache = {};
     $pageLoading++;
     const json = await reload(fetch, query);
     if (json) {
