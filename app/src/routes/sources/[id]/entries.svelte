@@ -40,9 +40,13 @@
   export let rows;
   export let query;
   export let editable;
+  setContext('editable', editable);
   export let pageCount;
   export let rowCount;
   export let borrowlangSuggest = null;
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);
@@ -67,10 +71,8 @@
   <SourceTable
     {rows}
     {query}
-    {editable}
     {source}
     {pageCount}
-    {borrowlangSuggest}
   />
   <div class="controls">
     <PageSizeSelect {query} preferenceKey="tablePageSize" />

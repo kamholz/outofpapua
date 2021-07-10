@@ -33,11 +33,15 @@
 <script>
   import CreateSourceForm from './_CreateForm.svelte';
   import SourcesTable from './_Table.svelte';
+  import { setContext } from 'svelte';
 
   export let rows;
   export let query;
   export let editable;
   export let protolangSuggest = null;
+  if (protolangSuggest) {
+    setContext('protolangSuggest', protolangSuggest);
+  }
 
   async function handleRefresh() {
     $rows = (await reload(fetch, query)).rows;
@@ -54,7 +58,6 @@
 {#if editable}
   <h3>Create new proto-language source</h3>
   <CreateSourceForm
-    {protolangSuggest}
     on:refresh={handleRefresh}
   />
 {/if}

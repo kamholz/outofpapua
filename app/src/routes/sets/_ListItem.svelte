@@ -1,16 +1,10 @@
 <script>
   import Collapsible from '$components/Collapsible.svelte';
   import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
-  import EntryInfoPopover from '$components/EntryInfoPopover.svelte';
-  import EntryLink from '$components/EntryLink.svelte';
-  import Reflex from '$components/Reflex.svelte';
-  import { glossesSummary } from '$lib/util';
-  import { preferences } from '$lib/stores';
+  import ListItemMember from './_ListItemMember.svelte';
   import { slide } from 'svelte/transition';
 
   export let set;
-  export let editable;
-  export let borrowlangSuggest;
   export let collapsed;
 </script>
 
@@ -20,17 +14,9 @@
     <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
   </div>
   {#if !$collapsed}
-    <div class="table" transition:slide={{ duration: 200 }}>
-      {#each set.members as { entry, reflex, source } (entry.id)}
-        <div class={entry.origin}>
-          <strong>{source.language_name}</strong> <EntryInfoPopover {entry} {editable} {borrowlangSuggest} click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
-        </div>
-        <div>
-          {source.reference}
-        </div>
-        <div>
-          {#if entry.senses[0]?.glosses?.[0]}{glossesSummary(entry.senses[0].glosses, $preferences)}{/if}
-        </div>
+    <div class="table" transition:slide|local={{ duration: 200 }}>
+      {#each set.members as member (member.entry.id)}
+        <ListItemMember {member} />
       {/each}
     </div>
   {/if}
@@ -46,9 +32,5 @@
     display: grid;
     grid-template-columns: 30% 25% auto;
     column-gap: 14px;
-    > div {
-      line-height: 1.5;
-      @include indent;
-    }
   }
 </style>

@@ -42,13 +42,21 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SetList from './_List.svelte';
+  import { setContext } from 'svelte';
 
   export let rows;
   export let editable;
+  setContext('editable', editable);
   export let sourceSuggest;
+  setContext('sourceSuggest', sourceSuggest);
   export let langSuggest;
+  setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
+  setContext('glosslangSuggest', glosslangSuggest);
   export let borrowlangSuggest = null;
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
   export let query;
   export let pageCount;
   export let rowCount;
@@ -57,9 +65,6 @@
 <h2>Search sets</h2>
 <SearchForm
   {query}
-  {sourceSuggest}
-  {langSuggest}
-  {glosslangSuggest}
 />
 
 {#if $rows.length}
@@ -70,8 +75,6 @@
     {rows}
     {query}
     {pageCount}
-    {editable}
-    {borrowlangSuggest}
   />
   <div class="controls">
     <PageSizeSelect {query} preferenceKey="listPageSize" />

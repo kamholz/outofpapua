@@ -6,8 +6,6 @@
   export let rows;
   export let query;
   export let pageCount;
-  export let editable;
-  export let borrowlangSuggest = null;
   const collapsedRows = $rows.map(() => writable(false));
 
   function collapseAll(state) {
@@ -31,8 +29,6 @@
 {#each $rows as set, i (set.id)}
   <ListItem
     {set}
-    {editable}
-    {borrowlangSuggest}
     collapsed={collapsedRows[i]} 
   />
   <hr>

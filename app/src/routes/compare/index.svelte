@@ -52,12 +52,15 @@
   export let rows = null;
   export let query;
   export let editable;
+  setContext('editable', editable);
   export let pageCount = null;
   export let rowCount = null;
   export let lang1Name = null;
   export let lang2Name = null;
   export let langSuggest;
+  setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
+  setContext('glosslangSuggest', glosslangSuggest);
   $: multilang = !(query.glosslang?.length === 1);
 
   const setSummaryCache = writable({});
@@ -78,8 +81,6 @@
 <h2>Compare languages</h2>
 <CompareForm
   {query}
-  {langSuggest}
-  {glosslangSuggest}
 />
 
 {#if query.lang1 && query.lang2}
@@ -87,7 +88,6 @@
     <CompareList
       {rows}
       {query}
-      {editable}
       {rowCount}
       {pageCount}
       {lang1Name}

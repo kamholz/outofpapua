@@ -5,7 +5,7 @@
   import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
   import SetPopover from '$components/SetPopover.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
@@ -18,9 +18,8 @@
   export let lang2Name;
   export let collapsed;
   export let multilang;
-  export let editable;
   const { compare_entries, headword, senses } = entry;
-  const linkable = editable && compare_entries;
+  const linkable = getContext('editable') && compare_entries;
   const selection = linkable ? writable({}) : null;
 
   function handleSelect(item) {

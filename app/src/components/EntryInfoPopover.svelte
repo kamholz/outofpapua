@@ -2,15 +2,16 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
+  import { getContext } from 'svelte';
   import { originSummary } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 
   export let entry;
-  export let editable;
-  export let borrowlangSuggest;
   export let click;
+  const editable = getContext('editable');
+  const borrowlangSuggest = getContext('borrowlangSuggest');
   const values = {
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,

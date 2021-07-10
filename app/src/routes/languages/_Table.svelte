@@ -1,7 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { boolean } from '$lib/util';
   import { derived } from 'svelte/store';
@@ -10,8 +10,7 @@
   
   export let rows;
   export let query;
-  export let editable;
-
+  const editable = getContext('editable');
   const parents = derived(rows, ($rows) => $rows.filter((row) => row.is_proto));
 
   const columns = [

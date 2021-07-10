@@ -1,11 +1,12 @@
 <script>
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
+  import { getContext } from 'svelte';
   import { preferences } from '$lib/stores';
 
   export let query;
-  export let langSuggest;
-  export let glosslangSuggest;
+  const langSuggest = getContext('langSuggest');
+  const glosslangSuggest = getContext('glosslangSuggest');
   let selections = {};
 
   const fields = [

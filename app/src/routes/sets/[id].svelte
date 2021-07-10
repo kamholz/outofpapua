@@ -44,9 +44,15 @@
 
   export let set;
   export let editable;
+  setContext('editable', editable);
   export let borrowlangSuggest = null;
   export let langSuggest = null;
   export let sourceSuggest = null;
+  if (editable) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+    setContext('langSuggest', langSuggest);
+    setContext('sourceSuggest', sourceSuggest);
+  }
   const values = {
     note: set.note,
     name: set.name,
@@ -57,7 +63,6 @@
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
 
-  $: setContext('set', { set, editable, borrowlangSuggest });
   $: ({ members } = set);
   $: members, initCollapsedMembers();
 
@@ -155,7 +160,6 @@
     <FormWrapper collapsed={writable(true)} label="Link existing entry">
       <LinkExistingForm
         {set}
-        {langSuggest}
         on:refresh={handleRefresh}
       />
     </FormWrapper>
@@ -164,7 +168,6 @@
     <FormWrapper collapsed={writable(true)} label="Add proto-form">
       <AddProtoForm
         {set}
-        {sourceSuggest}
         bind:values={createProtoValues}
         on:refresh={handleRefresh}
       />
@@ -182,8 +185,6 @@
     <Member
       {member}
       {set}
-      {editable}
-      {borrowlangSuggest}
       collapsed={collapsedMembers[member.entry.id]} 
       on:refresh={handleRefresh}
     />

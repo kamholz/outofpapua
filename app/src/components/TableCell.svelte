@@ -8,7 +8,7 @@
   export let row;
   export let column;
   export let editable;
-  export let active = false;
+  let active = false;
 
   const { type, value } = column;
   const cellEditable = editable &&

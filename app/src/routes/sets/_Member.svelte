@@ -7,7 +7,7 @@
   import MemberReflex from './_MemberReflex.svelte';
   import OriginSummary from '$components/OriginSummary.svelte';
   import Svelecte from '$components/Svelecte.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
@@ -20,9 +20,9 @@
 
   export let member;
   export let set;
-  export let editable;
-  export let borrowlangSuggest;
   export let collapsed;
+  const editable = getContext('editable');
+  const borrowlangSuggest = getContext('borrowlangSuggest');
   const promises = { pending: {}, fulfilled: {} };
   const memberKeys = new Set(['reflex']);
 

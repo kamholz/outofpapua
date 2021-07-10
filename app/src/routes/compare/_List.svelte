@@ -6,7 +6,6 @@
 
   export let rows;
   export let query;
-  export let editable;
   export let pageCount;
   export let rowCount;
   export let lang1Name;
@@ -56,7 +55,6 @@
         {lang2Name}
         collapsed={collapsedRows[row.id]}
         {multilang}
-        {editable}
         on:refresh
       />
       <hr>

@@ -1,6 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
+  import { getContext } from 'svelte';
   import { joinGlosses, parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
@@ -8,10 +9,9 @@
 
   export let rows;
   export let query;
-  export let editable;
   export let source;
   export let pageCount;
-  export let borrowlangSuggest;
+  const editable = getContext('editable');
 
   const columns = [
     {
@@ -37,8 +37,6 @@
     },
     {
       type: 'entryinfo',
-      editable,
-      borrowlangSuggest,
     },
   ];
 

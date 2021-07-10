@@ -2,11 +2,12 @@
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
+  import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let source;
-  export let editable;
+  const editable = getContext('editable');
 
   const fields = [
     {

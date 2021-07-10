@@ -66,11 +66,17 @@
   export let rows = null;
   export let query;
   export let editable;
+  setContext('editable', editable);
   export let pageCount = null;
   export let rowCount = null;
   export let langSuggest;
+  setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
+  setContext('glosslangSuggest', glosslangSuggest);
   export let borrowlangSuggest = null;
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
 
   const linkable = editable && query.set !== 'linked';
   let selection;
@@ -102,8 +108,6 @@
 <h2>Search entries</h2>
 <SearchForm
   {query}
-  {langSuggest}
-  {glosslangSuggest}
 />
 
 {#if $rows}
@@ -121,9 +125,7 @@
         {rows}
         {query}
         {pageCount}
-        {editable}
         {linkable}
-        {borrowlangSuggest}
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />

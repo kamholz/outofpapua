@@ -1,12 +1,12 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let protolangSuggest;
+  const protolangSuggest = getContext('protolangSuggest');
   let values = {};
 
   const fields = [

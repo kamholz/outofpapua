@@ -24,10 +24,12 @@
 <script>
   import CreateLanguageForm from './_CreateForm.svelte';
   import LanguagesTable from './_Table.svelte';
+  import { setContext } from 'svelte';
 
   export let rows;
   export let query;
   export let editable;
+  setContext('editable', editable);
 
   async function handleRefresh() {
     $rows = (await reload(fetch, query)).rows;
@@ -38,7 +40,6 @@
 <LanguagesTable
   {rows}
   {query}
-  {editable}
   on:refresh={handleRefresh}
 />
 

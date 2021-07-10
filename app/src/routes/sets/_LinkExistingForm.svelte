@@ -2,13 +2,13 @@
   import Alert from '$components/Alert.svelte';
   import SuggestSetMember from '$components/SuggestSetMember.svelte';
   import Svelecte from '$components/Svelecte.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import * as crudSetMember from '$actions/crud/setmember';
 
   export let set;
-  export let langSuggest;
+  const langSuggest = getContext('langSuggest');
   let languages;
   let promise;
 
