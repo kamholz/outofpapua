@@ -11,6 +11,7 @@
 <EntryInfoPopover
   entry={row}
   click={true}
+  on:refresh
 >
   <Icon data={faInfoCircle} {scale} label="Info" />
 </EntryInfoPopover>

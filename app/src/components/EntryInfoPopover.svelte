@@ -1,8 +1,9 @@
 <script>
   import Svelecte from '$components/Svelecte.svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
+  const dispatch = createEventDispatcher();
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
-  import { getContext } from 'svelte';
   import { originSummary } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
@@ -45,6 +46,7 @@
       if (key === 'origin' && entry[key] !== 'borrowed') {
         entry.origin_language_id = values.origin_language_id = null;
       }
+      dispatch('refresh');
     } catch (e) {
       values[key] = entry[key];
     }

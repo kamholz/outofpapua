@@ -1,12 +1,9 @@
 <script>
   import Icon from 'svelte-awesome';
   import Paginator from '$components/Paginator.svelte';
-  import TableCell from '$components/TableCell.svelte';
-  import TableControls from '$components/TableControls.svelte';
+  import TableRow from '$components/TableRow.svelte';
   import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
-  import { fly } from 'svelte/transition';
   import { serializeQuery, stringify } from '$lib/util';
-  import { sineIn, sineOut } from 'svelte/easing';
 
   export let columns;
   export let rows;
@@ -76,14 +73,16 @@
   </thead>
   <tbody>
     {#each $rows as row (row.id)}
-      <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
-        {#each columns as column (column.key)}
-          <TableCell {row} {column} {editable} on:edit={handleEdit} on:update />
-        {/each}
-        {#if controls}
-          <TableControls {row} {controls} on:delete on:select />
-        {/if}
-      </tr>
+      <TableRow
+        {row}
+        {columns}
+        {controls}
+        {editable}
+        on:edit={handleEdit}
+        on:update
+        on:delete
+        on:select
+      />
     {/each}
   </tbody>
 </table>
@@ -114,14 +113,6 @@
         color: black;
         text-decoration: none;
       }
-    }
-
-    tr:nth-child(even) {
-      background-color: $light_gray;
-    }
-
-    tr:nth-child(odd) {
-      background-color: white;
     }
 
     th {

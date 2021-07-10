@@ -33,6 +33,7 @@
         {row}
         {scale}
         on:click={dispatchEvent.has(control.type) ? (() => dispatch(control.type, row)) : null}
+        on:refresh
       />
     {/each}
   </div>
