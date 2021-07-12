@@ -16,7 +16,7 @@
   export let highlight = false;
   let editingCell = null;
 
-  for (const column of columns) {
+  $: for (const column of columns) {
     if (!('value' in column)) {
       column.value = (row) => stringify(row[column.key]);
     }
@@ -65,7 +65,7 @@
     {/if}
   </thead>
   <tbody>
-    {#each $rows as row (row.id)}
+    {#each rows as row (row.id)}
       <TableRow
         {row}
         {columns}

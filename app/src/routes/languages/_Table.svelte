@@ -4,16 +4,15 @@
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { boolean } from '$lib/util';
-  import { derived } from 'svelte/store';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
   
   export let rows;
   export let query;
   const editable = getContext('editable');
-  const parents = derived(rows, ($rows) => $rows.filter((row) => row.is_proto));
+  $: parents = rows.filter((row) => row.is_proto);
 
-  const columns = [
+  $: columns = [
     {
       key: 'name',
       title: 'Language',

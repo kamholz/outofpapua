@@ -1,6 +1,5 @@
 <script context="module">
   import { normalizeQuery } from '$lib/util';
-  import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { query }, session }) {
@@ -26,7 +25,6 @@
       return { status: 500, error: 'Internal error' };
     }
     Object.assign(props, json); // populates query, pageCount, rows, rowCount
-    props.rows = writable(props.rows);
 
     return { props };
   }
@@ -67,7 +65,7 @@
   {query}
 />
 
-{#if $rows.length}
+{#if rows.length}
   <div class="info">
     Total sets found: {rowCount}
   </div>

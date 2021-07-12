@@ -10,10 +10,10 @@
   export let editable;
   export let editingCell;
 
-  const { type, value } = column;
-  const cellEditable = editable &&
+  $: ({ type, value } = column);
+  $: cellEditable = editable &&
     (typeof(column.editable) === 'function' ? column.editable(row) : column.editable);
-  const href = !cellEditable && column.link && column.link(row);
+  $: href = !cellEditable && column.link && column.link(row);
 
   function handleActivate() {
     editingCell = [row.id, column.key];

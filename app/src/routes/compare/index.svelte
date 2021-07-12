@@ -1,6 +1,5 @@
 <script context="module">
   import { normalizeQuery, parseArrayNumParams } from '$lib/util';
-  import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
   const arrayNumParams = new Set(['glosslang']);
@@ -22,7 +21,6 @@
         return { status: 500, error: 'Internal error' };
       }
       Object.assign(props, json); // populates query, pageCount, rows, rowCount
-      props.rows = writable(props.rows);
 
       props.query.lang1 = Number(props.query.lang1);
       props.query.lang2 = Number(props.query.lang2);
@@ -48,6 +46,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
   export let rows = null;
   export let query;
@@ -71,8 +70,7 @@
     $pageLoading++;
     const json = await reload(fetch, query);
     if (json) {
-      $rows = json.rows;
-      ({ pageCount, query, rowCount } = json);
+      ({ pageCount, query, rowCount, rows } = json);
     }
     $pageLoading--;
   }

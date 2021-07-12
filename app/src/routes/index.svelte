@@ -1,6 +1,5 @@
 <script context="module">
   import { normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
-  import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
   const arrayParams = new Set(['lang']);
@@ -29,7 +28,6 @@
         return { status: 500, error: 'Internal error' };
       }
       Object.assign(props, json); // populates query, pageCount, rows, rowCount
-      props.rows = writable(props.rows);
     } else {
       parseArrayParams(query, arrayParams);
       parseArrayNumParams(query, arrayNumParams);
@@ -61,6 +59,7 @@
   import SearchTableControls from './_SearchTableControls.svelte';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
   import * as crud from '$actions/crud';
 
   export let rows = null;
@@ -99,7 +98,7 @@
   }
 
   async function handleRefresh() {
-    $rows = (await reload(fetch, query)).rows;
+    rows = (await reload(fetch, query))?.rows;
     $setSummaryCache = {};
     $selection = {};
   }
@@ -110,17 +109,17 @@
   {query}
 />
 
-{#if $rows}
+{#if rows}
   <div class="container">
     <div class="controls">
       <div>
         Total found: {rowCount}
       </div>
-      {#if editable && query.set !== 'linked' && $rows.length}
+      {#if editable && query.set !== 'linked' && rows.length}
         <SearchTableControls on:clear={handleClear} on:link={handleLink} />
       {/if}
     </div>
-    {#if $rows.length}
+    {#if rows.length}
       <SearchTable
         {rows}
         {query}
@@ -129,7 +128,7 @@
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />
-        {#if editable && query.set !== 'linked' && $rows.length}
+        {#if editable && query.set !== 'linked' && rows.length}
           <SearchTableControls on:clear={handleClear} on:link={handleLink} />
         {/if}
       </div>

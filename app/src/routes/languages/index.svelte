@@ -1,6 +1,5 @@
 <script context="module">
   import { normalizeQuery, serializeQuery } from '$lib/util';
-  import { writable } from 'svelte/store';
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
@@ -11,7 +10,6 @@
       return { status: 500, error: 'Internal error' };
     }
     Object.assign(props, json);
-    props.rows = writable(props.rows);
     return { props };
   }
 
@@ -32,7 +30,7 @@
   setContext('editable', editable);
 
   async function handleRefresh() {
-    $rows = (await reload(fetch, query)).rows;
+    rows = (await reload(fetch, query))?.rows;
   }
 </script>
 

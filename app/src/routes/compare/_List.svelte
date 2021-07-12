@@ -15,7 +15,7 @@
   let collapsedRows;
   $: {
     collapsedRows = {};
-    for (const row of $rows) {
+    for (const row of rows) {
       if (row.compare_entries) {
         collapsedRows[row.id] = writable(false);
       }
@@ -47,9 +47,9 @@
 {/if}
 
 <hr>
-{#key $rows}
+{#key rows}
   <div transition:fade|local>
-    {#each $rows as row (row.id)}
+    {#each rows as row (row.id)}
       <ListItem
         entry={row}
         {lang2Name}

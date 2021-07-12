@@ -10,7 +10,7 @@
   const { filter, options, labelField, rowKey, searchField, valueField } = column.autocomplete;
   let focus;
 
-  let filteredOptions = $options;
+  let filteredOptions = options;
   if (filter) {
     filteredOptions = filteredOptions.filter((option) => filter(option, row));
   }

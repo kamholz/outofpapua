@@ -1,6 +1,5 @@
 <script context="module">
   import { optionalQuery } from '$lib/util';
-  import { writable } from 'svelte/store';
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params, query }, session }) {
@@ -24,7 +23,6 @@
       return { status: 500, error: 'Internal error' };
     }
     Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
-    props.rows = writable(props.rows);
 
     return { props };
   }
@@ -35,6 +33,7 @@
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
   import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
   export let source;
   export let rows;
@@ -64,7 +63,7 @@
   {query}
 />
 
-{#if $rows.length}
+{#if rows.length}
   <div class="info">
     Total entries: {rowCount}
   </div>

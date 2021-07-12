@@ -1,6 +1,5 @@
 <script context="module">
   import { requireAuthLoad } from '$actions/auth';
-  import { writable } from 'svelte/store';
 
   export const load = requireAuthLoad(async ({ fetch }) => {
     const json = await reload(fetch);
@@ -8,7 +7,7 @@
       return { status: 500, error: 'Internal error' };
     }
     return {
-      props: { rows: writable(json.rows) },
+      props: { rows: json.rows },
     };
   });
 
@@ -26,7 +25,7 @@
   export let rows;
 
   async function handleRefresh() {
-    $rows = (await reload(fetch)).rows;
+    rows = (await reload(fetch))?.rows;
   }
 </script>
 

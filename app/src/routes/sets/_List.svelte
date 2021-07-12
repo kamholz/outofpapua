@@ -6,10 +6,10 @@
   export let rows;
   export let query;
   export let pageCount;
-  const collapsedRows = $rows.map(() => writable(false));
+  const collapsedRows = rows.map(() => writable(false));
 
   function collapseAll(state) {
-    for (const [i] of $rows.entries()) {
+    for (const [i] of rows.entries()) {
       collapsedRows[i].set(state);
     }
   }
@@ -26,7 +26,7 @@
 </div>
 <hr>
 
-{#each $rows as set, i (set.id)}
+{#each rows as set, i (set.id)}
   <ListItem
     {set}
     collapsed={collapsedRows[i]} 
