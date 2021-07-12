@@ -14,7 +14,7 @@
   export let paginated = false;
   export let controls = null;
   export let highlight = false;
-  let editingCell;
+  let editingCell = null;
 
   for (const column of columns) {
     if (!('value' in column)) {
@@ -25,13 +25,6 @@
     }
     if (column.link && !('prefetch' in column)) {
       column.prefetch = true;
-    }
-  }
-
-  function handleEdit(e) {
-    if (editingCell !== e.detail) {
-      editingCell?.dispatchEvent(new Event('deactivate'));
-      editingCell = e.detail;
     }
   }
 
@@ -78,7 +71,7 @@
         {columns}
         {controls}
         {editable}
-        on:edit={handleEdit}
+        bind:editingCell
         on:update
         on:delete
         on:select
@@ -98,7 +91,7 @@
     border: 1px solid black;
     border-collapse: collapse;
 
-    &.hoverhighlight {
+    &.hoverhighlight :global {
       tr:nth-child(even):hover {
         background-color: #d6d6d6;
       }

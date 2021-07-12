@@ -8,7 +8,7 @@
   export let row;
   export let column;
   export let editable;
-  let active = false;
+  export let editingCell;
 
   const { type, value } = column;
   const cellEditable = editable &&
@@ -16,11 +16,7 @@
   const href = !cellEditable && column.link && column.link(row);
 
   function handleActivate() {
-    active = true;
-  }
-
-  function handleDeactivate() {
-    active = false;
+    editingCell = [row.id, column.key];
   }
 </script>
 
@@ -30,22 +26,20 @@
     {column}
     on:update
   />
-{:else if active}
+{:else if editingCell && editingCell[0] === row.id && editingCell[1] === column.key}
   {#if type === 'autocomplete'}
     <TableCellAutocomplete
       {row}
       {column}
-      on:edit
+      bind:editingCell
       on:update
-      on:deactivate={handleDeactivate}
     />
   {:else}
     <TableCellInput
       {row}
       {column}
-      on:edit
+      bind:editingCell
       on:update
-      on:deactivate={handleDeactivate}
     />
   {/if}
 {:else}

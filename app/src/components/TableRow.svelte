@@ -8,29 +8,25 @@
   export let columns;
   export let controls;
   export let editable;
-
-  function handleRefresh() {
-    row = row;
-  }
+  export let editingCell;
 </script>
 
 <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
   {#each columns as column (column.key)}
     <TableCell
-      {row}
+      bind:row
       {column}
       {editable}
-      on:edit
+      bind:editingCell
       on:update
     />
   {/each}
   {#if controls}
     <TableControls
-      {row}
+      bind:row
       {controls}
       on:delete 
       on:select 
-      on:refresh={handleRefresh} 
     />
   {/if}
 </tr>

@@ -6,15 +6,12 @@
   import { preferences } from '$lib/stores';
 
   export let member;
-  const { entry, reflex, source } = member;
-
-  function handleRefresh() {
-    entry.origin = entry.origin;
-  }
+  let { entry } = member;
+  const { reflex, source } = member;
 </script>
 
 <div class={entry.origin}>
-  <strong>{source.language_name}</strong> <EntryInfoPopover {entry} click={false} on:refresh={handleRefresh}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
+  <strong>{source.language_name}</strong> <EntryInfoPopover bind:entry click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
 </div>
 <div>
   {source.reference}

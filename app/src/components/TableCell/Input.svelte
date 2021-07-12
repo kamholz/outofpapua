@@ -7,23 +7,23 @@
 
   export let row;
   export let column;
+  export let editingCell;
   const { inputValue, key } = column;
   let td;
 
   onMount(() => {
-    dispatch('edit', td);
-      td.focus();
-      const sel = window.getSelection();
-      const range = new Range();
-      range.selectNode(td.firstChild);
-      sel.empty();
-      sel.addRange(range);
+    td.focus();
+    const sel = window.getSelection();
+    const range = new Range();
+    range.selectNode(td.firstChild);
+    sel.empty();
+    sel.addRange(range);
   });
 
   function handleEnter(e) {
     const text = normalizeParam(e.currentTarget.textContent);
     if (text === inputValue(row)) { // nothing to do
-      dispatch('deactivate');
+      editingCell = null;
     } else {
       dispatch('update', {
         id: row.id,
@@ -34,7 +34,7 @@
           if (!skipUpdateRow) {
             row[key] = text;
           }
-          dispatch('deactivate');
+          editingCell = null;
         },
       });
     }
@@ -44,9 +44,8 @@
 <td
   contenteditable="true"
   bind:this={td}
-  on:deactivate
-  on:blur={() => dispatch('deactivate')}
-  use:keydown={{ enter: handleEnter, esc: () => dispatch('deactivate') }}
+  on:blur={() => editingCell = null}
+  use:keydown={{ enter: handleEnter, esc: () => editingCell = null }}
   in:fade|local={{ duration: 200 }}
 >
   <span>{inputValue(row)}</span>

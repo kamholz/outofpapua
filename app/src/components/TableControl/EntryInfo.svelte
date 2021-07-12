@@ -9,9 +9,8 @@
 </script>
 
 <EntryInfoPopover
-  entry={row}
+  bind:entry={row}
   click={true}
-  on:refresh
 >
   <Icon data={faInfoCircle} {scale} label="Info" />
 </EntryInfoPopover>

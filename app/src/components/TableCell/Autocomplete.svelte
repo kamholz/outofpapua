@@ -6,8 +6,8 @@
 
   export let row;
   export let column;
+  export let editingCell;
   const { filter, options, labelField, rowKey, searchField, valueField } = column.autocomplete;
-  let td;
   let focus;
 
   let filteredOptions = $options;
@@ -16,7 +16,6 @@
   }
 
   onMount(() => {
-    dispatch('edit', td);
     focus();
   });
 
@@ -24,7 +23,7 @@
     const option = e.detail;
     const value = option?.[valueField] ?? null;
     if (value === row[rowKey]) { // nothing to do
-      dispatch('deactivate');
+      editingCell = null;
     } else {
       dispatch('update', {
         id: row.id,
@@ -32,22 +31,16 @@
         onSuccess: () => {
           row[column.key] = option?.[labelField] ?? null;
           row[rowKey] = value;
-          dispatch('deactivate');
+          editingCell = null;
         },
       });
     }
-  }
-
-  function handleFocusOut() {
-    dispatch('deactivate');
   }
 </script>
 
 <td
   class="autocomplete"
-  bind:this={td}
-  on:deactivate
-  on:focusout={handleFocusOut}
+  on:focusout={() => editingCell = null}
   in:fade|local={{ duration: 200 }}
 >
   <Svelecte
