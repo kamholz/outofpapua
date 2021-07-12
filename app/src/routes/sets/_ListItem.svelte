@@ -1,6 +1,5 @@
 <script>
-  import Collapsible from '$components/Collapsible.svelte';
-  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import ListItemMember from './_ListItemMember.svelte';
   import { slide } from 'svelte/transition';
 
@@ -8,19 +7,17 @@
   export let collapsed;
 </script>
 
-<Collapsible {collapsed}>
-  <div class="header">
-    <CollapsibleIndicator />
-    <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
+<div class="header">
+  <CollapseIndicator bind:collapsed />
+  <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
+</div>
+{#if !collapsed}
+  <div class="table" transition:slide|local={{ duration: 200 }}>
+    {#each set.members as member (member.entry.id)}
+      <ListItemMember {member} />
+    {/each}
   </div>
-  {#if !$collapsed}
-    <div class="table" transition:slide|local={{ duration: 200 }}>
-      {#each set.members as member (member.entry.id)}
-        <ListItemMember {member} />
-      {/each}
-    </div>
-  {/if}
-</Collapsible>
+{/if}
 
 <style lang="scss">
   .header {

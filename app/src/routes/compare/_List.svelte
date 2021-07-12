@@ -2,7 +2,6 @@
   import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
   import { fade } from 'svelte/transition';
-  import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
@@ -17,14 +16,14 @@
     collapsedRows = {};
     for (const row of rows) {
       if (row.compare_entries) {
-        collapsedRows[row.id] = writable(false);
+        collapsedRows[row.id] = false;
       }
     }
   }
 
   function collapseAll(state) {
     for (const id of Object.keys(collapsedRows)) {
-      collapsedRows[id].set(state);
+      collapsedRows[id] = state;
     }
   }
 </script>

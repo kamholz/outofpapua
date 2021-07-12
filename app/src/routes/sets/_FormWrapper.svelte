@@ -1,6 +1,5 @@
 <script>
-  import Collapsible from '$components/Collapsible.svelte';
-  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import { slide } from 'svelte/transition';
 
   export let collapsed;
@@ -8,17 +7,15 @@
   let toggle;
 </script>
 
-<Collapsible {collapsed} bind:toggle>
-  <div class="set-item">
-    <CollapsibleIndicator />
-    <div class="set-item-label clickable fullwidth" on:click={toggle}>{label}</div>
+<div class="set-item">
+  <CollapseIndicator bind:collapsed bind:toggle />
+  <div class="set-item-label clickable fullwidth" on:click={toggle}>{label}</div>
+</div>
+{#if !collapsed}
+  <div class="form" transition:slide={{ duration: 200 }}>
+    <slot />
   </div>
-  {#if !$collapsed}
-    <div class="form" transition:slide={{ duration: 200 }}>
-      <slot />
-    </div>
-  {/if}
-</Collapsible>
+{/if}
 
 <style lang="scss">
   .clickable {

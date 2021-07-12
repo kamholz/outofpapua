@@ -1,10 +1,11 @@
 <script>
-  import { getContext } from 'svelte';
-
-  const { collapsed, toggle } = getContext('collapsible');
+  export let collapsed;
+  export const toggle = function () {
+    collapsed = !collapsed;
+  };
 </script>
 
-{#if $collapsed}
+{#if collapsed}
   <div on:click={toggle}>▶</div>
 {:else}
   <div on:click={toggle}>▼</div>

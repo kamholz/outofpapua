@@ -1,6 +1,5 @@
 <script>
-  import Collapsible from '$components/Collapsible.svelte';
-  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import EntryLink from '$components/EntryLink.svelte';
   import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
@@ -53,7 +52,7 @@
 
 <div class="columns">
   <div class="entry">
-    {#if linkable && !$collapsed}
+    {#if linkable && !collapsed}
       <span on:click={() => handleSelect(entry)}>
         <Icon data={$selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
       </span>
@@ -68,37 +67,35 @@
   </div>
   {#if compare_entries}
     <div class="compare">
-      <Collapsible {collapsed}>
-        <div class="header">
-          <CollapsibleIndicator />
-          {lang2Name} comparisons
-        </div>
-        {#if !$collapsed}
-          <ul transition:slide|local={{ duration: 200 }}>
-            {#each compare_entries as compare_entry (compare_entry.id)}
-              <li>
-                {#if linkable}
-                  <span on:click={() => handleSelect(compare_entry)}>
-                    <Icon data={$selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
-                  </span>
-                {/if}
-                <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
-                {#if compare_entry.set_id}
-                  <SetPopover id={compare_entry.set_id} />
-                {/if}
-                <div>
-                  <Senses senses={compare_entry.senses} {multilang} />
-                </div>
-              </li>
-            {/each}
-          </ul>
-        {/if}
-      </Collapsible>
+      <div class="header">
+        <CollapseIndicator bind:collapsed />
+        {lang2Name} comparisons
+      </div>
+      {#if !collapsed}
+        <ul transition:slide|local={{ duration: 200 }}>
+          {#each compare_entries as compare_entry (compare_entry.id)}
+            <li>
+              {#if linkable}
+                <span on:click={() => handleSelect(compare_entry)}>
+                  <Icon data={$selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+                </span>
+              {/if}
+              <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+              {#if compare_entry.set_id}
+                <SetPopover id={compare_entry.set_id} />
+              {/if}
+              <div>
+                <Senses senses={compare_entry.senses} {multilang} />
+              </div>
+            </li>
+          {/each}
+        </ul>
+      {/if}
     </div>
   {/if}
 </div>
 
-{#if linkable && !$collapsed && Object.keys($selection).length > 1}
+{#if linkable && !collapsed && Object.keys($selection).length > 1}
   <button
     type="button"
     transition:fade={{ duration: 300 }}

@@ -1,7 +1,6 @@
 <script>
   import Alert from '$components/Alert.svelte';
-  import Collapsible from '$components/Collapsible.svelte';
-  import CollapsibleIndicator from '$components/CollapsibleIndicator.svelte';
+  import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import Icon from 'svelte-awesome';
   import Input from './_Input.svelte';
   import MemberReflex from './_MemberReflex.svelte';
@@ -157,135 +156,133 @@
   }
 </script>
 
-<Collapsible {collapsed}>
-  {#if !$collapsed}
-    {#each Object.keys(promises.fulfilled).sort() as key (key)}
-      {#await promises.fulfilled[key] catch { message }}
-        <Alert type="error" {message} />
-      {/await}
-    {/each}
-  {/if}
-  <div class="set-item" transition:slide={{ duration: 200 }}>
-    <CollapsibleIndicator />
-    <div class="set-item-label" class:fullwidth={$collapsed} class:membersummary={$collapsed}>
-      {#if $collapsed}
-        <span class={entry.origin}>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
-      {:else}
-        <p>
-          <span class={entry.origin}>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
-        </p>
-        <p>
-          {source.reference}
-        </p>
-      {/if}
-    </div>
-    {#if !$collapsed}
-      <ul class="details" transition:slide|local={{ duration: 200 }}>
-        {#if senses.length === 1}
-          <li>
-            <span>Glosses:</span>
-            {#if editingProto}
-              <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
-            {:else}
-              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
-            {/if}
-          </li>
-        {:else}
-          {#each entry.senses as sense, i (sense.id)}
-            <li>
-              {#if i === 0}
-                <span>Glosses:</span>
-              {:else}
-                <span></span>
-              {/if}
-              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
-            </li>
-          {/each}
-        {/if}
-        <li>
-          <span>Origin:</span>
-          {#if editable}
-            <span class="radios">
-              <label>
-                <input
-                  type="radio"
-                  value="inherited"
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>inherited</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="borrowed"
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>borrowed</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value={null}
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>unknown</span>
-              </label>
-            </span>
-          {:else}
-            <span>{originSummary(values)}</span>
-          {/if}
-        </li>
-        {#if entry.origin === 'borrowed' && editable}
-          <li transition:slide|local>
-            <span></span>
-            <span class="originlang">
-              <span class="label">Language:</span>
-              <Svelecte
-                {options}
-                disabled={promises.pending.origin_language_id}
-                bind:value={values.origin_language_id}
-                on:change={() => handleUpdate('origin_language_id')}
-              />
-            </span>
-          </li>
-        {/if}
-        {#if editable}
-          <li>
-            <span>Notes:</span>
-            <textarea
-              disabled={promises.pending.note}
-              bind:value={values.note}
-              on:change={() => handleUpdate('note')}
-            />
-          </li>
-        {:else if values.note}
-          <li>
-            <span>Notes:</span>
-            <span>{values.note}</span>
-          </li>
-        {/if}
-      </ul>
-      {#if editable}
-        <div class="controls">
-          {#if source.editable}
-            {#if editingProto}
-              <span on:click={handleSaveProto}><Icon data={faCheckSquare} /></span>
-            {:else}
-              <span on:click={handleEditProto}><Icon data={faEdit} /></span>
-            {/if}
-          {/if}
-          <span on:click={handleDelete}><Icon data={faTrash} /></span>
-        </div>
-      {/if}
+{#if !collapsed}
+  {#each Object.keys(promises.fulfilled).sort() as key (key)}
+    {#await promises.fulfilled[key] catch { message }}
+      <Alert type="error" {message} />
+    {/await}
+  {/each}
+{/if}
+<div class="set-item" transition:slide={{ duration: 200 }}>
+  <CollapseIndicator bind:collapsed />
+  <div class="set-item-label" class:fullwidth={collapsed} class:membersummary={collapsed}>
+    {#if collapsed}
+      <span class={entry.origin}>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+    {:else}
+      <p>
+        <span class={entry.origin}>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
+      </p>
+      <p>
+        {source.reference}
+      </p>
     {/if}
   </div>
-</Collapsible>
+  {#if !collapsed}
+    <ul class="details" transition:slide|local={{ duration: 200 }}>
+      {#if senses.length === 1}
+        <li>
+          <span>Glosses:</span>
+          {#if editingProto}
+            <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
+          {:else}
+            <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+          {/if}
+        </li>
+      {:else}
+        {#each entry.senses as sense, i (sense.id)}
+          <li>
+            {#if i === 0}
+              <span>Glosses:</span>
+            {:else}
+              <span></span>
+            {/if}
+            <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
+          </li>
+        {/each}
+      {/if}
+      <li>
+        <span>Origin:</span>
+        {#if editable}
+          <span class="radios">
+            <label>
+              <input
+                type="radio"
+                value="inherited"
+                disabled={promises.pending.origin}
+                bind:group={values.origin}
+                on:change={() => handleUpdate('origin')}
+              >
+              <span>inherited</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="borrowed"
+                disabled={promises.pending.origin}
+                bind:group={values.origin}
+                on:change={() => handleUpdate('origin')}
+              >
+              <span>borrowed</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                value={null}
+                disabled={promises.pending.origin}
+                bind:group={values.origin}
+                on:change={() => handleUpdate('origin')}
+              >
+              <span>unknown</span>
+            </label>
+          </span>
+        {:else}
+          <span>{originSummary(values)}</span>
+        {/if}
+      </li>
+      {#if entry.origin === 'borrowed' && editable}
+        <li transition:slide|local>
+          <span></span>
+          <span class="originlang">
+            <span class="label">Language:</span>
+            <Svelecte
+              {options}
+              disabled={promises.pending.origin_language_id}
+              bind:value={values.origin_language_id}
+              on:change={() => handleUpdate('origin_language_id')}
+            />
+          </span>
+        </li>
+      {/if}
+      {#if editable}
+        <li>
+          <span>Notes:</span>
+          <textarea
+            disabled={promises.pending.note}
+            bind:value={values.note}
+            on:change={() => handleUpdate('note')}
+          />
+        </li>
+      {:else if values.note}
+        <li>
+          <span>Notes:</span>
+          <span>{values.note}</span>
+        </li>
+      {/if}
+    </ul>
+    {#if editable}
+      <div class="controls">
+        {#if source.editable}
+          {#if editingProto}
+            <span on:click={handleSaveProto}><Icon data={faCheckSquare} /></span>
+          {:else}
+            <span on:click={handleEditProto}><Icon data={faEdit} /></span>
+          {/if}
+        {/if}
+        <span on:click={handleDelete}><Icon data={faTrash} /></span>
+      </div>
+    {/if}
+  {/if}
+</div>
 
 <style lang="scss">
   .details {

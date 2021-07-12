@@ -40,7 +40,6 @@
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
 
   export let set;
   export let editable;
@@ -69,14 +68,14 @@
   function initCollapsedMembers() {
     const newCollapsed = {};
     for (const member of members) {
-      newCollapsed[member.entry.id] = collapsedMembers?.[member.entry.id] ?? writable(false);
+      newCollapsed[member.entry.id] = collapsedMembers?.[member.entry.id] ?? false;
     }
     collapsedMembers = newCollapsed;
   }
 
   function collapseAll(state) {
     for (const member of members) {
-      collapsedMembers[member.entry.id].set(state);
+      collapsedMembers[member.entry.id] = state;
     }
   }
 
@@ -157,7 +156,7 @@
   {/if}  
 
   {#if editable}
-    <FormWrapper collapsed={writable(true)} label="Link existing entry">
+    <FormWrapper collapsed={true} label="Link existing entry">
       <LinkExistingForm
         {set}
         on:refresh={handleRefresh}
@@ -165,7 +164,7 @@
     </FormWrapper>
     <hr>
 
-    <FormWrapper collapsed={writable(true)} label="Add proto-form">
+    <FormWrapper collapsed={true} label="Add proto-form">
       <AddProtoForm
         {set}
         bind:values={createProtoValues}

@@ -1,16 +1,15 @@
 <script>
   import ListItem from './_ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
-  import { writable } from 'svelte/store';
 
   export let rows;
   export let query;
   export let pageCount;
-  const collapsedRows = rows.map(() => writable(false));
+  const collapsedRows = rows.map(() => false);
 
   function collapseAll(state) {
     for (const [i] of rows.entries()) {
-      collapsedRows[i].set(state);
+      collapsedRows[i] = state;
     }
   }
 </script>
