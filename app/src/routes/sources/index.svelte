@@ -9,13 +9,13 @@
     if (props.editable) {
       props.protolangSuggest = await suggest.protolang(fetch);
       if (!props.protolangSuggest) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
     }
 
     const json = await reload(fetch, normalizeQuery(query));
     if (!json) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     Object.assign(props, json);
 

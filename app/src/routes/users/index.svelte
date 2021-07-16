@@ -4,7 +4,7 @@
   export const load = requireAuthLoad(async ({ fetch }) => {
     const json = await reload(fetch);
     if (!json) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     return {
       props: { rows: json.rows },

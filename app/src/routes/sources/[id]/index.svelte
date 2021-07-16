@@ -2,7 +2,7 @@
   export async function load({ fetch, page: { params }, session }) {
     const res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     return {
       props: {

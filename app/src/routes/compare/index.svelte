@@ -11,14 +11,14 @@
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
 
     query = normalizeQuery(query);
     if ('lang1' in query && 'lang2' in query) {
       const json = await reload(fetch, query);
       if (!json) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
       Object.assign(props, json); // populates query, pageCount, rows, rowCount
 

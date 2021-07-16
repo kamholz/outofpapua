@@ -12,12 +12,12 @@
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
     }
 
@@ -25,7 +25,7 @@
     if (['headword', 'gloss'].some((attr) => attr in query)) {
       const json = await reload(fetch, query);
       if (!json) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
       Object.assign(props, json); // populates query, pageCount, rows, rowCount
     } else {

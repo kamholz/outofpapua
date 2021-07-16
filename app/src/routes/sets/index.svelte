@@ -10,19 +10,19 @@
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
     }
 
     query = normalizeQuery(query);
     const json = await reload(fetch, query, session.preferences);
     if (!json) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     Object.assign(props, json); // populates query, pageCount, rows, rowCount
 

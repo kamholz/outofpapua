@@ -12,13 +12,13 @@
       props.langSuggest = await suggest.langPlus(fetch);
       props.sourceSuggest = await suggest.editableSource(fetch);
       if (!props.borrowlangSuggest || !props.langSuggest || !props.sourceSuggest) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
     }
 
     props.set = await reload(fetch, params.id);
     if (!props.set) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
 
     return { props };

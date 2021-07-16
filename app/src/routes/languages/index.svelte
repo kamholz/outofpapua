@@ -7,7 +7,7 @@
     };
     const json = await reload(fetch, normalizeQuery(query));
     if (!json) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     Object.assign(props, json);
     return { props };

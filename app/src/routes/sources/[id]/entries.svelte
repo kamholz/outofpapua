@@ -9,18 +9,18 @@
     if (props.editable) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
     }
 
     let res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     props.source = await res.json();
     res = await fetch(`/api/source/${params.id}/entries.json` + optionalQuery(query));
     if (!res.ok) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
     Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
 

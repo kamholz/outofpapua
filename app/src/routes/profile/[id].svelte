@@ -3,12 +3,12 @@
 
   export const load = requireAdminLoad(async ({ page: { params }, session, fetch }) => {
     if (session.user.id === Number(params.id)) {
-      return { status: 400, error: 'Bad request' };
+      return { status: 400 };
     }
     try {
       const res = await fetch(`/api/user/${params.id}.json`);
       if (!res.ok) {
-        return { status: 500, error: 'Internal error' };
+        return { status: 500 };
       }
       return {
         props: {
@@ -16,7 +16,7 @@
         },
       };
     } catch (e) {
-      return { status: 500, error: 'Internal error' };
+      return { status: 500 };
     }
   });
 </script>

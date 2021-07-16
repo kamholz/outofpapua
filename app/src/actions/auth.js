@@ -31,7 +31,7 @@ export function requireAuthLoad(handler) {
   handler = handler ?? (() => ({}));
   return (req) => {
     if (!req.session.user) {
-      return { status: 401, error: 'Unauthorized' };
+      return { status: 401 };
     }
     return handler(req);
   };
@@ -41,7 +41,7 @@ export function requireAdminLoad(handler) {
   handler = handler ?? (() => ({}));
   return (req) => {
     if (!req.session.user?.admin) {
-      return { status: 401, error: 'Unauthorized' };
+      return { status: 401 };
     }
     return handler(req);
   };
