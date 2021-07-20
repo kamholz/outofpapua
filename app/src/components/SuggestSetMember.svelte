@@ -9,6 +9,7 @@
   let selection = null;
   export let match;
   export let languages = null;
+  export let noset = true;
 
   function renderer(item) {
     let output = `<div class="suggest"><div>${escape(item.language_name)} ` +
@@ -34,7 +35,7 @@
 </script>
 
 <Svelecte
-  fetch={(query) => suggest.setMember(query, match, languages, $preferences)}
+  fetch={(search) => suggest.setMember({ search, match, languages, noset }, $preferences)}
   labelField="headword"
   searchField="headword"
   valueField="id"

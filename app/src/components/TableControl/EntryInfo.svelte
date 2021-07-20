@@ -11,6 +11,7 @@
 <EntryInfoPopover
   bind:entry={row}
   click={true}
+  linkable
 >
   <Icon data={faInfoCircle} {scale} label="Info" />
 </EntryInfoPopover>

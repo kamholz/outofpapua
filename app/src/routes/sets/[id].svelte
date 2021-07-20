@@ -18,7 +18,7 @@
 
     props.set = await reload(fetch, params.id);
     if (!props.set) {
-      return { status: 500 };
+      return { status: 404 };
     }
 
     return { props };

@@ -11,13 +11,13 @@
   const cache = getContext('setSummaryCache');
   $: set = $cache[id];
 
+  let showPopover = false;
   const popover = createPopover({
     hover: true,
     show: () => showPopover = true,
     hide: () => showPopover = false,
     prefetch: fetchSet,
   });
-  let showPopover = false;
 
   async function fetchSet() {
     if (!set) {

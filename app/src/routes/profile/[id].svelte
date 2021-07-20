@@ -8,7 +8,7 @@
     try {
       const res = await fetch(`/api/user/${params.id}.json`);
       if (!res.ok) {
-        return { status: 500 };
+        return { status: 404 };
       }
       return {
         props: {

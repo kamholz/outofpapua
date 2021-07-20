@@ -54,10 +54,13 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function setMember(search, match, languages, preferences) {
-  const params = new URLSearchParams({ search, match, noset: 1 });
+export async function setMember({ search, match, languages, noset }, preferences) {
+  const params = new URLSearchParams({ search, match });
   if (languages) {
    params.set('lang', serializeArrayParam(languages));
+  }
+  if (noset) {
+    params.set('noset', '1');
   }
   const res = await fetch('/api/entry/suggest.json?' + params);
   if (!res.ok) {

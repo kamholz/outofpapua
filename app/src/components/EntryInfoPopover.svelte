@@ -1,9 +1,9 @@
 <script>
+  import SuggestSetMember from '$components/SuggestSetMember.svelte';
   import Svelecte from '$components/Svelecte.svelte';
-  import { createEventDispatcher, getContext } from 'svelte';
-  const dispatch = createEventDispatcher();
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
+  import { getContext } from 'svelte';
   import { originSummary } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
@@ -11,6 +11,7 @@
 
   export let entry;
   export let click;
+  export let linkable = false;
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const values = {
@@ -22,13 +23,13 @@
     ? [...borrowlangSuggest].filter((v) => v.id !== entry.language_id)
     : null;
 
+  let showPopover = false;
   const popover = createPopover({
     hover: true,
     click,
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });
-  let showPopover = false;
 
   async function handleUpdate(key) {
     if (entry[key] === values[key]) {
@@ -46,7 +47,6 @@
       if (key === 'origin' && entry[key] !== 'borrowed') {
         entry.origin_language_id = values.origin_language_id = null;
       }
-      dispatch('refresh');
     } catch (e) {
       values[key] = entry[key];
     }
@@ -118,6 +118,13 @@
           {/if}
         </div>
       </div>
+      {#if linkable && !entry.set_id}
+        <div class="label">
+          Link To:
+        </div>
+        <div class="controls">
+        </div>
+      {/if}
     {:else}
       Origin: {originSummary(entry)}
     {/if}
@@ -131,6 +138,9 @@
 
     > div {
       display: flex;
+      &:not(:first-child) {
+        margin-block-start: 10px;
+      }
     }
   }
 

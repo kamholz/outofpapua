@@ -15,7 +15,7 @@
 
     let res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
-      return { status: 500 };
+      return { status: 404 };
     }
     props.source = await res.json();
     res = await fetch(`/api/source/${params.id}/entries.json` + optionalQuery(query));
