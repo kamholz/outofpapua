@@ -243,10 +243,11 @@
     "path": "spreadsheets/8-Turu word list Kijne.xlsx",
     "parser": "Spreadsheet",
     "columns": [
-      [1, "headword"],
-      [3, "ph"],
+      [2, "headword"],
+      [4, "ph"],
+      [1, "gloss", "nld"],
       [0, "gloss", "eng"],
-      [2, "page_num"]
+      [3, "page_num"]
     ]
   },
   "Kijne (nd.b)": {
@@ -255,7 +256,8 @@
     "parser": "Spreadsheet",
     "columns": [
       [1, "headword"],
-      [4, "ph"],
+      [7, "ph"],
+      [4, "gloss", "nld"],
       [0, "gloss", "eng"],
       [3, "page_num"]
     ],
@@ -267,7 +269,8 @@
     "parser": "Spreadsheet",
     "columns": [
       [2, "headword"],
-      [5, "ph"],
+      [6, "ph"],
+      [4, "gloss", "nld"],
       [0, "gloss", "eng"],
       [3, "page_num"]
     ],
@@ -279,9 +282,10 @@
     "parser": "Spreadsheet",
     "columns": [
       [0, "headword"],
-      [3, "ph"],
-      [1, "gloss", "eng"],
-      [2, "page_num"]
+      [4, "ph"],
+      [1, "gloss", "nld"],
+      [2, "gloss", "eng"],
+      [3, "page_num"]
     ]
   },
   "Kijne (nd.e)": {
@@ -289,9 +293,21 @@
     "path": "spreadsheets/11-Ambaidiru word list Kijne.xlsx",
     "parser": "Spreadsheet",
     "columns": [
-      [1, "headword"],
-      [3, "ph"],
+      [2, "headword"],
+      [4, "ph"],
+      [1, "gloss", "nld"],
       [0, "gloss", "eng"],
+      [3, "page_num"]
+    ]
+  },
+  "Slump (1924-1938)": {
+    "lang_target": "seu",
+    "path": "spreadsheets/12-Serui-Laut vocabulary Slump.xlsx",
+    "parser": "Spreadsheet",
+    "columns": [
+      [1, "headword"],
+      [0, "gloss", "ind"],
+      [3, "gloss", "eng"],
       [2, "page_num"]
     ]
   },
