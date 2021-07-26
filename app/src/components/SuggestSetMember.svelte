@@ -8,8 +8,8 @@
 
   let selection = null;
   export let match;
+  export let noset;
   export let languages = null;
-  export let noset = true;
 
   function renderer(item) {
     let output = `<div class="suggest"><div>${escape(item.language_name)} ` +

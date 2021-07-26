@@ -35,6 +35,7 @@
     <SuggestSetMember
       match="headword"
       {languages}
+      noset={true}
       on:select={handleAdd}
     />
     </li>
@@ -43,6 +44,7 @@
     <SuggestSetMember
       match="gloss"
       {languages}
+      noset={true}
       on:select={handleAdd}
     />
   </li>

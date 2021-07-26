@@ -119,10 +119,25 @@
         </div>
       </div>
       {#if linkable && !entry.set_id}
-        <div class="label">
-          Link To:
+        <div class="link">
+          <div class="label">
+            Link To (Headword):
+          </div>
+          <SuggestSetMember
+            match="headword"
+            noset={false}
+            onSelect={() => {}}
+          />
         </div>
-        <div class="controls">
+        <div class="link">
+          <div class="label">
+            Link To (Gloss):
+          </div>
+          <SuggestSetMember
+            match="gloss"
+            noset={false}
+            onSelect={() => {}}
+          />
         </div>
       {/if}
     {:else}
@@ -136,43 +151,57 @@
     padding: 8px;
     @include popover;
 
+    :global(.svelecte-control .sv-control) {
+      min-height: unset;
+      height: 26px;
+    }
+
     > div {
       display: flex;
       &:not(:first-child) {
         margin-block-start: 10px;
       }
+
+      .label {
+        margin-inline-end: 10px;
+      }
+
+      .controls {
+        display: flex;
+        flex-direction: column;
+
+        .radios {
+          display: flex;
+          label {
+            margin-inline-end: 10px;
+            display: flex;
+            align-items: center;
+          }
+          input {
+            margin-inline-end: 4px;
+          }
+        }
+
+        .originlang {
+          margin-block-start: 10px;
+          display: flex;
+          align-items: center;
+
+          :global(.svelecte-control .sv-control) {
+            inline-size: 16em;
+          }
+        }
+      }
+
+      &.link {
+        .label {
+          align-self: center;
+          inline-size: 9em;
+        }
+        :global(.svelecte-control .sv-control) {
+          inline-size: 16em;
+        }
+      }
     }
   }
-
-  .label {
-    margin-inline-end: 10px;
-  }
-
-  .controls {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .radios {
-    display: flex;
-    label {
-      margin-inline-end: 10px;
-      display: flex;
-      align-items: center;
-    }
-    input {
-      margin-inline-end: 4px;
-    }
-  }
-
-  .originlang {
-    margin-block-start: 10px;
-    display: flex;
-    align-items: center;
-
-    :global(.svelecte-control .sv-control) {
-      inline-size: 16em;
-      min-height: unset;
-      height: 26px;
-    }
-  }</style>
+  </style>
