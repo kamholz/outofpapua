@@ -2,8 +2,8 @@ import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
   sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams,
-  parseBooleanParams, partitionPlus, showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
+  parseArrayParams, parseBooleanParams, partitionPlus, showPublicOnly } from '$lib/util';
 import { nfc, table } from './_params';
 import { requireAuth } from '$lib/auth';
 
@@ -143,13 +143,15 @@ export const post = requireAuth(async ({ body, locals }) => {
   ensureNfcParams(params, nfc);
   try {
     const source = await knex('source')
+      .leftJoin('protolanguage', 'protolanguage.id', 'source.language_id')
       .where('id', params.source_id)
       .whereRaw('editable')
-      .first('id');
+      .first('id', 'protolanguage.id as proto');
     if (!source) {
       return { status: 400, body: { error: 'source does not exist or is not editable' } };
     }
 
+    params.headword = mungeHeadword(params.headword, Boolean(source.proto));
     const ids = await transaction(locals, (trx) =>
       trx(table)
       .returning('id')

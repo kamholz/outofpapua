@@ -230,6 +230,14 @@ export function mungePos(pos) {
   return pos.replace(/\.$/, '');
 }
 
+export function mungeHeadword(txt, proto) {
+  if (proto) {
+    return txt.match(/^\*/) ? txt : '*' + txt;
+  } else {
+    return txt.replace(/^\*/, '');
+  }
+}
+
 export function escapeHtml(txt) {
   return txt
     .replace(/&/g, '&amp;')

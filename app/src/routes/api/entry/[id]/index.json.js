@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeHeadword } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable, nfc, table } from '../_params';
 import { requireAuth } from '$lib/auth';
@@ -44,6 +44,17 @@ export const put = requireAuth(async ({ body, locals, params }) => {
       return { status: 400, body: { error: errors.originLang } };
     }
     updateParams.origin_language_id = null; // clear any existing origin_language_id
+  }
+  if ('headword' in updateParams) {
+    const source = await knex.first(
+      knex.raw(
+        'exists ? as proto',
+        knex('source')
+          .select('source.id')
+          .join('protolanguage', 'protolanguage.id', 'source.language_id')
+      )
+    );
+    updateParams.headword = mungeHeadword(updateParams.headword, source.proto);
   }
   ensureNfcParams(updateParams, nfc);
   try {
