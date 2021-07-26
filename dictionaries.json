@@ -202,7 +202,7 @@
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
-      [13, "headword"],
+      [14, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
@@ -213,7 +213,7 @@
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
-      [14, "headword"],
+      [15, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
@@ -224,7 +224,7 @@
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
-      [15, "headword"],
+      [16, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
