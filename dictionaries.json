@@ -104,12 +104,22 @@
     "parser": "Spreadsheet",
     "columns": [
       [5, "headword"],
-      [6, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
   },
   "Smits & Voorhoeve (1998e)": {
+    "lang_target": "Yawa Tarau",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [6, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998f)": {
     "lang_target": "Yawa Kampung Baru",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
@@ -120,19 +130,29 @@
       [1, "page_num"]
     ]
   },
-  "Smits & Voorhoeve (1998f)": {
+  "Smits & Voorhoeve (1998g)": {
     "lang_target": "Yawa Mantembu",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
       [8, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998h)": {
+    "lang_target": "Yawa Mantembu",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
       [9, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
   },
-  "Smits & Voorhoeve (1998g)": {
+  "Smits & Voorhoeve (1998i)": {
     "lang_target": "Yawa Turu",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
@@ -143,7 +163,7 @@
       [1, "page_num"]
     ]
   },
-  "Smits & Voorhoeve (1998h)": {
+  "Smits & Voorhoeve (1998j)": {
     "lang_target": "Yawa Konti Unai",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
@@ -154,31 +174,61 @@
       [1, "page_num"]
     ]
   },
-  "Smits & Voorhoeve (1998i)": {
+  "Smits & Voorhoeve (1998k)": {
     "lang_target": "Yawa Wadapi-Darat",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
       [12, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998l)": {
+    "lang_target": "Yawa Wadapi-Darat",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
       [13, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
   },
-  "Smits & Voorhoeve (1998j)": {
+  "Smits & Voorhoeve (1998m)": {
     "lang_target": "swr",
     "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
     "skip": 2,
     "parser": "Spreadsheet",
     "columns": [
       [13, "headword"],
-      [14, "headword"],
-      [15, "headword"],
       [0, "gloss", "eng"],
       [1, "page_num"]
     ]
   },
+  "Smits & Voorhoeve (1998n)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [14, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },
+  "Smits & Voorhoeve (1998o)": {
+    "lang_target": "swr",
+    "path": "spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx",
+    "skip": 2,
+    "parser": "Spreadsheet",
+    "columns": [
+      [15, "headword"],
+      [0, "gloss", "eng"],
+      [1, "page_num"]
+    ]
+  },  
   "Voorhoeve (1975)": {
     "lang_target": "yva",
     "path": "spreadsheets/7-Yawa small word list Anceaux.xlsx",
