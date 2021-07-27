@@ -56,7 +56,7 @@
 
 {#if editable}
   {#if promise}
-    {#await promise then done}
+    {#await promise then}
       <Alert type="success" message="Changes saved" />
     {:catch { message }}
       <Alert type="error" {message} />

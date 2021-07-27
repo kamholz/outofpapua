@@ -59,7 +59,7 @@
 </script>
 
 {#if promise}
-  {#await promise then done}
+  {#await promise then}
     <Alert type="success" message="New user created" />
   {:catch { message }}
     <Alert type="error" message="Create user failed" />

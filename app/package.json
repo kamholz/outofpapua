@@ -15,7 +15,7 @@
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-svelte3": "^3.2.0",
     "sass": "^1.0.0",
-    "svelte": "^3.38.3",
+    "svelte": "^3.41.0",
     "svelte-preprocess": "^4.7.1"
   },
   "type": "module",
@@ -28,7 +28,7 @@
     "knex": "^0.95.4",
     "pg": "^8.6.0",
     "socket.io-client": "^4.0.1",
-    "svelecte": "^1.3.1",
+    "svelecte": "^1.3.4",
     "svelte-awesome": "^2.3.1",
     "svelte-persistent-store": "kamholz/svelte-persistent-store",
     "svelte-popperjs": "^1.2.3"

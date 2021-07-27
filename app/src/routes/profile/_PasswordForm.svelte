@@ -57,7 +57,7 @@
   </script>
 
 {#if promise}
-  {#await promise then done}
+  {#await promise then}
     <Alert type="success" message="Password changed" />
   {:catch { message }}
     <Alert type="error" {message} />
