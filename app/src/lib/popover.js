@@ -16,7 +16,7 @@ export function createPopover(args) {
 }
 
 export function popoverTrigger(node, popover) {
-  const { click, hide, hover, popoverRef, popperRef, prefetch, show } = popover;
+  const { click, hide, hover, popperRef, prefetch, show } = popover;
   let open = false;
   let clickOpen = false;
   let waitingToShow = false;
@@ -75,7 +75,7 @@ export function popoverTrigger(node, popover) {
   }
 
   function onWindowClick(e) {
-    if (open && !(node.contains(e.target) || popoverRef?.contains(e.target))) {
+    if (open && !(node.contains(e.target) || popover.popoverRef?.contains(e.target))) {
       open = false;
       hide();
     }

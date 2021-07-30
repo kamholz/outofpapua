@@ -126,7 +126,7 @@
           <SuggestSetMember
             match="headword"
             noset={false}
-            onSelect={() => {}}
+            on:select={() => {}}
           />
         </div>
         <div class="link">
@@ -136,7 +136,7 @@
           <SuggestSetMember
             match="gloss"
             noset={false}
-            onSelect={() => {}}
+            on:select={() => {}}
           />
         </div>
       {/if}
