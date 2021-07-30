@@ -4,6 +4,7 @@ use lib 'perllib';
 use Data::Dumper;
 use File::Slurper 'read_text';
 use JSON::MaybeXS;
+use Lexicon::Parser::ACD;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;

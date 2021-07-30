@@ -317,5 +317,29 @@
     "parser": "Marker",
     "split": ",;",
     "sense": "hm"
+  },
+  "Blust & Trussel (ongoing a)": {
+    "lang_target": "Proto-Malayo-Polynesian",
+    "path": "acd",
+    "parser": "ACD",
+    "split_heuristic": ",/"
+  },
+  "Blust & Trussel (ongoing b)": {
+    "lang_target": "Proto-Central-Eastern Malayo-Polynesian",
+    "path": "acd",
+    "parser": "ACD",
+    "split_heuristic": ",/"
+  },
+  "Blust & Trussel (ongoing c)": {
+    "lang_target": "Proto-Eastern Malayo-Polynesian",
+    "path": "acd",
+    "parser": "ACD",
+    "split_heuristic": ",/"
+  },
+  "Blust & Trussel (ongoing d)": {
+    "lang_target": "Proto-South Halmahera-West New Guinea",
+    "path": "acd",
+    "parser": "ACD",
+    "split_heuristic": ",/"
   }
 }

@@ -5,6 +5,7 @@ use Dotenv -load => 'app/.env';
 use File::Slurper 'read_text';
 use JSON::MaybeXS;
 use Lexicon::Importer;
+use Lexicon::Parser::ACD;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;
