@@ -125,6 +125,7 @@ export function popoverContent(node, popover) {
     destroy() {
       actions.destroy?.();
       destroyHoverListeners(node);
+      node.remove();
     },
     update() {
       actions.update?.();

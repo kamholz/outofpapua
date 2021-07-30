@@ -40,7 +40,7 @@
 
   async function handleLink() {
     $pageLoading++;
-    // await crud.linkEntries(Object.values($selection), handleRefresh);
+    await crud.linkEntries(Object.values($selection), handleRefresh);
     $pageLoading--;
   }
 
