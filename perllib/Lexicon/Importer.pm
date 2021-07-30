@@ -55,7 +55,10 @@ sub import_lexicon {
       #next unless length $entry->{headword};
 
       my $ident = entry_identifier($entry);
-      say "skipping duplicate: $entry->{headword}", next if $seen_entry{$ident};
+      if ($seen_entry{$ident}) {
+        say "skipping duplicate: $entry->{headword}";
+        next;
+      }
       $seen_entry{$ident} = 1;
 
       my $record_id = $seen_record_ids{$entry->{record}};
