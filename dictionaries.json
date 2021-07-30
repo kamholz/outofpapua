@@ -337,7 +337,7 @@
     "split_heuristic": ",/"
   },
   "Blust & Trussel (ongoing d)": {
-    "lang_target": "Proto-South Halmahera-West New Guinea",
+    "lang_target": "Proto-SHWNG",
     "path": "acd",
     "parser": "ACD",
     "split_heuristic": ",/"
