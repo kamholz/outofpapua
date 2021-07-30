@@ -48,10 +48,15 @@ sub import_lexicon {
     }
 
     my $entries = $parser->read_entries;
+    my %seen_entry;
 
     foreach my $entry (@{$entries||[]}) {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
-      next unless length $entry->{headword};
+      #next unless length $entry->{headword};
+
+      my $ident = entry_identifier($entry);
+      say "skipping duplicate: $entry->{headword}", next if $seen_entry{$ident};
+      $seen_entry{$ident} = 1;
 
       my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
@@ -112,6 +117,20 @@ EOF
   } catch {
     say "failed: $_";
   };
+}
+
+sub entry_identifier {
+  my ($entry) = @_;
+  my @chunks = ($entry->{headword});
+  foreach my $sense (@{$entry->{sense}||[]}) {
+    push @chunks, $sense->{pos} || '';
+    foreach my $item (qw/gloss definition/) {
+      foreach my $val (@{$sense->{$item}||[]}) {
+        push @chunks, @$val;
+      }
+    }
+  }
+  return join('||', @chunks);
 }
 
 sub jsonify_record {
