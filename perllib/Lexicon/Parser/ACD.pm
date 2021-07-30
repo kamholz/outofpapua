@@ -15,7 +15,7 @@ my %proto_abbrev = (
   'Proto-Malayo-Polynesian' => 'PMP',
   'Proto-Central-Eastern Malayo-Polynesian' => 'PCEMP',
   'Proto-Eastern Malayo-Polynesian' => 'PEMP',
-  'Proto-South Halmahera-West New Guinea', 'PSHWNG',
+  'Proto-SHWNG', 'PSHWNG',
   'Proto-Oceanic', 'POc',
 );
 
@@ -39,7 +39,7 @@ sub read_entries {
 
     foreach my $sense (@senses) {
       $self->add_sense($entry);
-      $self->add_gloss($entry, 'gloss', $sense, $self->lang_english);
+      $self->add_gloss($entry, 'gloss', $sense, $self->lbang_english);
     }
 
     $self->push_entry($entries, $entry);
