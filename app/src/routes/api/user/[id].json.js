@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams } from '$lib/util';
 import { getUser, requireAuth } from '$lib/auth';
-import { nfc, table } from './_params';
+import { nfc } from './_params';
 import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['username', 'fullname', 'admin']);
@@ -30,7 +30,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   ensureNfcParams(params, nfc);
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('usr')
       .where('id', Number(params.id))
       .returning('id')
       .update(updateParams)
@@ -51,7 +51,7 @@ export const del = requireAuth(async ({ locals, params }) => {
   }
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('usr')
       .where('id', Number(params.id))
       .returning('id')
       .del()

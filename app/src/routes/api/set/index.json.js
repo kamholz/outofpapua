@@ -1,4 +1,4 @@
-import { allowed, table } from './_params';
+import { allowed } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
   sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
@@ -117,7 +117,7 @@ export const post = requireAuth(async ({ body, locals }) => {
   const params = getFilteredParams(body, allowed);
   try {
     const id = await transaction(locals, async (trx) => {
-      const ids = await trx(table)
+      const ids = await trx('set')
         .returning('id')
         .insert(params);
       const [id] = ids;

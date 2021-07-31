@@ -1,7 +1,6 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
 import { knex, sendPgError, transaction } from '$lib/db';
-import { table } from './_params';
 
 export const put = requireAuth(async ({ body, locals, params }) => {
   const { user } = locals;
@@ -20,7 +19,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   }
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('usr')
       .where('id', Number(params.id))
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) })

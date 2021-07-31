@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { allowed, nfc, required, table } from './_params';
+import { allowed, nfc, required } from './_params';
 import { applySortParams, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
@@ -21,7 +21,7 @@ export async function get({ locals, query }) {
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
-  const q = knex(table)
+  const q = knex('source')
     .join('language', 'language.id', 'source.language_id')
     .select(
       'source.id',
@@ -72,7 +72,7 @@ export const post = requireAuth(async ({ body, locals }) => {
 
     params.editable = true;
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('source')
       .returning('id')
       .insert(params)
     );

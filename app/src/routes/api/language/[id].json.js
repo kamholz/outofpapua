@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { nfc, table } from './_params';
+import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
@@ -14,7 +14,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   ensureNfcParams(updateParams, nfc);
   try {
     const rows = await transaction(locals, (trx) =>
-      trx(table)
+      trx('language')
       .where('id', Number(params.id))
       .returning('id')
       .update(updateParams)
@@ -32,7 +32,7 @@ export const del = requireAuth(async ({ locals, params }) => {
   try {
     const id = Number(params.id);
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('language')
       .where('id', id)
       .whereExists(function () {
         this.select('*').from('protolanguage').where('protolanguage.id', id);

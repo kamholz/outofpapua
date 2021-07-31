@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { allowed, table } from './_params';
+import { allowed } from './_params';
 import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, sendPgError, transaction } from '$lib/db';
 import { isEditable } from '../../_params';
@@ -18,7 +18,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
     insertParams.entry_id = entryId;
 
     const id = await transaction(locals, async (trx) => {
-      const senseIds = await trx(table)
+      const senseIds = await trx('sense')
         .returning('id')
         .insert(insertParams);
       const [sense_id] = senseIds;

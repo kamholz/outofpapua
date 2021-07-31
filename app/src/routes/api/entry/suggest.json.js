@@ -3,7 +3,6 @@ import { arrayCmp, knex } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
   parseBooleanParams, partitionPlus } from '$lib/util';
 import { requireAuth } from '$lib/auth';
-import { table } from './_params';
 
 const allowed = new Set(['lang', 'max', 'match', 'noset', 'search']);
 const required = new Set(['match', 'search']);
@@ -29,7 +28,7 @@ export const get = requireAuth(async ({ query }) => {
   const { match, max, noset, search } = { ...defaults, ...query };
   const mungedSearch = mungeRegex(search);
 
-  const subq = knex(table)
+  const subq = knex('entry')
     .select('entry.id');
 
   if (match === 'headword') {

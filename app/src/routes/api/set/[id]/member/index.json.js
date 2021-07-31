@@ -2,7 +2,6 @@ import errors from '$lib/errors';
 import { getFilteredParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
-import { table } from '../_params';
 
 const allowed = new Set(['entry_id', 'reflex']);
 const required = new Set(['entry_id']);
@@ -15,7 +14,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
   try {
     insertParams.set_id = Number(params.id);
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('set_member')
       .returning('entry_id')
       .insert(insertParams)
       // would override existing set membership:

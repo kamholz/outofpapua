@@ -4,7 +4,7 @@ import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, fil
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, partitionPlus, showPublicOnly } from '$lib/util';
-import { nfc, table } from './_params';
+import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page', 'pagesize',
@@ -39,7 +39,7 @@ export async function get({ locals, query }) {
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
-  const subq = knex(table)
+  const subq = knex('entry')
     .select('entry.id')
     .distinct();
 
@@ -153,7 +153,7 @@ export const post = requireAuth(async ({ body, locals }) => {
 
     params.headword = mungeHeadword(params.headword, Boolean(source.proto));
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('entry')
       .returning('id')
       .insert(params)
     );

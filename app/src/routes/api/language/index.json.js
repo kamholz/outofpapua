@@ -2,7 +2,7 @@ import errors from '$lib/errors';
 import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
   stripParams } from '$lib/util';
-import { nfc, required, table } from './_params';
+import { nfc, required } from './_params';
 import { requireAuth } from '$lib/auth';
 
 const boolean = new Set(['asc']);
@@ -25,7 +25,7 @@ export async function get({ locals, query }) {
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
-  const q = knex(table)
+  const q = knex('language')
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
     .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
@@ -87,7 +87,7 @@ export const post = requireAuth(async ({ body, locals }) => {
   try {
     const ids = await transaction(locals, (trx) =>
       trx.with('inserted', (q) => {
-        q.from(table)
+        q.from('language')
         .returning('id')
         .insert(params);
       })

@@ -2,7 +2,6 @@ import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { table } from '../_params';
 
 const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
@@ -37,7 +36,7 @@ export const post = requireAuth(async ({ body, locals, params }) => {
         .insert(insertParams);
       const [entry_id] = entryIds;
 
-      await trx(table)
+      await trx('set_member')
         .insert({ entry_id, set_id: Number(params.id) });
 
       const senseIds = await trx('sense')

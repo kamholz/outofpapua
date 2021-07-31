@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams } from '$lib/util';
 import { knex, sendPgError, transaction } from '$lib/db';
-import { nfc, table } from './_params';
+import { nfc } from './_params';
 import { requireAdmin, requireAuth } from '$lib/auth';
 
 export const get = requireAuth(async () => {
-  const q = knex(table)
+  const q = knex('usr')
     .select('id', 'username', 'fullname', 'admin')
     .orderBy('fullname');
   return {
@@ -26,7 +26,7 @@ export const post = requireAdmin(async ({ body, locals }) => {
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('usr')
       .returning('id')
       .insert(params)
     );

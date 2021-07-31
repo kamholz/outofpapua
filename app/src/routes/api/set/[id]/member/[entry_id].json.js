@@ -2,7 +2,6 @@ import errors from '$lib/errors';
 import { getFilteredParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
-import { table } from '../_params';
 
 const allowed = new Set(['reflex']);
 
@@ -13,7 +12,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   }
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('set_member')
       .where('entry_id', Number(params.entry_id))
       .returning('entry_id')
       .update(updateParams)
@@ -30,7 +29,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 export const del = requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('set_member')
       .where('entry_id', Number(params.entry_id))
       .returning('entry_id')
       .del()

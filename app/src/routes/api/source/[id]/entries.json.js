@@ -1,7 +1,6 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly } from '$lib/util';
-import { table } from '../_params';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'origin', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
@@ -27,7 +26,7 @@ export async function get({ locals, params, query }) {
   const id = Number(params.id);
 
   if (showPublicOnly(locals)) {
-    const row = await knex(table)
+    const row = await knex('source')
       .where('id', id)
       .whereRaw('public')
       .first('id');

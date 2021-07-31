@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { allowed, table } from './_params';
+import { allowed } from './_params';
 import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable } from '../../_params';
@@ -18,7 +18,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   }
 
   const sense_id = Number(params.sense_id);
-  const rows = await knex(table)
+  const rows = await knex('sense')
     .where('id', sense_id)
     .select('entry_id');
   if (!rows.length || rows[0].entry_id !== Number(params.id)) {
@@ -28,7 +28,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   try {
     await transaction(locals, async (trx) => {
       if (Object.keys(updateParams).length) {
-        await trx(table)
+        await trx('sense')
           .where('id', sense_id)
           .update(updateParams);
       }
@@ -55,7 +55,7 @@ export const del = requireAuth(async ({ locals, params }) => {
       return { status: 400, body: { error: errors.editableEntry } };
     }
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('sense')
       .where('id', Number(params.sense_id))
       .returning('id')
       .del()

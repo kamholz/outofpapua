@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams, mungeHeadword } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
-import { isEditable, nfc, table } from '../_params';
+import { isEditable, nfc } from '../_params';
 import { requireAuth } from '$lib/auth';
 
 const allowedAll = new Set(['headword_normalized', 'note', 'origin', 'origin_language_id', 'root']);
@@ -59,7 +59,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   ensureNfcParams(updateParams, nfc);
   try {
     const rows = await transaction(locals, (trx) =>
-      trx(table)
+      trx('entry')
       .where('id', id)
       .returning('id')
       .update(updateParams)
@@ -84,7 +84,7 @@ export const del = requireAuth(async ({ locals, params }) => {
       await trx('sense')
         .where('entry_id', id)
         .del();
-      return trx(table)
+      return trx('entry')
         .where('id', id)
         .returning('id')
         .del();

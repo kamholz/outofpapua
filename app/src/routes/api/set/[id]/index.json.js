@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { allowed, table } from '../_params';
+import { allowed } from '../_params';
 import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -40,7 +40,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
       const id = Number(params.id);
       let found = false;
       if (haveUpdateParams) {
-        const ids = await trx(table)
+        const ids = await trx('set')
           .where('id', id)
           .returning('id')
           .update(updateParams);
@@ -72,7 +72,7 @@ export const put = requireAuth(async ({ body, locals, params }) => {
 export const del = requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
-      trx(table)
+      trx('set')
       .where('id', Number(params.id))
       .returning('id')
       .del()
