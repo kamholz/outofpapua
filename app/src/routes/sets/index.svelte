@@ -20,6 +20,7 @@
     }
 
     query = normalizeQuery(query);
+    query.pagesize ??= session.preferences.listPageSize;
     const json = await reload(fetch, query, session.preferences);
     if (!json) {
       return { status: 500 };
@@ -29,8 +30,7 @@
     return { props };
   }
 
-  async function reload(fetch, query, preferences) {
-    query.pagesize ??= preferences.listPageSize;
+  async function reload(fetch, query) {
     const res = await fetch('/api/set.json?' + new URLSearchParams(query));
     return res.ok ? res.json() : null;
   }
@@ -58,6 +58,15 @@
   export let query;
   export let pageCount;
   export let rowCount;
+
+  async function handleRefresh() {
+    const json = await reload(fetch, query);
+    if (json) {
+      rows = json.rows;
+      pageCount = json.pageCount;
+      rowCount = json.rowCount;
+    }
+  }
 </script>
 
 <h2>Search sets</h2>
@@ -73,6 +82,7 @@
     {rows}
     {query}
     {pageCount}
+    on:refresh={handleRefresh}
   />
   <div class="controls">
     <PageSizeSelect {query} preferenceKey="listPageSize" />

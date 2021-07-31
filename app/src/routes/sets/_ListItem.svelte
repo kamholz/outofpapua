@@ -1,15 +1,37 @@
 <script>
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
+  import Icon from 'svelte-awesome';
   import ListItemMember from './_ListItemMember.svelte';
+  import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
+  import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
+  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
 
   export let set;
   export let collapsed;
+  export let selection;
+  const editable = getContext('editable');
+
+  function handleSelect() {
+    if ($selection[set.id]) {
+      delete $selection[set.id];
+      $selection = $selection;
+    } else {
+      $selection[set.id] = true;
+    }
+  }
 </script>
 
 <div class="header">
-  <CollapseIndicator bind:collapsed />
-  <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
+  <div>
+    <CollapseIndicator bind:collapsed />
+    <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
+  </div>
+  {#if editable}
+    <span on:click={handleSelect}>
+      <Icon data={$selection[set.id] ? faCircleSolid : faCircleRegular} />
+    </span>
+  {/if}
 </div>
 {#if !collapsed}
   <div class="table" transition:slide|local={{ duration: 200 }}>
@@ -22,6 +44,10 @@
 <style lang="scss">
   .header {
     display: flex;
+    justify-content: space-between;
+    > div {
+      display: flex;
+    }
   }
 
   .table {

@@ -60,7 +60,7 @@
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
-  import * as crud from '$actions/crud';
+  import * as crudSet from '$actions/crud/set';
 
   export let rows = null;
   export let query;
@@ -93,7 +93,7 @@
 
   async function handleLink() {
     $pageLoading++;
-    await crud.linkEntries(Object.values($selection), handleRefresh);
+    await crudSet.linkEntries(Object.values($selection), handleRefresh);
     $pageLoading--;
   }
 
