@@ -62,9 +62,9 @@
   async function handleRefresh() {
     const json = await reload(fetch, query);
     if (json) {
-      rows = json.rows;
-      pageCount = json.pageCount;
-      rowCount = json.rowCount;
+      ({ rows } = json);
+      ({ pageCount } = json);
+      ({ rowCount } = json);
     }
   }
 </script>

@@ -10,7 +10,6 @@
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { fade, slide } from 'svelte/transition';
   import { pageLoading } from '$lib/stores';
-  import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
 
   export let entry;
@@ -19,33 +18,32 @@
   export let multilang;
   const { compare_entries, headword, senses } = entry;
   const linkable = getContext('editable') && compare_entries;
-  const selection = linkable ? writable({}) : null;
+  let selection = linkable ? {} : null;
 
   function handleSelect(item) {
-    const newSelection = { ...$selection };
-    if ($selection[item.id]) {
-      delete newSelection[item.id];
+    if (selection[item.id]) {
+      delete selection[item.id];
     } else {
-      newSelection[item.id] = item;
+      selection[item.id] = item;
     }
     if (item.set_id) {
-      for (const selectedRow of Object.values(newSelection)) {
+      for (const selectedRow of Object.values(selection)) {
         if (selectedRow.set_id && selectedRow.set_id !== item.set_id) {
-          delete newSelection[selectedRow.id];
+          delete selection[selectedRow.id];
         }
       }
     }
-    $selection = newSelection;
+    selection = selection;
   }
 
   async function handleLink() {
     $pageLoading++;
-    await crudSet.linkEntries(Object.values($selection), handleRefresh);
+    await crudSet.linkEntries(Object.values(selection), handleRefresh);
     $pageLoading--;
   }
 
   function handleRefresh() {
-    $selection = {};
+    selection = {};
     dispatch('refresh');
   }
 </script>
@@ -54,7 +52,7 @@
   <div class="entry">
     {#if linkable && !collapsed}
       <span on:click={() => handleSelect(entry)}>
-        <Icon data={$selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+        <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
       </span>
     {/if}
     <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
@@ -77,7 +75,7 @@
             <li>
               {#if linkable}
                 <span on:click={() => handleSelect(compare_entry)}>
-                  <Icon data={$selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+                  <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
                 </span>
               {/if}
               <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
@@ -95,7 +93,7 @@
   {/if}
 </div>
 
-{#if linkable && !collapsed && Object.keys($selection).length > 1}
+{#if linkable && !collapsed && Object.keys(selection).length > 1}
   <button
     type="button"
     transition:fade={{ duration: 300 }}

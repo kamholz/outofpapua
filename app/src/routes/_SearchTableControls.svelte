@@ -4,14 +4,14 @@
   import { pageLoading } from '$lib/stores';
 
   const selection = getContext('selection');
-  $: emptySelection = Object.keys($selection).length < 2;
+  $: disabled = $pageLoading || Object.keys($selection).length < 2;
 </script>
 
 <div>
-  <button on:click={() => dispatch('clear')} disabled={$pageLoading || emptySelection}>
+  <button on:click={() => dispatch('clear')} {disabled}>
     Select None
   </button>
-  <button on:click={() => dispatch('link')} disabled={$pageLoading || emptySelection}>
+  <button on:click={() => dispatch('link')} {disabled}>
     Link Selected
   </button>
 </div>

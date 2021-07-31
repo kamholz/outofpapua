@@ -6,7 +6,6 @@
   const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
   import { pageLoading } from '$lib/stores';
-  import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
 
   export let rows;
@@ -14,7 +13,7 @@
   export let pageCount;
   const editable = getContext('editable');
   const collapsedRows = rows.map(() => false);
-  const selection = editable ? writable({}) : null;
+  let selection = editable ? {} : null;
   let promise;
 
   function collapseAll(state) {
@@ -24,12 +23,12 @@
   }
 
   async function handleMerge() {
-    const [id, ...sets] = rows.filter((v) => $selection[v.id]).map((v) => v.id);
+    const [id, ...sets] = rows.filter((v) => selection[v.id]).map((v) => v.id);
     $pageLoading++;
     try {
       promise = crudSet.merge({ id, sets });
       await promise;
-      $selection = {};
+      selection = {};
       dispatch('refresh');
     } catch (e) {}
     $pageLoading--;
@@ -48,11 +47,11 @@
 <div>
   <button on:click={() => collapseAll(true)}>Collapse All</button>
   <button on:click={() => collapseAll(false)}>Expand All</button>
-  {#if editable && Object.keys($selection).length > 1}
+  {#if editable}
     <button
       type="button"
       transition:fade={{ duration: 300 }}
-      disabled={$pageLoading}
+      disabled={$pageLoading || Object.keys(selection).length < 2}
       on:click={handleMerge}
     >Merge Selected Sets</button>
   {/if}
@@ -63,7 +62,7 @@
   <ListItem
     {set}
     collapsed={collapsedRows[i]}
-    {selection}
+    bind:selection
   />
   <hr>
 {/each}
