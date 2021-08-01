@@ -37,7 +37,7 @@
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
   import keydown from '$lib/keydown';
-  import { normalizeParam } from '$lib/util';
+  import { getSetName, normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
 
@@ -56,7 +56,7 @@
     note: set.note,
     name: set.name,
   };
-  let name = set.name ?? set.id;
+  let name = getSetName(set);
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };

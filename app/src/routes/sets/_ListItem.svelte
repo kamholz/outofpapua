@@ -5,6 +5,7 @@
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
+  import { getSetName } from '$lib/util';
   import { slide } from 'svelte/transition';
 
   export let set;
@@ -25,7 +26,7 @@
 <div class="header">
   <div>
     <CollapseIndicator bind:collapsed />
-    <strong>Set: <a href="/sets/{set.id}">{set.title ?? set.id}</a></strong>
+    <strong>Set: <a href="/sets/{set.id}">{getSetName(set)}</a></strong>
   </div>
   {#if editable}
     <span on:click={handleSelect}>
