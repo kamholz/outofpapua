@@ -76,7 +76,7 @@ export function popoverTrigger(node, popover) {
 
   function onWindowClick(e) {
     if (open && !(node.contains(e.target) || popover.popoverRef?.contains(e.target))) {
-      open = false;
+      open = clickOpen = false;
       hide();
     }
   }
