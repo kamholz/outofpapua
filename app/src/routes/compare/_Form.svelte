@@ -57,6 +57,7 @@
   values={query}
   bind:selections
   submitLabel="Compare"
+  clearable
   browserSubmit
   help={RegexHelp}
   style="--formwidth: 35em; --gridtemplate: 32% 68%"

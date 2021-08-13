@@ -45,6 +45,7 @@
   {fields}
   values={query}
   submitLabel="Search"
+  clearable
   browserSubmit
   help={RegexHelp}
   style="--formwidth: 45em; --gridtemplate: 32% 68%"

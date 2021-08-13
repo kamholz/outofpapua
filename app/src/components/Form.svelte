@@ -9,6 +9,7 @@
   export let values = {};
   export let selections = {};
   export let submitLabel = null;
+  export let clearable = false;
   export let help = null;
   export let action = null;
   export let method = null;
@@ -38,6 +39,18 @@
         e.preventDefault();
       }
       form.reportValidity();
+    }
+  }
+
+  function handleClear() {
+    for (const { name, type} of fields) {
+      if (type === 'text' || type === 'email' || type === 'password' || type === 'textarea') {
+        values[name] = null;
+      } else if (type === 'suggest') {
+        selections[name] = null;
+      } else if (type === 'suggestMulti') {
+        selections[name] = [];
+      }
     }
   }
 </script>
@@ -151,6 +164,9 @@
       <div class="buttons">
         {#if submitLabel}
           <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
+        {/if}
+        {#if clearable}
+          <button type="button" disabled={$pageLoading} on:click={handleClear}>Clear</button>
         {/if}
         <slot name="buttons" />
       </div>
