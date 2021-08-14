@@ -15,14 +15,16 @@
     let output = `<div class="suggest"><div>${escape(item.language_name)} ` +
       `<strong>${escape(item.headword)}</strong></div>`;
     const { senses } = item;
-    if (senses[0]) {
-      output += `<div>${escape(senses[0])}</div></div>`;
-      for (const sense of senses.slice(1)) {
-        output += `<div class="suggest"><div></div><div>${escape(sense)}</div></div>`;
+    if (senses.length) {
+      output += '<div>';
+      for (const sense of senses) {
+        output += `<div>${escape(sense)}</div>`;
       }
+      output += '</div>';
     } else {
-      output += '<div></div></div>';
+      output += '<div></div>';
     }
+    output += '</div>';
     return output;
   }
 
@@ -57,7 +59,7 @@
       gap: 6px;
       white-space: normal;
 
-      > :first-child {
+      > div {
         @include indent-small;
       }
     }

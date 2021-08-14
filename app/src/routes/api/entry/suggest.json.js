@@ -37,7 +37,8 @@ export const get = requireAuth(async ({ query }) => {
     subq
       .join('sense', 'sense.entry_id', 'entry.id')
       .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-      .where('sense_gloss.txt', '~*', mungedSearch);
+      .where('sense_gloss.txt', '~*', mungedSearch)
+      .groupBy('entry.id');
   }
 
   if (noset) {

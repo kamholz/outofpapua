@@ -23,10 +23,9 @@
       readonly: true,
     },
     {
-      name: 'numentries',
-      label: '# Entries',
+      name: 'location',
+      label: 'Location',
       type: 'text',
-      readonly: true,
     },
     editable
       ?
@@ -42,6 +41,12 @@
         label: 'Parent',
         type: 'text',
       },
+    {
+      name: 'numentries',
+      label: '# Entries',
+      type: 'text',
+      readonly: true,
+    },
   ];
 
   if (editable && language.is_proto) {

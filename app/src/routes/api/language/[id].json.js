@@ -4,7 +4,7 @@ import { knex, sendPgError, transaction } from '$lib/db';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['name', 'note', 'parent_id', 'prefer_set_name']);
+const allowed = new Set(['location', 'name', 'note', 'parent_id', 'prefer_set_name']);
 const proto = new Set(['prefer_set_name']);
 
 export async function get({ locals, params }) {
@@ -17,6 +17,7 @@ export async function get({ locals, params }) {
       'language.id',
       'language.name',
       knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
+      knex.raw("(language.location[0] || ', ' || language.location[1]) as location"),
       'language.parent_id',
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto'),
