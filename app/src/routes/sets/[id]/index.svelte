@@ -37,7 +37,7 @@
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
   import keydown from '$lib/keydown';
-  import { getSetName, normalizeParam } from '$lib/util';
+  import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
 
@@ -56,7 +56,7 @@
     note: set.note,
     name: set.name,
   };
-  let name = getSetName(set);
+  let name = set.name_auto;
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
@@ -85,13 +85,14 @@
       set = newSet;
       values.note = set.note;
       values.name = set.name;
+      name = set.name_auto;
       createProtoValues = {};
     } else {
       goto('/');
     }
   }
 
-  async function handleUpdate(key) {
+  async function handleUpdate(key, finish) {
     values[key] = normalizeParam(values[key]);
     if (set[key] === values[key]) {
       return;
@@ -103,6 +104,9 @@
       promises.pending[key] = promise;
       await promise;
       set[key] = values[key];
+      if (finish) {
+        await finish();
+      }
     } catch (e) {
       values[key] = set[key];
     }
@@ -114,10 +118,19 @@
   }
 
   function handleUpdateName() {
-    const value = name.trim();
-    values.name = value === String(set.id) ? '' : value;
-    name = value === '' ? set.id : value;
-    handleUpdate('name');
+    name = name.trim();
+    if (name === '' && set.name === null) {
+      // revert displayed name
+      name = set.name_auto;
+    } else if (name !== set.name_auto) {
+      values.name = name;
+      handleUpdate('name', async () => {
+        if (name === '') {
+          const newSet = await reload(fetch, set.id);
+          name = newSet.name_auto;
+        }
+      });
+    }
   }
 </script>
 

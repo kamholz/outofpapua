@@ -12,6 +12,7 @@ export async function get({ locals, params }) {
       'set.id',
       'set.note',
       'set.name',
+      knex.raw('coalesce(set.name_auto, set.id::text) as name_auto'),
       'set.members'
     );
   if (row) {
