@@ -131,6 +131,17 @@ export function stripEmptyArrayParams(params) {
   }
 }
 
+export function splitParams(params, set) {
+  const splitParams = {};
+  for (const key of Object.keys(params)) {
+    if (set.has(key)) {
+      splitParams[key] = params[key];
+      delete params[key];
+    }
+  }
+  return splitParams;
+}
+
 export function serializeArrayParams(params, iterable) {
   for (const key of iterable) {
     if (key in params) {

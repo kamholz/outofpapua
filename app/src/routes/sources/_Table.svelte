@@ -1,10 +1,11 @@
 <script>
   import Table from '$components/Table.svelte';
+  import { getContext } from 'svelte';
   import { preferences } from '$lib/stores';
-  import { session } from '$app/stores';
 
   export let rows;
   export let query;
+  const editable = getContext('editable');
 
   const columns = [
     {
@@ -24,7 +25,7 @@
 
   const controls = [
     {
-      type: $session.user ? 'edit' : 'view',
+      type: editable ? 'edit' : 'view',
       link: (row) => `/sources/${row.id}`,
     },
   ];

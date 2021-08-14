@@ -36,6 +36,7 @@
   export let rows;
   export let query;
   export let editable;
+  setContext('editable', editable);
   export let protolangSuggest = null;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);

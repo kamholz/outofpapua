@@ -1,9 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Table from '$components/Table.svelte';
-  import { createEventDispatcher, getContext } from 'svelte';
-  const dispatch = createEventDispatcher();
-  import { boolean } from '$lib/util';
+  import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
   
@@ -21,11 +19,6 @@
     {
       key: 'iso6393',
       title: 'ISO 639-3',
-    },
-    {
-      key: 'is_proto',
-      title: 'Proto-language',
-      value: (row) => boolean(row.is_proto),
     },
     {
       key: 'numentries',
@@ -50,16 +43,14 @@
     ?
     [
       {
-        type: 'delete',
-        canDelete: (row) => row.is_proto,
-        confirm: (row) => confirm(`Are you sure you want to delete "${row.name}"?`),
+        type: 'edit',
+        link: (row) => `/languages/${row.id}`,
       },
     ]
     :
     null;
 
   const updateFromCell = crud.updateFromCell('language');
-  const del = crud.makeDeleter('language');
   let promise;
 
   async function handleUpdate(e) {
@@ -67,16 +58,6 @@
     try {
       promise = updateFromCell(e);
       await promise;
-    } catch (err) {}
-    $pageLoading--;
-  }
-
-  async function handleDelete(e) {
-    $pageLoading++;
-    try {
-      promise = del(e.detail.id);
-      await promise;
-      dispatch('refresh');
     } catch (err) {}
     $pageLoading--;
   }
@@ -93,5 +74,4 @@
   {controls}
   sortable
   on:update={handleUpdate}
-  on:delete={handleDelete}
 />

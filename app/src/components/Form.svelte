@@ -23,16 +23,17 @@
       e.preventDefault();
     }
     const form = e.currentTarget;
-    for (const { name, type } of fields) { // normalize whitespace
-      if (type === 'text') {
-        values[name] = values[name]?.trim();
-      }
+    const submitValues = {};
+    for (const { name, type } of fields.filter((v) => !v.readonly)) { // normalize whitespace
+      submitValues[name] = type === 'text'
+        ? values[name]?.trim()
+        : values[name];
     }
     await tick();
-    dispatch('beforesubmit', { form, values });
+    dispatch('beforesubmit', { form, values: submitValues });
     if (form.checkValidity()) {
       if (!browserSubmit) {
-        dispatch('submit', { form, values });
+        dispatch('submit', { form, values: submitValues });
       }
     } else {
       if (browserSubmit) {
@@ -43,7 +44,7 @@
   }
 
   function handleClear() {
-    for (const { name, type} of fields) {
+    for (const { name, type } of fields.filter((v) => !v.readonly)) {
       if (type === 'text' || type === 'email' || type === 'password' || type === 'textarea') {
         values[name] = null;
       } else if (type === 'suggest') {
@@ -63,9 +64,9 @@
   {style}
   class={className}
 >
-  {#each fields as { name, label, options, required, type, uneditable } (name)}
+  {#each fields as { name, label, options, readonly, required, type } (name)}
     <div>
-      {#if uneditable}
+      {#if readonly}
         <span class="label">
           {label}:
         </span>
@@ -131,6 +132,7 @@
             {options}
             bind:value={values[name]}
             bind:selection={selections[name]}
+            clearable={!required}
           />
           {#if browserSubmit}
             <input
@@ -146,6 +148,7 @@
             multiple
             bind:value={values[name]}
             bind:selection={selections[name]}
+            clearable={!required}
           />
           {#if browserSubmit}
             <input

@@ -49,11 +49,5 @@
 />
 
 {#if admin && !user.admin}
-  <button on:click={handleDelete}>Delete User</button>
+  <button class="delete" on:click={handleDelete}>Delete User</button>
 {/if}
-
-<style>
-  button {
-    margin-block-start: 3em;
-  }
-</style>

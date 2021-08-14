@@ -6,37 +6,21 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let source;
+  export let language;
   const editable = getContext('editable');
   const protolangSuggest = getContext('protolangSuggest');
 
   const fields = [
-    editable && source.editable
-      ?
-      {
-        name: 'language_id',
-        label: 'Language',
-        type: 'suggest',
-        options: protolangSuggest,
-        required: true,
-      }
-      :
-      {
-        name: 'language_name',
-        label: 'Language',
-        type: 'text',
-        readonly: true,
-      },
     {
-      name: 'reference',
-      label: 'Short Reference',
+      name: 'name',
+      label: 'Name',
       type: 'text',
-      required: true,
     },
     {
-      name: 'reference_full',
-      label: 'Full Reference',
-      type: 'textarea',
+      name: 'iso6393',
+      label: 'ISO 639-3',
+      type: 'text',
+      readonly: true,
     },
     {
       name: 'numentries',
@@ -44,21 +28,40 @@
       type: 'text',
       readonly: true,
     },
-    {
-      name: 'note',
-      label: 'Note',
-      type: 'textarea',
-    },
+    editable
+      ?
+      {
+        name: 'parent_id',
+        label: 'Parent',
+        type: 'suggest',
+        options: protolangSuggest,
+      }
+      :
+      {
+        name: 'parent_name',
+        label: 'Parent',
+        type: 'text',
+      },
   ];
 
-  const update = crud.makeUpdater('source');
+  if (editable && language.is_proto) {
+    fields.push(
+      {
+        name: 'prefer_set_name',
+        label: 'Prefer for set names',
+        type: 'checkbox',
+      }
+    );
+  }
+
+  const update = crud.makeUpdater('language');
   let promise;
 
   async function handleUpdate(e) {
     const { values } = e.detail;
     $pageLoading++;
     try {
-      promise = update({ id: source.id, values });
+      promise = update({ id: language.id, values });
       await promise;
     } catch (e) {}
     $pageLoading--;
@@ -75,15 +78,15 @@
   {/if}
   <Form
     {fields}
-    values={source}
+    values={language}
     submitLabel="Save"
-    style="--formwidth: 35em; --gridtemplate: 30% 70%"
+    style="--formwidth: 42em; --gridtemplate: 31% 69%"
     on:submit={handleUpdate}
   />
 {:else}
   <Record
     {fields}
-    values={source}
+    values={language}
     style="--recordwidth: 35em; --gridtemplate: 30% 70%"
   />
 {/if}

@@ -35,7 +35,8 @@ export async function get({ locals, query }) {
       knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
       'language.parent_id',
       'parent.name as parent_name',
-      knex.raw('protolanguage.id is not null as is_proto')
+      knex.raw('protolanguage.id is not null as is_proto'),
+      'protolanguage.prefer_set_name'
     );
 
   if (query.category === 'descendants') {

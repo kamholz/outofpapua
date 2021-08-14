@@ -1,15 +1,19 @@
 <script context="module">
+  import * as suggest from '$actions/suggest';
+
   export async function load({ fetch, page: { params }, session }) {
+    const props = {
+      editable: session.user !== null,
+    };
     const res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
       return { status: 404 };
     }
-    return {
-      props: {
-        source: await res.json(),
-        editable: session.user !== null,
-      },
-    };
+    props.source = await res.json();
+    if (props.editable && props.source.editable) {
+      props.protolangSuggest = await suggest.protolang(fetch);
+    }
+    return { props };
   }
 </script>
 
@@ -20,6 +24,10 @@
   export let source;
   export let editable;
   setContext('editable', editable);
+  export let protolangSuggest = null;
+  if (protolangSuggest) {
+    setContext('protolangSuggest', protolangSuggest);
+  }
 </script>
 
 <h3>Source: {source.reference}</h3>

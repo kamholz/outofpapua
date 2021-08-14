@@ -49,6 +49,11 @@ button {
   margin-inline-start: 16px;
   padding-block: 1px;
   padding-inline: 6px;
+
+  &.delete {
+    margin-block-start: 3em;
+    margin-inline-start: 0;
+  }
 }
 
 .loading {
