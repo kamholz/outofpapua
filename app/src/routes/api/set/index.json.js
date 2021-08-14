@@ -17,7 +17,7 @@ const defaults = {
   sort: 'name',
 };
 const sortCols = {
-  name: "coalesce(set.name_auto, lpad(set.id::text, 10, '0'))",
+  name: ['set.name_auto', "lpad(set.id::text, 10, '0')"],
 };
 
 export async function get({ locals, query }) {
