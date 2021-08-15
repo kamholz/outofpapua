@@ -25,7 +25,7 @@
 <div class="header">
   <div>
     <CollapseIndicator bind:collapsed />
-    <strong>Set: <a href="/sets/{set.id}">{set.name_auto}</a></strong>
+    <strong>Set: <a href="/sets/{set.id}">{set.name_auto.txt}</a></strong>
   </div>
   {#if editable}
     <span on:click={handleSelect}>

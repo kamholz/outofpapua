@@ -17,7 +17,7 @@ const defaults = {
   sort: 'name',
 };
 const sortCols = {
-  name: ['set.name_auto', "lpad(set.id::text, 10, '0')"],
+  name: ["set.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
 };
 
 export async function get({ locals, query }) {
@@ -86,7 +86,7 @@ export async function get({ locals, query }) {
     'set.id',
     'set.note',
     'set.name',
-    knex.raw('coalesce(set.name_auto, set.id::text) as name_auto'),
+    knex.raw("coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto"),
     'set.members'
   );
 

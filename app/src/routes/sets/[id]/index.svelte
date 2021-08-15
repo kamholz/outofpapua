@@ -56,7 +56,7 @@
     note: set.note,
     name: set.name,
   };
-  let name = set.name_auto;
+  let name = set.name_auto.txt;
   let createProtoValues = {};
   let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
@@ -85,7 +85,7 @@
       set = newSet;
       values.note = set.note;
       values.name = set.name;
-      name = set.name_auto;
+      name = set.name_auto.txt;
       createProtoValues = {};
     } else {
       goto('/');
@@ -121,13 +121,13 @@
     name = name.trim();
     if (name === '' && set.name === null) {
       // revert displayed name
-      name = set.name_auto;
-    } else if (name !== set.name_auto) {
+      name = set.name_auto.txt;
+    } else if (name !== set.name_auto.txt) {
       values.name = name;
       handleUpdate('name', async () => {
         if (name === '') {
           const newSet = await reload(fetch, set.id);
-          name = newSet.name_auto;
+          name = newSet.name_auto.txt;
         }
       });
     }
