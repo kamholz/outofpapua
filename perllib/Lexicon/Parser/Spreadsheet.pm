@@ -17,9 +17,9 @@ has 'columns' => (
   is => 'ro',
 );
 
-has 'entry_per_row' => (
+has 'mode' => (
   is => 'ro',
-  default => 1,
+  default => 'entry_per_row',
 );
 
 has 'skip' => (
@@ -37,6 +37,17 @@ has 'split_headword' => (
   default => sub { split_regex(';') },
 );
 
+around BUILDARGS => sub {
+  my ($orig, $class, @args) = @_;
+  my $attr = $class->$orig(@args);
+
+  foreach my $att (grep { length $attr->{$_} } qw/split_headword/) {
+    $attr->{$att} = split_regex($attr->{$att});
+  }
+
+  return $attr;
+};
+
 sub read_entries {
   my ($self) = @_;
   my $parser = Spreadsheet::ParseXLSX->new;
@@ -48,7 +59,7 @@ sub read_entries {
 
   my $entries = [];
   my $entry = {};
-  my $entry_per_row = $self->entry_per_row;
+  my $mode = $self->mode;
   my $columns = $self->columns;
   my $headword_action = $self->headword_action;
   my $split_headword = $self->split_headword;
@@ -82,11 +93,17 @@ sub read_entries {
         my $lang = $args[0];
         $self->add_gloss($entry, 'gloss', $value, $lang);
         push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
+      } elsif ($type eq 'pos') {
+        if ($value ne '') {
+          $self->add_pos($entry, $value);
+          push @{$entry->{record}}, ['ps', $value];
+        }
       } elsif ($type eq 'ph') {
         push @{$entry->{record}}, ['ph', $value];
       }
     }
-    if ($entry_per_row) {
+
+    if ($mode eq 'entry_per_row') {
       foreach my $headword (uniqstr @{$entry->{headword}}) {
         $self->push_entry($entries, { %$entry, headword => $headword });
       }

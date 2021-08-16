@@ -176,6 +176,16 @@ sub add_sense {
   }
 }
 
+sub add_pos {
+  my ($self, $entry, $pos) = @_;
+
+  if (@{$entry->{sense}||[]}) {
+    $entry->{sense}[-1]{pos} //= $pos;
+  } else {
+    push @{$entry->{sense}}, { pos => $pos };
+  }
+}
+
 sub add_gloss {
   my ($self, $entry, $item, $txt, $lang, $pos) = @_;
 
@@ -185,11 +195,8 @@ sub add_gloss {
     return if $txt =~ /^\s*$/;
   }
 
-  if (@{$entry->{sense}||[]}) {
-    $entry->{sense}[-1]{pos} //= $pos;
-  } else {
-    push @{$entry->{sense}}, { pos => $pos };
-  }
+  $self->add_pos($entry, $pos);
+
   push(@{$entry->{sense}[-1]{$item}}, map { [$_, $lang] } $self->extract_glosses($txt));
 }
 
