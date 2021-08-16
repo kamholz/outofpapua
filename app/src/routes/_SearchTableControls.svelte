@@ -8,10 +8,14 @@
 </script>
 
 <div>
-  <button on:click={() => dispatch('clear')} {disabled}>
+  <button type="button" on:click={() => dispatch('clear')} {disabled}>
     Select None
   </button>
-  <button on:click={() => dispatch('link')} {disabled}>
+  <button type="button" on:click={() => dispatch('link')} {disabled}>
     Link Selected
   </button>
 </div>
+
+<style lang="scss">
+  @include button-right;
+</style>

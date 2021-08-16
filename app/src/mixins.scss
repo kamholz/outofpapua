@@ -55,3 +55,15 @@ $success_color: #155724;
   box-shadow: 4px 4px 8px gray;
   font-size: 14px;
 }
+
+@mixin button-left {
+  button {
+    margin-inline-end: 10px;
+  }
+}
+
+@mixin button-right {
+  button {
+    margin-inline-start: 16px;
+  }
+}

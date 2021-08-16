@@ -36,6 +36,11 @@ export const put = requireAuth(async ({ body, locals, params }) => {
   if (!members && !haveUpdateParams) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
+  if ('name' in updateParams && !('name_entry_id' in updateParams)) {
+    updateParams.name_entry_id = null;
+  } else if ('name_entry_id' in updateParams && !('name' in updateParams)) {
+    updateParams.name = null;
+  }
   try {
     const found = await transaction(locals, async (trx) => {
       const id = Number(params.id);

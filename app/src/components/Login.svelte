@@ -38,7 +38,7 @@
   {/if}
   {#if $session.user}
     <span>Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
-    <button on:click={handleLogout}>Logout</button>
+    <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin}>
       <label for="username">Email:</label>

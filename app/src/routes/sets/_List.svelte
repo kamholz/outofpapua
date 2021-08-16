@@ -45,8 +45,8 @@
 
 <hr>
 <div>
-  <button on:click={() => collapseAll(true)}>Collapse All</button>
-  <button on:click={() => collapseAll(false)}>Expand All</button>
+  <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+  <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
   {#if editable}
     <button
       type="button"
@@ -72,9 +72,6 @@
 {/if}
 
 <style lang="scss">
-  button {
-    margin-inline: 0 10px;
-  }
-
+  @include button-left;
   @include hr;
 </style>

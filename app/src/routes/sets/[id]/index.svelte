@@ -92,9 +92,9 @@
     }
   }
 
-  async function handleUpdate(key, finish) {
+  async function handleUpdate(key, finish, force) {
     values[key] = normalizeParam(values[key]);
-    if (set[key] === values[key]) {
+    if (!force && set[key] === values[key]) {
       return;
     }
     $pageLoading++;
@@ -119,7 +119,7 @@
 
   function handleUpdateName() {
     name = name.trim();
-    if (name === '' && set.name === null) {
+    if (name === '' && set.name === null && set.name_entry_id === null) {
       // revert displayed name
       name = set.name_auto.txt;
     } else if (name !== set.name_auto.txt) {
@@ -129,7 +129,7 @@
           const newSet = await reload(fetch, set.id);
           name = newSet.name_auto.txt;
         }
-      });
+      }, true);
     }
   }
 </script>
@@ -188,8 +188,8 @@
   {/if}
 
   <div>
-    <button on:click={() => collapseAll(true)}>Collapse All</button>
-    <button on:click={() => collapseAll(false)}>Expand All</button>
+    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
   </div>
   <hr>
 
@@ -207,10 +207,7 @@
 <style lang="scss">
   @include contenteditable;
   @include hr;
-
-  button {
-    margin-inline: 0 10px;
-  }
+  @include button-left;
 
   textarea {
     inline-size: 100%;

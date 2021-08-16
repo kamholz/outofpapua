@@ -49,5 +49,5 @@
 />
 
 {#if admin && !user.admin}
-  <button class="delete" on:click={handleDelete}>Delete User</button>
+  <button type="button" class="delete" on:click={handleDelete}>Delete User</button>
 {/if}

@@ -58,5 +58,5 @@
 <EditLanguageForm {language} />
 
 {#if editable && language.is_proto}
-  <button class="delete" on:click={handleDelete}>Delete Language</button>
+  <button type="button" class="delete" on:click={handleDelete}>Delete Language</button>
 {/if}

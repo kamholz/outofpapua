@@ -103,10 +103,6 @@
 {/if}
 
 <style lang="scss">
-  button {
-    margin-inline: 0;
-  }
-
   .columns {
     display: flex;
     > div {

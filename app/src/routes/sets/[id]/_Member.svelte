@@ -8,7 +8,7 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { faCheckSquare, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faCheckSquare, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
     parseGlosses } from '$lib/util';
   import { pageLoading, preferences } from '$lib/stores';
@@ -154,6 +154,25 @@
     $pageLoading--;
     editingProto = false;
   }
+
+  async function handleNameEntry() {
+    $pageLoading++;
+    let promise;
+    try {
+      promise = promises.pending.nameentry = crud.update('set', {
+        id: set.id,
+        values: { name_entry_id: entry.id },
+      });
+      await promise;
+      dispatch('refresh');
+    } catch (e) {}
+
+    if (promise && promise === promises.pending.nameentry) {
+      promises.pending.nameentry = null;
+      promises.fulfilled.nameentry = promise;
+    }
+    $pageLoading--;
+  }
 </script>
 
 {#if !collapsed}
@@ -271,6 +290,9 @@
     </ul>
     {#if editable}
       <div class="controls">
+        {#if source.is_proto && set.name_auto?.entry_id !== entry.id}
+          <span on:click={handleNameEntry}><Icon data={faStar} /></span>
+        {/if}
         {#if source.editable}
           {#if editingProto}
             <span on:click={handleSaveProto}><Icon data={faCheckSquare} /></span>

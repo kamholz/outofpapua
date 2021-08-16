@@ -40,8 +40,8 @@
 {#if Object.keys(collapsedRows).length}
   <hr>
   <div>
-    <button on:click={() => collapseAll(true)}>Collapse All</button>
-    <button on:click={() => collapseAll(false)}>Expand All</button>
+    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
   </div>
 {/if}
 
@@ -69,9 +69,6 @@
     margin-block: $item_sep;
   }
 
-  button {
-    margin-inline: 0 10px;
-  }
-
+  @include button-left;
   @include hr;
 </style>
