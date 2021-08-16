@@ -7,6 +7,6 @@
   export let scale;
 </script>
 
-<a href={control.link(row)} sveltekit:prefetch>
-  <Icon data={faInfoCircle} {scale} label="View" />
+<a href={control.link(row)} title="View" sveltekit:prefetch>
+  <Icon data={faInfoCircle} {scale} />
 </a>

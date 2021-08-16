@@ -29,6 +29,6 @@
   }
 </script>
 
-<span on:click={handleSelect}>
-  <Icon data={$selection[id] ? faCircleSolid : faCircleRegular} {scale} label="Select" />
+<span title="Select" on:click={handleSelect}>
+  <Icon data={$selection[id] ? faCircleSolid : faCircleRegular} {scale} />
 </span>

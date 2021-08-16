@@ -291,16 +291,24 @@
     {#if editable}
       <div class="controls">
         {#if source.is_proto && set.name_auto?.entry_id !== entry.id}
-          <span on:click={handleNameEntry}><Icon data={faStar} /></span>
+          <span title="Choose for set name" on:click={handleNameEntry}>
+            <Icon data={faStar} />
+          </span>
         {/if}
         {#if source.editable}
           {#if editingProto}
-            <span on:click={handleSaveProto}><Icon data={faCheckSquare} /></span>
+            <span title="Save proto-form" on:click={handleSaveProto}>
+              <Icon data={faCheckSquare} />
+            </span>
           {:else}
-            <span on:click={handleEditProto}><Icon data={faEdit} /></span>
+            <span title="Edit proto-form" on:click={handleEditProto}>
+              <Icon data={faEdit} />
+            </span>
           {/if}
         {/if}
-        <span on:click={handleDelete}><Icon data={faTrash} /></span>
+        <span title="Delete" on:click={handleDelete}>
+          <Icon data={faTrash} />
+        </span>
       </div>
     {/if}
   {/if}

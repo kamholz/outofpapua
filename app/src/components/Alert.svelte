@@ -11,7 +11,7 @@
 {#if message && open}
   <div class={type} transition:slide>
     {message}
-    <span on:click={() => open = false}>
+    <span title="Close" on:click={() => open = false}>
       <Icon data={faTimes} />
     </span>
   </div>

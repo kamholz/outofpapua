@@ -16,7 +16,7 @@
 </script>
 
 {#if !control.canDelete || control.canDelete(row)}
-  <span on:click={confirmDelete}>
-    <Icon data={faTrash} {scale} label="Delete" />
+  <span title="Delete" on:click={confirmDelete}>
+    <Icon data={faTrash} {scale} />
   </span>
 {/if}

@@ -51,8 +51,8 @@
 <div class="columns">
   <div class="entry">
     {#if linkable && !collapsed}
-      <span on:click={() => handleSelect(entry)}>
-        <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+      <span title="Select" on:click={() => handleSelect(entry)}>
+        <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} />
       </span>
     {/if}
     <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
@@ -74,8 +74,8 @@
           {#each compare_entries as compare_entry (compare_entry.id)}
             <li>
               {#if linkable}
-                <span on:click={() => handleSelect(compare_entry)}>
-                  <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} label="Select" />
+                <span title="Select" on:click={() => handleSelect(compare_entry)}>
+                  <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
                 </span>
               {/if}
               <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>

@@ -13,5 +13,5 @@
   click={true}
   linkable
 >
-  <Icon data={faInfoCircle} {scale} label="Info" />
+  <Icon data={faInfoCircle} {scale} />
 </EntryInfoPopover>

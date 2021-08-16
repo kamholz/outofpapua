@@ -28,7 +28,7 @@
     <strong>Set: <a href="/sets/{set.id}">{set.name_auto.txt}</a></strong>
   </div>
   {#if editable}
-    <span on:click={handleSelect}>
+    <span title="Select" on:click={handleSelect}>
       <Icon data={selection[set.id] ? faCircleSolid : faCircleRegular} />
     </span>
   {/if}
