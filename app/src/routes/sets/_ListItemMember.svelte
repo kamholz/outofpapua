@@ -7,11 +7,11 @@
 
   export let member;
   let { entry } = member;
-  const { reflex, source } = member;
+  const { language, reflex, source } = member;
 </script>
 
 <div class={entry.origin}>
-  <strong>{source.language_name}</strong> <EntryInfoPopover bind:entry click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
+  <strong>{language.name}</strong> <EntryInfoPopover bind:entry click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
 </div>
 <div>
   {source.reference}

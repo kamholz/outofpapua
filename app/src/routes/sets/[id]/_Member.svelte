@@ -25,7 +25,7 @@
   const promises = { pending: {}, fulfilled: {} };
   const memberKeys = new Set(['reflex']);
 
-  const { entry, source } = member;
+  const { entry, language, source } = member;
   const { senses } = entry;
   const values = {
     note: entry.note,
@@ -35,7 +35,7 @@
     reflex: member.reflex,
   };
   const options = editable
-    ? [...borrowlangSuggest].filter((v) => v.id !== source.language_id)
+    ? [...borrowlangSuggest].filter((v) => v.id !== language.id)
     : null;
   let editingProto = false;
   let protoValues;
@@ -186,10 +186,10 @@
   <CollapseIndicator bind:collapsed />
   <div class="set-item-label" class:fullwidth={collapsed} class:membersummary={collapsed}>
     {#if collapsed}
-      <span class={entry.origin}>{source.language_name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+      <span class={entry.origin}>{language.name} <MemberReflex form={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
     {:else}
       <p>
-        <span class={entry.origin}>{source.language_name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
+        <span class={entry.origin}>{language.name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
       </p>
       <p>
         {source.reference}
@@ -290,7 +290,7 @@
     </ul>
     {#if editable}
       <div class="controls">
-        {#if source.is_proto && set.name_auto?.entry_id !== entry.id}
+        {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
           <span title="Choose for set name" on:click={handleNameEntry}>
             <Icon data={faStar} />
           </span>

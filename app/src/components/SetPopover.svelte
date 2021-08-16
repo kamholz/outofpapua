@@ -44,10 +44,10 @@
     use:popoverContent={popover}
     transition:fade|local={{ duration: 200 }}
   >
-    <div class="title">Set: {set.title ?? set.id}</div>
+    <div class="title">Set: {set.name_auto.txt}</div>
     <ul>
-      {#each set.members as { entry, reflex, source } (entry.id)}
-        <li><span class={entry.origin}>{source.language_name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
+      {#each set.members as { entry, language, reflex } (entry.id)}
+        <li><span class={entry.origin}>{language.name} <Reflex form={reflex ?? entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
       {/each}
     </ul>
   </div>
