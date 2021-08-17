@@ -34,9 +34,11 @@
   import AddProtoForm from './_AddProtoForm.svelte';
   import Alert from '$components/Alert.svelte';
   import FormWrapper from './_FormWrapper.svelte';
+  import Icon from 'svelte-awesome';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
   import keydown from '$lib/keydown';
+  import { faMapMarked } from '@fortawesome/free-solid-svg-icons';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
@@ -134,16 +136,21 @@
   }
 </script>
 
-{#if editable}
-  <h2>Set:&nbsp;<span
-      contenteditable="true"
-      bind:textContent={name}
-      on:blur={handleUpdateName}
-      use:keydown={{ enter: (e) => e.currentTarget.blur() }}
-    >{name}</span></h2>
-{:else}
-  <h2>Set: {name}</h2>
-{/if}
+<div class="header">
+  {#if editable}
+    <h2>Set:&nbsp;<span
+        contenteditable="true"
+        bind:textContent={name}
+        on:blur={handleUpdateName}
+        use:keydown={{ enter: (e) => e.currentTarget.blur() }}
+      >{name}</span></h2>
+  {:else}
+    <h2>Set: {name}</h2>
+  {/if}
+  <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>
+    <Icon data={faMapMarked} scale={1.5} />
+  </a>
+</div>
 
 <div class="set">
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
@@ -212,6 +219,16 @@
   textarea {
     inline-size: 100%;
     block-size: 4em;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > a {
+      margin-inline-start: 10px;
+    }
   }
 
   .set :global {

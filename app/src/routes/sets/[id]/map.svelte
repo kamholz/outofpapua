@@ -18,8 +18,7 @@
 
 <script>
   import { browser } from '$app/env';
-  import { escapeHtml as escape } from '$lib/util';
-  import { glossSummaryNoLanguage, parseLanguageLocation } from '$lib/util';
+  import { escapeHtml as escape, glossSummaryNoLanguage, parseLanguageLocation } from '$lib/util';
   import { onMount } from 'svelte';
   import 'leaflet/dist/leaflet.css';
 
@@ -63,7 +62,9 @@
           language: member.language,
           members: [member],
         };
-        parseLanguageLocation(item.language);
+        if (!Array.isArray(item.language.location)) {
+          parseLanguageLocation(item.language);
+        }
       } else {
         membersByLanguageCode[id].members.push(member);
       }
@@ -115,10 +116,11 @@
   }
 </script>
 
- <div id="map"></div>
+<h2>Set map: {set.name_auto.txt}</h2>
+<div id="map"></div>
 
- <style>
-  div {
-    height: 500px;
-  }
- </style>
+<style>
+div {
+  height: 600px;
+}
+</style>
