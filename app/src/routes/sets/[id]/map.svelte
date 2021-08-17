@@ -1,4 +1,6 @@
 <script context="module">
+  export const ssr = false;
+
   export async function load({ fetch, page: { params } }) {
     const props = {};
 
@@ -18,40 +20,47 @@
 
 <script>
   import 'leaflet/dist/leaflet.css';
-  import { browser } from '$app/env';
   import { escapeHtml as escape, glossSummaryNoLanguage, parseLanguageLocation } from '$lib/util';
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   export let set;
   const members = set.members.filter((v) => v.language.location);
   const languages = getLanguages();
 
-  if (browser) {
-    onMount(async () => {
-      const L = await import('leaflet');
-      await import('$lib/leaflet-svg-icon');
+  let L;
+  let map = null;
 
-      const map = L.map('map').fitBounds(getBounds());
+  onMount(async () => {
+    L = await import('leaflet');
+    await import('$lib/leaflet-svg-icon');
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        tileSize: 256,
-      }).addTo(map);
+    map = L.map('map').fitBounds(getBounds());
 
-      for (const { language, members } of languages) {
-        const color = getColor(members);
-        L.marker.svgMarker(language.location, {
-          iconOptions: {
-            circleRatio: 0,
-            color,
-            iconSize: [24, 32],
-          },
-        })
-        .addTo(map)
-        .bindPopup(getPopupHtml(language, members));
-      }
-    });
-  }
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      tileSize: 256,
+    }).addTo(map);
+
+    for (const { language, members } of languages) {
+      const color = getColor(members);
+      L.marker.svgMarker(language.location, {
+        iconOptions: {
+          circleRatio: 0,
+          color,
+          iconSize: [24, 32],
+        },
+      })
+      .addTo(map)
+      .bindPopup(getPopupHtml(language, members));
+    }
+  });
+
+  onDestroy(() => {
+    if (map) {
+      map.remove();
+      map = null;
+    }
+  });
 
   function getLanguages() {
     const membersByLanguageCode = {};
@@ -120,7 +129,7 @@
 <div id="map"></div>
 
 <style>
-div {
-  height: 600px;
-}
+  div {
+    height: 600px;
+  }
 </style>

@@ -5,7 +5,7 @@
   import NavBar from '$components/NavBar.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
-  import { navigating, page, session } from '$app/stores';
+  import { navigating, session } from '$app/stores';
   // import { onMount } from 'svelte';
   import { pageLoading } from '$lib/stores';
   // import { registerListener, broadcast } from '$lib/socket';
@@ -48,11 +48,11 @@
 {#if $session.user}
   <NavBar />
   <main>
-  {#key $page.path}
-    <div in:fade={{ duration: 200 }}>
-      <slot />
-    </div>
-  {/key}
+  <!-- {#key $page.path}
+    <div in:fade={{ duration: 200 }}> -->
+    <slot />
+    <!-- </div>
+  {/key} -->
   </main>
 {/if}
 
