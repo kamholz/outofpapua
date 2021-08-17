@@ -17,10 +17,10 @@
 </script>
 
 <script>
+  import 'leaflet/dist/leaflet.css';
   import { browser } from '$app/env';
   import { escapeHtml as escape, glossSummaryNoLanguage, parseLanguageLocation } from '$lib/util';
   import { onMount } from 'svelte';
-  import 'leaflet/dist/leaflet.css';
 
   export let set;
   const members = set.members.filter((v) => v.language.location);
@@ -44,8 +44,8 @@
           iconOptions: {
             circleRatio: 0,
             color,
-            iconSize: [24,32],
-          }
+            iconSize: [24, 32],
+          },
         })
         .addTo(map)
         .bindPopup(getPopupHtml(language, members));
@@ -56,7 +56,7 @@
   function getLanguages() {
     const membersByLanguageCode = {};
     for (const member of members) {
-      const id = member.language.id;
+      const { id } = member.language;
       if (!(id in membersByLanguageCode)) {
         const item = membersByLanguageCode[id] = {
           language: member.language,
@@ -77,12 +77,12 @@
     return [
       [
         Math.min(...locations.map((v) => v[0])),
-        Math.min(...locations.map((v) => v[1]))
+        Math.min(...locations.map((v) => v[1])),
       ],
       [
         Math.max(...locations.map((v) => v[0])),
-        Math.max(...locations.map((v) => v[1]))
-      ]
+        Math.max(...locations.map((v) => v[1])),
+      ],
     ];
   }
 
@@ -105,7 +105,7 @@
   function getColor(members) {
     const origins = new Set(members.map((v) => v.entry.origin).filter((v) => v));
     if (origins.size === 1) {
-      const origin = [...origins][0];
+      const [origin] = [...origins];
       if (origin === 'borrowed') {
         return 'crimson';
       } else if (origin === 'inherited') {

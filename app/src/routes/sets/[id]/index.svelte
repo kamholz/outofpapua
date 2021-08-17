@@ -136,21 +136,23 @@
   }
 </script>
 
-<div class="header">
+<h2>
   {#if editable}
-    <h2>Set:&nbsp;<span
+    <span>
+      Set:&nbsp;<span
         contenteditable="true"
         bind:textContent={name}
         on:blur={handleUpdateName}
         use:keydown={{ enter: (e) => e.currentTarget.blur() }}
-      >{name}</span></h2>
+      >{name}</span>
+    </span>
   {:else}
-    <h2>Set: {name}</h2>
+    <span>Set: {name}</span>
   {/if}
   <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>
     <Icon data={faMapMarked} scale={1.5} />
   </a>
-</div>
+</h2>
 
 <div class="set">
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
@@ -221,13 +223,13 @@
     block-size: 4em;
   }
 
-  .header {
+  h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     > a {
-      margin-inline-start: 10px;
+      margin-inline-start: 20px;
     }
   }
 
