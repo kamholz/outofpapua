@@ -273,3 +273,10 @@ export async function checkError(res, message) {
 export function showPublicOnly(locals) {
   return locals.user === null;
 }
+
+export function parseLanguageLocation(language) {
+  const match = language.location.match(/^\((.+),(.+)\)$/);
+  language.location = match
+    ? [Number(match[1]), Number(match[2])]
+    : null;
+}
