@@ -34,7 +34,10 @@
     L = await import('leaflet');
     await import('$lib/leaflet-svg-icon');
 
-    map = L.map('map').fitBounds(getBounds());
+    map = L.map('map', {
+      closePopupOnClick: false,
+    })
+    .fitBounds(getBounds());
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -47,11 +50,14 @@
         iconOptions: {
           circleRatio: 0,
           color,
+          fillOpacity: 0.5,
           iconSize: [24, 32],
         },
       })
       .addTo(map)
-      .bindPopup(getPopupHtml(language, members));
+      .bindPopup(getSummaryHtml(language, members), {
+        autoClose: false,
+      });
     }
   });
 
@@ -95,7 +101,7 @@
     ];
   }
 
-  function getPopupHtml(language, members) {
+  function getSummaryHtml(language, members) {
     let html = `<strong>${escape(language.name)}</strong><br>`;
     for (const { entry } of members) {
       html += '<em';

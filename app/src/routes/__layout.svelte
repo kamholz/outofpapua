@@ -4,7 +4,7 @@
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-  import { fade } from 'svelte/transition';
+  // import { fade } from 'svelte/transition';
   import { navigating, session } from '$app/stores';
   // import { onMount } from 'svelte';
   import { pageLoading } from '$lib/stores';
