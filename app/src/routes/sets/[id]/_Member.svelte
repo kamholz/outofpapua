@@ -182,7 +182,7 @@
     {/await}
   {/each}
 {/if}
-<div class="set-item" transition:slide={{ duration: 200 }}>
+<div class="set-item" transition:slide|local={{ duration: 200 }}>
   <CollapseIndicator bind:collapsed />
   <div class="set-item-label" class:fullwidth={collapsed} class:membersummary={collapsed}>
     {#if collapsed}
