@@ -9,6 +9,7 @@ use Lexicon::Parser::ACD;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;
+use Lexicon::Parser::LexiqueHTML;
 use Lexicon::Parser::Marker;
 use Lexicon::Parser::Spreadsheet;
 binmode STDOUT, ':encoding(utf-8)';

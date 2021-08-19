@@ -234,7 +234,7 @@ around 'push_entry' => sub {
 };
 
 sub parse {
-  my ($self) = @_;
+  my ($self, $path) = @_;
   my $encoding = $self->encoding;
 
   my $mode = '<:crlf';
@@ -244,7 +244,7 @@ sub parse {
     $decode_by_line = 0;
   }
 
-  open my $in, $mode, $self->path or die $!;
+  open my $in, $mode, ($path // $self->path) or die $!;
 
   # skip over the MDF header.
   while (defined(my $line = <$in>)) {

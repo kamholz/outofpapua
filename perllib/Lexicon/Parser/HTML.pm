@@ -1,4 +1,4 @@
-package Lexicon::Parser::XML;
+package Lexicon::Parser::HTML;
 use v5.14;
 use Moo;
 use namespace::clean;
@@ -9,8 +9,8 @@ extends 'Lexicon::Parser';
 
 sub parse {
   my ($self, $path) = @_;
-  my $xml = read_text($path // $self->path, 'utf-8', 1);
-  return Mojo::DOM->new->xml(1)->parse($xml);
+  my $html = read_text($path // $self->path, 'utf-8', 1);
+  return Mojo::DOM->new->parse($html);
 }
 
 1;
