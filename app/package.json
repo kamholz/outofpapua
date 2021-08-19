@@ -9,13 +9,13 @@
     "format": "eslint --ignore-path .gitignore --fix ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "^1.0.0-next.42",
-    "@sveltejs/kit": "^1.0.0-next.151",
+    "@sveltejs/adapter-node": "^1.0.0-next.43",
+    "@sveltejs/kit": "^1.0.0-next.154",
     "eslint": "^7.22.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-svelte3": "^3.2.0",
     "sass": "^1.36.0",
-    "svelte": "^3.41.0",
+    "svelte": "^3.42.1",
     "svelte-preprocess": "^4.7.4"
   },
   "type": "module",
