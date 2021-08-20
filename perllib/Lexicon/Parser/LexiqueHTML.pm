@@ -59,6 +59,7 @@ sub read_entries {
           my $glosses = $sense->at('[class^="definition"], .gloss');
           next unless $glosses;
 
+          $self->add_sense($entry);
           $sense_added = 0;
           # sense-specific pos, overrides any shared entry pos
           $sense_pos = get_text_lexique_html($sense, '.partofspeech');
