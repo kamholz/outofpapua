@@ -1,12 +1,9 @@
 <script>
   import 'leaflet/dist/leaflet.css';
   import LanguageMarker from '$components/SetMap/LanguageMarker.svelte';
-  import { parseLanguageLocation } from '$lib/util';
   import { onDestroy, onMount } from 'svelte';
 
-  export let set;
-  $: members = set.members.filter((v) => v.language.location);
-  $: languages = getLanguages(members);
+  export let languages;
 
   let L;
   let map = null;
@@ -34,30 +31,11 @@
 
   async function loadLeaflet() {
     if (window.L) {
-      L = window.L;
+      ({ L } = window);
     } else {
       L = window.L = await import('leaflet');
       await import('$lib/leaflet-svg-icon');
     }
-  }
-
-  function getLanguages(members) {
-    const membersByLanguageCode = {};
-    for (const member of members) {
-      const { id } = member.language;
-      if (!(id in membersByLanguageCode)) {
-        const item = membersByLanguageCode[id] = {
-          language: member.language,
-          members: [member],
-        };
-        if (!Array.isArray(item.language.location)) {
-          parseLanguageLocation(item.language);
-        }
-      } else {
-        membersByLanguageCode[id].members.push(member);
-      }
-    }
-    return Object.values(membersByLanguageCode);
   }
 
   function getBounds(languages) {

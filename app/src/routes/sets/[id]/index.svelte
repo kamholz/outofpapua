@@ -60,20 +60,16 @@
   };
   let name = set.name_auto.txt;
   let createProtoValues = {};
-  let collapsedMembers;
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
 
   $: ({ members } = set);
-  $: members, initCollapsedMembers();
-
-  function initCollapsedMembers() {
-    const newCollapsed = {};
-    for (const member of members) {
-      newCollapsed[member.entry.id] = collapsedMembers?.[member.entry.id] ?? false;
-    }
-    collapsedMembers = newCollapsed;
-  }
+  $: collapsedMembers = Object.fromEntries(
+    members.map((member) => [
+      member.entry.id,
+      collapsedMembers?.[member.entry.id] ?? false,
+    ])
+  );
 
   function collapseAll(state) {
     for (const member of members) {
@@ -206,7 +202,7 @@
     <Member
       {member}
       {set}
-      collapsed={collapsedMembers[member.entry.id]} 
+      bind:collapsed={collapsedMembers[member.entry.id]}
       on:refresh={handleRefresh}
     />
     <hr>

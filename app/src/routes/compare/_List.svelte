@@ -11,15 +11,9 @@
   export let lang2Name;
   export let multilang;
 
-  let collapsedRows;
-  $: {
-    collapsedRows = {};
-    for (const row of rows) {
-      if (row.compare_entries) {
-        collapsedRows[row.id] = false;
-      }
-    }
-  }
+  $: collapsedRows = Object.fromEntries(
+    rows.filter((row) => row.compare_entries).map((row) => [row.id, false])
+  );
 
   function collapseAll(state) {
     for (const id of Object.keys(collapsedRows)) {

@@ -19,14 +19,11 @@ export function boolean(value) {
 // query/object conversion
 
 export function normalizeQuery(urlSearchParams) {
-  const query = Object.fromEntries(urlSearchParams);
-  for (const key of Object.keys(query)) {
-    query[key] = normalizeParam(query[key]);
-    if (query[key] === null) {
-      delete query[key];
-    }
-  }
-  return query;
+  return Object.fromEntries(
+    [...urlSearchParams.entries()]
+      .map(([key, value]) => [key, normalizeParam(value)])
+      .filter(([, value]) => value !== null)
+  );
 }
 
 export function normalizeParam(txt) {
@@ -279,4 +276,18 @@ export function parseLanguageLocation(language) {
   language.location = match
     ? [Number(match[1]), Number(match[2])]
     : null;
+}
+
+export function sortFunction(fn) {
+  return (a, b) => {
+    const aSort = fn(a);
+    const bSort = fn(b);
+    if (aSort < bSort) {
+      return -1;
+    } else if (aSort > bSort) {
+      return 1;
+    } else {
+      return 0;
+    }
+  };
 }
