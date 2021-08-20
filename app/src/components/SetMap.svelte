@@ -13,6 +13,7 @@
 
     map = L.map('map', {
       closePopupOnClick: false,
+      scrollWheelZoom: false,
     })
     .fitBounds(getBounds(languages));
 
