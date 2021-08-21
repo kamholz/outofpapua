@@ -35,7 +35,7 @@
       ({ L } = window);
     } else {
       L = window.L = await import('leaflet');
-      await import('$lib/leaflet-svg-icon');
+      // await import('$lib/leaflet-svg-icon');
     }
   }
 

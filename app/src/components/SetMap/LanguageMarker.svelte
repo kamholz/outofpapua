@@ -7,50 +7,63 @@
   export let language;
   export let members;
 
-  const color = getColor(members);
-  const marker = L.marker.svgMarker(language.location, {
-    iconOptions: {
-      circleRatio: 0,
-      color,
-      fillOpacity: 0.5,
-      iconSize: [24, 32],
-    },
-  })
-  .addTo(map)
-  .bindPopup(getSummaryHtml(language, members), {
-    autoClose: false,
+  const classes = ['marker'];
+  addOriginClass(members, classes);
+
+  const icon = L.divIcon({
+    html: getSummaryHtml(language, members),
+    className: classes.join(' ')
   });
+
+  const marker = L.marker(language.location, { icon }).addTo(map);
 
   onDestroy(() => {
     marker.remove();
   });
 
   function getSummaryHtml(language, members) {
-    let html = `<strong>${escape(language.name)}</strong><br>`;
-    for (const { entry } of members) {
-      html += '<em';
-      if (entry.origin) {
-        html += ` class="${entry.origin}"`;
-      }
-      html += `>${escape(entry.headword)}</em>`;
-      if (entry.senses[0]?.glosses?.[0]) {
-        html += ' ' + escape(glossSummaryNoLanguage(entry.senses[0].glosses[0]));
-      }
-      html += '<br>';
-    }
+    let html = `${escape(language.name)} `;
+    const membersHtml = members.map(({ entry }) => `<em>${escape(entry.headword)}</em>`);
+    html += membersHtml.join(', ');
+    // if (entry.senses[0]?.glosses?.[0]) {
+    //   html += ' ' + escape(glossSummaryNoLanguage(entry.senses[0].glosses[0]));
+    // }
     return html;
   }
 
-  function getColor(members) {
+  function addOriginClass(members, classes) {
+    let origin = 'unknown';
     const origins = new Set(members.map((v) => v.entry.origin).filter((v) => v));
     if (origins.size === 1) {
-      const [origin] = [...origins];
-      if (origin === 'borrowed') {
-        return 'crimson';
-      } else if (origin === 'inherited') {
-        return 'purple';
+      let [singleOrigin] = [...origins];
+      if (singleOrigin) {
+        origin = singleOrigin;
       }
     }
-    return 'black';
+    classes.push(`marker-${origin}`);
   }
 </script>
+
+<style global>
+  .marker {
+    color: white;
+    line-height: 1.25;
+    padding: 6px;
+    border: 1px solid black;
+    border-radius: 6px;
+    width: unset !important;
+    height: unset !important;
+  }
+
+  .marker-borrowed {
+    background-color: crimson;
+  }
+
+  .marker-inherited {
+    background-color: purple;
+  }
+
+  .marker-unknown {
+    background-color: black;
+  }
+</style>
