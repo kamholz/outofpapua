@@ -1,5 +1,5 @@
 <script>
-  import { escapeHtml as escape, glossSummaryNoLanguage } from '$lib/util';
+  import { escapeHtml as escape, sortFunction } from '$lib/util';
   import { onDestroy } from 'svelte';
 
   export let L;
@@ -11,24 +11,25 @@
   addOriginClass(members, classes);
 
   const icon = L.divIcon({
-    html: getSummaryHtml(language, members),
-    className: classes.join(' ')
+    html: getSummaryHtml(members),
+    className: classes.join(' '),
+    iconSize: null
   });
 
-  const marker = L.marker(language.location, { icon }).addTo(map);
+  const marker = L.marker(language.location, { icon })
+    .addTo(map)
+    .bindTooltip(escape(language.name));
 
   onDestroy(() => {
     marker.remove();
   });
 
-  function getSummaryHtml(language, members) {
-    let html = `${escape(language.name)} `;
-    const membersHtml = members.map(({ entry }) => `<em>${escape(entry.headword)}</em>`);
-    html += membersHtml.join(', ');
-    // if (entry.senses[0]?.glosses?.[0]) {
-    //   html += ' ' + escape(glossSummaryNoLanguage(entry.senses[0].glosses[0]));
-    // }
-    return html;
+  function getSummaryHtml(members) {
+    const headwords = new Set(members.map(({ entry }) => entry.headword));
+    return [...headwords]
+      .sort(sortFunction((v) => v.toLowerCase()))
+      .map((v) => escape(v))
+      .join(', ');
   }
 
   function addOriginClass(members, classes) {
@@ -51,8 +52,8 @@
     padding: 6px;
     border: 1px solid black;
     border-radius: 6px;
-    width: unset !important;
-    height: unset !important;
+    width: max-content;
+    max-width: 10em;
   }
 
   .marker-borrowed {
