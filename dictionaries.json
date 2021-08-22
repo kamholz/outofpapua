@@ -370,7 +370,7 @@
     "lang_target": "szw",
     "path": "webonary/sawai/*.html",
     "parser": "LexiqueHTML",
-    "lang_national": "ind",
+    "lang_national": "id",
     "split_heuristic": ","
   }
 }

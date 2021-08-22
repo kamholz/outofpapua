@@ -7,7 +7,6 @@ extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
 has '+lang_english' => (
-  is => 'ro',
   default => 'en',
 );
 

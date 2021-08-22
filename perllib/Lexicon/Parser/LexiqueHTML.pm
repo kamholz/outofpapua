@@ -6,6 +6,10 @@ use namespace::clean;
 extends 'Lexicon::Parser::HTML';
 with 'Lexicon::Util';
 
+has '+lang_english' => (
+  default => 'en',
+);
+
 sub read_entries {
   my ($self) = @_;
   my @files = $self->path =~ /\*/ ? glob($self->path) : ($self->path);
@@ -30,6 +34,9 @@ sub read_entries {
         record => [['lx', $headword]]
       };
       my $entry_pos;
+
+      my $lc = get_text_lexique_html($entry_el, '.citationform');
+      push(@{$entry->{record}}, ['lc', $lc]) if length $lc && $lc ne $headword;
 
       foreach my $variant ($entry_el->children('.variantformentrybackrefs')->map('find', '.headword')->flatten->each) {
         my $variant_txt = get_text_lexique_html($variant);
@@ -65,18 +72,18 @@ sub read_entries {
           $sense_pos = get_text_lexique_html($sense, '.partofspeech');
           my $pos = $sense_pos // $entry_pos;
 
-          my $ge = get_gloss_lexique_html($glosses, 'en');
+          my $ge = get_gloss_lexique_html($glosses, $lang_english);
           if (length $ge) {
             $add_sense_record->();
             $self->add_gloss($entry, 'gloss', $ge, $lang_english, $pos);
-            push @{$entry->{record}}, [marker_with_code('g', $lang_english), $ge];
+            push @{$entry->{record}}, [marker_with_code('g', code3($lang_english)), $ge];
           }
           if ($lang_national) {
             my $gn = get_gloss_lexique_html($glosses, $lang_national);
             if (length $gn) {
               $add_sense_record->();
               $self->add_gloss($entry, 'gloss', $gn, $lang_national, $pos);
-              push @{$entry->{record}}, [marker_with_code('g', $lang_national), $gn];
+              push @{$entry->{record}}, [marker_with_code('g', code3($lang_national)), $gn];
             }
           }
           if ($lang_regional) {
@@ -84,7 +91,7 @@ sub read_entries {
             if (length $gr) {
               $add_sense_record->();
               $self->add_gloss($entry, 'gloss', $gr, $lang_regional, $pos);
-              push @{$entry->{record}}, [marker_with_code('g', $lang_regional), $gr];
+              push @{$entry->{record}}, [marker_with_code('g', code3($lang_regional)), $gr];
             }
           }
 
