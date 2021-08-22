@@ -1,19 +1,21 @@
 <script>
-  import { escapeHtml as escape, sortFunction } from '$lib/util';
+  import { escapeHtml as escape } from '$lib/util';
   import { onDestroy } from 'svelte';
 
   export let L;
   export let map;
+
+  export let entries;
+  export let headwords;
   export let language;
-  export let members;
   export let includeLanguageOnIcon;
 
-  $: classes = getClasses(members);
+  $: classes = getClasses(entries);
 
   $: icon = L.divIcon({
-    html: getSummaryHtml(members, language, includeLanguageOnIcon),
+    html: getSummaryHtml(headwords, language, includeLanguageOnIcon),
     className: classes,
-    iconSize: null
+    iconSize: null,
   });
 
   $: marker = L.marker(language.location).addTo(map);
@@ -30,22 +32,20 @@
     marker.remove();
   });
 
-  function getSummaryHtml(members, language, includeLanguageOnIcon) {
-    const headwords = [...new Set(members.map(({ entry }) => entry.headword))]
-      .sort(sortFunction((v) => v.toLowerCase()));
+  function getSummaryHtml(headwords, language, includeLanguageOnIcon) {
     if (includeLanguageOnIcon) {
-      return headwords.map((v) => `${escape(language.name)} <em>${escape(v)}</em>`).join(', ');    
+      return headwords.map((v) => `${escape(language.name)} <em>${escape(v)}</em>`).join(', ');
     } else {
-      return headwords.map((v) => `<em>${escape(v)}</em>`).join(', ');    
+      return headwords.map((v) => `<em>${escape(v)}</em>`).join(', ');
     }
   }
 
-  function getClasses(members) {
+  function getClasses(entries) {
     const classes = ['marker'];
     let origin = 'unknown';
-    const origins = new Set(members.map((v) => v.entry.origin).filter((v) => v));
+    const origins = new Set(entries.map((v) => v.origin).filter((v) => v));
     if (origins.size === 1) {
-      let [singleOrigin] = [...origins];
+      const [singleOrigin] = [...origins];
       if (singleOrigin) {
         origin = singleOrigin;
       }

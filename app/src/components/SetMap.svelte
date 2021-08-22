@@ -4,6 +4,7 @@
   import { onDestroy, onMount } from 'svelte';
 
   export let languages;
+  export let selectedLanguages;
   export let includeLanguageOnIcon;
 
   let L;
@@ -15,6 +16,8 @@
     map = L.map('map', {
       closePopupOnClick: false,
       scrollWheelZoom: false,
+      zoomDelta: 0.5,
+      zoomSnap: 0.5,
     })
     .fitBounds(getBounds(languages));
 
@@ -58,13 +61,23 @@
 <div id="map"></div>
 
 {#if map}
-  {#each languages as { language, members } (language.id)}
-    <LanguageMarker {L} {map} {language} {members} {includeLanguageOnIcon} />
+  {#each languages as { entries, headwords, language } (language.id)}
+    {#if selectedLanguages[language.id].language}
+      <LanguageMarker
+        {L}
+        {map}
+        {entries}
+        headwords={headwords.filter((headword) => selectedLanguages[language.id].headwords[headword])}
+        {language}
+        {includeLanguageOnIcon}
+      />
+    {/if}
   {/each}
 {/if}
 
 <style>
   div {
+    width: 100%;
     height: 600px;
   }
 </style>

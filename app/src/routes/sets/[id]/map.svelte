@@ -25,57 +25,103 @@
   export let set;
   const members = set.members.filter((v) => v.language.location);
   const languages = getLanguages(members);
-  const selected = Object.fromEntries(languages.map(({ language }) => [language.id, true]));
-  $: selectedLanguages = languages.filter(({ language }) => selected[language.id]);
+  const selectedLanguages = Object.fromEntries(languages.map(({ headwords, language }) =>
+    [
+      language.id,
+      {
+        language: true,
+        headwords: Object.fromEntries(headwords.map((headword) => [headword, true])),
+      },
+    ]
+  ));
   let includeLanguageOnIcon = false;
 
   function getLanguages(members) {
     const membersByLanguageCode = {};
-    for (const member of members) {
-      const { id } = member.language;
+    for (const { entry, language } of members) {
+      const { id } = language;
       if (!(id in membersByLanguageCode)) {
         const item = membersByLanguageCode[id] = {
-          language: member.language,
-          members: [member],
+          language,
+          entries: [entry],
+          headwords: new Set([entry.headword]),
         };
         if (!Array.isArray(item.language.location)) {
           parseLanguageLocation(item.language);
         }
       } else {
-        membersByLanguageCode[id].members.push(member);
+        membersByLanguageCode[id].entries.push(entry);
+        membersByLanguageCode[id].headwords.add(entry.headword);
       }
     }
-    return Object.values(membersByLanguageCode).sort(sortFunction((v) => v.language.name.toLowerCase()));
+
+    const languages = Object.values(membersByLanguageCode);
+    languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
+    for (const obj of languages) {
+      obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
+    }
+    return languages;
   }
 </script>
 
-<div class="languages">
-  {#each languages as { language } }
-    <label>
-      <input type="checkbox" bind:checked={selected[language.id]} />&nbsp;{language.name}
-    </label>
-  {/each}
-</div>
-
-<div>
-  <label>
-    <input type="checkbox" bind:checked={includeLanguageOnIcon} />&nbsp;Include language name on marker
-  </label>
-</div>
-
 <h2>Set map: {set.name_auto.txt}</h2>
-<SetMap languages={selectedLanguages} {includeLanguageOnIcon} />
+<div class="map">
+  <div class="settings">
+    <h3>Settings</h3>
+    <label>
+      <input type="checkbox" bind:checked={includeLanguageOnIcon} />&nbsp;Include language name
+    </label>
+    <h3>Languages</h3>
+    {#each languages as { headwords, language } }
+      <label>
+        <input
+          type="checkbox"
+          bind:checked={selectedLanguages[language.id].language}
+        />&nbsp;{language.name}
+      </label>
+      {#if headwords.length > 1}
+        {#each headwords as headword }
+          <label class="headword">
+            <input
+              type="checkbox"
+              bind:checked={selectedLanguages[language.id].headwords[headword]}
+              disabled={
+                !selectedLanguages[language.id].language ||
+                ( // only one selected headword left for this language
+                  Object.values(selectedLanguages[language.id].headwords).filter((v) => v).length === 1 &&
+                  selectedLanguages[language.id].headwords[headword]
+                )
+              }
+            />&nbsp;{headword}
+          </label>
+        {/each}
+      {/if}
+    {/each}
+  </div>
+  <SetMap
+    {languages}
+    {selectedLanguages}
+    {includeLanguageOnIcon}
+  />
+</div>
 
 <style lang="scss">
-  .languages {
-    height: 100px;
-    display: inline-flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+  .map {
+    display: flex;
 
-    > label {
-      margin-inline-end: 30px;
-      margin-block-end: 6px;
+    .settings {
+      display: flex;
+      flex-direction: column;
+      inline-size: 14em;
+      margin-inline-end: 20px;
+
+      > label {
+        margin-block-end: 6px;
+
+        &.headword {
+          margin-inline-start: 20px;
+        }
+      }
     }
   }
 </style>
