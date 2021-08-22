@@ -121,7 +121,7 @@ sub read_entries {
         push(@notes, trim($lang->text)) if $lang;
         my $form = $etym->at('.form > span');
         push(@notes, trim($form->text)) if $form;
-        push(@{$entry->{record}}, ['et', 'from ' . join(' ', @notes)]) if @notes;
+        push(@{$entry->{record}}, ['et', join(' ', @notes)]) if @notes;
       }
 
       foreach my $comment ($entry_el->find('.comment > span, .semanticdomain, .semantic-domains')->each) {
