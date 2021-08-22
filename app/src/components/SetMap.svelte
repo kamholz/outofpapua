@@ -4,6 +4,7 @@
   import { onDestroy, onMount } from 'svelte';
 
   export let languages;
+  export let includeLanguageOnIcon;
 
   let L;
   let map = null;
@@ -58,7 +59,7 @@
 
 {#if map}
   {#each languages as { language, members } (language.id)}
-    <LanguageMarker {L} {map} {language} {members} />
+    <LanguageMarker {L} {map} {language} {members} {includeLanguageOnIcon} />
   {/each}
 {/if}
 

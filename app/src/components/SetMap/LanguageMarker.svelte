@@ -6,33 +6,42 @@
   export let map;
   export let language;
   export let members;
+  export let includeLanguageOnIcon;
 
-  const classes = ['marker'];
-  addOriginClass(members, classes);
+  $: classes = getClasses(members);
 
-  const icon = L.divIcon({
-    html: getSummaryHtml(members),
-    className: classes.join(' '),
+  $: icon = L.divIcon({
+    html: getSummaryHtml(members, language, includeLanguageOnIcon),
+    className: classes,
     iconSize: null
   });
 
-  const marker = L.marker(language.location, { icon })
-    .addTo(map)
-    .bindTooltip(escape(language.name));
+  $: marker = L.marker(language.location).addTo(map);
+  $: marker.setIcon(icon);
+  $: {
+    if (includeLanguageOnIcon) {
+      marker.unbindTooltip();
+    } else {
+      marker.bindTooltip(escape(language.name));
+    }
+  }
 
   onDestroy(() => {
     marker.remove();
   });
 
-  function getSummaryHtml(members) {
-    const headwords = new Set(members.map(({ entry }) => entry.headword));
-    return [...headwords]
-      .sort(sortFunction((v) => v.toLowerCase()))
-      .map((v) => escape(v))
-      .join(', ');
+  function getSummaryHtml(members, language, includeLanguageOnIcon) {
+    const headwords = [...new Set(members.map(({ entry }) => entry.headword))]
+      .sort(sortFunction((v) => v.toLowerCase()));
+    if (includeLanguageOnIcon) {
+      return headwords.map((v) => `${escape(language.name)} <em>${escape(v)}</em>`).join(', ');    
+    } else {
+      return headwords.map((v) => `<em>${escape(v)}</em>`).join(', ');    
+    }
   }
 
-  function addOriginClass(members, classes) {
+  function getClasses(members) {
+    const classes = ['marker'];
     let origin = 'unknown';
     const origins = new Set(members.map((v) => v.entry.origin).filter((v) => v));
     if (origins.size === 1) {
@@ -42,6 +51,7 @@
       }
     }
     classes.push(`marker-${origin}`);
+    return classes.join(' ');
   }
 </script>
 

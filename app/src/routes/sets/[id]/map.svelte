@@ -27,6 +27,7 @@
   const languages = getLanguages(members);
   const selected = Object.fromEntries(languages.map(({ language }) => [language.id, true]));
   $: selectedLanguages = languages.filter(({ language }) => selected[language.id]);
+  let includeLanguageOnIcon = false;
 
   function getLanguages(members) {
     const membersByLanguageCode = {};
@@ -56,8 +57,14 @@
   {/each}
 </div>
 
+<div>
+  <label>
+    <input type="checkbox" bind:checked={includeLanguageOnIcon} />&nbsp;Include language name on marker
+  </label>
+</div>
+
 <h2>Set map: {set.name_auto.txt}</h2>
-<SetMap languages={selectedLanguages} />
+<SetMap languages={selectedLanguages} {includeLanguageOnIcon} />
 
 <style lang="scss">
   .languages {
