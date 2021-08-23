@@ -34,7 +34,9 @@
       },
     ]
   ));
+
   let includeLanguageOnIcon = false;
+  let baseMap = 'esri-terrain';
 
   function getLanguages(members) {
     const membersByLanguageCode = {};
@@ -71,6 +73,14 @@
     <label>
       <input type="checkbox" bind:checked={includeLanguageOnIcon} />&nbsp;Include language name
     </label>
+    <label>
+      Base map:
+      <select bind:value={baseMap}>
+        <option value="esri-shaded-relief">Esri Shaded Relief</option>
+        <option value="esri-terrain">Esri Terrain</option>
+        <option value="esri-topo">Esri Topo</option>
+      </select>
+    </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language } }
       <label>
@@ -102,6 +112,7 @@
     {languages}
     {selectedLanguages}
     {includeLanguageOnIcon}
+    {baseMap}
   />
 </div>
 
