@@ -1,6 +1,7 @@
 {
   "name": "outofpapua",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -8,7 +9,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "format": "eslint --ignore-path .gitignore --fix ."
   },
-  "devDependencies": {
+  "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@sveltejs/adapter-node": "^1.0.0-next.43",
@@ -30,6 +31,5 @@
     "svelte-persistent-store": "kamholz/svelte-persistent-store",
     "svelte-popperjs": "^1.2.6",
     "svelte-preprocess": "^4.7.4"
-  },
-  "type": "module"
+  }
 }
