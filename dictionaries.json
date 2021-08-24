@@ -383,5 +383,34 @@
       [2, "gloss", "eng"],
       [4, "gloss", "ind"]
     ]
+  },
+  "Kamholz (nd.a)": {
+    "lang_target": "mhz",
+    "path": "Kamholz/Moor.txt",
+    "parser": "Marker",
+    "lang_regional": "ind",
+    "lang_national": "ind",
+    "split_heuristic": ","
+  },
+  "Kamholz (nd.b)": {
+    "lang_target": "jau",
+    "path": "Kamholz/Yaur.txt",
+    "parser": "Marker",
+    "lang_regional": "ind",
+    "lang_national": "ind"
+  },
+  "Kamholz (nd.c)": {
+    "lang_target": "ire",
+    "path": "Kamholz/Yerisiam.txt",
+    "parser": "Marker",
+    "lang_regional": "ind",
+    "lang_national": "ind"
+  },
+  "Kamholz (nd.d)": {
+    "lang_target": "gop",
+    "path": "Kamholz/Umar.txt",
+    "parser": "Marker",
+    "lang_regional": "ind",
+    "lang_national": "ind"
   }
 }
