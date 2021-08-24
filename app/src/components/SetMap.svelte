@@ -62,6 +62,14 @@
     map?.remove();
   });
 
+  async function loadLeaflet() {
+    if (!window.L) {
+      await import('leaflet');
+      await import('leaflet-tooltip-layout');
+    }
+    ({ L } = window);
+  }
+
   function initializeMap() {
     initializeMarkers();
     L.tooltipLayout.initialize(map);
@@ -107,15 +115,6 @@
     if (map) {
       initializeMarkers();
       L.tooltipLayout.redrawLines();
-    }
-  }
-
-  async function loadLeaflet() {
-    if (window.L) {
-      ({ L } = window);
-    } else {
-      L = window.L = await import('leaflet');
-      await import('leaflet-tooltip-layout');
     }
   }
 
