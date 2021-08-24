@@ -13,10 +13,10 @@
   const editable = getContext('editable');
 
   function handleSelect() {
-    if (selection[set.id]) {
-      delete selection[set.id];
+    if (selection.has(set.id)) {
+      selection.delete(set.id);
     } else {
-      selection[set.id] = true;
+      selection.add(set.id);
     }
     selection = selection;
   }
@@ -29,7 +29,7 @@
   </div>
   {#if editable}
     <span title="Select" on:click={handleSelect}>
-      <Icon data={selection[set.id] ? faCircleSolid : faCircleRegular} />
+      <Icon data={selection.has(set.id) ? faCircleSolid : faCircleRegular} />
     </span>
   {/if}
 </div>

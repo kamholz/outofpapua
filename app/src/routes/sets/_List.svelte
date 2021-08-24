@@ -13,7 +13,7 @@
   export let pageCount;
   const editable = getContext('editable');
   const collapsedRows = rows.map(() => false);
-  let selection = editable ? {} : null;
+  let selection = editable ? new Set() : null;
   let promise;
 
   function collapseAll(state) {
@@ -23,12 +23,12 @@
   }
 
   async function handleMerge() {
-    const [id, ...sets] = rows.filter((v) => selection[v.id]).map((v) => v.id);
+    const [id, ...sets] = rows.filter((v) => selection.has(v.id)).map((v) => v.id);
     $pageLoading++;
     try {
       promise = crudSet.merge({ id, sets });
       await promise;
-      selection = {};
+      selection = new Set();
       dispatch('refresh');
     } catch (e) {}
     $pageLoading--;
@@ -51,7 +51,7 @@
     <button
       type="button"
       transition:fade={{ duration: 300 }}
-      disabled={$pageLoading || Object.keys(selection).length < 2}
+      disabled={$pageLoading || selection.size < 2}
       on:click={handleMerge}
     >Merge Selected Sets</button>
   {/if}
