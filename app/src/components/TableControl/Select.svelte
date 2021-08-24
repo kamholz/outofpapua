@@ -12,20 +12,19 @@
   const { id } = row;
 
   function handleSelect() {
-    const newSelection = { ...$selection };
     if ($selection[id]) {
-      delete newSelection[id];
+      delete $selection[id];
     } else {
-      newSelection[id] = row;
+      $selection[id] = row;
     }
     if (row.set_id) {
-      for (const selectedRow of Object.values(newSelection)) {
+      for (const selectedRow of Object.values($selection)) {
         if (selectedRow.set_id && selectedRow.set_id !== row.set_id) {
-          delete newSelection[selectedRow.id];
+          delete $selection[selectedRow.id];
         }
       }
     }
-    $selection = newSelection;
+    $selection = $selection;
   }
 </script>
 
