@@ -169,26 +169,26 @@
       }
 
       .marker {
-        color: white;
-        line-height: 1.25;
         padding: 6px;
-        border: 1px solid black;
-        border-radius: 6px;
         width: max-content;
         max-width: 12em;
+        color: white;
+        line-height: 1.25;
+        border: transparent;
+        border-radius: 6px;
         white-space: unset;
       }
 
       .marker-borrowed {
-        background-color: crimson;
+        background-color: rgba(220, 20, 60, 0.7);
       }
 
       .marker-inherited {
-        background-color: purple;
+        background-color: rgba(128, 0, 128, 0.7);
       }
 
       .marker-unknown {
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.7);
       }
 
       .leaflet-tooltip-top:before,
