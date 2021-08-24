@@ -34,9 +34,6 @@
     origin_language_name: entry.origin_language_name,
     reflex: member.reflex,
   };
-  const options = editable
-    ? [...borrowlangSuggest].filter((v) => v.id !== language.id)
-    : null;
   let editingProto = false;
   let protoValues;
 
@@ -264,7 +261,7 @@
           <span class="originlang">
             <span class="label">Language:</span>
             <Svelecte
-              {options}
+              options={borrowlangSuggest.filter((v) => v.id !== language.id)}
               disabled={promises.pending.origin_language_id}
               bind:value={values.origin_language_id}
               on:change={() => handleUpdate('origin_language_id')}

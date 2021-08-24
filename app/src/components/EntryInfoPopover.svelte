@@ -10,6 +10,7 @@
   import * as crud from '$actions/crud';
 
   export let entry;
+  export let language_id;
   export let click;
   export let linkable = false;
   const editable = getContext('editable');
@@ -19,9 +20,6 @@
     origin_language_id: entry.origin_language_id,
   };
   const promises = { pending: {}, fulfilled: {} };
-  const options = editable
-    ? [...borrowlangSuggest].filter((v) => v.id !== entry.language_id)
-    : null;
 
   let showPopover = false;
   const popover = createPopover({
@@ -109,7 +107,7 @@
             <div transition:slide|local class="originlang">
               <span class="label">Language:</span>
               <Svelecte
-                {options}
+                options={borrowlangSuggest.filter((v) => v.id !== language_id)}
                 disabled={promises.pending.origin_language_id}
                 bind:value={values.origin_language_id}
                 on:change={() => handleUpdate('origin_language_id')}

@@ -10,6 +10,7 @@
 
 <EntryInfoPopover
   bind:entry={row}
+  language_id={row.language_id}
   click={true}
   linkable
 >
