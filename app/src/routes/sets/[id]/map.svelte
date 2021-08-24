@@ -21,22 +21,17 @@
 <script>
   import SetMap from '$components/SetMap.svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
+  import { setContext } from 'svelte';
 
   export let set;
   const members = set.members.filter((v) => v.language.location);
+  const selection = {};
+  setContext('selection', selection);
   const languages = getLanguages(members);
-  const selectedLanguages = Object.fromEntries(languages.map(({ headwords, language }) =>
-    [
-      language.id,
-      {
-        language: true,
-        headwords: Object.fromEntries(headwords.map((headword) => [headword, true])),
-      },
-    ]
-  ));
 
-  let includeLanguageOnIcon = false;
-  let baseMap = 'esri-terrain';
+  let includeLanguageOnLabel = false;
+  let baseMap = 'esri-shaded-relief';
+  let updateLanguage;
 
   function getLanguages(members) {
     const membersByLanguageCode = {};
@@ -61,6 +56,10 @@
     languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
     for (const obj of languages) {
       obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
+      selection[obj.language.id] = {
+        language: true,
+        headwords: Object.fromEntries(obj.headwords.map((headword) => [headword, true])),
+      };
     }
     return languages;
   }
@@ -71,13 +70,12 @@
   <div class="settings">
     <h3>Settings</h3>
     <label>
-      <input type="checkbox" bind:checked={includeLanguageOnIcon} />&nbsp;Include language name
+      <input type="checkbox" bind:checked={includeLanguageOnLabel} />&nbsp;Include language name
     </label>
     <label>
       Base map:
       <select bind:value={baseMap}>
         <option value="esri-shaded-relief">Esri Shaded Relief</option>
-        <option value="esri-terrain">Esri Terrain</option>
         <option value="esri-topo">Esri Topo</option>
       </select>
     </label>
@@ -86,7 +84,8 @@
       <label>
         <input
           type="checkbox"
-          bind:checked={selectedLanguages[language.id].language}
+          bind:checked={selection[language.id].language}
+          on:change={() => updateLanguage(language.id)}
         />&nbsp;{language.name}
       </label>
       {#if headwords.length > 1}
@@ -94,12 +93,13 @@
           <label class="headword">
             <input
               type="checkbox"
-              bind:checked={selectedLanguages[language.id].headwords[headword]}
+              bind:checked={selection[language.id].headwords[headword]}
+              on:change={() => updateLanguage(language.id)}
               disabled={
-                !selectedLanguages[language.id].language ||
+                !selection[language.id] ||
                 ( // only one selected headword left for this language
-                  Object.values(selectedLanguages[language.id].headwords).filter((v) => v).length === 1 &&
-                  selectedLanguages[language.id].headwords[headword]
+                  Object.values(selection[language.id].headwords).filter((v) => v).length === 1 &&
+                  selection[language.id].headwords[headword]
                 )
               }
             />&nbsp;{headword}
@@ -110,9 +110,9 @@
   </div>
   <SetMap
     {languages}
-    {selectedLanguages}
-    {includeLanguageOnIcon}
+    {includeLanguageOnLabel}
     {baseMap}
+    bind:updateLanguage
   />
 </div>
 
