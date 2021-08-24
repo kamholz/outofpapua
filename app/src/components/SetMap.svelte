@@ -45,8 +45,8 @@
     map = L.map('map', {
       closePopupOnClick: false,
       scrollWheelZoom: false,
-      zoomDelta: 0.5,
-      zoomSnap: 0.5,
+      // zoomDelta: 0.5,
+      // zoomSnap: 0.5,
     })
     .fitBounds(getBounds(languages));
 
