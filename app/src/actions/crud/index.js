@@ -40,9 +40,7 @@ export function updateFromCell(type) {
   return async (e) => {
     const { onSuccess } = e.detail;
     await update(e.detail);
-    if (onSuccess) {
-      onSuccess();
-    }
+    onSuccess?.();
   };
 }
 
@@ -57,25 +55,4 @@ export function makeDeleter(type) {
 
 export function del(type, ...args) {
   return makeDeleter(type)(...args);
-}
-
-export async function linkEntries(entries, onSuccess) {
-  if (!entries.length) {
-    return;
-  }
-  const members = entries.map((v) => v.id);
-  const existingSetId = entries.find((v) => v.set_id !== null)?.set_id;
-  if (existingSetId && entries.every((v) => v.set_id === existingSetId)) {
-    return;
-  }
-  try {
-    if (existingSetId) {
-      await update('set', { id: existingSetId, values: { members } });
-    } else {
-      await create('set', { members });
-    }
-    onSuccess?.();
-  } catch (e) {
-    console.log(e);
-  }
 }

@@ -46,10 +46,10 @@
 
 <table class:hoverhighlight={highlight}>
   <thead>
-    {#each columns as { key, title } (key)}
+    {#each columns as { key, sortKey, title } (key)}
       <th>
         {#if sortable}
-          <a href={getSortQuery(key, query)}>
+          <a href={getSortQuery(sortKey ?? key, query)}>
             {title}
             {#if key === query.sort}
               <Icon data={query.asc ? faCaretUp : faCaretDown} />

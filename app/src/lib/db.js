@@ -1,6 +1,7 @@
 import config from '$config';
 import knexModule from 'knex';
 import { mungeRegex, showPublicOnly } from '$lib/util';
+import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({
   client: 'pg',
@@ -28,8 +29,6 @@ export function arrayCmp(param) {
 }
 
 // pagination and sorting
-
-const pageMax = 2000;
 
 export function applyPageParams(q, query, count) {
   if (!String(query.pagesize).match(/^[0-9]+$/)) {

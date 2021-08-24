@@ -12,22 +12,15 @@
   const { id } = row;
 
   function handleSelect() {
-    if ($selection[id]) {
-      delete $selection[id];
+    if ($selection.has(id)) {
+      $selection.delete(id);
     } else {
-      $selection[id] = row;
-    }
-    if (row.set_id) {
-      for (const selectedRow of Object.values($selection)) {
-        if (selectedRow.set_id && selectedRow.set_id !== row.set_id) {
-          delete $selection[selectedRow.id];
-        }
-      }
+      $selection.add(id);
     }
     $selection = $selection;
   }
 </script>
 
 <span title="Select" on:click={handleSelect}>
-  <Icon data={$selection[id] ? faCircleSolid : faCircleRegular} {scale} />
+  <Icon data={$selection.has(id) ? faCircleSolid : faCircleRegular} {scale} />
 </span>

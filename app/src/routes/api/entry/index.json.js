@@ -105,9 +105,9 @@ export async function get({ locals, query }) {
     'entry.senses',
     'entry.record_id',
     'language.id as language_id',
-    'language.name as language',
+    'language.name as language_name',
     'source.id as source_id',
-    'source.reference as source',
+    'source.reference as source_reference',
     'source.editable as source_editable',
     'set_member.set_id'
   );

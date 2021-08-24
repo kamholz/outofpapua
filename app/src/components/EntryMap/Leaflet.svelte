@@ -47,7 +47,7 @@
       maxZoom: 11,
       scrollWheelZoom: false,
       // zoomDelta: 0.5,
-      // zoomSnap: 0.5,
+      zoomSnap: 0.5,
     })
     .fitBounds(getBounds(languages));
 
@@ -80,7 +80,7 @@
     for (const obj of languages.filter(({ language }) => selection[language.id])) {
       removeMarker(obj.marker);
       obj.marker = createMarker(obj);
-    }  
+    }
   }
 
   function createMarker(obj) {
@@ -180,15 +180,15 @@
       }
 
       .marker-borrowed {
-        background-color: rgba(220, 20, 60, 0.7);
+        background-color: rgba(220, 20, 60, 0.75);
       }
 
       .marker-inherited {
-        background-color: rgba(128, 0, 128, 0.7);
+        background-color: rgba(128, 0, 128, 0.75);
       }
 
       .marker-unknown {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.75);
       }
 
       .leaflet-tooltip-top:before,

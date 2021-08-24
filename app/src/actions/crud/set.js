@@ -5,21 +5,21 @@ export async function linkEntries(entries, onSuccess) {
   if (!entries.length) {
     return;
   }
-  const members = entries.map((v) => v.id);
-  const existingSetId = entries.find((v) => v.set_id !== null)?.set_id;
+  const sets = new Set(entries.filter((entry) => entry.set_id).map((entry) => entry.set_id));
+  if (sets.size > 1) {
+    throw new Error('Could not link entries: they belong to multiple sets, not sure what to do');
+  }
+  const [existingSetId] = [...sets];
   if (existingSetId && entries.every((v) => v.set_id === existingSetId)) {
     return;
   }
-  try {
-    if (existingSetId) {
-      await crud.update('set', { id: existingSetId, values: { members } });
-    } else {
-      await crud.create('set', { members });
-    }
-    onSuccess?.();
-  } catch (e) {
-    console.log(e);
+  const members = entries.map((v) => v.id);
+  if (existingSetId) {
+    await crud.update('set', { id: existingSetId, values: { members } });
+  } else {
+    await crud.create('set', { members });
   }
+  onSuccess?.();
 }
 
 export async function merge({ id, sets }) {

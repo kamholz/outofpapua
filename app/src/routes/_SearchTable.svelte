@@ -5,15 +5,16 @@
   export let rows;
   export let query;
   export let pageCount;
-  export let linkable;
 
   const columns = [
     {
-      key: 'language',
+      key: 'language_name',
+      sortKey: 'language',
       title: 'Language',
     },
     {
-      key: 'source',
+      key: 'source_reference',
+      sortKey: 'source',
       title: 'Source',
       link: (row) => `/sources/${row.source_id}/entries?pagesize=${$preferences.tablePageSize}`,
     },
@@ -38,13 +39,10 @@
     {
       type: 'entryinfo',
     },
-  ];
-
-  if (linkable) {
-    controls.push({
+    {
       type: 'select',
-    });
-  }
+    },
+  ];
 </script>
 
 <Table

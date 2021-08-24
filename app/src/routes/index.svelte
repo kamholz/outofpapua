@@ -53,11 +53,14 @@
 </script>
 
 <script>
+  import Alert from '$components/Alert.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
   import SearchTableControls from './_SearchTableControls.svelte';
+  import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
+  import { serializeArrayParam } from '$lib/util';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
@@ -78,29 +81,37 @@
   }
 
   const linkable = editable && query.set !== 'linked';
-  let selection;
-  if (linkable) {
-    selection = writable({});
-    setContext('selection', selection);
-  }
-
+  const selection = writable(new Set());
+  setContext('selection', selection);
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);
-
-  function handleClear() {
-    $selection = {};
-  }
+  let promise;
 
   async function handleLink() {
     $pageLoading++;
-    await crudSet.linkEntries(Object.values($selection), handleRefresh);
+    try {
+      promise = crudSet.linkEntries(getSelection(), handleRefresh);
+      await promise;
+    } catch (e) {}
     $pageLoading--;
+  }
+
+  function handleMap() {
+    goto('/map?' + new URLSearchParams({ entries: serializeArrayParam([...$selection]) }));
   }
 
   async function handleRefresh() {
     rows = (await reload(fetch, query))?.rows;
     $setSummaryCache = {};
-    $selection = {};
+    clearSelection();
+  }
+
+  function getSelection() {
+    return rows.filter((row) => $selection.has(row.id));
+  }
+
+  function clearSelection() {
+    $selection = new Set();
   }
 </script>
 
@@ -115,21 +126,25 @@
       <div>
         Total found: {rowCount}
       </div>
-      {#if editable && query.set !== 'linked' && rows.length}
-        <SearchTableControls on:clear={handleClear} on:link={handleLink} />
+      {#if rows.length}
+        <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
       {/if}
     </div>
     {#if rows.length}
+      {#if promise}
+        {#await promise catch { message }}
+          <Alert type="error" {message} />
+        {/await}
+      {/if}
       <SearchTable
         {rows}
         {query}
         {pageCount}
-        {linkable}
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />
-        {#if editable && query.set !== 'linked' && rows.length}
-          <SearchTableControls on:clear={handleClear} on:link={handleLink} />
+        {#if rows.length}
+          <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
         {/if}
       </div>
     {:else}
