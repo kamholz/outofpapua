@@ -1,13 +1,10 @@
 <script context="module">
-  import { pageMax } from '$lib/preferences';
-
   export const ssr = false;
 
   export async function load({ fetch, page: { query } }) {
     const props = {};
-    const res = await fetch('/api/entry/fetch.json?' + new URLSearchParams({
+    const res = await fetch('/api/entry/multiple.json?' + new URLSearchParams({
       ids: query.get('entries'),
-      pagesize: pageMax,
     }));
     if (!res.ok) {
       return { status: 500 };
