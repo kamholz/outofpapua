@@ -23,4 +23,5 @@
   export let entries;
 </script>
 
+<h2>Map from search results</h2>
 <EntryMap items={entries} getEntry={(item) => item} />
