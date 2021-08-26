@@ -105,7 +105,7 @@ sub read_entries {
       next unless $value;
 
       if ($type eq 'headword') {
-        my @headwords = split($split_headword, $value);
+        my @headwords = $split_headword ? split($split_headword, $value) : ($value);
 
         if ($headword_action eq 'deaccent') {
           foreach my $headword (map { NFC($_) } @headwords) {
@@ -131,6 +131,8 @@ sub read_entries {
         }
       } elsif ($type eq 'ph') {
         push @{$entry->{record}}, ['ph', $value];
+      } elsif ($type eq 'note') {
+        push @{$entry->{record}}, ['nt', $value];
       }
     }
 

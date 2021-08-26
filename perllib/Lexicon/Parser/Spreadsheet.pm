@@ -6,6 +6,10 @@ use Spreadsheet::ParseXLSX;
 
 extends 'Lexicon::Parser::CSV';
 
+has '+skip' => (
+  default => 1,
+);
+
 has 'sheet' => (
   is => 'ro',
   default => 0,

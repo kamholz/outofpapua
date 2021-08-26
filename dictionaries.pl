@@ -1,28 +1,448 @@
 use v5.14;
 
-my %perl_attr = (
-  'van Staden (1996)' => {
-    gloss_preprocess => sub { $_[0] =~ s/_/ /gr },
-    headword_preprocess => sub { $_[0] =~ s/_/ /gr },
+our $dict = {
+  'Anceaux (1961)' => {
+    lang_target => 'bsm',
+    path => 'spreadsheets/Busami.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'pos'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    split => ',;',
+    split_headword => ',;',
+  },
+  'Blust & Trussel (ongoing a)' => {
+    lang_target => 'Proto-Austronesian',
+    path => 'acd',
+    parser => 'ACD',
+    split_heuristic => ',/',
+  },
+  'Blust & Trussel (ongoing b)' => {
+    lang_target => 'Proto-Malayo-Polynesian',
+    path => 'acd',
+    parser => 'ACD',
+    split_heuristic => ',/',
+  },
+  'Blust & Trussel (ongoing c)' => {
+    lang_target => 'Proto-Central-Eastern Malayo-Polynesian',
+    path => 'acd',
+    parser => 'ACD',
+    split_heuristic => ',/',
+  },
+  'Blust & Trussel (ongoing d)' => {
+    lang_target => 'Proto-Eastern Malayo-Polynesian',
+    path => 'acd',
+    parser => 'ACD',
+    split_heuristic => ',/',
+  },
+  'Blust & Trussel (ongoing e)' => {
+    lang_target => 'Proto-SHWNG',
+    path => 'acd',
+    parser => 'ACD',
+    split_heuristic => ',/',
+  },
+  'Donohue (nd.)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/3-Saweru words in Donohue phonology paper.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Donohue (2001)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/5-Saweru words in Donohue split intransitivity paper.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Donohue (2003)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/4-Saweru words in Donohue stress paper (stress marked).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+    headword_action => 'deaccent',
+  },
+  'Donohue & Ayeri (nd.)' => {
+    lang_target => 'swr',
+    path => 'Fieldworks/Saweru.db',
+    parser => 'Marker',
+    skip_marker => 'lx_Eng',
+  },
+  'Gasser (20xx)' => {
+    lang_target => 'wad',
+    path => 'Wamesa_all.db',
+    parser => 'Marker',
+    encoding => 'cp1252',
+    gloss => {
+      ge => 'eng',
+      gi => 'ind'
+    },
+    definition => {
+      de => 'eng',
+      di => 'ind'
+    }
+  },
+  'Halmahera Lingua Centre (2019)' => {
+    lang_target => 'szw',
+    path => 'webonary/sawai/*.html',
+    parser => 'LexiqueHTML',
+    lang_national => 'id',
+    split_heuristic => ',',
+  },
+  'Jones, Paai & Paai (1989)' => {
+    lang_target => 'yva',
+    path => 'Fieldworks/Yawa.db',
+    parser => 'Marker',
+    headword_citation_action => 'prefer_root',
+    skip_marker => 'lx_Eng',
   },
   'Kamholz (nd.a)' => {
-    gloss_preprocess => sub { $_[0] =~ s/^-$//r },
+    lang_target => 'mhz',
+    path => 'Kamholz/Moor.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+    split_heuristic => ',',
+    gloss_preprocess => \&clear_hyphen,
   },
   'Kamholz (nd.b)' => {
-    gloss_preprocess => sub { $_[0] =~ s/^-$//r },
+    lang_target => 'jau',
+    path => 'Kamholz/Yaur.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+    gloss_preprocess => \&clear_hyphen,
   },
   'Kamholz (nd.c)' => {
-    gloss_preprocess => sub { $_[0] =~ s/^-$//r },
+    lang_target => 'ire',
+    path => 'Kamholz/Yerisiam.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+    gloss_preprocess => \&clear_hyphen,
   },
   'Kamholz (nd.d)' => {
-    gloss_preprocess => sub { $_[0] =~ s/^-$//r },
+    lang_target => 'gop',
+    path => 'Kamholz/Umar.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+    gloss_preprocess => \&clear_hyphen,
   },
-);
+  'Kijne (nd.a)' => {
+    lang_target => 'Yawa Turu',
+    path => 'spreadsheets/8-Turu word list Kijne.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [4, 'ph'],
+      [1, 'gloss', 'nld'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
+  'Kijne (nd.b)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/9-Saweru-Turu word list Kijne.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [7, 'ph'],
+      [4, 'gloss', 'nld'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    headword_action => 'deaccent',
+  },
+  'Kijne (nd.c)' => {
+    lang_target => 'Yawa Turu',
+    path => 'spreadsheets/9-Saweru-Turu word list Kijne.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [6, 'ph'],
+      [4, 'gloss', 'nld'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    headword_action => 'deaccent',
+  },
+  'Kijne (nd.d)' => {
+    lang_target => 'Yawa Mantembu',
+    path => 'spreadsheets/10-Mantembu word list Kijne.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [4, 'ph'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
+  'Kijne (nd.e)' => {
+    lang_target => 'Yawa Ambaidiru',
+    path => 'spreadsheets/11-Ambaidiru word list Kijne.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [4, 'ph'],
+      [1, 'gloss', 'nld'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
+  'Mofu (nd.)' => {
+    lang_target => 'bhw',
+    path => 'Biak_dictionary.txt',
+    parser => 'Marker',
+    split => ',;',
+    sense => 'hm',
+  },
+  'Price (2021)' => {
+    lang_target => 'amk',
+    path => 'Ambai Lexicon.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+    reverse_action => 'drop',
+  },
+  'Price & Donohue (2009)' => {
+    lang_target => 'and',
+    path => 'spreadsheets/Ansus.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+  },
+  'Slump (1924-1938)' => {
+    lang_target => 'seu',
+    path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998a)' => {
+    lang_target => 'Yawa Ambaidiru',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998b)' => {
+    lang_target => 'Yawa Ariepi',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998c)' => {
+    lang_target => 'Yawa Mariadei',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998d)' => {
+    lang_target => 'Yawa Tarau',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998e)' => {
+    lang_target => 'Yawa Tarau',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998f)' => {
+    lang_target => 'Yawa Kampung Baru',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998g)' => {
+    lang_target => 'Yawa Mantembu',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998h)' => {
+    lang_target => 'Yawa Mantembu',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998i)' => {
+    lang_target => 'Yawa Turu',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998j)' => {
+    lang_target => 'Yawa Konti Unai',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [11, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998k)' => {
+    lang_target => 'Yawa Wadapi-Darat',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998l)' => {
+    lang_target => 'Yawa Wadapi-Darat',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998m)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998n)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998o)' => {
+    lang_target => 'swr',
+    path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
+    skip => 2,
+    parser => 'Spreadsheet',
+    columns => [
+      [16, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'van Staden (1996)' => {
+    lang_target => 'tvo',
+    path => 'Tidore_toolbox.txt',
+    parser => 'Marker',
+    split => ',;',
+    gloss_preprocess => \&replace_underscore,
+    headword_preprocess => \&replace_underscore,
+  },
+  'Voorhoeve (1975)' => {
+    lang_target => 'yva',
+    path => 'spreadsheets/7-Yawa small word list Anceaux.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Wada (1980a)' => {
+    lang_target => 'Proto-North Halmahera',
+    path => 'Wada_1980/Wada.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [0, 'note'],
+    ],
+    split => ',;',
+    split_headword => ',;',
+  }
+};
 
-sub add_perl_attr {
-  my ($dict, $source_reference) = @_;
-  return unless exists $dict->{$source_reference} && exists $perl_attr{$source_reference};
-  $dict->{$source_reference} = { %{$dict->{$source_reference}}, %{$perl_attr{$source_reference}} };
+sub clear_hyphen {
+  return $_[0] =~ s/^-$//r;
+}
+
+sub replace_underscore {
+  return $_[0] =~ s/_/ /gr;
 }
 
 1;
