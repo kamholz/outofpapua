@@ -21,7 +21,7 @@ my %perl_attr = (
 
 sub add_perl_attr {
   my ($dict, $source_reference) = @_;
-  $dict->{$source_reference} = { %{$dict->{$source_reference}}, %{$perl_attr{$source_reference}} };
+  $dict->{$source_reference} = { %{$dict->{$source_reference}||{}}, %{$perl_attr{$source_reference}||{}} };
 }
 
 1;
