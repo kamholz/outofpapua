@@ -342,6 +342,12 @@
     "parser": "ACD",
     "split_heuristic": ",/"
   },
+  "Blust & Trussel (ongoing e)": {
+    "lang_target": "Proto-SHWNG",
+    "path": "acd",
+    "parser": "ACD",
+    "split_heuristic": ",/"
+  },
   "Price & Donohue (2009)": {
     "lang_target": "and",
     "path": "spreadsheets/Ansus.xlsx",

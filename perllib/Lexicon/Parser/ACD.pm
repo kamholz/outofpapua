@@ -12,11 +12,12 @@ my $json = JSON->new;
 my $url_base = 'https://www.trussel2.com/ACD/';
 
 my %proto_abbrev = (
+  'Proto-Austronesian', 'PAN',
   'Proto-Malayo-Polynesian' => 'PMP',
   'Proto-Central-Eastern Malayo-Polynesian' => 'PCEMP',
   'Proto-Eastern Malayo-Polynesian' => 'PEMP',
   'Proto-SHWNG', 'PSHWNG',
-  'Proto-Oceanic', 'POc',
+  'Proto-Oceanic', 'POC',
 );
 
 sub read_entries {
