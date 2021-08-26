@@ -375,14 +375,9 @@
   },
   "van Staden (1996)": {
     "lang_target": "tvo",
-    "path": "Tidore.txt",
-    "parser": "CSV",
-    "columns": [
-      [0, "headword"],
-      [5, "pos"],
-      [2, "gloss", "eng"],
-      [4, "gloss", "ind"]
-    ]
+    "path": "Tidore_toolbox.txt",
+    "parser": "Marker",
+    "split": ",;"
   },
   "Kamholz (nd.a)": {
     "lang_target": "mhz",

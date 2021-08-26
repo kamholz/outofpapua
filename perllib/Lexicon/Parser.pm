@@ -19,7 +19,7 @@ has 'encoding' => (
   default => sub { ['utf-8'] },
 );
 
-foreach my $attr (qw/gloss reverse definition/) {
+foreach my $attr (qw/headword gloss reverse definition/) {
   has "${attr}_preprocess" => (
     is => 'ro',
   );
@@ -105,6 +105,7 @@ sub push_entry {
 
   if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
     $self->apply_citation_action($entry);
+    $self->apply_headword_preprocess($entry);
 
     foreach my $sense (@{$entry->{sense}||[]}) {
       $self->apply_action($sense, 'reverse');
@@ -129,6 +130,14 @@ sub reset_entry {
     };
   } else {
     return {};
+  }
+}
+
+sub apply_headword_preprocess {
+  my ($self, $entry) = @_;
+  my $pre = $self->${\'headword_preprocess'};
+  if ($pre) {
+    $entry->{headword} = $pre->($entry->{headword});
   }
 }
 

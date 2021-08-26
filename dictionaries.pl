@@ -1,6 +1,10 @@
 use v5.14;
 
 my %perl_attr = (
+  'van Staden (1996)' => {
+    gloss_preprocess => sub { $_[0] =~ s/_/ /gr },
+    headword_preprocess => sub { $_[0] =~ s/_/ /gr },
+  },
   'Kamholz (nd.a)' => {
     gloss_preprocess => sub { $_[0] =~ s/^-$//r },
   },
