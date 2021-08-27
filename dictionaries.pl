@@ -272,6 +272,13 @@ our $dict = {
     lang_national => 'id',
     split_heuristic => ',',
   },
+  'Imelda & Bowden (2014)' => {
+    lang_target => 'gak',
+    path => 'Kamus kecil Gamkonora 2014 toolbox.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split_heuristic => ',',
+  },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
     path => 'Fieldworks/Yawa.db',
