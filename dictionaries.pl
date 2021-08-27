@@ -278,6 +278,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split_heuristic => ',',
+    headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
