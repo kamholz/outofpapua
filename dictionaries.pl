@@ -1,4 +1,5 @@
 use v5.14;
+use utf8;
 
 our $dict = {
   'Anceaux (1961)' => {
