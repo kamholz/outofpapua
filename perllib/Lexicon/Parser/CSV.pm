@@ -129,10 +129,10 @@ sub read_entries {
           $self->add_pos($entry, $value);
           push @{$entry->{record}}, ['ps', $value];
         }
-      } elsif ($type eq 'ph') {
-        push @{$entry->{record}}, ['ph', $value];
       } elsif ($type eq 'note') {
-        push @{$entry->{record}}, ['nt', $value];
+        push @{$entry->{record}}, ['nt', $args[0] ? "$args[0] $value" : $value];
+      } elsif ($type =~ /^[a-z]{2}$/) {
+        push @{$entry->{record}}, [$type, $value];
       }
     }
 

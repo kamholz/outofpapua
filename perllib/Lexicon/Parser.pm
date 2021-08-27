@@ -107,6 +107,11 @@ sub push_entry {
     $self->apply_citation_action($entry);
     $self->apply_headword_preprocess($entry);
 
+    if (!length $entry->{headword}) {
+      say "warning: empty headword";
+      return;
+    }
+
     foreach my $sense (@{$entry->{sense}||[]}) {
       $self->apply_action($sense, 'reverse');
       $self->apply_action($sense, 'definition');
