@@ -4,6 +4,7 @@
   import { getContext, onDestroy, onMount } from 'svelte';
 
   export let languages;
+  export let markerType;
   export let includeLanguageOnLabel;
   export let baseMap;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
@@ -11,7 +12,7 @@
 
   let L;
   let map;
-  let icon;
+  let pointIcon;
   let layer;
 
   const baseMaps = {
@@ -37,7 +38,7 @@
     }).addTo(map);
   }
 
-  $: updateLabels(includeLanguageOnLabel);
+  $: updateLabels(markerType, includeLanguageOnLabel);
 
   onMount(async () => {
     await loadLeaflet();
@@ -51,7 +52,7 @@
     })
     .fitBounds(getBounds(languages));
 
-    icon = L.divIcon({
+    pointIcon = L.divIcon({
       className: 'circle',
       iconSize: [8, 8],
     });
@@ -73,7 +74,9 @@
 
   function initializeMap() {
     initializeMarkers();
-    L.tooltipLayout.initialize(map);
+    if (markerType === 'point-label') {
+      L.tooltipLayout.initialize(map);
+    }
   }
 
   function initializeMarkers() {
@@ -85,12 +88,15 @@
 
   function createMarker(obj) {
     const { classes, headwords, language } = obj;
-    const marker = L.marker(language.location, { icon })
-      .addTo(map)
-      .bindTooltip(getSummaryHtml(headwords, language, includeLanguageOnLabel), {
+    const marker = L.marker(language.location, {
+      icon: getIcon(headwords, language, includeLanguageOnLabel, classes)
+    }).addTo(map);
+    if (markerType === 'point-label') {
+      marker.bindTooltip(getSummaryHtml(headwords, language, includeLanguageOnLabel), {
         className: classes,
       });
-    L.tooltipLayout.resetMarker(marker);
+      L.tooltipLayout.resetMarker(marker);
+    }
     return marker;
   }
 
@@ -109,7 +115,9 @@
     } else {
       obj.marker = null;
     }
-    L.tooltipLayout.redrawLines();
+    if (markerType === 'point-label') {
+      L.tooltipLayout.redrawLines();
+    }
   }
 
   function updateLabels() {
@@ -131,6 +139,18 @@
         Math.max(...locations.map((v) => v[1])),
       ],
     ];
+  }
+
+  function getIcon(headwords, language, includeLanguageOnIcon, classes) {
+    if (markerType === 'label') {
+      return L.divIcon({
+        html: getSummaryHtml(headwords, language, includeLanguageOnIcon),
+        className: classes,
+        iconSize: null,
+      });
+    } else {
+      return pointIcon;
+    }
   }
 
   function getSummaryHtml(headwords, language, includeLanguageOnIcon) {

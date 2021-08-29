@@ -9,6 +9,7 @@
   setContext('selection', selection);
   const languages = getLanguages(items.filter((item) => item.language.location));
 
+  let markerType = 'point-label';
   let includeLanguageOnLabel = false;
   let baseMap = 'esri-shaded-relief';
   let updateLanguage;
@@ -60,6 +61,14 @@
         <option value="esri-topo">Esri Topo</option>
       </select>
     </label>
+    <label>
+      Label:
+      <select bind:value={markerType}>
+        <option value="point-label">Point with label</option>
+        <option value="point">Point only</option>
+        <option value="label">Label only</option>
+      </select>
+    </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language } }
       <label>
@@ -91,6 +100,7 @@
   </div>
   <EntryMapLeaflet
     {languages}
+    {markerType}
     {includeLanguageOnLabel}
     {baseMap}
     bind:updateLanguage
