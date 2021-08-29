@@ -35,7 +35,7 @@ function makeCte(q, query, lang, locals) {
   .select(
     'entry.id',
     'sense_gloss.language_id',
-    'sense_gloss.txt'
+    'sense_gloss.txt_degr'
   );
 }
 
@@ -67,7 +67,7 @@ export async function get({ locals, query }) {
     .with('lang2', (cte) => makeCte(cte, query, 'lang2', locals))
     .from('lang1')
     .leftJoin('lang2', function () {
-      this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt', 'lang1.txt');
+      this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt_degr', 'lang1.txt_degr');
     })
     .select('lang1.id as lang1_id', 'lang2.id as lang2_id')
     .distinct();
