@@ -12,7 +12,6 @@
 
   let L;
   let map;
-  let pointIcon;
   let layer;
 
   const baseMaps = {
@@ -27,7 +26,7 @@
   };
 
   for (const obj of languages) {
-    obj.classes = getClasses(obj.entries);
+    obj.originClass = getOriginClass(obj.entries);
   }
 
   $: if (map && baseMap) {
@@ -51,11 +50,6 @@
       zoomSnap: 0.5,
     })
     .fitBounds(getBounds(languages));
-
-    pointIcon = L.divIcon({
-      className: 'circle',
-      iconSize: [8, 8],
-    });
 
     initializeMap();
   });
@@ -87,13 +81,13 @@
   }
 
   function createMarker(obj) {
-    const { classes, headwords, language } = obj;
+    const { headwords, language, originClass } = obj;
     const marker = L.marker(language.location, {
-      icon: getIcon(headwords, language, includeLanguageOnLabel, classes)
+      icon: getIcon(headwords, language, includeLanguageOnLabel, originClass)
     }).addTo(map);
     if (markerType === 'point-label') {
       marker.bindTooltip(getSummaryHtml(headwords, language, includeLanguageOnLabel), {
-        className: classes,
+        className: `marker ${originClass}`,
       });
       L.tooltipLayout.resetMarker(marker);
     }
@@ -141,15 +135,18 @@
     ];
   }
 
-  function getIcon(headwords, language, includeLanguageOnIcon, classes) {
+  function getIcon(headwords, language, includeLanguageOnIcon, originClass) {
     if (markerType === 'label') {
       return L.divIcon({
         html: getSummaryHtml(headwords, language, includeLanguageOnIcon),
-        className: classes,
+        className: `marker ${originClass}`,
         iconSize: null,
       });
     } else {
-      return pointIcon;
+      return L.divIcon({
+        className: `circle ${originClass}`,
+        iconSize: [8, 8],
+      });
     }
   }
 
@@ -160,18 +157,15 @@
     return includeLanguageOnIcon ? (escape(language.name) + ' ' + html) : html;
   }
 
-  function getClasses(entries) {
-    const classes = ['marker'];
-    let origin = 'unknown';
+  function getOriginClass(entries) {
     const origins = new Set(entries.map((v) => v.origin).filter((v) => v));
     if (origins.size === 1) {
       const [singleOrigin] = [...origins];
       if (singleOrigin) {
-        origin = singleOrigin;
+        return `marker-${singleOrigin}`;
       }
     }
-    classes.push(`marker-${origin}`);
-    return classes.join(' ');
+    return 'marker-unknown';
   }
 </script>
 
@@ -184,7 +178,6 @@
 
     :global {
       .circle {
-        background-color: black;
         border-radius: 50%;
       }
 
