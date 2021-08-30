@@ -1,19 +1,20 @@
 <script>
   import EntryMapLeaflet from '$components/EntryMap/Leaflet.svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
-  import { setContext } from 'svelte';
 
   export let items;
   export let getEntry;
-  const selection = {};
-  setContext('selection', selection);
   const languages = getLanguages(items.filter((item) => item.language.location));
+  const families = getFamilies(languages);
+  const familiesSorted = Object.keys(families)
+    .sort(sortFunction((v) => families[v].name.toLowerCase()))
+    .map((v) => families[v]);
 
   let markerType = 'point-label';
-  let markerShape = 'circle';
   let includeLanguageOnLabel = false;
   let baseMap = 'esri-shaded-relief';
   let updateLanguage;
+  let updateFamily;
 
   function getLanguages(items) {
     const itemsByLanguageCode = {};
@@ -40,12 +41,26 @@
     languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
     for (const obj of languages) {
       obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
-      selection[obj.language.id] = {
+      obj.selection = {
         language: true,
         headwords: Object.fromEntries(obj.headwords.map((headword) => [headword, true])),
       };
     }
     return languages;
+  }
+
+  function getFamilies(languages) {
+    const families = {};
+    for (const { language } of languages) {
+      if (!(language.ancestor_id in families)) {
+        families[language.ancestor_id] = {
+          id: language.ancestor_id,
+          name: language.ancestor_name,
+          shape: 'circle',
+        }
+      }
+    }
+    return families;
   }
 </script>
 
@@ -70,21 +85,12 @@
         <option value="label">Label only</option>
       </select>
     </label>
-    <label>
-      Shape:
-      <select bind:value={markerShape}>
-        <option value="circle">Circle</option>
-        <option value="square">Square</option>
-        <option value="star">Star</option>
-        <option value="triangle">Triangle</option>
-      </select>
-    </label>
     <h3>Languages</h3>
-    {#each languages as { headwords, language } }
+    {#each languages as { headwords, language, selection } }
       <label>
         <input
           type="checkbox"
-          bind:checked={selection[language.id].language}
+          bind:checked={selection.language}
           on:change={() => updateLanguage(language.id)}
         />&nbsp;{language.name}
       </label>
@@ -93,13 +99,13 @@
           <label class="headword">
             <input
               type="checkbox"
-              bind:checked={selection[language.id].headwords[headword]}
+              bind:checked={selection.headwords[headword]}
               on:change={() => updateLanguage(language.id)}
               disabled={
-                !selection[language.id] ||
+                !selection.language ||
                 ( // only one selected headword left for this language
-                  Object.values(selection[language.id].headwords).filter((v) => v).length === 1 &&
-                  selection[language.id].headwords[headword]
+                  Object.values(selection.headwords).filter((v) => v).length === 1 &&
+                  selection.headwords[headword]
                 )
               }
             />&nbsp;{headword}
@@ -107,14 +113,28 @@
         {/each}
       {/if}
     {/each}
+    <h3>Families</h3>
+    {#each familiesSorted as family }
+      <label>
+        {family.name}:
+        <select bind:value={family.shape} on:change={updateFamily(family.id)}>
+          <option value="circle">Circle</option>
+          <option value="square">Square</option>
+          <option value="star">Star</option>
+          <option value="triangle">Triangle</option>
+        </select>
+      </label>
+    {/each}
+
   </div>
   <EntryMapLeaflet
     {languages}
+    {families}
     {markerType}
-    {markerShape}
     {includeLanguageOnLabel}
     {baseMap}
     bind:updateLanguage
+    bind:updateFamily
   />
 </div>
 

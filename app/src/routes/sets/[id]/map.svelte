@@ -4,17 +4,13 @@
   export async function load({ fetch, page: { params } }) {
     const props = {};
 
-    props.set = await reload(fetch, Number(params.id));
-    if (!props.set) {
+    const res = await fetch(`/api/set/${params.id}.json`);
+    if (!res.ok) {
       return { status: 404 };
     }
+    props.set = await res.json();
 
     return { props };
-  }
-
-  async function reload(fetch, id) {
-    const res = await fetch(`/api/set/${id}.json`);
-    return res.ok ? res.json() : null;
   }
 </script>
 

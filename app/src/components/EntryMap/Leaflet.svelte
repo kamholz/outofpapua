@@ -2,16 +2,15 @@
   import 'leaflet/dist/leaflet.css';
   import { escapeHtml as escape } from '$lib/util';
   import { faCircle, faPlay, faSquare, faStar } from '@fortawesome/free-solid-svg-icons';
-  import { getContext, onDestroy, onMount } from 'svelte';
   import { icon } from '@fortawesome/fontawesome-svg-core';
+  import { onDestroy, onMount } from 'svelte';
 
   export let languages;
+  export let families;
   export let markerType;
-  export let markerShape;
   export let includeLanguageOnLabel;
   export let baseMap;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
-  const selection = getContext('selection');
 
   const shape = {
     circle: faCircle,
@@ -47,7 +46,7 @@
     }).addTo(map);
   }
 
-  $: updateLabels(markerType, markerShape, includeLanguageOnLabel);
+  $: updateLabels(markerType, includeLanguageOnLabel);
 
   onMount(async () => {
     await loadLeaflet();
@@ -84,20 +83,19 @@
   }
 
   function initializeMarkers() {
-    for (const obj of languages.filter(({ language }) => selection[language.id])) {
+    for (const obj of languages.filter(({ selection }) => selection.language)) {
       removeMarker(obj.marker);
       obj.marker = createMarker(obj);
     }
   }
 
   function createMarker(obj) {
-    const { headwords, language, originClass } = obj;
-    const marker = L.marker(language.location, {
-      icon: getIcon(headwords, language, includeLanguageOnLabel, originClass)
+    const marker = L.marker(obj.language.location, {
+      icon: getIcon(obj)
     }).addTo(map);
     if (markerType === 'point-label') {
-      marker.bindTooltip(getSummaryHtml(headwords, language, includeLanguageOnLabel), {
-        className: `marker ${originClass}`,
+      marker.bindTooltip(getSummaryHtml(obj), {
+        className: `marker ${obj.originClass}`,
       });
       L.tooltipLayout.resetMarker(marker);
     }
@@ -111,13 +109,24 @@
     }
   }
 
-  export function updateLanguage(id) {
+  export function updateLanguage(id, skipRedraw) {
     const obj = languagesById[id];
     removeMarker(obj.marker);
-    if (selection[id].language) {
+    if (obj.selection.language) {
       obj.marker = createMarker(obj);
     } else {
       obj.marker = null;
+    }
+    if (!skipRedraw && markerType === 'point-label') {
+      L.tooltipLayout.redrawLines();
+    }
+  }
+
+  export function updateFamily(id) {
+    for (const { language } of languages) {
+      if (language.ancestor_id === id) {
+        updateLanguage(language.id, true);
+      }
     }
     if (markerType === 'point-label') {
       L.tooltipLayout.redrawLines();
@@ -145,16 +154,17 @@
     ];
   }
 
-  function getIcon(headwords, language, includeLanguageOnIcon, originClass) {
+  function getIcon(obj) {
+    const { language, originClass } = obj;
     if (markerType === 'label') {
       return L.divIcon({
-        html: getSummaryHtml(headwords, language, includeLanguageOnIcon),
+        html: getSummaryHtml(obj, includeLanguageOnLabel),
         className: `marker ${originClass}`,
         iconSize: null,
       });
     } else {
       return L.divIcon({
-        html: icon(shape[markerShape], {
+        html: icon(shape[families[language.ancestor_id].shape], {
           classes: ['svg', originClass],
         }).html[0],
         iconSize: null,
@@ -162,11 +172,12 @@
     }
   }
 
-  function getSummaryHtml(headwords, language, includeLanguageOnIcon) {
+  function getSummaryHtml(obj) {
+    const { headwords, language, selection } = obj;
     const html = headwords
-      .filter((headword) => selection[language.id].headwords[headword])
+      .filter((headword) => selection.headwords[headword])
       .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
-    return includeLanguageOnIcon ? (escape(language.name) + ' ' + html) : html;
+    return includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
   }
 
   function getOriginClass(entries) {
