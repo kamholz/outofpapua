@@ -10,6 +10,7 @@
   const languages = getLanguages(items.filter((item) => item.language.location));
 
   let markerType = 'point-label';
+  let markerShape = 'circle';
   let includeLanguageOnLabel = false;
   let baseMap = 'esri-shaded-relief';
   let updateLanguage;
@@ -69,6 +70,15 @@
         <option value="label">Label only</option>
       </select>
     </label>
+    <label>
+      Shape:
+      <select bind:value={markerShape}>
+        <option value="circle">Circle</option>
+        <option value="square">Square</option>
+        <option value="star">Star</option>
+        <option value="triangle">Triangle</option>
+      </select>
+    </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language } }
       <label>
@@ -101,6 +111,7 @@
   <EntryMapLeaflet
     {languages}
     {markerType}
+    {markerShape}
     {includeLanguageOnLabel}
     {baseMap}
     bind:updateLanguage

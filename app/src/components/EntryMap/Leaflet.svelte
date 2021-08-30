@@ -1,14 +1,24 @@
 <script>
   import 'leaflet/dist/leaflet.css';
   import { escapeHtml as escape } from '$lib/util';
+  import { faCircle, faPlay, faSquare, faStar } from '@fortawesome/free-solid-svg-icons';
   import { getContext, onDestroy, onMount } from 'svelte';
+  import { icon } from '@fortawesome/fontawesome-svg-core';
 
   export let languages;
   export let markerType;
+  export let markerShape;
   export let includeLanguageOnLabel;
   export let baseMap;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
   const selection = getContext('selection');
+
+  const shape = {
+    circle: faCircle,
+    square: faSquare,
+    star: faStar,
+    triangle: faPlay,
+  };
 
   let L;
   let map;
@@ -37,7 +47,7 @@
     }).addTo(map);
   }
 
-  $: updateLabels(markerType, includeLanguageOnLabel);
+  $: updateLabels(markerType, markerShape, includeLanguageOnLabel);
 
   onMount(async () => {
     await loadLeaflet();
@@ -144,8 +154,10 @@
       });
     } else {
       return L.divIcon({
-        className: `circle ${originClass}`,
-        iconSize: [8, 8],
+        html: icon(shape[markerShape], {
+          classes: ['svg', originClass],
+        }).html[0],
+        iconSize: null,
       });
     }
   }
@@ -162,25 +174,25 @@
     if (origins.size === 1) {
       const [singleOrigin] = [...origins];
       if (singleOrigin) {
-        return `marker-${singleOrigin}`;
+        return singleOrigin;
       }
     }
-    return 'marker-unknown';
+    return 'unknown';
   }
 </script>
 
 <div id="map"></div>
 
 <style lang="scss">
+  $borrowed: rgba(220, 20, 60, 0.75);
+  $inherited: rgba(128, 0, 128, 0.75);
+  $unknown: rgba(255, 255, 255, 0.75);
+
   div {
     width: 100%;
     height: 600px;
 
     :global {
-      .circle {
-        border-radius: 50%;
-      }
-
       .marker {
         padding: 6px;
         width: max-content;
@@ -192,16 +204,31 @@
         white-space: unset;
       }
 
-      .marker-borrowed {
-        background-color: rgba(220, 20, 60, 0.75);
+      .svg {
+        width: 12px;
+        height: 12px;
       }
 
-      .marker-inherited {
-        background-color: rgba(128, 0, 128, 0.75);
+      .marker.borrowed {
+        background-color: $borrowed;
+      }
+      .svg.borrowed {
+        color: $borrowed;
       }
 
-      .marker-unknown {
-        background-color: rgba(0, 0, 0, 0.75);
+      .marker.inherited {
+        background-color: $inherited;
+      }
+      .svg.inherited {
+        color: $inherited;
+      }
+
+      .marker.unknown {
+        color: black;
+        background-color: $inherited;
+      }
+      .svg.unknown {
+        color: $inherited;
       }
 
       .leaflet-tooltip-top:before,
@@ -209,6 +236,11 @@
       .leaflet-tooltip-left:before,
       .leaflet-tooltip-right:before {
         border: none;
+      }
+
+      .leaflet-div-icon {
+        background: unset;
+        border: unset;
       }
     }
   }
