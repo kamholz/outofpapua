@@ -683,6 +683,18 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
+  'Unknown (n.d.)' => {
+    lang_target => 'kgr',
+    path => 'Abun_conversations_wordlist.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sheet2',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+    split => '/',
+  },
   'van Staden (1996)' => {
     lang_target => 'tvo',
     path => 'Tidore_toolbox.txt',
