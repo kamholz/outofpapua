@@ -216,7 +216,7 @@ our $dict = {
     split_heuristic => ',/',
   },
   'Dol (2007)' => {
-    lang_target => '',
+    lang_target => 'ayz',
     path => '../dict/dol_maybrat2007_toolbox.txt',
     parser => 'Marker',
     split => ',;',
