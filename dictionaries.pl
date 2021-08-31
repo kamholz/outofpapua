@@ -215,6 +215,13 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
+  'Dol (2007)' => {
+    lang_target => '',
+    path => '../dict/dol_maybrat2007_toolbox.txt',
+    parser => 'Marker',
+    split => ',;',
+    split_headword => ',;/',
+  },
   'Donohue (nd.)' => {
     lang_target => 'swr',
     path => 'spreadsheets/3-Saweru words in Donohue phonology paper.xlsx',
@@ -264,7 +271,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2016b)' => {
     lang_target => 'bhw',
@@ -278,7 +285,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2016c)' => {
     lang_target => 'pmo',
@@ -292,7 +299,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2016d)' => {
     lang_target => 'rnn',
@@ -307,7 +314,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2016e)' => {
     lang_target => 'Serewen',
@@ -321,7 +328,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2016f)' => {
     lang_target => 'Yawa Unat',
@@ -335,7 +342,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Gasser (2019a)' => {
     lang_target => 'wad',
@@ -363,7 +370,7 @@ our $dict = {
       [5, 'note'],
     ],
     split => ',/',
-    gloss_preprocess => \&strip_to,
+    strip => ['to'],
   },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
@@ -733,10 +740,6 @@ sub clear_hyphen {
 
 sub replace_underscore {
   return $_[0] =~ s/_/ /gr;
-}
-
-sub strip_to {
-  return $_[0] =~ s/^to //r;
 }
 
 1;

@@ -43,22 +43,6 @@ has 'headword_action' => (
   default => '',
 );
 
-has 'split_headword' => (
-  is => 'ro',
-  default => sub { split_regex(';') },
-);
-
-around BUILDARGS => sub {
-  my ($orig, $class, @args) = @_;
-  my $attr = $class->$orig(@args);
-
-  foreach my $att (grep { length $attr->{$_} } qw/split_headword/) {
-    $attr->{$att} = split_regex($attr->{$att});
-  }
-
-  return $attr;
-};
-
 sub parse {
   my ($self, $path) = @_;
   $path ||= $self->path;

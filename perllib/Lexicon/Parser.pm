@@ -2,7 +2,7 @@ package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::Util qw(all any);
+use List::Util qw(all any uniqstr);
 use List::UtilsBy 'uniq_by';
 
 with 'Lexicon::Util';
@@ -33,6 +33,12 @@ has 'split' => (
 
 has 'split_heuristic' => (
   is => 'ro',
+);
+
+# string of chars to split headword on
+has 'split_headword' => (
+  is => 'ro',
+  default => undef,
 );
 
 # word(s) to strip from beginning of gloss/reverse/definition
@@ -81,7 +87,7 @@ around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
 
-  foreach my $att (grep { length $attr->{$_} } qw/split split_heuristic/) {
+  foreach my $att (grep { length $attr->{$_} } qw/split split_heuristic split_headword/) {
     $attr->{$att} = split_regex($attr->{$att});
   }
 
@@ -104,9 +110,6 @@ sub push_entry {
   my ($self, $entries, $entry) = @_;
 
   if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
-    $self->apply_citation_action($entry);
-    $self->apply_headword_preprocess($entry);
-
     if (!length $entry->{headword}) {
       say "warning: empty headword";
       return;
@@ -122,8 +125,32 @@ sub push_entry {
       }
     }
 
-    push(@$entries, $entry);
+    if ($self->split_headword) {
+      foreach my $headword (uniqstr split($self->split_headword, $entry->{headword})) {
+        if (!length $headword) {
+          say "warning: empty headword";
+          next;
+        }
+        $self->push_single_entry($entries, { %$entry, headword => $headword });    
+      }
+    } else {
+      $self->push_single_entry($entries, $entry);
+    }
   }
+}
+
+sub push_single_entry {
+  my ($self, $entries, $entry) = @_;
+
+  $self->apply_citation_action($entry);
+  $self->apply_headword_preprocess($entry);
+
+  if (!length $entry->{headword}) {
+    say "warning: empty headword";
+    return;
+  }
+
+  push(@$entries, $entry);
 }
 
 sub reset_entry {
