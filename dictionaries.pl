@@ -252,7 +252,92 @@ our $dict = {
     parser => 'Marker',
     skip_marker => 'lx_Eng',
   },
-  'Gasser (20xx)' => {
+  'Gasser (2016a)' => {
+    lang_target => 'and',
+    path => 'Talking Dictionaries/Ansus talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2016b)' => {
+    lang_target => 'bhw',
+    path => 'Talking Dictionaries/Biak talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2016c)' => {
+    lang_target => 'pmo',
+    path => 'Talking Dictionaries/Pom talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2016d)' => {
+    lang_target => 'rnn',
+    path => 'Talking Dictionaries/Roon talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2016e)' => {
+    lang_target => 'Serewen',
+    path => 'Talking Dictionaries/Serewen talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2016f)' => {
+    lang_target => 'Yawa Unat',
+    path => 'Talking Dictionaries/Yawa Unat talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'pos'],
+      [2, 'gloss', 'eng'],
+      [11, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
+  },
+  'Gasser (2019a)' => {
     lang_target => 'wad',
     path => 'Wamesa_all.db',
     parser => 'Marker',
@@ -265,6 +350,20 @@ our $dict = {
       de => 'eng',
       di => 'ind'
     }
+  },
+  'Gasser (2019b)' => {
+    lang_target => 'akc',
+    path => 'Talking Dictionaries/Mpur talking dictionary setup 2.0.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [4, 'pos'],
+      [3, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [5, 'note'],
+    ],
+    split => ',/',
+    gloss_preprocess => \&strip_to,
   },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
@@ -622,6 +721,10 @@ sub clear_hyphen {
 
 sub replace_underscore {
   return $_[0] =~ s/_/ /gr;
+}
+
+sub strip_to {
+  return $_[0] =~ s/^to //r;
 }
 
 1;
