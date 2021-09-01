@@ -187,7 +187,8 @@
 <style lang="scss">
   $borrowed: rgba(220, 20, 60, 0.75);
   $inherited: rgba(128, 0, 128, 0.75);
-  $unknown: rgba(255, 255, 255, 0.75);
+  $unknown_black: rgba(0, 0, 0, 0.75);
+  $unknown_white: rgba(255, 255, 255, 0.75);
 
   div {
     width: 100%;
@@ -226,10 +227,10 @@
 
       .marker.unknown {
         color: black;
-        background-color: $unknown;
+        background-color: $unknown_white;
       }
       .svg.unknown {
-        color: $unknown;
+        color: $unknown_black;
       }
 
       .leaflet-tooltip-top:before,
