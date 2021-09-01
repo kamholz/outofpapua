@@ -690,7 +690,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Unknown (n.d.)' => {
+  'Unknown (nd.)' => {
     lang_target => 'kgr',
     path => 'Abun_conversations_wordlist.xlsx',
     parser => 'Spreadsheet',

@@ -12,7 +12,7 @@
 
   let markerType = 'point-label';
   let includeLanguageOnLabel = false;
-  let baseMap = 'esri-shaded-relief';
+  let baseMap = 'esri-gray-canvas';
   let updateLanguage;
   let updateFamily;
 
@@ -73,16 +73,17 @@
     <label>
       Base map:
       <select bind:value={baseMap}>
-        <option value="esri-shaded-relief">Esri Shaded Relief</option>
-        <option value="esri-topo">Esri Topo</option>
+        <option value="esri-gray-canvas">Gray Canvas</option>
+        <option value="esri-shaded-relief">Shaded Relief</option>
+        <option value="esri-topo">Topo</option>
       </select>
     </label>
     <label>
-      Label:
+      Marker:
       <select bind:value={markerType}>
+        <option value="label">Label</option>
+        <option value="point">Point</option>
         <option value="point-label">Point with label</option>
-        <option value="point">Point only</option>
-        <option value="label">Label only</option>
       </select>
     </label>
     <h3>Languages</h3>

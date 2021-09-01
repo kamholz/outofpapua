@@ -1,5 +1,6 @@
 <script>
   import 'leaflet/dist/leaflet.css';
+  import baseMaps from '$lib/basemaps.json';
   import { escapeHtml as escape } from '$lib/util';
   import { faCircle, faPlay, faSquare, faStar } from '@fortawesome/free-solid-svg-icons';
   import { icon } from '@fortawesome/fontawesome-svg-core';
@@ -23,17 +24,6 @@
   let map;
   let layer;
 
-  const baseMaps = {
-    'esri-shaded-relief': {
-      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-    },
-    'esri-topo': {
-      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
-    },
-  };
-
   for (const obj of languages) {
     obj.originClass = getOriginClass(obj.entries);
   }
@@ -55,7 +45,7 @@
       closePopupOnClick: false,
       maxZoom: 11,
       scrollWheelZoom: false,
-      // zoomDelta: 0.5,
+      zoomDelta: 0.5,
       zoomSnap: 0.5,
     })
     .fitBounds(getBounds(languages));
@@ -236,10 +226,10 @@
 
       .marker.unknown {
         color: black;
-        background-color: $inherited;
+        background-color: $unknown;
       }
       .svg.unknown {
-        color: $inherited;
+        color: $unknown;
       }
 
       .leaflet-tooltip-top:before,
