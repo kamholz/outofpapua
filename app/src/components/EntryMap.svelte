@@ -1,5 +1,6 @@
 <script>
   import EntryMapLeaflet from '$components/EntryMap/Leaflet.svelte';
+  import Svelecte from '$lib/svelecte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
   export let entries;
@@ -114,16 +115,18 @@
     {/each}
     <h3>Families</h3>
     {#each familiesSorted as family }
-      <label>
+      <span>
         {family.name}:
-        <select bind:value={family.shape} on:change={updateFamily(family.id)}>
-          <option value="circle">Circle</option>
-          <option value="diamond">Diamond</option>
-          <option value="square">Square</option>
-          <option value="star">Star</option>
-          <option value="triangle">Triangle</option>
-        </select>
-      </label>
+        <Svelecte
+          options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
+          valueField="value"
+          labelField="value"
+          searchable={false}
+          renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
+          bind:value={family.shape}
+          on:change={updateFamily(family.id)}
+        />
+      </span>
     {/each}
 
   </div>
@@ -153,6 +156,28 @@
 
         &.headword {
           margin-inline-start: 20px;
+        }
+      }
+    }
+
+    :global {
+      .sv-control {
+        inline-size: 70px;
+        .sv-item-content {
+          margin-inline-start: 8px;
+        }
+      }
+
+      .sv-item-content {
+        width: 16px;
+        height: 16px;
+      }
+
+      .sv-dropdown {
+        inline-size: 50px;
+        .sv-item {
+          display: flex;
+          justify-content: space-around;
         }
       }
     }
