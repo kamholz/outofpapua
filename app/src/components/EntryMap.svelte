@@ -2,9 +2,8 @@
   import EntryMapLeaflet from '$components/EntryMap/Leaflet.svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
-  export let items;
-  export let getEntry;
-  const languages = getLanguages(items.filter((item) => item.language.location));
+  export let entries;
+  const languages = getLanguages(entries.filter((entry) => entry.language.location));
   const families = getFamilies(languages);
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
@@ -16,14 +15,13 @@
   let updateLanguage;
   let updateFamily;
 
-  function getLanguages(items) {
-    const itemsByLanguageCode = {};
-    for (const item of items) {
-      const { language } = item;
+  function getLanguages(entries) {
+    const entriesByLanguageCode = {};
+    for (const entry of entries) {
+      const { language } = entry;
       const { id } = language;
-      const entry = getEntry(item);
-      if (!(id in itemsByLanguageCode)) {
-        itemsByLanguageCode[id] = {
+      if (!(id in entriesByLanguageCode)) {
+        entriesByLanguageCode[id] = {
           language,
           entries: [entry],
           headwords: new Set([entry.headword]),
@@ -32,12 +30,12 @@
           parseLanguageLocation(language);
         }
       } else {
-        itemsByLanguageCode[id].entries.push(entry);
-        itemsByLanguageCode[id].headwords.add(entry.headword);
+        entriesByLanguageCode[id].entries.push(entry);
+        entriesByLanguageCode[id].headwords.add(entry.headword);
       }
     }
 
-    const languages = Object.values(itemsByLanguageCode);
+    const languages = Object.values(entriesByLanguageCode);
     languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
     for (const obj of languages) {
       obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
