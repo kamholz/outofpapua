@@ -81,7 +81,7 @@
 
   function createMarker(obj) {
     const marker = L.marker(obj.language.location, {
-      icon: getIcon(obj)
+      icon: getIcon(obj),
     }).addTo(map);
     if (markerType === 'point-label') {
       marker.bindTooltip(getSummaryHtml(obj), {

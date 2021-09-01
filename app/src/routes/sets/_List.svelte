@@ -4,8 +4,9 @@
   import Paginator from '$components/Paginator.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { fade } from 'svelte/transition';
+  import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
+  import { serializeArrayParam } from '$lib/util';
   import * as crudSet from '$actions/crud/set';
 
   export let rows;
@@ -33,6 +34,10 @@
     } catch (e) {}
     $pageLoading--;
   }
+
+  function handleMap() {
+    goto('/sets/map?' + new URLSearchParams({ sets: serializeArrayParam([...selection]) }));
+  }
 </script>
 
 {#if pageCount > 1}
@@ -44,17 +49,25 @@
 {/await}
 
 <hr>
-<div>
-  <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-  <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
-  {#if editable}
+<div class="controls">
+  <div>
+    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+    {#if editable}
+      <button
+        type="button"
+        disabled={$pageLoading || selection.size < 2}
+        on:click={handleMerge}
+      >Merge Selected Sets</button>
+    {/if}
+  </div>
+  <div>
     <button
       type="button"
-      transition:fade={{ duration: 300 }}
       disabled={$pageLoading || selection.size < 2}
-      on:click={handleMerge}
-    >Merge Selected Sets</button>
-  {/if}
+      on:click={handleMap}
+    >Map Selected Sets</button>
+  </div>
 </div>
 <hr>
 
@@ -72,6 +85,18 @@
 {/if}
 
 <style lang="scss">
-  @include button-left;
   @include hr;
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+
+    :first-child {
+      @include button-left;
+    }
+
+    :last-child {
+      @include button-right;
+    }
+  }
 </style>

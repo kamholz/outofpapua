@@ -55,7 +55,7 @@
           id: language.ancestor_id,
           name: language.ancestor_name,
           shape: 'circle',
-        }
+        };
       }
     }
     return families;
