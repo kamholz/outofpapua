@@ -2,8 +2,6 @@
   import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
   import { escapeHtml as escape } from '$lib/util';
-  import { faCircle, faPlay, faSquare, faStar } from '@fortawesome/free-solid-svg-icons';
-  import { icon } from '@fortawesome/fontawesome-svg-core';
   import { onDestroy, onMount } from 'svelte';
 
   export let languages;
@@ -12,13 +10,6 @@
   export let includeLanguageOnLabel;
   export let baseMap;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
-
-  const shape = {
-    circle: faCircle,
-    square: faSquare,
-    star: faStar,
-    triangle: faPlay,
-  };
 
   let L;
   let map;
@@ -68,7 +59,12 @@
   function initializeMap() {
     initializeMarkers();
     if (markerType === 'point-label') {
-      L.tooltipLayout.initialize(map);
+      L.tooltipLayout.initialize(map, (ply) => {
+        ply.setStyle({
+          color: '#999',
+          weight: 2,
+        });
+      });
     }
   }
 
@@ -154,9 +150,7 @@
       });
     } else {
       return L.divIcon({
-        html: icon(shape[families[language.ancestor_id].shape], {
-          classes: ['svg', originClass],
-        }).html[0],
+        html: `<svg class="svg ${originClass}" viewBox="0 0 16 16"><use href="/icons.svg#${families[language.ancestor_id].shape}" /></svg>`,
         iconSize: null,
       });
     }

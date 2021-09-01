@@ -118,6 +118,7 @@
         {family.name}:
         <select bind:value={family.shape} on:change={updateFamily(family.id)}>
           <option value="circle">Circle</option>
+          <option value="diamond">Diamond</option>
           <option value="square">Square</option>
           <option value="star">Star</option>
           <option value="triangle">Triangle</option>
