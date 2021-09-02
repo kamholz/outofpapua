@@ -15,6 +15,7 @@
   export let linkable = false;
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
+
   const values = {
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,

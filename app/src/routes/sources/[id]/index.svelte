@@ -2,15 +2,13 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
+    const props = {};
     const res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
       return { status: 404 };
     }
     props.source = await res.json();
-    if (props.editable && props.source.editable) {
+    if (session.user && props.source.editable) {
       props.protolangSuggest = await suggest.protolang(fetch);
     }
     return { props };
@@ -22,8 +20,6 @@
   import { setContext } from 'svelte';
 
   export let source;
-  export let editable;
-  setContext('editable', editable);
   export let protolangSuggest = null;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);

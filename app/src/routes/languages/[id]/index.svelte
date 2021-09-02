@@ -2,15 +2,13 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
+    const props = {};
     const res = await fetch(`/api/language/${params.id}.json`);
     if (!res.ok) {
       return { status: 404 };
     }
     props.language = await res.json();
-    if (props.editable) {
+    if (session.user) {
       props.protolangSuggest = await suggest.protolang(fetch);
     }
     return { props };
@@ -20,18 +18,17 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import EditLanguageForm from './_EditForm.svelte';
+  import { getContext, setContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
-  import { setContext } from 'svelte';
   import * as crud from '$actions/crud';
 
   export let language;
-  export let editable;
-  setContext('editable', editable);
   export let protolangSuggest = null;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
+  const editable = getContext('editable');
 
   const del = crud.makeDeleter('language');
   let promise;

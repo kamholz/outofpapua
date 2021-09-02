@@ -4,10 +4,8 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
-    if (props.editable) {
+    const props = {};
+    if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       props.langSuggest = await suggest.langPlus(fetch);
       props.sourceSuggest = await suggest.editableSource(fetch);
@@ -39,16 +37,15 @@
   import Member from './_Member.svelte';
   import keydown from '$lib/keydown';
   import { faMapMarked } from '@fortawesome/free-solid-svg-icons';
+  import { getContext, setContext } from 'svelte';
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
-  import { setContext } from 'svelte';
 
   export let set;
-  export let editable;
-  setContext('editable', editable);
   export let borrowlangSuggest = null;
   export let langSuggest = null;
   export let sourceSuggest = null;
+  const editable = getContext('editable');
   if (editable) {
     setContext('borrowlangSuggest', borrowlangSuggest);
     setContext('langSuggest', langSuggest);

@@ -3,10 +3,8 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params, query }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
-    if (props.editable) {
+    const props = {};
+    if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
         return { status: 500 };
@@ -38,8 +36,6 @@
   export let source;
   export let rows;
   export let query;
-  export let editable;
-  setContext('editable', editable);
   export let pageCount;
   export let rowCount;
   export let borrowlangSuggest = null;

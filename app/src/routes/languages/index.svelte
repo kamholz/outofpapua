@@ -1,15 +1,11 @@
 <script context="module">
   import { normalizeQuery, serializeQuery } from '$lib/util';
 
-  export async function load({ fetch, page: { query }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
-    const json = await reload(fetch, normalizeQuery(query));
-    if (!json) {
+  export async function load({ fetch, page: { query } }) {
+    const props = await reload(fetch, normalizeQuery(query));
+    if (!props) {
       return { status: 500 };
     }
-    Object.assign(props, json);
     return { props };
   }
 
@@ -22,12 +18,11 @@
 <script>
   import CreateLanguageForm from './_CreateForm.svelte';
   import LanguagesTable from './_Table.svelte';
-  import { setContext } from 'svelte';
+  import { getContext } from 'svelte';
 
   export let rows;
   export let query;
-  export let editable;
-  setContext('editable', editable);
+  const editable = getContext('editable');
 
   async function handleRefresh() {
     rows = (await reload(fetch, query))?.rows;

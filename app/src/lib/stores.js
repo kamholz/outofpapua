@@ -1,15 +1,13 @@
 import { browser } from '$app/env';
 import { cookieStorage, persist } from 'svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
-import { get, writable } from 'svelte/store';
-import { session } from '$app/stores';
+import { writable } from 'svelte/store';
 
 export const pageLoading = writable(0);
 
-export function getPreferences() {
-  const $session = get(session);
-  if ($session.user) {
-    const preferences = writable($session.preferences);
+export function getPreferences(session) {
+  if (session.user) {
+    const preferences = writable(session.preferences);
     let updating = false;
     preferences.subscribe(($preferences) => {
       if (updating) {

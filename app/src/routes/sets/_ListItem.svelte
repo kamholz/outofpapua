@@ -4,13 +4,11 @@
   import ListItemMember from './_ListItemMember.svelte';
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
-  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
 
   export let set;
   export let collapsed;
   export let selection;
-  const editable = getContext('editable');
 
   function handleSelect() {
     if (selection.has(set.id)) {
@@ -27,11 +25,9 @@
     <CollapseIndicator bind:collapsed />
     <strong>Set: <a href="/sets/{set.id}">{set.name_auto.txt}</a></strong>
   </div>
-  {#if editable}
-    <span title="Select" on:click={handleSelect}>
-      <Icon data={selection.has(set.id) ? faCircleSolid : faCircleRegular} />
-    </span>
-  {/if}
+  <span title="Select" on:click={handleSelect}>
+    <Icon data={selection.has(set.id) ? faCircleSolid : faCircleRegular} />
+  </span>
 </div>
 {#if !collapsed}
   <div class="table" transition:slide|local={{ duration: 200 }}>

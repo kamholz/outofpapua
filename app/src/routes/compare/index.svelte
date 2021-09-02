@@ -4,9 +4,8 @@
 
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, page: { query } }) {
     const props = {
-      editable: session.user !== null,
       langSuggest: await suggest.lang(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
     };
@@ -50,8 +49,6 @@
 
   export let rows = null;
   export let query;
-  export let editable;
-  setContext('editable', editable);
   export let pageCount = null;
   export let rowCount = null;
   export let lang1Name = null;

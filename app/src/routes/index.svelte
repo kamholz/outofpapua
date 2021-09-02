@@ -7,14 +7,13 @@
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
-      editable: session.user !== null,
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500 };
     }
-    if (props.editable) {
+    if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
         return { status: 500 };
@@ -58,17 +57,15 @@
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
   import SearchTableControls from './_SearchTableControls.svelte';
+  import { getContext, setContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
   import { serializeArrayParam } from '$lib/util';
-  import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
 
   export let rows = null;
   export let query;
-  export let editable;
-  setContext('editable', editable);
   export let pageCount = null;
   export let rowCount = null;
   export let langSuggest;
@@ -80,7 +77,7 @@
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
 
-  const linkable = editable && query.set !== 'linked';
+  const linkable = getContext('editable') && query.set !== 'linked';
   const selection = writable(new Set());
   setContext('selection', selection);
   const setSummaryCache = writable({});

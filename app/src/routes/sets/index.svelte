@@ -4,7 +4,6 @@
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
-      editable: session.user !== null,
       sourceSuggest: await suggest.source(fetch),
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
@@ -12,7 +11,7 @@
     if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
       return { status: 500 };
     }
-    if (props.editable) {
+    if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
       if (!props.borrowlangSuggest) {
         return { status: 500 };
@@ -43,8 +42,6 @@
   import { setContext } from 'svelte';
 
   export let rows;
-  export let editable;
-  setContext('editable', editable);
   export let sourceSuggest;
   setContext('sourceSuggest', sourceSuggest);
   export let langSuggest;

@@ -3,10 +3,8 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { query }, session }) {
-    const props = {
-      editable: session.user !== null,
-    };
-    if (props.editable) {
+    const props = {};
+    if (session.user) {
       props.protolangSuggest = await suggest.protolang(fetch);
       if (!props.protolangSuggest) {
         return { status: 500 };
@@ -31,16 +29,15 @@
 <script>
   import CreateSourceForm from './_CreateForm.svelte';
   import SourcesTable from './_Table.svelte';
-  import { setContext } from 'svelte';
+  import { getContext, setContext } from 'svelte';
 
   export let rows;
   export let query;
-  export let editable;
-  setContext('editable', editable);
   export let protolangSuggest = null;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
+  const editable = getContext('editable');
 
   async function handleRefresh() {
     rows = (await reload(fetch, query))?.rows;
