@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, mungeHeadword } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeHeadword, validateParams } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable, nfc } from '../_params';
 import { requireAuth } from '$lib/auth';
@@ -7,7 +7,7 @@ import { requireAuth } from '$lib/auth';
 const allowedAll = new Set(['headword_normalized', 'note', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
-export async function get({ locals, params }) {
+export const get = validateParams(async ({ locals, params }) => {
   const q = knex('entry_with_senses_full as entry')
     .join('source', 'source.id', 'entry.source_id')
     .where('entry.id', Number(params.id))
@@ -30,9 +30,9 @@ export async function get({ locals, params }) {
   } else {
     return { status: 404, body: '' };
   }
-}
+});
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const id = Number(params.id);
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
@@ -71,9 +71,9 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));
 
-export const del = requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const id = Number(params.id);
     const editable = await isEditable(id);
@@ -94,4 +94,4 @@ export const del = requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

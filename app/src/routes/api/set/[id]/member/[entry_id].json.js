@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
-import { getFilteredParams } from '$lib/util';
+import { getFilteredParams, validateParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['reflex']);
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -24,9 +24,9 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));
 
-export const del = requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
       trx('set_member')
@@ -39,4 +39,4 @@ export const del = requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

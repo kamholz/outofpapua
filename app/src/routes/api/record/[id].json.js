@@ -1,6 +1,7 @@
 import { filterPublicSources, knex } from '$lib/db';
+import { validateParams } from '$lib/util';
 
-export async function get({ locals, params }) {
+export const get = validateParams(async ({ locals, params }) => {
   const q = knex('record_with_source as record')
     .join('source', 'source.id', 'record.source_id')
     .where('record.id', Number(params.id))
@@ -18,4 +19,4 @@ export async function get({ locals, params }) {
   } else {
     return { status: 404, body: '' };
   }
-}
+});

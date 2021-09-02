@@ -1,4 +1,16 @@
-// primitives
+// primitives and validation
+
+export function boolean(value) {
+  return value ? 'yes' : 'no';
+}
+
+export function isId(param) {
+  return param.match(/^[1-9][0-9]*$/);
+}
+
+export function isIdArray(param) {
+  return Array.isArray(param) && param.every((v) => typeof v === 'number' && Number.isInteger(v) && v > 0);
+}
 
 export function nullify(txt) {
   return txt === '' ? null : txt;
@@ -8,26 +20,17 @@ export function stringify(txt) {
   return txt ?? '';
 }
 
-export function isNumber(str) {
-  return str.match(/^[0-9]+$/);
-}
-
-export function boolean(value) {
-  return value ? 'yes' : 'no';
-}
-
 // query/object conversion
 
+export function normalizeParam(txt) {
+  return nullify(txt.trim());
+}
 export function normalizeQuery(urlSearchParams) {
   return Object.fromEntries(
     [...urlSearchParams.entries()]
       .map(([key, value]) => [key, normalizeParam(value)])
       .filter(([, value]) => value !== null)
   );
-}
-
-export function normalizeParam(txt) {
-  return nullify(txt.trim());
 }
 
 export function optionalQuery(urlSearchParams) {
@@ -54,6 +57,13 @@ export function serializeQuery(query) {
 
 // param object filtering, parsing, and serialization
 
+export function ensureNfcParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      params[key] = params[key].normalize();
+    }
+  }
+}
 export function getFilteredParams(params, set) {
   if (!params) {
     return {};
@@ -67,32 +77,10 @@ export function getFilteredParams(params, set) {
   return newParams;
 }
 
-export function ensureNfcParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      params[key] = params[key].normalize();
-    }
-  }
-}
-
-export function parseBooleanParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      params[key] = params[key] !== '0';
-    }
-  }
-}
-
-export function parseArrayParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      params[key] = parseArrayParam(params[key]);
-    }
-  }
-}
-
-export function parseArrayParam(param) {
-  return param.split(',');
+export function parseArrayNumParam(param) {
+  return param.split(',')
+    .filter((v) => isId(v))
+    .map((v) => Number(v));
 }
 
 export function parseArrayNumParams(params, iterable) {
@@ -106,24 +94,49 @@ export function parseArrayNumParams(params, iterable) {
   }
 }
 
-export function parseArrayNumParam(param) {
-  return param.split(',')
-    .filter((v) => isNumber(v))
-    .map((v) => Number(v));
+export function parseArrayParam(param) {
+  return param.split(',');
 }
 
-export function stripParams(params, iterable) {
+export function parseArrayParams(params, iterable) {
   for (const key of iterable) {
     if (key in params) {
-      delete params[key];
+      params[key] = parseArrayParam(params[key]);
     }
   }
 }
 
-export function stripEmptyArrayParams(params) {
-  for (const [key, value] of Object.entries(params)) {
-    if (Array.isArray(value) && value.length === 0) {
-      delete params[key];
+export function parseBooleanParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      params[key] = params[key] !== '0';
+    }
+  }
+}
+
+export function partitionPlus(array) {
+  // eslint-disable-next-line arrow-body-style
+  const [single, plus] = array.reduce(([single, plus], v) => {
+    return v.match(/\+$/) ? [single, [...plus, v.replace(/\+$/, '')]] : [[...single, v], plus];
+  }, [[], []]);
+  return [
+    single.filter((v) => isId(v)).map((v) => Number(v)),
+    plus.filter((v) => isId(v)).map((v) => Number(v)),
+  ];
+}
+
+export function serializeArrayParam(param) {
+  return [...param].join(',');
+}
+
+export function serializeArrayParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      if (params[key].length) {
+        params[key] = serializeArrayParam(params[key]);
+      } else {
+        delete params[key];
+      }
     }
   }
 }
@@ -139,43 +152,44 @@ export function splitParams(params, set) {
   return splitParams;
 }
 
-export function serializeArrayParams(params, iterable) {
-  for (const key of iterable) {
-    if (key in params) {
-      if (params[key].length) {
-        params[key] = serializeArrayParam(params[key]);
-      } else {
-        delete params[key];
-      }
+export function stripEmptyArrayParams(params) {
+  for (const [key, value] of Object.entries(params)) {
+    if (Array.isArray(value) && value.length === 0) {
+      delete params[key];
     }
   }
 }
 
-export function serializeArrayParam(param) {
-  return [...param].join(',');
+export function stripParams(params, iterable) {
+  for (const key of iterable) {
+    if (key in params) {
+      delete params[key];
+    }
+  }
 }
 
-export function partitionPlus(array) {
-  // eslint-disable-next-line arrow-body-style
-  const [single, plus] = array.reduce(([single, plus], v) => {
-    return v.match(/\+$/) ? [single, [...plus, v.replace(/\+$/, '')]] : [[...single, v], plus];
-  }, [[], []]);
-  return [
-    single.filter((v) => isNumber(v)).map((v) => Number(v)),
-    plus.filter((v) => isNumber(v)).map((v) => Number(v)),
-  ];
-}
+// authorization and handlers
 
-// authorization
+export function adminNotSelf(loggedInUser, userId) {
+  // eslint-disable-next-line eqeqeq
+  return loggedInUser.admin && loggedInUser.id != userId;
+}
 
 export function adminOrSelf(loggedInUser, userId) {
   // eslint-disable-next-line eqeqeq
   return loggedInUser.admin || loggedInUser.id == userId;
 }
 
-export function adminNotSelf(loggedInUser, userId) {
-  // eslint-disable-next-line eqeqeq
-  return loggedInUser.admin && loggedInUser.id != userId;
+export function validateParams(handler) {
+  return (req) => {
+    for (const [key, value] of Object.entries(req.params)) {
+      if (!isId(value)) {
+        return { status: 404, body: '' };
+      }
+      req.params[key] = Number(value);
+    }
+    return handler(req);
+  };
 }
 
 // gloss formatting and parsing
@@ -200,6 +214,10 @@ export function glossSummaryNoLanguage({ txt }) {
   return `‘${joinGlosses(txt)}’`;
 }
 
+export function joinGlosses(txt) {
+  return txt.join(', ');
+}
+
 export function maybeLanguageName(language_name, preferences) {
   return preferences?.hideGlossLang
     ? ''
@@ -214,10 +232,6 @@ export function parseGlosses(param) {
     .map((v) => v.normalize());
 }
 
-export function joinGlosses(txt) {
-  return txt.join(', ');
-}
-
 // entry formatting
 
 export function originSummary(entry) {
@@ -230,37 +244,6 @@ export function originSummary(entry) {
 
 // misc
 
-export function mungeRegex(txt) {
-  return txt.replace(/^\*/, '\\*');
-}
-
-export function mungePos(pos) {
-  return pos.replace(/\.$/, '');
-}
-
-export function mungeHeadword(txt, proto) {
-  if (proto) {
-    return txt.match(/^\*/) ? txt : '*' + txt;
-  } else {
-    return txt.replace(/^\*/, '');
-  }
-}
-
-export function escapeHtml(txt) {
-  return txt
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-export function isId(param) {
-  return param.match(/^[1-9][0-9]*$/);
-}
-
-export function isIdArray(param) {
-  return Array.isArray(param) && param.every((v) => typeof v === 'number');
-}
-
 export async function checkError(res, message) {
   if (!res.ok) {
     if (res.status === 400) {
@@ -271,8 +254,27 @@ export async function checkError(res, message) {
   }
 }
 
-export function showPublicOnly(locals) {
-  return locals.user === null;
+export function escapeHtml(txt) {
+  return txt
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+export function mungeHeadword(txt, proto) {
+  if (proto) {
+    return txt.match(/^\*/) ? txt : '*' + txt;
+  } else {
+    return txt.replace(/^\*/, '');
+  }
+}
+
+export function mungePos(pos) {
+  return pos.replace(/\.$/, '');
+}
+
+export function mungeRegex(txt) {
+  return txt.replace(/^\*/, '\\*');
 }
 
 export function parseLanguageLocation(language) {
@@ -280,6 +282,10 @@ export function parseLanguageLocation(language) {
   language.location = match
     ? [Number(match[1]), Number(match[2])]
     : null;
+}
+
+export function showPublicOnly(locals) {
+  return locals.user === null;
 }
 
 export function sortFunction(fn) {

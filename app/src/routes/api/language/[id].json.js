@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, showPublicOnly, splitParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, showPublicOnly, splitParams, validateParams } from '$lib/util';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
@@ -7,7 +7,7 @@ import { requireAuth } from '$lib/auth';
 const allowed = new Set(['location', 'name', 'note', 'parent_id', 'prefer_set_name']);
 const proto = new Set(['prefer_set_name']);
 
-export async function get({ locals, params }) {
+export const get = validateParams(async ({ locals, params }) => {
   const q = knex('language')
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
     .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
@@ -42,9 +42,9 @@ export async function get({ locals, params }) {
   } else {
     return { status: 404, body: '' };
   }
-}
+});
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -79,9 +79,9 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));
 
-export const del = requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const id = Number(params.id);
     const ids = await transaction(locals, (trx) =>
@@ -98,4 +98,4 @@ export const del = requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

@@ -1,6 +1,7 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
+  validateParams } from '$lib/util';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'origin', 'page', 'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
@@ -18,7 +19,7 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export async function get({ locals, params, query }) {
+export const get = validateParams(async ({ locals, params, query }) => {
   query = getFilteredParams(normalizeQuery(query), allowed);
   parseBooleanParams(query, boolean);
   ensureNfcParams(query, nfc);
@@ -74,4 +75,4 @@ export async function get({ locals, params, query }) {
       rows: await q,
     },
   };
-}
+});

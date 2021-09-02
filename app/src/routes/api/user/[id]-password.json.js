@@ -1,8 +1,9 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
 import { knex, sendPgError, transaction } from '$lib/db';
+import { validateParams } from '$lib/util';
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const { user } = locals;
   // eslint-disable-next-line eqeqeq
   if (!user.admin && user.id != params.id) { // only admins can modify other user's password
@@ -31,4 +32,4 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

@@ -1,10 +1,10 @@
 import errors from '$lib/errors';
 import { allowed, nfc } from '../_params';
-import { ensureNfcParams, getFilteredParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-export async function get({ locals, params }) {
+export const get = validateParams(async ({ locals, params }) => {
   const q = knex('source')
     .join('language', 'language.id', 'source.language_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
@@ -29,9 +29,9 @@ export async function get({ locals, params }) {
   } else {
     return { status: 404, body: '' };
   }
-}
+});
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -51,4 +51,4 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

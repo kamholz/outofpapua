@@ -1,21 +1,21 @@
 import errors from '$lib/errors';
-import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams } from '$lib/util';
+import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { getUser, requireAuth } from '$lib/auth';
 import { nfc } from './_params';
 import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['username', 'fullname', 'admin']);
 
-export const get = requireAuth(async ({ params }) => {
+export const get = validateParams(requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
   if (user) {
     return { body: user };
   } else {
     return { status: 404, body: '' };
   }
-});
+}));
 
-export const put = requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const { user } = locals;
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
@@ -42,9 +42,9 @@ export const put = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));
 
-export const del = requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   const { user } = locals;
   if (!adminNotSelf(user, params.id)) {
     return { status: 401 };
@@ -61,4 +61,4 @@ export const del = requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
@@ -7,7 +7,7 @@ const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
 
-export const post = requireAuth(async ({ body, locals, params }) => {
+export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -53,4 +53,4 @@ export const post = requireAuth(async ({ body, locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-});
+}));

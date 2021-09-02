@@ -6,14 +6,6 @@ import * as auth from '$lib/auth';
 export async function handle({ request, resolve }) {
   const { headers, locals } = request;
 
-  // if (params) {
-  //   for (const [key, value] of Object.entries(params)) {
-  //     if (!isId(value)) {
-  //       return { status: 400, body: { error: `invalid ${key}` } };
-  //     }
-  //   }
-  // }
-
   const cookies = cookie.parse(headers.cookie || '');
   locals.user = await auth.verifyAccessTokenCookie(cookies);
 
