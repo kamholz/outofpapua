@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed } from '../_params';
-import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
-import { knex, sendPgError, transaction, validateParams } from '$lib/db';
+import { getFilteredParams, isIdArray, showPublicOnly, validateParams } from '$lib/util';
+import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = validateParams(async ({ locals, params }) => {
