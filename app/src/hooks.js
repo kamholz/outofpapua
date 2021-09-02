@@ -18,7 +18,7 @@ export async function handle({ request, resolve }) {
 
   if (locals.user) {
     const row = await knex('usr')
-      .where({ id: locals.user.id })
+      .where('id', locals.user.id)
       .first('preferences');
     if (row && row.preferences) {
       Object.assign(locals.preferences, row.preferences);

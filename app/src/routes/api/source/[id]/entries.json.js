@@ -24,7 +24,7 @@ export const get = validateParams(async ({ locals, params, query }) => {
   parseBooleanParams(query, boolean);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
-  const id = Number(params.id);
+  const { id } = params;
 
   if (showPublicOnly(locals)) {
     const row = await knex('source')

@@ -10,9 +10,8 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
   const { glosses } = insertParams;
   delete insertParams.glosses;
   try {
-    const entryId = Number(params.id);
-    const editable = await isEditable(entryId);
-    if (!editable) {
+    const entryId = params.id;
+    if (!(await isEditable(entryId))) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
     insertParams.entry_id = entryId;

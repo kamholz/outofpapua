@@ -10,7 +10,7 @@ export const get = validateParams(async ({ locals, params }) => {
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .leftJoin('entry', 'entry.source_id', 'source.id')
     .count('entry.id as numentries')
-    .where('source.id', Number(params.id))
+    .where('source.id', params.id)
     .first(
       'source.id',
       'source.reference',
@@ -40,7 +40,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   try {
     const ids = await transaction(locals, (trx) =>
       trx('source')
-      .where('id', Number(params.id))
+      .where('id', params.id)
       .returning('id')
       .update(updateParams)
     );

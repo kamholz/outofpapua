@@ -7,7 +7,7 @@ import { requireAuth } from '$lib/auth';
 export const get = validateParams(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
   const row = await knex(`${publicOnly ? 'set_with_members_public' : 'set_with_members'} as set`)
-    .where('set.id', Number(params.id))
+    .where('set.id', params.id)
     .first(
       'set.id',
       'set.note',
@@ -43,7 +43,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   try {
     const found = await transaction(locals, async (trx) => {
-      const id = Number(params.id);
+      const { id } = params;
       let found = false;
       if (haveUpdateParams) {
         const ids = await trx('set')
@@ -79,7 +79,7 @@ export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
       trx('set')
-      .where('id', Number(params.id))
+      .where('id', params.id)
       .returning('id')
       .del()
     );

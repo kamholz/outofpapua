@@ -12,7 +12,7 @@ export const get = validateParams(async ({ locals, params }) => {
     .leftJoin('language as parent', 'parent.id', 'language.parent_id')
     .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
     .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
-    .where('language.id', Number(params.id))
+    .where('language.id', params.id)
     .first(
       'language.id',
       'language.name',
@@ -51,7 +51,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   ensureNfcParams(updateParams, nfc);
   const protoParams = splitParams(updateParams, proto);
-  const id = Number(params.id);
+  const { id } = params.id;
   let found = false;
   try {
     if (Object.keys(updateParams).length) {
@@ -83,7 +83,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
 
 export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
-    const id = Number(params.id);
+    const { id } = params.id;
     const ids = await transaction(locals, (trx) =>
       trx('language')
       .where('id', id)

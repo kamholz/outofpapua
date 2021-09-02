@@ -17,7 +17,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
   try {
     await transaction(locals, (trx) =>
       trx('set_member')
-      .update({ set_id: Number(params.id) })
+      .update({ set_id: params.id })
       .where('set_id', arrayCmp(updateParams.sets))
     );
     return { body: '' };

@@ -12,16 +12,15 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   if (!Object.keys(updateParams).length && !glosses) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
-  const editable = await isEditable(Number(params.id));
-  if (!editable) {
+  const { id, sense_id } = params;
+  if (!(await isEditable(id))) {
     return { status: 400, body: { error: errors.editableEntry } };
   }
 
-  const sense_id = Number(params.sense_id);
   const rows = await knex('sense')
     .where('id', sense_id)
     .select('entry_id');
-  if (!rows.length || rows[0].entry_id !== Number(params.id)) {
+  if (!rows.length || rows[0].entry_id !== id) {
     return;
   }
 
@@ -50,13 +49,12 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
 
 export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
-    const editable = await isEditable(Number(params.id));
-    if (!editable) {
+    if (!(await isEditable(params.id))) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
     const ids = await transaction(locals, (trx) =>
       trx('sense')
-      .where('id', Number(params.sense_id))
+      .where('id', params.sense_id)
       .returning('id')
       .del()
     );

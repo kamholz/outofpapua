@@ -21,7 +21,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   try {
     const ids = await transaction(locals, (trx) =>
       trx('usr')
-      .where('id', Number(params.id))
+      .where('id', params.id)
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) })
     );

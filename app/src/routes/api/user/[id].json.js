@@ -31,7 +31,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   try {
     const ids = await transaction(locals, (trx) =>
       trx('usr')
-      .where('id', Number(params.id))
+      .where('id', params.id)
       .returning('id')
       .update(updateParams)
     );
@@ -52,7 +52,7 @@ export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const ids = await transaction(locals, (trx) =>
       trx('usr')
-      .where('id', Number(params.id))
+      .where('id', params.id)
       .returning('id')
       .del()
     );

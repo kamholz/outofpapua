@@ -4,7 +4,7 @@ import { validateParams } from '$lib/util';
 export const get = validateParams(async ({ locals, params }) => {
   const q = knex('record_with_source as record')
     .join('source', 'source.id', 'record.source_id')
-    .where('record.id', Number(params.id))
+    .where('record.id', params.id)
     .first(
       'record.id',
       'record.data',

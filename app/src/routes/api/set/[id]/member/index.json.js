@@ -12,7 +12,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
     return { status: 400, body: { error: errors.missing } };
   }
   try {
-    insertParams.set_id = Number(params.id);
+    insertParams.set_id = params.id;
     const ids = await transaction(locals, (trx) =>
       trx('set_member')
       .returning('entry_id')

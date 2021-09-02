@@ -10,7 +10,7 @@ const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 export const get = validateParams(async ({ locals, params }) => {
   const q = knex('entry_with_senses_full as entry')
     .join('source', 'source.id', 'entry.source_id')
-    .where('entry.id', Number(params.id))
+    .where('entry.id', params.id)
     .first(
       'entry.id',
       'entry.headword',
@@ -33,7 +33,7 @@ export const get = validateParams(async ({ locals, params }) => {
 });
 
 export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
-  const id = Number(params.id);
+  const { id } = params;
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
   if (!Object.keys(updateParams).length) {
@@ -75,7 +75,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
 
 export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
-    const id = Number(params.id);
+    const { id } = params;
     const editable = await isEditable(id);
     if (!editable) {
       return { status: 400, body: { error: errors.editableEntry } };

@@ -12,7 +12,7 @@ export const put = requireAuth(async ({ body, locals }) => {
   }
   try {
     await knex('usr')
-      .where({ id: locals.user.id })
+      .where('id', locals.user.id)
       .update({ preferences: knex.raw("coalesce(preferences, '{}'::jsonb) || ?", [body]) });
     return { body: '' };
   } catch (e) {

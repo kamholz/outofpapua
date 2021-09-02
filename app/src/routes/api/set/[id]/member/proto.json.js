@@ -37,7 +37,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
       const [entry_id] = entryIds;
 
       await trx('set_member')
-        .insert({ entry_id, set_id: Number(params.id) });
+        .insert({ entry_id, set_id: params.id });
 
       const senseIds = await trx('sense')
         .returning('id')
