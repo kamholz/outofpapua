@@ -253,6 +253,10 @@ export function escapeHtml(txt) {
     .replace(/>/g, '&gt;');
 }
 
+export function isId(param) {
+  return param.match(/^[1-9][0-9]*$/);
+}
+
 export function isIdArray(param) {
   return Array.isArray(param) && param.every((v) => typeof v === 'number');
 }
