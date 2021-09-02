@@ -44,7 +44,7 @@
   import CompareForm from './_Form.svelte';
   import CompareList from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
-  import { getPreferences, pageLoading } from '$lib/stores';
+  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
@@ -60,7 +60,6 @@
   setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
   setContext('glosslangSuggest', glosslangSuggest);
-  setContext('preferences', getPreferences());
 
   $: multilang = !(query.glosslang?.length === 1);
 

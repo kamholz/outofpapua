@@ -19,7 +19,6 @@
 
 <script>
   import EditSourceForm from './_EditForm.svelte';
-  import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let source;
@@ -29,7 +28,6 @@
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
-  setContext('preferences', getPreferences());
 </script>
 
 <h3>Source: {source.reference}</h3>

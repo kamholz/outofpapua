@@ -3,6 +3,7 @@
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
   import NavBar from '$components/NavBar.svelte';
+  import PageContent from '$components/PageContent.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   // import { fade } from 'svelte/transition';
   import { navigating, session } from '$app/stores';
@@ -50,7 +51,9 @@
   <main>
   <!-- {#key $page.path}
     <div in:fade={{ duration: 200 }}> -->
-    <slot />
+    <PageContent>
+      <slot />
+    </PageContent>
     <!-- </div>
   {/key} -->
   </main>

@@ -32,7 +32,6 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
-  import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
@@ -47,7 +46,6 @@
   if (borrowlangSuggest) {
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
-  setContext('preferences', getPreferences());
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);

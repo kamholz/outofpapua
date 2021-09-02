@@ -31,7 +31,6 @@
 <script>
   import CreateSourceForm from './_CreateForm.svelte';
   import SourcesTable from './_Table.svelte';
-  import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let rows;
@@ -42,7 +41,6 @@
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
-  setContext('preferences', getPreferences());
 
   async function handleRefresh() {
     rows = (await reload(fetch, query))?.rows;

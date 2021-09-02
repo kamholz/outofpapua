@@ -40,7 +40,6 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SetList from './_List.svelte';
-  import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let rows;
@@ -59,7 +58,6 @@
   export let query;
   export let pageCount;
   export let rowCount;
-  setContext('preferences', getPreferences());
 
   async function handleRefresh() {
     const json = await reload(fetch, query);

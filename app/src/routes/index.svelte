@@ -58,8 +58,8 @@
   import SearchForm from './_SearchForm.svelte';
   import SearchTable from './_SearchTable.svelte';
   import SearchTableControls from './_SearchTableControls.svelte';
-  import { getPreferences, pageLoading } from '$lib/stores';
   import { goto } from '$app/navigation';
+  import { pageLoading } from '$lib/stores';
   import { serializeArrayParam } from '$lib/util';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
@@ -79,7 +79,6 @@
   if (borrowlangSuggest) {
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
-  setContext('preferences', getPreferences());
 
   const linkable = editable && query.set !== 'linked';
   const selection = writable(new Set());
