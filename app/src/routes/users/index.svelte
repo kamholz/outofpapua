@@ -20,9 +20,12 @@
 <script>
   import CreateUserForm from './_CreateForm.svelte';
   import UsersTable from './_Table.svelte';
+  import { getPreferences } from '$lib/stores';
   import { session } from '$app/stores';
+  import { setContext } from 'svelte';
 
   export let rows;
+  setContext('preferences', getPreferences());
 
   async function handleRefresh() {
     rows = (await reload(fetch))?.rows;

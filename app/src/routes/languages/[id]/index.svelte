@@ -20,8 +20,8 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import EditLanguageForm from './_EditForm.svelte';
+  import { getPreferences, pageLoading } from '$lib/stores';
   import { goto } from '$app/navigation';
-  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import * as crud from '$actions/crud';
 
@@ -32,6 +32,7 @@
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
+  setContext('preferences', getPreferences());
 
   const del = crud.makeDeleter('language');
   let promise;

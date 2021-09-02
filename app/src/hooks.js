@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import { defaultPreferences } from '$lib/preferences';
+import { knex } from '$lib/db';
 import * as auth from '$lib/auth';
 
 export async function handle({ request, resolve }) {
@@ -21,12 +22,20 @@ export async function handle({ request, resolve }) {
     return auth.redirectToRefresh(request);
   }
 
-  if (cookies.preferences) {
+  locals.preferences = defaultPreferences;
+
+  if (locals.user) {
+    const row = await knex('usr')
+      .where({ id: locals.user.id })
+      .first('preferences');
+    if (row && row.preferences) {
+      Object.assign(locals.preferences, row.preferences);
+    }
+  } else if (cookies.preferences) {
     try {
-      locals.preferences = JSON.parse(cookies.preferences);
+      Object.assign(locals.preferences, JSON.parse(cookies.preferences));
     } catch (e) {}
   }
-  locals.preferences ||= defaultPreferences;
 
   return resolve(request);
 }

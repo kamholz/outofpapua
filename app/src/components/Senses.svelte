@@ -1,10 +1,11 @@
 <script>
+  import { getContext } from 'svelte';
   import { glossSummaryNoLanguage, glossesSummary, mungePos } from '$lib/util';
-  import { preferences } from '$lib/stores';
 
   export let senses;
   export let multilang = true;
   const multisense = senses.length > 1;
+  const preferences = getContext('preferences');
 
   function summary(glosses) {
     return multilang

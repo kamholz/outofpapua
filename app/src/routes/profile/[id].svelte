@@ -23,7 +23,11 @@
 
 <script>
   import ProfilePage from './_Page.svelte';
+  import { getPreferences } from '$lib/stores';
+  import { setContext } from 'svelte';
+
   export let user;
+  setContext('preferences', getPreferences());
 </script>
 
 <ProfilePage {user} admin={true} />

@@ -1,9 +1,11 @@
 <script>
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
-  import { preferences } from '$lib/stores';
+  import { getContext } from 'svelte';
 
   export let query;
+
+  const preferences = getContext('preferences');
 
   const fields = [
     {

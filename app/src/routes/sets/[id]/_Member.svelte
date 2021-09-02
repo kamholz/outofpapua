@@ -11,7 +11,7 @@
   import { faCheckSquare, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
     parseGlosses } from '$lib/util';
-  import { pageLoading, preferences } from '$lib/stores';
+  import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';
@@ -20,6 +20,7 @@
   export let member;
   export let set;
   export let collapsed;
+  const preferences = getContext('preferences');
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const promises = { pending: {}, fulfilled: {} };

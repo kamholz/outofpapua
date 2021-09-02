@@ -1,11 +1,11 @@
 <script>
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
-  import { preferences } from '$lib/stores';
 
   export let rows;
   export let query;
   const editable = getContext('editable');
+  const preferences = getContext('preferences');
 
   const columns = [
     {

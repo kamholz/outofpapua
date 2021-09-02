@@ -1,10 +1,11 @@
 <script>
   import Table from '$components/Table.svelte';
-  import { preferences } from '$lib/stores';
+  import { getContext } from 'svelte';
 
   export let rows;
   export let query;
   export let pageCount;
+  const preferences = getContext('preferences');
 
   const columns = [
     {

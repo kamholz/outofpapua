@@ -39,8 +39,8 @@
   import Member from './_Member.svelte';
   import keydown from '$lib/keydown';
   import { faMapMarked } from '@fortawesome/free-solid-svg-icons';
+  import { getPreferences, pageLoading } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
-  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let set;
@@ -54,6 +54,8 @@
     setContext('langSuggest', langSuggest);
     setContext('sourceSuggest', sourceSuggest);
   }
+  setContext('preferences', getPreferences());
+
   const values = {
     note: set.note,
     name: set.name,

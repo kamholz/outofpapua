@@ -9,7 +9,11 @@
 </script>
 
 <script>
+  import { getPreferences } from '$lib/stores';
+  import { setContext } from 'svelte';
+
   export let record;
+  setContext('preferences', getPreferences());
 </script>
 
 <h2>Entry from {record.source_reference}</h2>

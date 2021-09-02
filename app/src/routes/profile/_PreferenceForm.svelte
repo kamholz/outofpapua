@@ -1,6 +1,8 @@
 <script>
   import Form from '$components/Form.svelte';
-  import { preferences } from '$lib/stores';
+  import { getContext } from 'svelte';
+
+  const preferences = getContext('preferences');
 
   const fields = [
     {

@@ -1,15 +1,15 @@
 <script>
   import Svelecte from '$lib/svelecte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { escapeHtml as escape } from '$lib/util';
-  import { preferences } from '$lib/stores';
   import * as suggest from '$actions/suggest';
 
-  let selection = null;
   export let match;
   export let noset;
   export let languages = null;
+  let selection = null;
+  const preferences = getContext('preferences');
 
   function renderer(item) {
     let output = `<div class="suggest"><div>${escape(item.language_name)} ` +

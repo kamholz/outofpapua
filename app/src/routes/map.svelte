@@ -16,8 +16,11 @@
 
 <script>
   import EntryMap from '$components/EntryMap.svelte';
+  import { getPreferences } from '$lib/stores';
+  import { setContext } from 'svelte';
 
   export let entries;
+  setContext('preferences', getPreferences());
 </script>
 
 <h2>Map from search results</h2>

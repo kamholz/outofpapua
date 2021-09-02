@@ -16,8 +16,12 @@
 
 <script>
   import EntryMap from '$components/EntryMap.svelte';
+  import { getPreferences } from '$lib/stores';
+  import { setContext } from 'svelte';
 
   export let sets;
+  setContext('preferences', getPreferences());
+
   const entries = [];
   for (const set of sets) {
     entries.push(...set.members.map((member) => ({ ...member.entry, language: member.language })));

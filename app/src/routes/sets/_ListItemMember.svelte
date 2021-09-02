@@ -2,12 +2,13 @@
   import EntryInfoPopover from '$components/EntryInfoPopover.svelte';
   import EntryLink from '$components/EntryLink.svelte';
   import Reflex from '$components/Reflex.svelte';
+  import { getContext } from 'svelte';
   import { glossesSummary } from '$lib/util';
-  import { preferences } from '$lib/stores';
 
   export let member;
   let { entry } = member;
   const { language, reflex, source } = member;
+  const preferences = getContext('preferences');
 </script>
 
 <div class={entry.origin}>

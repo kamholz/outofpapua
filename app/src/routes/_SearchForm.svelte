@@ -2,11 +2,11 @@
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
   import { getContext } from 'svelte';
-  import { preferences } from '$lib/stores';
 
   export let query;
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
+  const preferences = getContext('preferences');
 
   const fields = [
     {

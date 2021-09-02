@@ -1,16 +1,17 @@
 <script>
+  import { getContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { pageSizeValues } from '$lib/preferences';
-  import { preferences } from '$lib/stores';
   import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
   export let query;
   export let preferenceKey;
   const values = pageSizeValues[preferenceKey];
+  const preferences = getContext('preferences');
 
   function handleSelect(e) {
     const { value } = e.target;
-    $preferences[preferenceKey] = value;
+    $preferences[preferenceKey] = Number(value);
     const newQuery = serializeQuery({ ...query, page: 1, pagesize: value });
     stripEmptyArrayParams(newQuery);
     goto('?' + new URLSearchParams(newQuery));

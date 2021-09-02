@@ -22,12 +22,14 @@
 <script>
   import CreateLanguageForm from './_CreateForm.svelte';
   import LanguagesTable from './_Table.svelte';
+  import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let rows;
   export let query;
   export let editable;
   setContext('editable', editable);
+  setContext('preferences', getPreferences());
 
   async function handleRefresh() {
     rows = (await reload(fetch, query))?.rows;
