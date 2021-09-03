@@ -40,9 +40,9 @@
 </svelte:head>
 
 {#if $navigating || $pageLoading > 0}
-<div class="loading">
-  <Icon data={faSpinner} pulse />
-</div>
+  <div class="loading">
+    <Icon data={faSpinner} pulse />
+  </div>
 {/if}
 <Login username={$session.user?.username} />
 
