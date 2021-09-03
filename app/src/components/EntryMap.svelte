@@ -13,6 +13,7 @@
   let markerType = 'point-label';
   let includeLanguageOnLabel = false;
   let baseMap = 'esri-gray-canvas';
+  let lineLength = 3;
   let updateLanguage;
   let updateFamily;
 
@@ -85,6 +86,16 @@
         <option value="point-label">Point with label</option>
       </select>
     </label>
+    <label>
+      Line length:
+      <input
+        type="range"
+        min="1"
+        max="5"
+        disabled={markerType !== 'point-label'}
+        bind:value={lineLength}
+      >
+    </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language, selection } }
       <label>
@@ -136,6 +147,7 @@
     {markerType}
     {includeLanguageOnLabel}
     {baseMap}
+    {lineLength}
     bind:updateLanguage
     bind:updateFamily
   />

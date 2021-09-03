@@ -9,6 +9,7 @@
   export let markerType;
   export let includeLanguageOnLabel;
   export let baseMap;
+  export let lineLength;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
 
   let L;
@@ -27,7 +28,7 @@
     }).addTo(map);
   }
 
-  $: updateLabels(markerType, includeLanguageOnLabel);
+  $: updateLabels(markerType, includeLanguageOnLabel, lineLength);
 
   onMount(async () => {
     await loadLeaflet();
@@ -72,6 +73,9 @@
     for (const obj of languages.filter(({ selection }) => selection.language)) {
       removeMarker(obj.marker);
       obj.marker = createMarker(obj);
+    }
+    if (markerType === 'point-label') {
+      L.tooltipLayout.setLineLength(lineLength);
     }
   }
 
