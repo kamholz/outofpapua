@@ -410,6 +410,7 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
+    headword_normalize => \&normalize_kamholz,
   },
   'Kamholz (nd.c)' => {
     lang_target => 'ire',
@@ -740,6 +741,15 @@ sub clear_hyphen {
 
 sub replace_underscore {
   return $_[0] =~ s/_/ /gr;
+}
+
+sub normalize_kamholz {
+  my ($txt) = @_;
+  $txt =~ s/gw/ɡʷ/g;
+  $txt =~ s/ng/ŋ/g;
+  $txt =~ s/j/dʒ/g;
+  $txt =~ tr/'grvy/ʔɡɾβj/;
+  return $txt;
 }
 
 1;

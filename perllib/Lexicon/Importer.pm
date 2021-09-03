@@ -142,12 +142,6 @@ sub jsonify_record {
   return $json->encode([ map { [ $_->[0], ensure_nfc($_->[1]) ] } @$record ]);
 }
 
-sub select_single {
-  my ($db, $query, @values) = @_;
-  my $row = $db->query($query, @values)->array;
-  return $row ? $row->[0] : undef;
-}
-
 sub get_language_id {
   my ($self, $code) = @_;
   state %language_cache;

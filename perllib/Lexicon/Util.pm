@@ -88,4 +88,10 @@ sub marker_with_code {
   return $marker . '_' . ucfirst $code;
 }
 
+sub select_single {
+  my ($db, $query, @values) = @_;
+  my $row = $db->query($query, @values)->array;
+  return $row ? $row->[0] : undef;
+}
+
 1;
