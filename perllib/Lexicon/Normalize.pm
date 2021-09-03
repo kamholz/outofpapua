@@ -33,14 +33,11 @@ sub normalize_lexicon {
       die 'could not find source in database';
     }
 
-    my $count = 0;
-
     $db->query('SELECT id, headword FROM entry WHERE source_id = ?', $source_id)->hashes->each(sub {
       my ($entry) = @_;
       my $txt = $func->($entry->{headword});
       if ($do_update) {
         $db->query('UPDATE entry SET headword_normalized = ? WHERE id = ?', $txt, $entry->{id});
-        say $count if ++$count % 100 == 0; 
       } else {
         say "$entry->{headword} => $txt";
       }
