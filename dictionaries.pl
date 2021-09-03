@@ -419,6 +419,7 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
+    headword_normalize => \&normalize_kamholz,
   },
   'Kamholz (nd.d)' => {
     lang_target => 'gop',
@@ -427,6 +428,7 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
+    headword_normalize => \&normalize_kamholz,
   },
   'Kijne (nd.a)' => {
     lang_target => 'Yawa Turu',
