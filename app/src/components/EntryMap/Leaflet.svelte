@@ -35,7 +35,7 @@
 
     map = L.map('map', {
       closePopupOnClick: false,
-      maxZoom: 11,
+      maxZoom: 13,
       scrollWheelZoom: false,
       zoomDelta: 0.5,
       zoomSnap: 0.5,
