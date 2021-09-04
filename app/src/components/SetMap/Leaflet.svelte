@@ -1,5 +1,6 @@
 <script>
   import 'leaflet/dist/leaflet.css';
+  import 'leaflet.fullscreen/Control.FullScreen.css';
   import baseMaps from '$lib/basemaps.json';
   import { escapeHtml as escape } from '$lib/util';
   import { onDestroy, onMount } from 'svelte';
@@ -34,7 +35,8 @@
     await loadLeaflet();
 
     map = L.map('map', {
-      closePopupOnClick: false,
+      // closePopupOnClick: false,
+      fullscreenControl: true,
       maxZoom: 13,
       scrollWheelZoom: false,
       zoomDelta: 0.5,
@@ -53,6 +55,8 @@
     if (!window.L) {
       await import('leaflet');
       await import('leaflet-tooltip-layout');
+      window.screenfull = await import('screenfull');
+      await import('leaflet.fullscreen');
     }
     ({ L } = window);
   }
