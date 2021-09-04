@@ -12,7 +12,7 @@
 
   let markerType = 'point-label';
   let includeLanguageOnLabel = false;
-  let baseMap = 'esri-gray-canvas';
+  let baseMap = 'cartodb-positron';
   let lineLength = 3;
   let updateLanguage;
   let updateFamily;
@@ -55,7 +55,7 @@
       if (!(language.ancestor_id in families)) {
         families[language.ancestor_id] = {
           id: language.ancestor_id,
-          name: language.ancestor_name,
+          name: language.ancestor_name.replace(/^proto-?/i, ''),
           shape: 'circle',
         };
       }
@@ -68,14 +68,12 @@
   <div class="settings">
     <h3>Settings</h3>
     <label>
-      <input type="checkbox" bind:checked={includeLanguageOnLabel} />&nbsp;Include language name
-    </label>
-    <label>
       Base map:
       <select bind:value={baseMap}>
         <option value="esri-gray-canvas">Gray Canvas</option>
+        <option value="cartodb-positron">Positron</option>
         <option value="esri-shaded-relief">Shaded Relief</option>
-        <option value="esri-topo">Topo</option>
+        <!-- <option value="esri-topo">Topo</option> -->
       </select>
     </label>
     <label>
@@ -95,6 +93,9 @@
         disabled={markerType !== 'point-label'}
         bind:value={lineLength}
       >
+    </label>
+    <label>
+      <input type="checkbox" bind:checked={includeLanguageOnLabel} />&nbsp;Include language name
     </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language, selection } }
