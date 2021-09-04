@@ -15,10 +15,15 @@
 </script>
 
 <script>
-  import EntryMap from '$components/EntryMap.svelte';
+  import SetMap from '$components/SetMap.svelte';
 
   export let entries;
+  const members = entries.map((entry) => ({
+    entry,
+    language: entry.language, 
+    source: entry.source 
+  }));
 </script>
 
 <h2>Map from search results</h2>
-<EntryMap {entries} />
+<SetMap {members} />

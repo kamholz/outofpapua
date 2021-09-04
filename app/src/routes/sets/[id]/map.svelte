@@ -15,11 +15,10 @@
 </script>
 
 <script>
-  import EntryMap from '$components/EntryMap.svelte';
+  import SetMap from '$components/SetMap.svelte';
 
   export let set;
-  const entries = set.members.map((member) => ({ ...member.entry, language: member.language }));
 </script>
 
 <h2>Set map: {set.name_auto.txt}</h2>
-<EntryMap {entries} />
+<SetMap members={set.members} />

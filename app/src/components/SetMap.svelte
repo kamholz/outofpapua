@@ -1,10 +1,10 @@
 <script>
-  import EntryMapLeaflet from '$components/EntryMap/Leaflet.svelte';
+  import SetMapLeaflet from '$components/SetMap/Leaflet.svelte';
   import Svelecte from '$lib/svelecte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
-  export let entries;
-  const languages = getLanguages(entries.filter((entry) => entry.language.location));
+  export let members;
+  const languages = getLanguages(members.filter(({ language }) => language.location));
   const families = getFamilies(languages);
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
@@ -17,27 +17,26 @@
   let updateLanguage;
   let updateFamily;
 
-  function getLanguages(entries) {
-    const entriesByLanguageCode = {};
-    for (const entry of entries) {
-      const { language } = entry;
+  function getLanguages(members) {
+    const membersByLanguageCode = {};
+    for (const { entry, language, reflex } of members) {
       const { id } = language;
-      if (!(id in entriesByLanguageCode)) {
-        entriesByLanguageCode[id] = {
+      if (!(id in membersByLanguageCode)) {
+        membersByLanguageCode[id] = {
           language,
-          entries: [entry],
+          entries: [{ ...entry, reflex }],
           headwords: new Set([entry.headword]),
         };
         if (!Array.isArray(language.location)) {
           parseLanguageLocation(language);
         }
       } else {
-        entriesByLanguageCode[id].entries.push(entry);
-        entriesByLanguageCode[id].headwords.add(entry.headword);
+        membersByLanguageCode[id].entries.push({ ...entry, reflex });
+        membersByLanguageCode[id].headwords.add(entry.headword);
       }
     }
 
-    const languages = Object.values(entriesByLanguageCode);
+    const languages = Object.values(membersByLanguageCode);
     languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
     for (const obj of languages) {
       obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
@@ -142,7 +141,7 @@
     {/each}
 
   </div>
-  <EntryMapLeaflet
+  <SetMapLeaflet
     {languages}
     {families}
     {markerType}
