@@ -20,8 +20,8 @@
   export let entries;
   const members = entries.map((entry) => ({
     entry,
-    language: entry.language, 
-    source: entry.source 
+    language: entry.language,
+    source: entry.source,
   }));
 </script>
 

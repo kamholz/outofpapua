@@ -18,6 +18,7 @@
     "eslint": "^7.22.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "hex-alpha": "^1.3.0",
     "leaflet": "^1.7.1",
     "leaflet-tooltip-layout": "github:kamholz/leaflet-tooltip-layout",
     "leaflet.fullscreen": "github:kamholz/leaflet.fullscreen",
@@ -28,7 +29,8 @@
     "svelte-awesome": "^2.3.1",
     "svelte-persistent-store": "github:kamholz/svelte-persistent-store",
     "svelte-popperjs": "^1.2.6",
-    "svelte-preprocess": "^4.7.4"
+    "svelte-preprocess": "^4.7.4",
+    "yiq": "^4.0.0"
   },
   "dependencies": {
     "ajv": "^8.6.2",

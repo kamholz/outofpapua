@@ -10,10 +10,18 @@
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
     .map((v) => families[v]);
 
-  let markerType = 'point-label';
-  let includeLanguageOnLabel = false;
   let baseMap = 'cartodb-positron';
-  let lineLength = 3;
+  const settings = {
+    markerType: 'point-label',
+    includeLanguageOnLabel: false,
+    lineLength: 3,
+  };
+  const colors = {
+    borrowed: '#dc143c',
+    inherited: '#800080',
+    unknown: '#000000',
+  };
+
   let updateLanguage;
   let updateFamily;
 
@@ -77,7 +85,7 @@
     </label>
     <label>
       Marker:
-      <select bind:value={markerType}>
+      <select bind:value={settings.markerType}>
         <option value="label">Label</option>
         <option value="point">Point</option>
         <option value="point-label">Point with label</option>
@@ -89,12 +97,25 @@
         type="range"
         min="1"
         max="5"
-        disabled={markerType !== 'point-label'}
-        bind:value={lineLength}
+        disabled={settings.markerType !== 'point-label'}
+        bind:value={settings.lineLength}
       >
     </label>
     <label>
-      <input type="checkbox" bind:checked={includeLanguageOnLabel} />&nbsp;Include language name
+      <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
+    </label>
+    <h4>Colors</h4>
+    <label>
+      Borrowed:
+      <input type="color" bind:value={colors.borrowed} />
+    </label>
+    <label>
+      Inherited:
+      <input type="color" bind:value={colors.inherited} />
+    </label>
+    <label>
+      Unknown:
+      <input type="color" bind:value={colors.unknown} />
     </label>
     <h3>Languages</h3>
     {#each languages as { headwords, language, selection } }
@@ -144,16 +165,19 @@
   <SetMapLeaflet
     {languages}
     {families}
-    {markerType}
-    {includeLanguageOnLabel}
     {baseMap}
-    {lineLength}
+    {settings}
+    {colors}
     bind:updateLanguage
     bind:updateFamily
   />
 </div>
 
 <style lang="scss">
+  h4 {
+    margin-block: 0.75em;
+  }
+
   .map {
     display: flex;
 

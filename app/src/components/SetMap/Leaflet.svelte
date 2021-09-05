@@ -1,16 +1,17 @@
 <script>
-  import 'leaflet/dist/leaflet.css';
   import 'leaflet.fullscreen/Control.FullScreen.css';
+  import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
+  import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape } from '$lib/util';
   import { onDestroy, onMount } from 'svelte';
+  import { yiq } from 'yiq';
 
   export let languages;
   export let families;
-  export let markerType;
-  export let includeLanguageOnLabel;
   export let baseMap;
-  export let lineLength;
+  export let settings;
+  export let colors;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
 
   let L;
@@ -30,7 +31,9 @@
     }).addTo(map);
   }
 
-  $: updateLabels(markerType, includeLanguageOnLabel, lineLength);
+  $: updateLabels(settings);
+
+  $: cssVars = getCssVars(colors);
 
   onMount(async () => {
     L = await import('leaflet');
@@ -59,7 +62,7 @@
 
   function initializeMap() {
     initializeMarkers();
-    if (markerType === 'point-label') {
+    if (settings.markerType === 'point-label') {
       tooltipLayout.initialize(map, (ply) => {
         ply.setStyle({
           color: '#999',
@@ -74,8 +77,8 @@
       removeMarker(obj.marker);
       obj.marker = createMarker(obj);
     }
-    if (markerType === 'point-label') {
-      tooltipLayout.setLineLength(lineLength);
+    if (settings.markerType === 'point-label') {
+      tooltipLayout.setLineLength(settings.lineLength);
     }
   }
 
@@ -83,7 +86,7 @@
     const marker = L.marker(obj.language.location, {
       icon: getIcon(obj),
     }).addTo(map);
-    if (markerType === 'point-label') {
+    if (settings.markerType === 'point-label') {
       marker.bindTooltip(getSummaryHtml(obj), {
         className: `marker ${obj.originClass}`,
       });
@@ -107,7 +110,7 @@
     } else {
       obj.marker = null;
     }
-    if (!skipRedraw && markerType === 'point-label') {
+    if (!skipRedraw && settings.markerType === 'point-label') {
       tooltipLayout.redrawLines();
     }
   }
@@ -118,7 +121,7 @@
         updateLanguage(language.id, true);
       }
     }
-    if (markerType === 'point-label') {
+    if (settings.markerType === 'point-label') {
       tooltipLayout.redrawLines();
     }
   }
@@ -146,9 +149,9 @@
 
   function getIcon(obj) {
     const { language, originClass } = obj;
-    if (markerType === 'label') {
+    if (settings.markerType === 'label') {
       return L.divIcon({
-        html: getSummaryHtml(obj, includeLanguageOnLabel),
+        html: getSummaryHtml(obj),
         className: `marker ${originClass}`,
         iconSize: null,
       });
@@ -165,7 +168,7 @@
     const html = headwords
       .filter((headword) => selection.headwords[headword])
       .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
-    return includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
+    return settings.includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
   }
 
   function getOriginClass(entries) {
@@ -178,16 +181,29 @@
     }
     return 'unknown';
   }
+
+  function getCssVars(colors) {
+    const vars = [];
+    for (const [key, value] of Object.entries(colors)) {
+      const withAlpha = hexAlpha(value, 0.75);
+      vars.push(`--${key}:${withAlpha}`);
+      if (value === '#000000') {
+        vars.push(`--${key}-marker:#ffffff`);
+        vars.push(`--${key}-text:#000000`);
+      } else {
+        vars.push(`--${key}-marker:${withAlpha}`);
+        vars.push(`--${key}-text:${yiq(value)}`);
+      }
+    }
+    return vars.join(';');
+  }
 </script>
 
-<div id="map"></div>
+<div style={cssVars}>
+  <div id="map"></div>
+</div>
 
 <style lang="scss">
-  $borrowed: rgba(220, 20, 60, 0.75);
-  $inherited: rgba(128, 0, 128, 0.75);
-  $unknown_black: rgba(0, 0, 0, 0.75);
-  $unknown_white: rgba(255, 255, 255, 0.75);
-
   div {
     width: 100%;
     height: 600px;
@@ -214,25 +230,27 @@
       }
 
       .marker.borrowed {
-        background-color: $borrowed;
+        color: var(--borrowed-text);
+        background-color: var(--borrowed-marker);
       }
       .svg.borrowed {
-        color: $borrowed;
+        color: var(--borrowed);
       }
 
       .marker.inherited {
-        background-color: $inherited;
+        color: var(--inherited-text);
+        background-color: var(--inherited-marker);
       }
       .svg.inherited {
-        color: $inherited;
+        color: var(--inherited);
       }
 
       .marker.unknown {
-        color: black;
-        background-color: $unknown_white;
+        color: var(--unknown-text);
+        background-color: var(--unknown-marker);
       }
       .svg.unknown {
-        color: $unknown_black;
+        color: var(--unknown);
       }
 
       .leaflet-tooltip-top:before,
