@@ -55,7 +55,6 @@
     if (!window.L) {
       await import('leaflet');
       await import('leaflet-tooltip-layout');
-      window.screenfull = await import('screenfull');
       await import('leaflet.fullscreen');
     }
     ({ L } = window);

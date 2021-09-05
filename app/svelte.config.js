@@ -22,6 +22,9 @@ const config = {
     target: '#svelte',
 
     vite: {
+      optimizeDeps: {
+        exclude: ['leaflet.fullscreen']
+      },
       resolve: {
         alias: {
           $actions: path.resolve('./src/actions'),
