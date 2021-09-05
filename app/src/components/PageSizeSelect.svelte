@@ -11,7 +11,7 @@
 
   function handleSelect(e) {
     const { value } = e.target;
-    $preferences[preferenceKey] = Number(value);
+    preferences.update({ [preferenceKey]: Number(value) });
     const newQuery = serializeQuery({ ...query, page: 1, pagesize: value });
     stripEmptyArrayParams(newQuery);
     goto('?' + new URLSearchParams(newQuery));

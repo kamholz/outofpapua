@@ -1,28 +1,35 @@
 import { browser } from '$app/env';
 import { cookieStorage, persist } from 'svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
-import { writable } from 'svelte/store';
+import { readable, writable } from 'svelte/store';
 
 export const pageLoading = writable(0);
 
 export function getPreferences(session) {
   if (session.user) {
     const preferences = writable(session.preferences);
-    let updating = false;
-    preferences.subscribe(($preferences) => {
-      if (updating) {
+    return {
+      subscribe: preferences.subscribe,
+      set: ($preferences) => {
+        preferences.set($preferences);
         syncPreferences($preferences);
-      } else {
-        updating = true;
-      }
-    });
-    return preferences;
+      },
+      update: (toUpdate) => {
+        preferences.update(($preferences) => ({ ...$preferences, ...toUpdate }));
+        syncPreferences(toUpdate);
+      },
+    };
   } else if (browser) {
     const preferences = persist(writable(defaultPreferences), cookieStorage(), 'preferences');
-    preferences.update((v) => ({ ...defaultPreferences, ...v }));
-    return preferences;
+    preferences.update(($preferences) => ({ ...defaultPreferences, ...$preferences }));
+    return {
+      subscribe: preferences.subscribe,
+      set: preferences.set,
+      update: (toUpdate) => preferences.update(($preferences) => ({ ...$preferences, ...toUpdate })),
+      delete: preferences.delete,
+    };
   } else {
-    return writable({ ...defaultPreferences, ...session.preferences });
+    return readable({ ...defaultPreferences, ...session.preferences });
   }
 }
 

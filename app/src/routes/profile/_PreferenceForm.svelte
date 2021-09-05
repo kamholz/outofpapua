@@ -13,7 +13,7 @@
   ];
 
   function handleChange(e) {
-    $preferences[e.target.name] = e.target.checked;
+    preferences.update({ [e.target.name]: e.target.checked });
   }
 </script>
 
