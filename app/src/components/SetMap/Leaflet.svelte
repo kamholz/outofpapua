@@ -14,6 +14,7 @@
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
 
   let L;
+  let tooltipLayout;
   let map;
   let layer;
 
@@ -52,18 +53,19 @@
   });
 
   async function loadLeaflet() {
-    if (!window.L) {
-      await import('leaflet');
-      await import('leaflet-tooltip-layout');
+    if (!L) {
+      L = await import('leaflet');
+      tooltipLayout = await import('leaflet-tooltip-layout');
       await import('leaflet.fullscreen');
+    } else {
+      console.log('already loaded');
     }
-    ({ L } = window);
   }
 
   function initializeMap() {
     initializeMarkers();
     if (markerType === 'point-label') {
-      L.tooltipLayout.initialize(map, (ply) => {
+      tooltipLayout.initialize(map, (ply) => {
         ply.setStyle({
           color: '#999',
           weight: 2,
@@ -78,7 +80,7 @@
       obj.marker = createMarker(obj);
     }
     if (markerType === 'point-label') {
-      L.tooltipLayout.setLineLength(lineLength);
+      tooltipLayout.setLineLength(lineLength);
     }
   }
 
@@ -90,7 +92,7 @@
       marker.bindTooltip(getSummaryHtml(obj), {
         className: `marker ${obj.originClass}`,
       });
-      L.tooltipLayout.resetMarker(marker);
+      tooltipLayout.resetMarker(marker);
     }
     return marker;
   }
@@ -98,7 +100,7 @@
   function removeMarker(marker) {
     if (marker) {
       marker.remove();
-      L.tooltipLayout.deleteMarker(marker);
+      tooltipLayout.deleteMarker(marker);
     }
   }
 
@@ -111,7 +113,7 @@
       obj.marker = null;
     }
     if (!skipRedraw && markerType === 'point-label') {
-      L.tooltipLayout.redrawLines();
+      tooltipLayout.redrawLines();
     }
   }
 
@@ -122,14 +124,14 @@
       }
     }
     if (markerType === 'point-label') {
-      L.tooltipLayout.redrawLines();
+      tooltipLayout.redrawLines();
     }
   }
 
   function updateLabels() {
     if (map) {
       initializeMarkers();
-      L.tooltipLayout.redrawLines();
+      tooltipLayout.redrawLines();
     }
   }
 
