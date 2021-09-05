@@ -49,7 +49,10 @@
   });
 
   onDestroy(() => {
-    map?.remove();
+    if (map) {
+      map.remove();
+      tooltipLayout.setMarkers([]);
+    }
   });
 
   async function loadLeaflet() {
