@@ -1,20 +1,21 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, mungeHeadword, validateParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeHeadword, showPublicOnly, validateParams } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { isEditable, nfc } from '../_params';
 import { requireAuth } from '$lib/auth';
 
-const allowedAll = new Set(['headword_normalized', 'note', 'origin', 'origin_language_id', 'root']);
+const allowedAll = new Set(['headword_ipa', 'note', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
 export const get = validateParams(async ({ locals, params }) => {
-  const q = knex('entry_with_senses_full as entry')
+  const publicOnly = showPublicOnly(locals);
+  const q = knex(`${publicOnly ? 'entry_with_senses_full_public' : 'entry_with_senses_full'} as entry`)
     .join('source', 'source.id', 'entry.source_id')
     .where('entry.id', params.id)
     .first(
       'entry.id',
       'entry.headword',
-      'entry.headword_normalized',
+      'entry.headword_ipa',
       'entry.root',
       'entry.note',
       'entry.origin',

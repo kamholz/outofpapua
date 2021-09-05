@@ -128,7 +128,7 @@ export async function get({ locals, query }) {
   };
 }
 
-const allowedCreate = new Set(['headword', 'headword_normalized', 'note', 'origin', 'origin_language_id',
+const allowedCreate = new Set(['headword', 'headword_ipa', 'note', 'origin', 'origin_language_id',
   'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 

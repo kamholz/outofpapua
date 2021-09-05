@@ -23,7 +23,7 @@ export async function get({ locals, query }) {
     .select(
       'entry.id',
       'entry.headword',
-      'entry.headword_normalized',
+      'entry.headword_ipa',
       'entry.root',
       'entry.note',
       'entry.origin',

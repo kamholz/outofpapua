@@ -1,6 +1,6 @@
 import { knex } from '$lib/db';
 
-export const nfc = new Set(['gloss', 'headword', 'headword_normalized', 'root']);
+export const nfc = new Set(['gloss', 'headword', 'headword_ipa', 'root']);
 
 export async function isEditable(id) {
   return Boolean(await knex('entry')
