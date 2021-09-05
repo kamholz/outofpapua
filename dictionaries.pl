@@ -48,6 +48,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987c)' => {
@@ -65,6 +66,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987d)' => {
@@ -82,6 +84,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987e)' => {
@@ -99,6 +102,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987f)' => {
@@ -116,6 +120,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987g)' => {
@@ -133,6 +138,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987h)' => {
@@ -150,6 +156,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987i)' => {
@@ -167,6 +174,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987j)' => {
@@ -184,6 +192,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Blust & Trussel (ongoing a)' => {
