@@ -30,6 +30,7 @@ our $dict = {
       [0, 'page_num'],
     ],
     split => '/',
+    split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1987b)' => {
