@@ -4,6 +4,7 @@
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
   export let members;
+  export let sets = null;
   const languages = getLanguages(members.filter(({ language }) => language.location));
   const families = getFamilies(languages);
   const familiesSorted = Object.keys(families)
@@ -16,30 +17,38 @@
     includeLanguageOnLabel: false,
     lineLength: 3,
   };
+  let colorBy = 'origin';
   const colors = {
-    borrowed: '#dc143c',
-    inherited: '#800080',
-    unknown: '#000000',
+    origin: {
+      borrowed: '#dc143c',
+      inherited: '#800080',
+      unknown: '#000000',
+    },
   };
+
+  if (sets) {
+    sets.sort(sortFunction((v) => v.name_auto.txt.toLowerCase()));
+    colors.set = Object.fromEntries(sets.map((set) => [set.id, '#000000']));
+  }
 
   let updateLanguage;
   let updateFamily;
 
   function getLanguages(members) {
     const membersByLanguageCode = {};
-    for (const { entry, language, reflex } of members) {
+    for (const { entry, language, reflex, set_id } of members) {
       const { id } = language;
       if (!(id in membersByLanguageCode)) {
         membersByLanguageCode[id] = {
           language,
-          entries: [{ ...entry, reflex }],
+          entries: [{ ...entry, reflex, set_id }],
           headwords: new Set([entry.headword]),
         };
         if (!Array.isArray(language.location)) {
           parseLanguageLocation(language);
         }
       } else {
-        membersByLanguageCode[id].entries.push({ ...entry, reflex });
+        membersByLanguageCode[id].entries.push({ ...entry, reflex, set_id });
         membersByLanguageCode[id].headwords.add(entry.headword);
       }
     }
@@ -105,18 +114,68 @@
       <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
     </label>
     <h3>Colors</h3>
-    <label class="color">
-      Borrowed:
-      <input type="color" bind:value={colors.borrowed} />
-    </label>
-    <label class="color">
-      Inherited:
-      <input type="color" bind:value={colors.inherited} />
-    </label>
-    <label class="color">
-      Unknown:
-      <input type="color" bind:value={colors.unknown} />
-    </label>
+    {#if sets}
+      <span class="radios">
+        <label>
+          <input
+            type="radio"
+            name="color_by"
+            value="origin"
+            checked={colorBy === 'origin'}
+            bind:group={colorBy}
+          >
+          By origin
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="color_by"
+            value="set"
+            checked={colorBy === 'set'}
+            bind:group={colorBy}
+          >
+          By set
+        </label>
+      </span>
+    {/if}
+    {#if colorBy === 'origin'}
+      <label class="color">
+        Borrowed:
+        <input type="color" bind:value={colors.origin.borrowed} />
+      </label>
+      <label class="color">
+        Inherited:
+        <input type="color" bind:value={colors.origin.inherited} />
+      </label>
+      <label class="color">
+        Unknown:
+        <input type="color" bind:value={colors.origin.unknown} />
+      </label>
+    {:else}
+      {#each sets as set}
+        <label class="color">
+          {set.name_auto.txt}:
+          <input type="color" bind:value={colors.set[set.id]} />
+        </label>
+      {/each}
+    {/if}
+
+    <h3>Families</h3>
+    {#each familiesSorted as family }
+      <span class="family">
+        {family.name}:
+        <Svelecte
+          options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
+          valueField="value"
+          labelField="value"
+          searchable={false}
+          renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
+          bind:value={family.shape}
+          on:change={updateFamily(family.id)}
+        />
+      </span>
+    {/each}
+
     <h3>Languages</h3>
     {#each languages as { headwords, language, selection } }
       <label>
@@ -145,21 +204,6 @@
         {/each}
       {/if}
     {/each}
-    <h3>Families</h3>
-    {#each familiesSorted as family }
-      <span class="family">
-        {family.name}:
-        <Svelecte
-          options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
-          valueField="value"
-          labelField="value"
-          searchable={false}
-          renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
-          bind:value={family.shape}
-          on:change={updateFamily(family.id)}
-        />
-      </span>
-    {/each}
 
   </div>
   <SetMapLeaflet
@@ -167,6 +211,7 @@
     {families}
     {baseMap}
     {settings}
+    {colorBy}
     {colors}
     bind:updateLanguage
     bind:updateFamily
@@ -194,6 +239,19 @@
           display: flex;
           justify-content: space-between;
           inline-size: 8.5em;
+        }
+      }
+
+      input[type="color"] {
+        flex-shrink: 0;
+      }
+
+      .radios {
+        display: flex;
+        align-items: center;
+        margin-block-end: 16px;
+        > label {
+          margin-inline-end: 8px;
         }
       }
 

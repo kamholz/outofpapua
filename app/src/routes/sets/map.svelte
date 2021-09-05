@@ -18,11 +18,8 @@
   import SetMap from '$components/SetMap.svelte';
 
   export let sets;
-  const members = [];
-  for (const set of sets) {
-    members.push(...set.members);
-  }
+  const members = [].concat(...sets.map((set) => set.members.map((member) => ({ ...member, set_id: set.id }))));
 </script>
 
 <h2>Map from search results</h2>
-<SetMap {members} />
+<SetMap {members} {sets} />

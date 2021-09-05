@@ -11,6 +11,7 @@
   export let families;
   export let baseMap;
   export let settings;
+  export let colorBy;
   export let colors;
   const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
 
@@ -31,9 +32,8 @@
     }).addTo(map);
   }
 
-  $: updateLabels(settings);
-
-  $: cssVars = getCssVars(colors);
+  $: updateMarkers(settings, colorBy);
+  $: cssVars = getCssVars(colors, colorBy);
 
   onMount(async () => {
     L = await import('leaflet');
@@ -82,15 +82,35 @@
     }
   }
 
+  function updateMarkers() {
+    if (map) {
+      initializeMarkers();
+      tooltipLayout.redrawLines();
+    }
+  }
+
   function createMarker(obj) {
+    setColorVar(obj);
     const marker = L.marker(obj.language.location, {
       icon: getIcon(obj),
     }).addTo(map);
+
+    const markerDom = marker._icon;
+    if (settings.markerType === 'label') { // div
+      markerDom.style.color = `var(--${obj.colorVar}-text)`;
+      markerDom.style.backgroundColor = `var(--${obj.colorVar}-marker)`;
+    } else { // svg
+      markerDom.style.color = `var(--${obj.colorVar})`;
+    }
+
     if (settings.markerType === 'point-label') {
       marker.bindTooltip(getSummaryHtml(obj), {
-        className: `marker ${obj.originClass}`,
+        className: 'marker',
       });
       tooltipLayout.resetMarker(marker);
+      const labelDom = marker.getTooltip()._container;
+      labelDom.style.color = `var(--${obj.colorVar}-text)`;
+      labelDom.style.backgroundColor = `var(--${obj.colorVar}-marker)`;
     }
     return marker;
   }
@@ -126,13 +146,6 @@
     }
   }
 
-  function updateLabels() {
-    if (map) {
-      initializeMarkers();
-      tooltipLayout.redrawLines();
-    }
-  }
-
   function getBounds(languages) {
     const locations = languages.map(({ language }) => language.location);
     return [
@@ -148,16 +161,16 @@
   }
 
   function getIcon(obj) {
-    const { language, originClass } = obj;
+    const { language } = obj;
     if (settings.markerType === 'label') {
       return L.divIcon({
         html: getSummaryHtml(obj),
-        className: `marker ${originClass}`,
+        className: 'marker',
         iconSize: null,
       });
     } else {
       return L.divIcon({
-        html: `<svg class="svg ${originClass}" viewBox="0 0 16 16"><use href="/icons.svg#${families[language.ancestor_id].shape}" /></svg>`,
+        html: `<svg viewBox="0 0 16 16"><use href="/icons.svg#${families[language.ancestor_id].shape}" /></svg>`,
         iconSize: null,
       });
     }
@@ -169,6 +182,12 @@
       .filter((headword) => selection.headwords[headword])
       .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
     return settings.includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
+  }
+
+  function setColorVar(obj) {
+    obj.colorVar = colorBy === 'origin'
+      ? obj.originClass
+      : `set-${obj.entries[0].set_id}`;
   }
 
   function getOriginClass(entries) {
@@ -183,19 +202,24 @@
   }
 
   function getCssVars(colors) {
-    const vars = [];
-    for (const [key, value] of Object.entries(colors)) {
-      const withAlpha = hexAlpha(value, 0.75);
-      vars.push(`--${key}:${withAlpha}`);
-      if (value === '#000000') {
-        vars.push(`--${key}-marker:#ffffff`);
-        vars.push(`--${key}-text:#000000`);
-      } else {
-        vars.push(`--${key}-marker:${withAlpha}`);
-        vars.push(`--${key}-text:${yiq(value)}`);
-      }
-    }
+    const vars = colorBy === 'origin'
+      ? [].concat(...Object.entries(colors.origin).map(([key, value]) => getCssVarsForColor(key, value)))
+      : [].concat(...Object.entries(colors.set).map(([key, value]) => getCssVarsForColor(`set-${key}`, value)));
     return vars.join(';');
+  }
+
+  function getCssVarsForColor(name, color) {
+    const vars = [];
+    const withAlpha = hexAlpha(color, 0.75);
+    vars.push(`--${name}:${withAlpha}`);
+    if (color === '#000000') {
+      vars.push(`--${name}-marker:#ffffff`);
+      vars.push(`--${name}-text:#000000`);
+    } else {
+      vars.push(`--${name}-marker:${withAlpha}`);
+      vars.push(`--${name}-text:${yiq(color)}`);
+    }
+    return vars;
   }
 </script>
 
@@ -213,44 +237,19 @@
         padding: 6px;
         width: max-content;
         max-width: 12em;
-        color: white;
         line-height: 1.25;
         border: transparent;
         border-radius: 6px;
         white-space: unset;
       }
 
-      .svg {
+      .leaflet-marker-icon > svg {
         width: 12px;
         height: 12px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-      }
-
-      .marker.borrowed {
-        color: var(--borrowed-text);
-        background-color: var(--borrowed-marker);
-      }
-      .svg.borrowed {
-        color: var(--borrowed);
-      }
-
-      .marker.inherited {
-        color: var(--inherited-text);
-        background-color: var(--inherited-marker);
-      }
-      .svg.inherited {
-        color: var(--inherited);
-      }
-
-      .marker.unknown {
-        color: var(--unknown-text);
-        background-color: var(--unknown-marker);
-      }
-      .svg.unknown {
-        color: var(--unknown);
       }
 
       .leaflet-tooltip-top:before,
