@@ -33,7 +33,9 @@
   $: updateLabels(markerType, includeLanguageOnLabel, lineLength);
 
   onMount(async () => {
-    await loadLeaflet();
+    L = await import('leaflet');
+    tooltipLayout = await import('leaflet-tooltip-layout');
+    await import('leaflet.fullscreen');
 
     map = L.map('map', {
       // closePopupOnClick: false,
@@ -54,16 +56,6 @@
       tooltipLayout.setMarkers([]);
     }
   });
-
-  async function loadLeaflet() {
-    if (!L) {
-      L = await import('leaflet');
-      tooltipLayout = await import('leaflet-tooltip-layout');
-      await import('leaflet.fullscreen');
-    } else {
-      console.log('already loaded');
-    }
-  }
 
   function initializeMap() {
     initializeMarkers();
