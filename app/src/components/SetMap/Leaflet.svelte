@@ -206,7 +206,7 @@
 <style lang="scss">
   div {
     width: 100%;
-    height: 600px;
+    height: 82vh;
 
     :global {
       .marker {

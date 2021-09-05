@@ -104,16 +104,16 @@
     <label>
       <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
     </label>
-    <h4>Colors</h4>
-    <label>
+    <h3>Colors</h3>
+    <label class="color">
       Borrowed:
       <input type="color" bind:value={colors.borrowed} />
     </label>
-    <label>
+    <label class="color">
       Inherited:
       <input type="color" bind:value={colors.inherited} />
     </label>
-    <label>
+    <label class="color">
       Unknown:
       <input type="color" bind:value={colors.unknown} />
     </label>
@@ -147,7 +147,7 @@
     {/each}
     <h3>Families</h3>
     {#each familiesSorted as family }
-      <span>
+      <span class="family">
         {family.name}:
         <Svelecte
           options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
@@ -174,17 +174,13 @@
 </div>
 
 <style lang="scss">
-  h4 {
-    margin-block: 0.75em;
-  }
-
   .map {
     display: flex;
 
     .settings {
       display: flex;
       flex-direction: column;
-      inline-size: 14em;
+      inline-size: 16em;
       margin-inline-end: 20px;
 
       > label {
@@ -193,10 +189,27 @@
         &.headword {
           margin-inline-start: 20px;
         }
+
+        &.color {
+          display: flex;
+          justify-content: space-between;
+          inline-size: 8.5em;
+        }
+      }
+
+      .family {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-block-end: 10px;
       }
     }
 
     :global {
+      .svelecte {
+        flex: unset;
+      }
+
       .sv-control {
         inline-size: 70px;
         .sv-item-content {

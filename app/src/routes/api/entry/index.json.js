@@ -25,6 +25,7 @@ const sortCols = {
   language: 'language.name',
   source: 'source.reference',
   headword: 'lower(entry.headword)',
+  headword_ipa: 'entry.headword_ipa',
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
@@ -99,6 +100,7 @@ export async function get({ locals, query }) {
   q.select(
     'entry.id',
     'entry.headword',
+    'entry.headword_ipa',
     'entry.origin',
     'entry.origin_language_id',
     'origin_language.name as origin_language_name',

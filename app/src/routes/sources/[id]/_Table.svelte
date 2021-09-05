@@ -22,6 +22,10 @@
       editable: true,
     },
     {
+      key: 'headword_ipa',
+      title: 'IPA',
+    },
+    {
       key: 'senses',
       title: 'Glosses',
       type: 'senses',

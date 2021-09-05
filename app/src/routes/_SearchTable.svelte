@@ -26,6 +26,10 @@
       class: (row) => row.origin,
     },
     {
+      key: 'headword_ipa',
+      title: 'IPA',
+    },
+    {
       key: 'senses',
       title: 'Glosses',
       type: 'senses',
