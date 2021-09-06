@@ -271,6 +271,7 @@
         &.color {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           inline-size: 8.5em;
         }
       }
