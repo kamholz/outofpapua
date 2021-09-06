@@ -5,8 +5,8 @@
 
   export let members;
   export let sets = null;
-  const languages = getLanguages(members.filter(({ language }) => language.location));
-  const families = getFamilies(languages);
+  const languageMarkers = getLanguageMarkers(members.filter(({ language }) => language.location));
+  const families = getFamilies(languageMarkers);
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
     .map((v) => families[v]);
@@ -34,40 +34,55 @@
   let updateLanguage;
   let updateFamily;
 
-  function getLanguages(members) {
-    const membersByLanguageCode = {};
+  function getLanguageMarkers(members) {
+    const markersByLanguageCode = {};
     for (const { entry, language, reflex, set_id } of members) {
       const { id } = language;
-      if (!(id in membersByLanguageCode)) {
-        membersByLanguageCode[id] = {
-          language,
-          entries: [{ ...entry, reflex, set_id }],
-          headwords: new Set([entry.headword]),
-        };
+      const key = sets ? set_id : 'all';
+      if (!(id in markersByLanguageCode)) {
         if (!Array.isArray(language.location)) {
           parseLanguageLocation(language);
         }
-      } else {
-        membersByLanguageCode[id].entries.push({ ...entry, reflex, set_id });
-        membersByLanguageCode[id].headwords.add(entry.headword);
+        markersByLanguageCode[id] = {
+          language,
+          markers: {
+            [key]: {
+              entries: [],
+              headwords: new Set(),
+            },
+          },
+        };
+      } else if (!(key in markersByLanguageCode[id].markers)) {
+        markersByLanguageCode[id].markers[key] = {
+          entries: [],
+          headwords: new Set(),
+        };
       }
+
+      markersByLanguageCode[id].markers[key].entries.push({ ...entry, reflex, set_id });
+      markersByLanguageCode[id].markers[key].headwords.add(entry.headword);
     }
 
-    const languages = Object.values(membersByLanguageCode);
-    languages.sort(sortFunction(({ language }) => language.name.toLowerCase()));
-    for (const obj of languages) {
-      obj.headwords = [...obj.headwords].sort(sortFunction((v) => v.toLowerCase()));
-      obj.selection = {
+    const languageMarkers = Object.values(markersByLanguageCode);
+    languageMarkers.sort(sortFunction(({ language }) => language.name.toLowerCase()));
+    for (const lm of languageMarkers) {
+      lm.markers = Object.values(lm.markers);
+      for (const marker of lm.markers) {
+        marker.headwords = [...marker.headwords].sort(sortFunction((v) => v.toLowerCase()));
+      }
+      lm.headwords = [...new Set([].concat(...lm.markers.map((v) => v.headwords)))]
+        .sort(sortFunction((v) => v.toLowerCase()));
+      lm.selection = {
         language: true,
-        headwords: Object.fromEntries(obj.headwords.map((headword) => [headword, true])),
+        headwords: Object.fromEntries(lm.headwords.map((headword) => [headword, true])),
       };
     }
-    return languages;
+    return languageMarkers;
   }
 
-  function getFamilies(languages) {
+  function getFamilies(languageMarkers) {
     const families = {};
-    for (const { language } of languages) {
+    for (const { language } of languageMarkers) {
       if (!(language.ancestor_id in families)) {
         families[language.ancestor_id] = {
           id: language.ancestor_id,
@@ -177,7 +192,7 @@
     {/each}
 
     <h3>Languages</h3>
-    {#each languages as { headwords, language, selection } }
+    {#each languageMarkers as { headwords, language, selection } }
       <label>
         <input
           type="checkbox"
@@ -207,7 +222,7 @@
 
   </div>
   <SetMapLeaflet
-    {languages}
+    {languageMarkers}
     {families}
     {baseMap}
     {settings}

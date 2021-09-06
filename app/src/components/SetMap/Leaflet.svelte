@@ -7,22 +7,24 @@
   import { onDestroy, onMount } from 'svelte';
   import { yiq } from 'yiq';
 
-  export let languages;
+  export let languageMarkers;
   export let families;
   export let baseMap;
   export let settings;
   export let colorBy;
   export let colors;
-  const languagesById = Object.fromEntries(languages.map((obj) => [obj.language.id, obj]));
+
+  const languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
+  for (const { markers } of languageMarkers) {
+    for (const marker of markers) {
+      marker.originClass = getOriginClass(marker.entries);
+    }
+  }
 
   let L;
   let tooltipLayout;
   let map;
   let layer;
-
-  for (const obj of languages) {
-    obj.originClass = getOriginClass(obj.entries);
-  }
 
   $: if (map && baseMap) {
     layer?.remove();
@@ -48,7 +50,7 @@
       zoomDelta: 0.5,
       zoomSnap: 0.5,
     })
-    .fitBounds(getBounds(languages));
+    .fitBounds(getBounds(languageMarkers));
 
     initializeMap();
   });
@@ -73,9 +75,13 @@
   }
 
   function initializeMarkers() {
-    for (const obj of languages.filter(({ selection }) => selection.language)) {
-      removeMarker(obj.marker);
-      obj.marker = createMarker(obj);
+    for (const lm of languageMarkers.filter(({ selection }) => selection.language)) {
+      for (const marker of lm.markers) {
+        removeMarker(marker.markerObj);
+        if (marker.headwords.some((headword) => lm.selection.headwords[headword])) {
+          marker.markerObj = createMarker(lm, marker);
+        }
+      }
     }
     if (settings.markerType === 'point-label') {
       tooltipLayout.setLineLength(settings.lineLength);
@@ -89,46 +95,46 @@
     }
   }
 
-  function createMarker(obj) {
-    setColorVar(obj);
-    const marker = L.marker(obj.language.location, {
-      icon: getIcon(obj),
+  function createMarker(lm, marker) {
+    setColorVar(marker);
+    const markerObj = L.marker(lm.language.location, {
+      icon: getIcon(lm, marker),
     }).addTo(map);
 
-    const markerDom = marker._icon;
+    const markerDom = markerObj._icon;
     if (settings.markerType === 'label') { // div
-      markerDom.style.color = `var(--${obj.colorVar}-text)`;
-      markerDom.style.backgroundColor = `var(--${obj.colorVar}-marker)`;
+      markerDom.style.color = `var(--${marker.colorVar}-text)`;
+      markerDom.style.backgroundColor = `var(--${marker.colorVar}-marker)`;
     } else { // svg
-      markerDom.style.color = `var(--${obj.colorVar})`;
+      markerDom.style.color = `var(--${marker.colorVar})`;
     }
 
     if (settings.markerType === 'point-label') {
-      marker.bindTooltip(getSummaryHtml(obj), {
+      markerObj.bindTooltip(getSummaryHtml(lm, marker), {
         className: 'marker',
       });
-      tooltipLayout.resetMarker(marker);
-      const labelDom = marker.getTooltip()._container;
-      labelDom.style.color = `var(--${obj.colorVar}-text)`;
-      labelDom.style.backgroundColor = `var(--${obj.colorVar}-marker)`;
+      tooltipLayout.resetMarker(markerObj);
+      const labelDom = markerObj.getTooltip()._container;
+      labelDom.style.color = `var(--${marker.colorVar}-text)`;
+      labelDom.style.backgroundColor = `var(--${marker.colorVar}-marker)`;
     }
-    return marker;
+    return markerObj;
   }
 
-  function removeMarker(marker) {
-    if (marker) {
-      marker.remove();
-      tooltipLayout.deleteMarker(marker);
+  function removeMarker(markerObj) {
+    if (markerObj) {
+      markerObj.remove();
+      tooltipLayout.deleteMarker(markerObj);
     }
   }
 
   export function updateLanguage(id, skipRedraw) {
-    const obj = languagesById[id];
-    removeMarker(obj.marker);
-    if (obj.selection.language) {
-      obj.marker = createMarker(obj);
-    } else {
-      obj.marker = null;
+    const lm = languageMarkersById[id];
+    for (const marker of lm.markers) {
+      removeMarker(marker.markerObj);
+      marker.markerObj = lm.selection.language
+        ? createMarker(lm, marker)
+        : null;
     }
     if (!skipRedraw && settings.markerType === 'point-label') {
       tooltipLayout.redrawLines();
@@ -136,7 +142,7 @@
   }
 
   export function updateFamily(id) {
-    for (const { language } of languages) {
+    for (const { language } of languageMarkers) {
       if (language.ancestor_id === id) {
         updateLanguage(language.id, true);
       }
@@ -146,8 +152,8 @@
     }
   }
 
-  function getBounds(languages) {
-    const locations = languages.map(({ language }) => language.location);
+  function getBounds(languageMarkers) {
+    const locations = languageMarkers.map(({ language }) => language.location);
     return [
       [
         Math.min(...locations.map((v) => v[0])),
@@ -160,34 +166,34 @@
     ];
   }
 
-  function getIcon(obj) {
-    const { language } = obj;
+  function getIcon(lm, marker) {
     if (settings.markerType === 'label') {
       return L.divIcon({
-        html: getSummaryHtml(obj),
+        html: getSummaryHtml(lm, marker),
         className: 'marker',
         iconSize: null,
       });
     } else {
       return L.divIcon({
-        html: `<svg viewBox="0 0 16 16"><use href="/icons.svg#${families[language.ancestor_id].shape}" /></svg>`,
+        html: `<svg viewBox="0 0 16 16"><use href="/icons.svg#${families[lm.language.ancestor_id].shape}" /></svg>`,
         iconSize: null,
       });
     }
   }
 
-  function getSummaryHtml(obj) {
-    const { headwords, language, selection } = obj;
+  function getSummaryHtml(lm, marker) {
+    const { language, selection } = lm;
+    const { headwords } = marker;
     const html = headwords
       .filter((headword) => selection.headwords[headword])
       .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
     return settings.includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
   }
 
-  function setColorVar(obj) {
-    obj.colorVar = colorBy === 'origin'
-      ? obj.originClass
-      : `set-${obj.entries[0].set_id}`;
+  function setColorVar(marker) {
+    marker.colorVar = colorBy === 'origin'
+      ? marker.originClass
+      : `set-${marker.entries[0].set_id}`;
   }
 
   function getOriginClass(entries) {
