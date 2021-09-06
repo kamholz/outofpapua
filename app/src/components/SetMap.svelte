@@ -135,10 +135,15 @@
     <label>
       <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
     </label>
-    <button type="button" on:click={() => preferences.update({ mapView: getView() })}>Save Map View</button>
-    {#if $preferences.mapView}
-      <button type="button" on:click={() => updateView($preferences.mapView)}>Restore Saved View</button>
-    {/if}
+    <button
+      type="button"
+      on:click={() => preferences.update({ mapView: getView() })}
+    >Save Map View</button>
+    <button
+      type="button"
+      on:click={() => updateView($preferences.mapView)}
+      disabled={!$preferences.mapView}
+    >Restore Saved View</button>
     <h3>Colors</h3>
     {#if sets}
       <span class="radios">
