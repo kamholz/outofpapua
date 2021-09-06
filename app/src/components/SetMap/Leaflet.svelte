@@ -18,12 +18,10 @@
   export let colorBy;
   export let colors;
 
-  $: languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
-  $: {
-    for (const { markers } of languageMarkers) {
-      for (const marker of markers) {
-        marker.originClass = getOriginClass(marker.entries);
-      }
+  const languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
+  for (const { markers } of languageMarkers) {
+    for (const marker of markers) {
+      marker.originClass = getOriginClass(marker.entries);
     }
   }
 
@@ -80,10 +78,10 @@
   }
 
   function initializeMarkers() {
-    for (const lm of languageMarkers.filter(({ selection }) => selection.language)) {
+    for (const lm of languageMarkers.filter(({ language }) => language.selected)) {
       for (const marker of lm.markers) {
         removeMarker(marker.markerObj);
-        marker.markerObj = haveHeadwords(lm, marker)
+        marker.markerObj = haveHeadwords(marker)
           ? createMarker(lm, marker)
           : null;
       }
@@ -115,7 +113,7 @@
     }
 
     if (markerType === 'point-label') {
-      markerObj.bindTooltip(getSummaryHtml(lm, marker), {
+      markerObj.bindTooltip(getMarkerHtml(lm, marker), {
         className: 'marker',
       });
       tooltipLayout.resetMarker(markerObj);
@@ -133,15 +131,15 @@
     }
   }
 
-  function haveHeadwords(lm, marker) {
-    return marker.headwords.some((headword) => lm.selection.headwords[headword].state);
+  function haveHeadwords(marker) {
+    return marker.headwords.some((v) => v.selected);
   }
 
   export function updateLanguage(id, skipRedraw) {
     const lm = languageMarkersById[id];
     for (const marker of lm.markers) {
       removeMarker(marker.markerObj);
-      marker.markerObj = lm.selection.language && haveHeadwords(lm, marker)
+      marker.markerObj = lm.language.selected && haveHeadwords(marker)
         ? createMarker(lm, marker)
         : null;
     }
@@ -190,7 +188,7 @@
   function getIcon(lm, marker) {
     if (markerType === 'label') {
       return L.divIcon({
-        html: getSummaryHtml(lm, marker),
+        html: getMarkerHtml(lm, marker),
         className: 'marker',
         iconSize: null,
       });
@@ -202,13 +200,28 @@
     }
   }
 
-  function getSummaryHtml(lm, marker) {
-    const { language, selection } = lm;
-    const { headwords } = marker;
-    const html = headwords
-      .filter((headword) => selection.headwords[headword].state)
-      .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
+  function getMarkerHtml(lm, marker) {
+    const { language } = lm;
+    const html = getEntryHtml(marker);
     return includeLanguage ? (escape(language.name) + ' ' + html) : html;
+  }
+
+  function getEntryHtml(marker) {
+    if (showGloss) {
+      return marker.entries
+        .filter((entry) => entry.selected)
+        .map(({ headword, senses }) => `<em>${escape(headword)}</em>${maybeGloss(senses)}`).join(', ');
+    } else {
+      return marker.headwords
+        .filter((headword) => headword.selected)
+        .map(({ headword }) => `<em>${escape(headword)}</em>`).join(', ');
+    }
+  }
+
+  function maybeGloss(senses) {
+    return senses[0]?.glosses[0]?.txt[0]
+      ? ` ‘${escape(senses[0]?.glosses[0]?.txt[0])}’`
+      : '';
   }
 
   function setColorVar(marker) {

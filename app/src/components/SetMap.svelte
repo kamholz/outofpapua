@@ -1,6 +1,7 @@
 <script>
-  import SetMapLeaflet from '$components/SetMap/Leaflet.svelte';
-  import Svelecte from '$lib/svelecte';
+  import FamilyIconSelect from '$components/SetMap/FamilyIconSelect.svelte';
+  import HeadwordSelect from './SetMap/HeadwordSelect.svelte';
+  import Leaflet from '$components/SetMap/Leaflet.svelte';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
@@ -49,7 +50,7 @@
           parseLanguageLocation(language);
         }
         markersByLanguageCode[id] = {
-          language,
+          language: { ...language, selected: true },
           markers: {
             [key]: {
               entries: [],
@@ -62,7 +63,7 @@
         };
       }
 
-      markersByLanguageCode[id].markers[key].entries.push({ ...entry, reflex, set_id });
+      markersByLanguageCode[id].markers[key].entries.push({ ...entry, reflex, set_id, selected: true });
     }
 
     const languageMarkers = Object.values(markersByLanguageCode);
@@ -72,33 +73,23 @@
       lm.markers = Object.values(lm.markers);
       for (const marker of lm.markers) {
         marker.entries.sort(sortFunction((v) => v.headword.toLowerCase()));
-        marker.headwords = [...new Set(marker.entries.map(({ headword }) => headword))]
-          .sort(sortFunction((v) => v.toLowerCase()));
+
+        const headwords = {};
+        for (const { headword, id } of marker.entries) {
+          if (!(headword in headwords)) {
+            headwords[headword] = { headword, ids: new Set(), selected: true };
+          }
+          headwords[headword].ids.add(id);
+        }
+        marker.headwords = Object.values(headwords)
+          .sort(sortFunction(({ headword }) => headword.toLowerCase()));
       }
       lm.entries = [].concat(...lm.markers.map(({ entries }) => entries))
         .sort(sortFunction(({ headword }) => headword.toLowerCase()));
-      lm.headwords = [...new Set([].concat(...lm.markers.map((v) => v.headwords)))]
-        .sort(sortFunction((v) => v.toLowerCase()));
-      lm.selection = {
-        language: true,
-        entries: {},
-        headwords: {},
-      };
-      for (const marker of lm.markers) {
-        for (const { id, headword } of marker.entries) {
-          lm.selection.entries[id] = true;
-          if (!(headword in lm.selection.headwords)) {
-            lm.selection.headwords[headword] = {
-              ids: [],
-              state: true,
-            };
-          }
-          lm.selection.headwords[headword].ids.push(id);
-        }
-      }
+      lm.headwords = [].concat(...lm.markers.map(({ headwords }) => headwords))
+        .sort(sortFunction(({ headword }) => headword.toLowerCase()));
     }
   
-    console.log(languageMarkers);
     return languageMarkers;
   }
 
@@ -114,14 +105,6 @@
       }
     }
     return families;
-  }
-
-  function selectHeadword(selection, headword, languageId) {
-    const state = selection.headwords[headword].state;
-    for (const id of selection.headwords[headword].ids) {
-      selection.entries[id] = state;
-    }
-    updateLanguage(languageId);
   }
 </script>
 
@@ -227,58 +210,32 @@
     {#if markerType !== 'label'}
       <div transition:fade|local>
         <h3>Families</h3>
-        {#each familiesSorted as family }
-          <span class="family">
-            {family.name}:
-            <Svelecte
-              options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
-              valueField="value"
-              labelField="value"
-              searchable={false}
-              renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
-              bind:value={family.shape}
-              on:change={updateFamily(family.id)}
-            />
-          </span>
+        {#each familiesSorted as family}
+          <FamilyIconSelect {family} {updateFamily} />
         {/each}
       </div>
     {/if}
 
     <h3>Languages</h3>
-    {#each languageMarkers as { entries, headwords, language, selection } }
+    {#each languageMarkers as { entries, headwords, language } }
       <label>
         <input
           type="checkbox"
-          bind:checked={selection.language}
+          bind:checked={language.selected}
           on:change={() => updateLanguage(language.id)}
         />&nbsp;{language.name}
       </label>
-      {#if showGloss}
-        fix me
-      {:else}
-        {#if headwords.length > 1}
-          {#each headwords as headword}
-            <label class="headword">
-              <input
-                type="checkbox"
-                bind:checked={selection.headwords[headword].state}
-                on:change={() => selectHeadword(selection, headword, language.id)}
-                disabled={
-                  !selection.language ||
-                  ( // only one selected headword left for this language
-                    selection.headwords[headword].state &&
-                    Object.values(selection.headwords).filter(({ state }) => state).length === 1
-                  )
-                }
-              />&nbsp;{headword}
-            </label>
-          {/each}
-        {/if}
-      {/if}
+      <HeadwordSelect
+        {showGloss}
+        {entries}
+        {headwords}
+        {language}
+        {updateLanguage}
+      />
     {/each}
 
   </div>
-  <SetMapLeaflet
+  <Leaflet
     {languageMarkers}
     {families}
     {baseMap}
@@ -308,10 +265,6 @@
       label {
         margin-block-end: 6px;
 
-        &.headword {
-          margin-inline-start: 20px;
-        }
-
         &.color {
           display: flex;
           align-items: center;
@@ -333,41 +286,9 @@
         display: flex;
         align-items: center;
         margin-block-end: 16px;
+
         > label {
           margin-inline-end: 8px;
-        }
-      }
-
-      .family {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-block-end: 10px;
-      }
-    }
-
-    :global {
-      .svelecte {
-        flex: unset;
-      }
-
-      .sv-control {
-        inline-size: 70px;
-        .sv-item-content {
-          margin-inline-start: 8px;
-        }
-      }
-
-      .sv-item-content {
-        width: 16px;
-        height: 16px;
-      }
-
-      .sv-dropdown {
-        inline-size: 50px;
-        .sv-item {
-          display: flex;
-          justify-content: space-around;
         }
       }
     }
