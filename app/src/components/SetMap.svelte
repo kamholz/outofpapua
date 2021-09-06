@@ -270,8 +270,8 @@
 
         &.color {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
           inline-size: 8.5em;
         }
       }

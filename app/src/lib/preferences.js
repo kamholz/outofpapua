@@ -42,7 +42,7 @@ export const schema = {
           maxItems: 2,
         },
         zoom: {
-          type: 'integer',
+          type: 'number',
           minimum: 1,
           maximum: 13,
         },

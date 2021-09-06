@@ -159,7 +159,6 @@
 
   export function updateView({ latLng, zoom }) {
     map.setView(L.latLng(latLng), zoom);
-    tooltipLayout.redrawLines();
   }
 
   export function getView() {
