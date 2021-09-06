@@ -11,14 +11,19 @@
   export let languageMarkers;
   export let families;
   export let baseMap;
-  export let settings;
+  export let markerType;
+  export let includeLanguage;
+  export let showGloss;
+  export let lineLength;
   export let colorBy;
   export let colors;
 
-  const languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
-  for (const { markers } of languageMarkers) {
-    for (const marker of markers) {
-      marker.originClass = getOriginClass(marker.entries);
+  $: languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
+  $: {
+    for (const { markers } of languageMarkers) {
+      for (const marker of markers) {
+        marker.originClass = getOriginClass(marker.entries);
+      }
     }
   }
 
@@ -31,11 +36,10 @@
     layer?.remove();
     layer = L.tileLayer(baseMaps[baseMap].url, {
       attribution: baseMaps[baseMap].attribution,
-      // tileSize: 256,
     }).addTo(map);
   }
 
-  $: updateMarkers(settings, colorBy);
+  $: updateMarkers(markerType, includeLanguage, showGloss, lineLength, colorBy);
   $: cssVars = getCssVars(colors, colorBy);
 
   onMount(async () => {
@@ -65,7 +69,7 @@
 
   function initializeMap() {
     initializeMarkers();
-    if (settings.markerType === 'point-label') {
+    if (markerType === 'point-label') {
       tooltipLayout.initialize(map, (ply) => {
         ply.setStyle({
           color: '#999',
@@ -84,8 +88,8 @@
           : null;
       }
     }
-    if (settings.markerType === 'point-label') {
-      tooltipLayout.setLineLength(settings.lineLength);
+    if (markerType === 'point-label') {
+      tooltipLayout.setLineLength(lineLength);
     }
   }
 
@@ -103,14 +107,14 @@
     }).addTo(map);
 
     const markerDom = markerObj._icon;
-    if (settings.markerType === 'label') { // div
+    if (markerType === 'label') { // div
       markerDom.style.color = `var(--${marker.colorVar}-text)`;
       markerDom.style.backgroundColor = `var(--${marker.colorVar}-marker)`;
     } else { // svg
       markerDom.style.color = `var(--${marker.colorVar})`;
     }
 
-    if (settings.markerType === 'point-label') {
+    if (markerType === 'point-label') {
       markerObj.bindTooltip(getSummaryHtml(lm, marker), {
         className: 'marker',
       });
@@ -130,7 +134,7 @@
   }
 
   function haveHeadwords(lm, marker) {
-    return marker.headwords.some((headword) => lm.selection.headwords[headword]);
+    return marker.headwords.some((headword) => lm.selection.headwords[headword].state);
   }
 
   export function updateLanguage(id, skipRedraw) {
@@ -141,7 +145,7 @@
         ? createMarker(lm, marker)
         : null;
     }
-    if (!skipRedraw && settings.markerType === 'point-label') {
+    if (!skipRedraw && markerType === 'point-label') {
       tooltipLayout.redrawLines();
     }
   }
@@ -152,7 +156,7 @@
         updateLanguage(language.id, true);
       }
     }
-    if (settings.markerType === 'point-label') {
+    if (markerType === 'point-label') {
       tooltipLayout.redrawLines();
     }
   }
@@ -184,7 +188,7 @@
   }
 
   function getIcon(lm, marker) {
-    if (settings.markerType === 'label') {
+    if (markerType === 'label') {
       return L.divIcon({
         html: getSummaryHtml(lm, marker),
         className: 'marker',
@@ -202,9 +206,9 @@
     const { language, selection } = lm;
     const { headwords } = marker;
     const html = headwords
-      .filter((headword) => selection.headwords[headword])
+      .filter((headword) => selection.headwords[headword].state)
       .map((headword) => `<em>${escape(headword)}</em>`).join(', ');
-    return settings.includeLanguageOnLabel ? (escape(language.name) + ' ' + html) : html;
+    return includeLanguage ? (escape(language.name) + ' ' + html) : html;
   }
 
   function setColorVar(marker) {

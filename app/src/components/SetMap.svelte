@@ -8,18 +8,18 @@
   export let members;
   export let sets = null;
   const preferences = getContext('preferences');
-  const languageMarkers = getLanguageMarkers(members.filter(({ language }) => language.location));
+  const mappableMembers = members.filter(({ language }) => language.location);
+  const languageMarkers = getLanguageMarkers(mappableMembers);
   const families = getFamilies(languageMarkers);
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
     .map((v) => families[v]);
 
   let { baseMap } = $preferences;
-  const settings = {
-    markerType: 'point-label',
-    includeLanguageOnLabel: false,
-    lineLength: 3,
-  };
+  let markerType = 'point-label';
+  let includeLanguage = false;
+  let showGloss = false;
+  let lineLength = 3;
   let colorBy = 'origin';
   const colors = {
     origin: {
@@ -53,35 +53,52 @@
           markers: {
             [key]: {
               entries: [],
-              headwords: new Set(),
             },
           },
         };
       } else if (!(key in markersByLanguageCode[id].markers)) {
         markersByLanguageCode[id].markers[key] = {
           entries: [],
-          headwords: new Set(),
         };
       }
 
       markersByLanguageCode[id].markers[key].entries.push({ ...entry, reflex, set_id });
-      markersByLanguageCode[id].markers[key].headwords.add(entry.headword);
     }
 
     const languageMarkers = Object.values(markersByLanguageCode);
     languageMarkers.sort(sortFunction(({ language }) => language.name.toLowerCase()));
+
     for (const lm of languageMarkers) {
       lm.markers = Object.values(lm.markers);
       for (const marker of lm.markers) {
-        marker.headwords = [...marker.headwords].sort(sortFunction((v) => v.toLowerCase()));
+        marker.entries.sort(sortFunction((v) => v.headword.toLowerCase()));
+        marker.headwords = [...new Set(marker.entries.map(({ headword }) => headword))]
+          .sort(sortFunction((v) => v.toLowerCase()));
       }
+      lm.entries = [].concat(...lm.markers.map(({ entries }) => entries))
+        .sort(sortFunction(({ headword }) => headword.toLowerCase()));
       lm.headwords = [...new Set([].concat(...lm.markers.map((v) => v.headwords)))]
         .sort(sortFunction((v) => v.toLowerCase()));
       lm.selection = {
         language: true,
-        headwords: Object.fromEntries(lm.headwords.map((headword) => [headword, true])),
+        entries: {},
+        headwords: {},
       };
+      for (const marker of lm.markers) {
+        for (const { id, headword } of marker.entries) {
+          lm.selection.entries[id] = true;
+          if (!(headword in lm.selection.headwords)) {
+            lm.selection.headwords[headword] = {
+              ids: [],
+              state: true,
+            };
+          }
+          lm.selection.headwords[headword].ids.push(id);
+        }
+      }
     }
+  
+    console.log(languageMarkers);
     return languageMarkers;
   }
 
@@ -97,6 +114,14 @@
       }
     }
     return families;
+  }
+
+  function selectHeadword(selection, headword, languageId) {
+    const state = selection.headwords[headword].state;
+    for (const id of selection.headwords[headword].ids) {
+      selection.entries[id] = state;
+    }
+    updateLanguage(languageId);
   }
 </script>
 
@@ -117,7 +142,7 @@
     </label>
     <label>
       Marker:
-      <select bind:value={settings.markerType}>
+      <select bind:value={markerType}>
         <option value="label">Label</option>
         <option value="point">Point</option>
         <option value="point-label">Point with label</option>
@@ -129,12 +154,15 @@
         type="range"
         min="1"
         max="5"
-        disabled={settings.markerType !== 'point-label'}
-        bind:value={settings.lineLength}
+        disabled={markerType !== 'point-label'}
+        bind:value={lineLength}
       >
     </label>
     <label>
-      <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
+      <input type="checkbox" bind:checked={includeLanguage} />&nbsp;Include language name
+    </label>
+    <label>
+      <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
     </label>
     <button
       type="button"
@@ -196,7 +224,7 @@
       </div>
     {/if}
 
-    {#if settings.markerType !== 'label'}
+    {#if markerType !== 'label'}
       <div transition:fade|local>
         <h3>Families</h3>
         {#each familiesSorted as family }
@@ -217,7 +245,7 @@
     {/if}
 
     <h3>Languages</h3>
-    {#each languageMarkers as { headwords, language, selection } }
+    {#each languageMarkers as { entries, headwords, language, selection } }
       <label>
         <input
           type="checkbox"
@@ -225,23 +253,27 @@
           on:change={() => updateLanguage(language.id)}
         />&nbsp;{language.name}
       </label>
-      {#if headwords.length > 1}
-        {#each headwords as headword }
-          <label class="headword">
-            <input
-              type="checkbox"
-              bind:checked={selection.headwords[headword]}
-              on:change={() => updateLanguage(language.id)}
-              disabled={
-                !selection.language ||
-                ( // only one selected headword left for this language
-                  Object.values(selection.headwords).filter((v) => v).length === 1 &&
-                  selection.headwords[headword]
-                )
-              }
-            />&nbsp;{headword}
-          </label>
-        {/each}
+      {#if showGloss}
+        fix me
+      {:else}
+        {#if headwords.length > 1}
+          {#each headwords as headword}
+            <label class="headword">
+              <input
+                type="checkbox"
+                bind:checked={selection.headwords[headword].state}
+                on:change={() => selectHeadword(selection, headword, language.id)}
+                disabled={
+                  !selection.language ||
+                  ( // only one selected headword left for this language
+                    selection.headwords[headword].state &&
+                    Object.values(selection.headwords).filter(({ state }) => state).length === 1
+                  )
+                }
+              />&nbsp;{headword}
+            </label>
+          {/each}
+        {/if}
       {/if}
     {/each}
 
@@ -250,7 +282,10 @@
     {languageMarkers}
     {families}
     {baseMap}
-    {settings}
+    {markerType}
+    {includeLanguage}
+    {showGloss}
+    {lineLength}
     {colorBy}
     {colors}
     bind:updateLanguage
