@@ -78,9 +78,9 @@
     for (const lm of languageMarkers.filter(({ selection }) => selection.language)) {
       for (const marker of lm.markers) {
         removeMarker(marker.markerObj);
-        if (marker.headwords.some((headword) => lm.selection.headwords[headword])) {
-          marker.markerObj = createMarker(lm, marker);
-        }
+        marker.markerObj = haveHeadwords(lm, marker)
+          ? createMarker(lm, marker)
+          : null;
       }
     }
     if (settings.markerType === 'point-label') {
@@ -128,11 +128,15 @@
     }
   }
 
+  function haveHeadwords(lm, marker) {
+    return marker.headwords.some((headword) => lm.selection.headwords[headword]);
+  }
+
   export function updateLanguage(id, skipRedraw) {
     const lm = languageMarkersById[id];
     for (const marker of lm.markers) {
       removeMarker(marker.markerObj);
-      marker.markerObj = lm.selection.language
+      marker.markerObj = lm.selection.language && haveHeadwords(lm, marker)
         ? createMarker(lm, marker)
         : null;
     }
