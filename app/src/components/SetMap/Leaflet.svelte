@@ -4,6 +4,7 @@
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape } from '$lib/util';
+  import { maxZoom } from '$lib/preferences';
   import { onDestroy, onMount } from 'svelte';
   import { yiq } from 'yiq';
 
@@ -45,7 +46,7 @@
     map = L.map('map', {
       // closePopupOnClick: false,
       fullscreenControl: true,
-      maxZoom: 13,
+      maxZoom,
       scrollWheelZoom: false,
       zoomDelta: 0.5,
       zoomSnap: 0.5,
@@ -154,6 +155,19 @@
     if (settings.markerType === 'point-label') {
       tooltipLayout.redrawLines();
     }
+  }
+
+  export function updateView({ latLng, zoom }) {
+    map.setView(L.latLng(latLng), zoom);
+    tooltipLayout.redrawLines();
+  }
+
+  export function getView() {
+    const latLng = map.getCenter();
+    return {
+      latLng: [latLng.lat, latLng.lng],
+      zoom: map.getZoom(),
+    };
   }
 
   function getBounds(languageMarkers) {

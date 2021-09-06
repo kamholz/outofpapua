@@ -1,17 +1,19 @@
 <script>
   import SetMapLeaflet from '$components/SetMap/Leaflet.svelte';
   import Svelecte from '$lib/svelecte';
+  import { getContext } from 'svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
   export let members;
   export let sets = null;
+  const preferences = getContext('preferences');
   const languageMarkers = getLanguageMarkers(members.filter(({ language }) => language.location));
   const families = getFamilies(languageMarkers);
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
     .map((v) => families[v]);
 
-  let baseMap = 'cartodb-positron';
+  let { baseMap } = $preferences;
   const settings = {
     markerType: 'point-label',
     includeLanguageOnLabel: false,
@@ -33,6 +35,8 @@
 
   let updateLanguage;
   let updateFamily;
+  let updateView;
+  let getView;
 
   function getLanguageMarkers(members) {
     const markersByLanguageCode = {};
@@ -100,7 +104,10 @@
     <h3>Settings</h3>
     <label>
       Base map:
-      <select bind:value={baseMap}>
+      <select
+        bind:value={baseMap}
+        on:change={() => preferences.update({ baseMap })}
+      >
         <option value="esri-gray-canvas">Gray Canvas</option>
         <option value="cartodb-positron">Positron</option>
         <option value="esri-shaded-relief">Shaded Relief</option>
@@ -128,6 +135,10 @@
     <label>
       <input type="checkbox" bind:checked={settings.includeLanguageOnLabel} />&nbsp;Include language name
     </label>
+    <button type="button" on:click={() => preferences.update({ mapView: getView() })}>Save Map View</button>
+    {#if $preferences.mapView}
+      <button type="button" on:click={() => updateView($preferences.mapView)}>Restore Saved View</button>
+    {/if}
     <h3>Colors</h3>
     {#if sets}
       <span class="radios">
@@ -230,6 +241,8 @@
     {colors}
     bind:updateLanguage
     bind:updateFamily
+    bind:updateView
+    bind:getView
   />
 </div>
 
@@ -259,6 +272,11 @@
 
       input[type="color"] {
         flex-shrink: 0;
+      }
+
+      button {
+        align-self: flex-start;
+        margin-block: 6px;
       }
 
       .radios {
