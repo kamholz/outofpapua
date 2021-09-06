@@ -1,6 +1,7 @@
 <script>
   import SetMapLeaflet from '$components/SetMap/Leaflet.svelte';
   import Svelecte from '$lib/svelecte';
+  import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
@@ -170,42 +171,50 @@
       </span>
     {/if}
     {#if colorBy === 'origin'}
-      <label class="color">
-        Borrowed:
-        <input type="color" bind:value={colors.origin.borrowed} />
-      </label>
-      <label class="color">
-        Inherited:
-        <input type="color" bind:value={colors.origin.inherited} />
-      </label>
-      <label class="color">
-        Unknown:
-        <input type="color" bind:value={colors.origin.unknown} />
-      </label>
-    {:else}
-      {#each sets as set}
+      <div in:fade|local>
         <label class="color">
-          {set.name_auto.txt}:
-          <input type="color" bind:value={colors.set[set.id]} />
+          Borrowed:
+          <input type="color" bind:value={colors.origin.borrowed} />
         </label>
-      {/each}
+        <label class="color">
+          Inherited:
+          <input type="color" bind:value={colors.origin.inherited} />
+        </label>
+        <label class="color">
+          Unknown:
+          <input type="color" bind:value={colors.origin.unknown} />
+        </label>
+      </div>
+    {:else}
+      <div in:fade|local>
+        {#each sets as set}
+          <label class="color">
+            {set.name_auto.txt}:
+            <input type="color" bind:value={colors.set[set.id]} />
+          </label>
+        {/each}
+      </div>
     {/if}
 
-    <h3>Families</h3>
-    {#each familiesSorted as family }
-      <span class="family">
-        {family.name}:
-        <Svelecte
-          options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
-          valueField="value"
-          labelField="value"
-          searchable={false}
-          renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
-          bind:value={family.shape}
-          on:change={updateFamily(family.id)}
-        />
-      </span>
-    {/each}
+    {#if settings.markerType !== 'label'}
+      <div transition:fade|local>
+        <h3>Families</h3>
+        {#each familiesSorted as family }
+          <span class="family">
+            {family.name}:
+            <Svelecte
+              options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
+              valueField="value"
+              labelField="value"
+              searchable={false}
+              renderer={(item) => `<svg viewBox="0 0 16 16"><use href="/icons.svg#${item.value}" /></svg>`}
+              bind:value={family.shape}
+              on:change={updateFamily(family.id)}
+            />
+          </span>
+        {/each}
+      </div>
+    {/if}
 
     <h3>Languages</h3>
     {#each languageMarkers as { headwords, language, selection } }
@@ -261,7 +270,7 @@
       inline-size: 16em;
       margin-inline-end: 20px;
 
-      > label {
+      label {
         margin-block-end: 6px;
 
         &.headword {
