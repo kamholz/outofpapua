@@ -3,17 +3,19 @@
   import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
-  import { escapeHtml as escape } from '$lib/util';
+  import { escapeHtml as escape, maybeGloss } from '$lib/util';
   import { maxZoom } from '$lib/preferences';
   import { onDestroy, onMount } from 'svelte';
   import { yiq } from 'yiq';
 
-  export let languageMarkers;
+  export let languages;
   export let families;
+  export let languageMarkers;
   export let baseMap;
   export let markerType;
-  export let includeLanguage;
+  export let showLanguage;
   export let showGloss;
+  export let headwordDisplay;
   export let lineLength;
   export let colorBy;
   export let colors;
@@ -37,7 +39,7 @@
     }).addTo(map);
   }
 
-  $: updateMarkers(markerType, includeLanguage, showGloss, lineLength, colorBy);
+  $: updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy);
   $: cssVars = getCssVars(colors, colorBy);
 
   onMount(async () => {
@@ -53,7 +55,7 @@
       zoomDelta: 0.5,
       zoomSnap: 0.5,
     })
-    .fitBounds(getBounds(languageMarkers));
+    .fitBounds(getBounds());
 
     initializeMap();
   });
@@ -81,7 +83,7 @@
     for (const lm of languageMarkers.filter(({ language }) => language.selected)) {
       for (const marker of lm.markers) {
         removeMarker(marker.markerObj);
-        marker.markerObj = haveHeadwords(marker)
+        marker.markerObj = haveSelectedEntry(marker)
           ? createMarker(lm, marker)
           : null;
       }
@@ -131,15 +133,15 @@
     }
   }
 
-  function haveHeadwords(marker) {
-    return marker.headwords.some((v) => v.selected);
+  function haveSelectedEntry(marker) {
+    return marker.entries.some((v) => v.selected);
   }
 
   export function updateLanguage(id, skipRedraw) {
     const lm = languageMarkersById[id];
     for (const marker of lm.markers) {
       removeMarker(marker.markerObj);
-      marker.markerObj = lm.language.selected && haveHeadwords(marker)
+      marker.markerObj = lm.language.selected && haveSelectedEntry(marker)
         ? createMarker(lm, marker)
         : null;
     }
@@ -171,8 +173,8 @@
     };
   }
 
-  function getBounds(languageMarkers) {
-    const locations = languageMarkers.map(({ language }) => language.location);
+  function getBounds() {
+    const locations = Object.values(languages).map((v) => v.location);
     return [
       [
         Math.min(...locations.map((v) => v[0])),
@@ -202,26 +204,30 @@
 
   function getMarkerHtml(lm, marker) {
     const { language } = lm;
-    const html = getEntryHtml(marker);
-    return includeLanguage ? (escape(language.name) + ' ' + html) : html;
+    const html = getEntriesHtml(marker);
+    return showLanguage ? (escape(language.name) + ' ' + html) : html;
   }
 
-  function getEntryHtml(marker) {
-    if (showGloss) {
-      return marker.entries
-        .filter((entry) => entry.selected)
-        .map(({ headword, senses }) => `<em>${escape(headword)}</em>${maybeGloss(senses)}`).join(', ');
+  function getEntriesHtml(marker) {
+    const selected = marker.entries.filter((entry) => entry.selected);
+    const items = showGloss
+      ? selected.map((entry) => `<em>${getHeadwordHtml(entry)}</em>${escape(maybeGloss(entry.senses))}`)
+      : selected.map((entry) => `<em>${getHeadwordHtml(entry)}</em>`);
+    return [...new Set(items)].join(', ');
+  }
+
+  function getHeadwordHtml({ headword, reflex }) {
+    if (headwordDisplay === 'plain') {
+      return escape(headword);
     } else {
-      return marker.headwords
-        .filter((headword) => headword.selected)
-        .map(({ headword }) => `<em>${escape(headword)}</em>`).join(', ');
-    }
-  }
+      const [before, reflexProper, after] = reflex === null
+        ? ['', headword, '']
+        : reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
 
-  function maybeGloss(senses) {
-    return senses[0]?.glosses[0]?.txt[0]
-      ? ` ‘${escape(senses[0]?.glosses[0]?.txt[0])}’`
-      : '';
+      return headwordDisplay === 'reflex-only'
+        ? escape(reflexProper)
+        : `${escape(before)}<strong>${escape(reflexProper)}</strong>${escape(after)}`;
+    }
   }
 
   function setColorVar(marker) {

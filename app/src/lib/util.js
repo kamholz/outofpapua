@@ -218,6 +218,12 @@ export function joinGlosses(txt) {
   return txt.join(', ');
 }
 
+export function maybeGloss(senses) {
+  return senses[0]?.glosses[0]?.txt[0]
+    ? ` ‘${senses[0]?.glosses[0]?.txt[0]}’`
+    : '';
+}
+
 export function maybeLanguageName(language_name, preferences) {
   return preferences?.hideGlossLang
     ? ''

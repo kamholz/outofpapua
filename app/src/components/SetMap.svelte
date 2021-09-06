@@ -1,6 +1,6 @@
 <script>
+  import EntrySelect from './SetMap/EntrySelect.svelte';
   import FamilyIconSelect from '$components/SetMap/FamilyIconSelect.svelte';
-  import HeadwordSelect from './SetMap/HeadwordSelect.svelte';
   import Leaflet from '$components/SetMap/Leaflet.svelte';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
@@ -10,16 +10,18 @@
   export let sets = null;
   const preferences = getContext('preferences');
   const mappableMembers = members.filter(({ language }) => language.location);
-  const languageMarkers = getLanguageMarkers(mappableMembers);
-  const families = getFamilies(languageMarkers);
+  const languages = getLanguages();
+  const families = getFamilies();
+  const languageMarkers = getLanguageMarkers();
   const familiesSorted = Object.keys(families)
     .sort(sortFunction((v) => families[v].name.toLowerCase()))
     .map((v) => families[v]);
 
   let { baseMap } = $preferences;
   let markerType = 'point-label';
-  let includeLanguage = false;
+  let showLanguage = false;
   let showGloss = false;
+  let headwordDisplay = 'plain';
   let lineLength = 3;
   let colorBy = 'origin';
   const colors = {
@@ -40,17 +42,41 @@
   let updateView;
   let getView;
 
-  function getLanguageMarkers(members) {
-    const markersByLanguageCode = {};
-    for (const { entry, language, reflex, set_id } of members) {
+  function getLanguages() {
+    const languages = {};
+    for (const { language } of mappableMembers) {
       const { id } = language;
-      const key = sets ? set_id : 'all';
-      if (!(id in markersByLanguageCode)) {
+      if (!(id in languages)) {
         if (!Array.isArray(language.location)) {
           parseLanguageLocation(language);
         }
+        languages[id] = { ...language, selected: true };
+      }
+    }
+    return languages;
+  }
+
+  function getFamilies() {
+    const families = {};
+    for (const language of Object.values(languages)) {
+      if (!(language.ancestor_id in families)) {
+        families[language.ancestor_id] = {
+          id: language.ancestor_id,
+          name: language.ancestor_name.replace(/^proto-?/i, ''),
+          shape: 'circle',
+        };
+      }
+    }
+    return families;
+  }
+
+  function getLanguageMarkers() {
+    const markersByLanguageCode = {};
+    for (const { entry, language: { id }, reflex, set_id } of mappableMembers) {
+      const key = sets ? set_id : 'all';
+      if (!(id in markersByLanguageCode)) {
         markersByLanguageCode[id] = {
-          language: { ...language, selected: true },
+          language: languages[id],
           markers: {
             [key]: {
               entries: [],
@@ -73,38 +99,12 @@
       lm.markers = Object.values(lm.markers);
       for (const marker of lm.markers) {
         marker.entries.sort(sortFunction((v) => v.headword.toLowerCase()));
-
-        const headwords = {};
-        for (const { headword, id } of marker.entries) {
-          if (!(headword in headwords)) {
-            headwords[headword] = { headword, ids: new Set(), selected: true };
-          }
-          headwords[headword].ids.add(id);
-        }
-        marker.headwords = Object.values(headwords)
-          .sort(sortFunction(({ headword }) => headword.toLowerCase()));
       }
       lm.entries = [].concat(...lm.markers.map(({ entries }) => entries))
-        .sort(sortFunction(({ headword }) => headword.toLowerCase()));
-      lm.headwords = [].concat(...lm.markers.map(({ headwords }) => headwords))
         .sort(sortFunction(({ headword }) => headword.toLowerCase()));
     }
   
     return languageMarkers;
-  }
-
-  function getFamilies(languageMarkers) {
-    const families = {};
-    for (const { language } of languageMarkers) {
-      if (!(language.ancestor_id in families)) {
-        families[language.ancestor_id] = {
-          id: language.ancestor_id,
-          name: language.ancestor_name.replace(/^proto-?/i, ''),
-          shape: 'circle',
-        };
-      }
-    }
-    return families;
   }
 </script>
 
@@ -142,10 +142,20 @@
       >
     </label>
     <label>
-      <input type="checkbox" bind:checked={includeLanguage} />&nbsp;Include language name
+      <input type="checkbox" bind:checked={showLanguage} />&nbsp;Show language name
     </label>
     <label>
       <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
+    </label>
+    <label>
+      Headword:
+      <select
+        bind:value={headwordDisplay}
+      >
+        <option value="plain">Plain</option>
+        <option value="reflex-highlight">Reflex highlighted</option>
+        <option value="reflex-only">Reflex only</option>
+      </select>
     </label>
     <button
       type="button"
@@ -198,7 +208,7 @@
       </div>
     {:else}
       <div in:fade|local>
-        {#each sets as set}
+        {#each sets as set (set.id)}
           <label class="color">
             {set.name_auto.txt}:
             <input type="color" bind:value={colors.set[set.id]} />
@@ -210,14 +220,14 @@
     {#if markerType !== 'label'}
       <div transition:fade|local>
         <h3>Families</h3>
-        {#each familiesSorted as family}
+        {#each familiesSorted as family (family.id)}
           <FamilyIconSelect {family} {updateFamily} />
         {/each}
       </div>
     {/if}
 
     <h3>Languages</h3>
-    {#each languageMarkers as { entries, headwords, language } }
+    {#each languageMarkers as { entries, language } }
       <label>
         <input
           type="checkbox"
@@ -225,10 +235,8 @@
           on:change={() => updateLanguage(language.id)}
         />&nbsp;{language.name}
       </label>
-      <HeadwordSelect
-        {showGloss}
+      <EntrySelect
         {entries}
-        {headwords}
         {language}
         {updateLanguage}
       />
@@ -236,12 +244,14 @@
 
   </div>
   <Leaflet
-    {languageMarkers}
+    {languages}
     {families}
+    {languageMarkers}
     {baseMap}
     {markerType}
-    {includeLanguage}
+    {showLanguage}
     {showGloss}
+    {headwordDisplay}
     {lineLength}
     {colorBy}
     {colors}
