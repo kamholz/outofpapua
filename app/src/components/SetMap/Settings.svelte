@@ -1,7 +1,8 @@
 <script>
   import { getContext } from 'svelte';
+  const preferences = getContext('preferences');
 
-  export let baseMap;
+  export let { baseMap } = $preferences;
   export let markerType;
   export let lineLength;
   export let showLanguage;
@@ -10,8 +11,6 @@
 
   export let getView;
   export let updateView;
-
-  const preferences = getContext('preferences');
 </script>
 
 <label>
@@ -52,11 +51,9 @@
 </label>
 <label>
   Headword:
-  <select
-    bind:value={headwordDisplay}
-  >
+  <select bind:value={headwordDisplay}>
     <option value="plain">Plain</option>
-    <option value="reflex-highlight">Reflex highlighted</option>
+    <option value="reflex-bold">Reflex in bold</option>
     <option value="reflex-only">Reflex only</option>
   </select>
 </label>

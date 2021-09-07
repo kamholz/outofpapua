@@ -6,21 +6,18 @@
   import Section from '$components/SetMap/Section.svelte';
   import Settings from '$components/SetMap/Settings.svelte';
   import { fade } from 'svelte/transition';
-  import { getContext } from 'svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
   export let members;
   export let sets = null;
-  const preferences = getContext('preferences');
   const mappableMembers = members.filter(({ language }) => language.location);
   const languages = getLanguages();
   const families = getFamilies();
   const languageMarkers = getLanguageMarkers();
-  const familiesSorted = Object.keys(families)
-    .sort(sortFunction((v) => families[v].name.toLowerCase()))
-    .map((v) => families[v]);
+  const familiesSorted = Object.values(families)
+    .sort(sortFunction((v) => v.name.toLowerCase()));
 
-  let { baseMap } = $preferences;
+  let baseMap;
   let markerType = 'point-label';
   let showLanguage = false;
   let showGloss = false;
@@ -113,7 +110,6 @@
 
 <div class="map">
   <div class="settings">
-
     <Section name="Settings">
       <Settings
         bind:baseMap
@@ -126,7 +122,6 @@
         {updateView}
       />
     </Section>
-
     <Section name="Colors">
       <Colors
         bind:colorBy
@@ -134,7 +129,6 @@
         {sets}
       />
     </Section>
-
     {#if markerType !== 'label'}
       <div transition:fade|local>
         <Section name="Families">
@@ -147,7 +141,6 @@
         </Section>
       </div>
     {/if}
-
     <Section name="Languages">
       {#each languageMarkers as { entries, language } }
         <label>
@@ -164,8 +157,8 @@
         />
       {/each}
     </Section>
-
   </div>
+
   <Leaflet
     {languages}
     {families}

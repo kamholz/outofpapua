@@ -20,9 +20,14 @@
   export let colorBy;
   export let colors;
 
-  const languageMarkersById = Object.fromEntries(languageMarkers.map((lm) => [lm.language.id, lm]));
-  for (const { markers } of languageMarkers) {
-    for (const marker of markers) {
+  const languageMarkersById = {};
+  for (const lm of languageMarkers) {
+    const { id } = lm.language;
+    if (!(id in languageMarkersById)) {
+      languageMarkersById[id] = [];
+    }
+    languageMarkersById[id].push(lm);
+    for (const marker of lm.markers) {
       marker.originClass = getOriginClass(marker.entries);
     }
   }
@@ -138,12 +143,13 @@
   }
 
   export function updateLanguage(id, skipRedraw) {
-    const lm = languageMarkersById[id];
-    for (const marker of lm.markers) {
-      removeMarker(marker.markerObj);
-      marker.markerObj = lm.language.selected && haveSelectedEntry(marker)
-        ? createMarker(lm, marker)
-        : null;
+    for (const lm of languageMarkersById[id]) {
+      for (const marker of lm.markers) {
+        removeMarker(marker.markerObj);
+        marker.markerObj = lm.language.selected && haveSelectedEntry(marker)
+          ? createMarker(lm, marker)
+          : null;
+      }
     }
     if (!skipRedraw && markerType === 'point-label') {
       tooltipLayout.redrawLines();

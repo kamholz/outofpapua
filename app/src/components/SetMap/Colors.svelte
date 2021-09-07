@@ -30,46 +30,40 @@
     </label>
   </div>
 {/if}
-{#if colorBy === 'origin'}
-  <div in:fade|local>
-    <label class="color">
+<div class="colors" in:fade|local>
+  {#if colorBy === 'origin'}
+    <label>
       Borrowed:
       <input type="color" bind:value={colors.origin.borrowed} />
     </label>
-    <label class="color">
+    <label>
       Inherited:
       <input type="color" bind:value={colors.origin.inherited} />
     </label>
-    <label class="color">
+    <label>
       Unknown:
       <input type="color" bind:value={colors.origin.unknown} />
     </label>
-  </div>
-{:else}
-  <div in:fade|local>
+  {:else}
     {#each sets as set (set.id)}
-      <label class="color">
+      <label>
         {set.name_auto.txt}:
         <input type="color" bind:value={colors.set[set.id]} />
       </label>
     {/each}
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style lang="scss">
-  div {
-    width: 100%;
-  }
-
   label {
     margin-block-end: 8px;
+  }
 
-    &.color {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      inline-size: 9.5em;
-    }
+  .colors label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    inline-size: 9.5em;
   }
 
   input[type="color"] {

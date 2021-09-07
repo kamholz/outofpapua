@@ -9,7 +9,7 @@
 <div class="section">
   <div class="heading">
     <CollapseIndicator bind:collapsed />
-    <h3>{name}</h3>
+    <h3 on:click={() => collapsed = !collapsed}>{name}</h3>
   </div>
   {#if !collapsed}
     <div class="content" transition:slide={{ duration: 200 }}>
@@ -18,7 +18,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="scss">
   h3 {
     margin: 0;
   }
@@ -37,5 +37,9 @@
     flex-direction: column;
     align-items: flex-start;
     margin-block-start: 1em;
+
+    :global(> div) {
+      width: 100%;
+    }
   }
 </style>

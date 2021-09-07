@@ -1,14 +1,15 @@
 <script>
+  import Svelecte from '$lib/svelecte';
+
   export let family;
   export let updateFamily;
-
-  import Svelecte from '$lib/svelecte';
+  const icons = ['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }));
 </script>
 
-<span>
+<div>
   {family.name}:
   <Svelecte
-    options={['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }))}
+    options={icons}
     valueField="value"
     labelField="value"
     searchable={false}
@@ -16,11 +17,10 @@
     bind:value={family.shape}
     on:change={updateFamily(family.id)}
   />
-</span>
+</div>
 
 <style lang="scss">
-  span {
-    width: 100%;
+  div {
     display: flex;
     align-items: center;
     justify-content: space-between;

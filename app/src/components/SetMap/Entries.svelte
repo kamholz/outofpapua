@@ -1,8 +1,9 @@
 <script>
+  import { maybeGloss } from '$lib/util';
+
   export let entries;
   export let language;
   export let updateLanguage;
-  import { maybeGloss } from '$lib/util';
 </script>
 
 {#if entries.length > 1}
