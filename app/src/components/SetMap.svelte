@@ -2,6 +2,7 @@
   import EntrySelect from './SetMap/EntrySelect.svelte';
   import FamilyIconSelect from '$components/SetMap/FamilyIconSelect.svelte';
   import Leaflet from '$components/SetMap/Leaflet.svelte';
+  import Section from '$components/SetMap/Section.svelte';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
@@ -110,137 +111,143 @@
 
 <div class="map">
   <div class="settings">
-    <h3>Settings</h3>
-    <label>
-      Base map:
-      <select
-        bind:value={baseMap}
-        on:change={() => preferences.update({ baseMap })}
-      >
-        <option value="esri-gray-canvas">Gray Canvas</option>
-        <option value="cartodb-positron">Positron</option>
-        <option value="esri-shaded-relief">Shaded Relief</option>
-        <!-- <option value="esri-topo">Topo</option> -->
-      </select>
-    </label>
-    <label>
-      Marker:
-      <select bind:value={markerType}>
-        <option value="label">Label</option>
-        <option value="point">Point</option>
-        <option value="point-label">Point with label</option>
-      </select>
-    </label>
-    <label>
-      Line length:
-      <input
-        type="range"
-        min="1"
-        max="5"
-        disabled={markerType !== 'point-label'}
-        bind:value={lineLength}
-      >
-    </label>
-    <label>
-      <input type="checkbox" bind:checked={showLanguage} />&nbsp;Show language name
-    </label>
-    <label>
-      <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
-    </label>
-    <label>
-      Headword:
-      <select
-        bind:value={headwordDisplay}
-      >
-        <option value="plain">Plain</option>
-        <option value="reflex-highlight">Reflex highlighted</option>
-        <option value="reflex-only">Reflex only</option>
-      </select>
-    </label>
-    <button
-      type="button"
-      on:click={() => preferences.update({ mapView: getView() })}
-    >Save Map View</button>
-    <button
-      type="button"
-      on:click={() => updateView($preferences.mapView)}
-      disabled={!$preferences.mapView}
-    >Restore Saved View</button>
-    <h3>Colors</h3>
-    {#if sets}
-      <span class="radios">
-        <label>
-          <input
-            type="radio"
-            name="color_by"
-            value="origin"
-            checked={colorBy === 'origin'}
-            bind:group={colorBy}
-          >
-          By origin
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="color_by"
-            value="set"
-            checked={colorBy === 'set'}
-            bind:group={colorBy}
-          >
-          By set
-        </label>
-      </span>
-    {/if}
-    {#if colorBy === 'origin'}
-      <div in:fade|local>
-        <label class="color">
-          Borrowed:
-          <input type="color" bind:value={colors.origin.borrowed} />
-        </label>
-        <label class="color">
-          Inherited:
-          <input type="color" bind:value={colors.origin.inherited} />
-        </label>
-        <label class="color">
-          Unknown:
-          <input type="color" bind:value={colors.origin.unknown} />
-        </label>
-      </div>
-    {:else}
-      <div in:fade|local>
-        {#each sets as set (set.id)}
-          <label class="color">
-            {set.name_auto.txt}:
-            <input type="color" bind:value={colors.set[set.id]} />
+
+    <Section name="Settings">
+      <label>
+        Base map:
+        <select
+          bind:value={baseMap}
+          on:change={() => preferences.update({ baseMap })}
+        >
+          <option value="esri-gray-canvas">Gray Canvas</option>
+          <option value="cartodb-positron">Positron</option>
+          <option value="esri-shaded-relief">Shaded Relief</option>
+          <!-- <option value="esri-topo">Topo</option> -->
+        </select>
+      </label>
+      <label>
+        Marker:
+        <select bind:value={markerType}>
+          <option value="label">Label</option>
+          <option value="point">Point</option>
+          <option value="point-label">Point with label</option>
+        </select>
+      </label>
+      <label>
+        Line length:
+        <input
+          type="range"
+          min="1"
+          max="5"
+          disabled={markerType !== 'point-label'}
+          bind:value={lineLength}
+        >
+      </label>
+      <label>
+        <input type="checkbox" bind:checked={showLanguage} />&nbsp;Show language name
+      </label>
+      <label>
+        <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
+      </label>
+      <label>
+        Headword:
+        <select
+          bind:value={headwordDisplay}
+        >
+          <option value="plain">Plain</option>
+          <option value="reflex-highlight">Reflex highlighted</option>
+          <option value="reflex-only">Reflex only</option>
+        </select>
+      </label>
+      <button
+        type="button"
+        on:click={() => preferences.update({ mapView: getView() })}
+      >Save Map View</button>
+      <button
+        type="button"
+        on:click={() => updateView($preferences.mapView)}
+        disabled={!$preferences.mapView}
+      >Restore Saved View</button>
+    </Section>
+
+    <Section name="Colors">
+      {#if sets}
+        <span class="radios">
+          <label>
+            <input
+              type="radio"
+              name="color_by"
+              value="origin"
+              checked={colorBy === 'origin'}
+              bind:group={colorBy}
+            >
+            By origin
           </label>
-        {/each}
-      </div>
-    {/if}
+          <label>
+            <input
+              type="radio"
+              name="color_by"
+              value="set"
+              checked={colorBy === 'set'}
+              bind:group={colorBy}
+            >
+            By set
+          </label>
+        </span>
+      {/if}
+      {#if colorBy === 'origin'}
+        <div in:fade|local>
+          <label class="color">
+            Borrowed:
+            <input type="color" bind:value={colors.origin.borrowed} />
+          </label>
+          <label class="color">
+            Inherited:
+            <input type="color" bind:value={colors.origin.inherited} />
+          </label>
+          <label class="color">
+            Unknown:
+            <input type="color" bind:value={colors.origin.unknown} />
+          </label>
+        </div>
+      {:else}
+        <div in:fade|local>
+          {#each sets as set (set.id)}
+            <label class="color">
+              {set.name_auto.txt}:
+              <input type="color" bind:value={colors.set[set.id]} />
+            </label>
+          {/each}
+        </div>
+      {/if}
+    </Section>
 
     {#if markerType !== 'label'}
       <div transition:fade|local>
-        <h3>Families</h3>
-        {#each familiesSorted as family (family.id)}
-          <FamilyIconSelect {family} {updateFamily} />
-        {/each}
+        <Section name="Families">
+          {#each familiesSorted as family (family.id)}
+            <FamilyIconSelect {family} {updateFamily} />
+          {/each}
+        </Section>
       </div>
     {/if}
 
-    <h3>Languages</h3>
-    {#each languageMarkers as { entries, language } }
-      <label>
-        <input
-          type="checkbox"
-          bind:checked={language.selected}
-          on:change={() => updateLanguage(language.id)}
-        />&nbsp;{language.name}
-      </label>
-      <EntrySelect
-        {entries}
-        {language}
-        {updateLanguage}
-      />
-    {/each}
+    <Section name="Languages">
+      {#each languageMarkers as { entries, language } }
+        <label>
+          <input
+            type="checkbox"
+            bind:checked={language.selected}
+            on:change={() => updateLanguage(language.id)}
+          />&nbsp;{language.name}
+        </label>
+        <EntrySelect
+          {entries}
+          {language}
+          {updateLanguage}
+        />
+      {/each}
+    </Section>
 
   </div>
   <Leaflet
@@ -271,6 +278,7 @@
       flex-direction: column;
       inline-size: 16em;
       margin-inline-end: 20px;
+      margin-block-start: 6px;
 
       label {
         margin-block-end: 6px;
