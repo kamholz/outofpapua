@@ -46,7 +46,7 @@ const compare_entries = `
       'headword', compare_entry.headword,
       'record_id', compare_entry.record_id,
       'origin', compare_entry.origin,
-      'senses', compare_entry.senses,
+      'senses', compare_es.senses,
       'set_id', compare_set_member.set_id
     )
     ORDER BY compare_entry.headword
@@ -73,16 +73,15 @@ export async function get({ locals, query }) {
     .distinct();
 
   const q = knex.from(subq.as('found'))
-    .join('entry_with_senses as entry', 'entry.id', 'found.lang1_id')
-    .leftJoin('entry_with_senses as compare_entry', 'compare_entry.id', 'found.lang2_id')
+    .join('entry', 'entry.id', 'found.lang1_id')
+    .join('entry_with_senses as es', 'es.id', 'entry.id')
+    .leftJoin('entry as compare_entry', 'compare_entry.id', 'found.lang2_id')
+    .leftJoin('entry_with_senses as compare_es', 'compare_es.id', 'compare_entry.id')
     .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
     .leftJoin('set_member as compare_set_member', 'compare_set_member.entry_id', 'compare_entry.id')
     .groupBy(
       'entry.id',
-      'entry.headword',
-      'entry.origin',
-      'entry.record_id',
-      knex.raw('entry.senses::jsonb'),
+      knex.raw('es.senses::jsonb'),
       'set_member.set_id'
     )
     .select(
@@ -90,7 +89,7 @@ export async function get({ locals, query }) {
       'entry.headword',
       'entry.origin',
       'entry.record_id',
-      knex.raw('entry.senses::jsonb'),
+      knex.raw('es.senses::jsonb'),
       'set_member.set_id',
       knex.raw(`${compare_entries} as compare_entries`)
     )
