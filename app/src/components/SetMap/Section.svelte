@@ -12,7 +12,7 @@
     <h3 on:click={() => collapsed = !collapsed}>{name}</h3>
   </div>
   {#if !collapsed}
-    <div class="content" transition:slide={{ duration: 200 }}>
+    <div class="content" transition:slide|local={{ duration: 200 }}>
       <slot />
     </div>
   {/if}
