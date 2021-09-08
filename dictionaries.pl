@@ -516,6 +516,30 @@ our $dict = {
     ],
     headword_ipa => \&ipa_kijne,
   },
+  'Lobat (2017a)' => {
+    lang_target => 'Kalabra Tet Tro',
+    path => 'spreadsheets Upwork/Kalabra dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    split_headword => ';',
+    headword_preprocess => \&strip_paren,
+  },
+  'Lobat (2017b)' => {
+    lang_target => 'Kalabra Tet Tto',
+    path => 'spreadsheets Upwork/Kalabra dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    split_headword => ';',
+    headword_preprocess => \&strip_paren,
+  },
   'Mofu (nd.)' => {
     lang_target => 'bhw',
     path => 'Biak_dictionary.txt',
@@ -787,6 +811,10 @@ sub clear_hyphen {
 
 sub replace_underscore {
   return $_[0] =~ s/_/ /gr;
+}
+
+sub strip_paren {
+  return $_[0] =~ s/ *\([^()]+\)$//r;
 }
 
 # syllabification

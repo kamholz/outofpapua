@@ -84,7 +84,7 @@ sub read_entries {
   my ($row_min, $row_max) = $self->row_range($rows);
   for my $row ($row_min .. $row_max) {
     foreach my $col (@$columns) {
-      my ($num, $type, @args) = @$col;
+      my ($num, $type, $args) = @$col;
       my $value = $self->get_cell($rows, $row, $num);
       next unless $value;
 
@@ -105,7 +105,7 @@ sub read_entries {
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
       } elsif ($type eq 'gloss') {
-        my $lang = $args[0];
+        my $lang = $args;
         $self->add_gloss($entry, 'gloss', $value, $lang);
         push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
       } elsif ($type eq 'pos') {
@@ -114,7 +114,7 @@ sub read_entries {
           push @{$entry->{record}}, ['ps', $value];
         }
       } elsif ($type eq 'note') {
-        push @{$entry->{record}}, ['nt', $args[0] ? "$args[0] $value" : $value];
+        push @{$entry->{record}}, ['nt', $args ? "$args $value" : $value];
       } elsif ($type =~ /^[a-z]{2}$/) {
         push @{$entry->{record}}, [$type, $value];
       }
