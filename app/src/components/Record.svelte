@@ -1,5 +1,5 @@
 <script>
-  import { boolean, stringify } from '$lib/util';
+  import { formDisplayValue } from '$lib/util';
 
   export let fields;
   export let values = {};
@@ -16,11 +16,7 @@
     <div>
       <span class="label">{label}:</span>
       <span class="value">
-        {#if type === 'checkbox'}
-          {boolean(values[name])}
-        {:else}
-          {stringify(values[name])}
-        {/if}
+        {formDisplayValue(values[name], type)}
       </span>
     </div>
   {/each}

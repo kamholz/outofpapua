@@ -4,9 +4,11 @@
   import Record from '$components/Record.svelte';
   import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
+  import { session } from '$app/stores';
   import * as crud from '$actions/crud';
 
   export let source;
+  source = togglePublic(source);
   const editable = getContext('editable');
   const protolangSuggest = getContext('protolangSuggest');
 
@@ -51,14 +53,28 @@
     },
   ];
 
+  if (editable) {
+    fields.push({
+      name: 'public',
+      label: 'Private',
+      type: 'checkbox',
+      readonly: !$session.user?.admin,
+    });
+  }
+
   const update = crud.makeUpdater('source');
   let promise;
+
+  // so we can display on form as "private"
+  function togglePublic(obj) {
+    return { ...obj, public: !obj.public };
+  }
 
   async function handleUpdate(e) {
     const { values } = e.detail;
     $pageLoading++;
     try {
-      promise = update({ id: source.id, values });
+      promise = update({ id: source.id, values: togglePublic(values) });
       await promise;
     } catch (e) {}
     $pageLoading--;

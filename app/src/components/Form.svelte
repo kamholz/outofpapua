@@ -1,9 +1,9 @@
 <script>
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, tick } from 'svelte';
+  import { formDisplayValue, serializeArrayParam } from '$lib/util';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
-  import { serializeArrayParam, stringify } from '$lib/util';
   
   export let fields;
   export let values = {};
@@ -71,7 +71,7 @@
           {label}:
         </span>
         <span>
-          {stringify(values[name])}
+          {formDisplayValue(values[name], type)}
         </span>
       {:else}
         <label for={name}>{label}:</label>

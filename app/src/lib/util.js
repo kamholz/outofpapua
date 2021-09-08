@@ -64,6 +64,7 @@ export function ensureNfcParams(params, iterable) {
     }
   }
 }
+
 export function getFilteredParams(params, set) {
   if (!params) {
     return {};
@@ -265,6 +266,14 @@ export function escapeHtml(txt) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
+}
+
+export function formDisplayValue(value, type) {
+  if (type === 'checkbox') {
+    return boolean(value);
+  } else {
+    return stringify(value);
+  }
 }
 
 export function mungeHeadword(txt, proto) {
