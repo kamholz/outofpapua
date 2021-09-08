@@ -41,7 +41,7 @@ WHERE source_id = ?
 EOF
       my ($entry) = @_;
       my $ph = match_headword_ph($entry->{headword}, $entry->{headword_ph});
-      my $txt = $func->($ph);
+      my $txt = $func->(NFD($ph));
       if ($do_update) {
         $db->query('UPDATE entry SET headword_ipa = ? WHERE id = ?', $txt, $entry->{id});
       } else {

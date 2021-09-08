@@ -1,6 +1,5 @@
 use v5.14;
 use utf8;
-use Unicode::Normalize 'NFD';
 
 our $dict = {
   'Anceaux (1961)' => {
@@ -792,12 +791,11 @@ sub replace_underscore {
 
 # syllabification
 
-my $vowel = qr/[aeo]i|[ao]u|ao|[aeiou]/;
-my $onset = qr/[ptkbdgfv][rl]?|['cjsmnrlwy]|n[gy]|sy|gw/;
+my $vowel = qr/[aeɛoɔ]i|[aoɔ]u|a[oɔ]|[aeɛəioɔu]/;
+my $onset = qr/ɡʷ|tʃ|dʒ|[ptkbdɡfɸvβ][rɾl]?|[ʔsʃmnɳŋrɾlwj]/;
 
 sub syllabify {
   my ($txt) = @_;
-  $txt = NFD($txt);
   $txt =~ s/(($onset)?$vowel)/σ$1/g;
   $txt =~ s/^σ//;
   return $txt;
@@ -847,12 +845,12 @@ sub ipa_dol {
 }
 
 sub ipa_donohue {
+  no warnings 'uninitialized';
   my $txt = lc shift;
-  $txt = stress_acute($txt);
-  $txt =~ tr/fweo/ɸβɛɔ/;
-  $txt =~ s/aa/aː/g;
-  $txt =~ s/ee/ɛː/g;
-  return ipa_common($txt);
+  $txt =~ tr/fweor/ɸβɛɔɾ/;
+  $txt =~ s/a(\x{301})?a/a$1ː/g;
+  $txt =~ s/e(\x{301})?e/ɛ$1ː/g;
+  return stress_acute(ipa_common($txt));
 }
 
 sub ipa_jones {
@@ -873,10 +871,9 @@ sub ipa_kamholz {
 
 sub ipa_kijne {
   my $txt = lc shift;
-  $txt = stress_acute($txt);
   $txt =~ s/sy/ʃ/g;
-  $txt =~ tr/e/ɛ/;
-  return ipa_common($txt);
+  $txt =~ tr/er/ɛɾ/;
+  return stress_acute(ipa_common($txt));
 }
 
 sub ipa_sawai {
@@ -889,13 +886,14 @@ sub ipa_smits_voorhoeve {
   my $txt = lc shift;
   $txt =~ s/dz/dʒ/g;
   $txt =~ s/sy/ʃ/g;
-  $txt =~ tr/fèòä:/ɸɛɔaː/;
+  $txt =~ tr/fèòä:r/ɸɛɔaːɾ/;
   return ipa_common($txt);
 }
 
 sub ipa_voorhoeve {
   my $txt = lc shift;
   $txt =~ s/gw/ɡʷ/g;
+  $txt =~ tr/r/ɾ/;
   return ipa_common($txt);
 }
 
