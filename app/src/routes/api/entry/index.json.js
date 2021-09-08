@@ -7,8 +7,8 @@ import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, pars
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['asc', 'headword', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page', 'pagesize',
-  'set', 'sort']);
+const allowed = new Set(['asc', 'headword', 'headword_ipa', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page',
+  'pagesize', 'set', 'sort']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -31,7 +31,7 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
-  if (!['headword', 'gloss'].some((attr) => attr in query)) {
+  if (!['headword', 'headword_ipa', 'gloss'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
   parseBooleanParams(query, boolean);

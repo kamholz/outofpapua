@@ -105,8 +105,10 @@ export function applyEntrySearchParams(q, query) {
 }
 
 export function applyHeadwordGlossSearchParams(q, query) {
-  if ('headword' in query) {
-    q.where('entry.headword', '~*', mungeRegex(query.headword));
+  for (const p of ['headword', 'headword_ipa']) {
+    if (p in query) {
+      q.where(`entry.${p}`, '~*', mungeRegex(query[p]));
+    }
   }
 
   if ('gloss' in query) {

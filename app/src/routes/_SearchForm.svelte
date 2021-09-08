@@ -15,6 +15,11 @@
       type: 'text',
     },
     {
+      name: 'headword_ipa',
+      label: 'IPA',
+      type: 'text',
+    },
+    {
       name: 'gloss',
       label: 'Gloss',
       type: 'text',

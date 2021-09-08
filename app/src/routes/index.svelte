@@ -21,7 +21,7 @@
     }
 
     query = normalizeQuery(query);
-    if (['headword', 'gloss'].some((attr) => attr in query)) {
+    if (['headword', 'headword_ipa', 'gloss'].some((attr) => attr in query)) {
       const json = await reload(fetch, query);
       if (!json) {
         return { status: 500 };
