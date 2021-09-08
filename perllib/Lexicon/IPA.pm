@@ -21,7 +21,7 @@ sub db {
 sub process_lexicon {
   my ($self, $source_reference, $func, $do_update) = @_;
 
-  say "\nstarting: $source_reference";
+  say "\nstarting: $source_reference\n";
 
   try {
     my $db = $self->db;

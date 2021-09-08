@@ -289,6 +289,7 @@ our $dict = {
     ],
     split => ',/',
     strip => ['to'],
+    headword_ipa => \&ipa_common,
   },
   'Gasser (2016b)' => {
     lang_target => 'bhw',
@@ -395,6 +396,7 @@ our $dict = {
     parser => 'LexiqueHTML',
     lang_national => 'id',
     split_heuristic => ',',
+    headword_ipa => \&ipa_sawai,
   },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
@@ -539,6 +541,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
       [3, 'page_num'],
     ],
+    headword_ipa => \&ipa_common,
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
@@ -550,6 +553,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [2, 'page_num'],
     ],
+    headword_ipa => \&ipa_common,
   },
   'Smits & Voorhoeve (1998a)' => {
     lang_target => 'Yawa Ambaidiru',
@@ -824,7 +828,7 @@ sub stress_acute_word {
 # ipa conversion
 
 sub ipa_common {
-  my ($txt) = @_;
+  my $txt = lc shift;
   $txt =~ s/ng/ŋ/g;
   $txt =~ s/ny/ɳ/g;
   $txt =~ s/j/dʒ/g;
@@ -834,7 +838,7 @@ sub ipa_common {
 }
 
 sub ipa_dol {
-  my ($txt) = @_;
+  my $txt = lc shift;
   $txt = 'əte' if $txt eq 'ete';
   $txt =~ tr/h/x/;
   return ipa_common($txt);
@@ -870,6 +874,12 @@ sub ipa_kijne {
   $txt = stress_acute($txt);
   $txt =~ s/sy/ʃ/g;
   $txt =~ tr/e/ɛ/;
+  return ipa_common($txt);
+}
+
+sub ipa_sawai {
+  my $txt = lc shift;
+  $txt =~ tr/eéoó/ɛeoɔ/;
   return ipa_common($txt);
 }
 
