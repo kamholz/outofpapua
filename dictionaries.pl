@@ -822,7 +822,7 @@ sub stress_acute_word {
     return join('', @syllables);
   } elsif ($count > 1) {
     say "warning: multiple acute accents found: $txt";
-    return $syll =~ s/[σ\{x301}]//gr;
+    return $syll =~ s/[σ\x{301}]//gr;
   }
   return $txt;
 }
