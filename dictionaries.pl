@@ -15,6 +15,7 @@ our $dict = {
     ],
     split => ',;',
     split_headword => ',;',
+    headword_ipa => \&ipa_common,
   },
   'Berry & Berry (1987a)' => {
     lang_target => 'sbg',
@@ -232,6 +233,7 @@ our $dict = {
     parser => 'Marker',
     split => ',;',
     split_headword => ',;/',
+    headword_ipa => \&ipa_dol,
   },
   'Donohue (nd.)' => {
     lang_target => 'swr',
@@ -829,6 +831,13 @@ sub ipa_common {
   $txt =~ s/c/tʃ/g;
   $txt =~ tr/gyv/ɡjβ/;
   return $txt;
+}
+
+sub ipa_dol {
+  my ($txt) = @_;
+  $txt = 'əte' if $txt eq 'ete';
+  $txt =~ tr/h/x/;
+  return ipa_common($txt);
 }
 
 sub ipa_donohue {
