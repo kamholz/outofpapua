@@ -275,6 +275,23 @@ our $dict = {
     skip_marker => 'lx_Eng',
     headword_ipa => \&ipa_donohue,
   },
+  'Flassy (1978)' => {
+    lang_target => 'kps',
+    path => 'spreadsheets Upwork/Tehit-Indonesian dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'ind'],
+      [4, 'examples', \&examples_flassy],
+      [2, 'ng'],
+      [5, 'note'],
+      [6, 'note', 'dialect:'],
+      [7, 'cf'],
+      [8, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Gasser (2016a)' => {
     lang_target => 'and',
     path => 'Talking Dictionaries/Ansus talking dictionary setup 2.0.xlsx',
@@ -922,6 +939,27 @@ sub ipa_voorhoeve {
   $txt =~ s/gw/ɡʷ/g;
   $txt =~ tr/r/ɾ/;
   return ipa_common($txt);
+}
+
+# example conversion
+
+sub examples_flassy {
+  my ($txt) = @_;
+  my $obj = {
+    example => [],
+    record => [],
+  };
+  foreach my $line (split /\n/, $txt) {
+    if ($line =~ m{^(.+?) *// *(.+?) *$}) {
+      my ($xv, $xn) = ($1, $2);
+      $xn =~ s{ *// *}{ }g;
+      push @{$obj->{example}}, [$xv, [$xn, 'ind']];
+      push @{$obj->{record}}, ['xv', $xv], ['x_Ind', $xn];
+    } else {
+      warn "could not match example line: $line";
+    }
+  }
+  return $obj;
 }
 
 1;

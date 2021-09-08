@@ -81,27 +81,73 @@ sub read_entries {
   my $headword_action = $self->headword_action;
   my $split_headword = $self->split_headword;
 
+  my $row_func;
+  if ($mode eq 'entry_per_row') {
+    $row_func = sub {
+      $self->push_entry($entries, $entry);
+      $entry = {};
+    };
+  } elsif ($mode eq 'sense_per_row') {
+    $row_func = sub {
+      $entry = {
+        headword => $entry->{headword},
+        sense => $entry->{sense},
+        record => $entry->{record},
+      };
+    };
+  } else {
+    die "unknown mode: $mode";
+  }
+
   my ($row_min, $row_max) = $self->row_range($rows);
   for my $row ($row_min .. $row_max) {
     foreach my $col (@$columns) {
       my ($num, $type, $args) = @$col;
       my $value = $self->get_cell($rows, $row, $num);
-      next unless $value;
 
       if ($type eq 'headword') {
+        my $marker = 'lx';
+
+        if ($mode eq 'sense_per_row') {
+          if ($entry->{subentry}) {
+            die "invalid empty headword for subentry in row $row" if $value eq '';
+            $self->push_entry($entries, $entry);
+            $entry = { record => $entry->{record} };
+            $marker = 'se';
+          } elsif ($value eq '') { # new sense
+              $self->add_sense($entry);
+              push @{$entry->{record}}, ['sn', scalar(@{$entry->{sense}||[]})];
+              next;
+          } else { # new entry
+            $self->push_entry($entries, $entry) if $row > $row_min;
+            $entry = {};
+          }
+        } else {
+          next unless length $value;
+        }
+
         my @headwords = $split_headword ? split($split_headword, $value) : ($value);
 
         if ($headword_action eq 'deaccent') {
           foreach my $headword (map { NFC($_) } @headwords) {
             my $deaccented = deaccent($headword);
             push @{$entry->{headword}}, $deaccented;
-            push @{$entry->{record}}, ['lx', $deaccented];
+            push @{$entry->{record}}, [$marker, $deaccented];
             push @{$entry->{record}}, ['ph', $headword] if $headword ne $deaccented;
           }
         } else {
           push @{$entry->{headword}}, @headwords;
-          push @{$entry->{record}}, ['lx', $_] for @headwords;
+          push @{$entry->{record}}, [$marker, $_] for @headwords;
         }
+
+        push @{$entry->{record}}, ['sn', 1] if $mode eq 'sense_per_row';
+        next;
+      }
+
+      next unless length $value;
+
+      if ($type eq 'subentry') {
+        $entry->{subentry} = $value eq 'TRUE' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
       } elsif ($type eq 'gloss') {
@@ -113,20 +159,26 @@ sub read_entries {
           $self->add_pos($entry, $value);
           push @{$entry->{record}}, ['ps', $value];
         }
+      } elsif ($type eq 'examples') {
+        push @{$entry->{sense}}, {} unless $entry->{sense};
+        my $obj = $args->($value);
+        foreach my $example (@{$obj->{example}||[]}) {
+          push @{$entry->{sense}[-1]{example}}, $example;
+        }
+        push @{$entry->{record}}, @{$obj->{record}||[]};
       } elsif ($type eq 'note') {
-        push @{$entry->{record}}, ['nt', $args ? "$args $value" : $value];
+        my @values = split /\n/, $value;
+        push(@{$entry->{record}}, ['nt', $args ? "$args $_" : $_]) for @values;
       } elsif ($type =~ /^[a-z]{2}$/) {
-        push @{$entry->{record}}, [$type, $value];
+        my @values = split /\n/, $value;
+        push(@{$entry->{record}}, [$type, $_]) for @values;
       }
     }
 
-    if ($mode eq 'entry_per_row') {
-      foreach my $headword (uniqstr @{$entry->{headword}}) {
-        $self->push_entry($entries, { %$entry, headword => $headword });
-      }
-      $entry = {};
-    }
+    $row_func->();
   }
+
+  $self->push_entry($entries, $entry) if $mode eq 'sense_per_row';
 
   return $entries;
 }

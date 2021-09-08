@@ -126,7 +126,12 @@ sub push_entry {
     }
 
     if ($self->split_headword) {
-      foreach my $headword (uniqstr split($self->split_headword, $entry->{headword})) {
+      # allow format-specific parser to have already split headwords
+      my @headwords = uniqstr(ref $entry->{headword} eq 'ARRAY' 
+        ? @{$entry->{headword}}
+        : split($self->split_headword, $entry->{headword})
+      );
+      foreach my $headword (@headwords) {
         if (!length $headword) {
           say "warning: empty headword";
           next;
