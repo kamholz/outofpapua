@@ -78,11 +78,11 @@
 
 <style lang="scss">
   .info {
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
     @include indent;
   }
 
   .controls {
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
   }
 </style>

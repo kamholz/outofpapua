@@ -1,16 +1,6 @@
-$error_background_color: #f8d7da;
-$error_border_color: #f5c6cb;
-$error_color: #721c24;
-$item_sep: 20px;
-$light_gray: #e0e0e0;
-$lighter_gray: #e8e8e8;
-$success_background_color: #d4edda;
-$success_border_color: #c3e6cb;
-$success_color: #155724;
-
 @mixin hr {
   hr {
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
     block-size: 2px;
     background-color: black;
     border: none;
@@ -37,15 +27,15 @@ $success_color: #155724;
 }
 
 @mixin error_color {
-  color: $error_color;
-  background-color: $error_background_color;
-  border-color: $error_border_color;
+  color: var(--error-color);
+  background-color: var(--error-background-color);
+  border-color: var(--error-border-color);
 }
 
 @mixin success_color {
-  color: $success_color;
-  background-color: $success_background_color;
-  border-color: $success_border_color;
+  color: var(--success-color);
+  background-color: var(--success-background-color);
+  border-color: var(--success-border-color);
 }
 
 @mixin popover {

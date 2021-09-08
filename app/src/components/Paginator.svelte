@@ -53,7 +53,7 @@
     border-radius: 4px;
     padding-block: 6px;
     padding-inline: 4px;
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
     color: grey;
 
     :global {

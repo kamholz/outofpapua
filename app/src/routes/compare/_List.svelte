@@ -60,7 +60,7 @@
 
 <style lang="scss">
   .info {
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
   }
 
   @include button-left;

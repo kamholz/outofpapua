@@ -25,7 +25,7 @@
     margin-inline-end: 1em;
     padding-block: 0.35em;
     padding-inline: 0.75em;
-    background-color: $light_gray;
+    background-color: var(--light-gray);
     border-radius: 3px;
     &.active {
       font-weight: bold;

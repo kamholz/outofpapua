@@ -19,9 +19,12 @@
 
 <style lang="scss">
   div {
+    width: fit-content;
+    max-width: 800px;
     margin-block: 1em;
-    padding: .75rem 1.25rem;
-    border-radius: .25rem;
+    padding-block: .75em;
+    padding-inline: 1.25em 2.25em;
+    border-radius: 6px;
     border: 1px solid transparent;
     position: relative;
   
@@ -36,7 +39,7 @@
 
   span {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2px;
+    right: 2px;
   }
 </style>

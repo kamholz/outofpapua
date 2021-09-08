@@ -156,7 +156,7 @@
   }
 
   .controls {
-    margin-block: $item_sep;
+    margin-block: var(--item-sep);
     display: flex;
     justify-content: space-between;
   }

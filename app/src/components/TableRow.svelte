@@ -33,7 +33,7 @@
 
 <style lang="scss">
   tr:nth-child(even) {
-    background-color: $light_gray;
+    background-color: var(--light-gray);
   }
 
   tr:nth-child(odd) {
