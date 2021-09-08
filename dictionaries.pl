@@ -798,8 +798,8 @@ my $onset = qr/[ptkbdgfv][rl]?|['cjsmnrlwy]|n[gy]|sy|gw/;
 sub syllabify {
   my ($txt) = @_;
   $txt = NFD($txt);
-  $txt =~ s/(($onset)?$vowel)/\.$1/g;
-  $txt =~ s/^\.//;
+  $txt =~ s/(($onset)?$vowel)/σ$1/g;
+  $txt =~ s/^σ//;
   return $txt;
 }
 
@@ -812,7 +812,7 @@ sub stress_acute_word {
   my $syll = syllabify($txt);
   my $count = $syll =~ tr/\x{301}//;
   if ($count == 1) {
-    my @syllables = split /\./, $syll;
+    my @syllables = split /σ/, $syll;
     foreach my $syllable (@syllables) {
       if ($syllable =~ s/\x{301}//) {
         $syllable = "\x{2c8}" . $syllable;
@@ -820,8 +820,10 @@ sub stress_acute_word {
       }
     }
     return join('', @syllables);
+  } else if ($count > 1) {
+    say "warning: multiple acute accents found: $txt";
+    return $syll =~ s/[σ\{x301}]//gr;
   }
-  say "warning: multiple acute accents found: $txt" if $count > 1;
   return $txt;
 }
 
