@@ -845,11 +845,10 @@ sub ipa_dol {
 }
 
 sub ipa_donohue {
-  no warnings 'uninitialized';
   my $txt = lc shift;
   $txt =~ tr/fweor/ɸβɛɔɾ/;
-  $txt =~ s/a(\x{301})?a/a$1ː/g;
-  $txt =~ s/e(\x{301})?e/ɛ$1ː/g;
+  $txt =~ s/a(\x{301}?)a/a$1ː/g;
+  $txt =~ s/e(\x{301}?)e/ɛ$1ː/g;
   return stress_acute(ipa_common($txt));
 }
 
