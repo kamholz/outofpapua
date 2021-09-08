@@ -96,9 +96,3 @@
     <div class="notfound">no entries found</div>
   {/if}
 {/if}
-
-<style lang="scss">
-  .notfound {
-    margin-block: $item_sep;
-  }
-</style>
