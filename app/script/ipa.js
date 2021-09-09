@@ -17,6 +17,8 @@ const knex = knexModule({
   },
 });
 
+console.log(`\nstarting: ${sourceReference}\n`);
+
 await knex.transaction(async (trx) => {
   const source = await trx('source')
     .where({ reference: sourceReference })
