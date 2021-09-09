@@ -25,8 +25,8 @@
     const form = e.currentTarget;
     const submitValues = {};
     for (const { name, type } of fields.filter((v) => !v.readonly)) { // normalize whitespace
-      submitValues[name] = type === 'text'
-        ? values[name]?.trim()
+      submitValues[name] = (type === 'text' || type === 'textarea')
+        ? values[name]?.trim() ?? ''
         : values[name];
     }
     await tick();
