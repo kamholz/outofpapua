@@ -6,7 +6,8 @@ import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, pars
   partitionPlus, showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowedSearch = new Set(['asc', 'gloss', 'glosslang', 'headword', 'lang', 'page', 'pagesize', 'sort', 'source']);
+const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_ipa', 'lang', 'page',
+  'pagesize', 'sort', 'source']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
@@ -44,9 +45,13 @@ export async function get({ locals, query }) {
     }
   }
 
-  if ('headword' in query || 'gloss' in query) {
+  if ('headword' in query || 'headword_ipa' in query || 'gloss' in query) {
     applyHeadwordGlossSearchParams(existsq, query);
     existsqNeeded = true;
+  }
+
+  if ('author_id' in query) {
+    q.where('set.author_id', query.author_id);
   }
 
   if ('lang' in query) {

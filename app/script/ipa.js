@@ -21,7 +21,7 @@ console.log(`\nstarting: ${sourceReference}\n`);
 
 await knex.transaction(async (trx) => {
   const source = await trx('source')
-    .where({ reference: sourceReference })
+    .where('reference', sourceReference)
     .first('id', 'ipa_conversion_rule');
 
   if (!source) {
@@ -38,7 +38,7 @@ await knex.transaction(async (trx) => {
   const func = eval(rule.code);
 
   const entries = await trx('entry_with_ph')
-    .where({ source_id: source.id })
+    .where('source_id', source.id)
     .select('id', 'headword', 'headword_ph');
 
   for (const entry of entries) {
@@ -46,7 +46,7 @@ await knex.transaction(async (trx) => {
     const txt = func(ph);
     if (doUpdate) {
       await trx('entry')
-        .where({ id: entry.id })
+        .where('id', entry.id)
         .update({ headword_ipa: txt });
     } else {
       console.log(`${entry.headword} => ${txt}`);

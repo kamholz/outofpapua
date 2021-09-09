@@ -54,6 +54,15 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
+export async function setAuthor(fetch) {
+  const res = await fetch('/api/set/author.json');
+  if (!res.ok) {
+    return null;
+  }
+  const { rows } = await res.json();
+  return rows.map((row) => ({ id: row.id, name: row.fullname }));
+}
+
 export async function setMember({ search, match, languages, noset }, preferences) {
   const params = new URLSearchParams({ search, match });
   if (languages) {

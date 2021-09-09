@@ -4,6 +4,7 @@
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
+      setAuthorSuggest: await suggest.setAuthor(fetch),
       sourceSuggest: await suggest.source(fetch),
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
@@ -42,6 +43,8 @@
   import { setContext } from 'svelte';
 
   export let rows;
+  export let setAuthorSuggest;
+  setContext('setAuthorSuggest', setAuthorSuggest);
   export let sourceSuggest;
   setContext('sourceSuggest', sourceSuggest);
   export let langSuggest;

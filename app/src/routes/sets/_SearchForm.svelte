@@ -4,6 +4,7 @@
   import { getContext } from 'svelte';
 
   export let query;
+  const setAuthorSuggest = getContext('setAuthorSuggest');
   const sourceSuggest = getContext('sourceSuggest');
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
@@ -16,9 +17,20 @@
       type: 'text',
     },
     {
+      name: 'headword_ipa',
+      label: 'IPA',
+      type: 'text',
+    },
+    {
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
+    },
+    {
+      name: 'author_id',
+      label: 'Author',
+      type: 'suggest',
+      options: setAuthorSuggest,
     },
     {
       name: 'source',
