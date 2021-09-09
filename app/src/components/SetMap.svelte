@@ -123,6 +123,7 @@
         bind:showLanguage
         bind:showGloss
         bind:headwordDisplay
+        {sets}
         {getView}
         {updateView}
       />
