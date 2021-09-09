@@ -4,7 +4,7 @@ use Moo;
 use namespace::clean;
 use List::Util 'uniqstr';
 use Text::CSV;
-use Unicode::Normalize qw/NFC NFD/;
+use Unicode::Normalize 'NFC';
 
 extends 'Lexicon::Parser';
 with 'Lexicon::Util';
@@ -116,7 +116,7 @@ sub read_entries {
             $marker = 'se';
           } elsif ($value eq '') { # new sense
               $self->add_sense($entry);
-              push @{$entry->{record}}, ['sn', scalar(@{$entry->{sense}||[]})];
+              push @{$entry->{record}}, ['sn', '' . scalar(@{$entry->{sense}||[]})];
               next;
           } else { # new entry
             $self->push_entry($entries, $entry) if $row > $row_min;
@@ -140,7 +140,7 @@ sub read_entries {
           push @{$entry->{record}}, [$marker, $_] for @headwords;
         }
 
-        push @{$entry->{record}}, ['sn', 1] if $mode eq 'sense_per_row';
+        push @{$entry->{record}}, ['sn', '1'] if $mode eq 'sense_per_row';
         next;
       }
 
@@ -181,10 +181,6 @@ sub read_entries {
   $self->push_entry($entries, $entry) if $mode eq 'sense_per_row';
 
   return $entries;
-}
-
-sub deaccent {
-  return NFD($_[0]) =~ s/\p{M}//gr;
 }
 
 1;

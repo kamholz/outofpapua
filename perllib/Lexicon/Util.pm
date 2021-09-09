@@ -3,12 +3,9 @@ use v5.14;
 use Moo::Role;
 use Encode::Simple qw(decode decode_lax);
 use Try::Tiny;
-use Unicode::Normalize 'NFC';
+use Unicode::Normalize qw/NFC NFD/;
 
-my %code3 = (
-  en => 'eng',
-  id => 'ind',
-);
+# param and string generation
 
 sub to_array {
   return ref $_[0] eq 'ARRAY' ? $_[0] : [$_[0]];
@@ -23,10 +20,26 @@ sub split_regex {
   return qr/\s*[$chars]\s*(?![^()]*\))/;
 }
 
+sub marker_with_code {
+  my ($marker, $code) = @_;
+  return $marker . '_' . ucfirst $code;
+}
+
+# string encoding and normalization
+
+sub ensure_nfc {
+  my ($txt) = @_;
+  return defined $txt ? NFC($txt) : $txt;
+}
+
 sub normalize_headword {
   my ($txt) = @_;
   $txt =~ s/\s+/ /g;
   return $txt;
+}
+
+sub deaccent {
+  return NFC(NFD($_[0]) =~ s/\p{M}//gr);
 }
 
 sub apply_encodings {
@@ -46,10 +59,19 @@ sub apply_encodings {
   return $txt;
 }
 
-sub ensure_nfc {
-  my ($txt) = @_;
-  return defined $txt ? NFC($txt) : $txt;
+# ISO 639 code conversion
+
+my %code3 = (
+  en => 'eng',
+  id => 'ind',
+);
+
+sub code3 {
+  my ($code) = @_;
+  return $code3{$code} // $code;
 }
+
+# dom extraction
 
 sub get_text_sil {
   my ($el) = @_;
@@ -78,15 +100,7 @@ sub collect_record_sil {
   }
 }
 
-sub code3 {
-  my ($code) = @_;
-  return $code3{$code} // $code;
-}
-
-sub marker_with_code {
-  my ($marker, $code) = @_;
-  return $marker . '_' . ucfirst $code;
-}
+# db
 
 sub select_single {
   my ($db, $query, @values) = @_;

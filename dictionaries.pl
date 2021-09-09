@@ -421,6 +421,7 @@ our $dict = {
     lang_national => 'ind',
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
+    headword_ipa => \&ipa_imelda_bowden,
   },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
@@ -895,6 +896,12 @@ sub ipa_donohue {
   $txt =~ s/a(\x{301}?)a/a$1ː/g;
   $txt =~ s/e(\x{301}?)e/ɛ$1ː/g;
   return stress_acute(ipa_common($txt));
+}
+
+sub ipa_imelda_bowden {
+  my $txt = lc shift;
+  $txt =~ tr/'/ʔ/;
+  return ipa_common($txt);
 }
 
 sub ipa_jones {
