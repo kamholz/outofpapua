@@ -14,7 +14,6 @@ our $dict = {
     ],
     split => ',;',
     split_headword => ',;',
-    headword_ipa => \&ipa_common,
   },
   'Berry & Berry (1987a)' => {
     lang_target => 'sbg',
@@ -232,7 +231,6 @@ our $dict = {
     parser => 'Marker',
     split => ',;',
     split_headword => ',;/',
-    headword_ipa => \&ipa_dol,
   },
   'Donohue (nd.)' => {
     lang_target => 'swr',
@@ -243,7 +241,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [2, 'page_num'],
     ],
-    headword_ipa => \&ipa_donohue,
   },
   'Donohue (2001)' => {
     lang_target => 'swr',
@@ -254,7 +251,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [2, 'page_num'],
     ],
-    headword_ipa => \&ipa_donohue,
   },
   'Donohue (2003)' => {
     lang_target => 'swr',
@@ -266,14 +262,12 @@ our $dict = {
       [2, 'page_num'],
     ],
     headword_action => 'deaccent',
-    headword_ipa => \&ipa_donohue,
   },
   'Donohue & Ayeri (nd.)' => {
     lang_target => 'swr',
     path => 'Fieldworks/Saweru.db',
     parser => 'Marker',
     skip_marker => 'lx_Eng',
-    headword_ipa => \&ipa_donohue,
   },
   'Flassy (1978)' => {
     lang_target => 'kps',
@@ -305,7 +299,6 @@ our $dict = {
     ],
     split => ',/',
     strip => ['to'],
-    headword_ipa => \&ipa_common,
   },
   'Gasser (2016b)' => {
     lang_target => 'bhw',
@@ -412,7 +405,6 @@ our $dict = {
     parser => 'LexiqueHTML',
     lang_national => 'id',
     split_heuristic => ',',
-    headword_ipa => \&ipa_sawai,
   },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
@@ -421,7 +413,6 @@ our $dict = {
     lang_national => 'ind',
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
-    headword_ipa => \&ipa_imelda_bowden,
   },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
@@ -429,7 +420,6 @@ our $dict = {
     parser => 'Marker',
     headword_citation_action => 'prefer_root',
     skip_marker => 'lx_Eng',
-    headword_ipa => \&ipa_jones,
   },
   'Kamholz (nd.a)' => {
     lang_target => 'mhz',
@@ -447,7 +437,6 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
-    headword_ipa => \&ipa_kamholz,
   },
   'Kamholz (nd.c)' => {
     lang_target => 'ire',
@@ -456,7 +445,6 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
-    headword_ipa => \&ipa_kamholz,
   },
   'Kamholz (nd.d)' => {
     lang_target => 'gop',
@@ -465,7 +453,6 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
-    headword_ipa => \&ipa_kamholz,
   },
   'Kijne (nd.a)' => {
     lang_target => 'Yawa Turu',
@@ -478,7 +465,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    headword_ipa => \&ipa_kijne,
   },
   'Kijne (nd.b)' => {
     lang_target => 'swr',
@@ -492,7 +478,6 @@ our $dict = {
       [3, 'page_num'],
     ],
     headword_action => 'deaccent',
-    headword_ipa => \&ipa_kijne,
   },
   'Kijne (nd.c)' => {
     lang_target => 'Yawa Turu',
@@ -506,7 +491,6 @@ our $dict = {
       [3, 'page_num'],
     ],
     headword_action => 'deaccent',
-    headword_ipa => \&ipa_kijne,
   },
   'Kijne (nd.d)' => {
     lang_target => 'Yawa Mantembu',
@@ -519,7 +503,6 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    headword_ipa => \&ipa_kijne,
   },
   'Kijne (nd.e)' => {
     lang_target => 'Yawa Ambaidiru',
@@ -532,7 +515,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    headword_ipa => \&ipa_kijne,
   },
   'Lobat (2017a)' => {
     lang_target => 'Kalabra Tet Tro',
@@ -582,7 +564,6 @@ our $dict = {
       [2, 'gloss', 'ind'],
       [3, 'page_num'],
     ],
-    headword_ipa => \&ipa_common,
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
@@ -594,7 +575,6 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [2, 'page_num'],
     ],
-    headword_ipa => \&ipa_common,
   },
   'Smits & Voorhoeve (1998a)' => {
     lang_target => 'Yawa Ambaidiru',
@@ -606,7 +586,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998b)' => {
     lang_target => 'Yawa Ariepi',
@@ -618,7 +597,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998c)' => {
     lang_target => 'Yawa Mariadei',
@@ -630,7 +608,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998d)' => {
     lang_target => 'Yawa Tarau',
@@ -642,7 +619,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998e)' => {
     lang_target => 'Yawa Tarau',
@@ -654,7 +630,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998f)' => {
     lang_target => 'Yawa Kampung Baru',
@@ -666,7 +641,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998g)' => {
     lang_target => 'Yawa Mantembu',
@@ -678,7 +652,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998h)' => {
     lang_target => 'Yawa Mantembu',
@@ -690,7 +663,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998i)' => {
     lang_target => 'Yawa Turu',
@@ -702,7 +674,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998j)' => {
     lang_target => 'Yawa Konti Unai',
@@ -714,7 +685,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998k)' => {
     lang_target => 'Yawa Wadapi-Darat',
@@ -726,7 +696,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998l)' => {
     lang_target => 'Yawa Wadapi-Darat',
@@ -738,7 +707,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998m)' => {
     lang_target => 'swr',
@@ -750,7 +718,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998n)' => {
     lang_target => 'swr',
@@ -762,7 +729,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Smits & Voorhoeve (1998o)' => {
     lang_target => 'swr',
@@ -774,7 +740,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-    headword_ipa => \&ipa_smits_voorhoeve,
   },
   'Unknown (nd.)' => {
     lang_target => 'kgr',
@@ -804,7 +769,6 @@ our $dict = {
       [1, 'headword'],
       [0, 'gloss', 'eng'],
     ],
-    headword_ipa => \&ipa_voorhoeve,
   },
   'Wada (1980a)' => {
     lang_target => 'Proto-North Halmahera',
@@ -833,119 +797,6 @@ sub replace_underscore {
 
 sub strip_paren {
   return $_[0] =~ s/ *\([^()]+\)$//r;
-}
-
-# syllabification
-
-my $vowel = qr/[aeɛoɔ]i|[aoɔ]u|a[oɔ]|[aeɛəioɔu]/;
-my $onset = qr/ɡʷ|tʃ|dʒ|[ptkbdɡfɸvβ][rɾl]?|[ʔsʃmnɳŋrɾlwj]/;
-
-sub syllabify {
-  my ($txt) = @_;
-  $txt =~ s/(($onset)?$vowel)/σ$1/g;
-  $txt =~ s/^σ//;
-  return $txt;
-}
-
-sub stress_acute {
-  return join(' ', map { stress_acute_word($_) } split(/ /, $_[0]));
-}
-
-sub stress_acute_word {
-  my ($txt) = @_;
-  my $syll = syllabify($txt);
-  my $count = $syll =~ tr/\x{301}//;
-  if ($count == 1) {
-    my @syllables = split /σ/, $syll;
-    foreach my $syllable (@syllables) {
-      if ($syllable =~ s/\x{301}//) {
-        $syllable = "\x{2c8}" . $syllable;
-        last;
-      }
-    }
-    return join('', @syllables);
-  } elsif ($count > 1) {
-    say "warning: multiple acute accents found: $txt";
-    return $syll =~ s/[σ\x{301}]//gr;
-  }
-  return $txt;
-}
-
-# ipa conversion
-
-sub ipa_common {
-  my $txt = lc shift;
-  $txt =~ s/ng/ŋ/g;
-  $txt =~ s/ny/ɳ/g;
-  $txt =~ s/j/dʒ/g;
-  $txt =~ s/c/tʃ/g;
-  $txt =~ tr/gyv/ɡjβ/;
-  return $txt;
-}
-
-sub ipa_dol {
-  my $txt = lc shift;
-  $txt = 'əte' if $txt eq 'ete';
-  $txt =~ tr/h/x/;
-  return ipa_common($txt);
-}
-
-sub ipa_donohue {
-  my $txt = lc shift;
-  $txt =~ tr/fweor/ɸβɛɔɾ/;
-  $txt =~ s/a(\x{301}?)a/a$1ː/g;
-  $txt =~ s/e(\x{301}?)e/ɛ$1ː/g;
-  return stress_acute(ipa_common($txt));
-}
-
-sub ipa_imelda_bowden {
-  my $txt = lc shift;
-  $txt =~ tr/'/ʔ/;
-  return ipa_common($txt);
-}
-
-sub ipa_jones {
-  my $txt = lc shift;
-  $txt =~ s/gw/ɡʷ/g;
-  $txt =~ s/sy/ʃ/g;
-  $txt =~ s/ui/ʷi/g;
-  $txt =~ tr/r/ɾ/;
-  return ipa_common($txt);
-}
-
-sub ipa_kamholz {
-  my $txt = lc shift;
-  $txt =~ s/gw/ɡʷ/g;
-  $txt =~ tr/'r/ʔɾ/;
-  return ipa_common($txt);
-}
-
-sub ipa_kijne {
-  my $txt = lc shift;
-  $txt =~ s/sy/ʃ/g;
-  $txt =~ tr/er/ɛɾ/;
-  return stress_acute(ipa_common($txt));
-}
-
-sub ipa_sawai {
-  my $txt = lc shift;
-  $txt =~ tr/eéoó/ɛeoɔ/;
-  return ipa_common($txt);
-}
-
-sub ipa_smits_voorhoeve {
-  my $txt = lc shift;
-  $txt =~ s/dz/dʒ/g;
-  $txt =~ s/sy/ʃ/g;
-  $txt =~ tr/fèòä:r/ɸɛɔaːɾ/;
-  return ipa_common($txt);
-}
-
-sub ipa_voorhoeve {
-  my $txt = lc shift;
-  $txt =~ s/gw/ɡʷ/g;
-  $txt =~ tr/r/ɾ/;
-  return ipa_common($txt);
 }
 
 # example conversion
