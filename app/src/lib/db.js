@@ -195,3 +195,7 @@ function formatPgError(e) {
       return 'unknown error';
   }
 }
+
+// fixed SQL strings
+
+export const name_auto = "coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto";

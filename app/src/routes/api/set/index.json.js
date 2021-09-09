@@ -1,6 +1,6 @@
 import { allowed } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
-  sendPgError, transaction } from '$lib/db';
+  name_auto, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   partitionPlus, showPublicOnly } from '$lib/util';
@@ -89,9 +89,11 @@ export async function get({ locals, query }) {
 
   q.select(
     'set.id',
-    'set.note',
+    'set.author_id',
+    'set.author_name',
     'set.name',
-    knex.raw("coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto"),
+    knex.raw(name_auto),
+    'set.note',
     'set.members'
   );
 

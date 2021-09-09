@@ -1,4 +1,4 @@
-import { arrayCmp, knex } from '$lib/db';
+import { arrayCmp, knex, name_auto } from '$lib/db';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
@@ -22,9 +22,11 @@ export async function get({ locals, query }) {
     .where('set.id', arrayCmp(query.ids))
     .select(
       'set.id',
-      'set.note',
+      'set.author_id',
+      'set.author_name',
       'set.name',
-      knex.raw("coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto"),
+      knex.raw(name_auto),
+      'set.note',
       'set.members'
     );
 

@@ -53,8 +53,8 @@
   }
 
   const values = {
-    note: set.note,
     name: set.name,
+    note: set.note,
   };
   let name = set.name_auto.txt;
   let createProtoValues = {};
