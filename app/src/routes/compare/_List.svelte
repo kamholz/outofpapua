@@ -45,6 +45,7 @@
     {#each rows as row (row.id)}
       <ListItem
         entry={row}
+        {query}
         {lang2Name}
         collapsed={collapsedRows[row.id]}
         {multilang}

@@ -11,8 +11,9 @@
 
   export let entry;
   export let language_id;
-  export let click;
+  export let click = false;
   export let linkable = false;
+  export let placement = 'auto';
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
 
@@ -28,6 +29,7 @@
     click,
     show: () => showPopover = true,
     hide: () => showPopover = false,
+    popperOptions: { placement },
   });
 
   async function handleUpdate(key) {

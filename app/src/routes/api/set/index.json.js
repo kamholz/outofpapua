@@ -116,6 +116,7 @@ export const post = requireAuth(async ({ body, locals }) => {
     delete body.members;
   }
   const params = getFilteredParams(body, allowed);
+  params.author_id = locals.user.id;
   try {
     const id = await transaction(locals, async (trx) => {
       const ids = await trx('set')

@@ -1,5 +1,6 @@
 <script>
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
+  import EntryInfoPopover from '$components/EntryInfoPopover.svelte';
   import EntryLink from '$components/EntryLink.svelte';
   import Icon from 'svelte-awesome';
   import Senses from '$components/Senses.svelte';
@@ -13,6 +14,7 @@
   import * as crudSet from '$actions/crud/set';
 
   export let entry;
+  export let query;
   export let lang2Name;
   export let collapsed;
   export let multilang;
@@ -55,7 +57,9 @@
         <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} />
       </span>
     {/if}
-    <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
+    <EntryInfoPopover bind:entry language_id={query.lang1} placement="auto-start">
+      <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
+    </EntryInfoPopover>
     {#if entry.set_id}
       <SetPopover id={entry.set_id} />
     {/if}
@@ -78,7 +82,9 @@
                   <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
                 </span>
               {/if}
-              <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+              <EntryInfoPopover bind:entry language_id={query.lang2}>
+                <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+              </EntryInfoPopover>
               {#if compare_entry.set_id}
                 <SetPopover id={compare_entry.set_id} />
               {/if}

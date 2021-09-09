@@ -4,13 +4,19 @@
 
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query } }) {
+  export async function load({ fetch, page: { query }, session }) {
     const props = {
       langSuggest: await suggest.lang(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500 };
+    }
+    if (session.user) {
+      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+      if (!props.borrowlangSuggest) {
+        return { status: 500 };
+      }
     }
 
     query = normalizeQuery(query);
@@ -57,6 +63,10 @@
   setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
   setContext('glosslangSuggest', glosslangSuggest);
+  export let borrowlangSuggest = null;
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
 
   $: multilang = !(query.glosslang?.length === 1);
 
