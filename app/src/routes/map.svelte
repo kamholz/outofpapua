@@ -1,4 +1,6 @@
 <script context="module">
+  import ipaConversionFunctions from '$actions/ipa_conversion_functions';
+
   export const ssr = false;
 
   export async function load({ fetch, page: { query } }) {
@@ -10,14 +12,18 @@
       return { status: 500 };
     }
     props.entries = (await res.json()).rows;
+    props.ipaFunctions = await ipaConversionFunctions(fetch, props.entries);
     return { props };
   }
 </script>
 
 <script>
   import SetMap from '$components/SetMap.svelte';
+  import { setContext } from 'svelte';
 
   export let entries;
+  export let ipaFunctions;
+  setContext('ipaFunctions', ipaFunctions);
   const members = entries.map((entry) => ({
     entry,
     language: entry.language,

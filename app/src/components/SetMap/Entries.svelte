@@ -23,10 +23,14 @@
       />&nbsp;{entry.headword}{maybeGloss(entry.senses)}
     </label>
   {/each}
+{:else}
+  <span>
+    {entries[0].headword}{maybeGloss(entries[0].senses)}
+  </span>
 {/if}
 
 <style>
-  label {
+  label, span {
     margin-block-end: 6px;
     margin-inline-start: 20px;
   }

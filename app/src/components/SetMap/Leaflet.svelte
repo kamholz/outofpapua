@@ -4,8 +4,8 @@
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape, maybeGloss } from '$lib/util';
+  import { getContext, onDestroy, onMount } from 'svelte';
   import { maxZoom } from '$lib/preferences';
-  import { onDestroy, onMount } from 'svelte';
   import { yiq } from 'yiq';
 
   export let languages;
@@ -19,6 +19,7 @@
   export let lineLength;
   export let colorBy;
   export let colors;
+  const ipaFunctions = getContext('ipaFunctions');
 
   const languageMarkersById = {};
   for (const lm of languageMarkers) {
@@ -222,17 +223,18 @@
     return [...new Set(items)].join(', ');
   }
 
-  function getHeadwordHtml({ headword, reflex }) {
+  function getHeadwordHtml({ headword, headword_ipa, ipa_conversion_rule, reflex }) {
     if (headwordDisplay === 'plain') {
-      return escape(headword);
+      return escape(headword_ipa ?? headword);
     } else {
       const [before, reflexProper, after] = reflex === null
         ? ['', headword, '']
         : reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
 
+      const convert = ipaFunctions[ipa_conversion_rule] ?? ((v) => v);
       return headwordDisplay === 'reflex-only'
-        ? escape(reflexProper)
-        : `${escape(before)}<strong>${escape(reflexProper)}</strong>${escape(after)}`;
+        ? escape(convert(reflexProper))
+        : `${escape(convert(before))}<strong>${escape(convert(reflexProper))}</strong>${escape(convert(after))}`;
     }
   }
 

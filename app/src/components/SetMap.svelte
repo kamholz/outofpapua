@@ -21,7 +21,7 @@
   let markerType = 'point-label';
   let showLanguage = false;
   let showGloss = false;
-  let headwordDisplay = 'plain';
+  let headwordDisplay = sets ? 'reflex-only' : 'plain';
   let lineLength = 3;
   let colorBy = 'origin';
   let colors = {
@@ -72,7 +72,7 @@
 
   function getLanguageMarkers() {
     const markersByLanguageCode = {};
-    for (const { entry, language: { id }, reflex, set_id } of mappableMembers) {
+    for (const { entry, language: { id }, reflex, set_id, source: { ipa_conversion_rule } } of mappableMembers) {
       const key = sets ? set_id : 'all';
       if (!(id in markersByLanguageCode)) {
         markersByLanguageCode[id] = {
@@ -89,7 +89,12 @@
         };
       }
 
-      markersByLanguageCode[id].markers[key].entries.push({ ...entry, reflex, set_id, selected: true });
+      markersByLanguageCode[id].markers[key].entries.push({
+        ...entry,
+        ipa_conversion_rule,
+        reflex, set_id,
+        selected: true,
+      });
     }
 
     const languageMarkers = Object.values(markersByLanguageCode);

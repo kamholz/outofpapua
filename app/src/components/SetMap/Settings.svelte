@@ -9,6 +9,7 @@
   export let showGloss;
   export let headwordDisplay;
 
+  export let sets;
   export let getView;
   export let updateView;
 </script>
@@ -49,14 +50,16 @@
 <label>
   <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
 </label>
-<label>
-  Headword:
-  <select bind:value={headwordDisplay}>
-    <option value="plain">Plain</option>
-    <option value="reflex-bold">Reflex in bold</option>
-    <option value="reflex-only">Reflex only</option>
-  </select>
-</label>
+{#if sets}
+  <label>
+    Headword:
+    <select bind:value={headwordDisplay}>
+      <option value="plain">Plain</option>
+      <option value="reflex-bold">Reflex in bold</option>
+      <option value="reflex-only">Reflex only</option>
+    </select>
+  </label>
+{/if}
 <button
   type="button"
   on:click={() => preferences.update({ mapView: getView() })}
