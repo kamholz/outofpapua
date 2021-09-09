@@ -28,7 +28,7 @@
     },
     {
       name: 'author_id',
-      label: 'Author',
+      label: 'Set Author',
       type: 'suggest',
       options: setAuthorSuggest,
     },

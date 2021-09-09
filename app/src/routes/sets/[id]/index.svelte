@@ -156,6 +156,10 @@
   {/each}
   {#if editable || set.note}
     <div class="set-item">
+      <div class="set-item-label top">Author:</div>
+      <span>{set.author_name}</span>
+    </div>
+    <div class="set-item">
       <div class="set-item-label top">Notes:</div>
       {#if editable}
         <textarea
@@ -231,6 +235,7 @@
     .set-item {
       display: flex;
       position: relative;
+      margin-block-end: var(--item-sep);
 
       .set-item-label {
         flex-shrink: 0;
@@ -241,6 +246,10 @@
         .fa-icon {
           vertical-align: unset;
           margin-inline-start: 7px;
+        }
+
+        .plain {
+          font-weight: normal;
         }
       }
       .set-item-label.top {

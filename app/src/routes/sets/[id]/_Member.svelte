@@ -189,7 +189,12 @@
       <p>
         <span class={entry.origin}>{language.name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:form={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
       </p>
-      <p>
+      {#if entry.headword_ipa}
+        <p class="plain">
+          IPA: {entry.headword_ipa}
+        </p>
+      {/if}
+      <p class="plain">
         {source.reference}
       </p>
     {/if}
