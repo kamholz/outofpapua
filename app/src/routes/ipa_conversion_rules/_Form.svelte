@@ -5,13 +5,13 @@
 
   const fields = [
     {
-      name: 'replacements',
-      label: 'Replacements',
-      type: 'textarea',
+      name: 'lowercase',
+      label: 'Lowercase',
+      type: 'checkbox',
     },
     {
-      name: 'function',
-      label: 'Function',
+      name: 'replacements',
+      label: 'Replacements',
       type: 'textarea',
     },
     {
@@ -20,9 +20,14 @@
       type: 'textarea',
     },
     {
-      name: 'lowercase',
-      label: 'Lowercase',
-      type: 'checkbox',
+      name: 'lib',
+      label: 'Lib',
+      type: 'textarea',
+    },
+    {
+      name: 'function',
+      label: 'Function',
+      type: 'textarea',
     },
   ];
 </script>

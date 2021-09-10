@@ -25,10 +25,11 @@
   export let rules;
 
   const rulesByName = {};
-  const jsonFields = ['replacements', 'function', 'chain_after'];
+  const stringifyFields = ['replacements', 'function', 'chain_after', 'lib'];
+  const arrayFields = ['chain_after', 'lib'];
 
   for (const rule of rules) {
-    for (const field of jsonFields) {
+    for (const field of stringifyFields) {
       if (rule[field] && typeof rule[field] !== 'string') {
         rule[field] = JSON.stringify(rule[field]);
       }
@@ -42,11 +43,13 @@
     const { values } = e.detail;
     const submitValues = { ...values };
 
-    for (const field of jsonFields) {
+    for (const field of stringifyFields) {
       submitValues[field] = nullify(submitValues[field]);
     }
-    if (submitValues.chain_after) {
-      submitValues.chain_after = JSON.parse(submitValues.chain_after);
+    for (const field of arrayFields) {
+      if (submitValues[field]) {
+        submitValues[field] = JSON.parse(submitValues[field]);
+      }
     }
 
     $pageLoading++;
@@ -74,7 +77,9 @@
   </select>
 </label>
 
-<IPAConversionRuleForm rule={rulesByName[selected]} on:submit={handleSubmit} />
+<div>
+  <IPAConversionRuleForm rule={rulesByName[selected]} on:submit={handleSubmit} />
+</div>
 
 <style lang="scss">
   label {
@@ -82,10 +87,21 @@
     margin-block-end: var(--item-sep);
   }
 
-  :global {
-    textarea {
-      font-family: "Monaco", "Menlo", monospace;
-      block-size: 8em;
+  div {
+    :global {
+      textarea {
+        font-family: "Monaco", "Menlo", monospace;
+        padding: 4px;
+      }
+      textarea[name="replacements"] {
+        block-size: 4em;
+      }
+      textarea[name="function"] {
+        block-size: 14em;
+      }
+      textarea[name="chain_after"], textarea[name="lib"] {
+        block-size: 2.5em;
+      }
     }
   }
 </style>

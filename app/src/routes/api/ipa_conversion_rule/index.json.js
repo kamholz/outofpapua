@@ -21,6 +21,7 @@ export async function get({ query }) {
     q.select(
       'icr.chain_after',
       'icr.function',
+      'icr.lib',
       'icr.lowercase',
       'icr.replacements'
     );
