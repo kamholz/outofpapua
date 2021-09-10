@@ -11,5 +11,5 @@ export default async function (fetch, entries) {
     return null;
   }
   const rules = (await res.json()).rows;
-  return Object.fromEntries(rules.map((rule) => [rule.name, eval(rule.javascript_code)]));
+  return Object.fromEntries(rules.map((rule) => [rule.name, (0, eval)(rule.javascript_code)]));
 }
