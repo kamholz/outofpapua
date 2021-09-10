@@ -51,27 +51,25 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   ensureNfcParams(updateParams, nfc);
   const protoParams = splitParams(updateParams, proto);
-  const { id } = params.id;
-  let found = false;
+  const { id } = params;
   try {
-    if (Object.keys(updateParams).length) {
-      const rows = await transaction(locals, (trx) =>
-        trx('language')
-        .where('id', id)
-        .returning('id')
-        .update(updateParams)
-      );
-      found ||= Boolean(rows.length);
-    }
-    if (Object.keys(protoParams).length) {
-      const rows = await transaction(locals, (trx) =>
-        trx('protolanguage')
-        .where('id', id)
-        .returning('id')
-        .update(protoParams)
-      );
-      found ||= Boolean(rows.length);
-    }
+    let found = false;
+    await transaction(locals, async (trx) => {
+      if (Object.keys(updateParams).length) {
+        const rows = await trx('language')
+          .where('id', id)
+          .returning('id')
+          .update(updateParams);
+        found ||= Boolean(rows.length);
+      }
+      if (Object.keys(protoParams).length) {
+        const rows = await trx('protolanguage')
+          .where('id', id)
+          .returning('id')
+          .update(protoParams)
+        found ||= Boolean(rows.length);
+      }
+    });
     if (found) {
       return { body: '' };
     }

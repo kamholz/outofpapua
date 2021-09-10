@@ -1,7 +1,7 @@
 <script>
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, tick } from 'svelte';
-  import { formDisplayValue, serializeArrayParam } from '$lib/util';
+  import { formDisplayValue, nullify, serializeArrayParam } from '$lib/util';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   
@@ -26,7 +26,7 @@
     const submitValues = {};
     for (const { name, type } of fields.filter((v) => !v.readonly)) { // normalize whitespace
       submitValues[name] = (type === 'text' || type === 'textarea')
-        ? values[name]?.trim() ?? ''
+        ? nullify(values[name]?.trim())
         : values[name];
     }
     await tick();
