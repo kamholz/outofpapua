@@ -23,4 +23,4 @@ export async function get({ locals }) {
       rows: await q,
     },
   };
-};
+}

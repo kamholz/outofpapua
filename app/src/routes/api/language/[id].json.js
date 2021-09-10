@@ -66,7 +66,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
         const rows = await trx('protolanguage')
           .where('id', id)
           .returning('id')
-          .update(protoParams)
+          .update(protoParams);
         found ||= Boolean(rows.length);
       }
     });

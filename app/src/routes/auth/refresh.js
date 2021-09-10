@@ -2,7 +2,12 @@ import * as auth from '$lib/auth';
 
 import cookie from 'cookie';
 
-export function get({ headers, query, host }) {
+export const get = handler;
+export const post = handler;
+export const put = handler;
+export const del = handler;
+
+function handler({ headers, query, host }) {
   const output = query.has('redirect')
     ?
     {

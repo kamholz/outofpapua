@@ -3,7 +3,9 @@ module.exports = {
   extends: ['eslint:recommended'],
   plugins: ['sort-imports-es6-autofix', 'svelte3'],
   overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
+  parser: '@babel/eslint-parser',
   parserOptions: {
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
   env: {
