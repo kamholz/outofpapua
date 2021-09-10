@@ -87,9 +87,7 @@
 
 <div>
   {#if promise}
-    {#await promise then}
-      <Alert type="success" message="Changes saved" />
-    {:catch { message }}
+    {#await promise catch { message } }
       <Alert type="error" {message} />
     {/await}
   {/if}

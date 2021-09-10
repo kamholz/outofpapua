@@ -15,15 +15,28 @@ $dom->find('font[style="font-size: 11pt"]')->each(sub { tag($_, 'xv', 1) });
 $dom->find('font[face="Times New Roman, serif"]')->each(sub { tag($_, 'ind') });
 
 my $text = $dom->all_text =~ tr/\n\t/ /r;
-my @records = grep { $_ !~ /^’?\.?\s*$/ } split /(\[\[.+?\]\])/, $text;
+my @records = grep { $_ !~ /^’?\.?’?\s*$/ } split /(\[\[.+?\]\])/, $text;
+
+for (my $i = 0; $i < @records; $i++) {
+  $records[$i] =~ tr/\x{1c3}/!/;
+  if ($records[$i] =~ /^([?!]’?|’)/) {
+    my $text = $1;
+    $records[$i-1] =~ s/((?:\]\])?)$/$text$1/;
+    $records[$i] =~ s/^([?!]’?|’)//;
+  }
+  if ($records[$i] =~ /‘$/ and $i+1 < @records) {
+    $records[$i] =~ s/‘$//;
+    $records[$i+1] =~ s/^(\[\[[a-z]+ )/$1‘/;
+  }
+}
+
+@records = grep { $_ !~ /^’?\.?’?\s*$/ } @records;
 
 write_text '../dict/kamus Pagu_baru_2014[10975] tagged.json', JSON->new->pretty->indent_length(2)->encode(\@records);
 
-my ($xv, $seen_eng_gloss);
+my ($xv, $seen_eng_gloss, $seen_eng_trans, $seen_ind_trans);
 
 foreach my $rec (@records) {
-  $rec =~ tr/\x{1c3}/!/;
-
   if ($rec =~ /^\[\[([a-z]+) (.+)\]\]$/) {
     my ($marker, $value) = ($1, $2);
 
@@ -35,25 +48,32 @@ foreach my $rec (@records) {
       if ($marker eq 'lx') {
         say "\n\\lx $value";
         $xv = '';
-        $seen_eng_gloss = 0;
+        $seen_eng_gloss = $seen_eng_trans = $seen_ind_trans = 0;
       } elsif ($marker eq 'eng') {
         if ($seen_eng_gloss) {
           if ($value =~ /[‘’]/) {
             ($xv, $value) = print_xv($xv, $value) if length $xv;
-            say '\\xe ' . trim_quotes($value);
+            $value = trim_quotes($value);
+            if ($seen_eng_trans) {
+              say "\\nt $value";
+            } else {
+              say "\\x_Eng $value";
+              $seen_eng_trans = 1;
+            }
           } else {
             say "\\nt $value";
           }
         } else {
           $value =~ s/\.$//;
-          say "\\ge $value";
+          say "\\g_Eng $value";
           $seen_eng_gloss = 1;
         }
       } elsif ($marker eq 'ind') {
         if ($seen_eng_gloss) {
           if ($value =~ /[‘’]/) {
             ($xv, $value) = print_xv($xv, $value) if length $xv;
-            say '\\xn ' . trim_quotes($value);
+            say '\\x_Ind ' . trim_quotes($value);
+            $seen_ind_trans = 1;
           } else {
             $value =~ s/^\. //;
             say "\\nt $value";          
@@ -61,7 +81,7 @@ foreach my $rec (@records) {
         } else {
           if (!handle_ph_gn($value)) {
             $value =~ s/\.$//;
-            say "\\gn $value";          
+            say "\\g_Ind $value";          
           }
         }
       }
@@ -72,9 +92,16 @@ foreach my $rec (@records) {
       if ($rec =~ /^([^‘’]+[?!.]) (‘.+)$/) {
         $xv .= $1;
         $rec = $2;
+      } else {
       }
       ($xv, $rec) = print_xv($xv, $rec) if length $xv;
-      say '\\xn ' . trim_quotes($rec);
+      $rec = trim_quotes($rec);
+      if ($seen_ind_trans) {
+        say "\\nt $rec";
+      } else {
+        say "\\x_Ind $rec";
+        $seen_ind_trans = 1;
+      }
     }
   }
 }
@@ -84,7 +111,7 @@ sub tag {
   my $text = $el->all_text;
   return if $text =~ /^\[\[/;
   $text = trim($text) unless $pre;
-  if ($text eq '' or $text eq '.') {
+  if ($text eq '' or $text eq '.' or $text eq '‘') {
     $el->remove;
   } else {
     $el->replace("<span>[[$tag " . xml_escape($text) . ']]</span>');  
@@ -100,7 +127,7 @@ sub trim {
 
 sub trim_quotes {
   my ($txt) = @_;
-  $txt =~ s/^\.? ?‘? ?//;
+  $txt =~ s/^\.?’? ?‘? ?//;
   $txt =~ s/’? ?\.? ?‘?$//;
   return $txt;
 }
@@ -124,11 +151,11 @@ sub handle_ph_gn {
     say "\\ph $1";
     my $gloss = $2;
     if ($gloss =~ /^(.+)\. (.+?)$/) {
-      say "\\gn $1";
-      say "\\ge $2";
+      say "\\g_Ind $1";
+      say "\\g_Eng $2";
       $seen_eng_gloss = 1;
     } else {
-      say "\\gn $gloss";
+      say "\\g_Ind $gloss";
     }
     return 1;
   }
