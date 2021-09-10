@@ -8,8 +8,8 @@
   export let showLanguage;
   export let showGloss;
   export let headwordDisplay;
+  export let headwordOptions;
 
-  export let sets;
   export let getView;
   export let updateView;
 </script>
@@ -50,7 +50,7 @@
 <label>
   <input type="checkbox" bind:checked={showGloss} />&nbsp;Show gloss
 </label>
-{#if sets}
+{#if headwordOptions}
   <label>
     Headword:
     <select bind:value={headwordDisplay}>
