@@ -18,6 +18,7 @@
 </script>
 
 <script>
+  import Alert from '$components/Alert.svelte';
   import IPAConversionRuleForm from './_Form.svelte';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
@@ -38,6 +39,7 @@
   }
 
   let selected = 'common';
+  let promise;
 
   async function handleSubmit(e) {
     const { values } = e.detail;
@@ -54,13 +56,19 @@
 
     $pageLoading++;
     try {
-      await fetch(`/api/ipa_conversion_rule/${selected}.json`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(submitValues),
-      });
+      promise = (async () => {
+        const res = await fetch(`/api/ipa_conversion_rule/${selected}.json`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(submitValues),
+        });
+        if (!res.ok) {
+          throw new Error('Could not save');
+        }
+      })();
+      await promise;
     } catch (e) {}
     $pageLoading--;
   }
@@ -78,6 +86,13 @@
 </label>
 
 <div>
+  {#if promise}
+    {#await promise then}
+      <Alert type="success" message="Changes saved" />
+    {:catch { message }}
+      <Alert type="error" {message} />
+    {/await}
+  {/if}
   <IPAConversionRuleForm rule={rulesByName[selected]} on:submit={handleSubmit} />
 </div>
 
