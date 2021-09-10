@@ -25,8 +25,8 @@
   export let rules;
 
   const rulesByName = {};
-  const stringifyFields = ['replacements', 'function', 'chain_after', 'lib'];
-  const arrayFields = ['chain_after', 'lib'];
+  const stringifyFields = ['replacements', 'function', 'chain_after', 'chain_before', 'lib'];
+  const arrayFields = ['chain_after', 'chain_before', 'lib'];
 
   for (const rule of rules) {
     for (const field of stringifyFields) {
@@ -94,7 +94,7 @@
         padding: 4px;
       }
       textarea[name="replacements"] {
-        block-size: 4em;
+        block-size: 5em;
       }
       textarea[name="function"] {
         block-size: 14em;

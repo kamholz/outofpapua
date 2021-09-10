@@ -10,6 +10,16 @@
       type: 'checkbox',
     },
     {
+      name: 'chain_before',
+      label: 'Chain Before',
+      type: 'textarea',
+    },
+    {
+      name: 'function',
+      label: 'Function',
+      type: 'textarea',
+    },
+    {
       name: 'replacements',
       label: 'Replacements',
       type: 'textarea',
@@ -22,11 +32,6 @@
     {
       name: 'lib',
       label: 'Lib',
-      type: 'textarea',
-    },
-    {
-      name: 'function',
-      label: 'Function',
       type: 'textarea',
     },
   ];

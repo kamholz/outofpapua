@@ -20,6 +20,7 @@ export async function get({ query }) {
   if (query.raw) {
     q.select(
       'icr.chain_after',
+      'icr.chain_before',
       'icr.function',
       'icr.lib',
       'icr.lowercase',
