@@ -10,6 +10,7 @@
 
   export let members;
   export let sets = null;
+  export let headwordOptions = true;
   const mappableMembers = members.filter(({ language }) => language.location);
   const languages = getLanguages();
   const families = getFamilies();
@@ -21,7 +22,7 @@
   let markerType = 'point-label';
   let showLanguage = false;
   let showGloss = false;
-  let headwordDisplay = sets ? 'reflex-only' : 'plain';
+  let headwordDisplay = headwordOptions ? 'reflex-only' : 'plain';
   let lineLength = 3;
   let colorBy = 'origin';
   let colors = {
@@ -123,7 +124,7 @@
         bind:showLanguage
         bind:showGloss
         bind:headwordDisplay
-        {sets}
+        {headwordOptions}
         {getView}
         {updateView}
       />
