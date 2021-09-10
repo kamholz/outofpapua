@@ -15,6 +15,16 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Arnold (2019)' => {
+    lang_target => 'wgo',
+    path => 'Ambel_FullLexicon_RootBased.db',
+    parser => 'Marker',
+    reverse => {
+      re => 'und',
+    },
+    reverse_action => 'prefer',
+    skip_marker => 'lx_Amb',
+  },
   'Berry & Berry (1987a)' => {
     lang_target => 'sbg',
     path => 'BirdsHead_Berry&Berry1987.xlsx',
