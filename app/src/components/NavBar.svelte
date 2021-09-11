@@ -1,21 +1,45 @@
 <script>
+  import Icon from 'svelte-awesome';
+  import { faBars } from '@fortawesome/free-solid-svg-icons';
   import { page, session } from '$app/stores';
+
+  const tabs = [
+    ['Entries', '/'],
+    ['Sets', '/sets'],
+    ['Languages', '/languages'],
+    ['Sources', '/sources'],
+    ['Comparison', '/compare']
+  ];
+  if ($session.user) {
+    tabs.push(['Users', '/users']);
+  }
+
+  let active = false;
 </script>
 
 <nav>
-  <ul>
-    <li class:active={$page.path === '/'}><a href="/" sveltekit:prefetch>Entries</a></li>
-    <li class:active={$page.path === '/sets'}><a href="/sets" sveltekit:prefetch>Sets</a></li>
-    <li class:active={$page.path === '/languages'}><a href="/languages" sveltekit:prefetch>Languages</a></li>
-    <li class:active={$page.path === '/sources'}><a href="/sources" sveltekit:prefetch>Sources</a></li>
-    <li class:active={$page.path === '/compare'}><a href="/compare" sveltekit:prefetch>Comparison</a></li>
-    {#if $session.user}
-      <li class:active={$page.path === '/users'}><a href="/users" sveltekit:prefetch>Users</a></li>
-    {/if}
+  <span on:click={() => active = !active}>
+    <Icon data={faBars} scale={1.25} />
+  </span>
+  <ul class:active>
+    {#each tabs as [title, url]}
+      <li class:active={$page.path === url}><a href={url} sveltekit:prefetch>{title}</a></li>
+    {/each}
   </ul>
 </nav>
 
 <style lang="scss">
+  span {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: 28px;
+
+    :global(.fa-icon) {
+      margin: 0;
+    }
+  }
+
   ul {
     display: flex;
     margin-block-end: 1em;
@@ -27,6 +51,7 @@
     padding-inline: 0.75em;
     background-color: var(--light-gray);
     border-radius: 3px;
+
     &.active {
       font-weight: bold;
     }
@@ -37,6 +62,34 @@
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 800px) {
+    span {
+      display: block;
+    }
+
+    ul {
+      opacity: 0;
+      position: absolute;
+      flex-direction: column;
+      padding-block: 1.25em;
+      padding-inline: 2.25em;
+      background-color: var(--light-gray);
+
+      &.active {
+        transition: opacity 200ms ease-out;
+        opacity: 1;
+      }
+    }
+
+    li {
+      margin: 0;
+      padding-inline: 0;
+      padding-block: 0.65em;
+      background-color: unset;
+      border-radius: unset;
     }
   }
 </style>
