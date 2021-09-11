@@ -4,6 +4,7 @@
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
 
+  /* eslint-disable unused-export-let */
   export let control;
   export let row;
   export let scale;

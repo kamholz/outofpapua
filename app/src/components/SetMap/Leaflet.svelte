@@ -227,6 +227,7 @@
     if (headwordDisplay === 'plain') {
       return escape(headword_ipa ?? headword);
     } else {
+      /* eslint-disable eqeqeq */
       const [before, reflexProper, after] = reflex == null
         ? ['', headword, '']
         : reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
