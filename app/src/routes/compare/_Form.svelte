@@ -7,6 +7,7 @@
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
+  const values = { ...query };
   let selections = {};
 
   const fields = [
@@ -54,7 +55,7 @@
 
 <Form
   {fields}
-  values={query}
+  {values}
   bind:selections
   submitLabel="Compare"
   clearable

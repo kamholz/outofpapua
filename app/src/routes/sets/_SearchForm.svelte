@@ -9,6 +9,7 @@
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
+  const values = { ...query };
 
   const fields = [
     {
@@ -55,7 +56,7 @@
 
 <Form
   {fields}
-  values={query}
+  {values}
   submitLabel="Search"
   clearable
   browserSubmit

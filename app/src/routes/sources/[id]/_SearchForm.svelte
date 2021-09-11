@@ -4,8 +4,8 @@
   import { getContext } from 'svelte';
 
   export let query;
-
   const preferences = getContext('preferences');
+  const values = { ...query };
 
   const fields = [
     {
@@ -49,7 +49,7 @@
 
 <Form
   {fields}
-  values={query}
+  {values}
   submitLabel="Search"
   clearable
   browserSubmit

@@ -8,7 +8,7 @@
     ['Sets', '/sets'],
     ['Languages', '/languages'],
     ['Sources', '/sources'],
-    ['Comparison', '/compare']
+    ['Comparison', '/compare'],
   ];
   if ($session.user) {
     tabs.push(['Users', '/users']);
