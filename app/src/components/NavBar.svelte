@@ -65,7 +65,7 @@
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: $breakpoint_medium) {
     span {
       display: block;
     }

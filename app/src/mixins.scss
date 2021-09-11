@@ -1,3 +1,6 @@
+$breakpoint_medium: 768px;
+$breakpoint_small: 600px;
+
 @mixin hr {
   hr {
     margin-block: var(--item-sep);
