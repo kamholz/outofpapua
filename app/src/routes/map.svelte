@@ -24,12 +24,7 @@
   export let entries;
   export let ipaFunctions;
   setContext('ipaFunctions', ipaFunctions);
-  const members = entries.map((entry) => ({
-    entry,
-    language: entry.language,
-    source: entry.source,
-  }));
 </script>
 
 <h2>Map from search results</h2>
-<SetMap {members} />
+<SetMap {entries} />

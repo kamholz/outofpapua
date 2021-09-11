@@ -27,4 +27,4 @@
 </script>
 
 <h2>Set map: {set.name_auto.txt}</h2>
-<SetMap members={set.members} />
+<SetMap sets={[set]} />

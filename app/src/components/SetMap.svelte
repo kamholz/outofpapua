@@ -8,9 +8,10 @@
   import { fade } from 'svelte/transition';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
 
-  export let members;
+  export let entries = null;
   export let sets = null;
   export let headwordOptions = true;
+  const members = getMembers();
   const mappableMembers = members.filter(({ language }) => language.location);
   const languages = getLanguages();
   const families = getFamilies();
@@ -33,7 +34,7 @@
     },
   };
 
-  if (sets) {
+  if (sets?.length > 1) {
     sets.sort(sortFunction((v) => v.name_auto.txt.toLowerCase()));
     colors.set = Object.fromEntries(sets.map((set) => [set.id, '#000000']));
   }
@@ -42,6 +43,22 @@
   let updateFamily;
   let updateView;
   let getView;
+
+  function getMembers() {
+    if (sets) {
+      if (sets.length === 1) {
+        return sets[0].members;
+      } else {
+        return [].concat(...sets.map((set) => set.members.map((member) => ({ ...member, set_id: set.id }))));
+      }
+    } else {
+      return entries.map((entry) => ({
+        entry,
+        language: entry.language,
+        source: entry.source,
+      }));
+    }
+  }
 
   function getLanguages() {
     const languages = {};
@@ -74,7 +91,7 @@
   function getLanguageMarkers() {
     const markersByLanguageCode = {};
     for (const { entry, language: { id }, reflex, set_id, source: { ipa_conversion_rule } } of mappableMembers) {
-      const key = sets ? set_id : 'all';
+      const key = sets?.length > 1 ? set_id : 'all';
       if (!(id in markersByLanguageCode)) {
         markersByLanguageCode[id] = {
           language: languages[id],
