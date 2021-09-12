@@ -3,72 +3,83 @@
   import Entries from './SetMap/Entries.svelte';
   import FamilyIcon from '$components/SetMap/FamilyIcon.svelte';
   import Leaflet from '$components/SetMap/Leaflet.svelte';
+  import SaveRestore from '$components/SetMap/SaveRestore.svelte';
   import Section from '$components/SetMap/Section.svelte';
   import Settings from '$components/SetMap/Settings.svelte';
   import { fade } from 'svelte/transition';
+  import { getContext } from 'svelte';
+  import { pageLoading } from '$lib/stores';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
+  import * as crud from '$actions/crud';
+  const preferences = getContext('preferences');
 
   export let entries = null;
   export let sets = null;
-  export let headwordOptions = true;
-  const members = getMembers();
-  const mappableMembers = members.filter(({ language }) => language.location);
-  const languages = getLanguages();
-  const families = getFamilies();
-  const languageMarkers = getLanguageMarkers();
-  const familiesSorted = Object.values(families)
-    .sort(sortFunction((v) => v.name.toLowerCase()));
+  export let name = null;
+  export let selection = null;
 
-  let baseMap;
-  let markerType = 'point-label';
-  let showLanguage = false;
-  let showGloss = false;
-  let headwordDisplay = headwordOptions ? 'reflex-only' : 'plain';
-  let lineLength = 3;
-  let colorBy = 'origin';
-  let colors = {
+  export let { baseMap } = $preferences;
+  export let view = null;
+  export let markerType = 'point-label';
+  export let showLanguage = false;
+  export let showGloss = false;
+  export let headwordDisplay = sets ? 'reflex-only' : 'plain';
+  export let lineLength = 3;
+  export let colorBy = 'origin';
+  export let colors = {
     origin: {
       borrowed: '#dc143c',
       inherited: '#800080',
       unknown: '#000000',
     },
   };
+  export let familyIcon = null;
 
   if (sets?.length > 1) {
     sets.sort(sortFunction((v) => v.name_auto.txt.toLowerCase()));
     colors.set = Object.fromEntries(sets.map((set) => [set.id, '#000000']));
   }
 
+  const members = getMembers();
+  const languages = getLanguages();
+  const families = getFamilies();
+  const languageMarkers = getLanguageMarkers();
+  const familiesSorted = Object.values(families)
+    .sort(sortFunction((v) => v.name.toLowerCase()));
+
   let updateLanguage;
   let updateFamily;
-  let updateView;
   let getView;
+  let setView;
 
   function getMembers() {
+    let members;
     if (sets) {
       if (sets.length === 1) {
-        return sets[0].members;
+        [{ members }] = sets;
       } else {
-        return [].concat(...sets.map((set) => set.members.map((member) => ({ ...member, set_id: set.id }))));
+        members = [].concat(...sets.map((set) => set.members.map((member) => ({ ...member, set_id: set.id }))));
       }
     } else {
-      return entries.map((entry) => ({
+      members = entries.map((entry) => ({
         entry,
         language: entry.language,
         source: entry.source,
       }));
     }
+    return members.filter(({ language }) => language.location);
   }
 
   function getLanguages() {
+    const sel = selection?.language;
     const languages = {};
-    for (const { language } of mappableMembers) {
+    for (const { language } of members) {
       const { id } = language;
       if (!(id in languages)) {
         if (!Array.isArray(language.location)) {
           parseLanguageLocation(language);
         }
-        languages[id] = { ...language, selected: true };
+        languages[id] = { ...language, selected: sel?.[id] ?? true };
       }
     }
     return languages;
@@ -77,11 +88,12 @@
   function getFamilies() {
     const families = {};
     for (const language of Object.values(languages)) {
-      if (!(language.ancestor_id in families)) {
-        families[language.ancestor_id] = {
-          id: language.ancestor_id,
+      const id = language.ancestor_id;
+      if (!(id in families)) {
+        families[id] = {
+          id,
           name: language.ancestor_name.replace(/^proto-?/i, ''),
-          shape: 'circle',
+          shape: familyIcon?.[id] ?? 'circle',
         };
       }
     }
@@ -89,8 +101,9 @@
   }
 
   function getLanguageMarkers() {
+    const sel = selection?.entry;
     const markersByLanguageCode = {};
-    for (const { entry, language: { id }, reflex, set_id, source: { ipa_conversion_rule } } of mappableMembers) {
+    for (const { entry, language: { id }, reflex, set_id, source: { ipa_conversion_rule } } of members) {
       const key = sets?.length > 1 ? set_id : 'all';
       if (!(id in markersByLanguageCode)) {
         markersByLanguageCode[id] = {
@@ -111,7 +124,7 @@
         ...entry,
         ipa_conversion_rule,
         reflex, set_id,
-        selected: true,
+        selected: sel?.[entry.id] ?? true,
       });
     }
 
@@ -129,10 +142,71 @@
   
     return languageMarkers;
   }
+
+  async function handleSave() {
+    const data = serialize();
+    $pageLoading++;
+    try {
+      await crud.create('saved_map', { name, data });
+    } catch (e) {}
+    $pageLoading--;
+  }
+
+  function serialize() {
+    const data = {
+      sets: null,
+      entries: null,
+      settings: {
+        baseMap,
+        view: getView(),
+        markerType,
+        showLanguage,
+        showGloss,
+        headwordDisplay,
+        lineLength,
+        colorBy,
+        colors,
+        familyIcon: Object.fromEntries(familiesSorted.map((v) => [v.id, v.shape])),
+      },
+    };
+
+    if (sets) {
+      data.sets = sets.map((v) => v.id);
+    } else {
+      data.entries = entries.map((v) => v.id);
+    }
+
+    const selection = {
+      language: {},
+      entry: {},
+    };
+
+    for (const { id, selected } of Object.values(languages)) {
+      selection.language[id] = selected;
+    }
+    for (const { markers } of languageMarkers) {
+      for (const { entries } of markers) {
+        for (const { id, selected } of entries) {
+          selection.entry[id] = selected;
+        }
+      }
+    }
+    data.settings.selection = selection;
+
+    return data;
+  }
 </script>
 
 <div class="map">
   <div class="settings">
+    <Section name="Save and Restore">
+      <SaveRestore
+        {getView}
+        {setView}
+        bind:name
+        on:save={handleSave}
+      />
+    </Section>
     <Section name="Settings">
       <Settings
         bind:baseMap
@@ -141,9 +215,7 @@
         bind:showLanguage
         bind:showGloss
         bind:headwordDisplay
-        {headwordOptions}
-        {getView}
-        {updateView}
+        headwordOptions={Boolean(sets)}
       />
     </Section>
     <Section name="Colors">
@@ -188,6 +260,7 @@
     {families}
     {languageMarkers}
     {baseMap}
+    {view}
     {markerType}
     {showLanguage}
     {showGloss}
@@ -197,8 +270,8 @@
     {colors}
     bind:updateLanguage
     bind:updateFamily
-    bind:updateView
     bind:getView
+    bind:setView
   />
 </div>
 

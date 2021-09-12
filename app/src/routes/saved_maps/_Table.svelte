@@ -12,6 +12,7 @@
     {
       key: 'name',
       title: 'Name',
+      editable: true,
     },
   ];
 

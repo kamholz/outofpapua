@@ -2,16 +2,13 @@
   import { getContext } from 'svelte';
   const preferences = getContext('preferences');
 
-  export let { baseMap } = $preferences;
+  export let baseMap;
   export let markerType;
   export let lineLength;
   export let showLanguage;
   export let showGloss;
   export let headwordDisplay;
   export let headwordOptions;
-
-  export let getView;
-  export let updateView;
 </script>
 
 <label>
@@ -60,15 +57,6 @@
     </select>
   </label>
 {/if}
-<button
-  type="button"
-  on:click={() => preferences.update({ mapView: getView() })}
->Save Map View</button>
-<button
-  type="button"
-  on:click={() => updateView($preferences.mapView)}
-  disabled={!$preferences.mapView}
->Restore Saved View</button>
 
 <style lang="scss">
   label {

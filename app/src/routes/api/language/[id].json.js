@@ -81,7 +81,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
 
 export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
-    const { id } = params.id;
+    const { id } = params;
     const ids = await transaction(locals, (trx) =>
       trx('language')
       .where('id', id)

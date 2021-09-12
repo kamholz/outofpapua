@@ -8,6 +8,7 @@ export const get = requireAuth(async ({ locals }) => {
   const q = knex('saved_map')
     .where('saved_map.usr_id', locals.user.id)
     .select(
+      'saved_map.id',
       'saved_map.name'
     )
     .orderBy('saved_map.name');
@@ -30,6 +31,8 @@ export const post = requireAuth(async ({ body, locals }) => {
       trx('saved_map')
       .returning('id')
       .insert(params)
+      .onConflict(['usr_id', 'name'])
+      .merge()
     );
     return { body: { id: ids[0] } };
   } catch (e) {

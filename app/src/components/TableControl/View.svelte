@@ -1,6 +1,6 @@
 <script>
   import Icon from 'svelte-awesome';
-  import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+  import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 
   export let control;
   export let row;
@@ -8,5 +8,5 @@
 </script>
 
 <a href={control.link(row)} title="View" sveltekit:prefetch>
-  <Icon data={faInfoCircle} {scale} />
+  <Icon data={faExternalLinkSquareAlt} {scale} />
 </a>

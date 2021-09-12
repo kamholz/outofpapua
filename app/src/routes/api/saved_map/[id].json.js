@@ -40,3 +40,18 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
     return sendPgError(e);
   }
 }));
+
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
+  try {
+    const ids = await transaction(locals, (trx) =>
+      trx('saved_map')
+      .where('id', params.id)
+      .returning('id')
+      .del()
+    );
+    return { body: { deleted: ids.length } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+}));

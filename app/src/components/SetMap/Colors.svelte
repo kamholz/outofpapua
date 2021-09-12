@@ -6,7 +6,7 @@
   export let sets;
 </script>
 
-{#if sets}
+{#if sets?.length > 1}
   <div class="radios">
     <label>
       <input

@@ -12,6 +12,7 @@
   export let families;
   export let languageMarkers;
   export let baseMap;
+  export let view;
   export let markerType;
   export let showLanguage;
   export let showGloss;
@@ -60,8 +61,13 @@
       scrollWheelZoom: false,
       zoomDelta: 0.5,
       zoomSnap: 0.5,
-    })
-    .fitBounds(getBounds());
+    });
+
+    if (view) {
+      setView(view);
+    } else {
+      map.fitBounds(getBounds());
+    }
 
     initializeMap();
   });
@@ -168,7 +174,7 @@
     }
   }
 
-  export function updateView({ latLng, zoom }) {
+  export function setView({ latLng, zoom }) {
     map.setView(L.latLng(latLng), zoom);
   }
 
