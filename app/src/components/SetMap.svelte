@@ -147,7 +147,10 @@
     const data = serialize();
     $pageLoading++;
     try {
-      await crud.create('saved_map', { name, data });
+      const { id } = await crud.create('saved_map', { name, data });
+      const params = new URLSearchParams(window.location.search);
+      params.set('id', id);
+      window.history.replaceState(null, '', '?' + params.toString());
     } catch (e) {}
     $pageLoading--;
   }
