@@ -5,12 +5,12 @@ import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = validateParams(requireAuth(async ({ params }) => {
-  const q = knex('map')
-    .where('map.id', params.id)
+  const q = knex('saved_map')
+    .where('saved_map.id', params.id)
     .first(
-      'map.id',
-      'map.data',
-      'map.name'
+      'saved_map.id',
+      'saved_map.data',
+      'saved_map.name'
     );
   const row = await q;
   if (row) {
@@ -27,7 +27,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   try {
     const ids = await transaction(locals, (trx) =>
-      trx('map')
+      trx('saved_map')
       .where('id', params.id)
       .returning('id')
       .update(updateParams)

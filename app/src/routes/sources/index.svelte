@@ -48,7 +48,6 @@
 <Table
   {rows}
   {query}
-  on:refresh={handleRefresh}
 />
 
 {#if editable}

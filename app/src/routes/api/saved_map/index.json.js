@@ -5,12 +5,12 @@ import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = requireAuth(async ({ locals }) => {
-  const q = knex('map')
-    .where('map.usr_id', locals.user.id)
+  const q = knex('saved_map')
+    .where('saved_map.usr_id', locals.user.id)
     .select(
-      'map.name'
+      'saved_map.name'
     )
-    .orderBy('map.name');
+    .orderBy('saved_map.name');
 
   return {
     body: {
@@ -27,7 +27,7 @@ export const post = requireAuth(async ({ body, locals }) => {
   params.usr_id = locals.user.id;
   try {
     const ids = await transaction(locals, (trx) =>
-      trx('map')
+      trx('saved_map')
       .returning('id')
       .insert(params)
     );
