@@ -11,7 +11,7 @@
   const columns = [
     {
       key: 'name',
-      title: 'Name',
+      title: 'Map',
       editable: true,
     },
   ];
