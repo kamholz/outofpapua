@@ -199,7 +199,7 @@
 
 <div class="map">
   <div class="settings">
-    <Section name="Save and Restore">
+    <Section name="Save and Restore" collapsed>
       <SaveRestore
         {getView}
         {setView}
