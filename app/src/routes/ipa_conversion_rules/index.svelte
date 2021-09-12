@@ -19,7 +19,7 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
-  import IPAConversionRuleForm from './_Form.svelte';
+  import Form from './_Form.svelte';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
@@ -91,7 +91,7 @@
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <IPAConversionRuleForm rule={rulesByName[selected]} on:submit={handleSubmit} />
+  <Form rule={rulesByName[selected]} on:submit={handleSubmit} />
 </div>
 
 <style lang="scss">

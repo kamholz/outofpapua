@@ -17,7 +17,7 @@
 
 <script>
   import Alert from '$components/Alert.svelte';
-  import EditLanguageForm from './_EditForm.svelte';
+  import EditForm from './_EditForm.svelte';
   import { getContext, setContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
@@ -52,7 +52,7 @@
     <Alert type="error" {message} />
   {/await}
 {/if}
-<EditLanguageForm {language} />
+<EditForm {language} />
 
 {#if editable && language.is_proto}
   <button type="button" class="delete" on:click={handleDelete}>Delete Language</button>

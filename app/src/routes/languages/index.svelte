@@ -16,8 +16,8 @@
 </script>
 
 <script>
-  import CreateLanguageForm from './_CreateForm.svelte';
-  import LanguagesTable from './_Table.svelte';
+  import CreateForm from './_CreateForm.svelte';
+  import Table from './_Table.svelte';
   import { getContext } from 'svelte';
 
   export let rows;
@@ -30,7 +30,7 @@
 </script>
 
 <h2>Languages</h2>
-<LanguagesTable
+<Table
   {rows}
   {query}
   on:refresh={handleRefresh}
@@ -38,7 +38,7 @@
 
 {#if editable}
   <h3>Create proto-language</h3>
-  <CreateLanguageForm
+  <CreateForm
     on:refresh={handleRefresh}
   />
 {/if}

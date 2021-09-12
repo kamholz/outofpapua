@@ -46,8 +46,8 @@
 </script>
 
 <script>
-  import CompareForm from './_Form.svelte';
-  import CompareList from './_List.svelte';
+  import Form from './_Form.svelte';
+  import List from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
@@ -85,13 +85,13 @@
 </script>
 
 <h2>Compare languages</h2>
-<CompareForm
+<Form
   {query}
 />
 
 {#if query.lang1 && query.lang2}
   {#if rowCount}
-    <CompareList
+    <List
       {rows}
       {query}
       {rowCount}

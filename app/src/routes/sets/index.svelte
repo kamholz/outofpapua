@@ -37,9 +37,9 @@
 </script>
 
 <script>
+  import List from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
-  import SetList from './_List.svelte';
   import { setContext } from 'svelte';
 
   export let rows;
@@ -78,7 +78,7 @@
   <div class="info">
     Total sets found: {rowCount}
   </div>
-  <SetList
+  <List
     {rows}
     {query}
     {pageCount}

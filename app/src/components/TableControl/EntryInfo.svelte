@@ -3,7 +3,6 @@
   import Icon from 'svelte-awesome';
   import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-  /* eslint-disable unused-export-let */
   export let control;
   export let row;
   export let scale;

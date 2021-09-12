@@ -27,8 +27,8 @@
 </script>
 
 <script>
-  import CreateSourceForm from './_CreateForm.svelte';
-  import SourcesTable from './_Table.svelte';
+  import CreateForm from './_CreateForm.svelte';
+  import Table from './_Table.svelte';
   import { getContext, setContext } from 'svelte';
 
   export let rows;
@@ -45,7 +45,7 @@
 </script>
 
 <h2>Sources</h2>
-<SourcesTable
+<Table
   {rows}
   {query}
   on:refresh={handleRefresh}
@@ -53,7 +53,7 @@
 
 {#if editable}
   <h3>Create new proto-language source</h3>
-  <CreateSourceForm
+  <CreateForm
     on:refresh={handleRefresh}
   />
 {/if}

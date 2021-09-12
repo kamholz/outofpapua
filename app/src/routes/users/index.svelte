@@ -18,8 +18,8 @@
 </script>
 
 <script>
-  import CreateUserForm from './_CreateForm.svelte';
-  import UsersTable from './_Table.svelte';
+  import CreateForm from './_CreateForm.svelte';
+  import Table from './_Table.svelte';
   import { session } from '$app/stores';
 
   export let rows;
@@ -30,7 +30,7 @@
 </script>
 
 <h2>Users</h2>
-<UsersTable
+<Table
   {rows}
   admin={$session.user?.admin}
   on:refresh={handleRefresh}
@@ -38,7 +38,7 @@
 
 {#if $session.user?.admin}
   <h3>Create new user</h3>
-  <CreateUserForm
+  <CreateForm
     on:refresh={handleRefresh}
   />
 {/if}

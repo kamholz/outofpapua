@@ -11,7 +11,10 @@
     ['Comparison', '/compare'],
   ];
   if ($session.user) {
-    tabs.push(['Users', '/users']);
+    tabs.push(
+      ['Saved Maps', '/saved_maps'],
+      ['Users', '/users']
+    );
   }
 
   let active = false;
