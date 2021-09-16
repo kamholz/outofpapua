@@ -308,7 +308,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Gasser (2016b)' => {
     lang_target => 'bhw',
@@ -322,7 +322,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Gasser (2016c)' => {
     lang_target => 'pmo',
@@ -336,7 +336,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Gasser (2016d)' => {
     lang_target => 'rnn',
@@ -365,7 +365,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Gasser (2016f)' => {
     lang_target => 'Yawa Unat',
@@ -379,7 +379,7 @@ our $dict = {
       [4, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Gasser (2019a)' => {
     lang_target => 'wad',
@@ -407,7 +407,7 @@ our $dict = {
       [5, 'note'],
     ],
     split => ',/',
-    strip => ['to'],
+    strip => 'to',
   },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
@@ -423,6 +423,16 @@ our $dict = {
     lang_national => 'ind',
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
+  },
+  'Jackson (nd.)' => {
+    lang_target => 'irh',
+    path => 'Irarutu cleaned Apr 07.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+    strip => 'to',
+    headword_preprocess => \&clear_hyphen,
+    gloss_preprocess => \&clear_question_mark,
+    pos_preprocess => \&clear_question_mark,
   },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
@@ -801,10 +811,14 @@ our $dict = {
   }
 };
 
-# headword cleanup
+# headword and gloss cleanup
 
 sub clear_hyphen {
   return $_[0] =~ s/^-+$//r;
+}
+
+sub clear_question_mark {
+  return $_[0] =~ s/^\?+$//r;
 }
 
 sub replace_underscore {

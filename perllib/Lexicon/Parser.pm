@@ -19,7 +19,7 @@ has 'encoding' => (
   default => sub { ['utf-8'] },
 );
 
-foreach my $attr (qw/headword gloss reverse definition/) {
+foreach my $attr (qw/headword pos gloss reverse definition/) {
   has "${attr}_preprocess" => (
     is => 'ro',
   );
@@ -155,6 +155,8 @@ sub push_single_entry {
     return;
   }
 
+  # $self->apply_pos_preprocess($entry);
+
   push(@$entries, $entry);
 }
 
@@ -170,14 +172,6 @@ sub reset_entry {
   }
 }
 
-sub apply_headword_preprocess {
-  my ($self, $entry) = @_;
-  my $pre = $self->${\'headword_preprocess'};
-  if ($pre) {
-    $entry->{headword} = $pre->($entry->{headword});
-  }
-}
-
 sub apply_citation_action {
   my ($self, $entry) = @_;
   if (length $entry->{headword_citation}) {
@@ -188,6 +182,27 @@ sub apply_citation_action {
       }
     }
     delete $entry->{headword_citation};
+  }
+}
+
+sub apply_headword_preprocess {
+  my ($self, $entry) = @_;
+  my $pre = $self->${\'headword_preprocess'};
+  if ($pre) {
+    $entry->{headword} = $pre->($entry->{headword});
+  }
+}
+
+sub apply_pos_preprocess {
+  my ($self, $entry) = @_;
+  my $pre = $self->${\'pos_preprocess'};
+  if ($pre) {
+    foreach my $sense (@{$entry->{sense}||[]}) {
+      if (length $sense->{pos}) {
+        $sense->{pos} = $pre->($sense->{pos});
+        $sense->{pos} = undef unless length $sense->{pos};
+      }
+    }
   }
 }
 
@@ -225,7 +240,8 @@ sub add_sense {
 sub add_pos {
   my ($self, $entry, $pos) = @_;
 
-  if (@{$entry->{sense}||[]}) {
+  if (@{$entry->{sense}||[]} and not
+    (defined $pos and defined $entry->{sense}[-1]{pos} and $pos ne $entry->{sense}[-1]{pos})) {
     $entry->{sense}[-1]{pos} //= $pos;
   } else {
     push @{$entry->{sense}}, { pos => $pos };
