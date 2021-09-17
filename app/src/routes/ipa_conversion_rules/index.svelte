@@ -1,9 +1,7 @@
 <script context="module">
-  export async function load({ fetch, session }) {
-    if (!session.user?.admin) {
-      return { status: 403 };
-    }
+  import { requireAdminLoad } from '$actions/auth';
 
+  export const load = requireAdminLoad(async ({ fetch }) => {
     const res = await fetch('/api/ipa_conversion_rule.json?raw=1');
     if (!res.ok) {
       return { status: 500 };
@@ -14,7 +12,7 @@
         rules: (await res.json()).rows,
       },
     };
-  }
+  });
 </script>
 
 <script>
