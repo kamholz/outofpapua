@@ -11,10 +11,6 @@ export const put = requireAdmin(async ({ body, locals, params }) => {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    if (updateParams.replacements) {
-      // hackish without parsing, but should work fine
-      updateParams.replacements = updateParams.replacements.normalize('NFD');
-    }
     await transaction(locals, (trx) =>
       trx('ipa_conversion_rule')
       .where('name', params.name)
