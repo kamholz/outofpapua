@@ -62,9 +62,4 @@
   label {
     margin-block-end: 6px;
   }
-
-  button {
-    align-self: flex-start;
-    margin-block: 6px;
-  }
 </style>
