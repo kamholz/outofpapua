@@ -26,7 +26,8 @@
       bind:row
       {controls}
       on:delete 
-      on:select 
+      on:select
+      on:link
     />
   {/if}
 </tr>

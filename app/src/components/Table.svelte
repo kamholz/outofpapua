@@ -75,6 +75,7 @@
         on:update
         on:delete
         on:select
+        on:link
       />
     {/each}
   </tbody>

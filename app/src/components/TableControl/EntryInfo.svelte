@@ -13,6 +13,7 @@
   language_id={row.language_id}
   click={true}
   linkable
+  on:link
 >
   <Icon data={faInfoCircle} {scale} />
 </EntryInfoPopover>

@@ -98,7 +98,9 @@
   }
 
   async function handleRefresh() {
+    $pageLoading++;
     rows = (await reload(fetch, query))?.rows;
+    $pageLoading--;
     $setSummaryCache = {};
     clearSelection();
   }
@@ -137,6 +139,7 @@
         {rows}
         {query}
         {pageCount}
+        on:link={handleRefresh}
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />

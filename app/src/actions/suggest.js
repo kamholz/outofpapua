@@ -63,8 +63,11 @@ export async function setAuthor(fetch) {
   return rows.map((row) => ({ id: row.id, name: row.fullname }));
 }
 
-export async function setMember({ search, match, languages, noset }, preferences) {
+export async function setMember({ entry, languages, match, noset, search }, preferences) {
   const params = new URLSearchParams({ search, match });
+  if (entry) {
+    params.set('id', entry.id);
+  }
   if (languages) {
    params.set('lang', serializeArrayParam(languages));
   }

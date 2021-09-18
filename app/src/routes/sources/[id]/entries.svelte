@@ -11,18 +11,23 @@
       }
     }
 
-    let res = await fetch(`/api/source/${params.id}.json`);
+    const res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {
       return { status: 404 };
     }
     props.source = await res.json();
-    res = await fetch(`/api/source/${params.id}/entries.json` + optionalQuery(query));
-    if (!res.ok) {
+    const json = await reload(fetch, params.id, query);
+    if (!json) {
       return { status: 500 };
     }
-    Object.assign(props, await res.json()); // populates query, pageCount, rows, rowCount
+    Object.assign(props, json); // populates query, pageCount, rows, rowCount
 
     return { props };
+  }
+
+  async function reload(fetch, id, query) {
+    const res = await fetch(`/api/source/${id}/entries.json?` + optionalQuery(query));
+    return res.ok ? res.json() : null;
   }
 </script>
 
@@ -30,6 +35,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
+  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
@@ -45,6 +51,13 @@
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);
+
+  async function handleRefresh() {
+    $pageLoading++;
+    rows = (await reload(fetch, source.id, query))?.rows;
+    $pageLoading--;
+    $setSummaryCache = {};
+  }
 </script>
 
 <h2>{source.reference}</h2>
@@ -68,6 +81,7 @@
     {query}
     {source}
     {pageCount}
+    on:link={handleRefresh}
   />
   <div class="controls">
     <PageSizeSelect {query} preferenceKey="tablePageSize" />

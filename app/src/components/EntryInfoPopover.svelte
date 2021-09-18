@@ -1,13 +1,15 @@
 <script>
   import SuggestSetMember from '$components/SuggestSetMember.svelte';
   import Svelecte from '$components/Svelecte.svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
+  const dispatch = createEventDispatcher();
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { fade } from 'svelte/transition';
-  import { getContext } from 'svelte';
   import { originSummary } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
+  import * as crudSet from '$actions/crud/set';
 
   export let entry;
   export let language_id;
@@ -55,6 +57,14 @@
       promises.pending[key] = null;
       promises.fulfilled[key] = promise;
     }
+    $pageLoading--;
+  }
+
+  async function handleSelectSetMember(e) {
+    $pageLoading++;
+    try {
+      await crudSet.linkEntries([entry, e.detail], () => dispatch('link'));
+    } catch (err) {}
     $pageLoading--;
   }
 </script>
@@ -127,7 +137,8 @@
           <SuggestSetMember
             match="headword"
             noset={false}
-            on:select={() => {}}
+            {entry}
+            on:select={handleSelectSetMember}
           />
         </div>
         <div class="link">
@@ -137,7 +148,8 @@
           <SuggestSetMember
             match="gloss"
             noset={false}
-            on:select={() => {}}
+            {entry}
+            on:select={handleSelectSetMember}
           />
         </div>
       {/if}

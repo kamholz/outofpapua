@@ -21,7 +21,7 @@
     view: TableControlView,
   };
 
-  const dispatchEvent = new Set(['delete', 'select']);
+  const dispatchClick = new Set(['delete', 'select']);
 </script>
 
 <td>
@@ -32,7 +32,8 @@
         {control}
         bind:row
         {scale}
-        on:click={dispatchEvent.has(control.type) ? (() => dispatch(control.type, row)) : null}
+        on:click={dispatchClick.has(control.type) ? (() => dispatch(control.type, row)) : null}
+        on:link
       />
     {/each}
   </div>

@@ -8,6 +8,7 @@
   export let match;
   export let noset;
   export let languages = null;
+  export let entry = null;
   let selection = null;
   const preferences = getContext('preferences');
 
@@ -36,31 +37,41 @@
   }
 </script>
 
-<Svelecte
-  fetch={(search) => suggest.setMember({ search, match, languages, noset }, $preferences)}
-  labelField="headword"
-  searchField="headword"
-  valueField="id"
-  clearable
-  searchable
-  disableSifter
-  disableHighlight
-  placeholder=""
-  {renderer}
-  bind:selection
-  on:change={handleSelect}
-/>
+<div>
+  <Svelecte
+    fetch={(search) => suggest.setMember({ entry, languages, match, noset, search }, $preferences)}
+    labelField="headword"
+    searchField="headword"
+    valueField="id"
+    clearable
+    searchable
+    disableSifter
+    disableHighlight
+    placeholder=""
+    {renderer}
+    bind:selection
+    on:change={handleSelect}
+  />
+</div>
 
 <style lang="scss">
-  :global {
-    .suggest {
-      display: grid;
-      grid-template-columns: 20% 80%;
-      gap: 6px;
-      white-space: normal;
+  div {
+    :global {
+      .suggest {
+        display: grid;
+        grid-template-columns: 35% 65%;
+        gap: 6px;
+        white-space: normal;
 
-      > div {
-        @include indent-small;
+        > div {
+          @include indent-small;
+        }
+      }
+
+      .sv-dropdown {
+        width: 30em !important;
+        overflow-wrap: anywhere;
+        right: 0;
       }
     }
   }

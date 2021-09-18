@@ -59,4 +59,5 @@
   paginated
   {pageCount}
   highlight
+  on:link
 />

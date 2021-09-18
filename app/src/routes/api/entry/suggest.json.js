@@ -4,7 +4,7 @@ import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseAr
   parseBooleanParams, partitionPlus } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['lang', 'max', 'match', 'noset', 'search']);
+const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search']);
 const required = new Set(['match', 'search']);
 const boolean = new Set(['noset']);
 const arrayParams = new Set(['lang']);
@@ -47,6 +47,10 @@ export const get = requireAuth(async ({ query }) => {
     });
   }
 
+  if ('id' in query) {
+    subq.where('entry.id', '!=', query.id);
+  }
+
   if ('lang' in query) {
     const [lang, langPlus] = partitionPlus(query.lang);
     if (langPlus.length) {
@@ -69,12 +73,14 @@ export const get = requireAuth(async ({ query }) => {
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
+    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
     .select(
       'entry.id',
       'entry.headword',
       'entry.senses',
       'language.name as language_name',
-      'source.reference as source_reference'
+      'source.reference as source_reference',
+      'set_member.set_id'
     )
     .orderBy('language.name', 'entry.headword', 'source.reference')
     .limit(max);

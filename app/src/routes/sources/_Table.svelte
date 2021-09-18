@@ -37,4 +37,5 @@
   {query}
   {controls}
   sortable
+  on:link
 />
