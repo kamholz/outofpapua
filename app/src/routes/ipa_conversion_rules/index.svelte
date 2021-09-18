@@ -2,7 +2,7 @@
   import { requireAdminLoad } from '$actions/auth';
 
   export const load = requireAdminLoad(async ({ fetch }) => {
-    const res = await fetch('/api/ipa_conversion_rule.json?raw=1');
+    const res = await fetch('/api/ipa_conversion_rule.json?type=raw');
     if (!res.ok) {
       return { status: 500 };
     }

@@ -6,7 +6,7 @@ export default async function (fetch, entries) {
     return {};
   }
   const res = await fetch('/api/ipa_conversion_rule.json?'
-    + new URLSearchParams({ names: serializeArrayParam(names) }));
+    + new URLSearchParams({ type: 'javascript_code', names: serializeArrayParam(names) }));
   if (!res.ok) {
     return null;
   }
