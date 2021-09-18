@@ -8,8 +8,19 @@
       return { status: 404 };
     }
     props.source = await res.json();
-    if (session.user && props.source.editable) {
-      props.protolangSuggest = await suggest.protolang(fetch);
+    if (session.user) {
+      if (props.source.editable) {
+        props.protolangSuggest = await suggest.protolang(fetch);
+        if (!props.protolangSuggest) {
+          return { status: 500 };
+        }
+      }
+      if (session.user.admin) {
+        props.ipaConversionRuleSuggest = await suggest.ipaConversionRule(fetch);
+        if (!props.ipaConversionRuleSuggest) {
+          return { status: 500 };
+        }
+      }
     }
     return { props };
   }
@@ -21,8 +32,12 @@
 
   export let source;
   export let protolangSuggest = null;
+  export let ipaConversionRuleSuggest = null;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
+  }
+  if (ipaConversionRuleSuggest) {
+    setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
 </script>
 

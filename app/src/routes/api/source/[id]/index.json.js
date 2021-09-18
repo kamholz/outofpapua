@@ -1,10 +1,8 @@
 import errors from '$lib/errors';
-import { allowed, nfc } from '../_params';
+import { allowed, allowedAdmin, nfc } from '../_params';
 import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-
-const allowedAdmin = new Set([...allowed, 'public']);
 
 const columns = [
   'source.id',
@@ -16,7 +14,7 @@ const columns = [
   'language.name as language_name',
   knex.raw('protolanguage.id is not null as is_proto'),
 ];
-const columnsLoggedIn = columns.concat('source.public');
+const columnsLoggedIn = columns.concat('source.public', 'source.ipa_conversion_rule');
 
 export const get = validateParams(async ({ locals, params }) => {
   const q = knex('source')

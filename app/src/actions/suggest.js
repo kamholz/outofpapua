@@ -81,3 +81,8 @@ export async function setMember({ search, match, languages, noset }, preferences
   }
   return rows;
 }
+
+export async function ipaConversionRule(fetch) {
+  const res = await fetch('/api/ipa_conversion_rule.json');
+  return res.ok ? (await res.json()).rows : null;
+}

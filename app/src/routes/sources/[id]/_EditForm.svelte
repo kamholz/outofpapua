@@ -11,6 +11,7 @@
   source = togglePublic(source);
   const editable = getContext('editable');
   const protolangSuggest = getContext('protolangSuggest');
+  const ipaConversionRuleSuggest = getContext('ipaConversionRuleSuggest');
 
   const fields = [
     editable && source.editable
@@ -54,12 +55,22 @@
   ];
 
   if (editable) {
-    fields.push({
-      name: 'public',
-      label: 'Private',
-      type: 'checkbox',
-      readonly: !$session.user?.admin,
-    });
+    fields.push(
+      {
+        name: 'ipa_conversion_rule',
+        label: 'IPA Conversion',
+        type: 'suggest',
+        options: ipaConversionRuleSuggest,
+        svelecteProps: { valueField: 'name' },
+        readonly: !$session.user?.admin,
+      },
+      {
+        name: 'public',
+        label: 'Private',
+        type: 'checkbox',
+        readonly: !$session.user?.admin,
+      }
+    );
   }
 
   const update = crud.makeUpdater('source');

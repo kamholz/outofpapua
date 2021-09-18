@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { allowed, nfc, required } from './_params';
+import { allowed, allowedAdmin, nfc, required } from './_params';
 import { applySortParams, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
@@ -57,7 +57,7 @@ export async function get({ locals, query }) {
 }
 
 export const post = requireAuth(async ({ body, locals }) => {
-  const params = getFilteredParams(body, allowed);
+  const params = getFilteredParams(body, locals.user?.admin ? allowedAdmin : allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

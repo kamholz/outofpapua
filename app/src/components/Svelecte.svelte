@@ -7,6 +7,7 @@
   export let multiple = false;
   export let disabled = false;
   export let clearable = true;
+  export let props = null;
 </script>
 
 <Svelecte
@@ -19,6 +20,7 @@
   {clearable}
   searchable
   placeholder=""
+  {...props}
   bind:value
   bind:selection
   on:change

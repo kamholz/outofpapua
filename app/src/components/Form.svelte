@@ -64,7 +64,7 @@
   {style}
   class={className}
 >
-  {#each fields as { name, label, options, readonly, required, type } (name)}
+  {#each fields as { name, label, options, readonly, required, svelecteProps, type } (name)}
     <div>
       {#if readonly}
         <span class="label">
@@ -130,6 +130,7 @@
         {:else if type === 'suggest'}
           <Svelecte
             {options}
+            props={svelecteProps}
             bind:value={values[name]}
             bind:selection={selections[name]}
             clearable={!required}
@@ -146,6 +147,7 @@
           <Svelecte
             {options}
             multiple
+            props={svelecteProps}
             bind:value={values[name]}
             bind:selection={selections[name]}
             clearable={!required}
