@@ -37,19 +37,18 @@ await knex.transaction(async (trx) => {
   const rule = await trx.first(knex.raw('ipa_conversion_rule_to_javascript(?) as code', source.ipa_conversion_rule));
   const func = eval(rule.code);
 
-  const entries = await trx('entry_with_ph')
+  const entries = await trx('entry')
     .where('source_id', source.id)
-    .select('id', 'headword', 'headword_ph');
+    .select('id', 'headword');
 
-  for (const entry of entries) {
-    const ph = matchHeadwordPh(entry);
-    const txt = func(ph);
+  for (const { id, headword } of entries) {
+    const ipa = func(headword);
     if (doUpdate) {
       await trx('entry')
-        .where('id', entry.id)
-        .update({ headword_ipa: txt });
+        .where('id', id)
+        .update({ headword_ipa: ipa });
     } else {
-      console.log(`${entry.headword} => ${txt}`);
+      console.log(`${headword} => ${ipa}`);
     }
   }
 
@@ -59,21 +58,3 @@ await knex.transaction(async (trx) => {
 });
 
 process.exit();
-
-function matchHeadwordPh(entry) {
-  const { headword, headword_ph } = entry;
-  if (headword_ph === null) {
-    return headword;
-  }
-  if (!headword_ph.match(/[,;]/)) {
-    return headword_ph;
-  }
-  for (const ph of headword_ph.split(/\s*[,;]\s*(?![^()]*\))/)) {
-    const phNfd = ph.normalize('NFD').replace(/\p{M}/gu, '');
-    if (phNfd === headword) {
-      return ph;
-    }
-  }
-  console.error(`could not identify headword, returning all: ${headword_ph}`);
-  return headword_ph;
-}
