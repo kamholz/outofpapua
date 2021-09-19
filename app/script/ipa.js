@@ -2,7 +2,7 @@
 import config from '../src/config.js';
 import knexModule from 'knex';
 
-const [sourceReference, doUpdate] = process.argv.slice(2);
+const [sourceReference, mode] = process.argv.slice(2);
 
 if (!sourceReference) {
   console.error(`Usage: ${process.argv[1]} source_reference`);
@@ -39,21 +39,25 @@ await knex.transaction(async (trx) => {
 
   const entries = await trx('entry')
     .where('source_id', source.id)
-    .select('id', 'headword');
+    .select('id', 'headword', 'headword_ipa');
 
-  for (const { id, headword } of entries) {
-    const ipa = func(headword);
-    if (doUpdate) {
+  for (const entry of entries) {
+    const ipa = func(entry.headword);
+    if (mode === 'update') {
       await trx('entry')
-        .where('id', id)
+        .where('id', entry.id)
         .update({ headword_ipa: ipa });
+    } else if (mode === 'compare') {
+      if (ipa !== entry.headword_ipa) {
+        console.log(`${entry.headword}: ${entry.headword_ipa} => ${ipa}`);
+      }
     } else {
-      console.log(`${headword} => ${ipa}`);
+      console.log(`${entry.headword} => ${ipa}`);
     }
   }
 
-  if (doUpdate) {
-    console.log('processed successfully');
+  if (mode === 'update') {
+    console.log('updated successfully');
   }
 });
 
