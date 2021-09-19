@@ -65,6 +65,12 @@
         readonly: !$session.user?.admin,
       },
       {
+        name: 'use_ph_for_ipa',
+        label: 'Use \\ph for IPA Conversion',
+        type: 'checkbox',
+        readonly: !$session.user?.admin,
+      },
+      {
         name: 'public',
         label: 'Private',
         type: 'checkbox',

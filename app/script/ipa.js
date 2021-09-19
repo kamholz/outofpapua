@@ -22,7 +22,7 @@ console.log(`\nstarting: ${sourceReference}\n`);
 await knex.transaction(async (trx) => {
   const source = await trx('source')
     .where('reference', sourceReference)
-    .first('id', 'ipa_conversion_rule');
+    .first('id', 'ipa_conversion_rule', 'use_ph_for_ipa');
 
   if (!source) {
     console.error('could not find source in database');
@@ -34,25 +34,31 @@ await knex.transaction(async (trx) => {
     process.exit(1);
   }
 
+  const usePh = source.use_ph_for_ipa;
   const rule = await trx.first(knex.raw('ipa_conversion_rule_to_javascript(?) as code', source.ipa_conversion_rule));
   const func = eval(rule.code);
 
-  const entries = await trx('entry')
+  const q = trx(usePh ? 'entry_with_ph as entry' : 'entry')
     .where('source_id', source.id)
     .select('id', 'headword', 'headword_ipa');
+  if (usePh) {
+    q.select('headword_ph');
+  }
+  const entries = await q;
 
   for (const entry of entries) {
-    const ipa = func(entry.headword);
+    const headword = usePh ? matchHeadwordPh(entry) : entry.headword;
+    const ipa = func(headword);
     if (mode === 'update') {
       await trx('entry')
         .where('id', entry.id)
         .update({ headword_ipa: ipa });
     } else if (mode === 'compare') {
       if (ipa !== entry.headword_ipa) {
-        console.log(`${entry.headword}: ${entry.headword_ipa} => ${ipa}`);
+        console.log(`${headword}: ${entry.headword_ipa} => ${ipa}`);
       }
     } else {
-      console.log(`${entry.headword} => ${ipa}`);
+      console.log(`${headword} => ${ipa}`);
     }
   }
 
@@ -62,3 +68,21 @@ await knex.transaction(async (trx) => {
 });
 
 process.exit();
+
+function matchHeadwordPh(entry) {
+  const { headword, headword_ph } = entry;
+  if (headword_ph === null) {
+    return headword;
+  }
+  if (!headword_ph.match(/[,;]/)) {
+    return headword_ph;
+  }
+  for (const ph of headword_ph.split(/\s*[,;]\s*(?![^()]*\))/)) {
+    const phNfd = ph.normalize('NFD').replace(/\p{M}/gu, '');
+    if (phNfd === headword) {
+      return ph;
+    }
+  }
+  console.error(`could not identify headword, returning all: ${headword_ph}`);
+  return headword_ph;
+}
