@@ -66,7 +66,7 @@
       },
       {
         name: 'use_ph_for_ipa',
-        label: 'Use \\ph for IPA Conversion',
+        label: 'Use \\ph for IPA',
         type: 'checkbox',
         readonly: !$session.user?.admin,
       },
