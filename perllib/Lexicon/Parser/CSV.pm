@@ -184,9 +184,12 @@ sub read_entries {
         my $example = [$xv];
         push @{$entry->{record}}, ['xv', $xv];
         for (my $i = 0; $i < @$num-1; $i++) {
-          my ($tr, $lang) = ($trans[$i], $arg->[$i]);
-          push @$example, [$tr, $lang];
-          push @{$entry->{record}}, [marker_with_code('x', $lang), $tr];
+          my $tr = $trans[$i];
+          if (length $tr) {
+            my $lang = $arg->[$i];
+            push @$example, [$tr, $lang];
+            push @{$entry->{record}}, [marker_with_code('x', $lang), $tr];
+          }
         }
         push @{$entry->{sense}[-1]{example}}, $example;
       } elsif ($type eq 'note') {
