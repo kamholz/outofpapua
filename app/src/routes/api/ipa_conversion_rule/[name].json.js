@@ -1,12 +1,11 @@
 import errors from '$lib/errors';
+import { allowedCreateUpdate } from './_params';
 import { getFilteredParams } from '$lib/util';
 import { requireAdmin } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
-const allowed = new Set(['chain_after', 'chain_before', 'function', 'lib', 'lowercase', 'replacements']);
-
 export const put = requireAdmin(async ({ body, locals, params }) => {
-  const updateParams = getFilteredParams(body, allowed);
+  const updateParams = getFilteredParams(body, allowedCreateUpdate);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
