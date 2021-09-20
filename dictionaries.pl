@@ -816,7 +816,7 @@ our $dict = {
 
   },
   'Voorhoeve (1982b)' => {
-    lang_target => 'Sabalé',
+    lang_target => 'West Makian Sabalé',
     path => 'voorhoeve_makian1982.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sabalé',
@@ -835,7 +835,7 @@ our $dict = {
 
   },
   'Voorhoeve (1982c)' => {
-    lang_target => 'Bobawa',
+    lang_target => 'West Makian Bobawa',
     path => 'voorhoeve_makian1982.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bobawa',
