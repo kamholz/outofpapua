@@ -55,21 +55,25 @@
   ];
 
   if (editable) {
+    if (!source.is_proto) {
+      fields.push(
+        {
+          name: 'ipa_conversion_rule',
+          label: 'IPA Conversion',
+          type: 'suggest',
+          options: ipaConversionRuleSuggest,
+          svelecteProps: { valueField: 'name' },
+          readonly: !$session.user?.admin,
+        },
+        {
+          name: 'use_ph_for_ipa',
+          label: 'Use \\ph for IPA',
+          type: 'checkbox',
+          readonly: !$session.user?.admin,
+        }
+      );
+    }
     fields.push(
-      {
-        name: 'ipa_conversion_rule',
-        label: 'IPA Conversion',
-        type: 'suggest',
-        options: ipaConversionRuleSuggest,
-        svelecteProps: { valueField: 'name' },
-        readonly: !$session.user?.admin,
-      },
-      {
-        name: 'use_ph_for_ipa',
-        label: 'Use \\ph for IPA',
-        type: 'checkbox',
-        readonly: !$session.user?.admin,
-      },
       {
         name: 'public',
         label: 'Private',

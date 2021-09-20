@@ -21,3 +21,18 @@ export const put = requireAdmin(async ({ body, locals, params }) => {
     return sendPgError(e);
   }
 });
+
+export const del = requireAdmin(async ({ locals, params }) => {
+  try {
+    const names = await transaction(locals, (trx) =>
+      trx('ipa_conversion_rule')
+      .where('name', params.name)
+      .returning('name')
+      .del()
+    );
+    return { body: { deleted: names.length } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+});

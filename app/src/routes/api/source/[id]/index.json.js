@@ -2,7 +2,7 @@ import errors from '$lib/errors';
 import { allowed, allowedAdmin, nfc } from '../_params';
 import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireAdmin, requireAuth } from '$lib/auth';
 
 const columns = [
   'source.id',
@@ -55,3 +55,21 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
     return sendPgError(e);
   }
 }));
+
+export const del = validateParams(requireAdmin(async ({ locals, params }) => {
+  return { status: 500 };
+  try {
+    const ids = await transaction(locals, async (trx) => {
+      await trx.column(trx.raw('delete_source_entries(?)', params.id));
+      return trx('source')
+      .where('id', params.id)
+      .returning('id')
+      .del();
+    });
+    return { body: { deleted: ids.length } };
+  } catch (e) {
+    console.log(e);
+    return sendPgError(e);
+  }
+}));
+
