@@ -131,13 +131,9 @@ sub push_entry {
         ? @{$entry->{headword}}
         : split($self->split_headword, $entry->{headword})
       );
-      foreach my $headword (@headwords) {
-        if (!length $headword) {
-          say "warning: empty headword";
-          next;
-        }
-        $self->push_single_entry($entries, { %$entry, headword => $headword });    
-      }
+      $self->push_single_entry($entries, { %$entry, headword => $_ }) for @headwords;
+    } elsif (ref $entry->{headword}) {
+      $self->push_single_entry($entries, { %$entry, headword => $_ }) for @{$entry->{headword}};
     } else {
       $self->push_single_entry($entries, $entry);
     }
