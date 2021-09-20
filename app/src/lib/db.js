@@ -58,18 +58,21 @@ export function applyPageParams(q, query, count) {
 export function applySortParams(q, query, sortCols, restCols) {
   const querySort = 'sort' in query && query.sort in sortCols && query.sort;
   if (querySort) {
-    const sort = sortCols[querySort];
+    applySortParam(sortCols[querySort]);
+  }
+  for (const col of restCols) {
+    if (col !== querySort) {
+      applySortParam(sortCols[col]);
+    }
+  }
+
+  function applySortParam(sort) {
     if (Array.isArray(sort)) {
       for (const s of sort) {
         q.orderByRaw(s + (query.asc ? ' asc nulls last' : ' desc nulls last'));
       }
     } else {
       q.orderByRaw(sort + (query.asc ? ' asc nulls last' : ' desc nulls last'));
-    }
-  }
-  for (const col of restCols) {
-    if (col !== querySort) {
-      q.orderByRaw(sortCols[col]);
     }
   }
 }

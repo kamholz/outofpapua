@@ -94,7 +94,8 @@ export async function get({ locals, query }) {
       knex.raw(`${compare_entries} as compare_entries`)
     )
     .orderByRaw(`${compare_entries} IS NULL`)
-    .orderByRaw('lower(entry.headword)');
+    .orderByRaw('entry.headword_degr')
+    .orderByRaw('entry.headword');
 
   const rowCount = await getCountDistinct(makeQuery(knex, query, 'lang1', locals), 'entry.id');
   const pageCount = applyPageParams(q, query, rowCount);

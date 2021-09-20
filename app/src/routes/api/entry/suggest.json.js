@@ -82,7 +82,7 @@ export const get = requireAuth(async ({ query }) => {
       'source.reference as source_reference',
       'set_member.set_id'
     )
-    .orderBy('language.name', 'entry.headword', 'source.reference')
+    .orderBy('language.name', 'entry.headword_degr', 'entry.headword', 'source.reference')
     .limit(max);
 
   return {

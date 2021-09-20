@@ -15,7 +15,7 @@ const defaults = {
   set: 'both',
 };
 const sortCols = {
-  headword: 'lower(entry.headword)',
+  headword: ['entry.headword_degr', 'entry.headword'],
   headword_ipa: 'entry.headword_ipa',
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };

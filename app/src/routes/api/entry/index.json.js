@@ -17,14 +17,14 @@ const defaults = {
   origin: 'all',
   page: 1,
   pagesize: defaultPreferences.tablePageSize,
-  sort: 'headword',
+  sort: 'headword_degr',
   langcat: 'lang',
   set: 'both',
 };
 const sortCols = {
   language: 'language.name',
   source: 'source.reference',
-  headword: 'lower(entry.headword)',
+  headword: ['entry.headword_degr', 'entry.headword'],
   headword_ipa: 'entry.headword_ipa',
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
