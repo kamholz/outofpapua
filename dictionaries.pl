@@ -796,6 +796,63 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
+  'Voorhoeve (1982a)' => {
+    lang_target => 'mqs',
+    path => 'voorhoeve_makian1982.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'West Makian',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'cf'],
+      [[4, 5], 'example', ['eng']],
+      [[6, 7], 'example', ['eng']],
+      [[8, 9], 'example', ['eng']],
+      [10, 'et'],
+      [1, 'note', 'register:'],
+      [11, 'note'],
+    ],
+    strip => 'to',
+
+  },
+  'Voorhoeve (1982b)' => {
+    lang_target => 'Sabalé',
+    path => 'voorhoeve_makian1982.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sabalé',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'cf'],
+      [[4, 5], 'example', ['eng']],
+      [[6, 7], 'example', ['eng']],
+      [[8, 9], 'example', ['eng']],
+      [10, 'et'],
+      [1, 'note', 'register:'],
+      [11, 'note'],
+    ],
+    strip => 'to',
+
+  },
+  'Voorhoeve (1982c)' => {
+    lang_target => 'Bobawa',
+    path => 'voorhoeve_makian1982.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Bobawa',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'cf'],
+      [[4, 5], 'example', ['eng']],
+      [[6, 7], 'example', ['eng']],
+      [[8, 9], 'example', ['eng']],
+      [1, 'note', 'register:'],
+      [11, 'note'],
+    ],
+    split => ';',
+    strip => 'to',
+
+  },
   'Wada (1980a)' => {
     lang_target => 'gbi',
     path => 'Wada_1980/Wada.xlsx',
@@ -977,21 +1034,17 @@ sub strip_paren {
 
 sub examples_flassy {
   my ($txt) = @_;
-  my $obj = {
-    example => [],
-    record => [],
-  };
+  my @examples;
   foreach my $line (split /\n/, $txt) {
     if ($line =~ m{^(.+?) *// *(.+?) *$}) {
       my ($xv, $xn) = ($1, $2);
       $xn =~ s{ *// *}{ }g;
-      push @{$obj->{example}}, [$xv, [$xn, 'ind']];
-      push @{$obj->{record}}, ['xv', $xv], ['x_Ind', $xn];
+      push @examples, [$xv, [$xn, 'ind']];
     } else {
       warn "could not match example line: $line";
     }
   }
-  return $obj;
+  return @examples;
 }
 
 1;

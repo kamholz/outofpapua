@@ -2,7 +2,7 @@ package Lexicon::Parser::CSV;
 use v5.14;
 use Moo;
 use namespace::clean;
-use List::Util 'uniqstr';
+use List::Util qw/any uniqstr/;
 use Text::CSV;
 use Unicode::Normalize 'NFC';
 
@@ -102,8 +102,10 @@ sub read_entries {
   my ($row_min, $row_max) = $self->row_range($rows);
   for my $row ($row_min .. $row_max) {
     foreach my $col (@$columns) {
-      my ($num, $type, $args) = @$col;
-      my $value = $self->get_cell($rows, $row, $num);
+      my ($num, $type, $arg) = @$col;
+      my $value = ref $num eq 'ARRAY'
+        ? [map { $self->get_cell($rows, $row, $_) } @$num]
+        : $self->get_cell($rows, $row, $num);
 
       if ($type eq 'headword') {
         my $marker = 'lx';
@@ -144,14 +146,18 @@ sub read_entries {
         next;
       }
 
-      next unless length $value;
+      if (ref $value) {
+        next unless any { length } @$value;
+      } else {
+        next unless length $value;
+      }
 
       if ($type eq 'subentry') {
         $entry->{subentry} = $value eq 'TRUE' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
       } elsif ($type eq 'gloss') {
-        my $lang = $args;
+        my $lang = $arg;
         $self->add_gloss($entry, 'gloss', $value, $lang);
         push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
       } elsif ($type eq 'pos') {
@@ -160,15 +166,32 @@ sub read_entries {
           push @{$entry->{record}}, ['ps', $value];
         }
       } elsif ($type eq 'examples') {
-        push @{$entry->{sense}}, {} unless $entry->{sense};
-        my $obj = $args->($value);
-        foreach my $example (@{$obj->{example}||[]}) {
-          push @{$entry->{sense}[-1]{example}}, $example;
+        my @examples = $arg->($value);
+        if (@examples) {
+          push @{$entry->{sense}}, {} unless $entry->{sense};
+          foreach my $ex (@examples) {
+            push @{$entry->{sense}[-1]{example}}, $ex;
+            my ($xv, @trans) = @$ex;
+            push @{$entry->{record}}, ['xv', $xv];
+            foreach my $tr (@trans) {
+              push @{$entry->{record}}, [marker_with_code('x', $tr->[1]), $tr->[0]];
+            }
+          }
         }
-        push @{$entry->{record}}, @{$obj->{record}||[]};
+      } elsif ($type eq 'example') {
+        push @{$entry->{sense}}, {} unless $entry->{sense};
+        my ($xv, @trans) = @$value;
+        my $example = [$xv];
+        push @{$entry->{record}}, ['xv', $xv];
+        for (my $i = 0; $i < @$num-1; $i++) {
+          my ($tr, $lang) = ($trans[$i], $arg->[$i]);
+          push @$example, [$tr, $lang];
+          push @{$entry->{record}}, [marker_with_code('x', $lang), $tr];
+        }
+        push @{$entry->{sense}[-1]{example}}, $example;
       } elsif ($type eq 'note') {
         my @values = split /\n/, $value;
-        push(@{$entry->{record}}, ['nt', $args ? "$args $_" : $_]) for @values;
+        push(@{$entry->{record}}, ['nt', $arg ? "$arg $_" : $_]) for @values;
       } elsif ($type =~ /^[a-z]{2}$/) {
         my @values = split /\n/, $value;
         push(@{$entry->{record}}, [$type, $_]) for @values;
