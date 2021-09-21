@@ -37,7 +37,7 @@
   ];
 </script>
 
-<Form 
+<Form
   {fields}
   values={rule}
   submitLabel="Save"

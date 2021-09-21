@@ -2,14 +2,14 @@
   import { requireAdminLoad } from '$actions/auth';
 
   export const load = requireAdminLoad(async ({ fetch }) => {
-    const res = await fetch('/api/ipa_conversion_rule.json?type=raw');
+    const res = await fetch('/api/ipa_conversion_lib.json');
     if (!res.ok) {
       return { status: 500 };
     }
 
     return {
       props: {
-        rules: (await res.json()).rows,
+        libs: (await res.json()).rows,
       },
     };
   });
@@ -21,40 +21,25 @@
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
-  export let rules;
+  export let libs;
 
-  const rulesByName = {};
-  const arrayFields = ['chain_after', 'chain_before', 'lib'];
-  const stringifyFields = [...arrayFields, 'replacements'];
-  const nullifyFields = [...stringifyFields, 'function'];
+  const libsByName = {};
 
-  for (const rule of rules) {
-    for (const field of stringifyFields) {
-      if (rule[field]) {
-        rule[field] = JSON.stringify(rule[field]);
-      }
-    }
-    rulesByName[rule.name] = rule;
+  for (const lib of libs) {
+    libsByName[lib.name] = lib;
   }
 
-  let selected = 'common';
+  let selected = 'syllabify';
   let promise;
 
   async function handleSubmit(e) {
     const submitValues = { ...e.detail.values };
-    for (const field of nullifyFields) {
-      submitValues[field] = nullify(submitValues[field]);
-    }
-    for (const field of arrayFields) {
-      if (submitValues[field]) {
-        submitValues[field] = JSON.parse(submitValues[field]);
-      }
-    }
+    submitValues.code = nullify(submitValues.code);
 
     $pageLoading++;
     try {
       promise = (async () => {
-        const res = await fetch(`/api/ipa_conversion_rule/${selected}.json`, {
+        const res = await fetch(`/api/ipa_conversion_lib/${selected}.json`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json',
@@ -71,13 +56,13 @@
   }
 </script>
 
-<h2>IPA Conversion Rules</h2>
+<h2>IPA Conversion Libs</h2>
 
 <label>
   Show:
   <select bind:value={selected}>
-    {#each rules as rule (rule.name)}
-      <option value={rule.name}>{rule.name}</option>
+    {#each libs as lib (lib.name)}
+      <option value={lib.name}>{lib.name}</option>
     {/each}
   </select>
 </label>
@@ -88,7 +73,7 @@
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <Form rule={rulesByName[selected]} on:submit={handleSubmit} />
+  <Form lib={libsByName[selected]} on:submit={handleSubmit} />
 </div>
 
 <style lang="scss">
@@ -103,14 +88,8 @@
         font-family: "Monaco", "Menlo", monospace;
         padding: 4px;
       }
-      textarea[name="replacements"] {
-        block-size: 5em;
-      }
-      textarea[name="function"] {
-        block-size: 14em;
-      }
-      textarea[name="chain_after"], textarea[name="lib"] {
-        block-size: 2.5em;
+      textarea[name="code"] {
+        block-size: 20em;
       }
     }
   }
