@@ -74,7 +74,7 @@ export async function get({ locals, query }) {
   if ('lang' in query) {
     const [lang, langPlus] = partitionPlus(query.lang);
     if (langPlus.length) {
-      const descendants = await knex('language_with_descendants')
+      const descendants = await knex('language_descendants')
         .where('id', arrayCmp(new Set(langPlus)))
         .pluck('descendants');
       for (const d of descendants) {

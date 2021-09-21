@@ -41,9 +41,9 @@ export async function get({ locals, query }) {
 
   if (query.category === 'descendants') {
     q
-      .from('language_with_descendants as language')
+      .join('language_descendants as ld', 'ld.id', 'language.id')
       .whereRaw('language.flag_language_list')
-      .select('language.descendants');
+      .select('ld.descendants');
   } else if (query.category === 'proto') {
     q.whereNotNull('protolanguage.id');
   } else if (query.category === 'borrow') {
