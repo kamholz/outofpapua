@@ -8,7 +8,7 @@
       name: 'code',
       label: 'Code',
       type: 'textarea',
-    }
+    },
   ];
 </script>
 

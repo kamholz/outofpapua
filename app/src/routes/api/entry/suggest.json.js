@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
-import { arrayCmp, knex } from '$lib/db';
+import { arrayCmp, getLanguageIds, knex } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
-  parseBooleanParams, partitionPlus } from '$lib/util';
+  parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search']);
@@ -52,19 +52,11 @@ export const get = requireAuth(async ({ query }) => {
   }
 
   if ('lang' in query) {
-    const [lang, langPlus] = partitionPlus(query.lang);
-    if (langPlus.length) {
-      const descendants = await knex('language_descendants')
-        .where('id', arrayCmp(new Set(langPlus)))
-        .pluck('descendants');
-      for (const d of descendants) {
-        lang.push(...d);
-      }
-    }
-    if (lang.length) {
+    const lang = await getLanguageIds(query.lang);
+    if (lang) {
       subq
         .join('source', 'source.id', 'entry.source_id')
-        .where('source.language_id', arrayCmp(new Set(lang)));
+        .where('source.language_id', arrayCmp(lang));
     }
   }
 

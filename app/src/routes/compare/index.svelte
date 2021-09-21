@@ -6,7 +6,7 @@
 
   export async function load({ fetch, page: { query }, session }) {
     const props = {
-      langSuggest: await suggest.lang(fetch),
+      langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
@@ -25,12 +25,7 @@
       if (!json) {
         return { status: 500 };
       }
-      Object.assign(props, json); // populates query, pageCount, rows, rowCount
-
-      props.query.lang1 = Number(props.query.lang1);
-      props.query.lang2 = Number(props.query.lang2);
-      props.lang1Name = props.langSuggest.find((v) => v.id === props.query.lang1).name;
-      props.lang2Name = props.langSuggest.find((v) => v.id === props.query.lang2).name;
+      Object.assign(props, json); // populates query, pageCount, rows, rowCount (or error)
     } else {
       parseArrayNumParams(query, arrayNumParams);
       props.query = query;
@@ -41,11 +36,12 @@
 
   async function reload(fetch, query) {
     const res = await fetch('/api/entry/compare.json?' + new URLSearchParams(query));
-    return res.ok ? res.json() : null;
+    return res.ok || res.status === 400 ? res.json() : null;
   }
 </script>
 
 <script>
+  import Alert from '$components/Alert.svelte';
   import Form from './_Form.svelte';
   import List from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
@@ -53,12 +49,11 @@
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
+  export let error = null;
   export let rows = null;
   export let query;
   export let pageCount = null;
   export let rowCount = null;
-  export let lang1Name = null;
-  export let lang2Name = null;
   export let langSuggest;
   setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
@@ -68,7 +63,14 @@
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
 
-  $: multilang = !(query.glosslang?.length === 1);
+  const langNameById = Object.fromEntries(
+    langSuggest.filter((v) => !v.plus).map((v) => [v.id, v.name])
+  );
+  setContext('langNameById', langNameById);
+
+  const multiGlosslang = !(query.glosslang?.length === 1);
+  const multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
+  // console.log(multiGlosslang);
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);
@@ -85,20 +87,22 @@
 </script>
 
 <h2>Compare languages</h2>
+{#if error}
+  <Alert type="error" message="Error: {error}" />
+{/if}
 <Form
   {query}
 />
 
-{#if query.lang1 && query.lang2}
+{#if query.lang1 && query.lang2 && !error}
   {#if rowCount}
     <List
       {rows}
       {query}
       {rowCount}
       {pageCount}
-      {lang1Name}
-      {lang2Name}
-      {multilang}
+      {multiLang}
+      {multiGlosslang}
       on:refresh={handleRefresh}
     />
     <PageSizeSelect {query} preferenceKey="listPageSize" />

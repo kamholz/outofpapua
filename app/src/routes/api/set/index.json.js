@@ -1,9 +1,9 @@
 import { allowed } from './_params';
-import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
-  name_auto, sendPgError, transaction } from '$lib/db';
+import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
+  getLanguageIds, knex, name_auto, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
-  partitionPlus, showPublicOnly } from '$lib/util';
+  showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_ipa', 'lang', 'page',
@@ -55,19 +55,10 @@ export async function get({ locals, query }) {
   }
 
   if ('lang' in query) {
-    const [lang, langPlus] = partitionPlus(query.lang);
-    if (langPlus.length) {
-      const descendants = await knex('language_descendants')
-        .where('id', arrayCmp(new Set(langPlus)))
-        .pluck('descendants');
-      for (const d of descendants) {
-        lang.push(...d);
-      }
-    }
-
-    if (lang.length) {
+    const lang = await getLanguageIds(query.lang);
+    if (lang) {
       joinSource();
-      existsq.where('source.language_id', arrayCmp(new Set(lang)));
+      existsq.where('source.language_id', arrayCmp(lang));
       existsqNeeded = true;
     }
   }

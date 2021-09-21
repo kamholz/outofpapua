@@ -15,12 +15,15 @@
 
   export let entry;
   export let query;
-  export let lang2Name;
   export let collapsed;
-  export let multilang;
+  export let multiLang;
+  export let multiGlosslang;
   const { compare_entries, headword, senses } = entry;
   const linkable = getContext('editable') && compare_entries;
+  const langNameById = getContext('langNameById');
   let selection = linkable ? {} : null;
+
+  $: allCollapsed = collapsed && Object.values(collapsed).every((v) => v);
 
   function handleSelect(item) {
     if (selection[item.id]) {
@@ -52,10 +55,13 @@
 
 <div class="columns">
   <div class="entry">
-    {#if linkable && !collapsed}
+    {#if linkable && !allCollapsed}
       <span title="Select" on:click={() => handleSelect(entry)}>
         <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} />
       </span>
+    {/if}
+    {#if multiLang}
+      {langNameById[entry.language_id]}&nbsp;
     {/if}
     <EntryInfoPopover bind:entry language_id={query.lang1} placement="auto-start">
       <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
@@ -64,42 +70,46 @@
       <SetPopover id={entry.set_id} />
     {/if}
     <div>
-      <Senses {senses} {multilang} />
+      <Senses {senses} {multiGlosslang} />
     </div>
   </div>
   {#if compare_entries}
     <div class="compare">
-      <div class="header">
-        <CollapseIndicator bind:collapsed />
-        {lang2Name} comparisons
-      </div>
-      {#if !collapsed}
-        <ul transition:slide|local={{ duration: 200 }}>
-          {#each compare_entries as compare_entry (compare_entry.id)}
-            <li>
-              {#if linkable}
-                <span title="Select" on:click={() => handleSelect(compare_entry)}>
-                  <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
-                </span>
-              {/if}
-              <EntryInfoPopover bind:entry language_id={query.lang2}>
-                <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
-              </EntryInfoPopover>
-              {#if compare_entry.set_id}
-                <SetPopover id={compare_entry.set_id} />
-              {/if}
-              <div>
-                <Senses senses={compare_entry.senses} {multilang} />
-              </div>
-            </li>
-          {/each}
-        </ul>
-      {/if}
+      {#each compare_entries as { language_id, language_name, entries } (language_id) }
+        <div class="comparelang">
+          <div class="header">
+            <CollapseIndicator bind:collapsed={collapsed[language_id]} />
+            {language_name} comparisons
+          </div>
+          {#if !collapsed[language_id]}
+            <ul transition:slide|local={{ duration: 200 }}>
+              {#each entries as compare_entry (compare_entry.id)}
+                <li>
+                  {#if linkable}
+                    <span title="Select" on:click={() => handleSelect(compare_entry)}>
+                      <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
+                    </span>
+                  {/if}
+                  <EntryInfoPopover bind:entry {language_id}>
+                    <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
+                  </EntryInfoPopover>
+                  {#if compare_entry.set_id}
+                    <SetPopover id={compare_entry.set_id} />
+                  {/if}
+                  <div>
+                    <Senses senses={compare_entry.senses} {multiGlosslang} />
+                  </div>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
+      {/each}
     </div>
   {/if}
 </div>
 
-{#if linkable && !collapsed && Object.keys(selection).length > 1}
+{#if linkable && !allCollapsed && Object.keys(selection).length > 1}
   <button
     type="button"
     transition:fade={{ duration: 300 }}
@@ -148,5 +158,9 @@
 
   .compare {
     margin-inline-start: 10px;
+  }
+
+  .comparelang:not(:first-child) {
+    margin-block-start: 10px;
   }
 </style>

@@ -7,22 +7,27 @@
   export let query;
   export let pageCount;
   export let rowCount;
-  export let lang1Name;
-  export let lang2Name;
-  export let multilang;
+  export let multiLang;
+  export let multiGlosslang;
 
-  $: collapsedRows = Object.fromEntries(
-    rows.filter((row) => row.compare_entries).map((row) => [row.id, false])
+  $: collapsed = Object.fromEntries(
+    rows.filter((row) => row.compare_entries).map((row) => [
+      row.id,
+      Object.fromEntries(row.compare_entries.map((v) => [v.language_id, false])),
+    ])
   );
 
+  // console.log(rows);
+
   function collapseAll(state) {
-    for (const id of Object.keys(collapsedRows)) {
-      collapsedRows[id] = state;
+    for (const [row_id, lang] of Object.entries(collapsed)) {
+      for (const language_id of Object.keys(lang)) {
+        collapsed[row_id][language_id] = state;
+      }
     }
   }
 </script>
 
-<h3>{lang1Name}</h3>
 <div class="info">
   Total entries: {rowCount}
 </div>
@@ -31,7 +36,7 @@
   <Paginator {query} {pageCount} />
 {/if}
 
-{#if Object.keys(collapsedRows).length}
+{#if Object.keys(collapsed).length}
   <hr>
   <div>
     <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
@@ -46,9 +51,9 @@
       <ListItem
         entry={row}
         {query}
-        {lang2Name}
-        collapsed={collapsedRows[row.id]}
-        {multilang}
+        collapsed={collapsed[row.id]}
+        {multiLang}
+        {multiGlosslang}
         on:refresh
       />
       <hr>

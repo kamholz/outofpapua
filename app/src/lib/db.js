@@ -1,6 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
-import { mungeRegex, showPublicOnly } from '$lib/util';
+import { mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({
@@ -149,7 +149,7 @@ export async function insertGlosses(trx, { language_id, sense_id, glosses }) {
   }
 }
 
-export function filterGlosslang(query, rows, includeCompareEntries) {
+export function filterGlosslang(query, rows, filterCompareEntries) {
   if ('glosslang' in query) {
     const set = new Set(query.glosslang);
     for (const row of rows) {
@@ -158,17 +158,38 @@ export function filterGlosslang(query, rows, includeCompareEntries) {
       }
     }
 
-    if (includeCompareEntries) {
-      for (const row of rows) {
-        if (row.compare_entries) {
-          for (const entry of row.compare_entries) {
-            for (const sense of entry.senses) {
-              sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+    if (filterCompareEntries) {
+      for (const {compare_entries } of rows) {
+        if (compare_entries) {
+          for (const { entries } of compare_entries) {
+            for (const entry of entries) {
+              for (const sense of entry.senses) {
+                sense.glosses = sense.glosses.filter((glosses) => set.has(glosses.language_id));
+              }
             }
           }
         }
       }
     }
+  }
+}
+
+// language and descendants
+
+export async function getLanguageIds(param) {
+  const [lang, langPlus] = partitionPlus(param);
+  if (langPlus.length) {
+    const descendants = await knex('language_descendants')
+      .where('id', arrayCmp(new Set(langPlus)))
+      .pluck('descendants');
+    for (const d of descendants) {
+      lang.push(...d);
+    }
+  }
+  if (lang.length) {
+    return [...new Set(lang)];
+  } else {
+    return null;
   }
 }
 

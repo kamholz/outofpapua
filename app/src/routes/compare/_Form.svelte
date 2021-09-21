@@ -13,15 +13,15 @@
   const fields = [
     {
       name: 'lang1',
-      label: 'Language 1',
-      type: 'suggest',
+      label: 'Language(s) 1',
+      type: 'suggestMulti',
       options: langSuggest,
     },
     {
       name: 'lang2',
-      label: 'Language 2',
-      type: 'suggest',
-      options: langSuggest,
+      label: 'Language(s) 2',
+      type: 'suggestMulti',
+      options: langSuggest.map(({ id, name }) => ({ id, name })),
     },
     {
       name: 'gloss',
@@ -41,15 +41,15 @@
     const [lang1, , lang2] = form.elements;
     lang1.setCustomValidity('');
     lang2.setCustomValidity('');
-    if (!values.lang1) {
+    if (!values.lang1.length) {
       lang1.setCustomValidity('Language 1 is required');
     }
-    if (!values.lang2) {
+    if (!values.lang2.length) {
       lang2.setCustomValidity('Language 2 is required');
     }
-    if (values.lang1 === values.lang2) {
-      lang2.setCustomValidity('Language 2 cannot be the same as Language 1');
-    }
+    // if (values.lang1 === values.lang2) {
+    //   lang2.setCustomValidity('Language 2 cannot be the same as Language 1');
+    // }
   }
 </script>
 

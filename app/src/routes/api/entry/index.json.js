@@ -1,9 +1,9 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, knex,
-  sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
+  knex, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
-  parseArrayParams, parseBooleanParams, partitionPlus, showPublicOnly } from '$lib/util';
+  parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
@@ -72,18 +72,10 @@ export async function get({ locals, query }) {
   }
 
   if ('lang' in query) {
-    const [lang, langPlus] = partitionPlus(query.lang);
-    if (langPlus.length) {
-      const descendants = await knex('language_descendants')
-        .where('id', arrayCmp(new Set(langPlus)))
-        .pluck('descendants');
-      for (const d of descendants) {
-        lang.push(...d);
-      }
-    }
-    if (lang.length) {
+    const lang = await getLanguageIds(query.lang);
+    if (lang) {
       joinSource();
-      subq.where('source.language_id', arrayCmp(new Set(lang)));
+      subq.where('source.language_id', arrayCmp(lang));
     }
   }
 

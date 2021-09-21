@@ -45,7 +45,7 @@
 {:else}
   {#if type === 'senses'}
     <td on:click={cellEditable ? handleActivate : null}>
-      <Senses senses={value(row)} multilang={column.multilang} />
+      <Senses senses={value(row)} multiGlosslang={column.multiGlosslang} />
     </td>
   {:else}
     <td

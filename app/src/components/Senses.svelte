@@ -3,12 +3,12 @@
   import { glossSummaryNoLanguage, glossesSummary, mungePos } from '$lib/util';
 
   export let senses;
-  export let multilang = true;
-  const multisense = senses.length > 1;
+  export let multiGlosslang = true;
+  const multiSense = senses.length > 1;
   const preferences = getContext('preferences');
 
   function summary(glosses) {
-    return multilang
+    return multiGlosslang
       ? glossesSummary(glosses, $preferences)
       : glossSummaryNoLanguage(glosses[0]);
   }
@@ -17,7 +17,7 @@
 {#each senses as { pos, glosses }, i}
   {#if glosses.length}
     <p>
-      {#if multisense}{i + 1}. {/if}{#if pos}<em>{mungePos(pos)}</em>. {/if}{summary(glosses)}
+      {#if multiSense}{i + 1}. {/if}{#if pos}<em>{mungePos(pos)}</em>. {/if}{summary(glosses)}
     </p>
   {/if}
 {/each}

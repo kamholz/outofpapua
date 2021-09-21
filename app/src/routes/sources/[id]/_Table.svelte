@@ -29,7 +29,7 @@
       key: 'senses',
       title: 'Glosses',
       type: 'senses',
-      multilang: !source.editable,
+      multiGlosslang: !source.editable,
       editable: true,
       inputValue: (row) => joinGlosses(row.senses[0]?.glosses?.[0]?.txt ?? []),
     },

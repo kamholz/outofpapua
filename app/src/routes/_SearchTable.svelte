@@ -33,7 +33,7 @@
       key: 'senses',
       title: 'Glosses',
       type: 'senses',
-      multilang: !(query.glosslang?.length === 1),
+      multiGlosslang: !(query.glosslang?.length === 1),
     },
   ];
 
