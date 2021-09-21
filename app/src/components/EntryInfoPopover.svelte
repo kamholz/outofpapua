@@ -211,8 +211,15 @@
           align-self: center;
           inline-size: 9em;
         }
-        :global(.svelecte-control .sv-control) {
-          inline-size: 16em;
+
+        :global {
+          .sv-control {
+            inline-size: 16em;
+          }
+          .sv-dropdown {
+            width: 30em !important;
+            right: 0;
+          }
         }
       }
     }

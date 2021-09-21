@@ -56,6 +56,8 @@
 
 <style lang="scss">
   div {
+    width: 100%;
+
     :global {
       .suggest {
         display: grid;
@@ -69,9 +71,7 @@
       }
 
       .sv-dropdown {
-        width: 30em !important;
         overflow-wrap: anywhere;
-        right: 0;
       }
     }
   }
