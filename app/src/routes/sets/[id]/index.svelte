@@ -122,8 +122,9 @@
       values.name = name;
       handleUpdate('name', async () => {
         if (name === '') {
-          const newSet = await reload(fetch, set.id);
-          name = newSet.name_auto.txt;
+          set = await reload(fetch, set.id);
+          values.name = set.name;
+          name = set.name_auto.txt;
         }
       }, true);
     }
