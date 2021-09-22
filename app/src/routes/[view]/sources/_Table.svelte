@@ -4,6 +4,7 @@
 
   export let rows;
   export let query;
+  const view = getContext('view');
   const editable = getContext('editable');
   const preferences = getContext('preferences');
 
@@ -11,7 +12,7 @@
     {
       key: 'reference',
       title: 'Reference',
-      link: (row) => `/sources/${row.id}/entries?pagesize=${$preferences.tablePageSize}`,
+      link: (row) => `/${view}/sources/${row.id}/entries?pagesize=${$preferences.tablePageSize}`,
     },
     {
       key: 'language',
@@ -26,7 +27,7 @@
   const controls = [
     {
       type: editable ? 'edit' : 'view',
-      link: (row) => `/sources/${row.id}`,
+      link: (row) => `/${view}/sources/${row.id}`,
     },
   ];
 </script>

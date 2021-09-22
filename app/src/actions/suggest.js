@@ -1,12 +1,12 @@
 import { glossesSummary, serializeArrayParam } from '$lib/util';
 
-export async function lang(fetch) {
-  const res = await fetch('/api/language.json');
+export async function lang(fetch, view) {
+  const res = await fetch('/api/language.json?' + new URLSearchParams({ view }));
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function langPlus(fetch) {
-  const res = await fetch('/api/language.json?category=descendants');
+export async function langPlus(fetch, view) {
+  const res = await fetch('/api/language.json?' + new URLSearchParams({ category: 'descendants', view }));
   if (!res.ok) {
     return null;
   }
@@ -21,23 +21,23 @@ export async function langPlus(fetch) {
   return suggestRows;
 }
 
-export async function protolang(fetch) {
-  const res = await fetch('/api/language.json?category=proto');
+export async function protolang(fetch, view) {
+  const res = await fetch('/api/language.json?' + new URLSearchParams({ category: 'proto', view }));
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function glosslang(fetch) {
-  const res = await fetch('/api/language.json?category=gloss');
+export async function glosslang(fetch, view) {
+  const res = await fetch('/api/language.json?' + new URLSearchParams({ category: 'gloss', view }));
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function borrowlang(fetch) {
-  const res = await fetch('/api/language.json?category=borrow');
+export async function borrowlang(fetch, view) {
+  const res = await fetch('/api/language.json?' + new URLSearchParams({ category: 'borrow', view }));
   return res.ok ? (await res.json()).rows : null;
 }
 
-export async function source(fetch) {
-  const res = await fetch('/api/source.json?sort=language');
+export async function source(fetch, view) {
+  const res = await fetch('/api/source.json?' + new URLSearchParams({ sort: 'language', view }));
   if (!res.ok) {
     return null;
   }
@@ -45,8 +45,8 @@ export async function source(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function editableSource(fetch) {
-  const res = await fetch('/api/source.json?category=editable&sort=language');
+export async function editableSource(fetch, view) {
+  const res = await fetch('/api/source.json?' + new URLSearchParams({ category: 'editable', sort: 'language', view }));
   if (!res.ok) {
     return null;
   }
@@ -54,8 +54,8 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function setAuthor(fetch) {
-  const res = await fetch('/api/set/author.json');
+export async function setAuthor(fetch, view) {
+  const res = await fetch('/api/set/author.json?' + new URLSearchParams({ view }));
   if (!res.ok) {
     return null;
   }
@@ -63,8 +63,8 @@ export async function setAuthor(fetch) {
   return rows.map((row) => ({ id: row.id, name: row.fullname }));
 }
 
-export async function setMember({ entry, languages, match, noset, search }, preferences) {
-  const params = new URLSearchParams({ search, match });
+export async function setMember({ entry, languages, match, noset, search, view }, preferences) {
+  const params = new URLSearchParams({ match, search, view });
   if (entry) {
     params.set('id', entry.id);
   }

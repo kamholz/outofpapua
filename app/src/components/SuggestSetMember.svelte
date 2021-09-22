@@ -11,6 +11,7 @@
   export let entry = null;
   let selection = null;
   const preferences = getContext('preferences');
+  const view = getContext('view');
 
   function renderer(item) {
     let output = `<div class="suggest"><div>${escape(item.language_name)} ` +
@@ -39,7 +40,7 @@
 
 <div>
   <Svelecte
-    fetch={(search) => suggest.setMember({ entry, languages, match, noset, search }, $preferences)}
+    fetch={(search) => suggest.setMember({ entry, languages, match, noset, search, view }, $preferences)}
     labelField="headword"
     searchField="headword"
     valueField="id"

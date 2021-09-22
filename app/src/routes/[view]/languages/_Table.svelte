@@ -7,6 +7,7 @@
   
   export let rows;
   export let query;
+  const view = getContext('view');
   const editable = getContext('editable');
   $: parents = rows.filter((row) => row.is_proto);
 
@@ -44,7 +45,7 @@
     [
       {
         type: 'edit',
-        link: (row) => `/languages/${row.id}`,
+        link: (row) => `/${view}/languages/${row.id}`,
       },
     ]
     :

@@ -3,6 +3,7 @@ export const defaultPreferences = {
   hideGlossLang: false,
   listPageSize: 50,
   tablePageSize: 100,
+  view: 'oop',
 };
 
 export const maxZoom = 13;
@@ -13,6 +14,12 @@ export const pageSizeValues = {
   listPageSize: [50, 100, 200, 500],
   tablePageSize: [100, 500, 1000, 2000],
 };
+
+export const views = [
+  ['oop', 'Out of Papua'],
+  ['tap', 'TAP'],
+];
+export const viewSet = new Set(views.map((v) => v[0]));
 
 export const schema = {
   type: 'object',
@@ -54,6 +61,11 @@ export const schema = {
       description: 'how many records to show in table view',
       type: 'integer',
       enum: pageSizeValues.tablePageSize,
+    },
+    view: {
+      type: 'string',
+      description: 'current database view',
+      enum: [...viewSet],
     },
   },
   additionalProperties: false,

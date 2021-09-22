@@ -2,14 +2,14 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
-    const props = {};
+    const props = { view: params.view };
     const res = await fetch(`/api/language/${params.id}.json`);
     if (!res.ok) {
       return { status: 404 };
     }
     props.language = await res.json();
     if (session.user) {
-      props.protolangSuggest = await suggest.protolang(fetch);
+      props.protolangSuggest = await suggest.protolang(fetch, params.view);
     }
     return { props };
   }
@@ -23,6 +23,8 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
+  export let view;
+  // setContext('view', view);
   export let language;
   export let protolangSuggest = null;
   if (protolangSuggest) {
@@ -39,7 +41,7 @@
       try {
         promise = del(language.id);
         await promise;
-        goto('/languages');
+        goto(`/${view}/languages`);
       } catch (e) {}
       $pageLoading--;
     }

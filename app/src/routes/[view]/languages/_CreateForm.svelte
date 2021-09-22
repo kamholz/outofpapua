@@ -1,13 +1,14 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   let values = {};
   let error = null;
+  const view = getContext('view');
 
   const fields = [
     {
@@ -24,7 +25,7 @@
     $pageLoading++;
     try {
       error = null;
-      await creater(values);
+      await creater({ ...values, view });
       values = {};
       dispatch('refresh');
     } catch (e) {

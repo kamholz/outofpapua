@@ -4,10 +4,11 @@
 
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, page: { params, query }, session }) {
     const props = {
-      langSuggest: await suggest.langPlus(fetch),
-      glosslangSuggest: await suggest.glosslang(fetch),
+      view: params.view,
+      langSuggest: await suggest.langPlus(fetch, params.view),
+      glosslangSuggest: await suggest.glosslang(fetch, params.view),
     };
     if (!props.langSuggest || !props.glosslangSuggest) {
       return { status: 500 };
@@ -21,7 +22,7 @@
 
     query = normalizeQuery(query);
     if ('lang1' in query && 'lang2' in query) {
-      const json = await reload(fetch, query);
+      const json = await reload(fetch, params.view, query);
       if (!json) {
         return { status: 500 };
       }
@@ -49,6 +50,8 @@
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
 
+  export let view;
+  setContext('view', view);
   export let error = null;
   export let rows = null;
   export let query;

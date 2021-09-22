@@ -47,16 +47,16 @@
 <Login username={$session.user?.username} />
 
 {#if $session.user}
-  <NavBar />
-  <main>
-  <!-- {#key $page.path}
-    <div in:fade={{ duration: 200 }}> -->
-    <PageContext session={$session}>
-      <slot />
-    </PageContext>
-    <!-- </div>
-  {/key} -->
-  </main>
+  <PageContext session={$session}>
+    <NavBar />
+    <main>
+    <!-- {#key $page.path}
+      <div in:fade={{ duration: 200 }}> -->
+        <slot />
+      <!-- </div>
+    {/key} -->
+    </main>
+  </PageContext>
 {/if}
 
 <!-- {#if broadcasts.length}

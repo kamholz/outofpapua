@@ -1,14 +1,15 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, filterLanguageList,
+  getCount, getLanguageIds, knex, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
+import { viewSet } from '$lib/preferences';
 
 const allowed = new Set(['asc', 'headword', 'headword_ipa', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page',
-  'pagesize', 'set', 'sort']);
+  'pagesize', 'set', 'sort', 'view']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -31,6 +32,9 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
+  if (!('view' in query) || !viewSet.has(query.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   if (!['headword', 'headword_ipa', 'gloss'].some((attr) => attr in query)) {
     return { status: 400, body: { error: 'insufficient search parameters' } };
   }
@@ -41,31 +45,21 @@ export async function get({ locals, query }) {
   query = { ...defaults, ...query };
 
   const subq = knex('entry')
+    .join('source', 'source.id', 'entry.source_id')
     .select('entry.id')
     .distinct();
 
-  let joinedSource = false;
-  function joinSource() {
-    if (!joinedSource) {
-      subq.join('source', 'source.id', 'entry.source_id');
-      joinedSource = true;
-    }
-  }
-
   if (showPublicOnly(locals)) {
-    joinSource();
     subq.whereRaw('source.public');
   }
 
   applyEntrySearchParams(subq, query);
 
   if (query.langcat === 'lang') {
-    joinSource();
     subq.whereNotExists(function () {
       this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
     });
   } else if (query.langcat === 'proto') {
-    joinSource();
     subq.whereExists(function () {
       this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('source.language_id'));
     });
@@ -74,9 +68,12 @@ export async function get({ locals, query }) {
   if ('lang' in query) {
     const lang = await getLanguageIds(query.lang);
     if (lang) {
-      joinSource();
       subq.where('source.language_id', arrayCmp(lang));
+    } else {
+      filterLanguageList(subq, 'source.language_id', query.view);
     }
+  } else {
+    filterLanguageList(subq, 'source.language_id', query.view);
   }
 
   const q = knex

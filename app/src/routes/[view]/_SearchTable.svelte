@@ -6,6 +6,7 @@
   export let query;
   export let pageCount;
   const preferences = getContext('preferences');
+  const view = getContext('view');
 
   const columns = [
     {
@@ -17,7 +18,7 @@
       key: 'source_reference',
       sortKey: 'source',
       title: 'Source',
-      link: (row) => `/sources/${row.source_id}/entries?pagesize=${$preferences.tablePageSize}`,
+      link: (row) => `/${view}/sources/${row.source_id}/entries?pagesize=${$preferences.tablePageSize}`,
     },
     {
       key: 'headword',

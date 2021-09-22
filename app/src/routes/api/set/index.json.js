@@ -1,3 +1,4 @@
+import errors from '$lib/errors';
 import { allowed } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
   getLanguageIds, knex, name_auto, sendPgError, transaction } from '$lib/db';
@@ -5,9 +6,10 @@ import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
+import { viewSet } from '$lib/preferences';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_ipa', 'lang', 'page',
-  'pagesize', 'sort', 'source']);
+  'pagesize', 'sort', 'source', 'view']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
@@ -23,6 +25,9 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowedSearch);
+  if (!('view' in query) || !viewSet.has(query.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);

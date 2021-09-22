@@ -17,7 +17,7 @@
   );
 
   function pageUrl(page) {
-    return '?' + new URLSearchParams(serializeQuery({ ...query, [pageParam]: page }));
+    return serializeQuery({ ...query, [pageParam]: page });
   }
 </script>
 

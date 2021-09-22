@@ -1,8 +1,9 @@
 import errors from '$lib/errors';
 import { allowed, allowedAdmin, nfc, required } from './_params';
-import { applySortParams, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
+import { applySortParams, filterLanguageList, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
+import { viewSet } from '$lib/preferences';
 
 const boolean = new Set(['asc']);
 const strip = new Set(['category', 'numentries']);
@@ -18,6 +19,9 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = normalizeQuery(query);
+  if (!('view' in query) || !viewSet.has(query.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
@@ -28,6 +32,7 @@ export async function get({ locals, query }) {
       'source.reference',
       'language.name as language'
     );
+  filterLanguageList(q, 'source.language_id', query.view);
   filterPublicSources(q, locals);
 
   if (query.category === 'proto') {

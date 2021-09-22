@@ -12,9 +12,9 @@
   function handleSelect(e) {
     const { value } = e.target;
     preferences.update({ [preferenceKey]: Number(value) });
-    const newQuery = serializeQuery({ ...query, page: 1, pagesize: value });
+    const newQuery = { ...query, page: 1, pagesize: value };
     stripEmptyArrayParams(newQuery);
-    goto('?' + new URLSearchParams(newQuery));
+    goto(serializeQuery(newQuery));
   }
 </script>
 

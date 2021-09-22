@@ -1,23 +1,30 @@
 <script>
   import Icon from 'svelte-awesome';
   import { faBars } from '@fortawesome/free-solid-svg-icons';
+  import { getContext } from 'svelte';
   import { page, session } from '$app/stores';
 
-  const tabs = [
-    ['Entries', '/'],
-    ['Sets', '/sets'],
-    ['Languages', '/languages'],
-    ['Sources', '/sources'],
-    ['Comparison', '/compare'],
-  ];
-  if ($session.user) {
-    tabs.push(
-      ['Saved Maps', '/saved_maps'],
-      ['Users', '/users']
-    );
-  }
+  const preferences = getContext('preferences');
+  $: tabs = getTabs($preferences.view, $session.user);
 
   let active = false;
+
+  function getTabs(view, user) {
+    const tabs = [
+      ['Entries', `/${view}`],
+      ['Sets', `/${view}/sets`],
+      ['Languages', `/${view}/languages`],
+      ['Sources', `/${view}/sources`],
+      ['Comparison', `/${view}/compare`],
+    ];
+    if (user) {
+      tabs.push(
+        ['Saved Maps', '/saved_maps'],
+        ['Users', '/users']
+      );
+    }
+    return tabs;
+  }
 </script>
 
 <nav>

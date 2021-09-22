@@ -12,6 +12,7 @@
   export let rows;
   export let query;
   export let pageCount;
+  const view = getContext('view');
   const editable = getContext('editable');
   const collapsedRows = rows.map(() => false);
   let selection = editable ? new Set() : null;
@@ -36,7 +37,7 @@
   }
 
   function handleMap() {
-    goto('/sets/map?' + new URLSearchParams({ sets: serializeArrayParam([...selection]) }));
+    goto(`/${view}/sets/map?` + new URLSearchParams({ sets: serializeArrayParam([...selection]) }));
   }
 </script>
 

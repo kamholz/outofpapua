@@ -2,18 +2,19 @@
   import { normalizeQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, page: { params, query }, session }) {
     const props = {
-      setAuthorSuggest: await suggest.setAuthor(fetch),
-      sourceSuggest: await suggest.source(fetch),
-      langSuggest: await suggest.langPlus(fetch),
-      glosslangSuggest: await suggest.glosslang(fetch),
+      view: params.view,
+      setAuthorSuggest: await suggest.setAuthor(fetch, params.view),
+      sourceSuggest: await suggest.source(fetch, params.view),
+      langSuggest: await suggest.langPlus(fetch, params.view),
+      glosslangSuggest: await suggest.glosslang(fetch, params.view),
     };
     if (!props.sourceSuggest || !props.langSuggest || !props.glosslangSuggest) {
       return { status: 500 };
     }
     if (session.user) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
+      props.borrowlangSuggest = await suggest.borrowlang(fetch, params.view);
       if (!props.borrowlangSuggest) {
         return { status: 500 };
       }
@@ -21,7 +22,7 @@
 
     query = normalizeQuery(query);
     query.pagesize ??= session.preferences.listPageSize;
-    const json = await reload(fetch, query, session.preferences);
+    const json = await reload(fetch, params.view, query);
     if (!json) {
       return { status: 500 };
     }
@@ -30,8 +31,8 @@
     return { props };
   }
 
-  async function reload(fetch, query) {
-    const res = await fetch('/api/set.json?' + new URLSearchParams(query));
+  async function reload(fetch, view, query) {
+    const res = await fetch('/api/set.json?' + new URLSearchParams({ ...query, view }));
     return res.ok ? res.json() : null;
   }
 </script>
@@ -42,6 +43,8 @@
   import SearchForm from './_SearchForm.svelte';
   import { setContext } from 'svelte';
 
+  export let view;
+  setContext('view', view);
   export let rows;
   export let setAuthorSuggest;
   setContext('setAuthorSuggest', setAuthorSuggest);
@@ -60,7 +63,7 @@
   export let rowCount;
 
   async function handleRefresh() {
-    const json = await reload(fetch, query);
+    const json = await reload(fetch, view, query);
     if (json) {
       ({ rows } = json);
       ({ pageCount } = json);

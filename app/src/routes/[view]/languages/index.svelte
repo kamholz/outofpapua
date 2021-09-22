@@ -1,16 +1,18 @@
 <script context="module">
   import { normalizeQuery, serializeQuery } from '$lib/util';
 
-  export async function load({ fetch, page: { query } }) {
-    const props = await reload(fetch, normalizeQuery(query));
-    if (!props) {
+  export async function load({ fetch, page: { params, query } }) {
+    const props = { view: params.view };
+    const json = await reload(fetch, params.view, normalizeQuery(query));
+    if (!json) {
       return { status: 500 };
     }
+    Object.assign(props, json);
     return { props };
   }
 
-  export async function reload(fetch, query) {
-    const res = await fetch('/api/language.json' + serializeQuery({ ...query, numentries: 1 }));
+  export async function reload(fetch, view, query) {
+    const res = await fetch('/api/language.json' + serializeQuery({ ...query, numentries: true, view }));
     return res.ok ? res.json() : null;
   }
 </script>
@@ -18,8 +20,10 @@
 <script>
   import CreateForm from './_CreateForm.svelte';
   import Table from './_Table.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, setContext } from 'svelte';
 
+  export let view;
+  setContext('view', view);
   export let rows;
   export let query;
   const editable = getContext('editable');

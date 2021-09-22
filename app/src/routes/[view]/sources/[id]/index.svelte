@@ -10,7 +10,7 @@
     props.source = await res.json();
     if (session.user) {
       if (props.source.editable) {
-        props.protolangSuggest = await suggest.protolang(fetch);
+        props.protolangSuggest = await suggest.protolang(fetch, params.view);
         if (!props.protolangSuggest) {
           return { status: 500 };
         }

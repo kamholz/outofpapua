@@ -8,6 +8,7 @@
   import { glossSummaryNoLanguage } from '$lib/util';
 
   export let id;
+  const view = getContext('view');
   const cache = getContext('setSummaryCache');
   $: set = $cache[id];
 
@@ -21,7 +22,7 @@
 
   async function fetchSet() {
     if (!set) {
-      const res = await fetch(`/api/set/${id}.json`);
+      const res = await fetch(`/api/set/${id}.json?` + new URLSearchParams({ view }));
       if (res.ok) {
         $cache[id] = await res.json();
       }

@@ -1,11 +1,14 @@
 import errors from '$lib/errors';
-import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
+import { applySortParams, filterLanguageBorrowedFrom, filterLanguageGloss, filterLanguageList, knex, sendPgError,
+  transaction } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
   stripParams } from '$lib/util';
-import { nfc, required } from './_params';
+import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
+import { viewSet } from '$lib/preferences';
 
 const boolean = new Set(['asc']);
+const required = new Set(['name', 'view']);
 const strip = new Set(['category', 'numentries']);
 
 const defaults = {
@@ -22,6 +25,9 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = normalizeQuery(query);
+  if (!('view' in query) || !viewSet.has(query.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
@@ -42,16 +48,17 @@ export async function get({ locals, query }) {
   if (query.category === 'descendants') {
     q
       .join('language_descendants as ld', 'ld.id', 'language.id')
-      .whereRaw('language.flag_language_list')
       .select('ld.descendants');
+    filterLanguageList(q, 'language.id', query.view);
   } else if (query.category === 'proto') {
     q.whereNotNull('protolanguage.id');
+    filterLanguageList(q, 'language.id', query.view);
   } else if (query.category === 'borrow') {
-    q.whereRaw('language.flag_language_list or language.flag_borrowed_from');
+    filterLanguageBorrowedFrom(q, 'language.id', query.view);
   } else if (query.category === 'gloss') {
-    q.whereRaw('language.flag_gloss_language');
+    filterLanguageGloss(q, 'language.id', query.view);
   } else {
-    q.whereRaw('language.flag_language_list');
+    filterLanguageList(q, 'language.id', query.view);
   }
 
   if ('numentries' in query) {
@@ -84,10 +91,15 @@ export const post = requireAuth(async ({ body, locals }) => {
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
+  if (!viewSet.has(params.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   ensureNfcParams(params, nfc);
+  const { view } = params;
+  delete params.view;
   try {
-    const ids = await transaction(locals, (trx) =>
-      trx.with('inserted', (q) => {
+    const id = await transaction(locals, async (trx) => {
+      const ids = await trx.with('inserted', (q) => {
         q.from('language')
         .returning('id')
         .insert(params);
@@ -96,9 +108,11 @@ export const post = requireAuth(async ({ body, locals }) => {
       .returning('id')
       .insert(function () {
         this.select('id').from('inserted');
-      })
-    );
-    return { body: { id: ids[0] } };
+      });
+      await trx('language_list').insert({ language_id: id, view });
+      return id;
+    });
+    return { body: { id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

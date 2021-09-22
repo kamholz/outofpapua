@@ -4,17 +4,17 @@
   import * as suggest from '$actions/suggest';
 
   export async function load({ fetch, page: { params }, session }) {
-    const props = {};
+    const props = { view: params.view };
     if (session.user) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
-      props.langSuggest = await suggest.langPlus(fetch);
-      props.sourceSuggest = await suggest.editableSource(fetch);
+      props.borrowlangSuggest = await suggest.borrowlang(fetch, params.view);
+      props.langSuggest = await suggest.langPlus(fetch, params.view);
+      props.sourceSuggest = await suggest.editableSource(fetch, params.view);
       if (!props.borrowlangSuggest || !props.langSuggest || !props.sourceSuggest) {
         return { status: 500 };
       }
     }
 
-    props.set = await reload(fetch, params.id);
+    props.set = await reload(fetch, params.view, params.id);
     if (!props.set) {
       return { status: 404 };
     }
@@ -22,7 +22,7 @@
     return { props };
   }
 
-  async function reload(fetch, id) {
+  async function reload(fetch, view, id) {
     const res = await fetch(`/api/set/${id}.json`);
     return res.ok ? res.json() : null;
   }
@@ -41,6 +41,8 @@
   import { normalizeParam } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
+  export let view;
+  setContext('view', view);
   export let set;
   export let borrowlangSuggest = null;
   export let langSuggest = null;
@@ -144,7 +146,7 @@
   {:else}
     <span>Set: {name}</span>
   {/if}
-  <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>
+  <a href="/{view}/sets/{set.id}/map" title="Map" sveltekit:prefetch>
     <Icon data={faMapMarked} scale={1.5} />
   </a>
 </h2>

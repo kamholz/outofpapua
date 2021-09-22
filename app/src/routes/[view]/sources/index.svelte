@@ -2,16 +2,16 @@
   import { normalizeQuery, serializeQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { query }, session }) {
-    const props = {};
+  export async function load({ fetch, page: { params, query }, session }) {
+    const props = { view: params.view };
     if (session.user) {
-      props.protolangSuggest = await suggest.protolang(fetch);
+      props.protolangSuggest = await suggest.protolang(fetch, params.view);
       if (!props.protolangSuggest) {
         return { status: 500 };
       }
     }
 
-    const json = await reload(fetch, normalizeQuery(query));
+    const json = await reload(fetch, params.view, normalizeQuery(query));
     if (!json) {
       return { status: 500 };
     }
@@ -20,8 +20,8 @@
     return { props };
   }
 
-  export async function reload(fetch, query) {
-    const res = await fetch('/api/source.json' + serializeQuery({ ...query, numentries: 1 }));
+  export async function reload(fetch, view, query) {
+    const res = await fetch('/api/source.json' + serializeQuery({ ...query, numentries: true, view }));
     return res.ok ? res.json() : null;
   }
 </script>
@@ -31,6 +31,8 @@
   import Table from './_Table.svelte';
   import { getContext, setContext } from 'svelte';
 
+  export let view;
+  setContext('view', view);
   export let rows;
   export let query;
   export let protolangSuggest = null;
@@ -40,7 +42,7 @@
   const editable = getContext('editable');
 
   async function handleRefresh() {
-    rows = (await reload(fetch, query))?.rows;
+    rows = (await reload(fetch, view, query))?.rows;
   }
 </script>
 

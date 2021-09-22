@@ -1,11 +1,12 @@
 import errors from '$lib/errors';
-import { arrayCmp, getLanguageIds, knex } from '$lib/db';
+import { arrayCmp, filterLanguageList, getLanguageIds, knex } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
   parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
+import { viewSet } from '$lib/preferences';
 
-const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search']);
-const required = new Set(['match', 'search']);
+const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search', 'view']);
+const required = new Set(['match', 'search', 'view']);
 const boolean = new Set(['noset']);
 const arrayParams = new Set(['lang']);
 const nfc = new Set(['search']);
@@ -19,6 +20,9 @@ export const get = requireAuth(async ({ query }) => {
   if (Object.keys(getFilteredParams(query, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
+  if (!viewSet.has(query.view)) {
+    return { status: 400, body: { error: errors.view } };
+  }
   if (query.match !== 'headword' && query.match !== 'gloss') {
     return { status: 400, body: { error: 'match parameter must be "headword" or "gloss"' } };
   }
@@ -29,6 +33,7 @@ export const get = requireAuth(async ({ query }) => {
   const mungedSearch = mungeRegex(search);
 
   const subq = knex('entry')
+    .join('source', 'source.id', 'entry.source_id')
     .select('entry.id');
 
   if (match === 'headword') {
@@ -54,10 +59,12 @@ export const get = requireAuth(async ({ query }) => {
   if ('lang' in query) {
     const lang = await getLanguageIds(query.lang);
     if (lang) {
-      subq
-        .join('source', 'source.id', 'entry.source_id')
-        .where('source.language_id', arrayCmp(lang));
+      subq.where('source.language_id', arrayCmp(lang));
+    } else {
+      filterLanguageList(subq, 'source.language_id', query.view);
     }
+  } else {
+    filterLanguageList(subq, 'source.language_id', query.view);
   }
 
   const q = knex

@@ -132,6 +132,36 @@ export function filterPublicSources(q, locals) {
   }
 }
 
+// views
+
+export function filterLanguageList(q, col, view) {
+  q.whereIn(col, function () {
+    this.select('language_list.language_id')
+    .from('language_list')
+    .where('language_list.view', view);
+  });
+}
+
+export function filterLanguageGloss(q, col, view) {
+  q.whereIn(col, function () {
+    this.select('language_gloss.language_id')
+    .from('language_gloss')
+    .where('language_gloss.view', view);
+  });
+}
+
+export function filterLanguageBorrowedFrom(q, col, view) {
+  q.whereIn(col, function () {
+    this.select('language_list.language_id')
+    .from('language_list')
+    .where('language_list.view', view);
+  }).orWhereIn(col, function () {
+    this.select('language_borrowed_from.language_id')
+    .from('language_borrowed_from')
+    .where('language_borrowed_from.view', view);
+  });
+}
+
 // glosses
 
 const glossLanguage = 'eng';
@@ -159,7 +189,7 @@ export function filterGlosslang(query, rows, filterCompareEntries) {
     }
 
     if (filterCompareEntries) {
-      for (const {compare_entries } of rows) {
+      for (const { compare_entries } of rows) {
         if (compare_entries) {
           for (const { entries } of compare_entries) {
             for (const entry of entries) {
@@ -218,6 +248,12 @@ function formatPgError(e) {
     default:
       return 'unknown error';
   }
+}
+
+// sets
+
+export const setWithMembers(locals) {
+
 }
 
 // fixed SQL strings
