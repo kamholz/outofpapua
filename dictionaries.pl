@@ -25,6 +25,11 @@ our $dict = {
     reverse_action => 'prefer',
     skip_marker => 'lx_Amb',
   },
+  'Bax (2019)' => {
+    lang_target => 'gei',
+    path => 'Bax_final-version.txt',
+    parser => 'Marker',
+  },
   'Berry & Berry (1987a)' => {
     lang_target => 'sbg',
     path => 'BirdsHead_Berry&Berry1987.xlsx',
