@@ -159,7 +159,7 @@ export function filterGlosslang(query, rows, filterCompareEntries) {
     }
 
     if (filterCompareEntries) {
-      for (const {compare_entries } of rows) {
+      for (const { compare_entries } of rows) {
         if (compare_entries) {
           for (const { entries } of compare_entries) {
             for (const entry of entries) {

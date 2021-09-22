@@ -64,7 +64,7 @@ export async function setAuthor(fetch) {
 }
 
 export async function setMember({ entry, languages, match, noset, search }, preferences) {
-  const params = new URLSearchParams({ search, match });
+  const params = new URLSearchParams({ match, search });
   if (entry) {
     params.set('id', entry.id);
   }

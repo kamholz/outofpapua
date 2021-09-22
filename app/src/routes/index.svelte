@@ -1,5 +1,5 @@
 <script context="module">
-  import { normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
+  import { normalizeQuery, parseArrayNumParams, parseArrayParams, serializeQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
   const arrayParams = new Set(['lang']);
@@ -46,7 +46,7 @@
   }
 
   async function reload(fetch, query) {
-    const res = await fetch('/api/entry.json?' + new URLSearchParams(query));
+    const res = await fetch('/api/entry.json' + serializeQuery(query));
     return res.ok ? res.json() : null;
   }
 </script>
