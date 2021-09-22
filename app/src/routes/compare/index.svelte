@@ -70,7 +70,6 @@
 
   const multiGlosslang = !(query.glosslang?.length === 1);
   const multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
-  // console.log(multiGlosslang);
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);

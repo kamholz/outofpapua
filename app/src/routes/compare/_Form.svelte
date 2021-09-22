@@ -51,6 +51,12 @@
     //   lang2.setCustomValidity('Language 2 cannot be the same as Language 1');
     // }
   }
+
+  function swapLanguages() {
+    [selections.lang1, selections.lang2] = [selections.lang2, selections.lang1];
+    values.lang1 = selections.lang1.map((v) => v.id);
+    values.lang2 = selections.lang2.map((v) => v.id);
+  }
 </script>
 
 <Form
@@ -71,7 +77,7 @@
   <svelte:fragment slot="buttons">
     <button
       type="button"
-      on:click={() => [selections.lang1, selections.lang2] = [selections.lang2, selections.lang1]}
+      on:click={swapLanguages}
     >Swap Languages</button>
   </svelte:fragment>
 </Form>
