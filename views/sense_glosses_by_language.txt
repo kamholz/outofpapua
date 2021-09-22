@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW sense_glosses_by_language AS (
+  SELECT sense_gloss.sense_id,
+    sense_gloss.language_id, 
+    json_agg(sense_gloss.txt ORDER BY sense_gloss.seq) AS txt
+  FROM sense_gloss
+  GROUP BY sense_gloss.sense_id, sense_gloss.language_id
+);

@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW entry_with_senses AS (
+  SELECT entry.id,
+    entry.source_id,
+    entry.headword,
+    entry.headword_degr,
+    entry.headword_ipa,
+    entry.root,
+    entry.note,
+    entry.origin,
+    entry.origin_language_id,
+    entry.record_id,
+    coalesce(json_agg(
+      json_build_object(
+        'id', sense.id,
+        'pos', sense.pos,
+        'note', sense.note,
+        'glosses', sense.glosses
+      ) ORDER BY sense.seq
+    ) FILTER (WHERE sense.id IS NOT NULL), '[]'::json) AS senses
+   FROM entry
+     LEFT JOIN sense ON sense.entry_id = entry.id
+  GROUP BY entry.id
+);

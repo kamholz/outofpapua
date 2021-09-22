@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW sense_definitions_by_language AS (
+  SELECT sense_definition.sense_id,
+    sense_definition.language_id, 
+    json_agg(sense_definition.txt ORDER BY sense_definition.seq) AS txt
+  FROM sense_definition
+  GROUP BY sense_definition.sense_id, sense_definition.language_id
+);

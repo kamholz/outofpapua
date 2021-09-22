@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW sense_glosses AS (
+  SELECT sense.id,
+    coalesce(json_agg(
+      json_build_object(
+        'language_id', sgl.language_id,
+        'language_name', language.name,
+        'txt', sgl.txt
+      )
+      ORDER BY language.name != 'English', lower(language.name)
+    ) FILTER (WHERE sgl.sense_id IS NOT NULL), '[]'::json) AS glosses
+  FROM sense
+   LEFT JOIN sense_glosses_by_language sgl ON sgl.sense_id = sense.id
+   LEFT JOIN language ON language.id = sgl.language_id
+  GROUP BY sense.id
+);

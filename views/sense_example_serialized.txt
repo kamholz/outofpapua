@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW sense_example_serialized AS (
+  SELECT
+    sense_example.id,
+    sense_example.sense_id,
+    (to_jsonb(sense_example.txt) || set.translation) AS example,
+    sense_example.seq
+  FROM sense_example
+  LEFT JOIN LATERAL (
+    SELECT jsonb_agg(json_build_array(sense_example_translation.txt, language.iso6393)) as translation
+    FROM sense_example_translation
+    JOIN language ON (language.id = sense_example_translation.language_id)
+    WHERE sense_example_translation.sense_example_id = sense_example.id
+  ) set ON TRUE
+);

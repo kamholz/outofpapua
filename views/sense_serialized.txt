@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW sense_serialized AS (
+  SELECT
+    sense.id,
+    sense.entry_id,
+    sense.seq,
+    sense.pos,
+    sg.gloss,
+    sd.definition,
+    se.example
+  FROM sense
+  LEFT JOIN LATERAL (
+    SELECT json_agg(json_build_array(sense_gloss.txt, language.iso6393) ORDER BY sense_gloss.seq) as gloss
+    FROM sense_gloss
+    JOIN language ON (language.id = sense_gloss.language_id)
+    WHERE sense_gloss.sense_id = sense.id
+  ) sg ON TRUE
+  LEFT JOIN LATERAL (
+    SELECT json_agg(json_build_array(sense_definition.txt, language.iso6393) ORDER BY sense_definition.seq) as definition
+    FROM sense_definition
+    JOIN language ON (language.id = sense_definition.language_id)
+    WHERE sense_definition.sense_id = sense.id
+  ) sd ON TRUE
+  LEFT JOIN LATERAL (
+    SELECT json_agg(se.example) AS example
+    FROM sense_example_serialized se
+    WHERE se.sense_id = sense.id
+  ) se ON TRUE
+);
