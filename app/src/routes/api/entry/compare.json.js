@@ -1,3 +1,4 @@
+import errors from '$lib/errors';
 import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIds,
   knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
@@ -69,7 +70,7 @@ const compare_entries2 = `
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
-    return { status: 400, body: { error: 'insufficient search parameters' } };
+    return { status: 400, body: { error: errors.insufficientSearch } };
   }
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);

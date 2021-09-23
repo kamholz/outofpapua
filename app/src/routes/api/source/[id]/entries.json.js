@@ -3,7 +3,8 @@ import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
   validateParams } from '$lib/util';
 
-const allowed = new Set(['asc', 'gloss', 'headword', 'headword_ipa', 'origin', 'page', 'pagesize', 'set', 'sort']);
+const allowed = new Set(['asc', 'gloss', 'headword', 'headword_ipa', 'origin', 'page', 'pagesize', 'record', 'set',
+  'sort']);
 const boolean = new Set(['asc']);
 const nfc = new Set(['gloss', 'headword', 'headword_ipa']);
 const defaults = {

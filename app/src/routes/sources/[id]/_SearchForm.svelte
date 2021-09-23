@@ -24,6 +24,11 @@
       type: 'text',
     },
     {
+      name: 'record',
+      label: 'Whole entry',
+      type: 'text',
+    },
+    {
       name: 'origin',
       label: 'Origin',
       type: 'radio',

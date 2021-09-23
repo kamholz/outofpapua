@@ -105,6 +105,12 @@ export function applyEntrySearchParams(q, query) {
   } else if (query.origin === 'unknown') {
     q.whereNull('entry.origin');
   }
+
+  if ('record' in query) {
+    q
+      .join('record', 'record.id', 'entry.record_id')
+      .where(knex.raw('record_text(record.data)'), '~*', mungeRegex(query.record));
+  }
 }
 
 export function applyHeadwordGlossSearchParams(q, query) {

@@ -8,7 +8,7 @@ import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['asc', 'headword', 'headword_ipa', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page',
-  'pagesize', 'set', 'sort']);
+  'pagesize', 'record', 'set', 'sort']);
 const boolean = new Set(['asc']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
@@ -31,8 +31,8 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
-  if (!['headword', 'headword_ipa', 'gloss'].some((attr) => attr in query)) {
-    return { status: 400, body: { error: 'insufficient search parameters' } };
+  if (!['gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+    return { status: 400, body: { error: errors.insufficientSearch } };
   }
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
