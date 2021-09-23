@@ -11,6 +11,16 @@
       label: 'Variants',
       join: true,
     },
+    {
+      key: 'singular',
+      label: 'Singular',
+      join: true,
+    },
+    {
+      key: 'plural',
+      label: 'Plural',
+      join: true,
+    },
   ];
 
   const notes = [
@@ -40,13 +50,43 @@
       join: false,
     },
     {
-      key: 'etymology',
-      label: 'Etymology',
+      key: 'grammar',
+      label: 'Grammatical note',
+      join: false,
+    },
+    {
+      key: 'phono',
+      label: 'Phonological note',
+      join: false,
+    },
+    {
+      key: 'discourse',
+      label: 'Discourse note',
+      join: false,
+    },
+    {
+      key: 'socio',
+      label: 'Sociolinguistic note',
+      join: false,
+    },
+    {
+      key: 'anthro',
+      label: 'Anthropological note',
+      join: false,
+    },
+    {
+      key: 'note',
+      label: 'Note',
       join: false,
     },
     {
       key: 'encyclopedic',
       label: 'Encyclopedic info',
+      join: false,
+    },
+    {
+      key: 'etymology',
+      label: 'Etymology',
       join: false,
     },
     {
@@ -60,23 +100,22 @@
       join: true,
     },
     {
-      key: 'note',
-      label: 'Note',
-      join: false,
-    },
-    {
       key: 'crossref',
       label: 'See also',
       join: true,
     },
 
   ];
+
+  function getPh(txt) {
+    return txt.match(/^\[/) ? txt : `[${txt}]`;
+  }
 </script>
 
 <div class="entry">
   <div class="body">
     {#if entry.headword}
-      <span class="headword">{entry.headword.join(', ')}</span>.
+      <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
     {/if}
 
     {#each inlineNotes as { key, label, join }}
@@ -140,11 +179,15 @@
       margin-inline-start: 1em;
     }
 
+    .ph::before {
+      content: ' ';
+    }
+
     :global {
       .pos, .label, .lang {
         font-style: italic;
       } 
-      .headword, .variant, .example-form, .synonym, .antonym, .crossref {
+      .headword, .variant, .singular, .plural, .example-form, .synonym, .antonym, .crossref {
         font-weight: bold;
       }
     }

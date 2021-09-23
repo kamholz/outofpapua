@@ -12,17 +12,30 @@ const langMarkerKey = {
 };
 const langMarkers = Object.keys(langMarkerKey).sort();
 
+const senseMarkerKey = {
+  lt: 'literal',
+};
+const senseMarkers = Object.keys(senseMarkerKey).sort();
+
 const entryMarkerKey = {
   an: 'antonym',
   cf: 'crossref',
   ee: 'encyclopedic',
   et: 'etymology',
   lc: 'citation',
+  mn: 'crossref',
   mr: 'morph',
+  na: 'anthro',
+  nd: 'discourse',
+  ng: 'grammar',
+  np: 'phono',
+  ns: 'socio',
   nt: 'note',
+  pl: 'plural',
   rf: 'reference',
   sc: 'scientific',
   sd: 'domain',
+  sg: 'singular',
   so: 'source',
   sy: 'synonym',
   ue: 'usage',
@@ -72,6 +85,8 @@ export function parseRecord(record) {
         }
       } else if (marker === 'sn') {
         addSense(true);
+      } else if (marker === 'ph') {
+        entry.ph = value;
       } else if (marker === 'xv') {
         addSense(false);
         addExample();
@@ -83,6 +98,14 @@ export function parseRecord(record) {
             const key = langMarkerKey[m];
             addKey(sense, key);
             pushKey(sense[key], lang, value);
+            break;
+          }
+        }
+
+        for (const m of senseMarkers) {
+          if (marker === m) {
+            addSense(false);
+            pushKey(sense, senseMarkerKey[m], value);
             break;
           }
         }
@@ -118,15 +141,18 @@ export function parseRecord(record) {
   }
 
   function getMarkerLang(marker) {
+    let lang = null;
     if (marker in markerConversion) {
       marker = markerConversion[marker];
     }
-    let lang = null;
     const match = marker.match(/^([a-z]+)_([A-Z][a-z]{2})$/);
     if (match) {
       /* eslint-disable prefer-destructuring */
       marker = match[1];
       lang = match[2].toLowerCase();
+    }
+    if (marker in markerConversion) {
+      marker = markerConversion[marker];
     }
     return [marker, lang];
   }

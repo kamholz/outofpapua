@@ -1,8 +1,19 @@
 <script>
+  import InlineNote from '$components/EntryRecord/InlineNote.svelte';
+  import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
 
   export let sense;
-  const translation = sense.definition ?? sense.gloss;
+  const formatting = getContext('formatting');
+  const translation = sense.definition ?? (formatting.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
+
+  const notes = [
+    {
+      key: 'literal',
+      label: 'Literally',
+      join: true,
+    },
+  ];
 </script>
 
 {#if sense.pos}
@@ -15,6 +26,12 @@
   {/each}
 {/if}
 
+{#each notes as { key, label, join }}
+  {#if key in sense}
+    <InlineNote data={sense} {key} {label} {join} />
+  {/if}
+{/each}
+
 {#if sense.example}
   {#each sense.example as [form, ...translations]}
     <span class="example"><span class="example-form">{form}</span> {#each translations as [translation, lang], i}{#if i !== 0}, {/if}‘<span class="example-trans">{translation}</span>’ (<span class="lang">{lang}</span>){/each}</span>.
@@ -22,7 +39,7 @@
 {/if}
 
 <style lang="scss">
-  .translation::before {
+  .translation::before, .example-form::before {
     content: ' ';
   }
 </style>
