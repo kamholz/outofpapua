@@ -12,24 +12,30 @@
 
 <script>
   import Formatted from '$components/EntryRecord/Formatted.svelte';
-  import Table from '$components/EntryRecord/Table.svelte';
+  import Raw from '$components/EntryRecord/Raw.svelte';
+  import { fade } from 'svelte/transition';
 
   export let record;
+  const { source } = record;
   let showFormatted = true;
 </script>
 
-<h2>Entry from {record.source.reference}</h2>
+<h2>Entry from {source.reference}: {source.language_name}</h2>
 {#if record.page_num}
   <div>
     Page number: {record.page_num}
   </div>
 {/if}
 {#if showFormatted}
-  <Formatted {record} />
-  <button type="button" on:click={() => showFormatted = false}>Show Original</button>
+  <div in:fade>
+    <Formatted {record} />
+    <button type="button" on:click={() => showFormatted = false}>Show Original</button>
+  </div>
 {:else}
-  <Table {record} />
-  <button type="button" on:click={() => showFormatted = true}>Show Formatted</button>
+  <div in:fade>
+    <Raw {record} />
+    <button type="button" on:click={() => showFormatted = true}>Show Formatted</button>
+  </div>
 {/if}
 
 <style lang="scss">

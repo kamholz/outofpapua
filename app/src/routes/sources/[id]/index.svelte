@@ -39,6 +39,9 @@
   if (ipaConversionRuleSuggest) {
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
+  if (source.formatting) {
+    source.formatting = JSON.stringify(source.formatting);
+  }
 </script>
 
 <h3>Source: {source.reference}</h3>

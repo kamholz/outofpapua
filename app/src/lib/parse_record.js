@@ -1,31 +1,3 @@
-const defaultMarkers = Object.fromEntries(
-  [
-    'an',
-    'cf',
-    'd',
-    'ee',
-    'et',
-    'g',
-    'lc',
-    'lx',
-    'mr',
-    'nt',
-    'ps',
-    'r',
-    'rf',
-    'sc',
-    'sd',
-    'se',
-    'sn',
-    'so',
-    'sy',
-    'ue',
-    'va',
-    'x',
-    'xv',
-  ].map((v) => [v, new Set([v])])
-);
-
 const defaultMarkerConversion = {
   de: 'd_Eng',
   ge: 'g_Eng',
@@ -59,8 +31,7 @@ const entryMarkerKey = {
 const entryMarkers = Object.keys(entryMarkerKey).sort();
 
 export function parseRecord(record) {
-  // const { formatting } = record.source;
-  const markers = getMarkers();
+  const { formatting } = record.source;
   const markerConversion = getMarkerConversion();
   const output = {};
 
@@ -71,9 +42,9 @@ export function parseRecord(record) {
   for (const [m, value] of record.data) {
     const [marker, lang] = getMarkerLang(m);
 
-    if (markers.lx.has(marker)) {
+    if (marker === 'lx') {
       pushKey(entry, 'headword', value);
-    } else if (markers.se.has(marker)) {
+    } else if (marker === 'se') {
       if (state !== 'subentry') {
         entry = {};
         pushKey(output, 'subentry', entry);
@@ -86,28 +57,28 @@ export function parseRecord(record) {
       }
 
       if (state === 'example') {
-        if (markers.x.has(marker)) {
+        if (marker === 'x') {
           push(example, [value, lang]);
         } else {
           state = 'sense';
         }
       }
 
-      if (markers.ps.has(marker)) {
+      if (marker === 'ps') {
         if (state === 'post-entry') {
           entry.pos = value;
         } else {
           sense.pos = value;
         }
-      } else if (markers.sn.has(marker)) {
+      } else if (marker === 'sn') {
         addSense(true);
-      } else if (markers.xv.has(marker)) {
+      } else if (marker === 'xv') {
         addSense(false);
         addExample();
         push(example, value);
       } else {
         for (const m of langMarkers) {
-          if (markers[m].has(marker)) {
+          if (marker === m) {
             addSense(false);
             const key = langMarkerKey[m];
             addKey(sense, key);
@@ -117,7 +88,7 @@ export function parseRecord(record) {
         }
 
         for (const m of entryMarkers) {
-          if (markers[m].has(marker)) {
+          if (marker === m) {
             pushKey(entry, entryMarkerKey[m], value);
             break;
           }
@@ -128,12 +99,22 @@ export function parseRecord(record) {
 
   return output;
 
-  function getMarkers() {
-    return defaultMarkers;
-  }
-
   function getMarkerConversion() {
-    return defaultMarkerConversion;
+    const markerConversion = { ...defaultMarkerConversion };
+    if (formatting) {
+      if (formatting.markerConversion) {
+        Object.assign(markerConversion, formatting.markerConversion);
+      }
+      if (formatting.langNational) {
+        const lang = capitalizeFirstLetter(formatting.langNational);
+        Object.assign(markerConversion, { dn: `d_${lang}`, gn: `g_${lang}`, rn: `r_${lang}` });
+      }
+      if (formatting.langRegional) {
+        const lang = capitalizeFirstLetter(formatting.langRegional);
+        Object.assign(markerConversion, { dr: `d_${lang}`, gr: `g_${lang}`, rr: `r_${lang}` });
+      }
+    }
+    return markerConversion;
   }
 
   function getMarkerLang(marker) {
@@ -198,4 +179,8 @@ export function langMarkerSorted(marker) {
   function push(lang) {
     sorted.push([marker[lang], lang]);
   }
+}
+
+function capitalizeFirstLetter(txt) {
+  return txt[0].toUpperCase() + txt.slice(1);
 }

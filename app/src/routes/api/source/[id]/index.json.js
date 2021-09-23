@@ -14,7 +14,8 @@ const columns = [
   'language.name as language_name',
   knex.raw('protolanguage.id is not null as is_proto'),
 ];
-const columnsLoggedIn = columns.concat('source.ipa_conversion_rule', 'source.public', 'source.use_ph_for_ipa');
+const columnsLoggedIn = columns.concat('source.formatting', 'source.ipa_conversion_rule', 'source.public',
+  'source.use_ph_for_ipa');
 
 export const get = validateParams(async ({ locals, params }) => {
   const q = knex('source')

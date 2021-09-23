@@ -29,6 +29,11 @@ $breakpoint_small: 600px;
   text-indent: -0.75em;
 }
 
+@mixin monospace {
+  font-family: "Monaco", "Menlo", monospace;
+  padding: 4px;
+}
+
 @mixin error_color {
   color: var(--error-color);
   background-color: var(--error-background-color);

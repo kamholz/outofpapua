@@ -100,8 +100,7 @@
   div {
     :global {
       textarea {
-        font-family: "Monaco", "Menlo", monospace;
-        padding: 4px;
+        @include monospace;
       }
       textarea[name="replacements"] {
         block-size: 5em;

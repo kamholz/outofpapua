@@ -18,4 +18,7 @@
   .lang {
     font-style: italic;
   }
+  .gloss::before {
+    content: ' ';
+  }
 </style>
