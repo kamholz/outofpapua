@@ -10,7 +10,7 @@ export const get = validateParams(async ({ locals, params }) => {
       'record.data',
       'record.page_num',
       'record.source_id',
-      'source.reference as source_reference'
+      knex.raw("json_build_object('reference', source.reference, 'formatting', source.formatting) as source")
     );
   filterPublicSources(q, locals);
   const row = await q;
