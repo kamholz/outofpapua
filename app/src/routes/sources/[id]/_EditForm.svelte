@@ -81,7 +81,7 @@
           name: 'formatting',
           label: 'Formatting rules',
           type: 'textarea',
-        },
+        }
       );
     }
   }

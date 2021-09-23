@@ -4,6 +4,7 @@
 
   export let record;
   const entry = parseRecord(record);
+  console.log(entry);
 </script>
 
 <Entry {entry} />
