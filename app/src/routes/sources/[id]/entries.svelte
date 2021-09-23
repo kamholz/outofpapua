@@ -60,7 +60,7 @@
   }
 </script>
 
-<h2>{source.reference}</h2>
+<h2>{source.reference}: {source.language_name}</h2>
 {#if source.reference_full}
   <div class="info">
     <em>Cite this source as:</em> {source.reference_full}
