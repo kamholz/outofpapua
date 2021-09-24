@@ -15,12 +15,12 @@ const senseMarker = {
 };
 
 const multiMarker = {
-  crossref: { start: 'cf', lang: 'c', level: 'entry' },
-  example: { start: 'xv', lang: 'x', level: 'sense' },
-  variant: { start: 'va', lang: 'v', level: 'entry' },
+  crossref: { form: 'cf', trans: 'c', level: 'entry' },
+  example: { form: 'xv', trans: 'x', level: 'sense' },
+  variant: { form: 'va', trans: 'v', level: 'entry' },
 };
-const multiMarkerStart = Object.fromEntries(
-  Object.keys(multiMarker).map((state) => [multiMarker[state].start, state])
+const multiMarkerForm = Object.fromEntries(
+  Object.keys(multiMarker).map((state) => [multiMarker[state].form, state])
 );
 
 const entryMarker = {
@@ -55,8 +55,7 @@ export function parseRecord(record) {
   const output = {};
 
   let entry = output;
-  let sense;
-  const multi = {};
+  let sense, multi;
   let state = 'entry';
   let savedState;
 
@@ -77,8 +76,8 @@ export function parseRecord(record) {
       if (state === 'entry' || state === 'subentry') {
         state = 'post-entry';
       } else if (state in multiMarker) {
-        if (marker === multiMarker[state].lang) {
-          push(multi[state], [value, lang]);
+        if (marker === multiMarker[state].trans) {
+          push(multi, [value, lang]);
           continue marker;
         } else {
           state = savedState;
@@ -95,17 +94,17 @@ export function parseRecord(record) {
         addSense(true);
       } else if (marker === 'ph') {
         entry.ph = value;
-      } else if (marker in multiMarkerStart) {
-        const newState = multiMarkerStart[marker];
+      } else if (marker in multiMarkerForm) {
+        const newState = multiMarkerForm[marker];
         savedState = state;
         state = newState;
         const { level } = multiMarker[state];
         if (level === 'sense') {
           addSense(false);
         }
-        multi[state] = [];
-        pushKey(level === 'sense' ? sense : entry, state, multi[state]);
-        push(multi[state], value);
+        multi = [];
+        pushKey(level === 'sense' ? sense : entry, state, multi);
+        push(multi, value);
       } else if (marker in langMarker) {
         addSense(false);
         const key = langMarker[marker];
