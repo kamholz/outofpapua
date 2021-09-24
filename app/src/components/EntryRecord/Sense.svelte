@@ -1,6 +1,7 @@
 <script>
   import Form from '$components/EntryRecord/Form.svelte';
   import InlineNote from '$components/EntryRecord/InlineNote.svelte';
+  import Pos from '$components/EntryRecord/Pos.svelte';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
 
@@ -18,7 +19,7 @@
 </script>
 
 {#if sense.pos}
-  <span class="pos">{sense.pos}</span>.
+  <Pos pos={sense.pos} />
 {/if}
 
 {#if translation}

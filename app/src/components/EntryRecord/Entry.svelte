@@ -1,6 +1,7 @@
 <script>
   import InlineNote from '$components/EntryRecord/InlineNote.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
+  import Pos from '$components/EntryRecord/Pos.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
 
   export let entry;
@@ -30,16 +31,6 @@
     {
       key: 'scientific',
       label: 'Scientific name',
-      join: true,
-    },
-    {
-      key: 'synonym',
-      label: 'Synonyms',
-      join: true,
-    },
-    {
-      key: 'antonym',
-      label: 'Antonyms',
       join: true,
     },
     {
@@ -98,12 +89,21 @@
       join: true,
     },
     {
+      key: 'synonym',
+      label: 'Synonyms',
+      join: true,
+    },
+    {
+      key: 'antonym',
+      label: 'Antonyms',
+      join: true,
+    },
+    {
       key: 'crossref',
       label: 'See also',
       join: true,
       trans: true,
     },
-
   ];
 
   function getPh(txt) {
@@ -124,7 +124,7 @@
     {/each}
 
     {#if entry.pos}
-      <span class="pos">{entry.pos}</span>.
+      <Pos pos={entry.pos} />
     {/if}
 
     {#if entry.sense}
