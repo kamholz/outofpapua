@@ -81,9 +81,12 @@
       />
       {#if searchContext}
         <tr>
-          <td class="searchcontext" colspan={columnCount}>
+          <td class="searchcontext" colspan={columns.length}>
             <slot {row} />
           </td>
+          {#if controls}
+            <td></td>
+          {/if}
         </tr>
       {/if}
     {/each}
@@ -119,7 +122,7 @@
     }
 
     td.searchcontext {
-      padding-inline: 2.5em;
+      padding-inline-start: 2.5em;
     }
 
     :global {
