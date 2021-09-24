@@ -29,15 +29,18 @@
     const matches = [];
     let resultNode;
     while (resultNode = result.iterateNext()) {
+      const parent = resultNode.parentNode;
+      if (parent.className === 'label' || parent.className === 'lang') {
+        continue;
+      }
       const textContent = resultNode.textContent;
       const textContentLower = textContent.toLowerCase();
       if (strings.some((v) => textContent.includes(v))) {
-        matches.push({ resultNode, textContent, textContentLower });
+        matches.push({ resultNode, textContent, textContentLower, parent });
       }
     }
 
-    for (let { resultNode, textContent, textContentLower } of matches) {
-      const parent = resultNode.parentNode;
+    for (let { resultNode, textContent, textContentLower, parent } of matches) {
       while (1) {
         for (const string of strings) {
           const index = textContentLower.indexOf(string);
