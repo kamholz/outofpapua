@@ -11,7 +11,7 @@ const defaults = {
   sort: 'reference',
 };
 const sortCols = {
-  reference: 'source.reference',
+  reference: 'lower(source.reference)',
   language: 'language.name',
   numentries: 'count(entry.id)',
 };
