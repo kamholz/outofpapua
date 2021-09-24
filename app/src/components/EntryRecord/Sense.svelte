@@ -6,7 +6,7 @@
 
   export let sense;
   const formatting = getContext('formatting');
-  const translation = sense.definition ?? (formatting.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
+  const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
 
   const notes = [
     {
