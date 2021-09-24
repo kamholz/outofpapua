@@ -29,12 +29,12 @@
 {#if showFormatted}
   <div in:fade>
     <Formatted {record} />
-    <button type="button" on:click={() => showFormatted = false}>Show Original</button>
+    <button type="button" on:click={() => showFormatted = false}>Show Raw Version</button>
   </div>
 {:else}
   <div in:fade>
     <Raw {record} />
-    <button type="button" on:click={() => showFormatted = true}>Show Formatted</button>
+    <button type="button" on:click={() => showFormatted = true}>Show Formatted Version</button>
   </div>
 {/if}
 
