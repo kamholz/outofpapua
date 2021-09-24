@@ -182,7 +182,7 @@
         font-style: italic;
       } 
 
-      .headword, .variant, .singular, .plural, .form, .synonym, .antonym {
+      .headword, .variant, .sense-num, .singular, .plural, .form, .synonym, .antonym {
         font-weight: bold;
       }
 
