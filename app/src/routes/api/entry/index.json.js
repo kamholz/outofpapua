@@ -1,8 +1,8 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applyRecordMatchSelect, applySortParams, arrayCmp, filterGlosslang,
-  getCount, getLanguageIds, knex, sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
+  knex, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
+import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
@@ -105,7 +105,17 @@ export async function get({ locals, query }) {
     'source.editable as source_editable',
     'set_member.set_id'
   );
-  applyRecordMatchSelect(q, query);
+
+  if ('record' in query) {
+    q
+      .join('record', 'record.id', 'entry.record_id')
+      .select(
+        'source.formatting as source_formatting',
+        'record.data as record_data',
+        knex.raw("array(select distinct (regexp_matches(record_text(record.data), ?, 'g'))[1]) as record_match",
+          `(${mungeRegex(query.record)})`)
+      );
+  }
 
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['language', 'headword']);

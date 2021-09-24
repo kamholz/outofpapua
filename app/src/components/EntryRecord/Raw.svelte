@@ -1,5 +1,5 @@
 <script>
-  export let record;
+  export let data;
 </script>
 
 <table>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    {#each record.data as line (line)}
+    {#each data as line (line)}
       <tr>
         <td>{line[0]}</td>
         <td>{line[1]}</td>

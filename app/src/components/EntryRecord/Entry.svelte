@@ -163,8 +163,6 @@
 
 <style lang="scss">
   .entry {
-    margin-block-start: 16px;
-
     .body {
       @include indent;
     }
@@ -175,6 +173,10 @@
 
     .subentry {
       margin-inline-start: 1em;
+
+      :global(.entry) {
+        margin-block-start: 16px;
+      }
     }
 
     :global {

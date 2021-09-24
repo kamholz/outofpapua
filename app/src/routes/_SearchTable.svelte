@@ -1,4 +1,5 @@
 <script>
+  import EntryRecordFormatted from '$components/EntryRecord/Formatted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
 
@@ -59,5 +60,9 @@
   paginated
   {pageCount}
   highlight
+  searchContext={Boolean(query.record)}
+  let:row
   on:link
-/>
+>
+  <EntryRecordFormatted data={row.record_data} formatting={row.source_formatting} />
+</Table>

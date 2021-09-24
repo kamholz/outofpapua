@@ -11,12 +11,12 @@
 </script>
 
 <script>
-  import Formatted from '$components/EntryRecord/Formatted.svelte';
-  import Raw from '$components/EntryRecord/Raw.svelte';
+  import EntryRecordFormatted from '$components/EntryRecord/Formatted.svelte';
+  import EntryRecordRaw from '$components/EntryRecord/Raw.svelte';
   import { fade } from 'svelte/transition';
 
   export let record;
-  const { source } = record;
+  const { data, source } = record;
   let showFormatted = true;
 </script>
 
@@ -28,12 +28,12 @@
 {/if}
 {#if showFormatted}
   <div in:fade>
-    <Formatted {record} />
+    <EntryRecordFormatted {data} formatting={source.formatting} />
     <button type="button" on:click={() => showFormatted = false}>Show Raw Version</button>
   </div>
 {:else}
   <div in:fade>
-    <Raw {record} />
+    <EntryRecordRaw {data} />
     <button type="button" on:click={() => showFormatted = true}>Show Formatted Version</button>
   </div>
 {/if}

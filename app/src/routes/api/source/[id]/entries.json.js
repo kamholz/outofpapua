@@ -1,7 +1,6 @@
-import { applyEntrySearchParams, applyPageParams, applyRecordMatchSelect, applySortParams, getCount,
-  knex } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
+import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams, showPublicOnly,
   validateParams } from '$lib/util';
 
 const allowed = new Set(['asc', 'gloss', 'headword', 'headword_ipa', 'origin', 'page', 'pagesize', 'record', 'set',
@@ -67,7 +66,16 @@ export const get = validateParams(async ({ locals, params, query }) => {
     'entry.record_id',
     'set_member.set_id'
   );
-  applyRecordMatchSelect(q, query);
+
+  if ('record' in query) {
+    q
+      .join('record', 'record.id', 'entry.record_id')
+      .select(
+        'record.data as record_data',
+        knex.raw("array(select distinct (regexp_matches(record_text(record.data), ?, 'g'))[1]) as record_match",
+          `(${mungeRegex(query.record)})`)
+      );
+  }
 
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['headword', 'senses']);

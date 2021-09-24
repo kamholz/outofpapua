@@ -31,13 +31,3 @@
     />
   {/if}
 </tr>
-
-<style lang="scss">
-  tr:nth-child(even) {
-    background-color: var(--light-gray);
-  }
-
-  tr:nth-child(odd) {
-    background-color: white;
-  }
-</style>

@@ -113,15 +113,6 @@ export function applyEntrySearchParams(q, query) {
   }
 }
 
-export function applyRecordMatchSelect(q, query) {
-  if ('record' in query) {
-    q
-      .join('record', 'record.id', 'entry.record_id')
-      .select(knex.raw("array(select distinct (regexp_matches(record_text(record.data), ?, 'g'))[1]) as record_match",
-        `(${mungeRegex(query.record)})`));
-  }
-}
-
 export function applyHeadwordGlossSearchParams(q, query) {
   for (const p of ['headword', 'headword_ipa']) {
     if (p in query) {

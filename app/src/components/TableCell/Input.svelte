@@ -50,3 +50,9 @@
 >
   <span>{inputValue(row)}</span>
 </td>
+
+<style>
+  td {
+    background-color: white;
+  }
+</style>

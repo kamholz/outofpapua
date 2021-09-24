@@ -49,8 +49,7 @@ const entryMarkerArray = {
   mn: 'crossref',
 };
 
-export function parseRecord(record) {
-  const { formatting } = record.source;
+export function parseRecord(data, formatting) {
   const markerConversion = getMarkerConversion();
   const output = {};
 
@@ -60,7 +59,7 @@ export function parseRecord(record) {
   let savedState;
 
   marker:
-  for (const [m, value] of record.data) {
+  for (const [m, value] of data) {
     const [marker, lang] = getMarkerLang(m);
 
     if (marker === 'lx') {

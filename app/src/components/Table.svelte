@@ -14,7 +14,9 @@
   export let paginated = false;
   export let controls = null;
   export let highlight = false;
+  export let searchContext = false;
   let editingCell = null;
+  $: columnCount = columns.length + (controls ? 1 : 0);
 
   $: for (const column of columns) {
     if (!('value' in column)) {
@@ -44,7 +46,7 @@
   <Paginator {query} {pageCount} />
 {/if}
 
-<table class:hoverhighlight={highlight}>
+<table class:hoverhighlight={highlight} class:searchcontext={searchContext}>
   <thead>
     {#each columns as { key, sortKey, title } (key)}
       <th>
@@ -77,6 +79,13 @@
         on:select
         on:link
       />
+      {#if searchContext}
+        <tr>
+          <td class="searchcontext" colspan={columnCount}>
+            <slot {row} />
+          </td>
+        </tr>
+      {/if}
     {/each}
   </tbody>
 </table>
@@ -91,16 +100,6 @@
   table {
     border: 1px solid black;
     border-collapse: collapse;
-
-    &.hoverhighlight :global {
-      tr:nth-child(even):hover {
-        background-color: #d6d6d6;
-      }
-
-      tr:nth-child(odd):hover {
-        background-color: #f5f5f5;
-      }
-    }
 
     thead {
       a, a:visited {
@@ -119,8 +118,48 @@
       padding-inline: 10px;
     }
 
-    :global(td[contenteditable="true"]) {
-      background-color: white;
+    td.searchcontext {
+      padding-inline: 2.5em;
+    }
+
+    :global {
+      tr:nth-child(even) {
+        background-color: var(--light-gray);
+      }
+
+      tr:nth-child(odd) {
+        background-color: white;
+      }
+    }
+
+    &.searchcontext :global {
+      tr:nth-child(4n), tr:nth-child(4n+3) {
+        background-color: var(--light-gray);
+      }
+
+      tr:nth-child(4n+1), tr:nth-child(4n+2) {
+        background-color: white;
+      }
+    }
+
+    &.hoverhighlight :global {
+      tr:nth-child(even):hover {
+        background-color: #d6d6d6;
+      }
+
+      tr:nth-child(odd):hover {
+        background-color: #f5f5f5;
+      }
+    }
+
+    &.hoverhighlight.searchcontext :global {
+      tr:nth-child(4n):hover, tr:nth-child(4n+3):hover {
+        background-color: #d6d6d6;
+      }
+
+      tr:nth-child(4n+1):hover, tr:nth-child(4n+2):hover {
+        background-color: #f5f5f5;
+      }
     }
   }
 </style>

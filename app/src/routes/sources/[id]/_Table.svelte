@@ -1,5 +1,6 @@
 <script>
   import Alert from '$components/Alert.svelte';
+  import EntryRecordFormatted from '$components/EntryRecord/Formatted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
   import { joinGlosses, parseGlosses } from '$lib/util';
@@ -83,5 +84,10 @@
   sortable
   paginated
   {pageCount}
+  highlight
+  searchContext={Boolean(query.record)}
+  let:row
   on:update={handleUpdate}
-/>
+>
+  <EntryRecordFormatted data={row.record_data} formatting={source.formatting} />
+</Table>
