@@ -240,6 +240,13 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
+  'Dalrymple & Mofu (2009/10)' => {
+    lang_target => 'bhw',
+    path => 'Biak_dictionary.txt',
+    parser => 'Marker',
+    split => ',;',
+    sense => 'hm',
+  },
   'Dol (2007)' => {
     lang_target => 'ayz',
     path => '../dict/dol_maybrat2007_toolbox.txt',
@@ -429,16 +436,6 @@ our $dict = {
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
-  'Jackson (nd.)' => {
-    lang_target => 'irh',
-    path => 'Irarutu cleaned Apr 07.db',
-    parser => 'Marker',
-    lang_national => 'ind',
-    strip => 'to',
-    headword_preprocess => \&clear_hyphen,
-    gloss_preprocess => \&clear_question_mark,
-    pos_preprocess => \&clear_question_mark,
-  },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'yva',
     path => 'Fieldworks/Yawa.db',
@@ -565,12 +562,15 @@ our $dict = {
     split_headword => ';',
     headword_preprocess => \&strip_paren,
   },
-  'Mofu (nd.)' => {
-    lang_target => 'bhw',
-    path => 'Biak_dictionary.txt',
+  'Matsumura (2016)' => {
+    lang_target => 'irh',
+    path => 'Irarutu cleaned Apr 07.db',
     parser => 'Marker',
-    split => ',;',
-    sense => 'hm',
+    lang_national => 'ind',
+    strip => 'to',
+    headword_preprocess => \&clear_hyphen,
+    gloss_preprocess => \&clear_question_mark,
+    pos_preprocess => \&clear_question_mark,
   },
   'Peranginangin (2014)' => {
     lang_target => 'pgu',
@@ -1018,7 +1018,6 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
-
 };
 
 # headword and gloss cleanup
