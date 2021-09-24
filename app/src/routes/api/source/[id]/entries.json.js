@@ -1,4 +1,5 @@
-import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applyRecordMatchSelect, applySortParams, getCount,
+  knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
   validateParams } from '$lib/util';
@@ -66,6 +67,7 @@ export const get = validateParams(async ({ locals, params, query }) => {
     'entry.record_id',
     'set_member.set_id'
   );
+  applyRecordMatchSelect(q, query);
 
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['headword', 'senses']);

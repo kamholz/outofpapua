@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
-import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, sendPgError, transaction } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applyRecordMatchSelect, applySortParams, arrayCmp, filterGlosslang,
+  getCount, getLanguageIds, knex, sendPgError, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
@@ -105,6 +105,7 @@ export async function get({ locals, query }) {
     'source.editable as source_editable',
     'set_member.set_id'
   );
+  applyRecordMatchSelect(q, query);
 
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['language', 'headword']);
