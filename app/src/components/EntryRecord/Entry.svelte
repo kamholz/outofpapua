@@ -1,5 +1,5 @@
 <script>
-  import InlineNote from '$components/EntryRecord/InlineNote.svelte';
+  import Note from '$components/EntryRecord/InlineNote.svelte';
   import Pos from '$components/EntryRecord/Pos.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
 
@@ -111,61 +111,49 @@
 </script>
 
 <div class="entry">
-  <div class="body">
-    {#if entry.headword}
-      <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
+  {#if entry.headword}
+    <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
+  {/if}
+
+  {#each notesPre as { key, label, join, trans }}
+    {#if key in entry}
+      <Note data={entry} {key} {label} {join} {trans} />
+    {/if}
+  {/each}
+
+  {#if entry.pos}
+    <Pos pos={entry.pos} />
+  {/if}
+
+  {#if entry.sense}
+    {#if entry.sense.length > 1}
+      {#each entry.sense as sense, i}
+        <span class="sense-num">({i + 1})</span>
+        <Sense {sense} />
+      {/each}
+    {:else}
+      <Sense sense={entry.sense[0]} />
     {/if}
 
-    {#each notesPre as { key, label, join, trans }}
+    {#each notesPost as { key, label, join, trans }}
       {#if key in entry}
-        <InlineNote data={entry} {key} {label} {join} {trans} />
+        <Note data={entry} {key} {label} {join} {trans} />
       {/if}
     {/each}
-
-    {#if entry.pos}
-      <Pos pos={entry.pos} />
-    {/if}
-
-    {#if entry.sense}
-      {#if entry.sense.length > 1}
-        {#each entry.sense as sense, i}
-          <span class="sense-num">({i + 1})</span>
-          <Sense {sense} />
-        {/each}
-      {:else}
-        <Sense sense={entry.sense[0]} />
-      {/if}
-
-      {#each notesPost as { key, label, join, trans }}
-        {#if key in entry}
-          <InlineNote data={entry} {key} {label} {join} {trans} />
-        {/if}
-      {/each}
-    {/if}
-  </div>
-
-  {#if entry.subentry}
-    <div class="subentry">
-      {#each entry.subentry as subentry}
-        <svelte:self entry={subentry} />
-      {/each}
-    </div>
   {/if}
 </div>
 
+{#if entry.subentry}
+  <div class="subentries">
+    {#each entry.subentry as subentry}
+      <svelte:self entry={subentry} />
+    {/each}
+  </div>
+{/if}
+
 <style lang="scss">
   .entry {
-    .body {
-      @include indent;
-    }
-
-    .notes {
-      margin-block-start: 8px;
-    }
-
-    .subentry :global(.entry) {
-      margin-block-start: 16px;
-    }
+    @include indent;
 
     :global {
       .pos, .label, .lang {
@@ -180,5 +168,9 @@
         content: ' ';
       }
     }
+  }
+
+  .subentries :global(.entry) {
+    margin-block-start: 16px;
   }
 </style>

@@ -1,6 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import EntryRecordFormatted from '$components/EntryRecord/Formatted.svelte';
+  import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
   import { joinGlosses, parseGlosses } from '$lib/util';
@@ -89,5 +90,7 @@
   let:row
   on:update={handleUpdate}
 >
-  <EntryRecordFormatted data={row.record_data} formatting={source.formatting} />
+  <EntryRecordHighlighted strings={row.record_match}>
+    <EntryRecordFormatted data={row.record_data} formatting={source.formatting} />
+  </EntryRecordHighlighted>
 </Table>

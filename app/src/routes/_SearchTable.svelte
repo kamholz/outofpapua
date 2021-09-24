@@ -1,5 +1,6 @@
 <script>
   import EntryRecordFormatted from '$components/EntryRecord/Formatted.svelte';
+  import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
 
@@ -64,5 +65,7 @@
   let:row
   on:link
 >
-  <EntryRecordFormatted data={row.record_data} formatting={row.source_formatting} />
+  <EntryRecordHighlighted strings={row.record_match}>
+    <EntryRecordFormatted data={row.record_data} formatting={row.source_formatting} />
+  </EntryRecordHighlighted>
 </Table>
