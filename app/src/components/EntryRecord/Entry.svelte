@@ -1,12 +1,11 @@
 <script>
   import InlineNote from '$components/EntryRecord/InlineNote.svelte';
-  import Note from '$components/EntryRecord/Note.svelte';
   import Pos from '$components/EntryRecord/Pos.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
 
   export let entry;
 
-  const inlineNotes = [
+  const notesPre = [
     {
       key: 'variant',
       label: 'Variants',
@@ -22,7 +21,7 @@
     },
   ];
 
-  const notes = [
+  const notesPost = [
     {
       key: 'domain',
       label: 'Semantic domain',
@@ -117,7 +116,7 @@
       <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
     {/if}
 
-    {#each inlineNotes as { key, label, join, trans }}
+    {#each notesPre as { key, label, join, trans }}
       {#if key in entry}
         <InlineNote data={entry} {key} {label} {join} {trans} />
       {/if}
@@ -136,18 +135,14 @@
       {:else}
         <Sense sense={entry.sense[0]} />
       {/if}
-    {/if}
-  </div>
 
-  {#if notes.some(({ key }) => entry[key])}
-    <div class="notes">
-      {#each notes as { key, label, join, trans }}
+      {#each notesPost as { key, label, join, trans }}
         {#if key in entry}
-          <Note data={entry} {key} {label} {join} {trans} />
+          <InlineNote data={entry} {key} {label} {join} {trans} />
         {/if}
       {/each}
-    </div>
-  {/if}
+    {/if}
+  </div>
 
   {#if entry.subentry}
     <div class="subentry">
@@ -168,12 +163,8 @@
       margin-block-start: 8px;
     }
 
-    .subentry {
-      margin-inline-start: 1em;
-
-      :global(.entry) {
-        margin-block-start: 16px;
-      }
+    .subentry :global(.entry) {
+      margin-block-start: 16px;
     }
 
     :global {
@@ -185,7 +176,7 @@
         font-weight: bold;
       }
 
-      .sense-num::before, .ph::before, .translation::before, .form::before, .trans::before {
+      .sense-num::before, .ph::before, .translation::before, .label::before, .form::before, .trans::before {
         content: ' ';
       }
     }
