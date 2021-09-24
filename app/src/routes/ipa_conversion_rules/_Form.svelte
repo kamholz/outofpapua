@@ -16,7 +16,7 @@
     },
     {
       name: 'function',
-      label: 'Function',
+      label: 'Function Before',
       type: 'textarea',
     },
     {

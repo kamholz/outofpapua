@@ -9,18 +9,15 @@
     {
       key: 'variant',
       label: 'Variants',
-      join: true,
       trans: true,
     },
     {
       key: 'singular',
       label: 'Singular',
-      join: true,
     },
     {
       key: 'plural',
       label: 'Plural',
-      join: true,
     },
   ];
 

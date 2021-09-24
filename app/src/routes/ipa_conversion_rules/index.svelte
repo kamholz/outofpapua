@@ -106,9 +106,9 @@
         block-size: 5em;
       }
       textarea[name="function"] {
-        block-size: 14em;
+        block-size: 12em;
       }
-      textarea[name="chain_after"], textarea[name="lib"] {
+      textarea[name="chain_after"], textarea[name="chain_before"], textarea[name="lib"] {
         block-size: 2.5em;
       }
     }
