@@ -10,6 +10,7 @@
       key: 'variant',
       label: 'Variants',
       join: true,
+      trans: true,
     },
     {
       key: 'singular',
@@ -103,6 +104,7 @@
       key: 'crossref',
       label: 'See also',
       join: true,
+      trans: true,
     },
 
   ];
@@ -118,9 +120,9 @@
       <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
     {/if}
 
-    {#each inlineNotes as { key, label, join }}
+    {#each inlineNotes as { key, label, join, trans }}
       {#if key in entry}
-        <InlineNote data={entry} {key} {label} {join} />
+        <InlineNote data={entry} {key} {label} {join} {trans} />
       {/if}
     {/each}
 
@@ -142,9 +144,9 @@
 
   {#if notes.some(({ key }) => entry[key])}
     <div class="notes">
-      {#each notes as { key, label, join }}
+      {#each notes as { key, label, join, trans }}
         {#if key in entry}
-          <Note data={entry} {key} {label} {join} />
+          <Note data={entry} {key} {label} {join} {trans} />
         {/if}
       {/each}
     </div>
@@ -167,10 +169,6 @@
       @include indent;
     }
 
-    .sense-num::before {
-      content: ' ';
-    }
-
     .notes {
       margin-block-start: 8px;
     }
@@ -179,16 +177,17 @@
       margin-inline-start: 1em;
     }
 
-    .ph::before {
-      content: ' ';
-    }
-
     :global {
       .pos, .label, .lang {
         font-style: italic;
       } 
-      .headword, .variant, .singular, .plural, .example-form, .synonym, .antonym, .crossref {
+
+      .headword, .variant, .singular, .plural, .form, .synonym, .antonym {
         font-weight: bold;
+      }
+
+      .sense-num::before, .ph::before, .translation::before, .form::before, .trans::before {
+        content: ' ';
       }
     }
   }

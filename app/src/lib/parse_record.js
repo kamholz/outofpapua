@@ -1,29 +1,33 @@
-const defaultMarkerConversion = {
-  de: 'd_Eng',
-  ge: 'g_Eng',
-  re: 'r_Eng',
-  xe: 'x_Eng',
-};
+const nationalRegionalMarkers = ['c', 'd', 'g', 'r', 'v', 'x'];
 
-const langMarkerKey = {
+const defaultMarkerConversion = Object.fromEntries(
+  nationalRegionalMarkers.map((m) => [`${m}e`, `${m}_Eng`])
+);
+
+const langMarker = {
   d: 'definition',
   g: 'gloss',
   r: 'reverse',
 };
-const langMarkers = Object.keys(langMarkerKey).sort();
 
-const senseMarkerKey = {
+const senseMarker = {
   lt: 'literal',
 };
-const senseMarkers = Object.keys(senseMarkerKey).sort();
 
-const entryMarkerKey = {
+const multiMarker = {
+  crossref: { start: 'cf', lang: 'c', level: 'entry' },
+  example: { start: 'xv', lang: 'x', level: 'sense' },
+  variant: { start: 'va', lang: 'v', level: 'entry' },
+};
+const multiMarkerStart = Object.fromEntries(
+  Object.keys(multiMarker).map((state) => [multiMarker[state].start, state])
+);
+
+const entryMarker = {
   an: 'antonym',
-  cf: 'crossref',
   ee: 'encyclopedic',
   et: 'etymology',
   lc: 'citation',
-  mn: 'crossref',
   mr: 'morph',
   na: 'anthro',
   nd: 'discourse',
@@ -39,9 +43,11 @@ const entryMarkerKey = {
   so: 'source',
   sy: 'synonym',
   ue: 'usage',
-  va: 'variant',
 };
-const entryMarkers = Object.keys(entryMarkerKey).sort();
+
+const entryMarkerArray = {
+  mn: 'crossref',
+};
 
 export function parseRecord(record) {
   const { formatting } = record.source;
@@ -49,9 +55,12 @@ export function parseRecord(record) {
   const output = {};
 
   let entry = output;
-  let sense, example;
+  let sense;
+  const multi = {};
   let state = 'entry';
+  let savedState;
 
+  marker:
   for (const [m, value] of record.data) {
     const [marker, lang] = getMarkerLang(m);
 
@@ -67,13 +76,12 @@ export function parseRecord(record) {
     } else {
       if (state === 'entry' || state === 'subentry') {
         state = 'post-entry';
-      }
-
-      if (state === 'example') {
-        if (marker === 'x') {
-          push(example, [value, lang]);
+      } else if (state in multiMarker) {
+        if (marker === multiMarker[state].lang) {
+          push(multi[state], [value, lang]);
+          continue marker;
         } else {
-          state = 'sense';
+          state = savedState;
         }
       }
 
@@ -87,35 +95,29 @@ export function parseRecord(record) {
         addSense(true);
       } else if (marker === 'ph') {
         entry.ph = value;
-      } else if (marker === 'xv') {
+      } else if (marker in multiMarkerStart) {
+        const newState = multiMarkerStart[marker];
+        savedState = state;
+        state = newState;
+        const { level } = multiMarker[state];
+        if (level === 'sense') {
+          addSense(false);
+        }
+        multi[state] = [];
+        pushKey(level === 'sense' ? sense : entry, state, multi[state]);
+        push(multi[state], value);
+      } else if (marker in langMarker) {
         addSense(false);
-        addExample();
-        push(example, value);
-      } else {
-        for (const m of langMarkers) {
-          if (marker === m) {
-            addSense(false);
-            const key = langMarkerKey[m];
-            addKey(sense, key);
-            pushKey(sense[key], lang, value);
-            break;
-          }
-        }
-
-        for (const m of senseMarkers) {
-          if (marker === m) {
-            addSense(false);
-            pushKey(sense, senseMarkerKey[m], value);
-            break;
-          }
-        }
-
-        for (const m of entryMarkers) {
-          if (marker === m) {
-            pushKey(entry, entryMarkerKey[m], value);
-            break;
-          }
-        }
+        const key = langMarker[marker];
+        addKey(sense, key);
+        pushKey(sense[key], lang, value);
+      } else if (marker in senseMarker) {
+        addSense(false);
+        pushKey(sense, senseMarker[marker], value);
+      } else if (marker in entryMarker) {
+        pushKey(entry, entryMarker[marker], value);
+      } else if (marker in entryMarkerArray) { // stored in same key as multi item, but with no translations
+        pushKey(entry, entryMarker[marker], [value]);
       }
     }
   }
@@ -130,11 +132,15 @@ export function parseRecord(record) {
       }
       if (formatting.langNational) {
         const lang = capitalizeFirstLetter(formatting.langNational);
-        Object.assign(markerConversion, { dn: `d_${lang}`, gn: `g_${lang}`, rn: `r_${lang}` });
+        Object.assign(markerConversion, Object.fromEntries(
+          nationalRegionalMarkers.map((m) => [`${m}n`, `${m}_${lang}`])
+        ));
       }
       if (formatting.langRegional) {
         const lang = capitalizeFirstLetter(formatting.langRegional);
-        Object.assign(markerConversion, { dr: `d_${lang}`, gr: `g_${lang}`, rr: `r_${lang}` });
+        Object.assign(markerConversion, Object.fromEntries(
+          nationalRegionalMarkers.map((m) => [`${m}r`, `${m}_${lang}`])
+        ));
       }
     }
     return markerConversion;
@@ -182,12 +188,6 @@ export function parseRecord(record) {
       pushKey(entry, 'sense', sense);
       state = 'sense';
     }
-  }
-
-  function addExample() {
-    example = [];
-    pushKey(sense, 'example', example);
-    state = 'example';
   }
 }
 

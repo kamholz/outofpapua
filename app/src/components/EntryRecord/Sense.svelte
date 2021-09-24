@@ -1,4 +1,5 @@
 <script>
+  import Form from '$components/EntryRecord/Form.svelte';
   import InlineNote from '$components/EntryRecord/InlineNote.svelte';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
@@ -33,13 +34,7 @@
 {/each}
 
 {#if sense.example}
-  {#each sense.example as [form, ...translations]}
-    <span class="example"><span class="example-form">{form}</span> {#each translations as [translation, lang], i}{#if i !== 0}, {/if}‘<span class="example-trans">{translation}</span>’ (<span class="lang">{lang}</span>){/each}</span>.
+  {#each sense.example as item}
+    <Form {item} key="example" trans />.
   {/each}
 {/if}
-
-<style lang="scss">
-  .translation::before, .example-form::before {
-    content: ' ';
-  }
-</style>
