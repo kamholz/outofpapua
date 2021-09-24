@@ -87,6 +87,13 @@ export function parseRecord(data, formatting) {
         if (state === 'post-entry') {
           entry.pos = value;
         } else {
+          // fix missing \sn markers
+          if (entry.pos !== undefined
+            && ['definition', 'example', 'gloss', 'reverse'].some((v) => v in sense)) {
+            sense.pos = entry.pos;
+            delete entry.pos;
+            addSense(true);
+          }
           sense.pos = value;
         }
       } else if (marker === 'sn') {
