@@ -88,8 +88,7 @@ export function parseRecord(data, formatting) {
           entry.pos = value;
         } else {
           // fix missing \sn markers
-          if (entry.pos !== undefined
-            && ['definition', 'example', 'gloss', 'reverse'].some((v) => v in sense)) {
+          if (entry.pos !== undefined && ['definition', 'example', 'gloss', 'reverse'].some((v) => v in sense)) {
             sense.pos = entry.pos;
             delete entry.pos;
             addSense(true);
