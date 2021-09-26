@@ -784,13 +784,19 @@ our $dict = {
     ],
     split => '/',
   },
-  'van Staden (1996)' => {
+  'van Staden (nd.)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox.txt',
     parser => 'Marker',
     split => ',;',
     gloss_preprocess => \&replace_underscore,
     headword_preprocess => \&replace_underscore,
+  },
+  'van Staden (2000)' => {
+    lang_target => 'tvo',
+    path => 'Tidore2/Tidore2_toolbox.txt',
+    parser => 'Marker',
+    split_headword => ',',
   },
   'Voorhoeve (1975)' => {
     lang_target => 'yva',
