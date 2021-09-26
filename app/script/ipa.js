@@ -78,7 +78,7 @@ function matchHeadwordPh(entry) {
     return headword_ph;
   }
   for (const ph of headword_ph.split(/\s*[,;]\s*(?![^()]*\))/)) {
-    const phNfd = ph.normalize('NFD').replace(/\p{M}/gu, '');
+    const phNfd = ph.normalize('NFD').replace(/\p{M}|ˈ/gu, '');
     if (phNfd === headword) {
       return ph;
     }
