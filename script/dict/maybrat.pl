@@ -2,7 +2,7 @@
 use v5.14;
 binmode STDOUT, ':encoding(utf-8)';
 
-open my $fh, '<:encoding(utf-8)', '../dict/dol_maybrat2007.txt' or die $!;
+open my $fh, '<:encoding(utf-8)', '../dict/Dol/dol_maybrat2007.txt' or die $!;
 
 while (<$fh>) {
   chomp;

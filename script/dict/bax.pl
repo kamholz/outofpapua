@@ -7,7 +7,7 @@ use Mojo::DOM;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
-my $dom = Mojo::DOM->new(read_text('../dict/Bax_final-version.html'));
+my $dom = Mojo::DOM->new(read_text('../dict/Bax/Bax_final-version.html'));
 
 my $plain10 = '[style="font-family: TimesNewRomanPSMT; font-size:10px"]';
 my $italic10 = '[style="font-family: TimesNewRomanPS-ItalicMT; font-size:10px"]';

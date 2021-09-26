@@ -27,12 +27,12 @@ our $dict = {
   },
   'Bax (2019)' => {
     lang_target => 'gei',
-    path => 'Bax_final-version.txt',
+    path => 'Bax/Bax_final-version.txt',
     parser => 'Marker',
   },
   'Berry & Berry (1987a)' => {
     lang_target => 'sbg',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -50,7 +50,7 @@ our $dict = {
   },
   'Berry & Berry (1987b)' => {
     lang_target => 'mxn',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -68,7 +68,7 @@ our $dict = {
   },
   'Berry & Berry (1987c)' => {
     lang_target => 'msg',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -86,7 +86,7 @@ our $dict = {
   },
   'Berry & Berry (1987d)' => {
     lang_target => 'kzz',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -104,7 +104,7 @@ our $dict = {
   },
   'Berry & Berry (1987e)' => {
     lang_target => 'Tehit Salmit',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -122,7 +122,7 @@ our $dict = {
   },
   'Berry & Berry (1987f)' => {
     lang_target => 'Tehit Sawiat',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -140,7 +140,7 @@ our $dict = {
   },
   'Berry & Berry (1987g)' => {
     lang_target => 'Tehit Tehijit',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -158,7 +158,7 @@ our $dict = {
   },
   'Berry & Berry (1987h)' => {
     lang_target => 'Abun Ji',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -176,7 +176,7 @@ our $dict = {
   },
   'Berry & Berry (1987i)' => {
     lang_target => 'Abun Tat',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -194,7 +194,7 @@ our $dict = {
   },
   'Berry & Berry (1987j)' => {
     lang_target => 'asz',
-    path => 'BirdsHead_Berry&Berry1987.xlsx',
+    path => 'Berry/BirdsHead_Berry&Berry1987.xlsx',
     parser => 'Spreadsheet',
     skip => 5,
     columns => [
@@ -249,7 +249,7 @@ our $dict = {
   },
   'Dol (2007)' => {
     lang_target => 'ayz',
-    path => '../dict/dol_maybrat2007_toolbox.txt',
+    path => '../dict/Dol/dol_maybrat2007_toolbox.txt',
     parser => 'Marker',
     split => ',;',
     split_headword => ',;/',
@@ -430,7 +430,7 @@ our $dict = {
   },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
-    path => 'Kamus kecil Gamkonora 2014 toolbox.txt',
+    path => 'Kamus kecil Gamkonora/Kamus kecil Gamkonora 2014 toolbox.txt',
     parser => 'Marker',
     lang_national => 'ind',
     split_heuristic => ',',
@@ -786,7 +786,7 @@ our $dict = {
   },
   'van Staden (1996)' => {
     lang_target => 'tvo',
-    path => 'Tidore_toolbox.txt',
+    path => 'Tidore/Tidore_toolbox.txt',
     parser => 'Marker',
     split => ',;',
     gloss_preprocess => \&replace_underscore,

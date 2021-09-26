@@ -26,7 +26,7 @@ foreach my $line (@lines) {
 }
 
 sub read_lines {
-  open my $fh, '<:encoding(utf-8)', '../dict/Kamus kecil Gamkonora 2014 reformatted.txt' or die $!;
+  open my $fh, '<:encoding(utf-8)', '../dict/Kamus kecil Gamkonora/Kamus kecil Gamkonora 2014 reformatted.txt' or die $!;
   my @lines = <$fh>;
   close $fh;
   chomp @lines;
