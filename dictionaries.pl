@@ -421,6 +421,13 @@ our $dict = {
     split => ',/',
     strip => 'to',
   },
+  'Gravelle (2010)' => {
+    lang_target => 'mtj',
+    path => 'grammar of moskona/grammar of moskona_toolbox.txt',
+    parser => 'Marker',
+    split => ',;',
+    split_headword => ',',
+  },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
     path => 'webonary/sawai/*.html',
