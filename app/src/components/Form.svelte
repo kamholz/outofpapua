@@ -64,7 +64,7 @@
   {style}
   class={className}
 >
-  {#each fields as { name, label, options, readonly, required, svelecteProps, type } (name)}
+  {#each fields as { checkbox, name, label, options, readonly, required, svelecteProps, type } (name)}
     <div>
       {#if readonly}
         <span class="label">
@@ -75,40 +75,55 @@
         </span>
       {:else}
         <label for={name}>{label}:</label>
-        {#if type === 'text'}
-          <input
-            type="text"
-            {name}
-            bind:value={values[name]}
-            {required}
-          >
-        {:else if type === 'email'}
-          <input
-            type="email"
-            {name}
-            bind:value={values[name]}
-            {required}
-          >
-        {:else if type === 'password'}
-          <input
-            type="password"
-            {name}
-            bind:value={values[name]}
-            {required}
-          >
-        {:else if type === 'checkbox'}
-          <input
-            type="checkbox"
-            {name}
-            id={name}
-            bind:checked={values[name]}
-            {required}
-            on:change
-          >
-        {:else if type === 'radio'}
-          <span>
+        <span>
+          {#if type === 'text'}
+            <input
+              type="text"
+              id={name}
+              {name}
+              bind:value={values[name]}
+              {required}
+            >
+            {#if checkbox}
+              <label class="checkbox">
+                <input
+                  type="checkbox"
+                  name={checkbox[0]}
+                  value="1"
+                  bind:checked={values[checkbox[0]]}
+                >
+                {checkbox[1]}
+              </label>
+            {/if}
+          {:else if type === 'email'}
+            <input
+              type="email"
+              id={name}
+              {name}
+              bind:value={values[name]}
+              {required}
+            >
+          {:else if type === 'password'}
+            <input
+              type="password"
+              id={name}
+              {name}
+              bind:value={values[name]}
+              {required}
+            >
+          {:else if type === 'checkbox'}
+            <input
+              type="checkbox"
+              id={name}
+              {name}
+              value="1"
+              bind:checked={values[name]}
+              {required}
+              on:change
+            >
+          {:else if type === 'radio'}
             {#each options as { label, value } (value)}
-              <label class="radiolabel">
+              <label class="radio">
                 <input
                   type="radio"
                   {name}
@@ -120,47 +135,48 @@
                 <span>{label}</span>
               </label>
             {/each}
-          </span>
-        {:else if type === 'textarea'}
-          <textarea
-            {name}
-            bind:value={values[name]}
-            {required}
-          />
-        {:else if type === 'suggest'}
-          <Svelecte
-            {options}
-            props={svelecteProps}
-            bind:value={values[name]}
-            bind:selection={selections[name]}
-            clearable={!required}
-          />
-          {#if browserSubmit}
-            <input
-              type="hidden"
+          {:else if type === 'textarea'}
+            <textarea
+              id={name}
               {name}
-              value={values[name]}
-              disabled={values[name] === null}
-            >
+              bind:value={values[name]}
+              {required}
+            />
+          {:else if type === 'suggest'}
+            <Svelecte
+              {options}
+              props={svelecteProps}
+              bind:value={values[name]}
+              bind:selection={selections[name]}
+              clearable={!required}
+            />
+            {#if browserSubmit}
+              <input
+                type="hidden"
+                {name}
+                value={values[name]}
+                disabled={values[name] === null}
+              >
+            {/if}
+          {:else if type === 'suggestMulti'}
+            <Svelecte
+              {options}
+              multiple
+              props={svelecteProps}
+              bind:value={values[name]}
+              bind:selection={selections[name]}
+              clearable={!required}
+            />
+            {#if browserSubmit}
+              <input
+                type="hidden"
+                {name}
+                value={serializeArrayParam(values[name] ?? [])}
+                disabled={!values[name]?.length}
+              >
+            {/if}
           {/if}
-        {:else if type === 'suggestMulti'}
-          <Svelecte
-            {options}
-            multiple
-            props={svelecteProps}
-            bind:value={values[name]}
-            bind:selection={selections[name]}
-            clearable={!required}
-          />
-          {#if browserSubmit}
-            <input
-              type="hidden"
-              {name}
-              value={serializeArrayParam(values[name] ?? [])}
-              disabled={!values[name]?.length}
-            >
-          {/if}
-        {/if}
+        </span>
       {/if}
     </div>
   {/each}
@@ -198,12 +214,29 @@
       align-items: center;
       margin-block: 6px;
 
+      > span {
+        display: flex;
+        align-items: center;
+      }
+
+      input[type="text"] {
+        flex-grow: 10;
+      }
+
+      input[type="checkbox"] {
+        margin-inline-start: 10px;
+      }
+
       label, .label {
         margin-inline-end: 12px;
         text-align: end;
       }
 
-      .radiolabel {
+      label.checkbox {
+        margin: 0;
+      }
+
+      label.radio {
         text-align: start;
         * {
           vertical-align: middle;

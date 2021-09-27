@@ -6,9 +6,9 @@ import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, pars
   showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_ipa', 'lang', 'page',
-  'pagesize', 'sort', 'source']);
-const boolean = new Set(['asc']);
+const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
+  'headword_ipa', 'headword_ipa_exact', 'lang', 'page', 'pagesize', 'sort', 'source']);
+const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
 const defaults = {

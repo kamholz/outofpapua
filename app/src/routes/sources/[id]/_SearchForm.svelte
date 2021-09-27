@@ -12,11 +12,13 @@
       name: 'headword',
       label: 'Headword',
       type: 'text',
+      checkbox: ['headword_exact', 'Exact'],
     },
     {
       name: 'headword_ipa',
       label: 'IPA',
       type: 'text',
+      checkbox: ['headword_ipa_exact', 'Exact'],
     },
     {
       name: 'gloss',

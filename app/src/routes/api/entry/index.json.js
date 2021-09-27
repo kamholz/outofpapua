@@ -7,9 +7,9 @@ import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normaliz
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['asc', 'headword', 'headword_ipa', 'gloss', 'glosslang', 'lang', 'langcat', 'origin', 'page',
-  'pagesize', 'record', 'set', 'sort']);
-const boolean = new Set(['asc']);
+const allowed = new Set(['asc','gloss', 'glosslang', 'headword', 'headword_exact', 'headword_ipa',
+  'headword_ipa_exact', 'lang', 'langcat', 'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
+const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
 const defaults = {
