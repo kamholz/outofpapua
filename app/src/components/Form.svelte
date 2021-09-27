@@ -233,7 +233,7 @@
       }
 
       label.checkbox {
-        margin: 0;
+        margin-inline-start: 10px;
       }
 
       label.radio {
