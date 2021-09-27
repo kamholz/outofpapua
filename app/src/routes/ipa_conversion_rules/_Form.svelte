@@ -42,5 +42,5 @@
   values={rule}
   submitLabel="Save"
   on:submit
-  style="--formwidth: 50em; --gridtemplate: 20% 80%;"
+  style="--form-width: 50em; --grid-template: 20% 80%;"
 />

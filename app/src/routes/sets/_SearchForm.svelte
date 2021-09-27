@@ -63,7 +63,7 @@
   clearable
   browserSubmit
   help={RegexHelp}
-  style="--formwidth: 45em; --gridtemplate: 32% 68%"
+  style="--form-width: 45em; --grid-template: 32% 68%"
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>

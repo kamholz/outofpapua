@@ -26,14 +26,14 @@
   .record {
     border: 1px solid gray;
     padding: 10px;
-    width: var(--recordwidth, 18em);
+    width: var(--record-width, 18em);
 
     display: flex;
     flex-direction: column;
 
     > div {
       display: grid;
-      grid-template-columns: var(--gridtemplate, 43% 57%);
+      grid-template-columns: var(--grid-template, 43% 57%);
       align-items: center;
       padding-block: 6px;
 

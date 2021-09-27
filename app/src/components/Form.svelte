@@ -203,14 +203,14 @@
   form {
     border: 1px solid gray;
     padding: 12px;
-    width: var(--formwidth, 19em);
+    width: var(--form-width, 19em);
 
     display: flex;
     flex-direction: column;
 
     > div {
       display: grid;
-      grid-template-columns: var(--gridtemplate, 42% 58%);
+      grid-template-columns: var(--grid-template, 42% 58%);
       align-items: center;
       margin-block: 6px;
 

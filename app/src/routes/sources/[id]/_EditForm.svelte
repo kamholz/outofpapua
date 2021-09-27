@@ -117,14 +117,14 @@
     {fields}
     values={source}
     submitLabel="Save"
-    style="--formwidth: 35em; --gridtemplate: 30% 70%"
+    style="--form-width: 35em; --grid-template: 30% 70%"
     on:submit={handleUpdate}
   />
 {:else}
   <Record
     {fields}
     values={source}
-    style="--recordwidth: 35em; --gridtemplate: 30% 70%"
+    style="--record-width: 35em; --grid-template: 30% 70%"
   />
 {/if}
 

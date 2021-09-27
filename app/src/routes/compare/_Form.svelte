@@ -67,7 +67,7 @@
   clearable
   browserSubmit
   help={RegexHelp}
-  style="--formwidth: 35em; --gridtemplate: 32% 68%"
+  style="--form-width: 35em; --grid-template: 32% 68%"
   on:beforesubmit={handleValidation}
 >
   <svelte:fragment slot="hidden">

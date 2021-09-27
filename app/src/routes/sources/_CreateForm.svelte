@@ -62,7 +62,7 @@
   bind:values
   submitLabel="Create Source"
   class="create-source-form"
-  style="--formwidth: 30em; --gridtemplate: 33% 67%"
+  style="--form-width: 30em; --grid-template: 33% 67%"
   on:submit={handleCreate}
 />
 

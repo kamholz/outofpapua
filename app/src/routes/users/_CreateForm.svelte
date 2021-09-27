@@ -68,7 +68,7 @@
 <Form
   {fields}
   submitLabel="Create"
-  style="--formwidth: 26em"
+  style="--form-width: 26em"
   on:beforesubmit={handleValidation}
   on:submit={handleCreate}
 />
