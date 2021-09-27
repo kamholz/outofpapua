@@ -223,8 +223,8 @@
         flex-grow: 10;
       }
 
-      input[type="checkbox"] {
-        margin-inline-start: 10px;
+      textarea {
+        flex-basis: 100%;
       }
 
       label, .label {
