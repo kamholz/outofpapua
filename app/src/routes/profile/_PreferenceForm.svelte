@@ -20,6 +20,6 @@
 <Form
   {fields}
   values={$preferences}
-  style="--form-width: 18em; --grid-template: 90% 10%"
+  style="--form-width: 18em; --label-width: 90%;"
   on:change={handleChange}
 />

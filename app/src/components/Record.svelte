@@ -33,7 +33,7 @@
 
     > div {
       display: grid;
-      grid-template-columns: var(--grid-template, 43% 57%);
+      grid-template-columns: var(--label-width, 43%) 1fr;
       align-items: center;
       padding-block: 6px;
 

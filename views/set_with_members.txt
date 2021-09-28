@@ -56,6 +56,7 @@ CREATE OR REPLACE VIEW set_with_members_public AS (
         SELECT source.public
         FROM entry
         JOIN source ON (source.id = entry.source_id)
+        WHERE entry.id = set.name_entry_id
       ) THEN (
         SELECT 
           json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
