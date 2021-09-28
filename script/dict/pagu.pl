@@ -2,20 +2,47 @@
 use v5.14;
 use utf8;
 use File::Slurper qw/read_text write_text/;
-use JSON::MaybeXS;
 use Mojo::DOM;
 use Mojo::Util 'xml_escape';
 binmode STDOUT, ':encoding(utf-8)';
 
-my $dom = Mojo::DOM->new(read_text('../dict/kamus Pagu_baru_2014[10975] reformatted.html'));
+my $dom = Mojo::DOM->new(read_text('../dict/Pagu/kamus Pagu_baru_2014[10975] reformatted.html'));
+
+unwrap_font('font[color="#000000"]');
+unwrap_font('font[face="Times New Roman, serif"]');
+
+foreach my $font ($dom->find('font[style="font-size: 11pt"]')->each) {
+  if ($font->at('i')) {
+    merge_tags($font, 'font[style="font-size: 11pt"]');  
+  }
+}
+
+foreach my $font ($dom->find('font[face="Times New Roman (Vietnamese), serif"]')->each) {
+  merge_tags($font, 'span[lang="en-US"]');
+}
 
 $dom->find('b')->each(sub { tag($_, 'lx') });
-$dom->find('font[face="Calibri, serif"]')->each(sub { tag($_, 'eng') });
+$dom->find('font[face="Calibri, serif"]')->each(sub { tag($_, '_Eng') });
 $dom->find('font[style="font-size: 11pt"]')->each(sub { tag($_, 'xv', 1) });
-$dom->find('font[face="Times New Roman, serif"]')->each(sub { tag($_, 'ind') });
+# $dom->find('font[face="Times New Roman, serif"]')->each(sub { tag($_, '_Ind') });
 
 my $text = $dom->all_text =~ tr/\n\t/ /r;
-my @records = grep { $_ !~ /^’?\.?’?\s*$/ } split /(\[\[.+?\]\])/, $text;
+
+my @records =
+  grep { length }
+  map { trim($_) }
+  map { s/^\. //r } 
+  split /(\[\[.+?\]\])/, $text;
+
+foreach my $rec (@records) {
+  if ($rec =~ /^\[\[(lx|_Eng|xv) (.+)\]\]$/) {
+    my ($marker, $value) = ($1, $2);
+    print "\n" if $marker eq 'lx';
+    say "\\$marker " . trim_quotes($value);
+  } else {
+    say trim_quotes($rec);
+  }
+}
 
 for (my $i = 0; $i < @records; $i++) {
   $records[$i] =~ tr/\x{1c3}/!/;
@@ -31,80 +58,6 @@ for (my $i = 0; $i < @records; $i++) {
 }
 
 @records = grep { $_ !~ /^’?\.?’?\s*$/ } @records;
-
-write_text '../dict/kamus Pagu_baru_2014[10975] tagged.json', JSON->new->pretty->indent_length(2)->encode(\@records);
-
-my ($xv, $seen_eng_gloss, $seen_eng_trans, $seen_ind_trans);
-
-foreach my $rec (@records) {
-  if ($rec =~ /^\[\[([a-z]+) (.+)\]\]$/) {
-    my ($marker, $value) = ($1, $2);
-
-    if ($marker eq 'xv') {
-      $xv .= $value;
-    } else {
-      $value = trim($value);
-
-      if ($marker eq 'lx') {
-        say "\n\\lx $value";
-        $xv = '';
-        $seen_eng_gloss = $seen_eng_trans = $seen_ind_trans = 0;
-      } elsif ($marker eq 'eng') {
-        if ($seen_eng_gloss) {
-          if ($value =~ /[‘’]/) {
-            ($xv, $value) = print_xv($xv, $value) if length $xv;
-            $value = trim_quotes($value);
-            if ($seen_eng_trans) {
-              say "\\nt $value";
-            } else {
-              say "\\x_Eng $value";
-              $seen_eng_trans = 1;
-            }
-          } else {
-            say "\\nt $value";
-          }
-        } else {
-          $value =~ s/\.$//;
-          say "\\g_Eng $value";
-          $seen_eng_gloss = 1;
-        }
-      } elsif ($marker eq 'ind') {
-        if ($seen_eng_gloss) {
-          if ($value =~ /[‘’]/) {
-            ($xv, $value) = print_xv($xv, $value) if length $xv;
-            say '\\x_Ind ' . trim_quotes($value);
-            $seen_ind_trans = 1;
-          } else {
-            $value =~ s/^\. //;
-            say "\\nt $value";          
-          }
-        } else {
-          if (!handle_ph_gn($value)) {
-            $value =~ s/\.$//;
-            say "\\g_Ind $value";          
-          }
-        }
-      }
-    }
-  } else {
-    $rec = trim($rec);
-    if (!handle_ph_gn($rec) and $rec =~ /[‘’]/) {
-      if ($rec =~ /^([^‘’]+[?!.]) (‘.+)$/) {
-        $xv .= $1;
-        $rec = $2;
-      } else {
-      }
-      ($xv, $rec) = print_xv($xv, $rec) if length $xv;
-      $rec = trim_quotes($rec);
-      if ($seen_ind_trans) {
-        say "\\nt $rec";
-      } else {
-        say "\\x_Ind $rec";
-        $seen_ind_trans = 1;
-      }
-    }
-  }
-}
 
 sub tag {
   my ($el, $tag, $pre) = @_;
@@ -132,32 +85,35 @@ sub trim_quotes {
   return $txt;
 }
 
-sub print_xv {
-  my ($xv, $txt) = @_;
-  $xv = trim($xv);
-  if ($txt =~ /^([?!])/) {
-    $xv .= $1;
-    $txt =~ s/^.//;
+sub unwrap_font {
+  my ($selector) = @_;
+  foreach my $font ($dom->find($selector)->each) {
+    my $font2 = $font->at('font');
+    if ($font2) {
+      $font->replace($font2);
+    }
   }
-  $xv =~ s/\.$//;
-  say "\\xv $xv";
-  return (undef, $txt);
 }
 
-sub handle_ph_gn {
-  my ($txt) = @_;
-  $txt =~ s/\.$//;
-  if ($txt =~ /^\[(.+?)\] (.+)$/) {
-    say "\\ph $1";
-    my $gloss = $2;
-    if ($gloss =~ /^(.+)\. (.+?)$/) {
-      say "\\g_Ind $1";
-      say "\\g_Eng $2";
-      $seen_eng_gloss = 1;
-    } else {
-      say "\\g_Ind $gloss";
-    }
-    return 1;
+sub merge_tags {
+  my ($tag, $selector) = @_;
+  my $merged;
+  my $found = $tag->previous;
+  if ($found and $found->matches($selector)) {
+    $merged = $found;
+    $merged->content(xml_escape($merged->all_text . $tag->all_text));
   }
-  return 0;
+  $found = $tag->next;
+  if ($found and $found->matches($selector)) {
+    if ($merged) {
+      $merged->content(xml_escape($merged->all_text . $found->all_text));
+      $found->remove;
+    } else {
+      $merged = $found;
+      $merged->content(xml_escape($tag->all_text . $merged->all_text));
+    }
+  }
+  if ($merged) {
+    $tag->remove;
+  }
 }
