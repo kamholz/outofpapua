@@ -40,7 +40,8 @@ await knex.transaction(async (trx) => {
 
   const q = trx(usePh ? 'entry_with_ph as entry' : 'entry')
     .where('source_id', source.id)
-    .select('id', 'headword', 'headword_ipa');
+    .select('id', 'headword', 'headword_ipa')
+    .orderBy('headword');
   if (usePh) {
     q.select('headword_ph');
   }
