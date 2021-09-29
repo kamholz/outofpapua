@@ -797,6 +797,17 @@ our $dict = {
     ],
     split => '/',
   },
+  'Unknown (nd.b)' => {
+    lang_target => 'kgr',
+    path => 'Abun_primer_wordlist/Abun_primer_wordlist.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'note'],
+    ],
+  },
   'van Staden (nd.)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox.txt',
