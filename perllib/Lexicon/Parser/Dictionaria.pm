@@ -81,7 +81,8 @@ sub read_entries {
     my $num = 1;
     foreach my $cldf_sense (@{$cldf_entry->{senses}}) {
       $self->add_pos($entry, $cldf_entry->{Part_Of_Speech});
-      store($record, 'sn', $num++);
+      store($record, 'sn', "$num");
+      $num++;
       $self->add_gloss($entry, 'gloss', $cldf_sense->{Description}, $lang_default);
       store($record, marker_with_code('g', $lang_default), $cldf_sense->{Description});
       if ($lang_other) {
