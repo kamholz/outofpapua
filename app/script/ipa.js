@@ -48,8 +48,11 @@ await knex.transaction(async (trx) => {
   const entries = await q;
 
   for (const entry of entries) {
-    const headword = usePh ? matchHeadwordPh(entry) : entry.headword;
-    const ipa = func(headword);
+    const { headword } = entry;
+    const args = usePh
+      ? matchHeadwordPh(entry, func)
+      : [headword, { ph: false }];
+    const ipa = func(...args);
     if (mode === 'update') {
       await trx('entry')
         .where('id', entry.id)
@@ -70,20 +73,29 @@ await knex.transaction(async (trx) => {
 
 process.exit();
 
-function matchHeadwordPh(entry) {
+function matchHeadwordPh(entry, func) {
   const { headword, headword_ph } = entry;
   if (headword_ph === null) {
-    return headword;
+    return [headword, { ph: false }];
   }
   if (!headword_ph.match(/[,;]/)) {
-    return headword_ph;
+    return [headword_ph, { ph: true }];
   }
+  const phAuto = degr(func(headword, { ph: false }));
   for (const ph of headword_ph.split(/\s*[,;]\s*(?![^()]*\))/)) {
-    const phNfd = ph.normalize('NFD').replace(/\p{M}|ˈ/gu, '');
-    if (phNfd === headword) {
-      return ph;
+    const phDegr = degr(ph);
+    if (phDegr === phAuto) {
+      return [ph, { ph: true }];
     }
   }
-  console.error(`could not identify headword, returning all: ${headword_ph}`);
-  return headword_ph;
+  console.error(`could not identify headword, returning all: ${headword} // ${phAuto} // ${headword_ph}`);
+  return [headword_ph, { ph: true }];
+}
+
+function degr(txt) {
+  return txt.normalize('NFD')
+    .replace(/\p{M}|[ˌˈ=-]/gu, '')
+    .replace(/ɡ/g, 'g')
+    .replace(/ɛ/g, 'e')
+    .replace(/ɔ/g, 'o');
 }
