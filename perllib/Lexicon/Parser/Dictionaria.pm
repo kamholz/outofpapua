@@ -76,10 +76,12 @@ sub read_entries {
     store($record, 'lx', $cldf_entry->{Headword});
     store($record, 'ph', $cldf_entry->{Pronunciation});
     store_split($record, 'va', $cldf_entry->{Variant_Form});
+    store($record, 'ps', $cldf_entry->{Part_Of_Speech});
 
+    my $num = 1;
     foreach my $cldf_sense (@{$cldf_entry->{senses}}) {
       $self->add_pos($entry, $cldf_entry->{Part_Of_Speech});
-      store($record, 'ps', $cldf_entry->{Part_Of_Speech});
+      store($record, 'sn', $num++);
       $self->add_gloss($entry, 'gloss', $cldf_sense->{Description}, $lang_default);
       store($record, marker_with_code('g', $lang_default), $cldf_sense->{Description});
       if ($lang_other) {
@@ -107,6 +109,11 @@ sub read_entries {
           }
         }
       }
+
+      store($record, 'sd', semicolon_to_comma($cldf_sense->{Semantic_Domain}));
+      store($record, 'sc', semicolon_to_comma($cldf_sense->{Scientific_Name}));
+      store($record, 'sy', get_headwords(\%cldf_entries, $cldf_sense->{Synonym}));
+      store($record, 'an', get_headwords(\%cldf_entries, $cldf_sense->{Antonym}));
     }
 
     my $et = [];
@@ -140,8 +147,14 @@ sub store_split {
 
 sub get_headwords {
   my ($cldf_entries, $value) = @_;
-  return unless length $value;
+  return $value unless length $value;
   return join(', ', map { $cldf_entries->{$_}{Headword} } split / ; /, $value);
+}
+
+sub semicolon_to_comma {
+  my ($value) = @_;
+  return $value unless length $value;
+  return join(', ', split / ; /, $value);
 }
 
 1;
