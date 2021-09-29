@@ -71,7 +71,7 @@
         <span class="label">
           {label}:
         </span>
-        <span>
+        <span class="field">
           {formDisplayValue(values[name], type)}
         </span>
       {:else}
