@@ -247,6 +247,12 @@ our $dict = {
     split => ',;',
     sense => 'hm',
   },
+  'Dalrymple & Mofu (2012)' => {
+    lang_target => 'dsn',
+    path => 'Dusner Dictionary.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Dol (2007)' => {
     lang_target => 'ayz',
     path => '../dict/Dol/dol_maybrat2007_toolbox.txt',
