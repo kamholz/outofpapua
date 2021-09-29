@@ -811,6 +811,14 @@ our $dict = {
     parser => 'Marker',
     split_headword => ',',
   },
+  'Visser (2020)' => {
+    lang_target => 'kgv',
+    path => 'dictionaria-kalamang-5f28ae2',
+    parser => 'Dictionaria',
+    lang_other => {
+      alt_translation1 => 'ind',
+    },
+  },
   'Voorhoeve (1975)' => {
     lang_target => 'yva',
     path => 'spreadsheets/7-Yawa small word list Anceaux.xlsx',

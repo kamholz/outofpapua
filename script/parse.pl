@@ -3,6 +3,7 @@ use v5.14;
 use lib 'perllib';
 use Data::Dumper;
 use Lexicon::Parser::ACD;
+use Lexicon::Parser::Dictionaria;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;

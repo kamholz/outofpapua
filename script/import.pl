@@ -4,6 +4,7 @@ use lib 'perllib';
 use Dotenv -load => 'app/.env';
 use Lexicon::Importer;
 use Lexicon::Parser::ACD;
+use Lexicon::Parser::Dictionaria;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
 use Lexicon::Parser::LexiqueDocx;
