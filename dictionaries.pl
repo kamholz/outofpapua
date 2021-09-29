@@ -609,6 +609,22 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
+  'Reesink (nd.)' => {
+    lang_target => '',
+    path => 'Hatam/Hatam Vocab list.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [5, 'ph'],
+      [8, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [10, 'note'],
+      [2, 'so'],
+      [9, 'page_num'],
+    ],
+    split => ',;',
+    headword_preprocess => \&clear_question_mark,
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
