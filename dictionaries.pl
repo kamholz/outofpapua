@@ -610,7 +610,7 @@ our $dict = {
     ],
   },
   'Reesink (nd.)' => {
-    lang_target => '',
+    lang_target => 'had',
     path => 'Hatam/Hatam Vocab list.xlsx',
     parser => 'Spreadsheet',
     columns => [
