@@ -90,7 +90,7 @@
                       <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
                     </span>
                   {/if}
-                  <EntryInfoPopover bind:entry {language_id}>
+                  <EntryInfoPopover bind:entry={compare_entry} {language_id}>
                     <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
                   </EntryInfoPopover>
                   {#if compare_entry.set_id}
