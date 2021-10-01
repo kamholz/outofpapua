@@ -116,21 +116,21 @@
               <span>unknown</span>
             </label>
           </div>
-          {#if entry.origin === 'borrowed'}
-            <div transition:slide|local class="originlang">
-              <span class="label">Language:</span>
-              <div>
-                <Svelecte
-                  options={borrowlangSuggest.filter((v) => v.id !== language_id)}
-                  disabled={promises.pending.origin_language_id}
-                  bind:value={values.origin_language_id}
-                  on:change={() => handleUpdate('origin_language_id')}
-                />
-              </div>
-            </div>
-          {/if}
         </div>
       </div>
+      {#if editable && entry.origin === 'borrowed'}
+        <div transition:slide|local class="originlang">
+          <span class="label">Language:</span>
+          <div>
+            <Svelecte
+              options={borrowlangSuggest.filter((v) => v.id !== language_id)}
+              disabled={promises.pending.origin_language_id}
+              bind:value={values.origin_language_id}
+              on:change={() => handleUpdate('origin_language_id')}
+            />
+          </div>
+        </div>
+      {/if}
       {#if linkable && !entry.set_id}
         <div class="link">
           <div class="label">
@@ -196,19 +196,20 @@
             margin-inline-end: 4px;
           }
         }
+      }
 
-        .originlang {
-          margin-block-start: 10px;
-          display: flex;
-          align-items: center;
+      &.originlang {
+        > div {
+          width: 100%;
+        }
 
-          > div {
-            width: 100%;
-          }
+        .label {
+          align-self: center;
+          inline-size: 9em;
+        }
 
-          :global(.sv-control) {
-            inline-size: 16em;
-          }
+        :global(.sv-control) {
+          inline-size: 16em;
         }
       }
 
