@@ -5,23 +5,18 @@
   const arrayParams = new Set(['lang']);
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, page: { query } }) {
     const props = {
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
+      borrowlangSuggest: await suggest.borrowlang(fetch),
     };
-    if (!props.langSuggest || !props.glosslangSuggest) {
+    if (!props.langSuggest || !props.glosslangSuggest || !props.borrowlangSuggest) {
       return { status: 500 };
-    }
-    if (session.user) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
-      if (!props.borrowlangSuggest) {
-        return { status: 500 };
-      }
     }
 
     query = normalizeQuery(query);
-    if (['gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+    if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
       const json = await reload(fetch, query);
       if (!json) {
         return { status: 500 };
@@ -72,10 +67,8 @@
   setContext('langSuggest', langSuggest);
   export let glosslangSuggest;
   setContext('glosslangSuggest', glosslangSuggest);
-  export let borrowlangSuggest = null;
-  if (borrowlangSuggest) {
-    setContext('borrowlangSuggest', borrowlangSuggest);
-  }
+  export let borrowlangSuggest;
+  setContext('borrowlangSuggest', borrowlangSuggest);
 
   const linkable = getContext('editable') && query.set !== 'linked';
   const selection = writable(new Set());

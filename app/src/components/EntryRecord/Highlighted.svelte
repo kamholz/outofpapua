@@ -33,7 +33,7 @@
       if (parent.className === 'label' || parent.className === 'lang') {
         continue;
       }
-      const textContent = resultNode.textContent;
+      const { textContent } = resultNode;
       const textContentLower = textContent.toLowerCase();
       if (strings.some((v) => textContent.includes(v))) {
         matches.push({ resultNode, textContent, textContentLower, parent });

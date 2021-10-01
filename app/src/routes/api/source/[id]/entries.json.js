@@ -1,11 +1,12 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams, showPublicOnly,
-  validateParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
+  showPublicOnly, validateParams } from '$lib/util';
 
-const allowed = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa', 'headword_ipa_exact', 
-  'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
+const allowed = new Set(['asc', 'borrowlang', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
+  'headword_ipa_exact', 'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
+const arrayNumParams = new Set(['borrowlang']);
 const nfc = new Set(['gloss', 'headword', 'headword_ipa']);
 const defaults = {
   asc: true,
@@ -24,6 +25,7 @@ const sortCols = {
 export const get = validateParams(async ({ locals, params, query }) => {
   query = getFilteredParams(normalizeQuery(query), allowed);
   parseBooleanParams(query, boolean);
+  parseArrayNumParams(query, arrayNumParams);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
   const { id } = params;

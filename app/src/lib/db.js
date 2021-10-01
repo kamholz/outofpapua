@@ -102,6 +102,9 @@ export function applyEntrySearchParams(q, query) {
 
   if (query.origin === 'inherited' || query.origin === 'borrowed') {
     q.where('entry.origin', query.origin);
+    if (query.origin === 'borrowed' && query.borrowlang) {
+      q.where('entry.origin_language_id', arrayCmp(query.borrowlang));
+    }
   } else if (query.origin === 'unknown') {
     q.whereNull('entry.origin');
   }

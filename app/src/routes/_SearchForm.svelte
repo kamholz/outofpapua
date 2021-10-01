@@ -6,8 +6,10 @@
   export let query;
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
+  const borrowlangSuggest = getContext('borrowlangSuggest');
   const preferences = getContext('preferences');
   const values = { ...query };
+  const selections = {};
 
   const fields = [
     {
@@ -44,6 +46,13 @@
       ],
     },
     {
+      name: 'borrowlang',
+      label: 'Borrowed from',
+      type: 'suggestMulti',
+      options: borrowlangSuggest,
+      hide: values.origin !== 'borrowed',
+    },
+    {
       name: 'set',
       label: 'Set',
       type: 'radio',
@@ -76,16 +85,27 @@
       options: glosslangSuggest,
     },
   ];
+
+  function handleChange(e) {
+    if (e.target.name === 'origin') {
+      fields[5].hide = e.target.value !== 'borrowed';
+      if (!fields[5].hide && !selections.borrowlang?.length) {
+        selections.borrowlang = null;
+      }
+    }
+  }
 </script>
 
 <Form
   {fields}
   {values}
+  {selections}
   submitLabel="Search"
   clearable
   browserSubmit
   help={RegexHelp}
   style="--form-width: 40em; --label-width: 25%; --checkbox-width: 5em;"
+  on:change={handleChange}
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>

@@ -4,6 +4,7 @@
   import { formDisplayValue, nullify, serializeArrayParam } from '$lib/util';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
+  import { slide } from 'svelte/transition';
   
   export let fields;
   export let values = {};
@@ -17,7 +18,7 @@
   export let style = null;
   let className = null;
   export { className as class };
-  const haveTextCheckbox = fields.some(({ checkbox, type}) => type === 'text' && checkbox);
+  const haveTextCheckbox = fields.some(({ checkbox, type }) => type === 'text' && checkbox);
 
   async function handleSubmit(e) {
     if (!browserSubmit) {
@@ -66,137 +67,140 @@
   class={className}
 >
   <div class="fields">
-    {#each fields as { checkbox, name, label, options, readonly, required, svelecteProps, type } (name)}
-      {#if readonly}
-        <span class="label">
-          {label}:
-        </span>
-        <span class="field">
-          {formDisplayValue(values[name], type)}
-        </span>
-      {:else}
-        <label for={name} class="label">{label}:</label>
-        {#if type === 'text'}
-          <input
-            type="text"
-            id={name}
-            {name}
-            class="field"
-            class:narrow={haveTextCheckbox}
-            bind:value={values[name]}
-            {required}
-          >
-          {#if checkbox}
-            <label class="checkbox">
-              <input
-                type="checkbox"
-                name={checkbox[0]}
-                value="1"
-                bind:checked={values[checkbox[0]]}
-              >
-              {checkbox[1]}
-            </label>
-          {:else if haveTextCheckbox}
-            <span></span>
-          {/if}
-        {:else if type === 'email'}
-          <input
-            type="email"
-            id={name}
-            {name}
-            class="field"
-            class:narrow={haveTextCheckbox}
-            bind:value={values[name]}
-            {required}
-          >
-          {#if haveTextCheckbox}
-            <span></span>
-          {/if}
-        {:else if type === 'password'}
-          <input
-            type="password"
-            id={name}
-            {name}
-            class="field"
-            class:narrow={haveTextCheckbox}
-            bind:value={values[name]}
-            {required}
-          >
-          {#if haveTextCheckbox}
-            <span></span>
-          {/if}
-        {:else if type === 'checkbox'}
-          <input
-            type="checkbox"
-            id={name}
-            {name}
-            value="1"
-            class="field"
-            bind:checked={values[name]}
-            {required}
-            on:change
-          >
-        {:else if type === 'radio'}
-          <span class="field">
-            {#each options as { label, value } (value)}
-              <label class="radio">
-                <input
-                  type="radio"
-                  {name}
-                  {value}
-                  checked={values[name] === value}
-                  bind:group={values[name]}
-                  {required}
-                >
-                <span>{label}</span>
-              </label>
-            {/each}
+    {#each fields as { checkbox, hide, name, label, options, readonly, required, svelecteProps, type } (name)}
+      {#if !hide}
+        {#if readonly}
+          <span class="label">
+            {label}:
           </span>
-        {:else if type === 'textarea'}
-          <textarea
-            id={name}
-            {name}
-            class="field"
-            bind:value={values[name]}
-            {required}
-          />
-        {:else if type === 'suggest'}
-          <div class="field">
-            <Svelecte
-              {options}
-              props={svelecteProps}
+          <span class="field">
+            {formDisplayValue(values[name], type)}
+          </span>
+        {:else}
+          <label for={name} class="label" transition:slide={{ duration: 200 }}>{label}:</label>
+          {#if type === 'text'}
+            <input
+              type="text"
+              id={name}
+              {name}
+              class="field"
+              class:narrow={haveTextCheckbox}
               bind:value={values[name]}
-              bind:selection={selections[name]}
-              clearable={!required}
-            />
-            {#if browserSubmit}
-              <input
-                type="hidden"
-                {name}
-                value={values[name]}
-                disabled={values[name] === null}
-              >
+              {required}
+            >
+            {#if checkbox}
+              <label class="checkbox">
+                <input
+                  type="checkbox"
+                  name={checkbox[0]}
+                  value="1"
+                  bind:checked={values[checkbox[0]]}
+                >
+                {checkbox[1]}
+              </label>
+            {:else if haveTextCheckbox}
+              <span></span>
             {/if}
-          </div>
-        {:else if type === 'suggestMulti'}
-          <div class="field">
-            <Svelecte
-              {options}
-              multiple
-              props={svelecteProps}
+          {:else if type === 'email'}
+            <input
+              type="email"
+              id={name}
+              {name}
+              class="field"
+              class:narrow={haveTextCheckbox}
               bind:value={values[name]}
-              bind:selection={selections[name]}
-              clearable={!required}
-            />
-            {#if browserSubmit}
-              <input
-                type="hidden"
-                {name}
-                value={serializeArrayParam(values[name] ?? [])}
-                disabled={!values[name]?.length}
-              >
+              {required}
+            >
+            {#if haveTextCheckbox}
+              <span></span>
             {/if}
-          </div>
+          {:else if type === 'password'}
+            <input
+              type="password"
+              id={name}
+              {name}
+              class="field"
+              class:narrow={haveTextCheckbox}
+              bind:value={values[name]}
+              {required}
+            >
+            {#if haveTextCheckbox}
+              <span></span>
+            {/if}
+          {:else if type === 'checkbox'}
+            <input
+              type="checkbox"
+              id={name}
+              {name}
+              value="1"
+              class="field"
+              bind:checked={values[name]}
+              {required}
+              on:change
+            >
+          {:else if type === 'radio'}
+            <span class="field">
+              {#each options as { label, value } (value)}
+                <label class="radio">
+                  <input
+                    type="radio"
+                    {name}
+                    {value}
+                    checked={values[name] === value}
+                    bind:group={values[name]}
+                    {required}
+                    on:change
+                  >
+                  <span>{label}</span>
+                </label>
+              {/each}
+            </span>
+          {:else if type === 'textarea'}
+            <textarea
+              id={name}
+              {name}
+              class="field"
+              bind:value={values[name]}
+              {required}
+            />
+          {:else if type === 'suggest'}
+            <div class="field" transition:slide={{ duration: 200 }}>
+              <Svelecte
+                {options}
+                props={svelecteProps}
+                bind:value={values[name]}
+                bind:selection={selections[name]}
+                clearable={!required}
+              />
+              {#if browserSubmit}
+                <input
+                  type="hidden"
+                  {name}
+                  value={values[name]}
+                  disabled={values[name] === null}
+                >
+              {/if}
+            </div>
+          {:else if type === 'suggestMulti'}
+            <div class="field" transition:slide={{ duration: 200 }}>
+              <Svelecte
+                {options}
+                multiple
+                props={svelecteProps}
+                bind:value={values[name]}
+                bind:selection={selections[name]}
+                clearable={!required}
+              />
+              {#if browserSubmit}
+                <input
+                  type="hidden"
+                  {name}
+                  value={serializeArrayParam(values[name] ?? [])}
+                  disabled={!values[name]?.length}
+                >
+              {/if}
+            </div>
+          {/if}
         {/if}
       {/if}
     {/each}

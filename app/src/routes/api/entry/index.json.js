@@ -7,11 +7,11 @@ import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normaliz
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['asc','gloss', 'glosslang', 'headword', 'headword_exact', 'headword_ipa',
+const allowed = new Set(['asc', 'borrowlang', 'gloss', 'glosslang', 'headword', 'headword_exact', 'headword_ipa',
   'headword_ipa_exact', 'lang', 'langcat', 'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
-const arrayNumParams = new Set(['glosslang']);
+const arrayNumParams = new Set(['borrowlang', 'glosslang']);
 const defaults = {
   asc: true,
   origin: 'all',
@@ -31,7 +31,7 @@ const sortCols = {
 
 export async function get({ locals, query }) {
   query = getFilteredParams(normalizeQuery(query), allowed);
-  if (!['gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+  if (!['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
     return { status: 400, body: { error: errors.insufficientSearch } };
   }
   parseBooleanParams(query, boolean);

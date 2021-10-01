@@ -2,13 +2,12 @@
   import { optionalQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params, query }, session }) {
-    const props = {};
-    if (session.user) {
-      props.borrowlangSuggest = await suggest.borrowlang(fetch);
-      if (!props.borrowlangSuggest) {
-        return { status: 500 };
-      }
+  export async function load({ fetch, page: { params, query } }) {
+    const props = {
+      borrowlangSuggest: await suggest.borrowlang(fetch),
+    };
+    if (!props.borrowlangSuggest) {
+      return { status: 500 };
     }
 
     const res = await fetch(`/api/source/${params.id}.json`);
@@ -44,10 +43,8 @@
   export let query;
   export let pageCount;
   export let rowCount;
-  export let borrowlangSuggest = null;
-  if (borrowlangSuggest) {
-    setContext('borrowlangSuggest', borrowlangSuggest);
-  }
+  export let borrowlangSuggest;
+  setContext('borrowlangSuggest', borrowlangSuggest);
 
   const setSummaryCache = writable({});
   setContext('setSummaryCache', setSummaryCache);

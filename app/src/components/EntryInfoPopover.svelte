@@ -119,12 +119,14 @@
           {#if entry.origin === 'borrowed'}
             <div transition:slide|local class="originlang">
               <span class="label">Language:</span>
-              <Svelecte
-                options={borrowlangSuggest.filter((v) => v.id !== language_id)}
-                disabled={promises.pending.origin_language_id}
-                bind:value={values.origin_language_id}
-                on:change={() => handleUpdate('origin_language_id')}
-              />
+              <div>
+                <Svelecte
+                  options={borrowlangSuggest.filter((v) => v.id !== language_id)}
+                  disabled={promises.pending.origin_language_id}
+                  bind:value={values.origin_language_id}
+                  on:change={() => handleUpdate('origin_language_id')}
+                />
+              </div>
             </div>
           {/if}
         </div>
@@ -200,7 +202,11 @@
           display: flex;
           align-items: center;
 
-          :global(.svelecte-control .sv-control) {
+          > div {
+            width: 100%;
+          }
+
+          :global(.sv-control) {
             inline-size: 16em;
           }
         }
