@@ -3,6 +3,7 @@ use v5.14;
 use Moo;
 use JSON::MaybeXS;
 use namespace::clean;
+use List::Util qw/uniqint uniqstr/;
 use Mojo::Pg;
 use Try::Tiny;
 
@@ -21,7 +22,9 @@ sub db {
 }
 
 sub import_lexicon {
-  my ($self, $source_reference, $lang_code, $parser, $delete_existing) = @_;
+  my ($self, $source_reference, $lang_code, $parser, $action) = @_;
+  $action //= 'create';
+  die "unknown action: $action" unless $action =~ /^(?:create|update|ovewrwrite)$/;
 
   say "\nstarting import: $source_reference";
 
@@ -42,13 +45,15 @@ sub import_lexicon {
     }
 
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
-      die 'source entries already exist, aborting' unless $delete_existing;
-      say 'deleting existing entries';
-      $db->query('SELECT delete_source_entries(?)', $source_id);
+      die 'source entries already exist, aborting' unless $action =~ /^(?:update|overwrite)$/;
+      if ($action eq 'overwrite') {
+        say 'deleting existing entries';
+        $db->query('SELECT delete_source_entries(?)', $source_id);
+      }
     }
 
     my $entries = $parser->read_entries;
-    my %seen_entry;
+    my (%seen_entry, @entry_ids);
 
     foreach my $entry (@{$entries||[]}) {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
@@ -71,11 +76,23 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      my $entry_id = select_single($db, <<'EOF', $source_id, map({ ensure_nfc($entry->{$_}) } qw/headword headword_ipa root/), $record_id);
+      $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa root/;
+
+      my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
+      if ($entry_id) {
+        $db->query(<<'EOF', map({ $entry->{$_} } qw/headword headword_ipa root/), $record_id, $entry_id);
+UPDATE entry
+SET headword = ?, headword_ipa = ?, root = ?, record_id = ?
+WHERE id = ?
+EOF
+      } else {
+        $entry_id = select_single($db, <<'EOF', $source_id, map({ $entry->{$_} } qw/headword headword_ipa root/), $record_id);
 INSERT INTO entry (source_id, headword, headword_ipa, root, record_id)
 VALUES (?, ?, ?, ?, ?)
 RETURNING id
 EOF
+      }
+      push(@entry_ids, $entry_id) if $action eq 'update';
 
       my $sense_seq = 1;
       foreach my $sense (@{$entry->{sense}||[]}) {
@@ -113,6 +130,19 @@ EOF
           }
         }
       }
+    }
+
+    if ($action eq 'update') {
+      @entry_ids = uniqint @entry_ids;
+      $db->query(<<'EOF', $source_id, \@entry_ids);
+DELETE FROM sense
+USING entry
+WHERE sense.entry_id = entry.id AND entry.source_id = ? AND entry.id != ALL(?)
+EOF
+      $db->query(<<'EOF', $source_id, \@entry_ids);
+DELETE FROM entry
+WHERE entry.source_id = ? AND entry.id != ALL(?)
+EOF
     }
 
     $tx->commit;
@@ -159,6 +189,25 @@ sub get_language_id {
     $language_cache{$code} = $id;
   }
   return $language_cache{$code};
+}
+
+sub get_entry_id {
+  my ($db, $entry, $source_id) = @_;
+  my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
+  die "no glosses, not sure what to do: $entry->{headword}" unless @glosses;
+
+  my @ids = map { $_->[0] } $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->arrays;
+SELECT DISTINCT entry.id
+FROM entry
+JOIN sense on sense.entry_id = entry.id
+JOIN sense_gloss ON sense_gloss.sense_id = sense.id
+WHERE entry.source_id = ? AND entry.headword = ? AND sense_gloss.txt = ANY(?)
+EOF
+
+  if (@ids > 1) {
+    die "multiple existing entry ids matched for $entry->{headword}, aborting: " . join(', ', @ids);
+  }
+  return $ids[0];
 }
 
 1;

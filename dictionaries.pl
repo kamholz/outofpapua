@@ -315,7 +315,7 @@ our $dict = {
   },
   'Dalrymple & Mofu (2012)' => {
     lang_target => 'dsn',
-    path => 'Dusner Dictionary.txt',
+    path => 'Dusner/Dusner Dictionary cleaned.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
