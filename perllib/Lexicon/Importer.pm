@@ -196,7 +196,7 @@ sub get_entry_id {
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   die "no glosses, not sure what to do: $entry->{headword}" unless @glosses;
 
-  my @ids = map { $_->[0] } $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->arrays;
+  my @ids = map { $_->[0] } $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->arrays->each;
 SELECT DISTINCT entry.id
 FROM entry
 JOIN sense on sense.entry_id = entry.id
