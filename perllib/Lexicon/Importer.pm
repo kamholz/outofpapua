@@ -79,7 +79,12 @@ EOF
       $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa root/;
 
       my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
-      if ($entry_id) {
+      if ($entry_id) { # entry to replace
+      $db->query(<<'EOF', $entry_id); # delete existing senses
+DELETE FROM sense
+USING entry
+WHERE sense.entry_id = entry.id AND entry.ic = ?
+EOF
         $db->query(<<'EOF', map({ $entry->{$_} } qw/headword headword_ipa root/), $record_id, $entry_id);
 UPDATE entry
 SET headword = ?, headword_ipa = ?, root = ?, record_id = ?
