@@ -1,0 +1,43 @@
+CREATE OR REPLACE VIEW language_descendants AS
+SELECT a.id, a.descendants
+FROM (
+  SELECT
+    language.id,
+    array_agg(b.id ORDER BY b.path) FILTER (WHERE b.id != language.id) AS descendants
+  FROM language
+  LEFT JOIN LATERAL (
+    WITH RECURSIVE descendant(id, path) AS (
+      SELECT language2.id, '{{"",""}}'::text[]
+      FROM language language2
+      WHERE language2.id = language.id
+      UNION ALL
+      SELECT language2.id, descendant.path || ARRAY[null_to_text(protolanguage.id), lower(language2.name)]
+      FROM descendant
+      JOIN language language2 ON language2.parent_id = descendant.id OR (language2.parent_id IS NULL AND language2.dialect_parent_id = descendant.id)
+      LEFT JOIN protolanguage ON protolanguage.id = language2.id
+    )
+    SELECT descendant.id, descendant.path
+    FROM descendant
+  ) b ON true
+  WHERE flag_language_list
+GROUP BY language.id) a;
+
+SELECT
+  language.id, b.id, b.path
+FROM language
+LEFT JOIN LATERAL (
+  WITH RECURSIVE descendant(id, path) AS (
+    SELECT language2.id, '{{"",""}}'::text[]
+    FROM language language2
+    WHERE language2.id = language.id
+    UNION ALL
+    SELECT language2.id, descendant.path || ARRAY[null_to_text(protolanguage.id), lower(language2.name)]
+    FROM descendant
+    JOIN language language2 ON language2.parent_id = descendant.id OR (language2.parent_id IS NULL AND language2.dialect_parent_id = descendant.id)
+    LEFT JOIN protolanguage ON protolanguage.id = language2.id
+  )
+  SELECT descendant.id, descendant.path
+  FROM descendant
+) b ON true
+WHERE language.id = 8569 AND b.id != language.id
+ORDER BY b.path;

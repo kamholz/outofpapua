@@ -14,7 +14,7 @@ export async function langPlus(fetch) {
   const suggestRows = [];
   for (const row of rows) {
     suggestRows.push(row);
-    if (row.descendants?.length > 1) {
+    if (row.descendants) {
       suggestRows.push({ id: `${row.id}+`, name: `${row.name}+`, plus: true });
     }
   }

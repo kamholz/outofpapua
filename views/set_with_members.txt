@@ -1,94 +1,96 @@
 CREATE OR REPLACE VIEW set_with_members AS (
- SELECT set.id,
-    set.author_id,
-    usr.fullname as author_name,
-    set.name,
-    set.note,
-    ( CASE 
-      WHEN set.name IS NOT NULL THEN
-        json_build_object('txt', set.name, 'type', 'custom')
-      WHEN set.name_entry_id IS NOT NULL THEN (
-        SELECT
-          json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
-        FROM entry
-        JOIN source ON (source.id = entry.source_id)
-        JOIN language ON (language.id = source.language_id)
-        WHERE entry.id = set.name_entry_id
-      )
-      ELSE (
-        SELECT
-          json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
-        FROM set_member
-        JOIN entry ON (entry.id = set_member.entry_id)
-        JOIN source ON (source.id = entry.source_id)
-        JOIN language ON (language.id = source.language_id)
-        JOIN protolanguage ON (protolanguage.id = language.id)
-        WHERE set_member.set_id = set.id
-        ORDER BY NOT protolanguage.prefer_set_name
-        LIMIT 1
-      )
-      END
-    ) as name_auto,
-    coalesce(json_agg(
-      json_build_object(
-        'reflex', smd.reflex,
-        'entry', smd.entry,
-        'language', smd.language,
-        'source', smd.source
-      ) ORDER BY NOT (smd.language ->> 'prefer_set_name')::boolean, NOT (smd.language ->> 'is_proto')::boolean, lower(smd.language ->> 'name')
-    ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
-   FROM set
-     JOIN set_member_with_details smd ON smd.set_id = set.id
-     JOIN usr ON usr.id = set.author_id
-  GROUP BY set.id, usr.fullname
+SELECT set.id,
+  set.author_id,
+  usr.fullname as author_name,
+  set.name,
+  set.note,
+  ( CASE 
+    WHEN set.name IS NOT NULL THEN
+      json_build_object('txt', set.name, 'type', 'custom')
+    WHEN set.name_entry_id IS NOT NULL THEN (
+      SELECT
+        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
+      FROM entry
+      JOIN source ON (source.id = entry.source_id)
+      JOIN language ON (language.id = source.language_id)
+      WHERE entry.id = set.name_entry_id
+    )
+    ELSE (
+      SELECT
+        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
+      FROM set_member
+      JOIN entry ON (entry.id = set_member.entry_id)
+      JOIN source ON (source.id = entry.source_id)
+      JOIN language ON (language.id = source.language_id)
+      JOIN protolanguage ON (protolanguage.id = language.id)
+      WHERE set_member.set_id = set.id
+      ORDER BY NOT protolanguage.prefer_set_name
+      LIMIT 1
+    )
+    END
+  ) as name_auto,
+  coalesce(json_agg(
+    json_build_object(
+      'reflex', smd.reflex,
+      'entry', smd.entry,
+      'language', smd.language,
+      'source', smd.source
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ld.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+  ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
+FROM set
+JOIN set_member_with_details smd ON smd.set_id = set.id
+JOIN usr ON usr.id = set.author_id
+JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
+GROUP BY set.id, usr.fullname
 );
 
 CREATE OR REPLACE VIEW set_with_members_public AS (
- SELECT set.id,
-    set.author_id,
-    usr.fullname as author_name,
-    set.name,
-    set.note,
-    ( CASE 
-      WHEN set.name IS NOT NULL THEN 
-        json_build_object('txt', set.name, 'type', 'custom')
-      WHEN set.name_entry_id IS NOT NULL AND (
-        SELECT source.public
-        FROM entry
-        JOIN source ON (source.id = entry.source_id)
-        WHERE entry.id = set.name_entry_id
-      ) THEN (
-        SELECT 
-          json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
-        FROM entry
-        JOIN source ON (source.id = entry.source_id)
-        JOIN language ON (language.id = source.language_id)
-        WHERE entry.id = set.name_entry_id
-      )
-      ELSE (
-        SELECT
-          json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
-        FROM set_member
-        JOIN entry ON (entry.id = set_member.entry_id)
-        JOIN source ON (source.id = entry.source_id)
-        JOIN language ON (language.id = source.language_id)
-        JOIN protolanguage ON (protolanguage.id = language.id)
-        WHERE set_member.set_id = set.id AND source.public
-        ORDER BY NOT protolanguage.prefer_set_name
-        LIMIT 1
-      )
-      END
-    ) as name_auto,
-    coalesce(json_agg(
-      json_build_object(
-        'reflex', smd.reflex,
-        'entry', smd.entry,
-        'language', smd.language,
-        'source', smd.source
-      ) ORDER BY NOT (smd.language ->> 'prefer_set_name')::boolean, NOT (smd.language ->> 'is_proto')::boolean, lower(smd.language ->> 'name')
-    ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
-   FROM set
-     JOIN set_member_with_details_public smd ON smd.set_id = set.id
-     JOIN usr ON usr.id = set.author_id
-  GROUP BY set.id, usr.fullname
+SELECT set.id,
+  set.author_id,
+  usr.fullname as author_name,
+  set.name,
+  set.note,
+  ( CASE 
+    WHEN set.name IS NOT NULL THEN 
+      json_build_object('txt', set.name, 'type', 'custom')
+    WHEN set.name_entry_id IS NOT NULL AND (
+      SELECT source.public
+      FROM entry
+      JOIN source ON (source.id = entry.source_id)
+      WHERE entry.id = set.name_entry_id
+    ) THEN (
+      SELECT 
+        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
+      FROM entry
+      JOIN source ON (source.id = entry.source_id)
+      JOIN language ON (language.id = source.language_id)
+      WHERE entry.id = set.name_entry_id
+    )
+    ELSE (
+      SELECT
+        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
+      FROM set_member
+      JOIN entry ON (entry.id = set_member.entry_id)
+      JOIN source ON (source.id = entry.source_id)
+      JOIN language ON (language.id = source.language_id)
+      JOIN protolanguage ON (protolanguage.id = language.id)
+      WHERE set_member.set_id = set.id AND source.public
+      ORDER BY NOT protolanguage.prefer_set_name
+      LIMIT 1
+    )
+    END
+  ) as name_auto,
+  coalesce(json_agg(
+    json_build_object(
+      'reflex', smd.reflex,
+      'entry', smd.entry,
+      'language', smd.language,
+      'source', smd.source
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ld.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+  ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
+FROM set
+JOIN set_member_with_details_public smd ON smd.set_id = set.id
+JOIN usr ON usr.id = set.author_id
+JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
+GROUP BY set.id, usr.fullname
 );

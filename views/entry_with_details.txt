@@ -20,7 +20,6 @@ CREATE OR REPLACE VIEW entry_with_details AS (
       'name', language.name,
       'location', language.location,
       'is_proto', protolanguage.id IS NOT NULL,
-      'prefer_set_name', protolanguage.prefer_set_name,
       'ancestor_id', language.ancestor_id,
       'ancestor_name', ancestor_language.name
     ) AS language
@@ -59,7 +58,6 @@ AS $$
       'name', language.name,
       'location', language.location,
       'is_proto', protolanguage.id IS NOT NULL,
-      'prefer_set_name', protolanguage.prefer_set_name,
       'ancestor_id', language.ancestor_id,
       'ancestor_name', ancestor_language.name
     ) AS language
@@ -94,7 +92,6 @@ CREATE OR REPLACE VIEW entry_with_details_public AS (
       'name', language.name,
       'location', language.location,
       'is_proto', protolanguage.id IS NOT NULL,
-      'prefer_set_name', protolanguage.prefer_set_name,
       'ancestor_id', language.ancestor_id,
       'ancestor_name', ancestor_language.name
     ) AS language
