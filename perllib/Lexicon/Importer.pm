@@ -202,16 +202,19 @@ sub get_entry_id {
   die "no glosses, not sure what to do: $entry->{headword}" unless @glosses;
 
   my @ids = map { $_->[0] } $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->arrays->each;
-SELECT DISTINCT entry.id
+SELECT entry.id
 FROM entry
 JOIN sense on sense.entry_id = entry.id
 JOIN sense_gloss ON sense_gloss.sense_id = sense.id
 WHERE entry.source_id = ? AND entry.headword = ? AND sense_gloss.txt = ANY(?)
+GROUP BY entry.id
+ORDER BY count(*) DESC
+LIMIT 1
 EOF
 
-  if (@ids > 1) {
-    die "multiple existing entry ids matched for $entry->{headword}, aborting: " . join(', ', @ids);
-  }
+  # if (@ids > 1) {
+  #   die "multiple existing entry ids matched for $entry->{headword}, aborting: " . join(', ', @ids);
+  # }
   return $ids[0];
 }
 
