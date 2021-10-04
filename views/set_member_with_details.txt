@@ -1,41 +1,43 @@
-CREATE OR REPLACE VIEW set_member_with_details AS (
-  SELECT set_member.set_id,
-    set_member.reflex,
-    json_build_object(
-      'id', ed.id,
-      'headword', ed.headword,
-      'headword_ipa', ed.headword_ipa,
-      'root', ed.root,
-      'note', ed.note,
-      'origin', ed.origin,
-      'origin_language_id', ed.origin_language_id,
-      'origin_language_name', ed.origin_language_name,
-      'record_id', ed.record_id,
-      'senses', ed.senses
-    ) AS entry,
-    ed.source,
-    ed.language
-  FROM set_member
-    JOIN entry_with_details ed ON ed.id = set_member.entry_id
-);
+CREATE OR REPLACE VIEW set_member_with_details AS
+SELECT
+  set_member.set_id,
+  set_member.reflex,
+  json_build_object(
+    'id', ed.id,
+    'headword', ed.headword,
+    'headword_ipa', ed.headword_ipa,
+    'root', ed.root,
+    'note', ed.note,
+    'origin', ed.origin,
+    'origin_language_id', ed.origin_language_id,
+    'origin_language_name', ed.origin_language_name,
+    'record_id', ed.record_id,
+    'senses', ed.senses
+  ) AS entry,
+  ed.source,
+  ed.language
+FROM set_member
+JOIN entry_with_details ed ON ed.id = set_member.entry_id
+;
 
-CREATE OR REPLACE VIEW set_member_with_details_public AS (
-  SELECT set_member.set_id,
-    set_member.reflex,
-    json_build_object(
-      'id', ed.id,
-      'headword', ed.headword,
-      'headword_ipa', ed.headword_ipa,
-      'root', ed.root,
-      'note', ed.note,
-      'origin', ed.origin,
-      'origin_language_id', ed.origin_language_id,
-      'origin_language_name', ed.origin_language_name,
-      'record_id', ed.record_id,
-      'senses', ed.senses
-    ) AS entry,
-    ed.source,
-    ed.language
-  FROM set_member
-    JOIN entry_with_details_public ed ON ed.id = set_member.entry_id
-);
+CREATE OR REPLACE VIEW set_member_with_details_public AS
+SELECT
+  set_member.set_id,
+  set_member.reflex,
+  json_build_object(
+    'id', ed.id,
+    'headword', ed.headword,
+    'headword_ipa', ed.headword_ipa,
+    'root', ed.root,
+    'note', ed.note,
+    'origin', ed.origin,
+    'origin_language_id', ed.origin_language_id,
+    'origin_language_name', ed.origin_language_name,
+    'record_id', ed.record_id,
+    'senses', ed.senses
+  ) AS entry,
+  ed.source,
+  ed.language
+FROM set_member
+JOIN entry_with_details_public ed ON ed.id = set_member.entry_id
+;

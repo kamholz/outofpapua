@@ -1,56 +1,58 @@
-CREATE OR REPLACE VIEW entry_with_senses_full AS (
-  SELECT entry.id,
-    entry.source_id,
-    entry.headword,
-    entry.headword_ipa,
-    entry.root,
-    entry.note,
-    entry.origin,
-    entry.origin_language_id,
-    origin_language.name AS origin_language_name,
-    entry.record_id,
-    coalesce(json_agg(
-      json_build_object(
-        'id', sgd.id,
-        'pos', sgd.pos,
-        'note', sgd.note,
-        'glosses', sgd.glosses,
-        'definitions', sgd.definitions
-      ) ORDER BY sgd.seq
-    ) FILTER (WHERE sgd.id IS NOT NULL), '[]'::json) AS senses
-   FROM entry
-     JOIN sense_with_glosses_and_definitions sgd ON sgd.entry_id = entry.id
-     JOIN source ON source.id = entry.source_id
-     JOIN language ON language.id = source.language_id
-     LEFT JOIN language origin_language ON origin_language.id = entry.origin_language_id
-  GROUP BY entry.id, origin_language.id
-);
+CREATE OR REPLACE VIEW entry_with_senses_full AS
+SELECT
+  entry.id,
+  entry.source_id,
+  entry.headword,
+  entry.headword_ipa,
+  entry.root,
+  entry.note,
+  entry.origin,
+  entry.origin_language_id,
+  origin_language.name AS origin_language_name,
+  entry.record_id,
+  coalesce(json_agg(
+    json_build_object(
+      'id', sgd.id,
+      'pos', sgd.pos,
+      'note', sgd.note,
+      'glosses', sgd.glosses,
+      'definitions', sgd.definitions
+    ) ORDER BY sgd.seq
+  ) FILTER (WHERE sgd.id IS NOT NULL), '[]'::json) AS senses
+FROM entry
+JOIN sense_with_glosses_and_definitions sgd ON sgd.entry_id = entry.id
+JOIN source ON source.id = entry.source_id
+JOIN language ON language.id = source.language_id
+LEFT JOIN language origin_language ON origin_language.id = entry.origin_language_id
+GROUP BY entry.id, origin_language.id
+;
 
-CREATE OR REPLACE VIEW entry_with_senses_full_public AS (
-  SELECT entry.id,
-    entry.source_id,
-    entry.headword,
-    entry.headword_ipa,
-    entry.root,
-    entry.note,
-    entry.origin,
-    entry.origin_language_id,
-    origin_language.name AS origin_language_name,
-    entry.record_id,
-    coalesce(json_agg(
-      json_build_object(
-        'id', sgd.id,
-        'pos', sgd.pos,
-        'note', sgd.note,
-        'glosses', sgd.glosses,
-        'definitions', sgd.definitions
-      ) ORDER BY sgd.seq
-    ) FILTER (WHERE sgd.id IS NOT NULL), '[]'::json) AS senses
-   FROM entry
-     JOIN sense_with_glosses_and_definitions sgd ON sgd.entry_id = entry.id
-     JOIN source ON source.id = entry.source_id
-     JOIN language ON language.id = source.language_id
-     LEFT JOIN language origin_language ON origin_language.id = entry.origin_language_id
-  WHERE source.public
-  GROUP BY entry.id, origin_language.id
-);
+CREATE OR REPLACE VIEW entry_with_senses_full_public AS
+SELECT
+  entry.id,
+  entry.source_id,
+  entry.headword,
+  entry.headword_ipa,
+  entry.root,
+  entry.note,
+  entry.origin,
+  entry.origin_language_id,
+  origin_language.name AS origin_language_name,
+  entry.record_id,
+  coalesce(json_agg(
+    json_build_object(
+      'id', sgd.id,
+      'pos', sgd.pos,
+      'note', sgd.note,
+      'glosses', sgd.glosses,
+      'definitions', sgd.definitions
+    ) ORDER BY sgd.seq
+  ) FILTER (WHERE sgd.id IS NOT NULL), '[]'::json) AS senses
+FROM entry
+JOIN sense_with_glosses_and_definitions sgd ON sgd.entry_id = entry.id
+JOIN source ON source.id = entry.source_id
+JOIN language ON language.id = source.language_id
+LEFT JOIN language origin_language ON origin_language.id = entry.origin_language_id
+WHERE source.public
+GROUP BY entry.id, origin_language.id
+;

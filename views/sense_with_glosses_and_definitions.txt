@@ -1,23 +1,24 @@
-CREATE OR REPLACE VIEW sense_with_glosses_and_definitions AS (
-  SELECT sense.id,
-    sense.entry_id,
-    sense.seq,
-    sense.pos,
-    sense.note,
-    sense.glosses,
-    definitions.definitions
-  FROM sense
-   JOIN LATERAL (
-     SELECT coalesce(json_agg(
-        json_build_object(
-          'language_id', sdl.language_id,
-          'language_name', language.name,
-          'txt', sdl.txt
-        )
-        ORDER BY language.name != 'English', lower(language.name)
-     ), '[]'::json) as definitions
-     FROM sense_definitions_by_language sdl
-     JOIN language ON language.id = sdl.language_id
-     WHERE sdl.sense_id = sense.id
-   ) definitions ON TRUE
-);
+CREATE OR REPLACE VIEW sense_with_glosses_and_definitions AS
+SELECT
+  sense.id,
+  sense.entry_id,
+  sense.seq,
+  sense.pos,
+  sense.note,
+  sense.glosses,
+  definitions.definitions
+FROM sense
+  JOIN LATERAL (
+    SELECT coalesce(json_agg(
+      json_build_object(
+        'language_id', sdl.language_id,
+        'language_name', language.name,
+        'txt', sdl.txt
+      )
+      ORDER BY language.name != 'English', lower(language.name)
+    ), '[]'::json) as definitions
+    FROM sense_definitions_by_language sdl
+    JOIN language ON language.id = sdl.language_id
+    WHERE sdl.sense_id = sense.id
+  ) definitions ON TRUE
+;

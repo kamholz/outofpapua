@@ -1,33 +1,34 @@
-CREATE OR REPLACE VIEW entry_serialized AS (
-  SELECT entry.id,
-    entry.headword,
-    entry.root,
-    entry.record_id,
-    record.data as record,
-    entry.source_id,
-    json_agg(json_build_object(
-      'id', sense.id,
-      'seq', sense.seq,
-      'pos', sense.pos,
-      'gloss', sense.gloss,
-      'definition', sense.definition,
-      'example', sense.example
-    ) ORDER BY sense.seq) AS sense,
-    encode(pgcrypto.digest(
-      json_build_array(
-        entry.headword,
-        entry.root,
-        json_agg(json_build_array(
-          sense.pos,
-          sense.gloss,
-          sense.definition,
-          sense.example
-        ) ORDER BY sense.seq)
-      )::text,
-      'sha1'
-    ), 'hex') as checksum
-  FROM entry
-  LEFT JOIN record ON (record.id = entry.record_id)
-  LEFT JOIN sense_serialized AS sense ON sense.entry_id = entry.id
-  GROUP BY entry.id, record.data, record.page_num
-);
+CREATE OR REPLACE VIEW entry_serialized AS
+SELECT
+  entry.id,
+  entry.headword,
+  entry.root,
+  entry.record_id,
+  record.data as record,
+  entry.source_id,
+  json_agg(json_build_object(
+    'id', sense.id,
+    'seq', sense.seq,
+    'pos', sense.pos,
+    'gloss', sense.gloss,
+    'definition', sense.definition,
+    'example', sense.example
+  ) ORDER BY sense.seq) AS sense,
+  encode(pgcrypto.digest(
+    json_build_array(
+      entry.headword,
+      entry.root,
+      json_agg(json_build_array(
+        sense.pos,
+        sense.gloss,
+        sense.definition,
+        sense.example
+      ) ORDER BY sense.seq)
+    )::text,
+    'sha1'
+  ), 'hex') as checksum
+FROM entry
+LEFT JOIN record ON (record.id = entry.record_id)
+LEFT JOIN sense_serialized AS sense ON sense.entry_id = entry.id
+GROUP BY entry.id, record.data, record.page_num
+;

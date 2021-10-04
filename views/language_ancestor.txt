@@ -1,5 +1,7 @@
 CREATE OR REPLACE VIEW language_ancestor AS
-SELECT language.id, ancestor.id AS ancestor_id
+SELECT
+  language.id,
+  ancestor.id AS ancestor_id
 FROM language
 LEFT JOIN LATERAL (
   WITH RECURSIVE ancestor(id) AS (

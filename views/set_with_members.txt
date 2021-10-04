@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW set_with_members AS (
+CREATE OR REPLACE VIEW set_with_members AS
 SELECT set.id,
   set.author_id,
   usr.fullname as author_name,
@@ -42,9 +42,9 @@ JOIN set_member_with_details smd ON smd.set_id = set.id
 JOIN usr ON usr.id = set.author_id
 JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname
-);
+;
 
-CREATE OR REPLACE VIEW set_with_members_public AS (
+CREATE OR REPLACE VIEW set_with_members_public AS
 SELECT set.id,
   set.author_id,
   usr.fullname as author_name,
@@ -93,4 +93,4 @@ JOIN set_member_with_details_public smd ON smd.set_id = set.id
 JOIN usr ON usr.id = set.author_id
 JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname
-);
+;
