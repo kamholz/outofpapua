@@ -83,7 +83,7 @@ EOF
       $db->query(<<'EOF', $entry_id); # delete existing senses
 DELETE FROM sense
 USING entry
-WHERE sense.entry_id = entry.id AND entry.ic = ?
+WHERE sense.entry_id = entry.id AND entry.id = ?
 EOF
         $db->query(<<'EOF', map({ $entry->{$_} } qw/headword headword_ipa root/), $record_id, $entry_id);
 UPDATE entry
