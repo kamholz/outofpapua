@@ -555,6 +555,15 @@ our $dict = {
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
   },
+  'Kamholz (2021)' => {
+    lang_target => 'Proto-SHWNG',
+    path => 'spreadsheets/Proto-SHWNG.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+  },
   'Kijne (nd.a)' => {
     lang_target => 'Yawa Turu',
     path => 'spreadsheets/8-Turu word list Kijne.xlsx',
