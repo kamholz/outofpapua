@@ -35,12 +35,12 @@ SELECT set.id,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
-    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ld.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
   ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
 JOIN set_member_with_details smd ON smd.set_id = set.id
 JOIN usr ON usr.id = set.author_id
-JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
+JOIN language ancestor_language ON ancestor_language.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname
 ;
 
@@ -86,11 +86,11 @@ SELECT set.id,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
-    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ld.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
   ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
 JOIN set_member_with_details_public smd ON smd.set_id = set.id
 JOIN usr ON usr.id = set.author_id
-JOIN language_descendants ld ON ld.id = (smd.language->>'ancestor_id')::integer
+JOIN language ancestor_language ON ancestor_language.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname
 ;

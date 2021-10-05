@@ -41,13 +41,13 @@ export async function get({ locals, query }) {
 
   if (query.category === 'descendants') {
     q
-      .join('language_descendants as ld', 'ld.id', 'language.id')
+      // .join('language_descendants as ld', 'ld.id', 'language.id')
       .whereRaw('language.flag_language_list')
-      .select('ld.descendants');
+      .select('language.descendants');
   } else if (query.category === 'proto') {
     q.whereNotNull('protolanguage.id');
   } else if (query.category === 'borrow') {
-    q.whereRaw('language.flag_language_list or language.flag_borrowed_from');
+    q.whereRaw('language.flag_borrowed_from OR language.flag_language_list');
   } else if (query.category === 'gloss') {
     q.whereRaw('language.flag_gloss_language');
   } else {
