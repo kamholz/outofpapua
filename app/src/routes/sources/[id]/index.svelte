@@ -46,3 +46,13 @@
 
 <h3>Source: {source.reference}</h3>
 <EditSourceForm {source} />
+
+<div>
+  <a href="/sources/{source.id}/entries">View Entries</a>
+</div>
+
+<style>
+  div {
+    margin-block-start: var(--item-sep);
+  }
+</style>

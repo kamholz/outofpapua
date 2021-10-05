@@ -195,7 +195,7 @@
         </p>
       {/if}
       <p class="plain">
-        {source.reference}
+        <a href="/sources/{source.id}/entries" sveltekit:prefetch>{source.reference}</a>
       </p>
     {/if}
   </div>
