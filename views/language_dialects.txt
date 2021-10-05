@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW language_dialects AS
+SELECT
+  a.id,
+  a.dialects
+FROM (
+  SELECT
+    language.id,
+    array_agg(b.id) FILTER (WHERE b.id != language.id) AS dialects
+  FROM language
+  LEFT JOIN LATERAL (
+    WITH RECURSIVE dialect(id) AS (
+      SELECT language2.id
+      FROM language language2
+      WHERE language2.id = language.id
+      UNION ALL
+      SELECT language2.id
+      FROM dialect
+      JOIN language language2 ON language2.dialect_parent_id = dialect.id
+    )
+    SELECT dialect.id
+    FROM dialect
+  ) b ON true
+  GROUP BY language.id
+) a;

@@ -13,12 +13,13 @@ FROM (
       FROM language language2
       WHERE language2.id = language.id
       UNION ALL
-      SELECT language2.id, descendant.path || ARRAY[null_to_text(protolanguage.id), lower(language2.name)]
+      SELECT language2.id, descendant.path || ARRAY[to_bool_text(protolanguage.id), lower(language2.name)]
       FROM descendant
-      JOIN language language2 ON language2.parent_id = descendant.id OR (language2.parent_id IS NULL AND language2.dialect_parent_id = descendant.id)
+      JOIN language language2 ON language2.parent_id = descendant.id
       LEFT JOIN protolanguage ON protolanguage.id = language2.id
     )
     SELECT descendant.id, descendant.path
     FROM descendant
   ) b ON true
-GROUP BY language.id) a;
+  GROUP BY language.id
+) a;

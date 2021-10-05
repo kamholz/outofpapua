@@ -43,7 +43,7 @@ export async function get({ locals, query }) {
     q
       // .join('language_descendants as ld', 'ld.id', 'language.id')
       .whereRaw('language.flag_language_list')
-      .select('language.descendants');
+      .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants'));
   } else if (query.category === 'proto') {
     q.whereNotNull('protolanguage.id');
   } else if (query.category === 'borrow') {
