@@ -63,7 +63,13 @@
     {#if multiLang}
       {langNameById[entry.language_id]}&nbsp;
     {/if}
-    <EntryInfoPopover bind:entry language_id={query.lang1} placement="auto-start">
+    <EntryInfoPopover
+      bind:entry
+      language_id={query.lang1}
+      placement="auto-start"
+      linkable
+      on:link={handleRefresh}
+    >
       <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
     </EntryInfoPopover>
     {#if entry.set_id}
@@ -90,7 +96,12 @@
                       <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
                     </span>
                   {/if}
-                  <EntryInfoPopover bind:entry={compare_entry} {language_id}>
+                  <EntryInfoPopover
+                    bind:entry={compare_entry}
+                    {language_id}
+                    linkable
+                    on:link={handleRefresh}
+                  >
                     <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
                   </EntryInfoPopover>
                   {#if compare_entry.set_id}
