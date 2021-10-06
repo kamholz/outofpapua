@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIds,
-  knex, sets } from '$lib/db';
+  knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
 import { nfc } from './_params';
@@ -50,9 +50,9 @@ const compare_entries1 = `
       'record_id', compare_entry.record_id,
       'origin', compare_entry.origin,
       'senses', compare_es.senses,
-      'sets', ${sets('compare_entry.id')}
+      'set_ids', ${setIds('compare_entry.id')}
     )
-    ORDER BY compare_entry.headword
+    ORDER BY compare_entry.headword, compare_entry.id
   ) FILTER (WHERE compare_entry.id IS NOT NULL)
 `;
 
@@ -63,7 +63,7 @@ const compare_entries2 = `
       'language_name', compare_language.name,
       'entries', found_with_compare.compare_entries
     )
-    ORDER BY compare_language.name
+    ORDER BY lower(compare_language.name)
   ) FILTER (WHERE found_with_compare.compare_language_id IS NOT NULL)
 `;
 
@@ -125,7 +125,7 @@ export async function get({ locals, query }) {
     'entry.record_id',
     knex.raw('es.senses::jsonb'),
     'source.language_id',
-    knex.raw('array(select sm.set_id from set_member sm where sm.entry_id = entry.id order by sm.entry_id) as sets'),
+    knex.raw(`${setIds('entry.id')} as set_ids`),
     knex.raw(`${compare_entries2} as compare_entries`)
   )
   .groupBy(

@@ -77,5 +77,6 @@ module.exports = {
   },
   settings: {
     'svelte3/ignore-styles': (attrs) => attrs.lang && attrs.lang === 'scss',
+    'svelte3/ignore-warnings': ({ code }) => code === 'unused-export-let',
   },
 };

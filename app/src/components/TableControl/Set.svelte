@@ -8,9 +8,9 @@
   export let scale;
 </script>
 
-{#if row.sets}
-  {#each row.sets as set_id}
-    <SetPopover id={set_id}>
+{#if row.set_ids}
+  {#each row.set_ids as id}
+    <SetPopover {id}>
       <Icon data={faBezierCurve} {scale} label="Set" />
     </SetPopover>
   {/each}

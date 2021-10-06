@@ -172,13 +172,11 @@ export function stripParams(params, iterable) {
 // authorization and handlers
 
 export function adminNotSelf(loggedInUser, userId) {
-  // eslint-disable-next-line eqeqeq
-  return loggedInUser.admin && loggedInUser.id != userId;
+  return loggedInUser.admin && loggedInUser.id != userId; // eslint-disable-line eqeqeq
 }
 
 export function adminOrSelf(loggedInUser, userId) {
-  // eslint-disable-next-line eqeqeq
-  return loggedInUser.admin || loggedInUser.id == userId;
+  return loggedInUser.admin || loggedInUser.id == userId; // eslint-disable-line eqeqeq
 }
 
 export function validateParams(handler) {

@@ -157,8 +157,7 @@ export function parseRecord(data, formatting) {
     }
     const match = marker.match(/^([a-z]+)_([A-Z][a-z]{2})$/);
     if (match) {
-      /* eslint-disable prefer-destructuring */
-      marker = match[1];
+      marker = match[1]; // eslint-disable-line prefer-destructuring
       lang = match[2].toLowerCase();
     }
     if (marker in markerConversion) {

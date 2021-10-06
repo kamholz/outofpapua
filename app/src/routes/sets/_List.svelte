@@ -24,10 +24,10 @@
   }
 
   async function handleMerge() {
-    const [id, ...sets] = rows.filter((v) => selection.has(v.id)).map((v) => v.id);
+    const [id, ...set_ids] = rows.filter((v) => selection.has(v.id)).map((v) => v.id);
     $pageLoading++;
     try {
-      promise = crudSet.merge({ id, sets });
+      promise = crudSet.merge({ id, set_ids });
       await promise;
       selection = new Set();
       dispatch('refresh');

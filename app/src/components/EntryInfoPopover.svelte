@@ -131,7 +131,7 @@
           </div>
         </div>
       {/if}
-      {#if linkable && !entry.sets}
+      {#if linkable && !entry.set_ids}
         <div class="link">
           <div class="label">
             Link To (Headword):

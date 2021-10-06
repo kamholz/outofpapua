@@ -236,6 +236,6 @@ function formatPgError(e) {
 
 export const name_auto = "coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto";
 
-export function sets(col) {
+export function setIds(col) {
   return `nullif(array(select sm.set_id from set_member sm where sm.entry_id = ${col} order by sm.entry_id), '{}')`;
 }

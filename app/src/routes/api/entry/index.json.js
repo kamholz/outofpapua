@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, sendPgError, sets, transaction } from '$lib/db';
+  knex, sendPgError, setIds, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
@@ -102,7 +102,7 @@ export async function get({ locals, query }) {
     'source.id as source_id',
     'source.reference as source_reference',
     'source.editable as source_editable',
-    knex.raw(`${sets('entry.id')} as sets`)
+    knex.raw(`${setIds('entry.id')} as set_ids`)
   );
 
   if ('record' in query) {

@@ -45,7 +45,9 @@ await knex.transaction(async (trx) => {
   if (usePh) {
     q
       .leftJoin('entry_ph', 'entry_ph.id', 'entry.id')
-      .select(knex.raw('array_agg(entry_ph.headword_ph) filter (where entry_ph.headword_ph is not null) as headword_ph'))
+      .select(
+        knex.raw('array_agg(entry_ph.headword_ph) filter (where entry_ph.headword_ph is not null) as headword_ph')
+      )
       .groupBy('entry.id');
   }
   const entries = await q;

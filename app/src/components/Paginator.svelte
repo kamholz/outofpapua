@@ -9,7 +9,6 @@
   export let pageCount;
   export let pageParam = 'page';
 
-  // eslint-disable-next-line prefer-destructuring
   $: page = query[pageParam];
   $: pagesToDisplay = [...Array(pageCount).keys()].slice(
     Math.max(page - pageWidth - 1, 1),

@@ -28,7 +28,7 @@
 
     const matches = [];
     let resultNode;
-    while (resultNode = result.iterateNext()) {
+    while ((resultNode = result.iterateNext())) {
       const parent = resultNode.parentNode;
       if (parent.className === 'label' || parent.className === 'lang') {
         continue;
@@ -40,8 +40,10 @@
       }
     }
 
-    for (let { resultNode, textContent, textContentLower, parent } of matches) {
-      while (1) {
+    for (const match of matches) {
+      const { resultNode, parent } = match;
+      let { textContent, textContentLower } = match;
+      for (;;) {
         for (const string of strings) {
           const index = textContentLower.indexOf(string);
           if (index !== -1) {

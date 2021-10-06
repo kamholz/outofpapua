@@ -29,9 +29,9 @@
     if (selection[item.id]) {
       delete selection[item.id];
     } else {
-      if (item.sets) {
-        for (const { id, sets } of Object.values(selection)) {
-          if (sets && !item.sets.some((v) => sets.includes(v))) {
+      if (item.set_ids) {
+        for (const { id, set_ids } of Object.values(selection)) {
+          if (set_ids && !item.set_ids.some((v) => set_ids.includes(v))) {
             delete selection[id];
           }
         }
@@ -72,9 +72,9 @@
     >
       <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
     </EntryInfoPopover>
-    {#if entry.sets}
-      {#each entry.sets as set_id}
-        <SetPopover id={set_id} />
+    {#if entry.set_ids}
+      {#each entry.set_ids as id}
+        <SetPopover {id} />
       {/each}
     {/if}
     <div>
@@ -106,9 +106,9 @@
                   >
                     <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
                   </EntryInfoPopover>
-                  {#if compare_entry.sets}
-                    {#each compare_entry.sets as set_id}
-                      <SetPopover id={set_id} />
+                  {#if compare_entry.set_ids}
+                    {#each compare_entry.set_ids as id}
+                      <SetPopover {id} />
                     {/each}
                   {/if}
                   <div>

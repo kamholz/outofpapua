@@ -1,4 +1,4 @@
-import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, sets } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
   showPublicOnly, validateParams } from '$lib/util';
@@ -65,7 +65,7 @@ export const get = validateParams(async ({ locals, params, query }) => {
     'origin_language.name as origin_language_name',
     'entry.senses',
     'entry.record_id',
-    knex.raw(`${sets('entry.id')} as sets`)
+    knex.raw(`${setIds('entry.id')} as set_ids`)
   );
 
   if ('record' in query) {
