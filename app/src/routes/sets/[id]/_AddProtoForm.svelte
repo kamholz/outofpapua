@@ -64,5 +64,5 @@
   submitLabel="Create"
   on:beforesubmit={handleBeforeSubmit}
   on:submit={handleSubmit}
-  style="--form-width: 40em; --label-width: 28%;"
+  style="--form-width: 40em; --label-width: 10em;"
 />

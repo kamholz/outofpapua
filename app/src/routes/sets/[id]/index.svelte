@@ -268,25 +268,9 @@
     }
 
     .form form {
-      flex-grow: 1;
       width: unset;
       padding: 0;
       border: none;
-
-      > div {
-        margin: 0;
-        display: flex;
-        align-items: center;
-
-        input {
-          flex-grow: 1;
-        }
-      }
-
-      > div:not(.controls) > :first-child {
-        flex-shrink: 0;
-        inline-size: 10em;
-      }
 
       > div:not(:last-child) {
         margin-block-end: 12px;
