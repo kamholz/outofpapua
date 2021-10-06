@@ -125,7 +125,7 @@ export const post = requireAuth(async ({ body, locals }) => {
         await trx('set_member')
           .insert(members.map((v) => ({ entry_id: v, set_id: id })));
         // would override existing set membership
-        // .onConflict('entry_id')
+        // .onConflict(['entry_id', 'set_id'])
         // .merge(['set_id']);
       }
       return id;

@@ -88,10 +88,6 @@
     try {
       promise = promises.pending.delete = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
       await promise;
-      if (source.editable) {
-        promise = promises.pending.delete = crud.del('entry', entry.id);
-        await promise;
-      }
       dispatch('refresh');
     } catch (e) {}
     if (promise && promise === promises.pending.delete) {

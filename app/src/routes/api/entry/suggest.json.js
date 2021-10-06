@@ -4,14 +4,14 @@ import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseAr
   parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search']);
+const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search', 'set_id']);
 const required = new Set(['match', 'search']);
 const boolean = new Set(['noset']);
 const arrayParams = new Set(['lang']);
 const nfc = new Set(['search']);
 const defaults = {
   max: 100,
-  noset: true,
+  noset: false,
 };
 
 export const get = requireAuth(async ({ query }) => {
@@ -43,7 +43,14 @@ export const get = requireAuth(async ({ query }) => {
 
   if (noset) {
     subq.whereNotExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+      this.select('*').from('set_member')
+        .where('set_member.entry_id', knex.ref('entry.id'));
+    });
+  } else if ('set_id' in query) {
+    subq.whereNotExists(function () {
+      this.select('*').from('set_member')
+        .where('set_member.entry_id', knex.ref('entry.id'))
+        .where('set_member.set_id', query.set_id);
     });
   }
 
@@ -65,14 +72,13 @@ export const get = requireAuth(async ({ query }) => {
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
-    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
     .select(
       'entry.id',
       'entry.headword',
       'entry.senses',
       'language.name as language_name',
       'source.reference as source_reference',
-      'set_member.set_id'
+      knex.raw('exists (select from set_member sm where sm.entry_id = entry.id) as linked')
     )
     .orderBy('language.name', 'entry.headword_degr', 'entry.headword', 'source.reference')
     .limit(max);

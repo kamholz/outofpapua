@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIds,
-  knex } from '$lib/db';
+  knex, sets } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
 import { nfc } from './_params';
@@ -50,7 +50,7 @@ const compare_entries1 = `
       'record_id', compare_entry.record_id,
       'origin', compare_entry.origin,
       'senses', compare_es.senses,
-      'set_id', compare_set_member.set_id
+      'sets', ${sets('compare_entry.id')}
     )
     ORDER BY compare_entry.headword
   ) FILTER (WHERE compare_entry.id IS NOT NULL)
@@ -101,7 +101,6 @@ export async function get({ locals, query }) {
     .join('entry', 'entry.id', 'found.lang1_id')
     .leftJoin('entry as compare_entry', 'compare_entry.id', 'found.lang2_id')
     .leftJoin('entry_with_senses as compare_es', 'compare_es.id', 'compare_entry.id')
-    .leftJoin('set_member as compare_set_member', 'compare_set_member.entry_id', 'compare_entry.id')
     .leftJoin('source as compare_source', 'compare_source.id', 'compare_entry.source_id')
     .select(
       'found.lang1_id as entry_id',
@@ -117,7 +116,6 @@ export async function get({ locals, query }) {
   .join('entry', 'entry.id', 'found_with_compare.entry_id')
   .join('entry_with_senses as es', 'es.id', 'entry.id')
   .join('source', 'source.id', 'entry.source_id')
-  .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
   .leftJoin('language as compare_language', 'compare_language.id', 'found_with_compare.compare_language_id')
   .select(
     'entry.id',
@@ -127,7 +125,7 @@ export async function get({ locals, query }) {
     'entry.record_id',
     knex.raw('es.senses::jsonb'),
     'source.language_id',
-    'set_member.set_id',
+    knex.raw('array(select sm.set_id from set_member sm where sm.entry_id = entry.id order by sm.entry_id) as sets'),
     knex.raw(`${compare_entries2} as compare_entries`)
   )
   .groupBy(

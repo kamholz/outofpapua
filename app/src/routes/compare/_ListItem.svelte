@@ -72,8 +72,10 @@
     >
       <EntryLink {entry}><strong class={entry.origin}>{headword}</strong></EntryLink>
     </EntryInfoPopover>
-    {#if entry.set_id}
-      <SetPopover id={entry.set_id} />
+    {#if entry.sets}
+      {#each entry.sets as set_id}
+        <SetPopover id={set_id} />
+      {/each}
     {/if}
     <div>
       <Senses {senses} {multiGlosslang} />
@@ -104,8 +106,10 @@
                   >
                     <EntryLink entry={compare_entry}><strong class={compare_entry.origin}>{compare_entry.headword}</strong></EntryLink>
                   </EntryInfoPopover>
-                  {#if compare_entry.set_id}
-                    <SetPopover id={compare_entry.set_id} />
+                  {#if compare_entry.sets}
+                    {#each compare_entry.sets as set_id}
+                      <SetPopover id={set_id} />
+                    {/each}
                   {/if}
                   <div>
                     <Senses senses={compare_entry.senses} {multiGlosslang} />

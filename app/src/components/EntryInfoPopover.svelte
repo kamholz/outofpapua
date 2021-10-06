@@ -131,15 +131,14 @@
           </div>
         </div>
       {/if}
-      {#if linkable && !entry.set_id}
+      {#if linkable && !entry.sets}
         <div class="link">
           <div class="label">
             Link To (Headword):
           </div>
           <SuggestSetMember
             match="headword"
-            noset={false}
-            {entry}
+            entry_id={entry.id}
             on:select={handleSelectSetMember}
           />
         </div>
@@ -149,8 +148,7 @@
           </div>
           <SuggestSetMember
             match="gloss"
-            noset={false}
-            {entry}
+            entry_id={entry.id}
             on:select={handleSelectSetMember}
           />
         </div>

@@ -8,12 +8,10 @@
   export let scale;
 </script>
 
-{#if row.set_id}
-  <SetPopover id={row.set_id}>
-    <Icon data={faBezierCurve} {scale} label="Set" />
-  </SetPopover>
-{:else}
-  <a href>
-    <Icon data={faBezierCurve} {scale} class="hidden" />
-  </a>
+{#if row.sets}
+  {#each row.sets as set_id}
+    <SetPopover id={set_id}>
+      <Icon data={faBezierCurve} {scale} label="Set" />
+    </SetPopover>
+  {/each}
 {/if}

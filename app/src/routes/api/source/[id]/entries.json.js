@@ -1,4 +1,4 @@
-import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, sets } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
   showPublicOnly, validateParams } from '$lib/util';
@@ -52,7 +52,6 @@ export const get = validateParams(async ({ locals, params, query }) => {
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
-    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
     .leftJoin('language as origin_language', 'origin_language.id', 'entry.origin_language_id');
 
   const rowCount = await getCount(q);
@@ -66,7 +65,7 @@ export const get = validateParams(async ({ locals, params, query }) => {
     'origin_language.name as origin_language_name',
     'entry.senses',
     'entry.record_id',
-    'set_member.set_id'
+    knex.raw(`${sets('entry.id')} as sets`)
   );
 
   if ('record' in query) {

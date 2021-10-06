@@ -42,6 +42,7 @@
 <style lang="scss">
   .controls {
     display: flex;
+    justify-content: flex-end;
 
     :global {
       a {

@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, sendPgError, transaction } from '$lib/db';
+  knex, sendPgError, sets, transaction } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
@@ -84,7 +84,6 @@ export async function get({ locals, query }) {
     .join('entry_with_senses as entry', 'entry.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
-    .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
     .leftJoin('language as origin_language', 'origin_language.id', 'entry.origin_language_id');
 
   const rowCount = await getCount(q);
@@ -103,7 +102,7 @@ export async function get({ locals, query }) {
     'source.id as source_id',
     'source.reference as source_reference',
     'source.editable as source_editable',
-    'set_member.set_id'
+    knex.raw(`${sets('entry.id')} as sets`)
   );
 
   if ('record' in query) {

@@ -69,10 +69,10 @@ export function applySortParams(q, query, sortCols, restCols) {
   function applySortParam(sort) {
     if (Array.isArray(sort)) {
       for (const s of sort) {
-        q.orderByRaw(s + (query.asc ? ' asc nulls last' : ' desc nulls last'));
+        q.orderByRaw(s + (query.asc ? ' asc' : ' desc nulls last'));
       }
     } else {
-      q.orderByRaw(sort + (query.asc ? ' asc nulls last' : ' desc nulls last'));
+      q.orderByRaw(sort + (query.asc ? ' asc' : ' desc nulls last'));
     }
   }
 }
@@ -93,11 +93,13 @@ export function applyEntrySearchParams(q, query) {
   applyHeadwordGlossSearchParams(q, query);
 
   if (query.set === 'linked') {
-    q.join('set_member', 'set_member.entry_id', 'entry.id');
+    q.whereExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
   } else if (query.set === 'unlinked') {
-    q
-      .leftJoin('set_member', 'set_member.entry_id', 'entry.id')
-      .whereNull('set_member.set_id');
+    q.whereNotExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
   }
 
   if (query.origin === 'inherited' || query.origin === 'borrowed') {
@@ -230,6 +232,10 @@ function formatPgError(e) {
   }
 }
 
-// fixed SQL strings
+// SQL strings
 
 export const name_auto = "coalesce(set.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto";
+
+export function sets(col) {
+  return `nullif(array(select sm.set_id from set_member sm where sm.entry_id = ${col} order by sm.entry_id), '{}')`;
+}

@@ -60,7 +60,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
         const ids = await trx('set_member')
           .insert(members.map((v) => ({ entry_id: v, set_id: id })))
           .returning('entry_id')
-          .onConflict('entry_id')
+          .onConflict(['entry_id', 'set_id'])
           .ignore();
         if (ids.length) {
           found = true;

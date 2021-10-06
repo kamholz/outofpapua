@@ -18,7 +18,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
       .returning('entry_id')
       .insert(insertParams)
       // would override existing set membership:
-      // .onConflict('entry_id')
+      // .onConflict(['entry_id', 'set_id'])
       // .merge([...]);
     );
     return { body: { entry_id: ids[0] } };

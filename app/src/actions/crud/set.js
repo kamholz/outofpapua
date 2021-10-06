@@ -5,14 +5,30 @@ export async function linkEntries(entries, onSuccess) {
   if (!entries.length) {
     return;
   }
-  const sets = new Set(entries.filter((entry) => entry.set_id).map((entry) => entry.set_id));
-  if (sets.size > 1) {
-    throw new Error('Could not link entries: they belong to multiple sets, not sure what to do');
+
+  let existingSetId = null;
+  const setsList = entries.map((entry) => entry.sets).filter((sets) => sets);
+  if (setsList.length) {
+    const setIds = new Set(setsList.flat());
+    if (setIds.size === 1) {
+      [existingSetId] = [...setIds];
+    } else {
+      for (const setId of setIds) {
+        if (setsList.every((v) => v.includes(setId))) {
+          if (existingSetId) {
+            throw new Error('Could not link entries: they belong to multiple sets, not sure what to do');
+          } else {
+            existingSetId = setId;
+          }
+        }
+      }
+    }
   }
-  const [existingSetId] = [...sets];
-  if (existingSetId && entries.every((v) => v.set_id === existingSetId)) {
+
+  if (existingSetId && entries.every((v) => v.sets?.includes(existingSetId))) {
     return;
   }
+
   const members = entries.map((v) => v.id);
   if (existingSetId) {
     await crud.update('set', { id: existingSetId, values: { members } });
