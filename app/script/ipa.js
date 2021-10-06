@@ -38,12 +38,14 @@ await knex.transaction(async (trx) => {
   const rule = await trx.first(knex.raw('ipa_conversion_rule_to_javascript(?) as code', source.ipa_conversion_rule));
   const func = eval(rule.code);
 
-  const q = trx(usePh ? 'entry_with_ph as entry' : 'entry')
+  const q = trx('entry')
     .where('source_id', source.id)
     .select('id', 'headword', 'headword_ipa')
     .orderBy('headword');
   if (usePh) {
-    q.select('headword_ph');
+    q
+      .join('entry_ph', 'entry_ph.id', 'entry.id')
+      .select('entry_ph.headword_ph');
   }
   const entries = await q;
 

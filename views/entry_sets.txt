@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW entry_sets AS
+SELECT
+  entry.id,
+  array_agg(set_member.set_id ORDER BY set_member.set_id) FILTER (WHERE set_member.set_id IS NOT NULL) as sets
+FROM entry
+LEFT JOIN set_member ON set_member.entry_id = entry.id
+GROUP BY entry.id
+;
