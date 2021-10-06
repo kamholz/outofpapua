@@ -3,7 +3,7 @@ SELECT
   entry.id,
   ph.headword_ph
 FROM entry
-LEFT JOIN LATERAL (
+JOIN LATERAL (
   SELECT extract_ph.headword_ph
   FROM record, LATERAL extract_ph(record.data) extract_ph(headword, headword_ph)
   WHERE record.id = entry.record_id

@@ -40,12 +40,13 @@ await knex.transaction(async (trx) => {
 
   const q = trx('entry')
     .where('source_id', source.id)
-    .select('id', 'headword', 'headword_ipa')
-    .orderBy('headword');
+    .select('entry.id', 'entry.headword', 'entry.headword_ipa')
+    .orderBy('entry.headword');
   if (usePh) {
     q
-      .join('entry_ph', 'entry_ph.id', 'entry.id')
-      .select('entry_ph.headword_ph');
+      .leftJoin('entry_ph', 'entry_ph.id', 'entry.id')
+      .select(knex.raw('array_agg(entry_ph.headword_ph) filter (where entry_ph.headword_ph is not null) as headword_ph'))
+      .groupBy('entry.id');
   }
   const entries = await q;
 
@@ -80,18 +81,19 @@ function matchHeadwordPh(entry, func) {
   if (headword_ph === null) {
     return [headword, { ph: false }];
   }
-  if (!headword_ph.match(/[,;]/)) {
-    return [headword_ph, { ph: true }];
+  const phList = headword_ph.map((v) => v.split(/\s*[,;]\s*(?![^()]*\))/)).flat();
+  if (phList.length === 1) {
+    return [phList[0], { ph: true }];
   }
   const phAuto = degr(func(headword, { ph: false }));
-  for (const ph of headword_ph.split(/\s*[,;]\s*(?![^()]*\))/)) {
+  for (const ph of phList) {
     const phDegr = degr(ph);
-    if (phDegr === phAuto) {
+    if (phDegr === phAuto || phDegr === headword) {
       return [ph, { ph: true }];
     }
   }
-  console.error(`could not identify headword, returning all: ${headword} // ${phAuto} // ${headword_ph}`);
-  return [headword_ph, { ph: true }];
+  console.error(`could not identify headword, returning all: ${headword} // ${phAuto} // ${headword_ph.join(', ')}`);
+  return [headword_ph.join(', '), { ph: true }];
 }
 
 function degr(txt) {
