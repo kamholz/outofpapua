@@ -11,18 +11,18 @@ SELECT set.id,
       SELECT
         json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
       FROM entry
-      JOIN source ON (source.id = entry.source_id)
-      JOIN language ON (language.id = source.language_id)
+      JOIN source source.id = entry.source_id
+      JOIN language ON language.id = source.language_id
       WHERE entry.id = set.name_entry_id
     )
     ELSE (
       SELECT
         json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
       FROM set_member
-      JOIN entry ON (entry.id = set_member.entry_id)
-      JOIN source ON (source.id = entry.source_id)
-      JOIN language ON (language.id = source.language_id)
-      JOIN protolanguage ON (protolanguage.id = language.id)
+      JOIN entry ON entry.id = set_member.entry_id
+      JOIN source ON source.id = entry.source_id
+      JOIN language ON language.id = source.language_id
+      JOIN protolanguage ON protolanguage.id = language.id
       WHERE set_member.set_id = set.id
       ORDER BY NOT protolanguage.prefer_set_name
       LIMIT 1
@@ -56,24 +56,24 @@ SELECT set.id,
     WHEN set.name_entry_id IS NOT NULL AND (
       SELECT source.public
       FROM entry
-      JOIN source ON (source.id = entry.source_id)
+      JOIN source ON source.id = entry.source_id
       WHERE entry.id = set.name_entry_id
     ) THEN (
       SELECT 
         json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
       FROM entry
-      JOIN source ON (source.id = entry.source_id)
-      JOIN language ON (language.id = source.language_id)
+      JOIN source ON source.id = entry.source_id
+      JOIN language ON language.id = source.language_id
       WHERE entry.id = set.name_entry_id
     )
     ELSE (
       SELECT
         json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
       FROM set_member
-      JOIN entry ON (entry.id = set_member.entry_id)
-      JOIN source ON (source.id = entry.source_id)
-      JOIN language ON (language.id = source.language_id)
-      JOIN protolanguage ON (protolanguage.id = language.id)
+      JOIN entry ON entry.id = set_member.entry_id
+      JOIN source ON source.id = entry.source_id
+      JOIN language ON language.id = source.language_id
+      JOIN protolanguage ON protolanguage.id = language.id
       WHERE set_member.set_id = set.id AND source.public
       ORDER BY NOT protolanguage.prefer_set_name
       LIMIT 1

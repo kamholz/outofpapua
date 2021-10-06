@@ -28,7 +28,7 @@ SELECT
     'sha1'
   ), 'hex') as checksum
 FROM entry
-LEFT JOIN record ON (record.id = entry.record_id)
+LEFT JOIN record ON record.id = entry.record_id
 LEFT JOIN sense_serialized AS sense ON sense.entry_id = entry.id
 GROUP BY entry.id, record.data, record.page_num
 ;
