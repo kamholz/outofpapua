@@ -131,8 +131,7 @@ export async function get({ locals, query }) {
   .groupBy(
     'entry.id',
     knex.raw('es.senses::jsonb'),
-    'source.language_id',
-    'set_member.set_id'
+    'source.language_id'
   )
   .orderByRaw(`${compare_entries2} IS NULL`)
   .orderByRaw('entry.headword_degr')

@@ -29,14 +29,14 @@
     if (selection[item.id]) {
       delete selection[item.id];
     } else {
-      selection[item.id] = item;
-    }
-    if (item.set_id) {
-      for (const selectedRow of Object.values(selection)) {
-        if (selectedRow.set_id && selectedRow.set_id !== item.set_id) {
-          delete selection[selectedRow.id];
+      if (item.sets) {
+        for (const { id, sets } of Object.values(selection)) {
+          if (sets && !item.sets.some((v) => sets.includes(v))) {
+            delete selection[id];
+          }
         }
       }
+      selection[item.id] = item;
     }
     selection = selection;
   }
