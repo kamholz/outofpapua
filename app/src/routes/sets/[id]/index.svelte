@@ -38,7 +38,6 @@
   import SetExport from '$components/Modal/SetExport.svelte';
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
-  import { bind } from 'svelte-simple-modal';
   import { faFileAlt, faMapMarked } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
   import { modal, pageLoading } from '$lib/stores';
@@ -153,14 +152,14 @@
     $pageLoading--;
   }
 
-  async function getExportModal() {
+  async function getModalProps() {
     $pageLoading++;
-    const nameEntry = set.name_auto.entry_id
-      ? await crud.get('entry', set.name_auto.entry_id)
-      : null;
+    // const nameEntry = set.name_auto.entry_id
+    //   ? await crud.get('entry', set.name_auto.entry_id)
+    //   : null;
     const ipaFunctions = await ipaConversionFunctions(fetch, set.members);
     $pageLoading--;
-    return bind(SetExport, { ipaFunctions, nameEntry, set });
+    return { ipaFunctions, set };
   }
 </script>
 
@@ -178,7 +177,7 @@
     <span>Set: {name}</span>
   {/if}
   <div>
-    <span on:click={async () => modal.set(await getExportModal())}>
+    <span on:click={async () => $modal.setExport(await getModalProps())}>
       <Icon data={faFileAlt} {scale} />
     </span>
     <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>

@@ -2,14 +2,15 @@
   import '../app.scss';
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
+  import Modal from 'svelte-simple-modal';
   import ModalContent from '$components/Modal/Content.svelte';
   import NavBar from '$components/NavBar.svelte';
   import PageContext from '$components/PageContext.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   // import { fade } from 'svelte/transition';
+  import { modal, pageLoading } from '$lib/stores';
   import { navigating, session } from '$app/stores';
   // import { onMount } from 'svelte';
-  import { pageLoading } from '$lib/stores';
   // import { registerListener, broadcast } from '$lib/socket';
 
   // let broadcasts = [];
@@ -53,9 +54,11 @@
   <!-- {#key $page.path}
     <div in:fade={{ duration: 200 }}> -->
     <PageContext session={$session}>
+      <Modal styleWindow={{ width: '80vw' }}>
+        <ModalContent {modal} />
+      </Modal>
       <slot />
     </PageContext>
-    <ModalContent />
     <!-- </div>
   {/key} -->
   </main>
