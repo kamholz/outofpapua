@@ -662,9 +662,8 @@ our $dict = {
   },
   'Peranginangin (2014)' => {
     lang_target => 'pgu',
-    path => 'kamus Pagu_baru_2014[10975] toolbox.txt',
+    path => 'Pagu/kamus Pagu_baru_2014[10975] toolbox.txt',
     parser => 'Marker',
-    split => ',;',
   },
   'Price (2021)' => {
     lang_target => 'amk',
