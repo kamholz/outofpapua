@@ -13,7 +13,7 @@
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    document.execCommand("copy");
+    document.execCommand('copy');
     sel.removeAllRanges();
   }
 </script>

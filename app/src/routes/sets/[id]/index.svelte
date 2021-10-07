@@ -35,7 +35,6 @@
   import Icon from 'svelte-awesome';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
-  import SetExport from '$components/Modal/SetExport.svelte';
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
   import { faFileAlt, faMapMarked } from '@fortawesome/free-solid-svg-icons';

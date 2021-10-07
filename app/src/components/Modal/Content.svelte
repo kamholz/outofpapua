@@ -4,7 +4,7 @@
   import { getContext } from 'svelte';
   import { modal } from '$lib/stores';
   const { open } = getContext('simple-modal');
-  $modal = { setExport };
+  modal.set({ setExport });
 
   export function setExport(props) {
     open(SetExport, props, { closeButton: SetExportButtons });
