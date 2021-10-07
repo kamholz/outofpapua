@@ -1,5 +1,5 @@
 <script>
-  import Note from '$components/EntryRecord/InlineNote.svelte';
+  import Note from '$components/EntryRecord/Note.svelte';
   import Pos from '$components/EntryRecord/Pos.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
 

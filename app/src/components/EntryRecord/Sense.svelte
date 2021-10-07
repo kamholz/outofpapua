@@ -1,6 +1,6 @@
 <script>
   import Form from '$components/EntryRecord/Form.svelte';
-  import Note from '$components/EntryRecord/InlineNote.svelte';
+  import Note from '$components/EntryRecord/Note.svelte';
   import Pos from '$components/EntryRecord/Pos.svelte';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';

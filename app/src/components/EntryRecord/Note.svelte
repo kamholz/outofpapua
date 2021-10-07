@@ -6,26 +6,13 @@
   export let label;
   export let join = false;
   export let trans = false;
+  const items = data[key];
 </script>
 
 {#if join}
-  <div>
-    <span class="label">{label}:</span> {#each data[key] as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} />{/each}
-  </div>
+  <span class="label">{label}:</span> {#each items as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} />{/each}{#if !(!trans && items[items.length - 1].match(/\.$/))}.{/if}
 {:else}
-  {#each data[key] as item}
-    <div>
-      <span class="label">{label}:</span> <Form {item} {key} {trans} />
-    </div>
+  {#each items as item}
+    <span class="label">{label}:</span> <Form {item} {key} {trans} />{#if !(!trans && item.match(/\.$/))}.{/if}
   {/each}
 {/if}
-
-<style lang="scss">
-  div {
-    @include indent;
-
-    &:not(:first-child) {
-      margin-block-start: 4px;
-    }
-  }
-</style>
