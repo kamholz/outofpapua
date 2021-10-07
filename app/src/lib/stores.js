@@ -3,6 +3,7 @@ import { cookieStorage, persist } from 'svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
 import { readable, writable } from 'svelte/store';
 
+export const modal = writable(null);
 export const pageLoading = writable(0);
 
 export function getPreferences(session) {

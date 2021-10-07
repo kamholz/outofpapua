@@ -31,6 +31,7 @@
     "svelte-persistent-store": "github:kamholz/svelte-persistent-store",
     "svelte-popperjs": "^1.2.6",
     "svelte-preprocess": "^4.7.4",
+    "svelte-simple-modal": "^1.0.3",
     "yiq": "^4.0.0"
   },
   "dependencies": {

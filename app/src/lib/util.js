@@ -239,6 +239,10 @@ export function parseGlosses(param) {
 
 // entry formatting
 
+export function matchReflex(reflex) {
+  return reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
+}
+
 export function originSummary(entry) {
   let origin = entry.origin ?? 'unknown';
   if (origin === 'borrowed' && entry.origin_language_name) {
@@ -248,6 +252,10 @@ export function originSummary(entry) {
 }
 
 // misc
+
+export function capitalizeFirstLetter(txt) {
+  return txt[0].toUpperCase() + txt.slice(1);
+}
 
 export async function checkError(res, message) {
   if (!res.ok) {

@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from '$lib/util';
+
 const nationalRegionalMarkers = ['c', 'd', 'g', 'r', 'v', 'x'];
 
 const defaultMarkerConversion = Object.fromEntries(
@@ -208,8 +210,4 @@ export function langMarkerSorted(marker) {
   function push(lang) {
     sorted.push([marker[lang], lang]);
   }
-}
-
-function capitalizeFirstLetter(txt) {
-  return txt[0].toUpperCase() + txt.slice(1);
 }

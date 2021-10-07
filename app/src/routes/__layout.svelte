@@ -2,6 +2,7 @@
   import '../app.scss';
   import Icon from 'svelte-awesome';
   import Login from '$components/Login.svelte';
+  import ModalContent from '$components/Modal/Content.svelte';
   import NavBar from '$components/NavBar.svelte';
   import PageContext from '$components/PageContext.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -54,6 +55,7 @@
     <PageContext session={$session}>
       <slot />
     </PageContext>
+    <ModalContent />
     <!-- </div>
   {/key} -->
   </main>

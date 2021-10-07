@@ -35,11 +35,14 @@
   import Icon from 'svelte-awesome';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import Member from './_Member.svelte';
+  import SetExport from '$components/Modal/SetExport.svelte';
+  import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
-  import { faMapMarked } from '@fortawesome/free-solid-svg-icons';
+  import { bind } from 'svelte-simple-modal';
+  import { faFileAlt, faMapMarked } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
+  import { modal, pageLoading } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
-  import { pageLoading } from '$lib/stores';
 
   export let set;
   export let borrowlangSuggest = null;
@@ -60,6 +63,7 @@
   let createProtoValues = {};
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
+  const scale = 1.5;
 
   $: ({ members } = set);
   $: collapsedMembers = Object.fromEntries(
@@ -148,6 +152,16 @@
     }
     $pageLoading--;
   }
+
+  async function getExportModal() {
+    $pageLoading++;
+    const nameEntry = set.name_auto.entry_id
+      ? await crud.get('entry', set.name_auto.entry_id)
+      : null;
+    const ipaFunctions = await ipaConversionFunctions(fetch, set.members);
+    $pageLoading--;
+    return bind(SetExport, { ipaFunctions, nameEntry, set });
+  }
 </script>
 
 <h2>
@@ -163,9 +177,14 @@
   {:else}
     <span>Set: {name}</span>
   {/if}
-  <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>
-    <Icon data={faMapMarked} scale={1.5} />
-  </a>
+  <div>
+    <span on:click={async () => modal.set(await getExportModal())}>
+      <Icon data={faFileAlt} {scale} />
+    </span>
+    <a href="/sets/{set.id}/map" title="Map" sveltekit:prefetch>
+      <Icon data={faMapMarked} {scale} />
+    </a>
+  </div>
 </h2>
 
 <div class="set">

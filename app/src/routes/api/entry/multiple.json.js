@@ -25,7 +25,6 @@ export async function get({ locals, query }) {
       'entry.headword',
       'entry.headword_ipa',
       'entry.root',
-      'entry.note',
       'entry.origin',
       'entry.origin_language_id',
       'entry.origin_language_name',

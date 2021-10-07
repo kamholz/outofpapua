@@ -1,4 +1,20 @@
-import { checkError } from '$lib/util';
+import { checkError, serializeQuery } from '$lib/util';
+
+export function makeGetter(type) {
+  return async function (id, query) {
+    let url = `/api/${type}/${id}.json`;
+    if (query) {
+      url += serializeQuery(query);
+    }
+    const res = await fetch(url);
+    await checkError(res, 'Could not fetch');
+    return res.json();
+  };
+}
+
+export function get(type, ...args) {
+  return makeGetter(type)(...args);
+}
 
 export function makeCreater(type) {
   return async function (values) {

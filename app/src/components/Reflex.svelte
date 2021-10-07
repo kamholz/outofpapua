@@ -1,19 +1,23 @@
 <script>
-  export let form;
+  import { matchReflex } from '$lib/util';
+
+  export let reflex;
+  export let headword;
   export let space = true;
-  let before, reflex, after;
+
+  let before, reflexProper, after;
   $: {
-    const match = form.match(/^(.*)\|(.+)\|(.*)$/);
-    if (match) {
-      [before, reflex, after] = match.slice(1);
+    if (reflex) {
+      [before, reflexProper, after] = matchReflex(reflex);
     } else {
-      reflex = form;
+      reflexProper = headword;
+      before = after = null;
     }
   }
 </script>
 
 {#if space}
-  {#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflex}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
+  {#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflexProper}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
 {:else}
-  {#if before?.length}{before}|{/if}<strong>{reflex}</strong>{#if after?.length}|{after}{/if}
+  {#if before?.length}{before}|{/if}<strong>{reflexProper}</strong>{#if after?.length}|{after}{/if}
 {/if}

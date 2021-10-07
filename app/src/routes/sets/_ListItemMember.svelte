@@ -12,7 +12,7 @@
 </script>
 
 <div class={entry.origin}>
-  <strong>{language.name}</strong> <EntryInfoPopover bind:entry language_id={language.id} click={false}><EntryLink {entry}><Reflex form={reflex ?? entry.headword} /></EntryLink></EntryInfoPopover>
+  <strong>{language.name}</strong> <EntryInfoPopover bind:entry language_id={language.id} click={false}><EntryLink {entry}><Reflex {reflex} headword={entry.headword} /></EntryLink></EntryInfoPopover>
 </div>
 <div>
   {source.reference}

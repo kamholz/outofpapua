@@ -3,7 +3,7 @@ import { getFilteredParams, validateParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
-const allowed = new Set(['entry_id', 'reflex']);
+const allowed = new Set(['entry_id', 'note', 'reflex']);
 const required = new Set(['entry_id']);
 
 export const post = validateParams(requireAuth(async ({ body, locals, params }) => {

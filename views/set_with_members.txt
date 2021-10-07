@@ -11,7 +11,7 @@ SELECT set.id,
       SELECT
         json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
       FROM entry
-      JOIN source source.id = entry.source_id
+      JOIN source ON source.id = entry.source_id
       JOIN language ON language.id = source.language_id
       WHERE entry.id = set.name_entry_id
     )
@@ -31,6 +31,7 @@ SELECT set.id,
   ) as name_auto,
   coalesce(json_agg(
     json_build_object(
+      'note', smd.note,
       'reflex', smd.reflex,
       'entry', smd.entry,
       'language', smd.language,
@@ -82,6 +83,7 @@ SELECT set.id,
   ) as name_auto,
   coalesce(json_agg(
     json_build_object(
+      'note', smd.note,
       'reflex', smd.reflex,
       'entry', smd.entry,
       'language', smd.language,

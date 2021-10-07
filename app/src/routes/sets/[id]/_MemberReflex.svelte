@@ -9,7 +9,7 @@
   import { normalizeParam } from '$lib/util';
   import { tick } from 'svelte';
 
-  export let form;
+  export let reflex;
   export let entry;
   export let editable = false;
 
@@ -23,14 +23,14 @@
   }
 
   function save() {
-    const newForm = normalizeParam(editSpanRef.textContent);
-    form = newForm === deriveForm(null) ? null : newForm;
+    const newReflex = normalizeParam(editSpanRef.textContent);
+    reflex = newReflex === deriveReflex(null) ? null : newReflex;
     dispatch('change');
     editing = false;
   }
 
-  function deriveForm(form) {
-    return form ?? entry.headword;
+  function deriveReflex(reflex) {
+    return reflex ?? entry.headword;
   }
 </script>
 
@@ -41,9 +41,9 @@
     bind:this={editSpanRef}
     on:blur={() => editing && save()}
     use:keydown={{ enter: save, esc: () => editing = false }}
-  >{deriveForm(form)}</span>
+  >{deriveReflex(reflex)}</span>
 {:else}
-  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex form={deriveForm(form)} /></span></EntryLink>{#if editable}<span title="Edit reflex" on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex {reflex} headword={entry.headword} /></span></EntryLink>{#if editable}<span title="Edit reflex" on:click={handleClick}><Icon data={faEdit} /></span>{/if}
 {/if}
 
 <style lang="scss">
