@@ -129,6 +129,25 @@
       }, true);
     }
   }
+
+  async function handleDelete() {
+    if (!confirm(`Are you sure you want to delete the entire set "${name}"? This operation cannot be undone.`)) {
+      return;
+    }
+
+    $pageLoading++;
+    let promise;
+    try {
+      promise = promises.pending.delete = crud.del('set', set.id);
+      await promise;
+      goto('/');
+    } catch (e) {}
+    if (promise && promise === promises.pending.delete) {
+      promises.pending.delete = null;
+      promises.fulfilled.delete = promise;
+    }
+    $pageLoading--;
+  }
 </script>
 
 <h2>
@@ -212,6 +231,10 @@
   {/each}
 </div>
 
+{#if editable}
+  <button type="button" class="delete" on:click={handleDelete}>Delete Set</button>
+{/if}
+
 <style lang="scss">
   @include contenteditable;
   @include hr;
@@ -276,5 +299,9 @@
         margin-block-end: 12px;
       }
     }
+  }
+
+  .delete {
+    margin-block: 10px;
   }
 </style>
