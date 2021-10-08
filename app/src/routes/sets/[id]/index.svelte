@@ -162,6 +162,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Set: {name} | Out of Papua</title>
+</svelte:head>
+
 <h2>
   {#if editable}
     <span>

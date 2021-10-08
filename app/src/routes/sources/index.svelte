@@ -44,6 +44,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Sources | Out of Papua</title>
+</svelte:head>
+
 <h2>Sources</h2>
 <Table
   {rows}

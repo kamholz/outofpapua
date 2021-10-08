@@ -39,5 +39,9 @@
   setContext('ipaFunctions', ipaFunctions);
 </script>
 
+<svelte:head>
+  <title>Map from search results | Out of Papua</title>
+</svelte:head>
+
 <h2>Map from search results</h2>
 <SetMap {...settings} {name} {entries} />

@@ -26,6 +26,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Profile | Out of Papua</title>
+</svelte:head>
+
 <h2>Profile</h2>
 {#if promise}
   {#await promise catch { message }}

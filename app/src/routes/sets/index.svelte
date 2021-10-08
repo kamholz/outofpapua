@@ -69,6 +69,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Search sets | Out of Papua</title>
+</svelte:head>
+
 <h2>Search sets</h2>
 <SearchForm
   {query}

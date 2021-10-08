@@ -46,6 +46,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Language: {language.name} | Out of Papua</title>
+</svelte:head>
+
 <h3>Language: {language.name}</h3>
 {#if promise}
   {#await promise catch { message }}

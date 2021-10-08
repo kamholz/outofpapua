@@ -56,6 +56,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>IPA Conversion Libs | Out of Papua</title>
+</svelte:head>
+
 <h2>IPA Conversion Libs</h2>
 
 <label>

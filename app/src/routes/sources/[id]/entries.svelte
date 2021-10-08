@@ -57,6 +57,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Source entries: {source.reference} | Out of Papua</title>
+</svelte:head>
+
 <h2>{source.reference}: {source.language_name}</h2>
 {#if source.reference_full}
   <div class="info">

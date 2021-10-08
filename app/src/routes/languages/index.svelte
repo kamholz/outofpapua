@@ -29,6 +29,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Languages | Out of Papua</title>
+</svelte:head>
+
 <h2>Languages</h2>
 <Table
   {rows}

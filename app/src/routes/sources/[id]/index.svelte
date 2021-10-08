@@ -44,6 +44,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Source: {source.reference} | Out of Papua</title>
+</svelte:head>
+
 <h3>Source: {source.reference}</h3>
 <EditSourceForm {source} />
 

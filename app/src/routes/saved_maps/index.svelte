@@ -28,6 +28,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Saved Maps | Out of Papua</title>
+</svelte:head>
+
 <h2>Saved maps</h2>
 {#if rows.length}
   <Table

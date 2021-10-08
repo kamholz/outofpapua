@@ -85,6 +85,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Compare languages | Out of Papua</title>
+</svelte:head>
+
 <h2>Compare languages</h2>
 {#if error}
   <Alert type="error" message="Error: {error}" />

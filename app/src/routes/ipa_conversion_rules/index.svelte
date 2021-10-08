@@ -71,6 +71,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>IPA Conversion Rules | Out of Papua</title>
+</svelte:head>
+
 <h2>IPA Conversion Rules</h2>
 
 <label>

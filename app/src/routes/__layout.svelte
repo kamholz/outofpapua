@@ -37,10 +37,6 @@
   // }
 </script>
 
-<svelte:head>
-  <title>Out of Papua</title>
-</svelte:head>
-
 {#if $navigating || $pageLoading > 0}
   <div class="loading">
     <Icon data={faSpinner} pulse />

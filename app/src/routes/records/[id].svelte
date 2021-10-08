@@ -20,6 +20,10 @@
   let showFormatted = true;
 </script>
 
+<svelte:head>
+  <title>Entry from {source.reference} | Out of Papua</title>
+</svelte:head>
+
 <h2>Entry from {source.reference}: {source.language_name}</h2>
 {#if record.page_num}
   <div>

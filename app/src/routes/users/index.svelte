@@ -29,6 +29,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Users | Out of Papua</title>
+</svelte:head>
+
 <h2>Users</h2>
 <Table
   {rows}
