@@ -29,7 +29,7 @@
   {#if page - pageWidth === 3}
     <Number num={2} {page} {pageUrl} />
   {/if}
-  {#each pagesToDisplay as i (i)}
+  {#each pagesToDisplay as i (`${i}:${query.pagesize}`)}
     <Number num={i + 1} {page} {pageUrl} />
   {/each}
   {#if page + pageWidth < pageCount - 2}

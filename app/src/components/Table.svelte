@@ -16,7 +16,6 @@
   export let highlight = false;
   export let searchContext = false;
   let editingCell = null;
-  $: columnCount = columns.length + (controls ? 1 : 0);
 
   $: for (const column of columns) {
     if (!('value' in column)) {

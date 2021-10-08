@@ -8,8 +8,8 @@
   import PageContext from '$components/PageContext.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   // import { fade } from 'svelte/transition';
-  import { modal, pageLoading } from '$lib/stores';
   import { navigating, session } from '$app/stores';
+  import { pageLoading } from '$lib/stores';
   // import { onMount } from 'svelte';
   // import { registerListener, broadcast } from '$lib/socket';
 
@@ -55,7 +55,7 @@
     <div in:fade={{ duration: 200 }}> -->
     <PageContext session={$session}>
       <Modal styleWindow={{ width: '80vw' }}>
-        <ModalContent {modal} />
+        <ModalContent />
       </Modal>
       <slot />
     </PageContext>
