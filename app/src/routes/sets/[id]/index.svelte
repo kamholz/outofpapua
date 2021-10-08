@@ -270,10 +270,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    > a {
-      margin-inline-start: 20px;
-    }
   }
 
   .set :global {
