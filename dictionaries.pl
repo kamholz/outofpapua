@@ -308,7 +308,7 @@ our $dict = {
   },
   'Dalrymple & Mofu (2009/10)' => {
     lang_target => 'bhw',
-    path => 'Biak_dictionary.txt',
+    path => 'Biak/Biak_dictionary_cleaned.txt',
     parser => 'Marker',
     split => ',;',
     sense => 'hm',
