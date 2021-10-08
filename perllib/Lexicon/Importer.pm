@@ -24,7 +24,7 @@ sub db {
 sub import_lexicon {
   my ($self, $source_reference, $lang_code, $parser, $action) = @_;
   $action //= 'create';
-  die "unknown action: $action" unless $action =~ /^(?:create|update|ovewrwrite)$/;
+  die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
 
   say "\nstarting import: $source_reference";
 
