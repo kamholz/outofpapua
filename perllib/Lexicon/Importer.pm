@@ -244,8 +244,6 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-    say "matched $ids[0] for $entry->{headword}";
-    die;
     return $ids[0] if @ids;
   }
 
