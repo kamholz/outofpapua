@@ -230,7 +230,7 @@ EOF
   # if (@ids > 1) {
   #   die "multiple existing entry ids matched for $entry->{headword}, aborting: " . join(', ', @ids);
   # }
-  return $ids[0] if @ids;
+  return $ids[0]; # if @ids;
 
   my @variants = get_variants($entry);
   if (@variants) {
