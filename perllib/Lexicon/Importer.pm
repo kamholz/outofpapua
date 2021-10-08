@@ -142,7 +142,7 @@ EOF
       @entry_ids = uniqint @entry_ids;
 
       unless ($action2 and $action2 eq 'force') {
-        my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays;
+        my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
 SELECT entry.id, entry.headword, ed.senses
 FROM entry
 JOIN entry_with_details ed on ed.id = entry.id
