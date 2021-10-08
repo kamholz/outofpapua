@@ -3,6 +3,7 @@ use v5.14;
 use Moo;
 use JSON::MaybeXS;
 use namespace::clean;
+use Data::Dumper;
 use List::Util qw/uniqint uniqstr/;
 use Mojo::Pg;
 use Try::Tiny;
@@ -80,7 +81,7 @@ EOF
 
       my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
       if ($entry_id) { # entry to replace
-      $db->query(<<'EOF', $entry_id); # delete existing senses
+        $db->query(<<'EOF', $entry_id); # delete existing senses
 DELETE FROM sense
 USING entry
 WHERE sense.entry_id = entry.id AND entry.id = ?
@@ -139,6 +140,17 @@ EOF
 
     if ($action eq 'update') {
       @entry_ids = uniqint @entry_ids;
+
+      my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays;
+SELECT entry.id, entry.headword, entry.senses
+FROM entry_with_details as entry
+WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
+EOF
+      if (@linked) {
+        print Dumper(\@linked), "\n";
+        die "would delete linked entries above, aborting";
+      }
+
       $db->query(<<'EOF', $source_id, \@entry_ids);
 DELETE FROM sense
 USING entry
