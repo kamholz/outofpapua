@@ -142,8 +142,9 @@ EOF
       @entry_ids = uniqint @entry_ids;
 
       my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays;
-SELECT entry.id, entry.headword, entry.senses
-FROM entry_with_details as entry
+SELECT entry.id, entry.headword, ed.senses
+FROM entry
+JOIN entry_with_details ed on ed.id = entry.id
 WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
 EOF
       if (@linked) {
