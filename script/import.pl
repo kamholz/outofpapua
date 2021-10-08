@@ -19,14 +19,14 @@ our $dict;
 my $importer = Lexicon::Importer->new;
 
 if (@ARGV) {
-  my ($source_reference, $action) = @ARGV;
+  my ($source_reference, @action) = @ARGV;
   if (exists $dict->{$source_reference}) {
     my $args = $dict->{$source_reference};
     die "no parser given" unless $args->{parser};
     die "no lang_target given" unless $args->{lang_target};
     $args->{path} = "../dict/$args->{path}";
     my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
-    $importer->import_lexicon($source_reference, $args->{lang_target}, $parser_class->new($args), $action);
+    $importer->import_lexicon($source_reference, $args->{lang_target}, $parser_class->new($args), @action);
   } else {
     say "Unknown source: $source_reference";
   }

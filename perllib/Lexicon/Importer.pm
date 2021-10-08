@@ -23,7 +23,7 @@ sub db {
 }
 
 sub import_lexicon {
-  my ($self, $source_reference, $lang_code, $parser, $action) = @_;
+  my ($self, $source_reference, $lang_code, $parser, $action, $action2) = @_;
   $action //= 'create';
   die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
 
@@ -141,15 +141,17 @@ EOF
     if ($action eq 'update') {
       @entry_ids = uniqint @entry_ids;
 
-      my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays;
+      unless ($action2 and $action2 eq 'force') {
+        my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays;
 SELECT entry.id, entry.headword, ed.senses
 FROM entry
 JOIN entry_with_details ed on ed.id = entry.id
 WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
 EOF
-      if (@linked) {
-        print Dumper(\@linked), "\n";
-        die "would delete linked entries above, aborting";
+        if (@linked) {
+          print Dumper(\@linked), "\n";
+          die 'aborting: would have deleted linked entries above ("update force" to override)';
+        }
       }
 
       $db->query(<<'EOF', $source_id, \@entry_ids);
