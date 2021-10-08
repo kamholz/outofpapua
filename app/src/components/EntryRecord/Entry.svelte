@@ -10,14 +10,17 @@
       key: 'variant',
       label: 'Variants',
       trans: true,
+      join: true,
     },
     {
       key: 'singular',
       label: 'Singular',
+      join: true,
     },
     {
       key: 'plural',
       label: 'Plural',
+      join: true,
     },
   ];
 
