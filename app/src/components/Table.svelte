@@ -21,6 +21,9 @@
     if (!('value' in column)) {
       column.value = (row) => stringify(row[column.key]);
     }
+    if (sortable && !('sortKey' in column)) {
+      column.sortKey = column.key;
+    }
     if (column.editable && !('inputValue' in column)) {
       column.inputValue = column.value;
     }
@@ -50,9 +53,9 @@
     {#each columns as { key, sortKey, title } (key)}
       <th>
         {#if sortable}
-          <a href={getSortQuery(sortKey ?? key, query)}>
+          <a href={getSortQuery(sortKey, query)}>
             {title}
-            {#if key === query.sort}
+            {#if sortKey === query.sort}
               <Icon data={query.asc ? faCaretUp : faCaretDown} />
             {/if}
           </a>

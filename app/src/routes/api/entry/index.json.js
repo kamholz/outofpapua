@@ -17,7 +17,7 @@ const defaults = {
   origin: 'all',
   page: 1,
   pagesize: defaultPreferences.tablePageSize,
-  sort: 'headword_degr',
+  sort: 'language',
   langcat: 'lang',
   set: 'both',
 };
