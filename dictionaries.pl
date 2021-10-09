@@ -887,6 +887,7 @@ our $dict = {
       [2, 'gloss', 'eng'],
     ],
     split => '/',
+    split_headword => ',',
   },
   'Unknown (nd.b)' => {
     lang_target => 'kgr',
