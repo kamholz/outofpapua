@@ -15,12 +15,27 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
     return { status: 400, body: { error: '"set_ids" parameter must be an array of set ids' } };
   }
   try {
-    await transaction(locals, (trx) =>
-      trx('set_member')
-      .update({ set_id: params.id })
-      .where('set_id', arrayCmp(updateParams.set_ids))
-    );
-    return { body: '' };
+    let found = false;
+    await transaction(locals, async (trx) => {
+      const set = await trx('set').first('note').where('id', params.id);
+      if (set) {
+        found = true;
+
+        const notes = [
+          set.note,
+          ...await trx('set').pluck('note').where('id', arrayCmp(updateParams.set_ids)),
+        ].filter((v) => v !== null);
+        const note = notes.length ? notes.join('\n\n') : null;
+        if (note !== set.note) {
+          await trx('set').update({ note }).where('id', params.id);
+        }
+
+        trx('set_member')
+        .update({ set_id: params.id })
+        .where('set_id', arrayCmp(updateParams.set_ids));
+      }
+    });
+    return found ? { body: '' } : { status: 400 };
   } catch (e) {
     console.log(e);
     return sendPgError(e);
