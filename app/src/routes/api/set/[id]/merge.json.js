@@ -30,9 +30,9 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
           await trx('set').update({ note }).where('id', params.id);
         }
 
-        trx('set_member')
-        .update({ set_id: params.id })
-        .where('set_id', arrayCmp(updateParams.set_ids));
+        return trx('set_member')
+          .update({ set_id: params.id })
+          .where('set_id', arrayCmp(updateParams.set_ids));
       }
     });
     return found ? { body: '' } : { status: 400 };
