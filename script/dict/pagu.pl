@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use v5.14;
 use utf8;
-use File::Slurper qw/read_text write_text/;
+use File::Slurper 'read_text';
 use Mojo::DOM;
 use Mojo::Util 'xml_escape';
 binmode STDOUT, ':encoding(utf-8)';

@@ -83,7 +83,10 @@ function matchHeadwordPh(entry, func) {
   if (headword_ph === null) {
     return [headword, { ph: false }];
   }
-  const phList = headword_ph.map((v) => v.split(/\s*[,;]\s*(?![^()]*\))/)).flat();
+
+  const phList = headword_ph
+    .map((v) => v.replace(/[[\]]/g, '').split(/\s*[,;]\s*(?![^()]*\))/))
+    .flat();
   if (phList.length === 1) {
     return [phList[0], { ph: true }];
   }
