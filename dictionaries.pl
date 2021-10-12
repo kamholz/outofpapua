@@ -650,6 +650,17 @@ our $dict = {
     split_headword => ';',
     headword_preprocess => \&strip_paren,
   },
+  'Mandacan et al. (2020)' => {
+    lang_target => 'mej',
+    path => 'Kamus Indonesia-Meyah/Kamus Indonesia-Meyah-Inggris.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+    split => ',;',
+  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07.db',
