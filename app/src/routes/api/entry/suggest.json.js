@@ -83,9 +83,18 @@ export const get = requireAuth(async ({ query }) => {
     .orderBy('language.name', 'entry.headword_degr', 'entry.headword', 'source.reference')
     .limit(max);
 
-  return {
-    body: {
-      rows: await q,
-    },
-  };
+  try {
+    return {
+      body: {
+        rows: await q,
+      },
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      body: {
+        rows: [],
+      },
+    };
+  }
 });
