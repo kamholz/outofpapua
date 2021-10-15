@@ -661,6 +661,13 @@ our $dict = {
     ],
     split => ',;',
   },
+  'Mansim' => {
+    lang_target => '',
+    lang_national => 'ind',
+    # lang_regional => 'ind',
+    path => 'Mansimdictionary.html',
+    parser => 'LexiqueDocx',
+  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07.db',
@@ -693,6 +700,17 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
       [3, 'page_num'],
+    ],
+  },
+  'Purba et al. (1987)' => {
+    lang_target => 'kzz',
+    path => 'spreadsheets/kalabra_dictionary_Purba et al_1987.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [3, 'va'],
+      [0, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'Reesink (nd.)' => {
