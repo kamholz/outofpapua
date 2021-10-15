@@ -54,7 +54,7 @@ sub import_lexicon {
     }
 
     my $entries = $parser->read_entries;
-    my (%seen_entry, @entry_ids);
+    my (%seen_entry, %seen_entry_id, @entry_ids);
 
     foreach my $entry (@{$entries||[]}) {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
@@ -81,6 +81,9 @@ EOF
 
       my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
       if ($entry_id) { # entry to replace
+        die "already replaced entry id $entry_id, aborting" if $seen_entry_id{$entry_id};
+        $seen_entry_id{$entry_id} = 1;
+
         $db->query(<<'EOF', $entry_id); # delete existing senses
 DELETE FROM sense
 USING entry
