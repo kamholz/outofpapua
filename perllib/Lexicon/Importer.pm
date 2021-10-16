@@ -217,7 +217,7 @@ sub get_language_id {
 sub get_entry_id {
   my ($db, $entry, $source_id) = @_;
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
-  die "no glosses, not sure what to do: $entry->{headword}" unless @glosses;
+  warn("no glosses, not sure what to do: $entry->{headword}"), return unless @glosses;
 
   my $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
 SELECT entry.id
