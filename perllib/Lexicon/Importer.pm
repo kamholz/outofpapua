@@ -219,7 +219,7 @@ sub get_entry_id {
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   die "no glosses, not sure what to do: $entry->{headword}" unless @glosses;
 
-  my $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array->[0];
+  my $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
 SELECT entry.id
 FROM entry
 JOIN sense on sense.entry_id = entry.id
@@ -229,9 +229,9 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-  return $id if $id;
+  return $id->[0] if $id;
 
-  $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array->[0];
+  $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
 SELECT entry.id
 FROM entry
 JOIN sense on sense.entry_id = entry.id
@@ -241,7 +241,7 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-  return $id if $id;
+  return $id->[0] if $id;
   return undef;
 
   # if (@ids > 1) {
@@ -250,7 +250,7 @@ EOF
 
   my @variants = get_variants($entry);
   if (@variants) {
-    $id = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->array->[0];
+    $id = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->array;
 SELECT entry.id
 FROM entry
 JOIN sense on sense.entry_id = entry.id
@@ -260,7 +260,7 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-    return $id if $id;
+    return $id->[0] if $id;
   }
 
   return undef;
