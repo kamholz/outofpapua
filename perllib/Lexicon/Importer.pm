@@ -80,8 +80,11 @@ EOF
       $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa headword_ph root/;
 
       my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
+      if ($entry_id and $seen_entry_id{$entry_id}) {
+        say "warning: already replaced entry id $entry_id, not replacing it again";
+        $entry_id = undef;
+      }
       if ($entry_id) { # entry to replace
-        die "already replaced entry id $entry_id, aborting" if $seen_entry_id{$entry_id};
         $seen_entry_id{$entry_id} = 1;
 
         $db->query(<<'EOF', $entry_id); # delete existing senses
@@ -217,7 +220,7 @@ sub get_language_id {
 sub get_entry_id {
   my ($db, $entry, $source_id) = @_;
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
-  warn("no glosses, not sure what to do: $entry->{headword}"), return unless @glosses;
+  say "no glosses, not sure what to do: $entry->{headword}", return unless @glosses;
 
   my $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
 SELECT entry.id
