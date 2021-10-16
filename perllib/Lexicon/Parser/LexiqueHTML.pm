@@ -44,7 +44,10 @@ sub read_entries {
       }
 
       my $ph = get_text_lexique_html($entry_el, '.lexemeform, .pronunciation .form');
-      push(@{$entry->{record}}, ['ph', $ph]) if length $ph;
+      if (length $ph) {
+        $entry->{headword_ph} = normalize_ph($ph);
+        push(@{$entry->{record}}, ['ph', $ph]);
+      }
 
       my $pos = get_text_lexique_html($senses, '.sharedgrammaticalinfo .partofspeech');
       if (length $pos) {

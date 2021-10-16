@@ -505,6 +505,7 @@ our $dict = {
     parser => 'LexiqueHTML',
     lang_national => 'id',
     split_heuristic => ',',
+    split_headword => ';',
   },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
