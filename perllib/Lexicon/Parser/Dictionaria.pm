@@ -74,7 +74,7 @@ sub read_entries {
 
     $entry->{headword} = $cldf_entry->{Headword};
     store($record, 'lx', $cldf_entry->{Headword});
-    $entry->{headword_ph} = $cldf_entry->{Pronunciation} // undef;
+    $entry->{headword_ph} = $cldf_entry->{Pronunciation} if length $cldf_entry->{Pronunciation};
     store($record, 'ph', $cldf_entry->{Pronunciation});
     store_split($record, 'va', $cldf_entry->{Variant_Form});
     store($record, 'ps', $cldf_entry->{Part_Of_Speech});
