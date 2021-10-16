@@ -76,7 +76,7 @@ function matchHeadwordPh(entry) {
   } else {
     const match = headword_ph.match(/^(.+?) *[,;]/);
     if (match) {
-      console.error(`headword_ph contains multiple values, choosing first: ${headword_ph} => ${match[1]}`);
+      console.error(`warning: headword_ph contains multiple values, choosing first: ${headword_ph} => ${match[1]}`);
       return [match[1], { ph: true }];
     }
     return [headword_ph, { ph: true }];
