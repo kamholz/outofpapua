@@ -596,6 +596,7 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
+    split_headword => ';',
   },
   'Kijne (nd.d)' => {
     lang_target => 'Yawa Mantembu',
