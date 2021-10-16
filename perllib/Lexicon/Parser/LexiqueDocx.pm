@@ -6,6 +6,24 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
+
+my %type_to_marker = (
+  DefinitionE       => ['g', 'e'],
+  Definitionn       => ['g', 'n'],
+  Definitionr       => ['g', 'r'],
+  EncyclopedicinfoE => 'ee',
+  Encyclopedicinfon => 'en',
+  Encyclopedicinfor => 'er',
+  Examplev          => 'xv',
+  ExamplefreetransE => ['x', 'e'],
+  Examplefreetransn => ['x', 'n'],
+  Examplefreetransr => ['x', 'r'],
+  Lexeme            => 'lx',
+  Notesgeneral      => 'nt',
+  Partofspeech      => 'ps',
+  Reference         => 'rf',
+);
+
 sub read_entries {
   my ($self) = @_;
   my $dom = $self->parse;
@@ -15,15 +33,14 @@ sub read_entries {
   my $lang_national = $self->lang_national;
   my $lang_regional = $self->lang_regional;
 
-  foreach my $p ($dom->find('p')->each) {
-    next unless $p->at('pStyle[val="EntryParagraph"]') || $p->at('pStyle[val="IndentedParagraph"]');
-    merge_records_docx($p);
+  foreach my $p ($dom->find('p.EntryParagraph')->each) {
+    # merge_records_docx($p);
 
     my $entry;
     my $seen_pos;
     my $seen_example;
 
-    foreach my $r ($p->find('r')->each) {
+    foreach my $r ($p->find('> span')->each) {
       my $type = get_type_docx($r);
       next unless length $type;
       my $txt = get_text_docx($r);
@@ -31,35 +48,33 @@ sub read_entries {
       next unless length $txt;
 
       if ($type eq 'Lexeme' or $type eq 'Subentry') {
+        $entry = $self->reset_entry($entry, $type eq 'Lexeme' ? 'record' : 'headword');
         $seen_pos = $seen_example = undef;
         $entry->{headword} = normalize_headword($txt);
-        push @{$entry->{record}}, ['lx', $entry->{headword}];
-      } elsif ($type eq 'DefinitionE') {
-        $self->add_gloss($entry, 'gloss', $txt, $lang_english, $seen_pos);
-        push @{$entry->{record}}, ['ge', $txt];
-      } elsif ($type eq 'Partofspeech') {
-        $seen_pos = $txt;
-        push @{$entry->{record}}, ['ps', $txt];
-      } elsif ($type eq 'Definitionn') {
-        $self->add_gloss($entry, 'gloss', $txt, $lang_national, $seen_pos);
-        push @{$entry->{record}}, ['gn', $txt];
-      } elsif ($type eq 'Examplev') {
-        $seen_example = $self->add_example($entry, $txt, $seen_pos);
-        push @{$entry->{record}}, ['xv', $txt];
-      } elsif ($type eq 'ExamplefreetransE') {
-        push @$seen_example, [$txt, $lang_english] if $seen_example;
-        push @{$entry->{record}}, ['xe', $txt];
-      } elsif ($type eq 'Examplefreetransn') {
-        push @$seen_example, [$txt, $lang_national] if $seen_example;
-        push @{$entry->{record}}, ['xn', $txt];
-      } elsif ($type eq 'Examplefreetransr') {
-        push @$seen_example, [$txt, $lang_regional] if $seen_example;
-        push @{$entry->{record}}, ['xr', $txt];
-      } elsif ($type =~ /^(?:flabel|Reference|Definitionr|Encyclopedicinfo[Er]|Notesgeneral)$/) {
-        $txt =~ s/\s*\.+$//;
-        push @{$entry->{record}}, ['', $txt] if length $txt;
+        push @{$entry->{record}}, [$type eq 'Lexeme' ? 'lx' : 'se', $txt];
+      } elsif (exists $type_to_marker{$type}) {
+        my $marker = $type_to_marker{$type};
+        if (ref $marker eq 'ARRAY') {
+          my $lang;
+          ($marker, $lang) = @$marker;
+          my $code = $self->code_from_lang($lang);
+          if ($marker eq 'g') {
+            $self->add_gloss($entry, 'gloss', $txt, $code, $seen_pos);
+          } elsif ($marker eq 'x') {
+            push @$seen_example, [$txt, $code] if $seen_example;
+          }
+          push @{$entry->{record}}, [marker_with_code($marker, $code), $txt];
+        } elsif ($marker eq 'ps') {
+          $seen_pos = $txt;
+        } elsif ($marker eq 'xv') {
+          $seen_example = $self->add_example($entry, $txt, $seen_pos);          
+        }
+        push @{$entry->{record}}, [$marker, $txt];
       }
     }
+    use Data::Dumper;
+    say Dumper($entry);
+    die;
 
     $self->push_entry($entries, $entry);
   }
@@ -67,9 +82,22 @@ sub read_entries {
   return $entries;
 }
 
+sub code_from_lang {
+  my ($self, $lang) = @_;
+  if ($lang eq 'e') {
+    return $self->lang_english;
+  } elsif ($lang eq 'n') {
+    return $self->lang_national;
+  } elsif ($lang eq 'r') {
+    return $self->lang_regional;
+  } else {
+    die "could not get code for $lang";
+  }
+}
+
 sub merge_records_docx {
   my ($p) = @_;
-  my @recs = $p->find('r')->each;
+  my @recs = $p->find('> span')->each;
 
   for (my $i = 0; $i < @recs; $i++) {
     my $r = $recs[$i];
@@ -91,8 +119,7 @@ sub merge_records_docx {
 
     if ($merge_until > $i) {
       foreach my $j ($i+1 .. $merge_until) {
-        my $t = $recs[$j]->at('t');
-        $r->at('t')->append_content($t->text) if $t;
+        $r->append_content($recs[$j]->text);
         $recs[$j]->remove;
       }
 
@@ -102,16 +129,11 @@ sub merge_records_docx {
 }
 
 sub get_text_docx {
-  my ($el) = @_;
-  $el = $el->at('t');
-  return $el ? $el->text =~ s/^\s+|\s+$//gr : undef;
+  return $_[0]->all_text =~ s/^\s+|\s+$//gr;
 }
 
 sub get_type_docx {
-  my ($r) = @_;
-  my $type = $r->at('rStyle');
-  return undef unless $type;
-  return $type->attr('w:val');
+  return $_[0]->attr('class');
 }
 
 1;
