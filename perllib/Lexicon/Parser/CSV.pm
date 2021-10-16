@@ -38,11 +38,6 @@ has 'skip' => (
   default => 0,
 );
 
-has 'headword_action' => (
-  is => 'ro',
-  default => '',
-);
-
 sub parse {
   my ($self, $path) = @_;
   $path ||= $self->path;
@@ -78,7 +73,6 @@ sub read_entries {
   my $entry = {};
   my $mode = $self->mode;
   my $columns = $self->columns;
-  my $headword_action = $self->headword_action;
   my $split_headword = $self->split_headword;
 
   my $row_func;
@@ -130,17 +124,8 @@ sub read_entries {
 
         my @headwords = $split_headword ? split($split_headword, $value) : ($value);
 
-        if ($headword_action eq 'deaccent') {
-          foreach my $headword (map { NFC($_) } @headwords) {
-            my $deaccented = deaccent($headword);
-            push @{$entry->{headword}}, $deaccented;
-            push @{$entry->{record}}, [$marker, $deaccented];
-            push @{$entry->{record}}, ['ph', $headword] if $headword ne $deaccented;
-          }
-        } else {
-          push @{$entry->{headword}}, @headwords;
-          push @{$entry->{record}}, [$marker, $_] for @headwords;
-        }
+        push @{$entry->{headword}}, @headwords;
+        push @{$entry->{record}}, [$marker, $_] for @headwords;
 
         push @{$entry->{record}}, ['sn', '1'] if $mode eq 'sense_per_row';
         next;
@@ -156,15 +141,16 @@ sub read_entries {
         $entry->{subentry} = $value eq 'TRUE' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
+      } elsif ($type eq 'ph') {
+        $entry->{headword_ph} = $value;
+        push @{$entry->{record}}, ['ph', $value];
+      } elsif ($type eq 'pos') {
+        $self->add_pos($entry, $value);
+        push @{$entry->{record}}, ['ps', $value];
       } elsif ($type eq 'gloss') {
         my $lang = $arg;
         $self->add_gloss($entry, 'gloss', $value, $lang);
         push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
-      } elsif ($type eq 'pos') {
-        if ($value ne '') {
-          $self->add_pos($entry, $value);
-          push @{$entry->{record}}, ['ps', $value];
-        }
       } elsif ($type eq 'examples') {
         my @examples = $arg->($value);
         if (@examples) {

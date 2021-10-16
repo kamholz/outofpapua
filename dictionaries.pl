@@ -355,7 +355,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [2, 'page_num'],
     ],
-    headword_action => 'deaccent',
   },
   'Donohue & Ayeri (nd.)' => {
     lang_target => 'swr',
@@ -587,7 +586,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    headword_action => 'deaccent',
   },
   'Kijne (nd.c)' => {
     lang_target => 'Yawa Turu',
@@ -600,7 +598,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    headword_action => 'deaccent',
   },
   'Kijne (nd.d)' => {
     lang_target => 'Yawa Mantembu',

@@ -37,6 +37,12 @@ has 'pos' => (
   default => sub { to_array_map('ps') },
 );
 
+# marker(s) for phonetic form
+has 'ph' => (
+  is => 'ro',
+  default => sub { to_array_map('ph') },
+);
+
 # marker(s) for gloss
 has 'gloss' => (
   is => 'ro',
@@ -137,7 +143,7 @@ around BUILDARGS => sub {
     $attr->{record} //= $attr->{headword};
   }
 
-  foreach my $att (grep { defined $attr->{$_} } qw/filter_entry headword headword_citation page_num record sense skip_marker/) {
+  foreach my $att (grep { defined $attr->{$_} } qw/filter_entry headword headword_citation page_num ph pos record sense skip_marker/) {
     $attr->{$att} = to_array_map($attr->{$att});
   }
 
@@ -149,6 +155,7 @@ sub read_entries {
   my $headword = $self->headword;
   my $headword_citation = $self->headword_citation;
   my $record = $self->record;
+  my $ph = $self->ph;
   my $pos = $self->pos;
   my $sense = $self->sense;
   my $gloss = $self->gloss;
@@ -191,6 +198,8 @@ sub read_entries {
       $entry->{headword} = normalize_headword($txt);
     } elsif ($headword_citation->{$marker}) {
       $entry->{headword_citation} = normalize_headword($txt);
+    } elsif ($ph->{$marker}) {
+      $entry->{headword_ph} = $txt;
     } elsif ($pos->{$marker}) {
       $seen_pos = $txt;
     } elsif (exists $gloss->{$marker}) {

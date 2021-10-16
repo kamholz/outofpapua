@@ -38,10 +38,6 @@ sub normalize_headword {
   return $txt;
 }
 
-sub deaccent {
-  return NFC(NFD($_[0]) =~ s/\p{M}//gr);
-}
-
 sub apply_encodings {
   my ($txt, $encodings) = @_;
 
