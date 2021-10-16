@@ -142,7 +142,7 @@ sub read_entries {
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
       } elsif ($type eq 'ph') {
-        $entry->{headword_ph} = $value;
+        $entry->{headword_ph} = normalize_ph($value);
         push @{$entry->{record}}, ['ph', $value];
       } elsif ($type eq 'pos') {
         $self->add_pos($entry, $value);

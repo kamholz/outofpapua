@@ -199,7 +199,7 @@ sub read_entries {
     } elsif ($headword_citation->{$marker}) {
       $entry->{headword_citation} = normalize_headword($txt);
     } elsif ($ph->{$marker}) {
-      $entry->{headword_ph} = $txt;
+      $entry->{headword_ph} = normalize_ph($txt);
     } elsif ($pos->{$marker}) {
       $seen_pos = $txt;
     } elsif (exists $gloss->{$marker}) {

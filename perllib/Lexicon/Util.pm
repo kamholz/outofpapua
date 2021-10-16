@@ -38,6 +38,12 @@ sub normalize_headword {
   return $txt;
 }
 
+sub normalize_ph {
+  my $txt = @_;
+  $txt =~ s/[][]//g;
+  return $txt;
+}
+
 sub apply_encodings {
   my ($txt, $encodings) = @_;
 

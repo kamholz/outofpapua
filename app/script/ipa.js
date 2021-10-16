@@ -38,24 +38,15 @@ await knex.transaction(async (trx) => {
   const rule = await trx.first(knex.raw('ipa_conversion_rule_to_javascript(?) as code', source.ipa_conversion_rule));
   const func = eval(rule.code);
 
-  const q = trx('entry')
+  const entries = await trx('entry')
     .where('source_id', source.id)
-    .select('entry.id', 'entry.headword', 'entry.headword_ipa')
+    .select('entry.id', 'entry.headword', 'entry.headword_ipa', 'entry.headword_ph')
     .orderBy('entry.headword');
-  if (usePh) {
-    q
-      .leftJoin('entry_ph', 'entry_ph.id', 'entry.id')
-      .select(
-        knex.raw('array_agg(entry_ph.headword_ph) filter (where entry_ph.headword_ph is not null) as headword_ph')
-      )
-      .groupBy('entry.id');
-  }
-  const entries = await q;
 
   for (const entry of entries) {
     const { headword } = entry;
     const args = usePh
-      ? matchHeadwordPh(entry, func)
+      ? matchHeadwordPh(entry)
       : [headword, { ph: false }];
     const ipa = func(...args);
     if (mode === 'update') {
@@ -78,27 +69,16 @@ await knex.transaction(async (trx) => {
 
 process.exit();
 
-function matchHeadwordPh(entry, func) {
+function matchHeadwordPh(entry) {
   const { headword, headword_ph } = entry;
   if (headword_ph === null) {
     return [headword, { ph: false }];
-  }
-
-  const phList = headword_ph
-    .map((v) => v.replace(/[[\]]/g, '').split(/\s*[,;]\s*(?![^()]*\))/))
-    .flat();
-  if (phList.length === 1) {
-    return [phList[0], { ph: true }];
-  }
-  const phAuto = degr(func(headword, { ph: false }));
-  for (const ph of phList) {
-    const phDegr = degr(ph);
-    if (phDegr === phAuto || phDegr === headword) {
-      return [ph, { ph: true }];
+  } else {
+    if (headword_ph.match(/,;/)) {
+      console.error(`headword_ph may contain multiple values: ${headword_ph}`);
     }
+    return [headword_ph, { ph: true }];
   }
-  console.error(`could not identify headword, returning all: ${headword} // ${phAuto} // ${headword_ph.join(', ')}`);
-  return [headword_ph.join(', '), { ph: true }];
 }
 
 function degr(txt) {
