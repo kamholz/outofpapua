@@ -664,7 +664,7 @@ our $dict = {
     lang_target => '',
     lang_national => 'ind',
     # lang_regional => 'ind',
-    path => 'Mansimdictionary.html',
+    path => 'Mansim/Mansimdictionary.html',
     parser => 'LexiqueDocx',
   },
   'Matsumura (2016)' => {

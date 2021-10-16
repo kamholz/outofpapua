@@ -11,9 +11,9 @@ my %type_to_marker = (
   DefinitionE       => ['g', 'e'],
   Definitionn       => ['g', 'n'],
   Definitionr       => ['g', 'r'],
-  EncyclopedicinfoE => 'ee',
-  Encyclopedicinfon => 'en',
-  Encyclopedicinfor => 'er',
+  EncyclopedicinfoE => ['e', 'e'],
+  Encyclopedicinfon => ['e', 'n'],
+  Encyclopedicinfor => ['e', 'r'],
   Examplev          => 'xv',
   ExamplefreetransE => ['x', 'e'],
   Examplefreetransn => ['x', 'n'],
@@ -34,7 +34,7 @@ sub read_entries {
   my $lang_regional = $self->lang_regional;
 
   foreach my $p ($dom->find('p.EntryParagraph')->each) {
-    # merge_records_docx($p);
+    merge_records_docx($p);
 
     my $entry;
     my $seen_pos;
@@ -44,7 +44,7 @@ sub read_entries {
       my $type = get_type_docx($r);
       next unless length $type;
       my $txt = get_text_docx($r);
-      $txt =~ s/\s*\.+$// if $type =~ /^(?:DefinitionE|Definition[nr])$/;
+      $txt =~ s/\s*\.+$// if $type =~ /^Definition(?:E|[nr])$/;
       next unless length $txt;
 
       if ($type eq 'Lexeme' or $type eq 'Subentry') {
@@ -58,23 +58,23 @@ sub read_entries {
           my $lang;
           ($marker, $lang) = @$marker;
           my $code = $self->code_from_lang($lang);
+          next if $code eq 'und';
           if ($marker eq 'g') {
             $self->add_gloss($entry, 'gloss', $txt, $code, $seen_pos);
           } elsif ($marker eq 'x') {
             push @$seen_example, [$txt, $code] if $seen_example;
           }
           push @{$entry->{record}}, [marker_with_code($marker, $code), $txt];
-        } elsif ($marker eq 'ps') {
-          $seen_pos = $txt;
-        } elsif ($marker eq 'xv') {
-          $seen_example = $self->add_example($entry, $txt, $seen_pos);          
+        } else {
+          if ($marker eq 'ps') {
+            $seen_pos = $txt;
+          } elsif ($marker eq 'xv') {
+            $seen_example = $self->add_example($entry, $txt, $seen_pos);
+          }
+          push @{$entry->{record}}, [$marker, $txt];
         }
-        push @{$entry->{record}}, [$marker, $txt];
       }
     }
-    use Data::Dumper;
-    say Dumper($entry);
-    die;
 
     $self->push_entry($entries, $entry);
   }
