@@ -39,7 +39,7 @@ sub normalize_headword {
 }
 
 sub normalize_ph {
-  my $txt = @_;
+  my ($txt) = @_;
   $txt =~ s/[][]//g;
   return $txt;
 }
