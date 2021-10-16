@@ -89,7 +89,7 @@ DELETE FROM sense
 USING entry
 WHERE sense.entry_id = entry.id AND entry.id = ?
 EOF
-        $db->query(<<'EOF', map({ $entry->{$_} } qw/headword headword_ipa headword_ph, root/), $record_id, $entry_id);
+        $db->query(<<'EOF', map({ $entry->{$_} } qw/headword headword_ipa headword_ph root/), $record_id, $entry_id);
 UPDATE entry
 SET headword = ?, headword_ipa = ?, headword_ph = ?, root = ?, record_id = ?
 WHERE id = ?
@@ -97,7 +97,7 @@ EOF
       } else {
         $entry_id = select_single($db, <<'EOF', $source_id, map({ $entry->{$_} } qw/headword headword_ipa headword_ph root/), $record_id);
 INSERT INTO entry (source_id, headword, headword_ipa, headword_ph, root, record_id)
-VALUES (?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?)
 RETURNING id
 EOF
       }
