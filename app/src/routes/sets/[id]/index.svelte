@@ -142,7 +142,7 @@
     try {
       promise = promises.pending.delete = crud.del('set', set.id);
       await promise;
-      goto('/');
+      goto('/sets');
     } catch (e) {}
     if (promise && promise === promises.pending.delete) {
       promises.pending.delete = null;
