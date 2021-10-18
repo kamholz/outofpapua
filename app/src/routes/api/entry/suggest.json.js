@@ -1,17 +1,17 @@
 import errors from '$lib/errors';
-import { arrayCmp, getLanguageIds, knex } from '$lib/db';
+import { arrayCmp, getLanguageIds, knex, setIds } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
   parseBooleanParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['id', 'lang', 'max', 'match', 'noset', 'search', 'set_id']);
+const allowed = new Set(['id', 'lang', 'linked', 'max', 'match', 'search', 'set_id']);
 const required = new Set(['match', 'search']);
-const boolean = new Set(['noset']);
+const boolean = new Set(['linked']);
 const arrayParams = new Set(['lang']);
 const nfc = new Set(['search']);
 const defaults = {
+  linked: false,
   max: 100,
-  noset: false,
 };
 
 export const get = requireAuth(async ({ query }) => {
@@ -25,7 +25,7 @@ export const get = requireAuth(async ({ query }) => {
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   ensureNfcParams(query, nfc);
-  const { match, max, noset, search } = { ...defaults, ...query };
+  const { linked, match, max, search } = { ...defaults, ...query };
   const mungedSearch = mungeRegex(search);
 
   const subq = knex('entry')
@@ -41,7 +41,7 @@ export const get = requireAuth(async ({ query }) => {
       .groupBy('entry.id');
   }
 
-  if (noset) {
+  if (!linked) {
     subq.whereNotExists(function () {
       this.select('*').from('set_member')
         .where('set_member.entry_id', knex.ref('entry.id'));
@@ -77,11 +77,14 @@ export const get = requireAuth(async ({ query }) => {
       'entry.headword',
       'entry.senses',
       'language.name as language_name',
-      'source.reference as source_reference',
-      knex.raw('exists (select from set_member sm where sm.entry_id = entry.id) as linked')
+      'source.reference as source_reference'
     )
     .orderBy('language.name', 'entry.headword_degr', 'entry.headword', 'source.reference')
     .limit(max);
+  if (linked) {
+    q.select(knex.raw(`${setIds('entry.id')} as set_ids`));
+  }
+  console.log(q.toString());
 
   try {
     return {

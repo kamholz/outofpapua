@@ -34,6 +34,7 @@
     <span>Headword:</span>
     <SuggestSetMember
       match="headword"
+      linked={false}
       {languages}
       set_id={set.id}
       on:select={handleAdd}
@@ -43,6 +44,7 @@
     <span>Gloss:</span>
     <SuggestSetMember
       match="gloss"
+      linked={false}
       {languages}
       set_id={set.id}
       on:select={handleAdd}

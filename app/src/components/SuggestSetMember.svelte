@@ -6,7 +6,7 @@
   import * as suggest from '$actions/suggest';
 
   export let match;
-  export let noset = false;
+  export let linked;
   export let languages = null;
   export let entry_id = null;
   export let set_id = null;
@@ -40,7 +40,7 @@
 
 <div>
   <Svelecte
-    fetch={(search) => suggest.setMember({ entry_id, languages, match, noset, search, set_id }, $preferences)}
+    fetch={(search) => suggest.setMember({ entry_id, languages, linked, match, search, set_id }, $preferences)}
     labelField="headword"
     searchField="headword"
     valueField="id"

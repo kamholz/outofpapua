@@ -138,6 +138,7 @@
           </div>
           <SuggestSetMember
             match="headword"
+            linked={true}
             entry_id={entry.id}
             on:select={handleSelectSetMember}
           />
@@ -148,6 +149,7 @@
           </div>
           <SuggestSetMember
             match="gloss"
+            linked={true}
             entry_id={entry.id}
             on:select={handleSelectSetMember}
           />

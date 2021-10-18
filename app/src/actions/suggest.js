@@ -63,7 +63,7 @@ export async function setAuthor(fetch) {
   return rows.map((row) => ({ id: row.id, name: row.fullname }));
 }
 
-export async function setMember({ entry_id, languages, match, noset, search, set_id }, preferences) {
+export async function setMember({ entry_id, languages, linked, match, search, set_id }, preferences) {
   const params = new URLSearchParams({ match, search });
   if (entry_id) {
     params.set('id', entry_id);
@@ -72,10 +72,10 @@ export async function setMember({ entry_id, languages, match, noset, search, set
     params.set('set_id', set_id);
   }
   if (languages) {
-   params.set('lang', serializeArrayParam(languages));
+    params.set('lang', serializeArrayParam(languages));
   }
-  if (noset) {
-    params.set('noset', '1');
+  if (linked) {
+    params.set('linked', 1);
   }
   const res = await fetch('/api/entry/suggest.json?' + params);
   if (!res.ok) {
