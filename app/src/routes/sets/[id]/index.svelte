@@ -245,7 +245,7 @@
   </div>
   <hr>
 
-  {#each members as member ([member.set.id, member.entry.id].join('|'))}
+  {#each members as member ([set.id, member.entry.id].join('|'))}
     <Member
       {member}
       {set}
