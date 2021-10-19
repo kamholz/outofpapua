@@ -5,6 +5,7 @@
   import Input from './_Input.svelte';
   import MemberReflex from './_MemberReflex.svelte';
   import OriginSummary from '$components/OriginSummary.svelte';
+  import Radios from './_Radios.svelte';
   import SetPopover from '$components/SetPopover.svelte';
   import SuggestSet from '$components/SuggestSet.svelte';
   import Svelecte from '$components/Svelecte.svelte';
@@ -26,16 +27,17 @@
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const promises = { pending: {}, fulfilled: {} };
-  const memberKeys = new Set(['note', 'reflex']);
+  const memberKeys = new Set(['note', 'reflex', 'reflex_origin']);
 
   const { entry, language, source } = member;
   const { senses } = entry;
-  const values = {
+  let values = {
     note: member.note,
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,
     origin_language_name: entry.origin_language_name,
     reflex: member.reflex,
+    reflex_origin: member.reflex_origin,
   };
   let editingProto = false;
   let protoValues;
@@ -284,48 +286,18 @@
         <li>
           <span>Origin:</span>
           {#if editable}
-            <span class="radios">
-              <label>
-                <input
-                  type="radio"
-                  value="inherited"
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>inherited</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="borrowed"
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>borrowed</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="mixed"
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>mixed</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value={null}
-                  disabled={promises.pending.origin}
-                  bind:group={values.origin}
-                  on:change={() => handleUpdate('origin')}
-                >
-                <span>unknown</span>
-              </label>
-            </span>
+            <Radios
+              key="origin"
+              bind:values
+              {handleUpdate}
+              {promises}
+              options={[
+                ['inherited', 'inherited'],
+                ['borrowed', 'borrowed'],
+                ['mixed', 'mixed'],
+                [null, 'unknown']
+              ]}
+            />
           {:else}
             <span>{originSummary(values)}</span>
           {/if}
@@ -342,6 +314,26 @@
                 on:change={() => handleUpdate('origin_language_id')}
               />
             </span>
+          </li>
+        {/if}
+        {#if entry.origin === 'mixed'}
+          <li transition:slide|local>
+            <span>Reflex origin:</span>
+            {#if editable}
+              <Radios
+                key="reflex_origin"
+                bind:values
+                {handleUpdate}
+                {promises}
+                options={[
+                  ['inherited', 'inherited'],
+                  ['borrowed', 'borrowed'],
+                  [null, 'unknown']
+                ]}
+              />
+            {:else}
+              <span>{values.reflex_origin}</span>
+            {/if}
           </li>
         {/if}
         {#if member.other_sets}
@@ -433,18 +425,6 @@
 
   textarea {
     inline-size: 100%;
-  }
-
-  .radios {
-    display: flex;
-    label {
-      margin-inline-end: 16px;
-      display: flex;
-      align-items: center;
-    }
-    input {
-      margin-inline-end: 4px;
-    }
   }
 
   .indented {

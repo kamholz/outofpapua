@@ -61,6 +61,11 @@
       } else {
         members = [].concat(...sets.map((set) => set.members.map((member) => ({ ...member, set_id: set.id }))));
       }
+      for (const { entry, reflex_origin } of members) {
+        if (entry.origin === 'mixed' && reflex_origin) {
+          entry.origin = reflex_origin;
+        }
+      }
     } else {
       members = entries.map((entry) => ({
         entry,

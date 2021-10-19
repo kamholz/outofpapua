@@ -3,7 +3,7 @@ import { getFilteredParams, validateParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 import { sendPgError, transaction } from '$lib/db';
 
-const allowed = new Set(['note', 'reflex']);
+const allowed = new Set(['note', 'reflex', 'reflex_origin']);
 
 export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);

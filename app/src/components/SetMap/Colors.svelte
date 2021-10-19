@@ -41,6 +41,10 @@
       <input type="color" bind:value={colors.origin.inherited} />
     </label>
     <label>
+      Mixed:
+      <input type="color" bind:value={colors.origin.mixed} />
+    </label>
+    <label>
       Unknown:
       <input type="color" bind:value={colors.origin.unknown} />
     </label>
