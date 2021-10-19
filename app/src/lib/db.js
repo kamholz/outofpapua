@@ -194,10 +194,13 @@ export function filterGlosslang(query, rows, filterCompareEntries) {
 export async function getLanguageIds(param) {
   const [lang, langPlus] = partitionPlus(param);
   if (langPlus.length) {
+    const langPlusUniq = [...new Set(langPlus)];
+    lang.push(...langPlusUniq);
     const descendants = (await knex('language')
-      .where('id', arrayCmp(new Set(langPlus)))
+      .where('id', arrayCmp(langPlusUniq))
       .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants')))
-      .map((v) => v.descendants);
+      .map((v) => v.descendants)
+      .filter((v) => v);
     for (const d of descendants) {
       lang.push(...d);
     }
