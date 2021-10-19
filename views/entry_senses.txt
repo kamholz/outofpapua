@@ -4,7 +4,6 @@ SELECT entry.id,
     json_build_object(
       'id', sense.id,
       'pos', sense.pos,
-      'note', sense.note,
       'glosses', sense.glosses
     ) ORDER BY sense.seq
   ) FILTER (WHERE sense.id IS NOT NULL), '[]'::json) AS senses

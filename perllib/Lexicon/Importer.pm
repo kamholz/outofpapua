@@ -45,6 +45,9 @@ sub import_lexicon {
       $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
     }
 
+    $db->query('ALTER TABLE sense_gloss DISABLE TRIGGER update_sense_glosses');
+    $db->query('ALTER TABLE sense DISABLE TRIGGER update_entry_senses');
+
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
       die 'source entries already exist, aborting' unless $action =~ /^(?:update|overwrite)$/;
       if ($action eq 'overwrite') {
@@ -171,8 +174,22 @@ WHERE entry.source_id = ? AND entry.id != ALL(?)
 EOF
     }
 
+    $db->query(<<'EOF', $source_id);
+UPDATE sense SET glosses = sg.glosses
+FROM sense_glosses sg, entry
+WHERE sense.id = sg.id AND sense.entry_id = entry.id AND entry.source_id = ?
+EOF
+    $db->query(<<'EOF', $source_id);
+UPDATE entry SET senses = sg.glosses
+FROM entry_senses es
+WHERE entry.id = es.id AND entry.source_id = ?
+EOF
+
+    $db->query('ALTER TABLE sense_gloss ENABLE TRIGGER update_sense_glosses');
+    $db->query('ALTER TABLE sense ENABLE TRIGGER update_entry_senses');
+
     $tx->commit;
-    say "imported successfully";
+    say 'imported successfully';
   } catch {
     say "failed: $_";
   };

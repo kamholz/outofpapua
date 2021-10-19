@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW entry_details AS
 SELECT
   entry.id,
   origin_language.name AS origin_language_name,
-  es.senses,
+  entry.senses,
   json_build_object(
     'id', source.id,
     'reference', source.reference,
@@ -18,7 +18,6 @@ SELECT
     'ancestor_name', ancestor_language.name
   ) AS language
 FROM entry
-JOIN entry_senses es ON es.id = entry.id
 JOIN source ON source.id = entry.source_id
 JOIN language ON language.id = source.language_id
 LEFT JOIN protolanguage ON protolanguage.id = language.id
@@ -30,7 +29,7 @@ CREATE OR REPLACE VIEW entry_details_public AS
 SELECT
   entry.id,
   origin_language.name AS origin_language_name,
-  es.senses,
+  entry.senses,
   json_build_object(
     'id', source.id,
     'reference', source.reference,
@@ -46,7 +45,6 @@ SELECT
     'ancestor_name', ancestor_language.name
   ) AS language
 FROM entry
-JOIN entry_senses es ON es.id = entry.id
 JOIN source ON source.id = entry.source_id
 JOIN language ON language.id = source.language_id
 LEFT JOIN protolanguage ON protolanguage.id = language.id
