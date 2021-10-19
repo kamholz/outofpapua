@@ -332,7 +332,8 @@
             <span>Other sets:</span>
             <span>
               {#if member.other_sets}
-                {#each member.other_sets as { id, name } (id)}
+                {#each member.other_sets as { id, name }, i (id)}
+                  {#if i > 0},&nbsp;{/if}
                   <SetPopover {id}>
                     <a href="/sets/{id}" sveltekit:prefetch>{name ?? id}</a>
                   </SetPopover>
