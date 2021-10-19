@@ -108,6 +108,16 @@
             <label>
               <input
                 type="radio"
+                value="mixed"
+                disabled={promises.pending.origin}
+                bind:group={values.origin}
+                on:change={() => handleUpdate('origin')}
+              >
+              <span>mixed</span>
+            </label>
+            <label>
+              <input
+                type="radio"
                 value={null}
                 disabled={promises.pending.origin}
                 bind:group={values.origin}

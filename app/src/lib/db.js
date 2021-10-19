@@ -102,7 +102,7 @@ export function applyEntrySearchParams(q, query) {
     });
   }
 
-  if (query.origin === 'inherited' || query.origin === 'borrowed') {
+  if (query.origin === 'inherited' || query.origin === 'borrowed' || query.origin === 'mixed') {
     q.where('entry.origin', query.origin);
     if (query.origin === 'borrowed' && query.borrowlang) {
       q.where('entry.origin_language_id', arrayCmp(query.borrowlang));

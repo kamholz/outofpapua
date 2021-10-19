@@ -39,6 +39,7 @@
       options: [
         { label: 'Inherited', value: 'inherited' },
         { label: 'Borrowed', value: 'borrowed' },
+        { label: 'Mixed', value: 'mixed' },
         { label: 'Unknown', value: 'unknown' },
         { label: 'All', value: 'all' },
       ],

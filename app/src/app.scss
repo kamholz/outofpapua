@@ -98,14 +98,21 @@ form {
 }
 
 .borrowed {
-  color: crimson;
+  color: #dc143c; // crimson
   a {
     color: inherit;
   }
 }
 
 .inherited {
-  color: purple;
+  color: #800080; // purple
+  a {
+    color: inherit;
+  }
+}
+
+.mixed {
+  color: #006400; // dark green
   a {
     color: inherit;
   }

@@ -30,6 +30,7 @@
     origin: {
       borrowed: '#dc143c',
       inherited: '#800080',
+      mixed: '#006400',
       unknown: '#000000',
     },
   };
