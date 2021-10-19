@@ -167,6 +167,26 @@
     }
     $pageLoading--;
   }
+
+  async function handleToggleMultiSet() {
+    $pageLoading++;
+    let promise;
+    try {
+      const multi_set = !member.multi_set;
+      promise = promises.pending.multiset = crud.update('entry', {
+        id: entry.id,
+        values: { multi_set },
+      });
+      await promise;
+      member.multi_set = multi_set;
+    } catch (e) {}
+
+    if (promise && promise === promises.pending.multiset) {
+      promises.pending.multiset = null;
+      promises.fulfilled.multiset = promise;
+    }
+    $pageLoading--;
+  }
 </script>
 
 {#if !collapsed}
@@ -199,6 +219,9 @@
     <div class="details" transition:slide|local={{ duration: 200 }}>
       {#if editable}
         <div class="controls">
+          <span class="multiple" on:click={handleToggleMultiSet}>
+            Multi-set: {member.multi_set ? 'yes' : 'no'}
+          </span>
           {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
             <span title="Choose for set name" on:click={handleNameEntry}>
               <Icon data={faStar} />
@@ -269,6 +292,16 @@
               <label>
                 <input
                   type="radio"
+                  value="mixed"
+                  disabled={promises.pending.origin}
+                  bind:group={values.origin}
+                  on:change={() => handleUpdate('origin')}
+                >
+                <span>mixed</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
                   value={null}
                   disabled={promises.pending.origin}
                   bind:group={values.origin}
@@ -322,6 +355,18 @@
 
   .controls {
     float: right;
+
+    .multiple {
+      font-size: 14px;
+      margin-inline-end: 4px;
+      position: relative;
+      top: 2px;
+      cursor: default;
+      &:hover {
+        color: #aaa;
+      }
+    }
+
     :global(.fa-icon) {
       margin-inline: 7px 2px;
     }

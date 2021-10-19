@@ -220,7 +220,12 @@ function formatPgError(e) {
     case '23502': // not_null_violation
       return `"${e.column}" value cannot be empty`;
     case '23505': // unique_violation
-      return 'value already exists elsewhere, must be unique';
+      switch (e.constraint) {
+        case 'set_member_entry_id_idx':
+          return 'entry currently belongs to multiple sets';
+        default:
+          return 'value already exists elsewhere, must be unique';
+      }
     case '23514': // check_violation
     case 'P0001': // raise_exception
       switch (e.constraint) {

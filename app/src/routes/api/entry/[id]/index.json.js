@@ -4,7 +4,7 @@ import { isEditable, nfc } from '../_params';
 import { knex, sendPgError, transaction } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-const allowedAll = new Set(['headword_ipa', 'origin', 'origin_language_id', 'root']);
+const allowedAll = new Set(['multi_set', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
 export const get = validateParams(async ({ locals, params }) => {
