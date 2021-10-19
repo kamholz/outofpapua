@@ -10,7 +10,7 @@ const defaults = {
   max: 100,
 };
 
-const nameExpr = "coalesce(sna.name_auto->>'txt', set.id::text)";
+const name_auto = "coalesce(sna.name_auto->>'txt', set.id::text)";
 
 export const get = requireAuth(async ({ query }) => {
   query = getFilteredParams(normalizeQuery(query), allowed);
@@ -21,8 +21,8 @@ export const get = requireAuth(async ({ query }) => {
   const { max, search } = { ...defaults, ...query };
   const q = knex('set')
     .join('set_name_auto as sna', 'sna.id', 'set.id')
-    .where(knex.raw(nameExpr), '~*', mungeRegex(search))
-    .select('set.id', knex.raw(`${nameExpr} as name`))
+    .where(knex.raw(name_auto), '~*', mungeRegex(search))
+    .select('set.id', knex.raw(`${name_auto} as name`))
     .orderBy(knex.raw("set.name_auto ->> 'txt'"))
     .orderBy(knex.raw("lpad(set.id::text, 10, '0')"))
     .limit(max);

@@ -21,7 +21,7 @@ SELECT
     nullif(array(
       SELECT json_build_object(
         'id', set.id,
-        'name', sna.name_auto->>'txt'
+        'name', coalesce(sna.name_auto->>'txt', set.id::text)
       )
       FROM set
       JOIN set_name_auto sna ON sna.id = set.id
@@ -58,7 +58,7 @@ SELECT
     nullif(array(
       SELECT json_build_object(
         'id', set.id,
-        'name', sna.name_auto->>'txt'
+        'name', coalesce(sna.name_auto->>'txt', set.id::text)
       )
       FROM set
       JOIN set_name_auto sna ON sna.id = set.id
