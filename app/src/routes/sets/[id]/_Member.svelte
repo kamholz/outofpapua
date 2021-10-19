@@ -221,9 +221,6 @@
     <div class="details" transition:slide|local={{ duration: 200 }}>
       {#if editable}
         <div class="controls">
-          <span class="multiple" on:click={handleToggleMultiSet}>
-            Multi-set: {member.multi_set ? 'yes' : 'no'}
-          </span>
           {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
             <span title="Choose for set name" on:click={handleNameEntry}>
               <Icon data={faStar} />
@@ -330,15 +327,25 @@
             </span>
           </li>
         {/if}
-        {#if editable && member.multi_set}
+        {#if editable || member.other_sets}
           <li>
             <span>Other sets:</span>
             <span>
-              {#each member.other_sets as { id, name } (id)}
-                <SetPopover {id}>
-                  <a href="/sets/{id}" sveltekit:prefetch>{name ?? id}</a>
-                </SetPopover>
-              {/each}
+              {#if member.other_sets}
+                {#each member.other_sets as { id, name } (id)}
+                  <SetPopover {id}>
+                    <a href="/sets/{id}" sveltekit:prefetch>{name ?? id}</a>
+                  </SetPopover>
+                {/each}
+              {:else}
+                <button type="button" on:click={handleToggleMultiSet}>
+                  {#if member.multi_set}
+                    Make Single-set
+                  {:else}
+                    Make Multi-set
+                  {/if}
+                </button>
+              {/if}
             </span>
             <!-- <SuggestSet
               set_id={set.id}
@@ -375,18 +382,6 @@
 
   .controls {
     float: right;
-
-    .multiple {
-      font-size: 14px;
-      margin-inline-end: 4px;
-      position: relative;
-      top: 2px;
-      cursor: default;
-      &:hover {
-        color: #aaa;
-      }
-    }
-
     :global(.fa-icon) {
       margin-inline: 7px 2px;
     }

@@ -5,7 +5,7 @@
   import keydown from '$lib/keydown';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { faEdit } from '@fortawesome/free-solid-svg-icons';
+  import { faRegistered } from '@fortawesome/free-solid-svg-icons';
   import { normalizeParam } from '$lib/util';
   import { tick } from 'svelte';
 
@@ -43,7 +43,7 @@
     use:keydown={{ enter: save, esc: () => editing = false }}
   >{deriveReflex(reflex)}</span>
 {:else}
-  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex {reflex} headword={entry.headword} /></span></EntryLink>{#if editable}<span title="Edit reflex" on:click={handleClick}><Icon data={faEdit} /></span>{/if}
+  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex {reflex} headword={entry.headword} /></span></EntryLink>{#if editable}<span class="icon" title="Edit reflex" on:click={handleClick}><Icon data={faRegistered} /></span>{/if}
 {/if}
 
 <style lang="scss">
@@ -55,5 +55,9 @@
       padding-inline: 4px;
       font-style: normal;
     }
+  }
+
+  .icon {
+    vertical-align: middle;
   }
 </style>
