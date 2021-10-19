@@ -140,10 +140,9 @@ form {
 
   .sv-dropdown {
     overflow-wrap: anywhere;
-  }
-
-  .sv-item > div {
-    white-space: normal;
-    @include indent-small;
+    .sv-item > div {
+      white-space: normal;
+      @include indent-small;
+    }
   }
 }

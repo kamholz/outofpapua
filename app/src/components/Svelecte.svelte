@@ -1,6 +1,7 @@
 <script>
   import Svelecte from '$lib/svelecte';
 
+  export let name = null;
   export let options;
   export let value = null;
   export let selection = null;
@@ -11,6 +12,7 @@
 </script>
 
 <Svelecte
+  {name}
   {options}
   {multiple}
   {disabled}

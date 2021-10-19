@@ -21,7 +21,7 @@
       name: 'lang2',
       label: 'Language(s) 2',
       type: 'suggestMulti',
-      options: langSuggest.map(({ id, name }) => ({ id, name })), // fixme
+      options: langSuggest,
     },
     {
       name: 'gloss',
