@@ -1,6 +1,7 @@
 CREATE OR REPLACE VIEW set_member_with_details AS
 SELECT
   set_member.set_id,
+  set_member.multi_set,
   set_member.note,
   set_member.reflex,
   json_build_object(
@@ -23,6 +24,7 @@ JOIN entry_with_details ed ON ed.id = set_member.entry_id
 CREATE OR REPLACE VIEW set_member_with_details_public AS
 SELECT
   set_member.set_id,
+  set_member.multi_set,
   set_member.note,
   set_member.reflex,
   json_build_object(

@@ -7,6 +7,7 @@ SELECT set.id,
   (SELECT name_auto FROM set_name_auto sna WHERE sna.id = set.id) AS name_auto,
   coalesce(json_agg(
     json_build_object(
+      'multi_set', smd.multi_set,
       'note', smd.note,
       'reflex', smd.reflex,
       'entry', smd.entry,
@@ -30,6 +31,7 @@ SELECT set.id,
   (SELECT name_auto FROM set_name_auto_public sna WHERE sna.id = set.id) AS name_auto,
   coalesce(json_agg(
     json_build_object(
+      'multi_set', smd.multi_set,
       'note', smd.note,
       'reflex', smd.reflex,
       'entry', smd.entry,
