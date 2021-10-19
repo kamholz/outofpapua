@@ -10,7 +10,6 @@
 
   function handleSelect() {
     if (selection) {
-      console.log(selection);
       dispatch('select', selection);
       selection = null;
     }

@@ -189,6 +189,23 @@
     }
     $pageLoading--;
   }
+
+  async function handleLink(e) {
+    const { id } = e.detail;
+    $pageLoading++;
+    let promise;
+    try {
+      promise = promises.pending.link = crudSetMember.create({ set_id: id, values: { entry_id: entry.id } });
+      await promise;
+      dispatch('refresh');
+    } catch (e) {}
+
+    if (promise && promise === promises.pending.link) {
+      promises.pending.link = null;
+      promises.fulfilled.link = promise;
+    }
+    $pageLoading--;
+  }
 </script>
 
 {#if !collapsed}
@@ -331,12 +348,7 @@
           <li>
             <span>Other sets:</span>
             <span>
-              {#each member.other_sets as { id, name }, i (id)}
-                {#if i > 0},&nbsp;{/if}
-                <SetPopover {id}>
-                  <a href="/sets/{id}" sveltekit:prefetch>{name}</a>
-                </SetPopover>
-              {/each}
+              {#each member.other_sets as { id, name }, i (id)}{#if i > 0}, {/if}<SetPopover {id}>{name}</SetPopover>{/each}
             </span>
           </li>
         {:else if editable}
@@ -361,11 +373,10 @@
               <SuggestSet
                 set_id={set.id}
                 entry_id={entry.id}
+                on:select={handleLink}
               />
             </span>
           </li>
-            <!-- bind:value={values.origin_language_id}
-            on:change={() => handleUpdate('origin_language_id')} -->
         {/if}
         {#if editable}
           <li>
