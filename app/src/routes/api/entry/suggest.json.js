@@ -84,7 +84,6 @@ export const get = requireAuth(async ({ query }) => {
   if (linked) {
     q.select(knex.raw(`${setIds('entry.id')} as set_ids`));
   }
-  console.log(q.toString());
 
   try {
     return {

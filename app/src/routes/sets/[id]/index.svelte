@@ -41,6 +41,7 @@
   import { getContext, setContext } from 'svelte';
   import { modal, pageLoading } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
+  import { writable } from 'svelte/store';
 
   export let set;
   export let borrowlangSuggest = null;
@@ -62,6 +63,9 @@
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
+
+  const setSummaryCache = writable({});
+  setContext('setSummaryCache', setSummaryCache);
 
   $: ({ members } = set);
   $: collapsedMembers = Object.fromEntries(

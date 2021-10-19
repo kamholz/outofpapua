@@ -5,6 +5,8 @@
   import Input from './_Input.svelte';
   import MemberReflex from './_MemberReflex.svelte';
   import OriginSummary from '$components/OriginSummary.svelte';
+  import SetPopover from '$components/SetPopover.svelte';
+  import SuggestSet from '$components/SuggestSet.svelte';
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -328,6 +330,24 @@
             </span>
           </li>
         {/if}
+        {#if editable && member.multi_set}
+          <li>
+            <span>Other sets:</span>
+            <span>
+              {#each member.other_sets as { id, name } (id)}
+                <SetPopover {id}>
+                  <a href="/sets/{id}" sveltekit:prefetch>{name ?? id}</a>
+                </SetPopover>
+              {/each}
+            </span>
+            <!-- <SuggestSet
+              set_id={set.id}
+              entry_id={entry.id}
+            /> -->
+            <!-- bind:value={values.origin_language_id}
+            on:change={() => handleUpdate('origin_language_id')} -->
+          </li>
+        {/if}
         {#if editable}
           <li>
             <span>Notes:</span>
@@ -381,7 +401,7 @@
 
     > :first-child {
       flex-shrink: 0;
-      inline-size: 5.5em;
+      inline-size: 5.75em;
     }
   }
 

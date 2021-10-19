@@ -90,7 +90,7 @@
   function handleChange(e) {
     if (e.target.name === 'origin') {
       fields[5].hide = e.target.value !== 'borrowed';
-      if (!fields[5].hide && !selections.borrowlang?.length) {
+      if (!fields[5].hide && !selections.borrowlang?.length) { // fixme
         selections.borrowlang = null;
       }
     }

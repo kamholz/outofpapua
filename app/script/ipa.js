@@ -82,11 +82,3 @@ function matchHeadwordPh(entry) {
     return [headword_ph, { ph: true }];
   }
 }
-
-function degr(txt) {
-  return txt.normalize('NFD')
-    .replace(/\p{M}|[ˌˈ=-]/gu, '')
-    .replace(/ɡ/g, 'g')
-    .replace(/ɛ/g, 'e')
-    .replace(/ɔ/g, 'o');
-}

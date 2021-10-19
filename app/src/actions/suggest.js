@@ -54,6 +54,21 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
+export async function set({ entry_id, search, set_id }) {
+  const params = new URLSearchParams({ search });
+  if (entry_id) {
+    params.set('entry_id', entry_id);
+  }
+  if (set_id) {
+    params.set('id', set_id);
+  }
+  const res = await fetch('/api/set/suggest.json?' + params);
+  if (!res.ok) {
+    return null;
+  }
+  return (await res.json()).rows;
+}
+
 export async function setAuthor(fetch) {
   const res = await fetch('/api/set/author.json');
   if (!res.ok) {

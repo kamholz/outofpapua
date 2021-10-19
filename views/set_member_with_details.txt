@@ -16,7 +16,21 @@ SELECT
     'senses', ed.senses
   ) AS entry,
   ed.source,
-  ed.language
+  ed.language,
+  (CASE WHEN set_member.multi_set IS FALSE THEN NULL ELSE (
+    nullif(array(
+      SELECT json_build_object(
+        'id', set.id,
+        'name', sna.name_auto->>'txt'
+      )
+      FROM set
+      JOIN set_name_auto sna ON sna.id = set.id
+      WHERE set.id != set_member.set_id AND EXISTS (
+        SELECT FROM set_member sm WHERE sm.set_id = set.id AND sm.entry_id = set_member.entry_id
+      )
+      ORDER BY sna.name_auto->>'txt', lpad(set.id::text, 10, '0')
+    ), '{}')
+  ) END) AS other_sets
 FROM set_member
 JOIN entry_with_details ed ON ed.id = set_member.entry_id
 ;
@@ -39,7 +53,21 @@ SELECT
     'senses', ed.senses
   ) AS entry,
   ed.source,
-  ed.language
+  ed.language,
+  (CASE WHEN set_member.multi_set IS FALSE THEN NULL ELSE (
+    nullif(array(
+      SELECT json_build_object(
+        'id', set.id,
+        'name', sna.name_auto->>'txt'
+      )
+      FROM set
+      JOIN set_name_auto sna ON sna.id = set.id
+      WHERE set.id != set_member.set_id AND EXISTS (
+        SELECT FROM set_member sm WHERE sm.set_id = set.id AND sm.entry_id = set_member.entry_id
+      )
+      ORDER BY sna.name_auto->>'txt', lpad(set.id::text, 10, '0')
+    ), '{}')
+  ) END) AS other_sets
 FROM set_member
 JOIN entry_with_details_public ed ON ed.id = set_member.entry_id
 ;
