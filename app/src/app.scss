@@ -137,4 +137,13 @@ form {
   .sv-control:not(.is-active) {
     border: 1px solid #767676 !important;
   }
+
+  .sv-dropdown {
+    overflow-wrap: anywhere;
+  }
+
+  .sv-item > div {
+    white-space: normal;
+    @include indent-small;
+  }
 }

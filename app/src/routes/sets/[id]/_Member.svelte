@@ -313,10 +313,10 @@
             <span>{originSummary(values)}</span>
           {/if}
         </li>
-        {#if entry.origin === 'borrowed' && editable}
+        {#if editable && entry.origin === 'borrowed'}
           <li transition:slide|local>
             <span></span>
-            <span class="originlang">
+            <span class="indented">
               <span class="label">Language:</span>
               <Svelecte
                 options={borrowlangSuggest.filter((v) => v.id !== language.id)}
@@ -327,34 +327,45 @@
             </span>
           </li>
         {/if}
-        {#if editable || member.other_sets}
+        {#if member.other_sets}
           <li>
             <span>Other sets:</span>
             <span>
-              {#if member.other_sets}
-                {#each member.other_sets as { id, name }, i (id)}
-                  {#if i > 0},&nbsp;{/if}
-                  <SetPopover {id}>
-                    <a href="/sets/{id}" sveltekit:prefetch>{name}</a>
-                  </SetPopover>
-                {/each}
-              {:else}
-                <button type="button" on:click={handleToggleMultiSet}>
-                  {#if member.multi_set}
-                    Make Single-set
-                  {:else}
-                    Make Multi-set
-                  {/if}
-                </button>
-              {/if}
+              {#each member.other_sets as { id, name }, i (id)}
+                {#if i > 0},&nbsp;{/if}
+                <SetPopover {id}>
+                  <a href="/sets/{id}" sveltekit:prefetch>{name}</a>
+                </SetPopover>
+              {/each}
             </span>
-            <!-- <SuggestSet
-              set_id={set.id}
-              entry_id={entry.id}
-            /> -->
+          </li>
+        {:else if editable}
+          <li>
+            <span>Other sets:</span>
+            <span>
+              <button type="button" on:click={handleToggleMultiSet}>
+                {#if member.multi_set}
+                  Make Single-set
+                {:else}
+                  Make Multi-set
+                {/if}
+              </button>
+            </span>
+          </li>
+        {/if}
+        {#if editable && member.multi_set}
+          <li transition:slide|local>
+            <span></span>
+            <span class="indented">
+              <span class="label">Add to set:</span>
+              <SuggestSet
+                set_id={set.id}
+                entry_id={entry.id}
+              />
+            </span>
+          </li>
             <!-- bind:value={values.origin_language_id}
             on:change={() => handleUpdate('origin_language_id')} -->
-          </li>
         {/if}
         {#if editable}
           <li>
@@ -425,7 +436,7 @@
     }
   }
 
-  .originlang {
+  .indented {
     display: flex;
     align-items: center;
 
@@ -434,7 +445,7 @@
     }
 
     :global(.svelecte-control .sv-control) {
-      inline-size: 16em;
+      inline-size: 24em;
     }
   }
 </style>

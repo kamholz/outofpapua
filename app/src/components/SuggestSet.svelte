@@ -17,36 +17,14 @@
   }
 </script>
 
-<div>
-  <Svelecte
-    fetch={(search) => suggest.set({ entry_id, search, set_id })}
-    labelField="name"
-    searchField="name"
-    valueField="id"
-    clearable
-    searchable
-    placeholder=""
-    bind:selection
-    on:change={handleSelect}
-  />
-</div>
-
-<style lang="scss">
-  div {
-    width: 100%;
-
-  //   :global {
-  //     .suggest {
-  //       white-space: normal;
-
-  //       > div {
-  //         @include indent-small;
-  //       }
-  //     }
-
-  //     .sv-dropdown {
-  //       overflow-wrap: anywhere;
-  //     }
-  //   }
-  }
-</style>
+<Svelecte
+  fetch={(search) => suggest.set({ entry_id, search, set_id })}
+  labelField="name"
+  searchField="name"
+  valueField="id"
+  clearable
+  searchable
+  placeholder=""
+  bind:selection
+  on:change={handleSelect}
+/>

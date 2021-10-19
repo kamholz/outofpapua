@@ -64,15 +64,6 @@
         display: grid;
         grid-template-columns: 35% 65%;
         gap: 6px;
-        white-space: normal;
-
-        > div {
-          @include indent-small;
-        }
-      }
-
-      .sv-dropdown {
-        overflow-wrap: anywhere;
       }
     }
   }
