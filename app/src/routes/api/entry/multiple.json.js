@@ -18,7 +18,8 @@ export async function get({ locals, query }) {
     return { status: 400, body: { error: `cannot request more than ${pageMax} entries` } };
   }
 
-  const q = knex(`${showPublicOnly(locals) ? 'entry_with_details_public' : 'entry_with_details'} as entry`)
+  const q = knex('entry')
+    .join(`${showPublicOnly(locals) ? 'entry_details_public' : 'entry_details'} as ed`, 'ed.ed', 'entry.id')
     .where('entry.id', arrayCmp(query.ids))
     .select(
       'entry.id',
@@ -27,11 +28,11 @@ export async function get({ locals, query }) {
       'entry.root',
       'entry.origin',
       'entry.origin_language_id',
-      'entry.origin_language_name',
+      'ed.origin_language_name',
       'entry.record_id',
-      'entry.senses',
-      'entry.source',
-      'entry.language'
+      'ed.senses',
+      'ed.source',
+      'ed.language'
     );
 
   return {

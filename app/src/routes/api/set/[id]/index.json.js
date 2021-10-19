@@ -6,16 +6,17 @@ import { requireAuth } from '$lib/auth';
 
 export const get = validateParams(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
-  const row = await knex(`${publicOnly ? 'set_with_members_public' : 'set_with_members'} as set`)
+  const row = await knex('set')
+    .join(`${publicOnly ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id')
     .where('set.id', params.id)
     .first(
       'set.id',
       'set.author_id',
-      'set.author_name',
+      'sd.author_name',
       'set.name',
       knex.raw(name_auto),
       'set.note',
-      'set.members'
+      'sd.members'
     );
   if (row) {
     return { body: row };

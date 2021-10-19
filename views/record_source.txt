@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW record_source AS
+SELECT 
+  record.id,
+  s.source_id
+FROM record
+LEFT JOIN LATERAL (
+  SELECT entry.source_id
+  FROM entry
+  WHERE entry.record_id = record.id
+  LIMIT 1
+) s ON true;

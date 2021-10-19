@@ -69,13 +69,14 @@ export const get = requireAuth(async ({ query }) => {
 
   const q = knex
     .from(subq.as('found'))
-    .join('entry_with_senses as entry', 'entry.id', 'found.id')
+    .join('entry', 'entry.id', 'found.id')
+    .join('entry_senses as es', 'es.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
     .select(
       'entry.id',
       'entry.headword',
-      'entry.senses',
+      'es.senses',
       'language.name as language_name',
       'source.reference as source_reference'
     )

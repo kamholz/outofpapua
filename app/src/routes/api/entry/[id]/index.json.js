@@ -9,7 +9,8 @@ const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
 export const get = validateParams(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
-  const q = knex(`${publicOnly ? 'entry_with_details_public' : 'entry_with_details'} as entry`)
+  const q = knex('entry')
+    .join(`${publicOnly ? 'entry_details_public' : 'entry_details'} as ed`, 'ed.id', 'entry.id')
     .where('entry.id', params.id)
     .first(
       'entry.id',
@@ -18,11 +19,11 @@ export const get = validateParams(async ({ locals, params }) => {
       'entry.root',
       'entry.origin',
       'entry.origin_language_id',
-      'entry.origin_language_name',
+      'ed.origin_language_name',
       'entry.record_id',
-      'entry.senses',
-      'entry.source',
-      'entry.language'
+      'ed.senses',
+      'ed.source',
+      'ed.language'
     );
   const row = await q;
   if (row) {

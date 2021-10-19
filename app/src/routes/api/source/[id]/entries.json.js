@@ -19,7 +19,7 @@ const defaults = {
 const sortCols = {
   headword: ['entry.headword_degr', 'entry.headword'],
   headword_ipa: 'entry.headword_ipa',
-  senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
+  senses: "lower(es.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
 export const get = validateParams(async ({ locals, params, query }) => {
@@ -49,7 +49,8 @@ export const get = validateParams(async ({ locals, params, query }) => {
 
   const q = knex
     .from(subq.as('found'))
-    .join('entry_with_senses as entry', 'entry.id', 'found.id')
+    .join('entry', 'entry.id', 'found.id')
+    .join('entry_senses as es', 'es.id', 'found.id')
     .join('source', 'source.id', 'entry.source_id')
     .join('language', 'language.id', 'source.language_id')
     .leftJoin('language as origin_language', 'origin_language.id', 'entry.origin_language_id');
@@ -63,7 +64,7 @@ export const get = validateParams(async ({ locals, params, query }) => {
     'entry.origin',
     'entry.origin_language_id',
     'origin_language.name as origin_language_name',
-    'entry.senses',
+    'es.senses',
     'entry.record_id',
     knex.raw(`${setIds('entry.id')} as set_ids`)
   );

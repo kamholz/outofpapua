@@ -100,7 +100,7 @@ export async function get({ locals, query }) {
     knex.from(subq.as('found'))
     .join('entry', 'entry.id', 'found.lang1_id')
     .leftJoin('entry as compare_entry', 'compare_entry.id', 'found.lang2_id')
-    .leftJoin('entry_with_senses as compare_es', 'compare_es.id', 'compare_entry.id')
+    .leftJoin('entry_senses as compare_es', 'compare_es.id', 'compare_entry.id')
     .leftJoin('source as compare_source', 'compare_source.id', 'compare_entry.source_id')
     .select(
       'found.lang1_id as entry_id',
@@ -114,7 +114,7 @@ export async function get({ locals, query }) {
     .as('found_with_compare')
   )
   .join('entry', 'entry.id', 'found_with_compare.entry_id')
-  .join('entry_with_senses as es', 'es.id', 'entry.id')
+  .join('entry_senses as es', 'es.id', 'entry.id')
   .join('source', 'source.id', 'entry.source_id')
   .leftJoin('language as compare_language', 'compare_language.id', 'found_with_compare.compare_language_id')
   .select(

@@ -1,48 +1,44 @@
-CREATE OR REPLACE VIEW set_with_members AS
+CREATE OR REPLACE VIEW set_details AS
 SELECT set.id,
-  set.author_id,
   usr.fullname as author_name,
-  set.name,
-  set.note,
   (SELECT name_auto FROM set_name_auto sna WHERE sna.id = set.id) AS name_auto,
   coalesce(json_agg(
     json_build_object(
-      'multi_set', smd.multi_set,
-      'note', smd.note,
+      'multi_set', set_member.multi_set,
+      'note', set_member.note,
       'other_sets', smd.other_sets,
-      'reflex', smd.reflex,
+      'reflex', set_member.reflex,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
     ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
-  ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
+  ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
-JOIN set_member_with_details smd ON smd.set_id = set.id
+JOIN set_member ON set_member.set_id = set.id
+JOIN set_member_details smd ON smd.set_id = set.id AND smd.entry_id = set_member.entry_id
 JOIN usr ON usr.id = set.author_id
 JOIN language ancestor_language ON ancestor_language.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname
 ;
 
-CREATE OR REPLACE VIEW set_with_members_public AS
+CREATE OR REPLACE VIEW set_details_public AS
 SELECT set.id,
-  set.author_id,
   usr.fullname as author_name,
-  set.name,
-  set.note,
   (SELECT name_auto FROM set_name_auto_public sna WHERE sna.id = set.id) AS name_auto,
   coalesce(json_agg(
     json_build_object(
-      'multi_set', smd.multi_set,
-      'note', smd.note,
+      'multi_set', set_member.multi_set,
+      'note', set_member.note,
       'other_sets', smd.other_sets,
-      'reflex', smd.reflex,
+      'reflex', set_member.reflex,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
     ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
-  ) FILTER (WHERE smd.set_id IS NOT NULL), '[]'::json) AS members
+  ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
-JOIN set_member_with_details_public smd ON smd.set_id = set.id
+JOIN set_member ON set_member.set_id = set.id
+JOIN set_member_details_public smd ON smd.set_id = set.id AND smd.entry_id = set_member.entry_id
 JOIN usr ON usr.id = set.author_id
 JOIN language ancestor_language ON ancestor_language.id = (smd.language->>'ancestor_id')::integer
 GROUP BY set.id, usr.fullname

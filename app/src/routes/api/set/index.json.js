@@ -18,7 +18,7 @@ const defaults = {
   sort: 'name',
 };
 const sortCols = {
-  name: ["set.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
+  name: ["sd.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
 };
 
 export async function get({ locals, query }) {
@@ -30,7 +30,8 @@ export async function get({ locals, query }) {
 
   const publicOnly = showPublicOnly(locals);
 
-  const q = knex(`${publicOnly ? 'set_with_members_public' : 'set_with_members'} as set`);
+  const q = knex('set')
+    .join(`${publicOnly ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id');
 
   const existsq = knex('set_member')
     .where('set_member.set_id', knex.ref('set.id'))
@@ -81,11 +82,11 @@ export async function get({ locals, query }) {
   q.select(
     'set.id',
     'set.author_id',
-    'set.author_name',
+    'sd.author_name',
     'set.name',
     knex.raw(name_auto),
     'set.note',
-    'set.members'
+    'sd.members'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);

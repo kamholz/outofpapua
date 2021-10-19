@@ -1,13 +1,5 @@
-CREATE OR REPLACE VIEW entry_with_senses AS
+CREATE OR REPLACE VIEW entry_senses AS
 SELECT entry.id,
-  entry.source_id,
-  entry.headword,
-  entry.headword_degr,
-  entry.headword_ipa,
-  entry.root,
-  entry.origin,
-  entry.origin_language_id,
-  entry.record_id,
   coalesce(json_agg(
     json_build_object(
       'id', sense.id,

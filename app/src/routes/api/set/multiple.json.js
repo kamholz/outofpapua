@@ -18,16 +18,17 @@ export async function get({ locals, query }) {
     return { status: 400, body: { error: `cannot request more than ${pageMax} sets` } };
   }
 
-  const q = knex(`${showPublicOnly(locals) ? 'set_with_members_public' : 'set_with_members'} as set`)
+  const q = knex('set')
+    .join(`${showPublicOnly(locals) ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id')
     .where('set.id', arrayCmp(query.ids))
     .select(
       'set.id',
       'set.author_id',
-      'set.author_name',
+      'sd.author_name',
       'set.name',
       knex.raw(name_auto),
       'set.note',
-      'set.members'
+      'sd.members'
     );
 
   return {
