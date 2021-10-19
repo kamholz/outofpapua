@@ -196,120 +196,122 @@
     {/if}
   </div>
   {#if !collapsed}
-    <ul class="details" transition:slide|local={{ duration: 200 }}>
-      {#if senses.length === 1}
-        <li>
-          <span>Glosses:</span>
-          {#if editingProto}
-            <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
-          {:else}
-            <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
-          {/if}
-        </li>
-      {:else}
-        {#each entry.senses as sense, i (sense.id)}
-          <li>
-            {#if i === 0}
-              <span>Glosses:</span>
-            {:else}
-              <span></span>
-            {/if}
-            <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
-          </li>
-        {/each}
-      {/if}
-      <li>
-        <span>Origin:</span>
-        {#if editable}
-          <span class="radios">
-            <label>
-              <input
-                type="radio"
-                value="inherited"
-                disabled={promises.pending.origin}
-                bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
-              >
-              <span>inherited</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="borrowed"
-                disabled={promises.pending.origin}
-                bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
-              >
-              <span>borrowed</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                value={null}
-                disabled={promises.pending.origin}
-                bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
-              >
-              <span>unknown</span>
-            </label>
-          </span>
-        {:else}
-          <span>{originSummary(values)}</span>
-        {/if}
-      </li>
-      {#if entry.origin === 'borrowed' && editable}
-        <li transition:slide|local>
-          <span></span>
-          <span class="originlang">
-            <span class="label">Language:</span>
-            <Svelecte
-              options={borrowlangSuggest.filter((v) => v.id !== language.id)}
-              disabled={promises.pending.origin_language_id}
-              bind:value={values.origin_language_id}
-              on:change={() => handleUpdate('origin_language_id')}
-            />
-          </span>
-        </li>
-      {/if}
+    <div class="details" transition:slide|local={{ duration: 200 }}>
       {#if editable}
-        <li>
-          <span>Notes:</span>
-          <textarea
-            disabled={promises.pending.note}
-            bind:value={values.note}
-            on:change={() => handleUpdate('note')}
-          />
-        </li>
-      {:else if values.note}
-        <li>
-          <span>Notes:</span>
-          <span>{values.note}</span>
-        </li>
-      {/if}
-    </ul>
-    {#if editable}
-      <div class="controls">
-        {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
-          <span title="Choose for set name" on:click={handleNameEntry}>
-            <Icon data={faStar} />
-          </span>
-        {/if}
-        {#if source.editable}
-          {#if editingProto}
-            <span title="Save proto-form" on:click={handleSaveProto}>
-              <Icon data={faCheckSquare} />
-            </span>
-          {:else}
-            <span title="Edit proto-form" on:click={handleEditProto}>
-              <Icon data={faEdit} />
+        <div class="controls">
+          {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
+            <span title="Choose for set name" on:click={handleNameEntry}>
+              <Icon data={faStar} />
             </span>
           {/if}
+          {#if source.editable}
+            {#if editingProto}
+              <span title="Save proto-form" on:click={handleSaveProto}>
+                <Icon data={faCheckSquare} />
+              </span>
+            {:else}
+              <span title="Edit proto-form" on:click={handleEditProto}>
+                <Icon data={faEdit} />
+              </span>
+            {/if}
+          {/if}
+          <span title="Delete" on:click={handleDelete}>
+            <Icon data={faTrash} />
+          </span>
+        </div>
+      {/if}
+      <ul>
+        {#if senses.length === 1}
+          <li>
+            <span>Glosses:</span>
+            {#if editingProto}
+              <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
+            {:else}
+              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+            {/if}
+          </li>
+        {:else}
+          {#each entry.senses as sense, i (sense.id)}
+            <li>
+              {#if i === 0}
+                <span>Glosses:</span>
+              {:else}
+                <span></span>
+              {/if}
+              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
+            </li>
+          {/each}
         {/if}
-        <span title="Delete" on:click={handleDelete}>
-          <Icon data={faTrash} />
-        </span>
-      </div>
-    {/if}
+        <li>
+          <span>Origin:</span>
+          {#if editable}
+            <span class="radios">
+              <label>
+                <input
+                  type="radio"
+                  value="inherited"
+                  disabled={promises.pending.origin}
+                  bind:group={values.origin}
+                  on:change={() => handleUpdate('origin')}
+                >
+                <span>inherited</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="borrowed"
+                  disabled={promises.pending.origin}
+                  bind:group={values.origin}
+                  on:change={() => handleUpdate('origin')}
+                >
+                <span>borrowed</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value={null}
+                  disabled={promises.pending.origin}
+                  bind:group={values.origin}
+                  on:change={() => handleUpdate('origin')}
+                >
+                <span>unknown</span>
+              </label>
+            </span>
+          {:else}
+            <span>{originSummary(values)}</span>
+          {/if}
+        </li>
+        {#if entry.origin === 'borrowed' && editable}
+          <li transition:slide|local>
+            <span></span>
+            <span class="originlang">
+              <span class="label">Language:</span>
+              <Svelecte
+                options={borrowlangSuggest.filter((v) => v.id !== language.id)}
+                disabled={promises.pending.origin_language_id}
+                bind:value={values.origin_language_id}
+                on:change={() => handleUpdate('origin_language_id')}
+              />
+            </span>
+          </li>
+        {/if}
+        {#if editable}
+          <li>
+            <span>Notes:</span>
+            <textarea
+              disabled={promises.pending.note}
+              bind:value={values.note}
+              on:change={() => handleUpdate('note')}
+            />
+          </li>
+        {:else if values.note}
+          <li>
+            <span>Notes:</span>
+            <span>{values.note}</span>
+          </li>
+        {/if}
+      </ul>
+    </div>
   {/if}
 </div>
 
@@ -319,10 +321,7 @@
   }
 
   .controls {
-    position: absolute;
-    right: 0;
-    top: 0;
-
+    float: right;
     :global(.fa-icon) {
       margin-inline: 7px 2px;
     }
