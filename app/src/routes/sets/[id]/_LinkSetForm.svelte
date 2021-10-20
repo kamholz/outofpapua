@@ -1,22 +1,20 @@
 <script>
   import Alert from '$components/Alert.svelte';
-  import SuggestSetMember from '$components/SuggestSetMember.svelte';
+  import SuggestSet from '$components/SuggestSet.svelte';
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
-  import * as crudSetMember from '$actions/crud/setmember';
+  import * as crudSet from '$actions/crud/set';
 
   export let set;
-  const langSuggest = getContext('langSuggest');
-  let languages;
   let promise;
 
   async function handleAdd(e) {
-    const entry = e.detail;
+    const { id } = e.detail;
     $pageLoading++;
     try {
-      promise = crudSetMember.create({ set_id: set.id, values: { entry_id: entry.id } });
+      promise = crudSet.linkSets(set, id);
       await promise;
       dispatch('refresh');
     } catch (e) {}
@@ -31,31 +29,10 @@
 {/if}
 <ul>
   <li>
-    <span>Headword:</span>
-    <SuggestSetMember
-      match="headword"
-      linked={false}
-      {languages}
+    <span>Set:</span>
+    <SuggestSet
       set_id={set.id}
       on:select={handleAdd}
-    />
-  </li>
-  <li>
-    <span>Gloss:</span>
-    <SuggestSetMember
-      match="gloss"
-      linked={false}
-      {languages}
-      set_id={set.id}
-      on:select={handleAdd}
-    />
-  </li>
-  <li>
-    <span>Languages:</span>
-    <Svelecte
-      options={langSuggest}
-      multiple
-      bind:value={languages}
     />
   </li>
 </ul>
@@ -67,10 +44,6 @@
     li {
       display: flex;
       align-items: center;
-
-      &:not(:last-child) {
-        margin-block-end: 12px;
-      }
 
       span {
         flex-shrink: 0;

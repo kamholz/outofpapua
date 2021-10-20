@@ -54,6 +54,7 @@
 <Form
   {fields}
   values={user}
+  style="--form-width: 23em; --label-width: 28%;"
   submitLabel="Save"
   on:submit={handleUpdate}
 />

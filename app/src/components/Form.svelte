@@ -241,7 +241,6 @@
       row-gap: 12px;
 
       .label {
-        margin-inline-end: 12px;
         text-align: end;
       }
 
@@ -258,6 +257,7 @@
       }
 
       .field {
+        margin-inline-start: 12px;
         grid-column: 2 / 4;
         &.narrow {
           grid-column: 2;

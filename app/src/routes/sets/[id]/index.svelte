@@ -34,13 +34,16 @@
   import FormWrapper from './_FormWrapper.svelte';
   import Icon from 'svelte-awesome';
   import LinkExistingForm from './_LinkExistingForm.svelte';
+  import LinkSetForm from './_LinkSetForm.svelte';
   import Member from './_Member.svelte';
+  import SetPopover from '$components/SetPopover.svelte';
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
-  import { faFileAlt, faMapMarked } from '@fortawesome/free-solid-svg-icons';
+  import { faFileAlt, faMapMarked, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
   import { modal, pageLoading } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
+  import { slide } from 'svelte/transition';
   import { writable } from 'svelte/store';
 
   export let set;
@@ -102,8 +105,7 @@
     $pageLoading++;
     let promise;
     try {
-      promise = updater({ id: set.id, values: { [key]: values[key] } });
-      promises.pending[key] = promise;
+      promise = promises.pending[key] = updater({ id: set.id, values: { [key]: values[key] } });
       await promise;
       set[key] = values[key];
       if (finish) {
@@ -134,6 +136,22 @@
         }
       }, true);
     }
+  }
+
+  async function handleUnlink(id) {
+    $pageLoading++;
+    let promise;
+    try {
+      promise = promises.pending.unlink = updater({ id, values: { set_group_id: null } });
+      await promise;
+      await handleRefresh();
+    } catch (e) {}
+
+    if (promise && promise === promises.pending.unlink) {
+      promises.pending.unlink = null;
+      promises.fulfilled.unlink = promise;
+    }
+    $pageLoading--;
   }
 
   async function handleDelete() {
@@ -199,11 +217,11 @@
       <Alert type="error" {message} />
     {/await}
   {/each}
+  <div class="set-item">
+    <div class="set-item-label top">Author:</div>
+    <span>{set.author_name}</span>
+  </div>
   {#if editable || set.note}
-    <div class="set-item">
-      <div class="set-item-label top">Author:</div>
-      <span>{set.author_name}</span>
-    </div>
     <div class="set-item">
       <div class="set-item-label top">Notes:</div>
       {#if editable}
@@ -217,8 +235,25 @@
         <span>{set.note}</span>
       {/if}  
     </div>
-    <hr>
-  {/if}  
+  {/if}
+  {#if set.set_group}
+    <div class="set-item">
+      <div class="set-item-label top">Related sets:</div>
+      <div class="related">
+        {#each set.set_group as { id, name } (id)}
+          <span transition:slide|local>
+            <SetPopover {id}>{name}</SetPopover>
+            {#if editable}
+              <span title="Remove from list of related sets" on:click={() => handleUnlink(id)}>
+                <Icon data={faTrash} />
+              </span>
+            {/if}
+          </span>
+        {/each}
+      </div>
+    </div>
+  {/if}
+  <hr>
 
   {#if editable}
     <FormWrapper collapsed={true} label="Link existing entry">
@@ -233,6 +268,14 @@
       <AddProtoForm
         {set}
         bind:values={createProtoValues}
+        on:refresh={handleRefresh}
+      />
+    </FormWrapper>
+    <hr>
+
+    <FormWrapper collapsed={true} label="Add related set">
+      <LinkSetForm
+        {set}
         on:refresh={handleRefresh}
       />
     </FormWrapper>
@@ -298,7 +341,7 @@
         }
       }
       .set-item-label.top {
-        inline-size: 6em;
+        inline-size: 7em;
       }
       .set-item-label.fullwidth {
         inline-size: unset;
@@ -307,6 +350,18 @@
         font-weight: unset;
         > :first-child {
           font-weight: bold;
+        }
+      }
+
+      .related {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        :global(.fa-icon) {
+          position: relative;
+          bottom: 1px;
+          margin-inline-start: 8px;
         }
       }
     }

@@ -102,7 +102,7 @@
   clearable
   browserSubmit
   help={RegexHelp}
-  style="--form-width: 40em; --label-width: 25%; --checkbox-width: 5em;"
+  style="--form-width: 40em; --label-width: 23.5%; --checkbox-width: 5em;"
   on:change={handleChange}
 >
   <svelte:fragment slot="hidden">

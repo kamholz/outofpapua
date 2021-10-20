@@ -85,13 +85,13 @@
     {fields}
     values={language}
     submitLabel="Save"
-    style="--form-width: 42em; --label-width: 31%;"
+    style="--form-width: 35em; --label-width: 20%;"
     on:submit={handleUpdate}
   />
 {:else}
   <Record
     {fields}
     values={language}
-    style="--record-width: 35em; --label-width: 30%;"
+    style="--record-width: 35em; --label-width: 25%;"
   />
 {/if}

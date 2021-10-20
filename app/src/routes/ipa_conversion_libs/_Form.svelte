@@ -17,5 +17,5 @@
   values={lib}
   submitLabel="Save"
   on:submit
-  style="--form-width: 50em; --label-width: 20%;"
+  style="--form-width: 50em; --label-width: 18%;"
 />

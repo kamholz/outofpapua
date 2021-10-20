@@ -16,7 +16,9 @@ export const get = validateParams(async ({ locals, params }) => {
       'set.name',
       knex.raw(name_auto),
       'set.note',
-      'sd.members'
+      'sd.members',
+      'sd.set_group',
+      'set.set_group_id'
     );
   if (row) {
     return { body: row };

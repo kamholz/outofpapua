@@ -67,7 +67,7 @@
   {fields}
   values={passwordValues}
   submitLabel="Change"
-  style="--form-width: 23em; --label-width: 50$;"
+  style="--form-width: 23em; --label-width: 44%;"
   on:beforesubmit={handleValidation}
   on:submit={handleUpdate}
 />

@@ -38,6 +38,15 @@ export async function linkEntries(entries, onSuccess) {
   onSuccess?.();
 }
 
+export async function linkSets(set, newSetId) {
+  const { set_group_id } = set;
+  if (set_group_id) {
+    await crud.update('set', { id: newSetId, values: { set_group_id } });
+  } else {
+    await crud.create('set_group', { set_ids: [set.id, newSetId] });
+  }
+}
+
 export async function merge({ id, set_ids }) {
   const res = await fetch(`/api/set/${id}/merge.json`, {
     method: 'POST',
