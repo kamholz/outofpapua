@@ -3,7 +3,7 @@
   import * as crud from '$actions/crud';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params }, session }) {
+  export async function load({ fetch, page: { params, path }, session }) {
     const props = {};
     if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
@@ -43,6 +43,7 @@
   import { getContext, setContext } from 'svelte';
   import { modal, pageLoading } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
+  import { page } from '$app/stores';
   import { slide } from 'svelte/transition';
   import { writable } from 'svelte/store';
 
@@ -57,12 +58,9 @@
     setContext('sourceSuggest', sourceSuggest);
   }
 
-  const values = {
-    name: set.name,
-    note: set.note,
-  };
-  let name = set.name_auto.txt;
-  let createProtoValues = {};
+  const values = {};
+  let name;
+  let createProtoValues;
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
@@ -78,20 +76,28 @@
     ])
   );
 
+  $: initState(true, $page.path);
+
+  function initState(clearProto) {
+    values.name = set.name;
+    values.note = set.note;
+    name = set.name_auto.txt;  
+    if (clearProto) {
+      createProtoValues = {};
+    }
+  }
+
   function collapseAll(state) {
     for (const member of members) {
       collapsedMembers[member.entry.id] = state;
     }
   }
 
-  async function handleRefresh() {
+  async function handleRefresh(clearProto) {
     const newSet = await reload(fetch, set.id);
     if (newSet) {
       set = newSet;
-      values.note = set.note;
-      values.name = set.name;
-      name = set.name_auto.txt;
-      createProtoValues = {};
+      initState(clearProto);
     } else {
       goto('/');
     }
@@ -144,7 +150,7 @@
     try {
       promise = promises.pending.unlink = updater({ id, values: { set_group_id: null } });
       await promise;
-      await handleRefresh();
+      await handleRefresh(false);
     } catch (e) {}
 
     if (promise && promise === promises.pending.unlink) {
@@ -255,7 +261,7 @@
         {#if editable}
           <LinkSetForm
             {set}
-            on:refresh={handleRefresh}
+            on:refresh={() => handleRefresh(false)}
           />
         {/if}
       </div>
@@ -267,7 +273,7 @@
     <FormWrapper collapsed={true} label="Link existing entry">
       <LinkExistingForm
         {set}
-        on:refresh={handleRefresh}
+        on:refresh={() => handleRefresh(false)}
       />
     </FormWrapper>
     <hr>
@@ -276,7 +282,7 @@
       <AddProtoForm
         {set}
         bind:values={createProtoValues}
-        on:refresh={handleRefresh}
+        on:refresh={() => handleRefresh(true)}
       />
     </FormWrapper>
     <hr>
@@ -293,7 +299,7 @@
       {member}
       {set}
       bind:collapsed={collapsedMembers[member.entry.id]}
-      on:refresh={handleRefresh}
+      on:refresh={() => handleRefresh(false)}
     />
     <hr>
   {/each}
