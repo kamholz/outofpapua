@@ -29,7 +29,7 @@
 {/if}
 <ul>
   <li>
-    <span>Set:</span>
+    <span>Add set:</span>
     <SuggestSet
       set_id={set.id}
       on:select={handleAdd}
@@ -47,9 +47,7 @@
 
       span {
         flex-shrink: 0;
-        inline-size: 10em;
         margin-inline-end: 12px;
-        text-align: end;
       }
     }
   }

@@ -236,20 +236,28 @@
       {/if}  
     </div>
   {/if}
-  {#if set.set_group}
+  {#if editable || set.set_group}
     <div class="set-item">
       <div class="set-item-label top">Related sets:</div>
       <div class="related">
-        {#each set.set_group as { id, name } (id)}
-          <span transition:slide|local>
-            <SetPopover {id}>{name}</SetPopover>
-            {#if editable}
-              <span title="Remove from list of related sets" on:click={() => handleUnlink(id)}>
-                <Icon data={faTrash} />
-              </span>
-            {/if}
-          </span>
-        {/each}
+        {#if set.set_group}
+          {#each set.set_group as { id, name } (id)}
+            <span transition:slide|local>
+              <SetPopover {id}>{name}</SetPopover>
+              {#if editable}
+                <span title="Remove from list of related sets" on:click={() => handleUnlink(id)}>
+                  <Icon data={faTrash} />
+                </span>
+              {/if}
+            </span>
+          {/each}
+        {/if}
+        {#if editable}
+          <LinkSetForm
+            {set}
+            on:refresh={handleRefresh}
+          />
+        {/if}
       </div>
     </div>
   {/if}
@@ -268,14 +276,6 @@
       <AddProtoForm
         {set}
         bind:values={createProtoValues}
-        on:refresh={handleRefresh}
-      />
-    </FormWrapper>
-    <hr>
-
-    <FormWrapper collapsed={true} label="Add related set">
-      <LinkSetForm
-        {set}
         on:refresh={handleRefresh}
       />
     </FormWrapper>
@@ -342,6 +342,7 @@
       }
       .set-item-label.top {
         inline-size: 7em;
+        align-self: center;
       }
       .set-item-label.fullwidth {
         inline-size: unset;
@@ -354,9 +355,14 @@
       }
 
       .related {
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+        > span:last-of-type {
+          margin-block-end: 4px;
+        }
 
         :global(.fa-icon) {
           position: relative;
