@@ -23,11 +23,11 @@
 
   export let rules;
 
-  const rulesByName = {};
   const arrayFields = ['chain_after', 'chain_before', 'lib'];
   const stringifyFields = [...arrayFields, 'replacements'];
   const nullifyFields = [...stringifyFields, 'function'];
 
+  const rulesByName = {};
   for (const rule of rules) {
     for (const field of stringifyFields) {
       if (rule[field]) {

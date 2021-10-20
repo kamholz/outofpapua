@@ -45,6 +45,7 @@
   import Form from './_Form.svelte';
   import List from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import { page } from '$app/stores';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
@@ -68,20 +69,26 @@
   );
   setContext('langNameById', langNameById);
 
-  const multiGlosslang = !(query.glosslang?.length === 1);
-  const multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
+  $: multiGlosslang = !(query.glosslang?.length === 1);
+  $: multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
 
-  const setSummaryCache = writable({});
+  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
 
-  async function handleRefresh() {
+  $: init(), $page.path;
+
+  function init() {
     $setSummaryCache = {};
+  }
+
+  async function handleRefresh() {
     $pageLoading++;
     const json = await reload(fetch, query);
     if (json) {
       ({ pageCount, query, rowCount, rows } = json);
     }
     $pageLoading--;
+    init();
   }
 </script>
 

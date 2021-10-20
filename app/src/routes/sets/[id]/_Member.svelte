@@ -295,7 +295,7 @@
                 ['inherited', 'inherited'],
                 ['borrowed', 'borrowed'],
                 ['mixed', 'mixed'],
-                [null, 'unknown']
+                [null, 'unknown'],
               ]}
             />
           {:else}
@@ -328,7 +328,7 @@
                 options={[
                   ['inherited', 'inherited'],
                   ['borrowed', 'borrowed'],
-                  [null, 'unknown']
+                  [null, 'unknown'],
                 ]}
               />
             {:else}

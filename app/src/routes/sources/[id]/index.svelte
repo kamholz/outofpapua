@@ -28,6 +28,7 @@
 
 <script>
   import EditSourceForm from './_EditForm.svelte';
+  import { page } from '$app/stores';
   import { setContext } from 'svelte';
 
   export let source;
@@ -39,8 +40,13 @@
   if (ipaConversionRuleSuggest) {
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
-  if (source.formatting) {
-    source.formatting = JSON.stringify(source.formatting);
+
+  $: init(), $page.path;
+
+  function init() {
+    if (source.formatting && typeof source.formatting === 'object') {
+      source.formatting = JSON.stringify(source.formatting);
+    }
   }
 </script>
 

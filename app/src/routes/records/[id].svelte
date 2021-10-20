@@ -16,7 +16,7 @@
   import { fade } from 'svelte/transition';
 
   export let record;
-  const { data, source } = record;
+  $: ({ data, source } = record);
   let showFormatted = true;
 </script>
 

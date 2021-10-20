@@ -1,8 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import SuggestSet from '$components/SuggestSet.svelte';
-  import Svelecte from '$components/Svelecte.svelte';
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import * as crudSet from '$actions/crud/set';

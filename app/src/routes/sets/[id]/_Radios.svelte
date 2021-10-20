@@ -1,8 +1,4 @@
 <script>
-  import Alert from '$components/Alert.svelte';
-import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-
   export let key;
   export let values;
   export let promises;

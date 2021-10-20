@@ -3,7 +3,7 @@
   import * as crud from '$actions/crud';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params, path }, session }) {
+  export async function load({ fetch, page: { params }, session }) {
     const props = {};
     if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);
@@ -76,12 +76,12 @@
     ])
   );
 
-  $: initState(true, $page.path);
+  $: init(true), $page.path;
 
-  function initState(clearProto) {
+  function init(clearProto) {
     values.name = set.name;
     values.note = set.note;
-    name = set.name_auto.txt;  
+    name = set.name_auto.txt;
     if (clearProto) {
       createProtoValues = {};
     }
@@ -97,7 +97,7 @@
     const newSet = await reload(fetch, set.id);
     if (newSet) {
       set = newSet;
-      initState(clearProto);
+      init(clearProto);
     } else {
       goto('/');
     }

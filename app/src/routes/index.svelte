@@ -54,6 +54,7 @@
   import SearchTableControls from './_SearchTableControls.svelte';
   import { getContext, setContext } from 'svelte';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { pageLoading } from '$lib/stores';
   import { serializeArrayParam } from '$lib/util';
   import { writable } from 'svelte/store';
@@ -70,12 +71,19 @@
   export let borrowlangSuggest;
   setContext('borrowlangSuggest', borrowlangSuggest);
 
-  const linkable = getContext('editable') && query.set !== 'linked';
-  const selection = writable(new Set());
+  $: linkable = getContext('editable') && query.set !== 'linked';
+  const selection = writable();
   setContext('selection', selection);
-  const setSummaryCache = writable({});
+  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
   let promise;
+
+  $: init(), $page.path;
+
+  function init() {
+    $setSummaryCache = {};
+    clearSelection();
+  }
 
   async function handleLink() {
     $pageLoading++;
@@ -94,8 +102,7 @@
     $pageLoading++;
     rows = (await reload(fetch, query))?.rows;
     $pageLoading--;
-    $setSummaryCache = {};
-    clearSelection();
+    init();
   }
 
   function getSelection() {

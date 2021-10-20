@@ -24,7 +24,6 @@
   export let libs;
 
   const libsByName = {};
-
   for (const lib of libs) {
     libsByName[lib.name] = lib;
   }

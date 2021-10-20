@@ -34,6 +34,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
+  import { page } from '$app/stores';
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
   import { writable } from 'svelte/store';
@@ -46,14 +47,20 @@
   export let borrowlangSuggest;
   setContext('borrowlangSuggest', borrowlangSuggest);
 
-  const setSummaryCache = writable({});
+  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
+
+  $: init(), $page.path;
+
+  function init() {
+    $setSummaryCache = {};
+  }
 
   async function handleRefresh() {
     $pageLoading++;
     rows = (await reload(fetch, source.id, query))?.rows;
     $pageLoading--;
-    $setSummaryCache = {};
+    init();
   }
 </script>
 
