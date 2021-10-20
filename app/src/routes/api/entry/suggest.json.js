@@ -32,12 +32,12 @@ export const get = requireAuth(async ({ query }) => {
     .select('entry.id');
 
   if (match === 'headword') {
-    subq.where('entry.headword', '~*', mungedSearch);
+    subq.where('entry.headword_degr', '~*', knex.raw('degr_regex(?)', mungedSearch));
   } else {
     subq
       .join('sense', 'sense.entry_id', 'entry.id')
       .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
-      .where('sense_gloss.txt', '~*', mungedSearch)
+      .where('sense_gloss.txt_degr', '~*', knex.raw('degr_regex(?)', mungedSearch))
       .groupBy('entry.id');
   }
 

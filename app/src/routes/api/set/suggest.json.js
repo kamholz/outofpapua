@@ -21,7 +21,7 @@ export const get = requireAuth(async ({ query }) => {
   const { max, search } = { ...defaults, ...query };
   const q = knex('set')
     .join('set_name_auto as sna', 'sna.id', 'set.id')
-    .where(knex.raw(name_auto), '~*', mungeRegex(search))
+    .where(knex.raw(name_auto), '~*', knex.raw('degr_regex(?)', mungeRegex(search)))
     .select('set.id', knex.raw(`${name_auto} as name`))
     .orderBy(knex.raw("sna.name_auto ->> 'txt'"))
     .orderBy(knex.raw("lpad(set.id::text, 10, '0')"))
