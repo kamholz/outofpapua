@@ -50,7 +50,7 @@
   const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init(), $page.path;
+  $: init(), $page;
 
   function init() {
     $setSummaryCache = {};

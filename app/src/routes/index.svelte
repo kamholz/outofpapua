@@ -78,7 +78,7 @@
   setContext('setSummaryCache', setSummaryCache);
   let promise;
 
-  $: init(), $page.path;
+  $: init(), $page;
 
   function init() {
     $setSummaryCache = {};

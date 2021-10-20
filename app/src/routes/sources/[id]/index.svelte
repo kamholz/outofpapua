@@ -41,7 +41,7 @@
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
 
-  $: init(), $page.path;
+  $: init(), $page;
 
   function init() {
     if (source.formatting && typeof source.formatting === 'object') {

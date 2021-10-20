@@ -76,7 +76,7 @@
     ])
   );
 
-  $: init(true), $page.path;
+  $: init(true), $page;
 
   function init(clearProto) {
     values.name = set.name;
