@@ -32,7 +32,7 @@
 
 {#each set.members as { entry, language, note, reflex, source }}
   <p>
-    {language.name} <Reflex {reflex} headword={entry.headword} />{#if entry.headword_ipa}&nbsp;<ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />{/if}{maybeGloss(entry.senses)} {reference(source)}{#if entry.origin}&nbsp;<strong>{origin(entry)}</strong>{/if}{#if note}&nbsp;(Notes: {note}){/if}
+    {language.name} <em><Reflex {reflex} headword={entry.headword} /></em>{#if entry.headword_ipa}&nbsp;<ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />{/if}{maybeGloss(entry.senses)} {reference(source)}{#if entry.origin}&nbsp;<strong>{origin(entry)}</strong>{/if}{#if note}&nbsp;(Notes: {note}){/if}
   </p>
 {/each}
 
