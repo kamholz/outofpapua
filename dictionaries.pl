@@ -935,7 +935,7 @@ our $dict = {
     ],
   },
   'Unknown (nd.c)' => {
-    lang_target => '',
+    lang_target => 'Mansim',
     lang_national => 'ind',
     # lang_regional => 'ind',
     path => 'Mansim/Mansimdictionary.html',
