@@ -25,7 +25,7 @@
   }
 
   async function reload(fetch, id, query) {
-    const res = await fetch(`/api/source/${id}/entries.json?` + optionalQuery(query));
+    const res = await fetch(`/api/source/${id}/entries.json` + optionalQuery(query));
     return res.ok ? res.json() : null;
   }
 </script>
