@@ -221,10 +221,28 @@
   <CollapseIndicator bind:collapsed />
   <div class="set-item-label" class:fullwidth={collapsed} class:membersummary={collapsed}>
     {#if collapsed}
-      <span class={entry.origin}>{language.name} <MemberReflex reflex={values.reflex} {entry} /></span>{#if senses[0]?.glosses?.[0]}<span>&nbsp;{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+      <span class={entry.origin}>
+        {language.name}
+        <MemberReflex reflex={values.reflex} {entry} />
+      </span>
+      {#if senses[0]?.glosses?.[0]}<span>{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
     {:else}
       <p>
-        <span class={entry.origin}>{language.name} </span>{#if editingProto}<Input bind:value={protoValues.headword} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} />{:else}<MemberReflex bind:reflex={values.reflex} {entry} {editable} on:change={() => handleUpdate('reflex')} />{/if}
+        <span class={entry.origin}>{language.name}</span>
+        {#if editingProto}
+          <Input
+            bind:value={protoValues.headword}
+            on:submit={handleSaveProto} 
+            on:cancel={handleEditProtoCancel}
+          />
+        {:else}
+          <MemberReflex
+            bind:reflex={values.reflex}
+            {entry}
+            {editable} 
+            on:change={() => handleUpdate('reflex')}
+          />
+        {/if}
       </p>
       {#if entry.headword_ipa}
         <p class="plain">

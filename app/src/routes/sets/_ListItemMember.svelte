@@ -12,13 +12,20 @@
 </script>
 
 <div class={entry.origin}>
-  <strong>{language.name}</strong> <EntryInfoPopover bind:entry language_id={language.id} click={false}><EntryLink {entry}><Reflex {reflex} headword={entry.headword} /></EntryLink></EntryInfoPopover>
+  <strong>{language.name}</strong>
+  <EntryInfoPopover bind:entry language_id={language.id} click={false}>
+    <EntryLink {entry}>
+      <Reflex {reflex} headword={entry.headword} />
+    </EntryLink>
+  </EntryInfoPopover>
 </div>
 <div>
   {source.reference}
 </div>
 <div>
-  {#if entry.senses[0]?.glosses?.[0]}{glossesSummary(entry.senses[0].glosses, $preferences)}{/if}
+  {#if entry.senses[0]?.glosses?.[0]}
+    {glossesSummary(entry.senses[0].glosses, $preferences)}
+  {/if}
 </div>
 
 <style lang="scss">

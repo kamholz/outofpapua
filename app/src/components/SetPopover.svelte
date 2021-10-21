@@ -47,7 +47,15 @@
     <div class="title">Set: {set.name_auto.txt}</div>
     <ul>
       {#each set.members as { entry, language, reflex } (entry.id)}
-        <li><span class={entry.origin}>{language.name} <Reflex {reflex} headword={entry.headword} space={false} /></span> {#if entry.senses[0]?.glosses?.[0]}{glossSummaryNoLanguage(entry.senses[0].glosses[0])}{/if}</li>
+        <li>
+          <span class={entry.origin}>
+            {language.name}
+            <Reflex {reflex} headword={entry.headword} space={false} />
+          </span>
+          {#if entry.senses[0]?.glosses?.[0]}
+            {glossSummaryNoLanguage(entry.senses[0].glosses[0])}
+          {/if}
+        </li>
       {/each}
     </ul>
   </div>
