@@ -176,7 +176,7 @@
     padding: 8px;
     @include popover;
 
-    :global(.svelecte-control .sv-control) {
+    :global(.sv-control) {
       min-height: unset;
       height: 26px;
     }

@@ -10,6 +10,7 @@
   {family.name}:
   <Svelecte
     options={icons}
+    class="svelecte-icons"
     valueField="value"
     labelField="value"
     searchable={false}
@@ -51,6 +52,7 @@
         .sv-item {
           display: flex;
           justify-content: space-around;
+          padding-inline: 4px; // fixes centering
         }
       }
     }

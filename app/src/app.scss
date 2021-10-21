@@ -120,7 +120,7 @@ form {
 
 // svelecte
 
-.svelecte-control {
+.svelecte {
   .highlight {
     background-color: unset;
     font-weight: bold;
@@ -140,9 +140,22 @@ form {
 
   .sv-dropdown {
     overflow-wrap: anywhere;
-    .sv-item-content > div {
+
+    .sv-item-content {
       white-space: normal;
       @include indent-small;
+    }
+  }
+
+  &.svelecte-icons {
+    .sv-control:not(.is-active) {
+      border: none !important;
+      outline: 1px solid #767676;
+    }
+
+    .sv-dropdown .sv-item-content {
+      padding-inline-start: unset;
+      text-indent: unset;
     }
   }
 }

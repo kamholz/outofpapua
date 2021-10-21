@@ -453,7 +453,7 @@
       margin-inline-end: 10px;
     }
 
-    :global(.svelecte-control .sv-control) {
+    :global(.sv-control) {
       inline-size: 24em;
     }
   }

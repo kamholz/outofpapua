@@ -61,7 +61,7 @@
   .autocomplete {
     padding-block: 0;
 
-    :global(.svelecte-control .sv-control) {
+    :global(.sv-control) {
       background-color: white;
       min-height: unset;
       height: 30px;

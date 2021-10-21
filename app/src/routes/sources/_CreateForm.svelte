@@ -68,7 +68,7 @@
 
 <style lang="scss">
   :global {
-    .create-source-form .svelecte-control .sv-control {
+    .create-source-form .sv-control {
       min-height: unset;
       height: 26px;
     }
