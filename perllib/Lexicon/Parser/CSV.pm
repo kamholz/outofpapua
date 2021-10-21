@@ -182,7 +182,7 @@ sub read_entries {
         my @values = split /\n/, $value;
         push(@{$entry->{record}}, ['nt', $arg ? "$arg $_" : $_]) for @values;
       } elsif ($type =~ /^[a-z]{2}$/) {
-        my @values = $arg eq 'split' ? split(/ *; */, $value) : split(/\n/, $value);
+        my @values = $arg && $arg eq 'split' ? split(/ *; */, $value) : split(/\n/, $value);
         push(@{$entry->{record}}, [$type, $_]) for @values;
       }
     }

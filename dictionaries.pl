@@ -492,6 +492,19 @@ our $dict = {
     split => ',/',
     strip => 'to',
   },
+  'Gravelle (2004)' => {
+    lang_target => 'mej',
+    path => 'gravelle meyah/gravelle_meyah2004v2 cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'pos'],
+      [2, 'gloss', 'eng'],
+      [3, 'note', 'literally:'],
+      [4, 'note'],
+      [5, 'et'],
+    ],
+  },
   'Gravelle (2010)' => {
     lang_target => 'mtj',
     path => 'grammar of moskona/grammar of moskona_toolbox.txt',
