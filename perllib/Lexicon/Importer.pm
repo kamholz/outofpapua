@@ -180,7 +180,7 @@ FROM sense_glosses sg, entry
 WHERE sense.id = sg.id AND sense.entry_id = entry.id AND entry.source_id = ?
 EOF
     $db->query(<<'EOF', $source_id);
-UPDATE entry SET senses = sg.glosses
+UPDATE entry SET senses = es.senses
 FROM entry_senses es
 WHERE entry.id = es.id AND entry.source_id = ?
 EOF
