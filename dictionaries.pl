@@ -673,13 +673,6 @@ our $dict = {
     ],
     split => ',;',
   },
-  'Mansim' => {
-    lang_target => '',
-    lang_national => 'ind',
-    # lang_regional => 'ind',
-    path => 'Mansim/Mansimdictionary.html',
-    parser => 'LexiqueDocx',
-  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07.db',
@@ -940,6 +933,14 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'note'],
     ],
+  },
+  'Unknown (nd.c)' => {
+    lang_target => '',
+    lang_national => 'ind',
+    # lang_regional => 'ind',
+    path => 'Mansim/Mansimdictionary.html',
+    parser => 'LexiqueDocx',
+    split => ',;',
   },
   'van Staden (nd.)' => {
     lang_target => 'tvo',

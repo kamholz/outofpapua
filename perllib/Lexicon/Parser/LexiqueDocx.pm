@@ -6,7 +6,6 @@ use namespace::clean;
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
 
-
 my %type_to_marker = (
   DefinitionE       => ['g', 'e'],
   Definitionn       => ['g', 'n'],
