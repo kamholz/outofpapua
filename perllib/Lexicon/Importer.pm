@@ -152,9 +152,8 @@ EOF
 
       unless ($action2 and $action2 eq 'force') {
         my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
-SELECT entry.id, entry.headword, ed.senses
+SELECT entry.id, entry.headword, entry.senses
 FROM entry
-JOIN entry_with_details ed on ed.id = entry.id
 WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
 EOF
         if (@linked) {
