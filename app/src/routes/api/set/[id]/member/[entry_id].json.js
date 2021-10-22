@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { getFilteredParams, validateParams } from '$lib/util';
-import { knex, sendPgError } from '$lib/db';
+import { knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
-export const put = validateParams(requireAuth(async ({ body, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -17,13 +17,14 @@ export const put = validateParams(requireAuth(async ({ body, params }) => {
     updateParams.reflex_origin_language_id = null; // clear any existing reflex_origin_language_id
   }
   try {
-    const ids = await knex.transaction((trx) =>
-      trx('set_member')
-      .where('set_id', params.id)
-      .where('entry_id', params.entry_id)
-      .returning('entry_id')
-      .update(updateParams)
-    );
+    const ids = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
+      return trx('set_member')
+        .where('set_id', params.id)
+        .where('entry_id', params.entry_id)
+        .returning('entry_id')
+        .update(updateParams);
+    });
     if (ids.length) {
       return { body: '' };
     }
@@ -33,15 +34,16 @@ export const put = validateParams(requireAuth(async ({ body, params }) => {
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
-    const ids = await knex.transaction((trx) =>
-      trx('set_member')
-      .where('set_id', params.id)
-      .where('entry_id', params.entry_id)
-      .returning('entry_id')
-      .del()
-    );
+    const ids = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
+      return trx('set_member')
+        .where('set_id', params.id)
+        .where('entry_id', params.entry_id)
+        .returning('entry_id')
+        .del();
+    });
     return { body: { deleted: ids.length } };
   } catch (e) {
     console.log(e);

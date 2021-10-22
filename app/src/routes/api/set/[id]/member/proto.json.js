@@ -1,13 +1,13 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, knex, sendPgError } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
 
-export const post = validateParams(requireAuth(async ({ body, params }) => {
+export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -31,20 +31,21 @@ export const post = validateParams(requireAuth(async ({ body, params }) => {
     delete insertParams.glosses;
 
     const entry_id = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
+
       const entryIds = await trx('entry')
         .returning('id')
         .insert(insertParams);
       const [entry_id] = entryIds;
 
-      await trx('set_member')
-        .insert({ entry_id, set_id: params.id });
-
       const senseIds = await trx('sense')
         .returning('id')
         .insert({ entry_id, seq: 1 });
       const [sense_id] = senseIds;
-
       await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
+
+      await trx('set_member')
+        .insert({ entry_id, set_id: params.id });
 
       return entry_id;
     });

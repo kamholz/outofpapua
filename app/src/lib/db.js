@@ -11,6 +11,13 @@ export const knex = knexModule({
   },
 });
 
+export async function setTransactionUser(trx, locals) {
+  const userId = locals.user?.id;
+  if (userId) {
+    await trx.select(knex.raw("set_config('outofpapua.usr_id', ?::text, true)", userId));
+  }
+}
+
 export function arrayCmp(param) {
   const list = [...param];
   return list.length === 1

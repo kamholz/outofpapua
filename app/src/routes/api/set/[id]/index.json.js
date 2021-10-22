@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed } from '../_params';
 import { getFilteredParams, isIdArray, showPublicOnly, validateParams } from '$lib/util';
-import { knex, name_auto, sendPgError } from '$lib/db';
+import { knex, name_auto, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = validateParams(async ({ locals, params }) => {
@@ -27,7 +27,7 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {
@@ -48,6 +48,7 @@ export const put = validateParams(requireAuth(async ({ body, params }) => {
   }
   try {
     const found = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
       const { id } = params;
       let found = false;
       if (haveUpdateParams) {
