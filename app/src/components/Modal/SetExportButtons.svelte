@@ -30,14 +30,14 @@
 <style lang="scss">
   div {
     display: flex;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    float: right;
+    margin-block: 20px 10px;
+    margin-inline: 10px 20px;
     z-index: 999;
     background-color: white;
 
-    > span {
-      margin-inline-start: 5px;
+    > span:not(:last-child) {
+      margin-inline-end: 5px;
     }
   }
 </style>
