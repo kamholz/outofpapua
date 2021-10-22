@@ -31,11 +31,12 @@
 <script>
   import AddProtoForm from './_AddProtoForm.svelte';
   import Alert from '$components/Alert.svelte';
-  import FormWrapper from './_FormWrapper.svelte';
+  import History from './_History.svelte';
   import Icon from 'svelte-awesome';
   import LinkExistingForm from './_LinkExistingForm.svelte';
   import LinkSetForm from './_LinkSetForm.svelte';
   import Member from './_Member.svelte';
+  import SectionWrapper from './_SectionWrapper.svelte';
   import SetPopover from '$components/SetPopover.svelte';
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
@@ -270,21 +271,21 @@
   <hr>
 
   {#if editable}
-    <FormWrapper collapsed={true} label="Link existing entry">
+    <SectionWrapper label="Link existing entry">
       <LinkExistingForm
         {set}
         on:refresh={() => handleRefresh(false)}
       />
-    </FormWrapper>
+    </SectionWrapper>
     <hr>
 
-    <FormWrapper collapsed={true} label="Add proto-form">
+    <SectionWrapper label="Add proto-form">
       <AddProtoForm
         {set}
         bind:values={createProtoValues}
         on:refresh={() => handleRefresh(true)}
       />
-    </FormWrapper>
+    </SectionWrapper>
     <hr>
   {/if}
 
@@ -303,6 +304,13 @@
     />
     <hr>
   {/each}
+
+  {#if editable}
+    <SectionWrapper label="Set History">
+      <History {set} />
+    </SectionWrapper>
+    <hr>
+  {/if}
 </div>
 
 {#if editable}
@@ -378,7 +386,7 @@
       }
     }
 
-    .form form {
+    .section form {
       width: unset;
       padding: 0;
       border: none;
