@@ -3,12 +3,18 @@ import { getFilteredParams, validateParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['note', 'reflex', 'reflex_origin']);
+const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
 export const put = validateParams(requireAuth(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
+  }
+  if ('reflex_origin' in updateParams && updateParams.reflex_origin !== 'borrowed') {
+    if (updateParams.reflex_origin_language_id) {
+      return { status: 400, body: { error: errors.originLang } };
+    }
+    updateParams.reflex_origin_language_id = null; // clear any existing reflex_origin_language_id
   }
   try {
     const ids = await knex.transaction((trx) =>

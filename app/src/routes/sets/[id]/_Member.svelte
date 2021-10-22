@@ -27,7 +27,7 @@
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const promises = { pending: {}, fulfilled: {} };
-  const memberKeys = new Set(['note', 'reflex', 'reflex_origin']);
+  const memberKeys = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
   const { entry, language, source } = member;
   const { senses } = entry;
@@ -38,6 +38,7 @@
     origin_language_name: entry.origin_language_name,
     reflex: member.reflex,
     reflex_origin: member.reflex_origin,
+    reflex_origin_language_id: member.reflex_origin_language_id,
   };
   let editingProto = false;
   let protoValues;
@@ -60,6 +61,9 @@
           values: { [key]: values[key] },
         });
         await promise;
+        if (key === 'reflex_origin' && entry[key] !== 'borrowed') {
+          entry.reflex_origin_language_id = values.reflex_origin_language_id = null;
+        }
         member[key] = values[key];
       } else {
         promise = promises.pending[key] = crud.update('entry', {
@@ -350,9 +354,23 @@
                 ]}
               />
             {:else}
-              <span>{values.reflex_origin}</span>
+              <span>{originSummary({ origin: values.reflex_origin, origin_language_id: values.reflex_origin_language_id })}</span>
             {/if}
           </li>
+          {#if editable && member.reflex_origin === 'borrowed'}
+            <li transition:slide|local>
+              <span></span>
+              <span class="indented">
+                <span class="label">Language:</span>
+                <Svelecte
+                  options={borrowlangSuggest.filter((v) => v.id !== language.id)}
+                  disabled={promises.pending.reflex_origin_language_id}
+                  bind:value={values.reflex_origin_language_id}
+                  on:change={() => handleUpdate('reflex_origin_language_id')}
+                />
+              </span>
+            </li>
+          {/if}
         {/if}
         {#if member.other_sets}
           <li>
