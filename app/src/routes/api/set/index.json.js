@@ -1,6 +1,6 @@
 import { allowed } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
-  getLanguageIds, knex, name_auto, sendPgError, transaction } from '$lib/db';
+  getLanguageIds, knex, name_auto, sendPgError } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
   showPublicOnly } from '$lib/util';
@@ -117,7 +117,7 @@ export const post = requireAuth(async ({ body, locals }) => {
   const params = getFilteredParams(body, allowed);
   params.author_id = locals.user.id;
   try {
-    const id = await transaction(locals, async (trx) => {
+    const id = await knex.transaction(async (trx) => {
       const ids = await trx('set')
         .returning('id')
         .insert(params);

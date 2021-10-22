@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { validateParams } from '$lib/util';
 
 export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
@@ -19,7 +19,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
     return { status: 400, body: { error: 'current password is incorrect' } };
   }
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')

@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { allowed, allowedAdmin, nfc, required } from './_params';
-import { applySortParams, filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
+import { applySortParams, filterPublicSources, knex, sendPgError } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
@@ -71,7 +71,7 @@ export const post = requireAuth(async ({ body, locals }) => {
     }
 
     params.editable = true;
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('source')
       .returning('id')
       .insert(params)

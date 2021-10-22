@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams, showPublicOnly, splitParams, validateParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
@@ -44,7 +44,7 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -54,7 +54,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   const { id } = params;
   try {
     let found = false;
-    await transaction(locals, async (trx) => {
+    await knex.transaction(async (trx) => {
       if (Object.keys(updateParams).length) {
         const rows = await trx('language')
           .where('id', id)
@@ -79,10 +79,10 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ params }) => {
   try {
     const { id } = params;
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('language')
       .where('id', id)
       .whereExists(function () {

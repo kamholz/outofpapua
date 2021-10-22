@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed, required } from './_params';
 import { getFilteredParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = requireAuth(async ({ locals }) => {
@@ -27,7 +27,7 @@ export const post = requireAuth(async ({ body, locals }) => {
   }
   params.usr_id = locals.user.id;
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('saved_map')
       .returning('id')
       .insert(params)

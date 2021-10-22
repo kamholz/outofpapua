@@ -1,12 +1,12 @@
 import errors from '$lib/errors';
-import { arrayCmp, sendPgError, transaction } from '$lib/db';
+import { arrayCmp, knex, sendPgError } from '$lib/db';
 import { getFilteredParams, isIdArray, validateParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['set_ids']);
 const required = new Set(['set_ids']);
 
-export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const post = validateParams(requireAuth(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (Object.keys(updateParams).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -16,7 +16,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
   }
   try {
     let found = false;
-    await transaction(locals, async (trx) => {
+    await knex.transaction(async (trx) => {
       const set = await trx('set').first('note').where('id', params.id);
       if (set) {
         found = true;

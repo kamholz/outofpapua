@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, sendPgError, setIds, transaction } from '$lib/db';
+  knex, sendPgError, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
@@ -135,7 +135,7 @@ export async function get({ locals, query }) {
 const allowedCreate = new Set(['headword', 'headword_ipa', 'origin', 'origin_language_id', 'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 
-export const post = requireAuth(async ({ body, locals }) => {
+export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, allowedCreate);
   if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -155,7 +155,7 @@ export const post = requireAuth(async ({ body, locals }) => {
     }
 
     params.headword = mungeHeadword(params.headword, Boolean(source.proto));
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('entry')
       .returning('id')
       .insert(params)

@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed, allowedAdmin, nfc } from '../_params';
 import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
-import { filterPublicSources, knex, sendPgError, transaction } from '$lib/db';
+import { filterPublicSources, knex, sendPgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
 
 const columns = [
@@ -42,7 +42,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('source')
       .where('id', params.id)
       .returning('id')
@@ -57,10 +57,10 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAdmin(async ({ locals, params }) => {
+export const del = validateParams(requireAdmin(async ({ params }) => {
   return { status: 500 };
   try {
-    const ids = await transaction(locals, async (trx) => {
+    const ids = await knex.transaction(async (trx) => {
       await trx.column(trx.raw('delete_source_entries(?)', params.id));
       return trx('source')
       .where('id', params.id)

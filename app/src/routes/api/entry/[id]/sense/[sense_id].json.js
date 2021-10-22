@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams, validateParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   const { glosses } = updateParams;
   delete updateParams.glosses;
@@ -25,7 +25,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 
   try {
-    await transaction(locals, async (trx) => {
+    await knex.transaction(async (trx) => {
       if (Object.keys(updateParams).length) {
         await trx('sense')
           .where('id', sense_id)
@@ -47,12 +47,12 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ params }) => {
   try {
     if (!(await isEditable(params.id))) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('sense')
       .where('id', params.sense_id)
       .returning('id')

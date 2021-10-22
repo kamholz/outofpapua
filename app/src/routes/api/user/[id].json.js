@@ -1,8 +1,8 @@
 import errors from '$lib/errors';
 import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
 import { getUser, requireAuth } from '$lib/auth';
+import { knex, sendPgError } from '$lib/db';
 import { nfc } from './_params';
-import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['username', 'fullname', 'admin']);
 
@@ -29,7 +29,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')
@@ -50,7 +50,7 @@ export const del = validateParams(requireAuth(async ({ locals, params }) => {
     return { status: 401 };
   }
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')

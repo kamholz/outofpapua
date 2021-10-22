@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed } from '../_params';
 import { getFilteredParams, isIdArray, showPublicOnly, validateParams } from '$lib/util';
-import { knex, name_auto, sendPgError, transaction } from '$lib/db';
+import { knex, name_auto, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 export const get = validateParams(async ({ locals, params }) => {
@@ -27,7 +27,7 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, params }) => {
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {
@@ -47,7 +47,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
     updateParams.name = null;
   }
   try {
-    const found = await transaction(locals, async (trx) => {
+    const found = await knex.transaction(async (trx) => {
       const { id } = params;
       let found = false;
       if (haveUpdateParams) {
@@ -80,9 +80,9 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ params }) => {
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('set')
       .where('id', params.id)
       .returning('id')

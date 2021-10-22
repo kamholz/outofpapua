@@ -1,16 +1,16 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams } from '$lib/util';
+import { knex, sendPgError } from '$lib/db';
 import { requireAdmin } from '$lib/auth';
-import { sendPgError, transaction } from '$lib/db';
 
-export const put = requireAdmin(async ({ body, locals, params }) => {
+export const put = requireAdmin(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    await transaction(locals, (trx) =>
+    await knex.transaction((trx) =>
       trx('ipa_conversion_lib')
       .where('name', params.name)
       .update(updateParams)
@@ -22,9 +22,9 @@ export const put = requireAdmin(async ({ body, locals, params }) => {
   }
 });
 
-export const del = requireAdmin(async ({ locals, params }) => {
+export const del = requireAdmin(async ({ params }) => {
   try {
-    const names = await transaction(locals, (trx) =>
+    const names = await knex.transaction((trx) =>
       trx('ipa_conversion_lib')
       .where('name', params.name)
       .returning('name')

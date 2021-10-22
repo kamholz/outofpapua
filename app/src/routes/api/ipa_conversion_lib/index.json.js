@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams } from '$lib/util';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { requireAdmin } from '$lib/auth';
 
 export const get = requireAdmin(async () => {
@@ -21,13 +21,13 @@ export const get = requireAdmin(async () => {
 
 const required = new Set(['name']);
 
-export const post = requireAdmin(async ({ body, locals }) => {
+export const post = requireAdmin(async ({ body }) => {
   const params = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
   try {
-    const names = await transaction(locals, (trx) =>
+    const names = await knex.transaction((trx) =>
       trx('ipa_conversion_lib')
       .returning('name')
       .insert(params)

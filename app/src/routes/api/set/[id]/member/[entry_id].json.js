@@ -1,17 +1,17 @@
 import errors from '$lib/errors';
 import { getFilteredParams, validateParams } from '$lib/util';
+import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
-import { sendPgError, transaction } from '$lib/db';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin']);
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('set_member')
       .where('set_id', params.id)
       .where('entry_id', params.entry_id)
@@ -27,9 +27,9 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ params }) => {
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx('set_member')
       .where('set_id', params.id)
       .where('entry_id', params.entry_id)

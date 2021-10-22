@@ -11,16 +11,6 @@ export const knex = knexModule({
   },
 });
 
-export function transaction(locals, cb) {
-  const userId = locals.user?.id;
-  return knex.transaction(async (trx) => {
-    if (userId) {
-      await trx.select(knex.raw("set_config('outofpapua.usr_id', ?::text, true)", userId));
-    }
-    return cb(trx);
-  });
-}
-
 export function arrayCmp(param) {
   const list = [...param];
   return list.length === 1

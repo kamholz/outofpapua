@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams, mungeHeadword, showPublicOnly, validateParams } from '$lib/util';
 import { isEditable, nfc } from '../_params';
-import { knex, sendPgError, transaction } from '$lib/db';
+import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowedAll = new Set(['multi_set', 'origin', 'origin_language_id', 'root']);
@@ -33,7 +33,7 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ body, params }) => {
   const { id } = params;
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
@@ -59,7 +59,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
   ensureNfcParams(updateParams, nfc);
   try {
-    const rows = await transaction(locals, (trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('entry')
       .where('id', id)
       .returning('id')
@@ -74,14 +74,14 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = validateParams(requireAuth(async ({ params }) => {
   try {
     const { id } = params;
     const editable = await isEditable(id);
     if (!editable) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
-    const ids = await transaction(locals, async (trx) => {
+    const ids = await knex.transaction(async (trx) => {
       await trx('sense')
         .where('entry_id', id)
         .del();

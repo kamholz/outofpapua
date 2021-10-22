@@ -1,5 +1,5 @@
 import errors from '$lib/errors';
-import { applySortParams, knex, sendPgError, transaction } from '$lib/db';
+import { applySortParams, knex, sendPgError } from '$lib/db';
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, showPublicOnly,
   stripParams } from '$lib/util';
 import { nfc, required } from './_params';
@@ -79,14 +79,14 @@ export async function get({ locals, query }) {
   };
 }
 
-export const post = requireAuth(async ({ body, locals }) => {
+export const post = requireAuth(async ({ body }) => {
   const params = getFilteredParams(body, required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await transaction(locals, (trx) =>
+    const ids = await knex.transaction((trx) =>
       trx.with('inserted', (q) => {
         q.from('language')
         .returning('id')

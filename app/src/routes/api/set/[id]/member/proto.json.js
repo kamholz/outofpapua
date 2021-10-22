@@ -1,13 +1,13 @@
 import errors from '$lib/errors';
 import { ensureNfcParams, getFilteredParams, validateParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, knex, sendPgError, transaction } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
 
-export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const post = validateParams(requireAuth(async ({ body, params }) => {
   const insertParams = getFilteredParams(body, allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -30,7 +30,7 @@ export const post = validateParams(requireAuth(async ({ body, locals, params }) 
     const { glosses } = insertParams;
     delete insertParams.glosses;
 
-    const entry_id = await transaction(locals, async (trx) => {
+    const entry_id = await knex.transaction(async (trx) => {
       const entryIds = await trx('entry')
         .returning('id')
         .insert(insertParams);
