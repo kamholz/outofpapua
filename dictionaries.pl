@@ -529,7 +529,7 @@ our $dict = {
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
   'Jones, Paai & Paai (1989)' => {
-    lang_target => 'yva',
+    lang_target => 'Yawa Central',
     path => 'Fieldworks/Yawa.db',
     parser => 'Marker',
     headword_citation_action => 'prefer_root',
