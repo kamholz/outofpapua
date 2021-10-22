@@ -2,10 +2,10 @@ CREATE OR REPLACE VIEW set_name_auto AS
 SELECT set.id,
   ( CASE 
     WHEN set.name IS NOT NULL THEN
-      json_build_object('txt', set.name, 'type', 'custom')
+      json_build_object('txt', set.name)
     WHEN set.name_entry_id IS NOT NULL THEN (
       SELECT
-        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
+        json_build_object('txt', language.name || ' ' || entry.headword, 'entry_id', entry.id)
       FROM entry
       JOIN source ON source.id = entry.source_id
       JOIN language ON language.id = source.language_id
@@ -13,7 +13,7 @@ SELECT set.id,
     )
     ELSE (
       SELECT
-        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
+        json_build_object('txt', language.name || ' ' || entry.headword, 'entry_id', entry.id)
       FROM set_member
       JOIN entry ON entry.id = set_member.entry_id
       JOIN source ON source.id = entry.source_id
@@ -31,7 +31,7 @@ CREATE OR REPLACE VIEW set_name_auto_public AS
 SELECT set.id,
   ( CASE 
     WHEN set.name IS NOT NULL THEN
-      json_build_object('txt', set.name, 'type', 'custom')
+      json_build_object('txt', set.name)
     WHEN set.name_entry_id IS NOT NULL AND (
       SELECT source.public
       FROM entry
@@ -39,7 +39,7 @@ SELECT set.id,
       WHERE entry.id = set.name_entry_id
     ) THEN (
       SELECT
-        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_manual', 'entry_id', entry.id)
+        json_build_object('txt', language.name || ' ' || entry.headword, 'entry_id', entry.id)
       FROM entry
       JOIN source ON source.id = entry.source_id
       JOIN language ON language.id = source.language_id
@@ -47,7 +47,7 @@ SELECT set.id,
     )
     ELSE (
       SELECT
-        json_build_object('txt', language.name || ' ' || entry.headword, 'type', 'entry_auto', 'entry_id', entry.id)
+        json_build_object('txt', language.name || ' ' || entry.headword, 'entry_id', entry.id)
       FROM set_member
       JOIN entry ON entry.id = set_member.entry_id
       JOIN source ON source.id = entry.source_id
