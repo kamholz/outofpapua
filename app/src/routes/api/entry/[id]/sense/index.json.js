@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams, validateParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, knex, sendPgError } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const post = validateParams(requireAuth(async ({ body, params }) => {
+export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
   const insertParams = getFilteredParams(body, allowed);
   const { glosses } = insertParams;
   delete insertParams.glosses;
@@ -17,6 +17,7 @@ export const post = validateParams(requireAuth(async ({ body, params }) => {
     insertParams.entry_id = entryId;
 
     const id = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
       const senseIds = await trx('sense')
         .returning('id')
         .insert(insertParams);

@@ -18,7 +18,7 @@
   });
 
   function date(str) {
-    return new Date(str).toLocaleString([], { dateStyle: "medium", timeStyle: "medium" });
+    return new Date(str).toLocaleString([], { dateStyle: "medium", timeStyle: "long" });
   }
 
   function stringify(txt) {
@@ -74,7 +74,9 @@
           {:else if event === 'entry_created'}
             added proto-form entry: <Entry {details} />
           {:else if event === 'entry_updated'}
-            updated proto-form entry: <Entry {details} />
+            updated proto-form entry to: <Entry {details} />
+          {:else if event === 'entry_deleted'}
+            removed proto-form entry: <Entry {details} />
           {:else}
             {event}
           {/if}

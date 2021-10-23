@@ -75,7 +75,7 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAuth(async ({ params }) => {
+export const del = validateParams(requireAuth(async ({ locals, params }) => {
   try {
     const { id } = params;
     const editable = await isEditable(id);
@@ -83,6 +83,7 @@ export const del = validateParams(requireAuth(async ({ params }) => {
       return { status: 400, body: { error: errors.editableEntry } };
     }
     const ids = await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
       await trx('sense')
         .where('entry_id', id)
         .del();

@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams, validateParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, knex, sendPgError } from '$lib/db';
+import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const put = validateParams(requireAuth(async ({ body, params }) => {
+export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   const updateParams = getFilteredParams(body, allowed);
   const { glosses } = updateParams;
   delete updateParams.glosses;
@@ -26,6 +26,8 @@ export const put = validateParams(requireAuth(async ({ body, params }) => {
 
   try {
     await knex.transaction(async (trx) => {
+      await setTransactionUser(trx, locals);
+
       if (Object.keys(updateParams).length) {
         await trx('sense')
           .where('id', sense_id)
@@ -33,9 +35,11 @@ export const put = validateParams(requireAuth(async ({ body, params }) => {
       }
 
       if (glosses) {
+        await trx.raw('alter table sense_gloss disable trigger update_sense_glosses');
         await trx('sense_gloss')
           .where('sense_id', sense_id)
           .del();
+        await trx.raw('alter table sense_gloss enable trigger update_sense_glosses');
         const language = await getGlossLanguage();
         await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
       }
