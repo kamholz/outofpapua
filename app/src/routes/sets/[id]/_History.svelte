@@ -11,14 +11,14 @@
     try {
       const res = await fetch(`/api/set/${set.id}/log.json`);
       if (res.ok) {
-        log = (await res.json()).log;
+        ({ log } = (await res.json()));
       }
     } catch (e) {}
     $pageLoading--;
   });
 
   function date(str) {
-    return new Date(str).toLocaleString([], { dateStyle: "medium", timeStyle: "long" });
+    return new Date(str).toLocaleString([], { dateStyle: 'medium', timeStyle: 'long' });
   }
 
   function stringify(txt) {
