@@ -134,7 +134,10 @@ sub merge_records_docx {
 }
 
 sub get_text_docx {
-  return $_[0]->all_text =~ s/^\s+|\s+$//gr;
+  my $txt = $_[0]->all_text;
+  $txt =~ s/\s+/ /g;
+  $txt =~ s/^ | $//g;
+  return $txt;
 }
 
 sub get_type_docx {
