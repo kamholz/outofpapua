@@ -24,7 +24,7 @@ my %type_to_marker = (
 );
 
 sub read_entries {
-  my ($self) = @_;
+  my ($self, $messy) = @_;
   my $dom = $self->parse;
   my $entries = [];
 
@@ -57,6 +57,10 @@ sub read_entries {
           my $lang;
           ($marker, $lang) = @$marker;
           my $code = $self->code_from_lang($lang);
+          if ($code eq 'und') {
+            push @{$entry->{record}}, [marker_with_code($marker, $code), $txt] if $messy;
+            next;
+          }
           next if $code eq 'und';
           if ($marker eq 'g') {
             $self->add_gloss($entry, 'gloss', $txt, $code, $seen_pos);
@@ -72,6 +76,8 @@ sub read_entries {
           }
           push @{$entry->{record}}, [$marker, $txt];
         }
+      } elsif ($messy) {
+        push @{$entry->{record}}, ['?', $txt];
       }
     }
 
