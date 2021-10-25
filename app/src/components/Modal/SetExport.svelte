@@ -30,6 +30,10 @@
   {/if}
 </p> -->
 
+{#if set.note}
+  <p>Notes: {set.note}</p>
+{/if}
+
 {#each set.members as { entry, language, note, reflex, source }}
   <p>
     {language.name}
