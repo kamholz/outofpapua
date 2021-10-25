@@ -98,12 +98,22 @@ around BUILDARGS => sub {
   return $attr;
 };
 
-sub read_entries {
-  die "must be implemented by subclass";
+sub parse {
+  die 'must be implemented by subclass';
 }
 
-sub parse {
-  die "must be implemented by subclass";
+sub read_entries {
+  die 'must be implemented by subclass';
+}
+
+sub print_toolbox {
+  my ($self, $action) = @_;
+  foreach my $entry (@{$self->read_entries($action && $action eq 'messy')}) {
+    foreach my $rec (@{$entry->{record}}) {
+      say "\\$rec->[0] $rec->[1]";
+    }
+    print "\n";
+  }
 }
 
 sub push_entry {
