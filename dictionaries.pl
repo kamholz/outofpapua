@@ -683,6 +683,21 @@ our $dict = {
     gloss_preprocess => \&clear_question_mark,
     pos_preprocess => \&clear_question_mark,
   },
+  'Odé et al. (2004)' => {
+    lang_target => 'akc',
+    path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [5, 'pos'],
+      [2, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [1, 'note'],
+      [6, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    split_headword => ',',
+  },
   'Peranginangin (2014)' => {
     lang_target => 'pgu',
     path => 'Pagu/kamus Pagu_baru_2014[10975] toolbox.txt',
