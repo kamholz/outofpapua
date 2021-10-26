@@ -3,6 +3,7 @@ use v5.14;
 use lib 'perllib';
 use Data::Dumper;
 use Dotenv -load => 'app/.env';
+use Encode 'decode_utf8';
 use Lexicon::Importer;
 use Lexicon::Parser::ACD;
 use Lexicon::Parser::Dictionaria;
@@ -18,7 +19,7 @@ binmode STDERR, ':encoding(utf-8)';
 require './dictionaries.pl';
 our $dict;
 
-my ($cmd, $source_reference, @action) = @ARGV;
+my ($cmd, $source_reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
 if ($cmd !~ /^(?:import|parse|print_toolbox)$/ or !$source_reference) {
   print "\n";
