@@ -35,7 +35,7 @@ sub row_range {
 sub get_cell {
   my ($self, $worksheet, $row, $col) = @_;
   my $cell = $worksheet->get_cell($row, $col);
-  return undef unless $cell;
+  return '' unless $cell;
   return $cell->unformatted =~ s/^\s+|\s+$//gr;
 }
 
