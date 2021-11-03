@@ -2,12 +2,12 @@ import { allowed } from './_params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
   getLanguageIds, knex, name_auto, sendPgError, setTransactionUser } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
-  showPublicOnly } from '$lib/util';
+import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
+  parseBooleanParams, showPublicOnly } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
-  'headword_ipa', 'headword_ipa_exact', 'lang', 'page', 'pagesize', 'sort', 'source']);
+  'headword_ipa', 'headword_ipa_exact', 'lang', 'note', 'page', 'pagesize', 'sort', 'source']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
@@ -67,6 +67,18 @@ export async function get({ locals, query }) {
   if ('source' in query) {
     existsq.where('entry.source_id', arrayCmp(query.source));
     existsqNeeded = true;
+  }
+
+  if ('note' in query) {
+    const note = mungeRegex(query.note);
+    q.where(function () {
+      this.where('set.note', '~*', mungeRegex(note))
+      .orWhereExists(function () {
+        this.from('set_member')
+        .where('set_member.set_id', knex.ref('set.id'))
+        .where('set_member.note', '~*', note);
+      });
+    });
   }
 
   if (existsqNeeded) {

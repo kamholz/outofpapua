@@ -30,6 +30,11 @@
       type: 'text',
     },
     {
+      name: 'note',
+      label: 'Note',
+      type: 'text',
+    },
+    {
       name: 'author_id',
       label: 'Set Author',
       type: 'suggest',
