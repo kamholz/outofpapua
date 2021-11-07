@@ -25,6 +25,7 @@ export function stringify(txt) {
 export function normalizeParam(txt) {
   return nullify(txt.trim());
 }
+
 export function normalizeQuery(urlSearchParams) {
   return Object.fromEntries(
     [...urlSearchParams.entries()]
