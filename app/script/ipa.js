@@ -5,7 +5,7 @@ import knexModule from 'knex';
 const [sourceReference, mode] = process.argv.slice(2);
 
 if (!sourceReference) {
-  console.error(`Usage: ${process.argv[1]} source_reference`);
+  console.error(`Usage: ${process.argv[1]} source_reference (update|compare)`);
   process.exit(1);
 }
 
