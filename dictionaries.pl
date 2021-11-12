@@ -662,6 +662,18 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
+  'Litamahuputty (nd.)' => {
+    lang_target => 'max',
+    path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
+    parser => 'Spreadsheet',
+    mode => 'sense_per_row',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'note']
+    ],
+    split => ',',
+  },
   'Lobat (2017a)' => {
     lang_target => 'Kalabra Tet Tro',
     path => 'spreadsheets Upwork/Kalabra dictionary cleaned.xlsx',
