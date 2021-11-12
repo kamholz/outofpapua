@@ -759,7 +759,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Reesink (nd.)' => {
+  'Reesink (nd.a)' => {
     lang_target => 'had',
     path => 'Hatam/Hatam Vocab list.xlsx',
     parser => 'Spreadsheet',
@@ -774,6 +774,11 @@ our $dict = {
     ],
     split => ',;',
     headword_preprocess => \&clear_question_mark,
+  },
+  'Reesink (nd.b)' => {
+    lang_target => 'Mansim',
+    path => 'Mansim/Mansimdictionary.toolbox.txt',
+    parser => 'Marker',
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
