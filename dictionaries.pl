@@ -222,6 +222,20 @@ our $dict = {
     split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
+  'Berry & Berry (1999)' => {
+    lang_target => 'kgr',
+    path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'pos'],
+      [5, 'note'],
+      [4, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Blust & Trussel (ongoing a)' => {
     lang_target => 'Proto-Austronesian',
     path => 'acd',
