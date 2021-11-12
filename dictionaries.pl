@@ -2,6 +2,18 @@ use v5.14;
 use utf8;
 
 our $dict = {
+  'Ajamiseba et al. (1989)' => {
+    lang_target => 'ayz',
+    path => 'spreadsheets/Mai Brat Vocabulary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Anceaux (1961)' => {
     lang_target => 'bsm',
     path => 'spreadsheets/Busami.xlsx',
