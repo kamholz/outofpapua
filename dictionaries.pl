@@ -771,7 +771,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Reesink (nd.a)' => {
+  'Reesink (nd.)' => {
     lang_target => 'had',
     path => 'Hatam/Hatam Vocab list.xlsx',
     parser => 'Spreadsheet',
@@ -787,7 +787,7 @@ our $dict = {
     split => ',;',
     headword_preprocess => \&clear_question_mark,
   },
-  'Reesink (nd.b)' => {
+  'Reesink (2002)' => {
     lang_target => 'Mansim',
     path => 'Mansim/Mansimdictionary.toolbox.txt',
     parser => 'Marker',
@@ -991,14 +991,6 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'note'],
     ],
-  },
-  'Unknown (nd.c)' => {
-    lang_target => 'Mansim',
-    lang_national => 'ind',
-    # lang_regional => 'ind',
-    path => 'Mansim/Mansimdictionary.html',
-    parser => 'LexiqueDocx',
-    split => ',;',
   },
   'van Staden (nd.)' => {
     lang_target => 'tvo',
