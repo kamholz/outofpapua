@@ -62,6 +62,7 @@
   const values = {};
   let name;
   let createProtoValues;
+  let selection;
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
@@ -86,6 +87,7 @@
     if (clearProto) {
       createProtoValues = {};
     }
+    selection = editable && set.members.length > 1 ? new Set() : null;
   }
 
   function collapseAll(state) {
@@ -176,6 +178,21 @@
     if (promise && promise === promises.pending.delete) {
       promises.pending.delete = null;
       promises.fulfilled.delete = promise;
+    }
+    $pageLoading--;
+  }
+
+  async function handleSplit() {
+    $pageLoading++;
+    let promise;
+    try {
+      promise = promises.pending.split = crud.create('set', { members: [...selection], reassignExisting: true });
+      await promise;
+      await handleRefresh(false);
+    } catch (e) {}
+    if (promise && promise === promises.pending.split) {
+      promises.pending.split = null;
+      promises.fulfilled.split = promise;
     }
     $pageLoading--;
   }
@@ -289,9 +306,18 @@
     <hr>
   {/if}
 
-  <div>
-    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+  <div class="controls">
+    <div>
+      <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+      <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+    </div>
+    {#if selection}
+      <button
+        type="button"
+        on:click={handleSplit}
+        disabled={selection.size === 0 || selection.size === members.length}>
+      Split Selected To New Set</button>
+    {/if}
   </div>
   <hr>
 
@@ -300,6 +326,7 @@
       {member}
       {set}
       bind:collapsed={collapsedMembers[member.entry.id]}
+      bind:selection
       on:refresh={() => handleRefresh(false)}
     />
     <hr>
@@ -334,6 +361,15 @@
   }
 
   .set :global {
+    .controls {
+      display: flex;
+      justify-content: space-between;
+
+      > button {
+        margin-inline: 10px 0;
+      }
+    }
+
     .set-item {
       display: flex;
       position: relative;

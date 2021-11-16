@@ -11,7 +11,8 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { faCheckSquare, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faCheckSquare, faCircle as faCircleSolid, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
+  import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
   import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
     parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
@@ -23,6 +24,7 @@
   export let member;
   export let set;
   export let collapsed;
+  export let selection;
   const preferences = getContext('preferences');
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
@@ -212,6 +214,15 @@
     }
     $pageLoading--;
   }
+
+  function handleSelect() {
+    if (selection.has(entry.id)) {
+      selection.delete(entry.id);
+    } else {
+      selection.add(entry.id);
+    }
+    selection = selection;
+  }
 </script>
 
 {#if !collapsed}
@@ -280,6 +291,9 @@
           {/if}
           <span title="Delete" on:click={handleDelete}>
             <Icon data={faTrash} />
+          </span>
+          <span title="Select" on:click={handleSelect}>
+            <Icon data={selection.has(entry.id) ? faCircleSolid : faCircleRegular} />
           </span>
         </div>
       {/if}
@@ -434,7 +448,7 @@
   .controls {
     float: right;
     :global(.fa-icon) {
-      margin-inline: 7px 2px;
+      margin-inline: 10px 2px;
     }
   }
 

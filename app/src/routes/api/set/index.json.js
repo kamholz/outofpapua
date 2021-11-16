@@ -126,6 +126,13 @@ export const post = requireAuth(async ({ body, locals }) => {
     ({ members } = body);
     delete body.members;
   }
+
+  let reassign = false;
+  if ('reassignExisting' in body) {
+    reassign = body.reassignExisting;
+    delete body.reassignExisting;
+  }
+
   const params = getFilteredParams(body, allowed);
   params.author_id = locals.user.id;
   try {
@@ -136,11 +143,14 @@ export const post = requireAuth(async ({ body, locals }) => {
         .insert(params);
       const [id] = ids;
       if (members) {
-        await trx('set_member')
-          .insert(members.map((v) => ({ entry_id: v, set_id: id })));
-        // would override existing set membership
-        // .onConflict(['entry_id', 'set_id'])
-        // .merge(['set_id']);
+        if (reassign) {
+          await trx('set_member')
+            .update({ set_id: id })
+            .where('entry_id', arrayCmp(members));
+        } else {
+          await trx('set_member')
+            .insert(members.map((v) => ({ entry_id: v, set_id: id })));
+        }
       }
       return id;
     });
