@@ -36,7 +36,7 @@
   };
   export let familyIcon = null;
 
-  if (sets?.length > 1) {
+  if (sets?.length > 1 && !colors.set) {
     sets.sort(sortFunction((v) => v.name_auto.txt.toLowerCase()));
     colors.set = Object.fromEntries(sets.map((set) => [set.id, '#000000']));
   }
