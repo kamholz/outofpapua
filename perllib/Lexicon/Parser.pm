@@ -38,7 +38,7 @@ has 'split_heuristic' => (
 # string of chars to split headword on
 has 'split_headword' => (
   is => 'ro',
-  default => undef,
+  default => sub { split_regex(';') },
 );
 
 # word(s) to strip from beginning of gloss/reverse/definition

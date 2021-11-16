@@ -544,7 +544,6 @@ our $dict = {
     parser => 'LexiqueHTML',
     lang_national => 'id',
     split_heuristic => ',',
-    split_headword => ';',
   },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
@@ -636,7 +635,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
-    split_headword => ';',
   },
   'Kijne (nd.d)' => {
     lang_target => 'Yawa Mantembu',
