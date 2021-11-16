@@ -315,8 +315,8 @@
       <button
         type="button"
         on:click={handleSplit}
-        disabled={selection.size === 0 || selection.size === members.length}>
-      Split Selected To New Set</button>
+        disabled={selection.size === 0 || selection.size === members.length}
+      >Split Selected Into New Set</button>
     {/if}
   </div>
   <hr>
