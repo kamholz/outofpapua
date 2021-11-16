@@ -13,24 +13,18 @@
       if (sets?.length === 1) {
         return {
           status: 302,
-          redirect: `/sets/${sets[0]}/map?` + new URLSearchParams({ id }),
+          redirect: `/sets/${sets[0]}/map?id=${id}`,
         };
       } else {
         return {
           status: 302,
-          redirect: '/sets/map?' + new URLSearchParams({
-            sets: serializeArrayParam(sets),
-            id,
-          }),
+          redirect: `/sets/map?id=${id}&sets=${serializeArrayParam(sets)}`,
         };
       }
     } else if (entries) {
       return {
         status: 302,
-        redirect: '/map?' + new URLSearchParams({
-          entries: serializeArrayParam(entries),
-          id,
-        }),
+        redirect: `/map?id=${id}&entries=${serializeArrayParam(entries)}`,
       };
     }
 
