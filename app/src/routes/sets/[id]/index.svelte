@@ -341,7 +341,16 @@
 </div>
 
 {#if editable}
-  <button type="button" class="delete" on:click={handleDelete}>Delete Set</button>
+  <div class="controls bottom">
+    <button type="button" on:click={handleDelete}>Delete Set</button>
+    {#if selection}
+      <button
+        type="button"
+        on:click={handleSplit}
+        disabled={selection.size === 0 || selection.size === members.length}
+      >Split Selected Into New Set</button>
+    {/if}
+  </div>
 {/if}
 
 <style lang="scss">
@@ -360,16 +369,20 @@
     align-items: center;
   }
 
-  .set :global {
-    .controls {
-      display: flex;
-      justify-content: space-between;
+  .controls {
+    display: flex;
+    justify-content: space-between;
 
-      > button {
-        margin-inline: 10px 0;
-      }
+    > button:last-child {
+      margin-inline: 10px 0;
     }
 
+    &.bottom {
+      margin-block: 30px 10px;
+    }
+  }
+
+  .set :global {
     .set-item {
       display: flex;
       position: relative;
@@ -431,9 +444,5 @@
         margin-block-end: 12px;
       }
     }
-  }
-
-  .delete {
-    margin-block: 10px;
   }
 </style>
