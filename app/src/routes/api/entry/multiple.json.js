@@ -19,7 +19,7 @@ export async function get({ locals, query }) {
   }
 
   const q = knex('entry')
-    .join(`${showPublicOnly(locals) ? 'entry_details_public' : 'entry_details'} as ed`, 'ed.ed', 'entry.id')
+    .join(`${showPublicOnly(locals) ? 'entry_details_public' : 'entry_details'} as ed`, 'ed.id', 'entry.id')
     .where('entry.id', arrayCmp(query.ids))
     .select(
       'entry.id',
