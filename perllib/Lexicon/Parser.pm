@@ -108,8 +108,12 @@ sub read_entries {
 
 sub print_toolbox {
   my ($self, $action) = @_;
+  my %seen;
   foreach my $entry (@{$self->read_entries($action && $action eq 'messy')}) {
-    foreach my $rec (@{$entry->{record}}) {
+    my $record = $entry->{record};
+    next if $seen{$record};
+    $seen{$record} = 1;
+    foreach my $rec (@$record) {
       say "\\$rec->[0] $rec->[1]";
     }
     print "\n";

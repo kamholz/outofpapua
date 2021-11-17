@@ -138,7 +138,7 @@ sub read_entries {
       }
 
       if ($type eq 'subentry') {
-        $entry->{subentry} = $value eq 'TRUE' ? 1 : 0;
+        $entry->{subentry} = $value eq 'TRUE' || $value eq '1' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
       } elsif ($type eq 'ph') {
