@@ -1026,7 +1026,7 @@ our $dict = {
       alt_translation1 => 'ind',
     },
   },
-  'Visser & Vooehoeve (1987)' => {
+  'Visser & Voorhoeve (1987)' => {
     lang_target => 'saj',
     path => 'spreadsheets/Sahu/wordlist_Sahu_Visser,Voorhoeve1987_fixed.csv',
     parser => 'CSV',
