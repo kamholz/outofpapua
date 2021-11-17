@@ -47,6 +47,7 @@ sub parse {
     quote_char      => $self->quote_char,
     escape_char     => $self->escape_char,
     skip_empty_rows => 1,
+    auto_diag       => 1,
   });
 
   open my $fh, '<:crlf:encoding(' . $self->encoding->[0] . ')', $path or die $!;

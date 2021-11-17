@@ -113,7 +113,7 @@ EOF
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
 
-        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq, $sense->{pos});
+        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq, ensure_nfc($sense->{pos}));
 INSERT INTO sense (entry_id, seq, pos) VALUES (?, ?, ?)
 RETURNING id
 EOF
@@ -125,7 +125,7 @@ EOF
             my $language_id = $self->get_language_id($val->[1]);
             die "no language found for gloss: $val->[0]" unless $language_id;
             $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt, seq) VALUES (?, ?, ?, ?)",
-              $sense_id, $language_id, $val->[0], $seq);
+              $sense_id, $language_id, ensure_nfc($val->[0]), $seq);
             $seq++;
           }
         }
@@ -133,7 +133,7 @@ EOF
         my $example_seq = 1;
         foreach my $ex (@{$sense->{example}||[]}) {
           my ($txt, @trans) = @$ex;
-          my $example_id = select_single($db, <<'EOF', $sense_id, $example_seq, $txt);
+          my $example_id = select_single($db, <<'EOF', $sense_id, $example_seq, ensure_nfc($txt));
 INSERT INTO sense_example (sense_id, seq, txt) VALUES (?, ?, ?)
 RETURNING id
 EOF
@@ -141,7 +141,7 @@ EOF
 
           foreach my $tr (@trans) {
             my $language_id = $self->get_language_id($tr->[1]);
-            $db->query('INSERT INTO sense_example_translation (sense_example_id, language_id, txt) VALUES (?, ?, ?)', $example_id, $language_id, $tr->[0]);
+            $db->query('INSERT INTO sense_example_translation (sense_example_id, language_id, txt) VALUES (?, ?, ?)', $example_id, $language_id, ensure_nfc($tr->[0]));
           }
         }
       }
