@@ -593,6 +593,20 @@ our $dict = {
     lang_national => 'ind',
     gloss_preprocess => \&clear_hyphen,
   },
+  'Kamholz (nd.e)' => {
+    lang_target => 'kjr',
+    path => 'Kamholz/Kurudu.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+  },
+  'Kamholz (nd.f)' => {
+    lang_target => 'wbb',
+    path => 'Kamholz/Wabo.txt',
+    parser => 'Marker',
+    lang_regional => 'ind',
+    lang_national => 'ind',
+  },
   'Kamholz (2021)' => {
     lang_target => 'Proto-SHWNG',
     path => 'spreadsheets/Proto-SHWNG.xlsx',
