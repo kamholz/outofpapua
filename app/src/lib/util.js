@@ -244,6 +244,21 @@ export function matchReflex(reflex) {
   return reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
 }
 
+export function formatReflexIpa(reflex, headword_ipa, func) {
+  // eslint-disable-next-line eqeqeq
+  if (reflex == null) {
+    return ['', headword_ipa, ''];
+  }
+
+  const [before, reflexProper, after] = matchReflex(reflex).map((v) => v.length ? func(v) : v);
+
+  if ((!before.length || headword_ipa.startsWith(before)) && (!after.length || headword_ipa.endsWith(after))) {
+    return [before, headword_ipa.slice(before.length, headword_ipa.length - after.length), after];
+  } else {
+    return [before, reflexProper, after];
+  }
+}
+
 export function originSummary(entry) {
   let origin = entry.origin ?? 'unknown';
   if (origin === 'borrowed' && entry.origin_language_name) {

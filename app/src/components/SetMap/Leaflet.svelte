@@ -3,7 +3,7 @@
   import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
-  import { escapeHtml as escape, maybeGloss } from '$lib/util';
+  import { escapeHtml as escape, formatReflexIpa, maybeGloss } from '$lib/util';
   import { getContext, onDestroy, onMount } from 'svelte';
   import { maxZoom } from '$lib/preferences';
   import { yiq } from 'yiq';
@@ -233,15 +233,12 @@
     if (headwordDisplay === 'plain') {
       return escape(headword_ipa ?? headword);
     } else {
-      // eslint-disable-next-line eqeqeq
-      const [before, reflexProper, after] = reflex == null
-        ? ['', headword, '']
-        : reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
-
       const convert = ipaFunctions[ipa_conversion_rule] ?? ((v) => v);
+      const [before, reflexProper, after] = formatReflexIpa(reflex, headword_ipa ?? headword, convert);
+
       return headwordDisplay === 'reflex-only'
-        ? escape(convert(reflexProper))
-        : `${escape(convert(before))}<strong>${escape(convert(reflexProper))}</strong>${escape(convert(after))}`;
+        ? escape(reflexProper)
+        : `${escape(before)}<strong>${escape(reflexProper)}</strong>${escape(after)}`;
     }
   }
 

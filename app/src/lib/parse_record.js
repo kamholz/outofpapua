@@ -14,7 +14,7 @@ const langMarker = {
 
 const senseMarker = {
   lt: 'literal',
-  'nt_sn': 'note',
+  nt_sn: 'note',
 };
 
 const multiMarker = {
