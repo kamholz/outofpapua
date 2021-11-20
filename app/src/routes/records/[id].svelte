@@ -45,7 +45,7 @@
 <style lang="scss">
   div {
     margin-block-end: 16px;
-    max-width: 1000px;
+    max-width: var(--text-max-width);
   }
 
   button {

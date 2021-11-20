@@ -74,6 +74,11 @@
     <em>Cite this source as:</em> {source.reference_full}
   </div>
 {/if}
+{#if source.note}
+  <div class="info">
+    <em>Notes on this source:</em> {source.note}
+  </div>
+{/if}
 
 <h3>Search entries</h3>
 <SearchForm
@@ -101,6 +106,7 @@
 <style lang="scss">
   .info {
     margin-block: var(--item-sep);
+    max-width: var(--text-max-width);
     @include indent;
   }
 
