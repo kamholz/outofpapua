@@ -739,11 +739,12 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [5, 'pos'],
-      [2, 'gloss', 'ind'],
-      [4, 'gloss', 'eng'],
-      [1, 'note'],
-      [6, 'page_num'],
+      [1, 'va']
+      [6, 'pos'],
+      [3, 'gloss', 'ind'],
+      [5, 'gloss', 'eng'],
+      [2, 'note'],
+      [7, 'page_num'],
     ],
     mode => 'sense_per_row',
     split_headword => ',',
