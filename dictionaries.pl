@@ -848,6 +848,12 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
+  'Sawaki (nd.)' => {
+    lang_target => 'wbw',
+    path => 'Wooilex.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Smits & Voorhoeve (1998a)' => {
     lang_target => 'Yawa Ambaidiru',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
