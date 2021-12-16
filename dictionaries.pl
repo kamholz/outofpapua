@@ -805,6 +805,14 @@ our $dict = {
     path => 'Mansim/Mansimdictionary.toolbox.txt',
     parser => 'Marker',
   },
+  'Remijsen (2003)' => {
+    lang_target => 'xmt',
+    path => 'Matbat_MageyDialect_2003_Lexicography/Matbat_Vocabulary.toolbox.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
+    strip => 'to',
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
