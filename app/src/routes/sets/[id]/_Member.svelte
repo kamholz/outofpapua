@@ -342,7 +342,7 @@
           <li transition:slide|local>
             <span></span>
             <span class="indented">
-              <span class="label">Language:</span>
+              <span class="label">Borrowed from:</span>
               <Svelecte
                 options={borrowlangSuggest.filter((v) => v.id !== language.id)}
                 disabled={promises.pending.origin_language_id}
@@ -375,7 +375,7 @@
             <li transition:slide|local>
               <span></span>
               <span class="indented">
-                <span class="label">Language:</span>
+                <span class="label">Borrowed from:</span>
                 <Svelecte
                   options={borrowlangSuggest.filter((v) => v.id !== language.id)}
                   disabled={promises.pending.reflex_origin_language_id}

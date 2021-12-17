@@ -130,7 +130,7 @@
       </div>
       {#if editable && entry.origin === 'borrowed'}
         <div transition:slide|local class="originlang">
-          <span class="label">Language:</span>
+          <span class="label">Borrowed from:</span>
           <div>
             <Svelecte
               options={borrowlangSuggest.filter((v) => v.id !== language_id)}
@@ -208,14 +208,10 @@
         }
       }
 
-      &.originlang {
-        > div {
-          width: 100%;
-        }
-
+      &.originlang, &.link {
         .label {
           align-self: center;
-          inline-size: 9em;
+          inline-size: 11em;
         }
 
         :global(.sv-control) {
@@ -223,16 +219,15 @@
         }
       }
 
-      &.link {
-        .label {
-          align-self: center;
-          inline-size: 9em;
+      &.originlang {
+        > div {
+          width: 100%;
         }
 
+      }
+
+      &.link {
         :global {
-          .sv-control {
-            inline-size: 16em;
-          }
           .sv-dropdown {
             width: 30em !important;
             right: 0;
