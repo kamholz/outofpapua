@@ -6,9 +6,9 @@
 </script>
 
 {#if collapsed}
-  <div on:click={toggle}>▶</div>
+  <div><span on:click={toggle}>▶</span></div>
 {:else}
-  <div on:click={toggle}>▼</div>
+  <div><span on:click={toggle}>▼</span></div>
 {/if}
 
 <style>
