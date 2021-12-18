@@ -1318,6 +1318,16 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Witani (1992)' => {
+    lang_target => 'Maybrat Ayamaru',
+    path => 'spreadsheets/Maybrat Ayamaru_Witani_1992.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+  },
 };
 
 # headword and gloss cleanup
