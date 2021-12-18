@@ -65,13 +65,13 @@ has 'lang_regional' => (
   default => 'und',
 );
 
-# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
+# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore'
 has 'reverse_action' => (
   is => 'ro',
   default => 'merge',
 );
 
-# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore', 'drop'
+# valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore'
 has 'definition_action' => (
   is => 'ro',
   default => 'ignore',
@@ -222,8 +222,10 @@ sub apply_action {
     my $action = $self->${\"${item}_action"};
     return if $action eq 'ignore';
 
-    my $value = delete $sense->{$item};
-    @$value = grep { $_->[0] =~ /\w/ } @$value; # ensure at least one word char present
+    my $value = [
+      grep { $_->[0] =~ /\w/ } # ensure at least one word char present
+      @{$sense->{$item}||[]}
+    ];
     return unless @$value;
 
     if ($action eq 'merge') {

@@ -784,7 +784,7 @@ our $dict = {
     path => 'Ambai Lexicon.db',
     parser => 'Marker',
     lang_national => 'ind',
-    reverse_action => 'drop',
+    reverse_action => 'ignore',
   },
   'Price & Donohue (2009)' => {
     lang_target => 'and',
@@ -853,6 +853,7 @@ our $dict = {
     path => 'Wooilex.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    definition_action => 'disprefer',
   },
   'Smits & Voorhoeve (1998a)' => {
     lang_target => 'Yawa Ambaidiru',
