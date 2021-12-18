@@ -321,7 +321,7 @@
   </div>
   <hr>
 
-  {#each members as member ([set.id, member.entry.id].join('|'))}
+  {#each members as member ([set.id, member.entry.id, member.source.id].join('|'))}
     <Member
       {member}
       {set}

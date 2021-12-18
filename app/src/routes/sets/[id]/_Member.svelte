@@ -3,6 +3,7 @@
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import Icon from 'svelte-awesome';
   import Input from './_Input.svelte';
+  import MemberReference from './_MemberReference.svelte';
   import MemberReflex from './_MemberReflex.svelte';
   import OriginSummary from '$components/OriginSummary.svelte';
   import Radios from './_Radios.svelte';
@@ -265,7 +266,7 @@
         </p>
       {/if}
       <p class="plain">
-        <a href="/sources/{source.id}/entries" sveltekit:prefetch>{source.reference}</a>
+        <MemberReference {entry} {source} {editable} on:refresh />
       </p>
     {/if}
   </div>
