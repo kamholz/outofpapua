@@ -13,6 +13,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'page_num'],
     ],
+    mode => 'sense_per_row',
     strip => 'to',
   },
   'Anceaux (1961)' => {
