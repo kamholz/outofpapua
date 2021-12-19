@@ -3,14 +3,15 @@ use utf8;
 
 our $dict = {
   'Ajamiseba et al. (1989)' => {
-    lang_target => 'ayz',
+    lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Mai Brat Vocabulary.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'ind'],
-      [2, 'gloss', 'eng'],
-      [3, 'page_num'],
+      [1, 'va'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'page_num'],
     ],
     strip => 'to',
   },
@@ -370,7 +371,7 @@ our $dict = {
     lang_national => 'ind',
   },
   'Dol (2007)' => {
-    lang_target => 'ayz',
+    lang_target => 'Maybrat Ayawasi',
     path => '../dict/Dol/dol_maybrat2007_toolbox.txt',
     parser => 'Marker',
     split => ',;',
