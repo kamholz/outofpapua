@@ -30,6 +30,10 @@
   {/if}
 </p> -->
 
+{#if set.name}
+  <p class="heading">{set.name}</p>
+{/if}
+
 {#if set.note}
   <p>Notes: {set.note}</p>
 {/if}
@@ -56,6 +60,10 @@
     @include indent;
     &:not(:last-child) {
       margin-block-end: 1em;
+    }
+    &.heading {
+      font-weight: bold;
+      font-size: 18px;
     }
   }
 </style>
