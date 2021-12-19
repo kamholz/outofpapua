@@ -80,10 +80,12 @@
       padding-block: 1.25em;
       padding-inline: 2.25em;
       background-color: var(--light-gray);
+      z-index: -999;
 
       &.active {
         transition: opacity 200ms ease-out;
         opacity: 1;
+        z-index: 999;
       }
     }
 
