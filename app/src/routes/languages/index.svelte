@@ -2,10 +2,14 @@
   import { normalizeQuery, serializeQuery } from '$lib/util';
 
   export async function load({ fetch, page: { query } }) {
-    const props = await reload(fetch, normalizeQuery(query));
-    if (!props) {
+    const props = {};
+
+    const json = await reload(fetch, normalizeQuery(query));
+    if (!json) {
       return { status: 500 };
     }
+    Object.assign(props, json);
+
     return { props };
   }
 
