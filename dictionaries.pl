@@ -249,7 +249,7 @@ our $dict = {
     headword_preprocess => \&clear_hyphen,
   },
   'Berry & Berry (1999)' => {
-    lang_target => 'kgr',
+    lang_target => 'Abun Ye',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -860,8 +860,8 @@ our $dict = {
   'Smits & Voorhoeve (1998a)' => {
     lang_target => 'Yawa Ambaidiru',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
@@ -871,8 +871,8 @@ our $dict = {
   'Smits & Voorhoeve (1998b)' => {
     lang_target => 'Yawa Ariepi',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
@@ -882,8 +882,8 @@ our $dict = {
   'Smits & Voorhoeve (1998c)' => {
     lang_target => 'Yawa Mariadei',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
@@ -893,8 +893,8 @@ our $dict = {
   'Smits & Voorhoeve (1998d)' => {
     lang_target => 'Yawa Tarau',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
@@ -904,8 +904,8 @@ our $dict = {
   'Smits & Voorhoeve (1998e)' => {
     lang_target => 'Yawa Tarau',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [6, 'headword'],
       [0, 'gloss', 'eng'],
@@ -915,8 +915,8 @@ our $dict = {
   'Smits & Voorhoeve (1998f)' => {
     lang_target => 'Yawa Kampung Baru',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [7, 'headword'],
       [0, 'gloss', 'eng'],
@@ -926,8 +926,8 @@ our $dict = {
   'Smits & Voorhoeve (1998g)' => {
     lang_target => 'Yawa Mantembu',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [8, 'headword'],
       [0, 'gloss', 'eng'],
@@ -937,8 +937,8 @@ our $dict = {
   'Smits & Voorhoeve (1998h)' => {
     lang_target => 'Yawa Mantembu',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [9, 'headword'],
       [0, 'gloss', 'eng'],
@@ -948,8 +948,8 @@ our $dict = {
   'Smits & Voorhoeve (1998i)' => {
     lang_target => 'Yawa Turu',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [10, 'headword'],
       [0, 'gloss', 'eng'],
@@ -959,8 +959,8 @@ our $dict = {
   'Smits & Voorhoeve (1998j)' => {
     lang_target => 'Yawa Konti Unai',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [11, 'headword'],
       [0, 'gloss', 'eng'],
@@ -970,8 +970,8 @@ our $dict = {
   'Smits & Voorhoeve (1998k)' => {
     lang_target => 'Yawa Wadapi-Darat',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [12, 'headword'],
       [0, 'gloss', 'eng'],
@@ -981,8 +981,8 @@ our $dict = {
   'Smits & Voorhoeve (1998l)' => {
     lang_target => 'Yawa Wadapi-Darat',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [13, 'headword'],
       [0, 'gloss', 'eng'],
@@ -992,8 +992,8 @@ our $dict = {
   'Smits & Voorhoeve (1998m)' => {
     lang_target => 'swr',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [14, 'headword'],
       [0, 'gloss', 'eng'],
@@ -1003,8 +1003,8 @@ our $dict = {
   'Smits & Voorhoeve (1998n)' => {
     lang_target => 'swr',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [15, 'headword'],
       [0, 'gloss', 'eng'],
@@ -1014,13 +1014,181 @@ our $dict = {
   'Smits & Voorhoeve (1998o)' => {
     lang_target => 'swr',
     path => 'spreadsheets/6-Word list of multiple Yawa dialects and Saweru in Anceaux collection.xlsx',
-    skip => 2,
     parser => 'Spreadsheet',
+    skip => 2,
     columns => [
       [16, 'headword'],
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
+  },
+  'Smits & Voorhoeve (1998p)' => {
+    lang_target => 'Maybrat Karon Feif',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Dori',
+    skip => 3,
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998q)' => {
+    lang_target => 'Maybrat Karon Pef (Tintum)',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Dori',
+    skip => 3,
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998r)' => {
+    lang_target => 'Maybrat Karon',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Dori',
+    skip => 3,
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998s)' => {
+    lang_target => 'Maybrat Karon',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Dori',
+    skip => 3,
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998t)' => {
+    lang_target => 'Maybrat Karon',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Dori',
+    skip => 3,
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998u)' => {
+    lang_target => 'Abun Sausapor',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998v)' => {
+    lang_target => 'Abun Sausapor',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998w)' => {
+    lang_target => 'Abun Sausapor',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998x)' => {
+    lang_target => 'Abun Mega',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998y)' => {
+    lang_target => 'Abun Madik',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998z)' => {
+    lang_target => 'Abun',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998aa)' => {
+    lang_target => 'Abun',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998ab)' => {
+    lang_target => 'Abun',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Smits & Voorhoeve (1998ac)' => {
+    lang_target => 'Abun',
+    path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Karon Pantai',
+    skip => 3,
+    columns => [
+      [9, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    strip => 'to',
   },
   'Unknown (nd.)' => {
     lang_target => 'Abun Ye',
