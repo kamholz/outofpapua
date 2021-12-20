@@ -62,7 +62,7 @@
 <h2>IPA Conversion Libs</h2>
 
 <label>
-  Show:
+  Choose:
   <select bind:value={selected}>
     {#each libs as lib (lib.name)}
       <option value={lib.name}>{lib.name}</option>

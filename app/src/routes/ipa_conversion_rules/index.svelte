@@ -40,6 +40,14 @@
   let selected = 'common';
   let promise;
 
+  const codeByName = {};
+  let testInput;
+  let testOutput;
+
+  $: if (selected) {
+    testOutput = '';
+  }
+
   async function handleSubmit(e) {
     const submitValues = { ...e.detail.values };
     for (const field of nullifyFields) {
@@ -66,8 +74,51 @@
         }
       })();
       await promise;
+      delete codeByName[selected];
     } catch (e) {}
     $pageLoading--;
+  }
+
+  async function handleTest() {
+    testOutput = '';
+    if (!testInput.length) {
+      return;
+    }
+
+    if (!codeByName[selected]) {
+      $pageLoading++;
+      try {
+        codeByName[selected] = await getCode(selected);
+      } catch (e) {}
+      $pageLoading--;
+    }
+
+    const code = codeByName[selected];
+    if (code) {
+      try {
+        testOutput = code(testInput);
+      } catch (e) {
+        testOutput = 'error evaluating code';
+      }
+    } else {
+      testOutput = 'error fetching code';
+      return;
+    }
+  }
+
+  async function getCode(name) {
+    const res = await fetch('/api/ipa_conversion_rule.json?' + new URLSearchParams({
+      type: 'javascript_code',
+      names: name,
+    }));
+    if (!res.ok) {
+      throw new Error('Could not fetch code');
+    }
+    const code = (await res.json()).rows[0]?.javascript_code;
+    if (!code) {
+      throw new Error('Code not found');
+    }
+    return (0, eval)(code);
   }
 </script>
 
@@ -78,7 +129,7 @@
 <h2>IPA Conversion Rules</h2>
 
 <label>
-  Show:
+  Choose:
   <select bind:value={selected}>
     {#each rules as rule (rule.name)}
       <option value={rule.name}>{rule.name}</option>
@@ -86,7 +137,7 @@
   </select>
 </label>
 
-<div>
+<div class="rules">
   {#if promise}
     {#await promise catch { message } }
       <Alert type="error" {message} />
@@ -95,13 +146,29 @@
   <Form rule={rulesByName[selected]} on:submit={handleSubmit} />
 </div>
 
+<h3>Tester</h3>
+
+<div class="tester">
+  <div>
+    <span>Input:</span><input type="text" bind:value={testInput}>
+  </div>
+  <div>
+    <span>Output:</span><span>{testOutput}</span>
+  </div>
+  <button
+    type="button"
+    disabled={$pageLoading}
+    on:click={handleTest}
+  >Run</button>
+</div>
+
 <style lang="scss">
   label {
     display: block;
-    margin-block-end: var(--item-sep);
+    margin-block-end: var(--item-sep)
   }
 
-  div {
+  .rules {
     :global {
       textarea {
         @include monospace;
@@ -114,6 +181,21 @@
       }
       textarea[name="chain_after"], textarea[name="chain_before"], textarea[name="lib"] {
         block-size: 2.5em;
+      }
+    }
+  }
+
+  .tester {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    > div {
+      display: flex;
+      margin-block-end: 20px;
+
+      > :first-child {
+        inline-size: 4em;
       }
     }
   }
