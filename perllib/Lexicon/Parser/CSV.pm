@@ -104,6 +104,7 @@ sub read_entries {
 
       if ($type eq 'headword') {
         my $marker = 'lx';
+        my $note = $arg;
 
         if ($mode eq 'sense_per_row') {
           if ($entry->{subentry}) {
@@ -127,6 +128,7 @@ sub read_entries {
 
         push @{$entry->{headword}}, @headwords;
         push @{$entry->{record}}, [$marker, $_] for @headwords;
+        push @{$entry->{record}}, ['nt', $note] if length $note;
 
         push @{$entry->{record}}, ['sn', '1'] if $mode eq 'sense_per_row';
         next;
