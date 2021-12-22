@@ -1912,6 +1912,20 @@ our $dict = {
     gloss => { i => 'ind', e => 'eng' },
     split => ',',
   },
+  'van den Heuvel (nd)' => {
+    lang_target => 'bhw',
+    path => 'Biak-LexiRumah_20191107.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [11, 'ph'],
+      [0, 'note', 'concept number:'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+      [13, 'note'],
+    ],
+    strip => 'to',
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox.txt',
