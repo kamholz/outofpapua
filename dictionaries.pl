@@ -414,6 +414,23 @@ our $dict = {
     parser => 'Marker',
     skip_marker => 'lx_Eng',
   },
+  'Ellen (1916)' => {
+    lang_target => 'mqo',
+    path => 'spreadsheets/Modole_Ellen1916.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'nld'],
+      [6, 'gloss', 'nld'],
+      [9, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [7, 'gloss', 'eng'],
+      [10, 'gloss', 'eng'],
+      [1, 'et'],
+      [14, 'note'],
+      [13, 'page_num'],
+    ],
+  },
   'Flassy (1978)' => {
     lang_target => 'kps',
     path => 'spreadsheets Upwork/Tehit-Indonesian dictionary.xlsx',
@@ -1705,6 +1722,186 @@ our $dict = {
       [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'note'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Wooi)' => {
+    lang_target => 'wbw',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Pom 23a)' => {
+    lang_target => 'pmo',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Pom 23b.1)' => {
+    lang_target => 'pmo',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Pom 23b.2)' => {
+    lang_target => 'pmo',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Marau 24a)' => {
+    lang_target => 'mvr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Marau 24b)' => {
+    lang_target => 'mvr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Munggui 25a)' => {
+    lang_target => 'mth',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Munggui 25b.1)' => {
+    lang_target => 'mth',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Munggui 25b.2)' => {
+    lang_target => 'mth',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Papuma 26a.1)' => {
+    lang_target => 'ppm',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [11, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Papuma 26a.2)' => {
+    lang_target => 'ppm',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Busami)' => {
+    lang_target => 'bsm',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Wabo)' => {
+    lang_target => 'wbb',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Kurudu 32a.1)' => {
+    lang_target => 'kjr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Kurudu 32a.2)' => {
+    lang_target => 'kjr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [16, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Kurudu 32a.3)' => {
+    lang_target => 'kjr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [17, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Kurudu 32a.4)' => {
+    lang_target => 'kjr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [18, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+  },
+  'Smits & Voorhoeve (1998 Kurudu 32b)' => {
+    lang_target => 'kjr',
+    path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [19, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'page_num'],
     ],
   },
   'Unknown (nd)' => {
