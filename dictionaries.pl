@@ -2060,6 +2060,12 @@ our $dict = {
     strip => 'to',
 
   },
+  'Voorhoeve (nd)' => {
+    lang_target => 'tft',
+    path => 'Voorhoeve_Ternate_19122021.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Wada (1980a)' => {
     lang_target => 'gbi',
     path => 'Wada_1980/Wada.xlsx',
