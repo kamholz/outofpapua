@@ -2,12 +2,13 @@
   export let page;
   export let pageUrl;
   export let num;
+  export let sort;
 </script>
 
 {#if page === num}
   <span>{num}</span>
 {:else}
-  <a href={pageUrl(num)}>{num}</a>
+  <a href={pageUrl(num, sort)}>{num}</a>
 {/if}
 
 <style>

@@ -21,25 +21,25 @@
 </script>
 
 <div>
-  <Arrow dir="previous" url={page > 1 && pageUrl(page - 1)} />
+  <Arrow dir="previous" url={page > 1 && pageUrl(page - 1, query.sort)} />
   <Number num={1} {page} {pageUrl} />
   {#if page - pageWidth > 3}
     <span>…</span>
   {/if}
   {#if page - pageWidth === 3}
-    <Number num={2} {page} {pageUrl} />
+    <Number num={2} {page} {pageUrl} sort={query.sort} />
   {/if}
   {#each pagesToDisplay as i (`${i}:${query.pagesize}`)}
-    <Number num={i + 1} {page} {pageUrl} />
+    <Number num={i + 1} {page} {pageUrl} sort={query.sort} />
   {/each}
   {#if page + pageWidth < pageCount - 2}
     <span>…</span>
   {/if}
   {#if page + pageWidth === pageCount - 2}
-    <Number num={pageCount - 1} {page} {pageUrl} />
+    <Number num={pageCount - 1} {page} {pageUrl} sort={query.sort} />
   {/if}
-  <Number num={pageCount} {page} {pageUrl} />
-  <Arrow dir="next" url={page < pageCount && pageUrl(page + 1)} />
+  <Number num={pageCount} {page} {pageUrl} sort={query.sort} />
+  <Arrow dir="next" url={page < pageCount && pageUrl(page + 1, query.sort)} />
 </div>
 
 <style lang="scss">
