@@ -1948,7 +1948,7 @@ our $dict = {
       alt_translation1 => 'ind',
     },
   },
-  'Visser & Voorhoeve (1987)' => {
+  'Visser & Voorhoeve (1987a)' => {
     lang_target => 'saj',
     path => 'spreadsheets/Sahu/wordlist_Sahu_Visser,Voorhoeve1987_fixed.csv',
     parser => 'CSV',
@@ -1977,6 +1977,19 @@ our $dict = {
       [37, 'note'],
       [6, 'cf', 'split'],
       [7, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
+  'Visser & Voorhoeve (1987b)' => {
+    lang_target => 'max',
+    path => 'spreadsheets/Visser,Voorhoeve-dic.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [1, 'page_num']
     ],
     mode => 'sense_per_row',
     strip => 'to',
