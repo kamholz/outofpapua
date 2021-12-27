@@ -89,6 +89,7 @@
   searchContext={Boolean(query.record)}
   let:row
   on:update={handleUpdate}
+  on:link
 >
   <EntryRecordHighlighted strings={row.record_match}>
     <EntryRecordFormatted data={row.record_data} source={{ id: row.source_id, formatting: row.source_formatting }} />
