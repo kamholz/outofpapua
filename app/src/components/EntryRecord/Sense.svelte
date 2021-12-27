@@ -6,7 +6,7 @@
   import { langMarkerSorted } from '$lib/parse_record';
 
   export let sense;
-  const formatting = getContext('formatting');
+  const { formatting } = getContext('source');
   const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
 
   const notes = [

@@ -4,9 +4,9 @@
   import { setContext } from 'svelte';
 
   export let data;
-  export let formatting;
-  setContext('formatting', formatting);
-  const entry = parseRecord(data, formatting);
+  export let source;
+  setContext('source', source);
+  const entry = parseRecord(data, source.formatting);
 </script>
 
 <Entry {entry} />

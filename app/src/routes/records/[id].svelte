@@ -32,7 +32,7 @@
 {/if}
 {#if showFormatted}
   <div in:fade>
-    <EntryRecordFormatted {data} formatting={source.formatting} />
+    <EntryRecordFormatted {data} {source} />
     <button type="button" on:click={() => showFormatted = false}>Show Raw Version</button>
   </div>
 {:else}

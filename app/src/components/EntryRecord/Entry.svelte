@@ -94,17 +94,20 @@
       key: 'synonym',
       label: 'Synonyms',
       join: true,
+      link: true,
     },
     {
       key: 'antonym',
       label: 'Antonyms',
       join: true,
+      link: true,
     },
     {
       key: 'crossref',
       label: 'See also',
       join: true,
       trans: true,
+      link: true,
     },
   ];
 
@@ -138,9 +141,9 @@
       <Sense sense={entry.sense[0]} />
     {/if}
 
-    {#each notesPost as { key, label, join, trans }}
+    {#each notesPost as { key, label, join, trans, link }}
       {#if key in entry}
-        <Note data={entry} {key} {label} {join} {trans} />
+        <Note data={entry} {key} {label} {join} {trans} {link} />
       {/if}
     {/each}
   {/if}

@@ -91,6 +91,6 @@
   on:update={handleUpdate}
 >
   <EntryRecordHighlighted strings={row.record_match}>
-    <EntryRecordFormatted data={row.record_data} formatting={source.formatting} />
+    <EntryRecordFormatted data={row.record_data} source={{ id: row.source_id, formatting: row.source_formatting }} />
   </EntryRecordHighlighted>
 </Table>

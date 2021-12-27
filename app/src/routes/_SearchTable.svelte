@@ -66,6 +66,6 @@
   on:link
 >
   <EntryRecordHighlighted strings={row.record_match}>
-    <EntryRecordFormatted data={row.record_data} formatting={row.source_formatting} />
+    <EntryRecordFormatted data={row.record_data} source={{ id: row.source_id, formatting: row.source_formatting }} />
   </EntryRecordHighlighted>
 </Table>

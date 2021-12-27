@@ -11,8 +11,8 @@ export const get = validateParams(async ({ locals, params }) => {
       'record.id',
       'record.data',
       'record.page_num',
-      'rs.source_id',
       knex.raw(`json_build_object(
+        'id', source.id,
         'reference', source.reference,
         'language_name', language.name,
         'formatting', source.formatting

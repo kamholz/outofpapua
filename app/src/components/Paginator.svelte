@@ -22,7 +22,7 @@
 
 <div>
   <Arrow dir="previous" url={page > 1 && pageUrl(page - 1, query.sort)} />
-  <Number num={1} {page} {pageUrl} />
+  <Number num={1} {page} {pageUrl} sort={query.sort} />
   {#if page - pageWidth > 3}
     <span>…</span>
   {/if}
