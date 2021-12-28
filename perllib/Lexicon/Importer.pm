@@ -235,6 +235,9 @@ sub get_language_id {
 
 sub get_entry_id {
   my ($db, $entry, $source_id) = @_;
+
+  return $entry->{id} if $entry->{id};
+
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   say "no glosses, not sure what to do: $entry->{headword}", return unless @glosses;
 
