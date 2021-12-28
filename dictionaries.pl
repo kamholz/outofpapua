@@ -248,6 +248,20 @@ our $dict = {
     split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
+  'Berry & Berry (1990)' => {
+    lang_target => 'Abun Ye',
+    path => 'Abun-Indon-Eng Glossary/Abun-Indon-Eng Glossary A-Y_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'id'],
+      [2, 'headword'],
+      [3, 'pos'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Berry & Berry (1999)' => {
     lang_target => 'Abun Ye',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
@@ -1902,15 +1916,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
-  },
-  'Unknown (nd)' => {
-    lang_target => 'Abun Ye',
-    path => 'Abun-Indon-Eng Glossary/Abun-Indon-Eng Glossary A-Y.txt',
-    parser => 'Marker',
-    headword => 'w',
-    pos => 'p',
-    gloss => { i => 'ind', e => 'eng' },
-    split => ',',
   },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',

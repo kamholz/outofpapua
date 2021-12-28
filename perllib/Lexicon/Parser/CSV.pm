@@ -76,21 +76,7 @@ sub read_entries {
   my $columns = $self->columns;
   my $split_headword = $self->split_headword;
 
-  my $row_func;
-  if ($mode eq 'entry_per_row') {
-    $row_func = sub {
-      $self->push_entry($entries, $entry);
-      $entry = {};
-    };
-  } elsif ($mode eq 'sense_per_row') {
-    $row_func = sub {
-      $entry = {
-        headword => $entry->{headword},
-        sense => $entry->{sense},
-        record => $entry->{record},
-      };
-    };
-  } else {
+  if ($mode ne 'entry_per_row' and $mode ne 'sense_per_row') {
     die "unknown mode: $mode";
   }
 
@@ -144,6 +130,8 @@ sub read_entries {
         $entry->{subentry} = $value eq 'TRUE' || $value eq '1' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
+      } elsif ($type eq 'id') {
+        $entry->{id} //= $value;
       } elsif ($type eq 'ph') {
         $entry->{headword_ph} = normalize_ph($value);
         push @{$entry->{record}}, ['ph', $value];
@@ -190,7 +178,10 @@ sub read_entries {
       }
     }
 
-    $row_func->();
+    if ($mode eq 'entry_per_row') {
+      $self->push_entry($entries, $entry);
+      $entry = {};
+    }
   }
 
   $self->push_entry($entries, $entry) if $mode eq 'sense_per_row';
