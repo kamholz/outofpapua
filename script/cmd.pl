@@ -48,6 +48,7 @@ if ($cmd eq 'export') {
 
   if ($cmd eq 'import') {
     Lexicon::Importer->new->import_lexicon($source_reference, $args->{lang_target}, $parser, @action);
+    system "cd app && script/ipa.js '$source_reference' update";
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
