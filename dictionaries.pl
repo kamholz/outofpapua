@@ -253,8 +253,8 @@ our $dict = {
     path => 'Abun-Indon-Eng Glossary/Abun-Indon-Eng Glossary A-Y_cleaned.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'id'],
       [2, 'headword'],
+      [0, 'id'],
       [3, 'pos'],
       [4, 'gloss', 'eng'],
       [5, 'gloss', 'ind'],
