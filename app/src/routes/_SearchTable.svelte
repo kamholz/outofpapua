@@ -42,23 +42,23 @@
 
   const controls = $session.hideComparative
     ?
-      [
-        {
-          type: 'select',
-        },
-      ]
+    [
+      {
+        type: 'select',
+      },
+    ]
     :
-      [
-        {
-          type: 'set',
-        },
-        {
-          type: 'entryinfo',
-        },
-        {
-          type: 'select',
-        },
-      ];
+    [
+      {
+        type: 'set',
+      },
+      {
+        type: 'entryinfo',
+      },
+      {
+        type: 'select',
+      },
+    ];
 </script>
 
 <Table

@@ -6,6 +6,7 @@
   import { getContext } from 'svelte';
   import { joinGlosses, parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
+  import { session } from '$app/stores';
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';
 
@@ -37,14 +38,18 @@
     },
   ];
 
-  const controls = [
-    {
-      type: 'set',
-    },
-    {
-      type: 'entryinfo',
-    },
-  ];
+  const controls = $session.hideComparative
+    ?
+    []
+    :
+    [
+      {
+        type: 'set',
+      },
+      {
+        type: 'entryinfo',
+      },
+    ];
 
   const updateFromCell = crud.updateFromCell('entry');
   let promise;
