@@ -1,3 +1,4 @@
+import config from '$config';
 import cookie from 'cookie';
 import { defaultPreferences } from '$lib/preferences';
 import { knex } from '$lib/db';
@@ -29,11 +30,14 @@ export async function handle({ request, resolve }) {
     } catch (e) {}
   }
 
+  locals.hideComparative = !locals.user && config.HIDE_COMPARATIVE === '1';
+
   return resolve(request);
 }
 
 export function getSession({ locals }) {
   return {
+    hideComparative: locals.hideComparative,
     preferences: locals.preferences,
     user: locals.user,
   };

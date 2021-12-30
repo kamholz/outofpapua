@@ -1,11 +1,12 @@
 import { arrayCmp, knex, name_auto } from '$lib/db';
 import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
+import { requireComparative } from '$lib/auth';
 
 const allowed = new Set(['ids']);
 const arrayNumParams = new Set(['ids']);
 
-export async function get({ locals, query }) {
+export const get = requireComparative(async ({ locals, query }) => {
   query = getFilteredParams(normalizeQuery(query), allowed);
   if (!Object.keys(query).length) {
     return { status: 400, body: { error: 'insufficient parameters' } };
@@ -36,4 +37,4 @@ export async function get({ locals, query }) {
       rows: await q,
     },
   };
-}
+});

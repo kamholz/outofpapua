@@ -149,3 +149,12 @@ export function requireAdmin(handler) {
     return handler(req);
   };
 }
+
+export function requireComparative(handler) {
+  return (req) => {
+    if (req.locals.hideComparative) {
+      return { status: 401 };
+    }
+    return handler(req);
+  };
+}

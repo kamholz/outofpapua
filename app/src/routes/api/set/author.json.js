@@ -1,6 +1,7 @@
 import { knex } from '$lib/db';
+import { requireComparative } from '$lib/auth';
 
-export async function get({ locals }) {
+export const get = requireComparative(async ({ locals }) => {
   const q = knex('usr')
     .whereExists(function () {
       this.select('*').from('set').where('author_id', knex.ref('usr.id'));
@@ -23,4 +24,4 @@ export async function get({ locals }) {
       rows: await q,
     },
   };
-}
+});

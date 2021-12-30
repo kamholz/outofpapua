@@ -2,9 +2,9 @@ import errors from '$lib/errors';
 import { allowed } from '../_params';
 import { getFilteredParams, isIdArray, showPublicOnly, validateParams } from '$lib/util';
 import { knex, name_auto, sendPgError, setTransactionUser } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireAuth, requireComparative } from '$lib/auth';
 
-export const get = validateParams(async ({ locals, params }) => {
+export const get = validateParams(requireComparative(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
   const row = await knex('set')
     .join(`${publicOnly ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id')
@@ -25,7 +25,7 @@ export const get = validateParams(async ({ locals, params }) => {
   } else {
     return { status: 404, body: '' };
   }
-});
+}));
 
 export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
   let members;

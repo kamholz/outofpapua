@@ -15,6 +15,8 @@
       ['Saved Maps', '/saved_maps'],
       ['Users', '/users']
     );
+  } else if ($session.hideComparative) {
+    tabs.splice(1, 1);
   }
 
   let active = false;

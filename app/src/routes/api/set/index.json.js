@@ -4,7 +4,7 @@ import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, array
 import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, showPublicOnly } from '$lib/util';
-import { requireAuth } from '$lib/auth';
+import { requireAuth, requireComparative } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
   'headword_ipa', 'headword_ipa_exact', 'lang', 'note', 'page', 'pagesize', 'sort', 'source']);
@@ -21,7 +21,7 @@ const sortCols = {
   name: ["sd.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
 };
 
-export async function get({ locals, query }) {
+export const get = requireComparative(async ({ locals, query }) => {
   query = getFilteredParams(normalizeQuery(query), allowedSearch);
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
@@ -115,7 +115,7 @@ export async function get({ locals, query }) {
       rows,
     },
   };
-}
+});
 
 export const post = requireAuth(async ({ body, locals }) => {
   let members;
