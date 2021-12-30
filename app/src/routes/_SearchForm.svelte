@@ -2,6 +2,7 @@
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
   import { getContext } from 'svelte';
+  import { session } from '$app/stores';
 
   export let query;
   const langSuggest = getContext('langSuggest');
@@ -86,6 +87,10 @@
       options: glosslangSuggest,
     },
   ];
+
+  if ($session.hideComparative) {
+    fields.splice(4, 3);
+  }
 
   function handleChange(e) {
     if (e.target.name === 'origin') {

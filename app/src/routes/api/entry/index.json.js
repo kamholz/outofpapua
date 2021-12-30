@@ -2,13 +2,14 @@ import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
   knex, sendPgError, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, mungeHeadword, mungeRegex, normalizeQuery, parseArrayNumParams,
-  parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, mungeRegex, normalizeQuery,
+  parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
 import { nfc } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['asc', 'borrowlang', 'gloss', 'glosslang', 'headword', 'headword_exact', 'headword_ipa',
-  'headword_ipa_exact', 'lang', 'langcat', 'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
+const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
+  'headword_ipa_exact', 'lang', 'langcat', 'page', 'pagesize', 'record', 'sort']);
+const allowed = new Set([...allowedHideComparative, 'borrowlang', 'origin', 'set']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['borrowlang', 'glosslang']);
@@ -30,7 +31,7 @@ const sortCols = {
 };
 
 export async function get({ locals, query }) {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+  query = getFilteredParams(normalizeQuery(query), locals.hideComparative ? allowedHideComparative : allowed);
   if (!['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
     return { status: 400, body: { error: errors.insufficientSearch } };
   }
@@ -121,6 +122,11 @@ export async function get({ locals, query }) {
 
   const rows = await q;
   filterGlosslang(query, rows);
+  if (locals.hideComparative) {
+    for (const row of rows) {
+      hideComparativeInEntry(row);
+    }
+  }
 
   return {
     body: {

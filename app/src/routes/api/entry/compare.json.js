@@ -2,7 +2,8 @@ import errors from '$lib/errors';
 import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIds,
   knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, normalizeQuery, parseArrayNumParams, parseArrayParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, normalizeQuery, parseArrayNumParams,
+  parseArrayParams } from '$lib/util';
 import { nfc } from './_params';
 
 const allowed = new Set(['gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize']);
@@ -139,6 +140,18 @@ export async function get({ locals, query }) {
 
   const rows = await q;
   filterGlosslang(query, rows, true);
+  if (locals.hideComparative) {
+    for (const row of rows) {
+      hideComparativeInEntry(row);
+      if (row.compare_entries) {
+        for (const language of row.compare_entries) {
+          for (const entry of language.entries) {
+            hideComparativeInEntry(entry);
+          }
+        }
+      }
+    }
+  }
 
   return {
     body: {

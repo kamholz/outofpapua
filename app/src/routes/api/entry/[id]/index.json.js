@@ -1,5 +1,6 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, mungeHeadword, showPublicOnly, validateParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, showPublicOnly,
+  validateParams } from '$lib/util';
 import { isEditable, nfc } from '../_params';
 import { knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -27,6 +28,9 @@ export const get = validateParams(async ({ locals, params }) => {
     );
   const row = await q;
   if (row) {
+    if (locals.hideComparative) {
+      hideComparativeInEntry(row);
+    }
     return { body: row };
   } else {
     return { status: 404, body: '' };

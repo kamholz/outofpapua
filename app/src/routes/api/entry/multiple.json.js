@@ -1,5 +1,6 @@
 import { arrayCmp, knex } from '$lib/db';
-import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, showPublicOnly } from '$lib/util';
+import { getFilteredParams, hideComparativeInEntry, isIdArray, normalizeQuery, parseArrayNumParams,
+  showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
 const allowed = new Set(['ids']);
@@ -35,9 +36,16 @@ export async function get({ locals, query }) {
       'ed.language'
     );
 
+  const rows = await q;
+  if (locals.hideComparative) {
+    for (const row of rows) {
+      hideComparativeInEntry(row);
+    }
+  }
+
   return {
     body: {
-      rows: await q,
+      rows,
     },
   };
 }

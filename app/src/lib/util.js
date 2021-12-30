@@ -298,6 +298,15 @@ export function formDisplayValue(value, type) {
   }
 }
 
+export function hideComparativeInEntry(entry) {
+  entry.origin = null;
+  for (const prop of ['origin_language_id', 'origin_language_name', 'set_ids']) {
+    if (prop in entry) {
+      entry[prop] = null;
+    }
+  }
+}
+
 export function mungeHeadword(txt, proto) {
   if (proto) {
     return txt.match(/^\*/) ? txt : '*' + txt;

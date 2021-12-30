@@ -3,6 +3,7 @@
   import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
+  import { session } from '$app/stores';
 
   export let rows;
   export let query;
@@ -39,17 +40,25 @@
     },
   ];
 
-  const controls = [
-    {
-      type: 'set',
-    },
-    {
-      type: 'entryinfo',
-    },
-    {
-      type: 'select',
-    },
-  ];
+  const controls = $session.hideComparative
+    ?
+      [
+        {
+          type: 'select',
+        },
+      ]
+    :
+      [
+        {
+          type: 'set',
+        },
+        {
+          type: 'entryinfo',
+        },
+        {
+          type: 'select',
+        },
+      ];
 </script>
 
 <Table

@@ -3,8 +3,9 @@ import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
   showPublicOnly, validateParams } from '$lib/util';
 
-const allowed = new Set(['asc', 'borrowlang', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
-  'headword_ipa_exact', 'origin', 'page', 'pagesize', 'record', 'set', 'sort']);
+const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
+  'headword_ipa_exact', 'page', 'pagesize', 'record', 'sort']);
+const allowed = new Set([...allowedHideComparative, 'borrowlang', 'origin', 'set']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayNumParams = new Set(['borrowlang']);
 const nfc = new Set(['gloss', 'headword', 'headword_ipa']);
@@ -23,7 +24,7 @@ const sortCols = {
 };
 
 export const get = validateParams(async ({ locals, params, query }) => {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+  query = getFilteredParams(normalizeQuery(query), locals.hideComparative ? allowedHideComparative : allowed);
   parseBooleanParams(query, boolean);
   parseArrayNumParams(query, arrayNumParams);
   ensureNfcParams(query, nfc);
