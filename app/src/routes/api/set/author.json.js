@@ -10,9 +10,9 @@ export const get = requireComparative(async ({ locals }) => {
   if (locals.user) {
     const { id } = locals.user;
     q
-      .select(knex.raw("case when id = ? then 'me' else fullname end", id))
+      .select(knex.raw("(case when id = ? then 'me' else fullname end) as fullname", id))
       .orderBy(knex.raw('id != ?', id))
-      .orderBy('fullname');
+      .orderBy('usr.fullname');
   } else {
     q
       .select('fullname')
