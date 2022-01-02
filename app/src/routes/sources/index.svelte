@@ -21,7 +21,7 @@
   }
 
   export async function reload(fetch, query) {
-    const res = await fetch('/api/source.json' + serializeQuery({ ...query, numentries: 1 }));
+    const res = await fetch('/api/source.json' + serializeQuery({ ...query, details: 1 }));
     return res.ok ? res.json() : null;
   }
 </script>
