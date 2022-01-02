@@ -5,47 +5,50 @@ import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams,
 import { nfc, required } from './_params';
 import { requireAuth } from '$lib/auth';
 
-const boolean = new Set(['asc']);
-const strip = new Set(['category', 'numentries']);
+const allowed = new Set(['asc', 'category', 'details', 'sort']);
+const boolean = new Set(['asc', 'details']);
+const strip = new Set(['category', 'details']);
 
 const defaults = {
   asc: true,
+  details: false,
   sort: 'name',
 };
 const sortCols = {
   name: 'lower(language.name)',
-  iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
   is_proto: 'protolanguage.id is not null',
   parent_name: 'parent.name',
+};
+const sortColsDetails = {
+  ...sortCols,
+  iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
   numentries: 'count(entry.id)',
 };
 
 export async function get({ locals, url: { searchParams } }) {
-  let query = normalizeQuery(searchParams);
+  let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
   const q = knex('language')
-    .leftJoin('language as parent', 'parent.id', 'language.parent_id')
-    .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
-    .leftJoin('protolanguage', 'protolanguage.id', 'language.id')
     .select(
       'language.id',
-      'language.name',
-      knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
-      'language.parent_id',
-      'parent.name as parent_name',
-      knex.raw('protolanguage.id is not null as is_proto'),
-      'protolanguage.prefer_set_name'
+      'language.name'
     );
 
   if (query.category === 'descendants') {
     q
-      // .join('language_descendants as ld', 'ld.id', 'language.id')
       .whereRaw('language.flag_language_list')
       .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants'));
   } else if (query.category === 'proto') {
-    q.whereNotNull('protolanguage.id');
+    q.whereExists(function () {
+      this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
+    });
+  } else if (query.category === 'location') {
+    q
+      .whereRaw('language.flag_language_list')
+      .whereNotNull('language.location')
+      .select(knex.raw("(language.location[0] || ', ' || language.location[1]) as location"));
   } else if (query.category === 'borrow') {
     q.whereRaw('language.flag_borrowed_from OR language.flag_language_list');
   } else if (query.category === 'gloss') {
@@ -54,7 +57,18 @@ export async function get({ locals, url: { searchParams } }) {
     q.whereRaw('language.flag_language_list');
   }
 
-  if ('numentries' in query) {
+  if (query.details) {
+    q
+      .leftJoin('language as parent', 'parent.id', 'language.parent_id')
+      .leftJoin('language as dialect_parent', 'dialect_parent.id', 'language.dialect_parent_id')
+      .select(
+        'language.parent_id',
+        'parent.name as parent_name',
+        knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
+        knex.raw('exists (select from protolanguage where protolanguage.id = language.id) as is_proto')
+      );
+
+    // count entries
     if (showPublicOnly(locals)) {
       q.join('source', function () {
         this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
@@ -65,8 +79,8 @@ export async function get({ locals, url: { searchParams } }) {
     q
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
-      .groupBy('language.id', 'protolanguage.id', 'parent.id', 'dialect_parent.id');
-  } else if (showPublicOnly(locals)) {
+      .groupBy('language.id', 'parent.id', 'dialect_parent.id');
+  } else if (showPublicOnly(locals)) { // hide empty sources
     q.whereExists(function () {
       this.select('*').from('source')
       .where('source.language_id', knex.ref('language.id'))
@@ -74,7 +88,7 @@ export async function get({ locals, url: { searchParams } }) {
     });
   }
 
-  applySortParams(q, query, sortCols, ['name']);
+  applySortParams(q, query, query.details ? sortColsDetails : sortCols, ['name']);
   stripParams(query, strip);
 
   return {

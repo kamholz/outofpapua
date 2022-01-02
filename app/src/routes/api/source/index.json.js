@@ -4,20 +4,25 @@ import { applySortParams, filterPublicSources, knex, sendPgError } from '$lib/db
 import { ensureNfcParams, getFilteredParams, normalizeQuery, parseBooleanParams, stripParams } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
-const boolean = new Set(['asc']);
-const strip = new Set(['category', 'numentries']);
+const allowedQuery = new Set(['asc', 'category', 'details', 'sort']);
+const boolean = new Set(['asc', 'details']);
+const strip = new Set(['category', 'details']);
 const defaults = {
   asc: true,
+  details: false,
   sort: 'reference',
 };
 const sortCols = {
   reference: 'lower(source.reference)',
   language: 'language.name',
+};
+const sortColsDetails = {
+  ...sortCols,
   numentries: 'count(entry.id)',
 };
 
 export async function get({ locals, url: { searchParams } }) {
-  let query = normalizeQuery(searchParams);
+  let query = getFilteredParams(normalizeQuery(searchParams), allowedQuery);
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 
@@ -38,14 +43,14 @@ export async function get({ locals, url: { searchParams } }) {
     q.whereRaw('source.editable');
   }
 
-  if ('numentries' in query) {
+  if (query.details) {
     q
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('source.id', 'language.name');
   }
 
-  applySortParams(q, query, sortCols, ['reference', 'language']);
+  applySortParams(q, query, query.details ? sortColsDetails : sortCols, ['reference', 'language']);
   stripParams(query, strip);
 
   return {
