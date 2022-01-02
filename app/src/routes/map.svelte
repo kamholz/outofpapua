@@ -3,10 +3,10 @@
 
   export const ssr = false;
 
-  export async function load({ fetch, page: { query } }) {
+  export async function load({ fetch, url: { searchParams } }) {
     const props = {};
     let res = await fetch('/api/entry/multiple.json?' + new URLSearchParams({
-      ids: query.get('entries'),
+      ids: searchParams.get('entries'),
     }));
     if (!res.ok) {
       return { status: 500 };
@@ -14,8 +14,8 @@
     props.entries = (await res.json()).rows;
     props.ipaFunctions = await ipaConversionFunctions(fetch, props.entries);
 
-    if (query.has('id')) {
-      res = await fetch(`/api/saved_map/${query.get('id')}.json`);
+    if (searchParams.has('id')) {
+      res = await fetch(`/api/saved_map/${searchParams.get('id')}.json`);
       if (!res.ok) {
         return { status: 500 };
       }

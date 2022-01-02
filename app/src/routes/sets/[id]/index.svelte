@@ -3,7 +3,7 @@
   import * as crud from '$actions/crud';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params }, session }) {
+  export async function load({ fetch, params, session }) {
     const props = {};
     if (session.user) {
       props.borrowlangSuggest = await suggest.borrowlang(fetch);

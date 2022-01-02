@@ -8,8 +8,8 @@ import { requireAdmin } from '$lib/auth';
 const allowed = new Set(['names', 'type']);
 const arrayParams = new Set(['names']);
 
-export async function get({ query }) {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+export async function get({ url: { searchParams } }) {
+  const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   parseArrayParams(query, arrayParams);
   if ('names' in query && query.names.length > pageMax) {
     return { status: 400, body: { error: `cannot request more than ${pageMax} rules` } };

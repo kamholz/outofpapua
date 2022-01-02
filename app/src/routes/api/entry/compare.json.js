@@ -68,8 +68,8 @@ const compare_entries2 = `
   ) FILTER (WHERE found_with_compare.compare_language_id IS NOT NULL)
 `;
 
-export async function get({ locals, query }) {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+export async function get({ locals, url: { searchParams } }) {
+  let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
     return { status: 400, body: { error: errors.insufficientSearch } };
   }

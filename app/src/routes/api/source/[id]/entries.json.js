@@ -23,8 +23,9 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export const get = validateParams(async ({ locals, params, query }) => {
-  query = getFilteredParams(normalizeQuery(query), locals.hideComparative ? allowedHideComparative : allowed);
+export const get = validateParams(async ({ locals, params, url: { searchParams } }) => {
+  let query = getFilteredParams(normalizeQuery(searchParams),
+    locals.hideComparative ? allowedHideComparative : allowed);
   parseBooleanParams(query, boolean);
   parseArrayNumParams(query, arrayNumParams);
   ensureNfcParams(query, nfc);

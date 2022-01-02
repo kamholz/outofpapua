@@ -5,7 +5,7 @@
   const arrayParams = new Set(['lang']);
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query } }) {
+  export async function load({ fetch, url: { searchParams } }) {
     const props = {
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
@@ -15,7 +15,7 @@
       return { status: 500 };
     }
 
-    query = normalizeQuery(query);
+    const query = normalizeQuery(searchParams);
     if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
       const json = await reload(fetch, query);
       if (!json) {

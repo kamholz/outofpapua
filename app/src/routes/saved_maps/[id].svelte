@@ -1,7 +1,7 @@
 <script context="module">
   import { serializeArrayParam } from '$lib/util';
 
-  export async function load({ fetch, page: { params } }) {
+  export async function load({ fetch, params }) {
     const props = {};
     const res = await fetch(`/api/saved_map/${params.id}.json`);
     if (!res.ok) {

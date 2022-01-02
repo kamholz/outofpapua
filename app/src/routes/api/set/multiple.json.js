@@ -6,8 +6,8 @@ import { requireComparative } from '$lib/auth';
 const allowed = new Set(['ids']);
 const arrayNumParams = new Set(['ids']);
 
-export const get = requireComparative(async ({ locals, query }) => {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+export const get = requireComparative(async ({ locals, url: { searchParams } }) => {
+  const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!Object.keys(query).length) {
     return { status: 400, body: { error: 'insufficient parameters' } };
   }

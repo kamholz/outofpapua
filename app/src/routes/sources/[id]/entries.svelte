@@ -2,7 +2,7 @@
   import { optionalQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params, query } }) {
+  export async function load({ fetch, params, url: { searchParams } }) {
     const props = {
       borrowlangSuggest: await suggest.borrowlang(fetch),
     };
@@ -15,7 +15,7 @@
       return { status: 404 };
     }
     props.source = await res.json();
-    const json = await reload(fetch, params.id, query);
+    const json = await reload(fetch, params.id, searchParams);
     if (!json) {
       return { status: 500 };
     }
@@ -24,8 +24,8 @@
     return { props };
   }
 
-  async function reload(fetch, id, query) {
-    const res = await fetch(`/api/source/${id}/entries.json` + optionalQuery(query));
+  async function reload(fetch, id, searchParams) {
+    const res = await fetch(`/api/source/${id}/entries.json` + optionalQuery(searchParams));
     return res.ok ? res.json() : null;
   }
 </script>

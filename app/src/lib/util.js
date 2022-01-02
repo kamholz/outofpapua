@@ -26,16 +26,16 @@ export function normalizeParam(txt) {
   return nullify(txt.trim());
 }
 
-export function normalizeQuery(urlSearchParams) {
+export function normalizeQuery(searchParams) {
   return Object.fromEntries(
-    [...urlSearchParams.entries()]
+    [...searchParams.entries()]
       .map(([key, value]) => [key, normalizeParam(value)])
       .filter(([, value]) => value !== null)
   );
 }
 
-export function optionalQuery(urlSearchParams) {
-  const str = urlSearchParams.toString();
+export function optionalQuery(searchParams) {
+  const str = searchParams.toString();
   return str === '' ? '' : '?' + str;
 }
 

@@ -1,7 +1,7 @@
 <script context="module">
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { params }, session }) {
+  export async function load({ fetch, params, session }) {
     const props = {};
     const res = await fetch(`/api/source/${params.id}.json`);
     if (!res.ok) {

@@ -28,7 +28,7 @@
   </span>
   <ul class:active>
     {#each tabs as [title, url]}
-      <li class:active={$page.path === url}>
+      <li class:active={$page.url.pathname === url}>
         <a href={url} on:click={() => active = false} sveltekit:prefetch>{title}</a>
       </li>
     {/each}

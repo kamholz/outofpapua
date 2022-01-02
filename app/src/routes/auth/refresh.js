@@ -7,13 +7,14 @@ export const post = handler;
 export const put = handler;
 export const del = handler;
 
-function handler({ headers, query, host }) {
-  const output = query.has('redirect')
+function handler({ headers, url }) {
+  const { searchParams } = url;
+  const output = searchParams.has('redirect')
     ?
     {
       status: 302,
       headers: {
-        location: `http://${host}/`,
+        location: `${url.protocol}//${url.host}/`,
       },
     }
     :
@@ -26,8 +27,8 @@ function handler({ headers, query, host }) {
   const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
   if (newCookie) {
     output.headers['set-cookie'] = newCookie;
-    if (query.has('redirect')) {
-      output.headers.location = query.get('redirect');
+    if (searchParams.has('redirect')) {
+      output.headers.location = searchParams.get('redirect');
     } else {
       output.status = 200;
       output.body = '';

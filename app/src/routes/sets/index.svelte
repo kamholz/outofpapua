@@ -2,7 +2,7 @@
   import { normalizeQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, session, url: { searchParams } }) {
     const props = {
       setAuthorSuggest: await suggest.setAuthor(fetch),
       sourceSuggest: await suggest.source(fetch),
@@ -19,7 +19,7 @@
       }
     }
 
-    query = normalizeQuery(query);
+    const query = normalizeQuery(searchParams);
     query.pagesize ??= session.preferences.listPageSize;
     const json = await reload(fetch, query, session.preferences);
     if (!json) {

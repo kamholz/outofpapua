@@ -1,7 +1,7 @@
 <script context="module">
   import { requireAdminLoad } from '$actions/auth';
 
-  export const load = requireAdminLoad(async ({ page: { params }, session, fetch }) => {
+  export const load = requireAdminLoad(async ({ fetch, params, session }) => {
     if (session.user.id === Number(params.id)) {
       return { status: 400 };
     }

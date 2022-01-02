@@ -21,8 +21,8 @@ const sortCols = {
   name: ["sd.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
 };
 
-export const get = requireComparative(async ({ locals, query }) => {
-  query = getFilteredParams(normalizeQuery(query), allowedSearch);
+export const get = requireComparative(async ({ locals, url: { searchParams } }) => {
+  let query = getFilteredParams(normalizeQuery(searchParams), allowedSearch);
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);

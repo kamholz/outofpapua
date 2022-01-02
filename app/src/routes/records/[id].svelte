@@ -1,5 +1,5 @@
 <script context="module">
-  export async function load({ page: { params }, fetch }) {
+  export async function load({ fetch, params }) {
     const props = {};
     const res = await fetch(`/api/record/${params.id}.json`);
     if (!res.ok) {

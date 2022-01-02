@@ -20,8 +20,8 @@ const sortCols = {
   numentries: 'count(entry.id)',
 };
 
-export async function get({ locals, query }) {
-  query = normalizeQuery(query);
+export async function get({ locals, url: { searchParams } }) {
+  let query = normalizeQuery(searchParams);
   parseBooleanParams(query, boolean);
   query = { ...defaults, ...query };
 

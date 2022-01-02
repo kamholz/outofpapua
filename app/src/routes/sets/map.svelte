@@ -3,10 +3,10 @@
 
   export const ssr = false;
 
-  export async function load({ fetch, page: { query } }) {
+  export async function load({ fetch, url: { searchParams } }) {
     const props = {};
     let res = await fetch('/api/set/multiple.json?' + new URLSearchParams({
-      ids: query.get('sets'),
+      ids: searchParams.get('sets'),
     }));
     if (!res.ok) {
       return { status: 500 };
@@ -14,8 +14,8 @@
     props.sets = (await res.json()).rows;
     props.ipaFunctions = await ipaConversionFunctions(fetch, [].concat(...props.sets.map((set) => set.members)));
 
-    if (query.has('id')) {
-      res = await fetch(`/api/saved_map/${query.get('id')}.json`);
+    if (searchParams.has('id')) {
+      res = await fetch(`/api/saved_map/${searchParams.get('id')}.json`);
       if (!res.ok) {
         return { status: 500 };
       }

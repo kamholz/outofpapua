@@ -4,7 +4,7 @@
 
   const arrayNumParams = new Set(['glosslang']);
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, session, url: { searchParams } }) {
     const props = {
       langSuggest: await suggest.langPlus(fetch),
       glosslangSuggest: await suggest.glosslang(fetch),
@@ -19,7 +19,7 @@
       }
     }
 
-    query = normalizeQuery(query);
+    const query = normalizeQuery(searchParams);
     if ('lang1' in query && 'lang2' in query) {
       const json = await reload(fetch, query);
       if (!json) {

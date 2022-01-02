@@ -47,7 +47,7 @@
 <!-- {#if $session.user} -->
   <NavBar />
   <main>
-  <!-- {#key $page.path}
+  <!-- {#key $page.url.pathname}
     <div in:fade={{ duration: 200 }}> -->
     <PageContext session={$session}>
       <Modal styleWindow={{ width: '80vw' }}>

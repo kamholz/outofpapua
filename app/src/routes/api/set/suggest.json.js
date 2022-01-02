@@ -12,8 +12,8 @@ const defaults = {
 
 const name_auto = "coalesce(sna.name_auto->>'txt', set.id::text)";
 
-export const get = requireAuth(async ({ query }) => {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+export const get = requireAuth(async ({ url: { searchParams } }) => {
+  const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (Object.keys(getFilteredParams(query, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

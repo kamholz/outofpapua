@@ -30,8 +30,9 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export async function get({ locals, query }) {
-  query = getFilteredParams(normalizeQuery(query), locals.hideComparative ? allowedHideComparative : allowed);
+export async function get({ locals, url: { searchParams } }) {
+  let query = getFilteredParams(normalizeQuery(searchParams),
+    locals.hideComparative ? allowedHideComparative : allowed);
   if (!['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
     return { status: 400, body: { error: errors.insufficientSearch } };
   }

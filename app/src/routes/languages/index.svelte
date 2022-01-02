@@ -1,10 +1,10 @@
 <script context="module">
   import { normalizeQuery, serializeQuery } from '$lib/util';
 
-  export async function load({ fetch, page: { query } }) {
+  export async function load({ fetch, url: { searchParams } }) {
     const props = {};
 
-    const json = await reload(fetch, normalizeQuery(query));
+    const json = await reload(fetch, normalizeQuery(searchParams));
     if (!json) {
       return { status: 500 };
     }

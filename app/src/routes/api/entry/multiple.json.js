@@ -6,8 +6,8 @@ import { pageMax } from '$lib/preferences';
 const allowed = new Set(['ids']);
 const arrayNumParams = new Set(['ids']);
 
-export async function get({ locals, query }) {
-  query = getFilteredParams(normalizeQuery(query), allowed);
+export async function get({ locals, url: { searchParams } }) {
+  const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!Object.keys(query).length) {
     return { status: 400, body: { error: 'insufficient parameters' } };
   }

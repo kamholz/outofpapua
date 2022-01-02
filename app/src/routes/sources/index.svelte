@@ -2,7 +2,7 @@
   import { normalizeQuery, serializeQuery } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export async function load({ fetch, page: { query }, session }) {
+  export async function load({ fetch, session, url: { searchParams } }) {
     const props = {};
     if (session.user) {
       props.protolangSuggest = await suggest.protolang(fetch);
@@ -11,7 +11,7 @@
       }
     }
 
-    const json = await reload(fetch, normalizeQuery(query));
+    const json = await reload(fetch, normalizeQuery(searchParams));
     if (!json) {
       return { status: 500 };
     }

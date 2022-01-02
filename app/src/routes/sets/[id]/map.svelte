@@ -3,7 +3,7 @@
 
   export const ssr = false;
 
-  export async function load({ fetch, page: { params, query } }) {
+  export async function load({ fetch, params, url: { searchParams } }) {
     const props = {};
 
     let res = await fetch(`/api/set/${params.id}.json`);
@@ -13,8 +13,8 @@
     props.set = await res.json();
     props.ipaFunctions = await ipaConversionFunctions(fetch, props.set.members);
 
-    if (query.has('id')) {
-      res = await fetch(`/api/saved_map/${query.get('id')}.json`);
+    if (searchParams.has('id')) {
+      res = await fetch(`/api/saved_map/${searchParams.get('id')}.json`);
       if (!res.ok) {
         return { status: 500 };
       }
