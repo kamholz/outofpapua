@@ -3,8 +3,6 @@ import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { knex } from '$lib/db';
 
-const scheme = config.HTTP_SCHEME || 'http';
-
 export async function getUser(userId) {
   const row = await knex('usr')
     .first('id', 'username', 'fullname', 'admin')
@@ -118,16 +116,9 @@ export function redirectToRefresh(request) {
   return {
     status: 302,
     headers: {
-      location: '/auth/refresh?' + new URLSearchParams({ redirect: requestUrl(request) }),
+      location: '/auth/refresh?' + new URLSearchParams({ redirect: request.url }),
     },
   };
-}
-
-function requestUrl(request) {
-  const url = new URL(request.url);
-  throw url;
-  url.protocol = `${scheme}:`;
-  return url.toString();
 }
 
 export function requireAuth(handler) {
