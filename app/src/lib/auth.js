@@ -118,18 +118,16 @@ export function redirectToRefresh(request) {
   return {
     status: 302,
     headers: {
-      location: '/auth/refresh?' + new URLSearchParams({ redirect: pageUrl(request) }),
+      location: '/auth/refresh?' + new URLSearchParams({ redirect: requestUrl(request) }),
     },
   };
 }
 
-function pageUrl(page) {
-  const url = `${scheme}://${page.host}${page.path}`;
-  if (page.query.values().next().done) { // no query params
-    return url;
-  } else {
-    return url + '?' + page.query.toString();
-  }
+function requestUrl(request) {
+  const url = new URL(request.url);
+  throw url;
+  url.protocol = `${scheme}:`;
+  return url.toString();
 }
 
 export function requireAuth(handler) {

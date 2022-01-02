@@ -12,7 +12,7 @@ export async function handle({ request, resolve }) {
   locals.user = await auth.verifyAccessTokenCookie(cookies);
 
   // silent refresh
-  if (!locals.user && cookies.refreshtoken && request.path !== '/auth/refresh') {
+  if (!locals.user && cookies.refreshtoken && request.url.pathname !== '/auth/refresh') {
     return auth.redirectToRefresh(request);
   }
 
