@@ -282,45 +282,12 @@
 </script>
 
 <div style={cssVars}>
-  <div id="map"></div>
+  <div id="map" class="leaflet-map"></div>
 </div>
 
 <style lang="scss">
   div {
     width: 100%;
     height: 82vh;
-
-    :global {
-      .marker {
-        padding: 6px;
-        width: max-content;
-        max-width: 12em;
-        line-height: 1.25;
-        border: transparent;
-        border-radius: 6px;
-        white-space: unset;
-      }
-
-      .leaflet-marker-icon > svg {
-        width: 12px;
-        height: 12px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .leaflet-tooltip-top:before,
-      .leaflet-tooltip-bottom:before,
-      .leaflet-tooltip-left:before,
-      .leaflet-tooltip-right:before {
-        border: none;
-      }
-
-      .leaflet-div-icon {
-        background: unset;
-        border: unset;
-      }
-    }
   }
 </style>
