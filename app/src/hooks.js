@@ -2,6 +2,7 @@ import config from '$config';
 import cookie from 'cookie';
 import { defaultPreferences } from '$lib/preferences';
 import { knex } from '$lib/db';
+import { showPublicOnly } from '$lib/util';
 import * as auth from '$lib/auth';
 
 export async function handle({ request, resolve }) {
@@ -30,7 +31,7 @@ export async function handle({ request, resolve }) {
     } catch (e) {}
   }
 
-  locals.hideComparative = !locals.user && config.HIDE_COMPARATIVE === '1';
+  locals.hideComparative = showPublicOnly(locals) && config.HIDE_COMPARATIVE === '1';
 
   return resolve(request);
 }

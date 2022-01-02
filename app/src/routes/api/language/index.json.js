@@ -56,16 +56,22 @@ export async function get({ locals, query }) {
 
   if ('numentries' in query) {
     if (showPublicOnly(locals)) {
-      q.leftJoin('source', function () {
+      q.join('source', function () {
         this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
       });
     } else {
-      q.leftJoin('source', 'source.language_id', 'language.id');
+      q.join('source', 'source.language_id', 'language.id');
     }
     q
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('language.id', 'protolanguage.id', 'parent.id', 'dialect_parent.id');
+  } else if (showPublicOnly(locals)) {
+    q.whereExists(function () {
+      this.select('*').from('source')
+      .where('source.language_id', knex.ref('language.id'))
+      .where('source.public', knex.raw('true'));
+    });
   }
 
   applySortParams(q, query, sortCols, ['name']);

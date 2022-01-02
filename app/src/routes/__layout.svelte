@@ -44,7 +44,7 @@
 {/if}
 <Login username={$session.user?.username} />
 
-{#if $session.user}
+<!-- {#if $session.user} -->
   <NavBar />
   <main>
   <!-- {#key $page.path}
@@ -58,7 +58,7 @@
     <!-- </div>
   {/key} -->
   </main>
-{/if}
+<!-- {/if} -->
 
 <!-- {#if broadcasts.length}
   <div id="activity" bind:this={activity} transition:fade={{ duration: 200 }}>
