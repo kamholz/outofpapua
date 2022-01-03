@@ -4,6 +4,7 @@
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape, formatReflexIpa, maybeGloss } from '$lib/util';
+  import { getBounds } from '$lib/leaflet';
   import { getContext, onDestroy, onMount } from 'svelte';
   import { maxZoom } from '$lib/preferences';
   import { yiq } from 'yiq';
@@ -66,7 +67,7 @@
     if (view) {
       setView(view);
     } else {
-      map.fitBounds(getBounds());
+      map.fitBounds(getBounds(languages));
     }
 
     initializeMap();
@@ -184,20 +185,6 @@
       latLng: [latLng.lat, latLng.lng],
       zoom: map.getZoom(),
     };
-  }
-
-  function getBounds() {
-    const locations = Object.values(languages).map((v) => v.location);
-    return [
-      [
-        Math.min(...locations.map((v) => v[0])),
-        Math.min(...locations.map((v) => v[1])),
-      ],
-      [
-        Math.max(...locations.map((v) => v[0])),
-        Math.max(...locations.map((v) => v[1])),
-      ],
-    ];
   }
 
   function getIcon(lm, marker) {
