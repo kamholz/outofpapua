@@ -63,6 +63,7 @@
     <Section name="Settings">
       <Settings
         bind:baseMap
+        bind:showLanguageNames
       />
     </Section>
     <Section name="Families">
