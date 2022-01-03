@@ -9,6 +9,7 @@
 
   export let languages = null;
   export let { baseMap } = $preferences;
+  export let showLanguageNames = true;
   export let lineLength = 3;
 
   parseLocations();
@@ -62,7 +63,6 @@
     <Section name="Settings">
       <Settings
         bind:baseMap
-        bind:lineLength
       />
     </Section>
     <Section name="Families">
@@ -80,6 +80,7 @@
     {families}
     {languageMarkers}
     {baseMap}
+    {showLanguageNames}
     {lineLength}
     bind:updateFamily
   />

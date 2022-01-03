@@ -11,8 +11,11 @@
   export let families;
   export let languageMarkers;
   export let baseMap;
+  export let showLanguageNames;
+  export let lineLength;
   
   let L;
+  let tooltipLayout;
   let map;
   let layer;
 
@@ -23,8 +26,11 @@
     }).addTo(map);
   }
 
+  $: updateMarkers(showLanguageNames);
+
   onMount(async () => {
     L = await import('leaflet');
+    tooltipLayout = await import('leaflet-tooltip-layout');
     await import('leaflet.fullscreen');
 
     map = L.map('map', {
@@ -37,17 +43,42 @@
 
     map.fitBounds(getBounds(languages));
 
-    initializeMarkers();
+    initializeMap();
   });
 
   onDestroy(() => {
-    map?.remove();
+    if (map) {
+      map.remove();
+      tooltipLayout.setMarkers([]);
+    }
   });
+
+  function initializeMap() {
+    initializeMarkers();
+    if (showLanguageNames) {
+      tooltipLayout.initialize(map, (ply) => {
+        ply.setStyle({
+          color: '#999',
+          weight: 2,
+        });
+      });
+    }
+  }
 
   function initializeMarkers() {
     for (const { language, marker } of languageMarkers) {
-      marker.markerObj?.remove();
+      removeMarker(marker.markerObj);
       marker.markerObj = createMarker(language);
+    }
+    if (showLanguageNames) {
+      tooltipLayout.setLineLength(lineLength);
+    }
+  }
+
+  function updateMarkers() {
+    if (map) {
+      initializeMarkers();
+      tooltipLayout.redrawLines();
     }
   }
 
@@ -55,21 +86,34 @@
     const markerObj = L.marker(language.location, {
       icon: getIcon(language),
     })
-    .bindTooltip(getMarkerHtml(language))
     .addTo(map);
 
-    // const markerDom = markerObj._icon;
-    // markerDom.style.color = `var(--${marker.colorVar})`;
+    if (showLanguageNames) {
+      markerObj.bindTooltip(getMarkerHtml(language), { className: 'marker-small' });
+      tooltipLayout.resetMarker(markerObj);
+    } else {
+      markerObj.bindTooltip(getMarkerHtml(language), { className: 'marker' });
+    }
 
     return markerObj;
+  }
+
+  function removeMarker(markerObj) {
+    if (markerObj) {
+      markerObj.remove();
+      tooltipLayout.deleteMarker(markerObj);
+    }
   }
 
   export function updateFamily(id) {
     for (const { language, marker } of languageMarkers) {
       if (language.ancestor_id === id) {
-        marker.markerObj?.remove();
+        removeMarker(marker.markerObj);
         marker.markerObj = createMarker(language);
       }
+    }
+    if (showLanguageNames) {
+      tooltipLayout.redrawLines();
     }
   }
 
