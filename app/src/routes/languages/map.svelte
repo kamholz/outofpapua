@@ -3,7 +3,7 @@
 
   export async function load({ fetch }) {
     const props = {};
-    let res = await fetch('/api/language/index.json?category=location');
+    const res = await fetch('/api/language.json?category=location');
     if (!res.ok) {
       return { status: 500 };
     }

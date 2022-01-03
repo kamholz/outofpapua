@@ -46,9 +46,14 @@ export async function get({ locals, url: { searchParams } }) {
     });
   } else if (query.category === 'location') {
     q
+      .leftJoin('language as ancestor_language', 'ancestor_language.id', 'language.ancestor_id')
       .whereRaw('language.flag_language_list')
       .whereNotNull('language.location')
-      .select(knex.raw("(language.location[0] || ', ' || language.location[1]) as location"));
+      .select(
+        'language.ancestor_id',
+        'ancestor_language.name as ancestor_name',
+        knex.raw('language.location::text')
+      );
   } else if (query.category === 'borrow') {
     q.whereRaw('language.flag_borrowed_from OR language.flag_language_list');
   } else if (query.category === 'gloss') {

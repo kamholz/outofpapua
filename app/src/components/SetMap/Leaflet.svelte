@@ -67,7 +67,7 @@
     if (view) {
       setView(view);
     } else {
-      map.fitBounds(getBounds(languages));
+      map.fitBounds(getBounds(Object.values(languages)));
     }
 
     initializeMap();
