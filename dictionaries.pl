@@ -387,7 +387,7 @@ our $dict = {
   },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
-    path => '../dict/Dol/dol_maybrat2007_toolbox.txt',
+    path => 'Dol/dol_maybrat2007_toolbox.txt',
     parser => 'Marker',
     split => ',;',
     split_headword => ',;/',
@@ -788,6 +788,11 @@ our $dict = {
     headword_preprocess => \&clear_hyphen,
     gloss_preprocess => \&clear_question_mark,
     pos_preprocess => \&clear_question_mark,
+  },
+  'Menick (nd)' => {
+    lang_target => 'mxn',
+    path => 'Menick_Moi_Dictionary.txt',
+    parser => 'Marker',
   },
   'Odé et al. (2004)' => {
     lang_target => 'akc',

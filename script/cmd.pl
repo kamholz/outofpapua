@@ -26,8 +26,10 @@ if ($cmd !~ /^(?:import|parse|print_toolbox|export)$/ or !$source_reference) {
   print "\n";
   say "$0 import source_reference [update|overwrite]";
   say "$0 parse source_reference";
-  say "$0 print_toolbox source_reference (messy)";
+  say "$0 print_toolbox source_reference [messy]";
   say "$0 export source_reference";
+  print "\n";
+  say 'environment: OOP_DICTIONARY_DIR = dictionary directory, default ../dict';
   print "\n";
   exit;
 }
@@ -42,7 +44,8 @@ if ($cmd eq 'export') {
   my $args = $dict->{$source_reference};
   die "no parser given" unless $args->{parser};
   die "no lang_target given" unless $args->{lang_target};
-  $args->{path} = "../dict/$args->{path}";
+  my $dir = $ENV{OOP_DICTIONARY_DIR} // '../dict';
+  $args->{path} = "$dir/$args->{path}";
   my $parser_class = 'Lexicon::Parser::' . delete $args->{parser};
   my $parser = $parser_class->new($args);
 
