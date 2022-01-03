@@ -75,18 +75,18 @@ export async function get({ locals, url: { searchParams } }) {
 
     // count entries
     if (showPublicOnly(locals)) {
-      q.join('source', function () {
+      q.join('source', function () { // hide empty sources
         this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
       });
     } else {
-      q.join('source', 'source.language_id', 'language.id');
+      q.leftJoin('source', 'source.language_id', 'language.id');
     }
     q
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('language.id', 'parent.id', 'dialect_parent.id');
-  } else if (showPublicOnly(locals)) { // hide empty sources
-    q.whereExists(function () {
+  } else if (showPublicOnly(locals)) {
+    q.whereExists(function () { // hide empty sources
       this.select('*').from('source')
       .where('source.language_id', knex.ref('language.id'))
       .where('source.public', knex.raw('true'));
