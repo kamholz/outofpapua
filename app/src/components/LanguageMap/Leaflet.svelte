@@ -11,10 +11,8 @@
   export let families;
   export let languageMarkers;
   export let baseMap;
-  export let lineLength;
   
   let L;
-  let tooltipLayout;
   let map;
   let layer;
 
@@ -25,15 +23,11 @@
     }).addTo(map);
   }
 
-  $: updateMarkers(lineLength);
-
   onMount(async () => {
     L = await import('leaflet');
-    tooltipLayout = await import('leaflet-tooltip-layout');
     await import('leaflet.fullscreen');
 
     map = L.map('map', {
-      // closePopupOnClick: false,
       fullscreenControl: true,
       maxZoom,
       scrollWheelZoom: false,
@@ -43,74 +37,40 @@
 
     map.fitBounds(getBounds(languages));
 
-    initializeMap();
+    initializeMarkers();
   });
 
   onDestroy(() => {
-    if (map) {
-      map.remove();
-      tooltipLayout.setMarkers([]);
-    }
+    map?.remove();
   });
-
-  function initializeMap() {
-    initializeMarkers();
-    tooltipLayout.initialize(map, (ply) => {
-      ply.setStyle({
-        color: '#999',
-        weight: 2,
-      });
-    });
-  }
 
   function initializeMarkers() {
     for (const { language, marker } of languageMarkers) {
-      removeMarker(marker.markerObj);
+      marker.markerObj?.remove();
       marker.markerObj = createMarker(language);
-    }
-    tooltipLayout.setLineLength(lineLength);
-  }
-
-  function updateMarkers() {
-    if (map) {
-      initializeMarkers();
-      tooltipLayout.redrawLines();
     }
   }
 
   function createMarker(language) {
     const markerObj = L.marker(language.location, {
       icon: getIcon(language),
-    }).addTo(map);
+    })
+    .bindTooltip(getMarkerHtml(language))
+    .addTo(map);
 
     // const markerDom = markerObj._icon;
     // markerDom.style.color = `var(--${marker.colorVar})`;
 
-    markerObj.bindTooltip(getMarkerHtml(language), {
-      className: 'marker',
-    });
-    tooltipLayout.resetMarker(markerObj);
-    // const labelDom = markerObj.getTooltip()._container;
-    // labelDom.style.color = `var(--${marker.colorVar}-text)`;
-    // labelDom.style.backgroundColor = `var(--${marker.colorVar}-marker)`;
     return markerObj;
-  }
-
-  function removeMarker(markerObj) {
-    if (markerObj) {
-      markerObj.remove();
-      tooltipLayout.deleteMarker(markerObj);
-    }
   }
 
   export function updateFamily(id) {
     for (const { language, marker } of languageMarkers) {
       if (language.ancestor_id === id) {
-        removeMarker(marker.markerObj);
+        marker.markerObj?.remove();
         marker.markerObj = createMarker(language);
       }
     }
-    tooltipLayout.redrawLines();
   }
 
   function getIcon(language) {

@@ -3,7 +3,6 @@
   const preferences = getContext('preferences');
 
   export let baseMap;
-  export let lineLength;
 </script>
 
 <label>
@@ -15,17 +14,7 @@
     <option value="esri-gray-canvas">Gray Canvas</option>
     <option value="cartodb-positron">Positron</option>
     <option value="esri-shaded-relief">Shaded Relief</option>
-    <!-- <option value="esri-topo">Topo</option> -->
   </select>
-</label>
-<label>
-  Line length:
-  <input
-    type="range"
-    min="1"
-    max="5"
-    bind:value={lineLength}
-  >
 </label>
 
 <style lang="scss">

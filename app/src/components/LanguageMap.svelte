@@ -16,6 +16,7 @@
   const languageMarkers = getLanguageMarkers();
   const familiesSorted = Object.values(families)
     .sort(sortFunction((v) => v.name.toLowerCase()));
+  assignFamilyShapes();
 
   let updateFamily;
 
@@ -35,11 +36,19 @@
         families[id] = {
           id,
           name: language.ancestor_name.replace(/^proto-?/i, ''),
-          shape: 'circle',
         };
       }
     }
     return families;
+  }
+
+  function assignFamilyShapes() {
+    const shapes = ['circle', 'diamond', 'square', 'star', 'triangle'];
+    let offset = 0;
+    for (const family of familiesSorted) {
+      family.shape = shapes[offset % shapes.length];
+      offset++;
+    }
   }
 
   function getLanguageMarkers() {

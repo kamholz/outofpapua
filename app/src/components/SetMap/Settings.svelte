@@ -20,7 +20,6 @@
     <option value="esri-gray-canvas">Gray Canvas</option>
     <option value="cartodb-positron">Positron</option>
     <option value="esri-shaded-relief">Shaded Relief</option>
-    <!-- <option value="esri-topo">Topo</option> -->
   </select>
 </label>
 <label>
