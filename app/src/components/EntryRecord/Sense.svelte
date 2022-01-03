@@ -4,6 +4,7 @@
   import Pos from '$components/EntryRecord/Pos.svelte';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
+  import { toolboxMarkup } from '$lib/util';
 
   export let sense;
   const { formatting } = getContext('source');
@@ -24,7 +25,7 @@
 
 {#if translation}
   {#each langMarkerSorted(translation) as [txt, lang]}
-    <span class="translation">{txt.join('; ')}</span> (<span class="lang">{lang}</span>).
+    <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span> (<span class="lang">{lang}</span>).
   {/each}
 {/if}
 

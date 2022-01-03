@@ -71,6 +71,11 @@
       join: false,
     },
     {
+      key: 'question',
+      label: "Analyst’s question",
+      join: false,
+    },
+    {
       key: 'encyclopedic',
       label: 'Encyclopedic info',
       join: false,

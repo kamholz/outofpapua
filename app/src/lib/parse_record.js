@@ -36,6 +36,7 @@ const entryMarker = {
   nd: 'discourse',
   ng: 'grammar',
   np: 'phono',
+  nq: 'question',
   ns: 'socio',
   nt: 'note',
   pl: 'plural',

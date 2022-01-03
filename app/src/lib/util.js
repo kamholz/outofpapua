@@ -347,3 +347,12 @@ export function sortFunction(fn) {
     }
   };
 }
+
+export function toolboxMarkup(text) {
+  return escapeHtml(text)
+    .replace(/\bfv:(.+?)(?= |$)/g, formatFv);
+
+  function formatFv(_, p1) {
+    return `<em>${p1}</em>`;
+  }
+}
