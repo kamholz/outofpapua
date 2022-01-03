@@ -17,7 +17,7 @@ const knex = knexModule({
   },
 });
 
-console.log(`\nstarting: ${sourceReference}\n`);
+console.log(`\nstarting IPA conversion: ${sourceReference}\n`);
 
 await knex.transaction(async (trx) => {
   const source = await trx('source')
