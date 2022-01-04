@@ -25,7 +25,7 @@
     "leaflet.fullscreen": "github:kamholz/leaflet.fullscreen",
     "sass": "^1.43.3",
     "screenfull": "^5.1.0",
-    "svelecte": "^2.3.2",
+    "svelecte": "^3.5.2",
     "svelte": "^3.44.3",
     "svelte-awesome": "^2.4.2",
     "svelte-persistent-store": "github:kamholz/svelte-persistent-store",

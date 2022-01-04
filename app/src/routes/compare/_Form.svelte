@@ -8,7 +8,6 @@
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
   const values = { ...query };
-  let selections = {};
 
   const fields = [
     {
@@ -53,16 +52,13 @@
   }
 
   function swapLanguages() {
-    [selections.lang1, selections.lang2] = [selections.lang2, selections.lang1];
-    values.lang1 = selections.lang1.map((v) => v.id);
-    values.lang2 = selections.lang2.map((v) => v.id);
+    [values.lang1, values.lang2] = [values.lang2, values.lang1];
   }
 </script>
 
 <Form
   {fields}
   {values}
-  bind:selections
   submitLabel="Compare"
   clearable
   browserSubmit

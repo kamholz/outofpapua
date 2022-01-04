@@ -4,7 +4,6 @@
   export let name = null;
   export let options;
   export let value = null;
-  export let selection = null;
   export let multiple = false;
   export let disabled = false;
   export let clearable = true;
@@ -24,6 +23,5 @@
   placeholder=""
   {...props}
   bind:value
-  bind:selection
   on:change
 />

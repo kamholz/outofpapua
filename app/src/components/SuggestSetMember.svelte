@@ -11,6 +11,7 @@
   export let entry_id = null;
   export let set_id = null;
   let selection = null;
+  let value = null;
   const preferences = getContext('preferences');
 
   function renderer(item) {
@@ -33,7 +34,7 @@
   function handleSelect() {
     if (selection) {
       dispatch('select', selection);
-      selection = null;
+      value = null;
     }
   }
 </script>
@@ -50,7 +51,8 @@
     disableHighlight
     placeholder=""
     {renderer}
-    bind:selection
+    bind:value
+    bind:readSelection={selection}
     on:change={handleSelect}
   />
 </div>

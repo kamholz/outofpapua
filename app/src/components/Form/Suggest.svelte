@@ -4,7 +4,6 @@
 
   export let field;
   export let values;
-  export let selections;
   export let haveTextCheckbox;
   export let browserSubmit;
   const { name, options, required, svelecteProps } = field;
@@ -15,7 +14,6 @@
     {options}
     props={svelecteProps}
     bind:value={values[name]}
-    bind:selection={selections[name]}
     clearable={!required}
   />
   {#if browserSubmit}

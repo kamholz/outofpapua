@@ -7,11 +7,12 @@
   export let entry_id = null;
   export let set_id = null;
   let selection = null;
+  let value = null;
 
   function handleSelect() {
     if (selection) {
       dispatch('select', selection);
-      selection = null;
+      value = null;
     }
   }
 </script>
@@ -24,6 +25,7 @@
   clearable
   searchable
   placeholder=""
-  bind:selection
+  bind:value
+  bind:readSelection={selection}
   on:change={handleSelect}
 />

@@ -7,7 +7,7 @@
   import SuggestMulti from '$components/Form/SuggestMulti.svelte';
   import Text from '$components/Form/Text.svelte';
   import Textarea from '$components/Form/Textarea.svelte';
-  import { createEventDispatcher, setContext, tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
   const dispatch = createEventDispatcher();
   import { formDisplayValue, nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
@@ -15,7 +15,6 @@
   
   export let fields;
   export let values = {};
-  export let selections = {};
   export let submitLabel = null;
   export let clearable = false;
   export let help = null;
@@ -64,13 +63,10 @@
   }
 
   function handleClear() {
-    for (const { name, type } of fields.filter((v) => !v.readonly)) {
-      if (type === 'text' || type === 'email' || type === 'password' || type === 'textarea') {
-        values[name] = null;
-      } else if (type === 'suggest') {
-        selections[name] = null;
-      } else if (type === 'suggestMulti') {
-        selections[name] = [];
+    for (const { checkbox, name } of fields.filter(({ readonly, type }) => !readonly && type !== 'radio')) {
+      values[name] = null;
+      if (checkbox) {
+        values[checkbox[0]] = null;
       }
     }
   }
@@ -102,7 +98,6 @@
             {browserSubmit}
             {haveTextCheckbox}
             bind:values
-            bind:selections
             on:change
           />
         {/if}

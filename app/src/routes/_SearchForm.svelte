@@ -10,7 +10,6 @@
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const preferences = getContext('preferences');
   const values = { ...query };
-  const selections = {};
 
   const allFields = [
     {
@@ -109,7 +108,6 @@
 <Form
   {fields}
   {values}
-  {selections}
   submitLabel="Search"
   clearable
   browserSubmit
