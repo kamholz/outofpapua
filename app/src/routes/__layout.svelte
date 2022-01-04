@@ -1,11 +1,11 @@
 <script>
   import '../app.scss';
   import Icon from 'svelte-awesome';
-  import Login from '$components/Login.svelte';
   import Modal from 'svelte-simple-modal';
   import ModalContent from '$components/Modal/Content.svelte';
   import NavBar from '$components/NavBar.svelte';
   import PageContext from '$components/PageContext.svelte';
+  import SiteHeading from '$components/SiteHeading.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   // import { fade } from 'svelte/transition';
   import { navigating, session } from '$app/stores';
@@ -42,23 +42,21 @@
     <Icon data={faSpinner} pulse />
   </div>
 {/if}
-<Login username={$session.user?.username} />
 
-<!-- {#if $session.user} -->
-  <NavBar />
-  <main>
-  <!-- {#key $page.url.pathname}
-    <div in:fade={{ duration: 200 }}> -->
-    <PageContext session={$session}>
-      <Modal styleWindow={{ width: '80vw' }}>
-        <ModalContent />
-      </Modal>
-      <slot />
-    </PageContext>
-    <!-- </div>
-  {/key} -->
-  </main>
-<!-- {/if} -->
+<SiteHeading />
+<NavBar />
+<main>
+<!-- {#key $page.url.pathname}
+  <div in:fade={{ duration: 200 }}> -->
+  <PageContext session={$session}>
+    <Modal styleWindow={{ width: '80vw' }}>
+      <ModalContent />
+    </Modal>
+    <slot />
+  </PageContext>
+  <!-- </div>
+{/key} -->
+</main>
 
 <!-- {#if broadcasts.length}
   <div id="activity" bind:this={activity} transition:fade={{ duration: 200 }}>

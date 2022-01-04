@@ -1,8 +1,11 @@
 import { browser } from '$app/env';
 import { cookieStorage, persist } from 'svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
-import { readable, writable } from 'svelte/store';
+import { derived, readable, writable } from 'svelte/store';
+import { session } from '$app/stores';
+import { showPublicOnly } from '$lib/util';
 
+export const hideComparative = derived(session, ($session) => $session.hideComparative && showPublicOnly($session));
 export const modal = writable(null);
 export const pageLoading = writable(0);
 

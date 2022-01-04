@@ -2,7 +2,7 @@
   import Form from '$components/Form.svelte';
   import RegexHelp from '$components/RegexHelp.svelte';
   import { getContext } from 'svelte';
-  import { session } from '$app/stores';
+  import { hideComparative } from '$lib/stores';
 
   export let query;
   const preferences = getContext('preferences');
@@ -10,7 +10,7 @@
   const values = { ...query };
   const selections = {};
 
-  const fields = [
+  const allFields = [
     {
       name: 'headword',
       label: 'Headword',
@@ -44,6 +44,7 @@
         { label: 'Unknown', value: 'unknown' },
         { label: 'All', value: 'all' },
       ],
+      comparative: true,
     },
     {
       name: 'borrowlang',
@@ -51,6 +52,7 @@
       type: 'suggestMulti',
       options: borrowlangSuggest,
       hide: values.origin !== 'borrowed',
+      comparative: true,
     },
     {
       name: 'set',
@@ -61,11 +63,16 @@
         { label: 'Unlinked', value: 'unlinked' },
         { label: 'Both', value: 'both' },
       ],
+      comparative: true,
     },
   ];
 
-  if ($session.hideComparative) {
-    fields.splice(4, 3);
+  $: fields = getFields($hideComparative);
+
+  function getFields() {
+    return $hideComparative
+      ? allFields.filter((field) => !field.comparative)
+      : allFields;
   }
 
   function handleChange(e) {

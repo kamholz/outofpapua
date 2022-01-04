@@ -4,9 +4,8 @@
   import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
+  import { hideComparative, pageLoading } from '$lib/stores';
   import { joinGlosses, parseGlosses } from '$lib/util';
-  import { pageLoading } from '$lib/stores';
-  import { session } from '$app/stores';
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';
 
@@ -38,21 +37,25 @@
     },
   ];
 
-  const controls = $session.hideComparative
-    ?
-    []
-    :
-    [
-      {
-        type: 'set',
-      },
-      {
-        type: 'entryinfo',
-      },
-    ];
+  $: controls = getControls($hideComparative);
 
   const updateFromCell = crud.updateFromCell('entry');
   let promise;
+
+  function getControls() {
+    return $hideComparative
+      ?
+      []
+      :
+      [
+        {
+          type: 'set',
+        },
+        {
+          type: 'entryinfo',
+        },
+      ];
+  }
 
   async function handleUpdate(e) {
     const { key, row, onSuccess, values } = e.detail;

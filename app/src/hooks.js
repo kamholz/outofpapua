@@ -38,7 +38,7 @@ export async function handle({ request, resolve }) {
 
 export function getSession({ locals }) {
   return {
-    hideComparative: locals.hideComparative,
+    hideComparative: config.HIDE_COMPARATIVE === '1',
     preferences: locals.preferences,
     user: locals.user,
   };

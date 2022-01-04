@@ -3,7 +3,7 @@
   import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
-  import { session } from '$app/stores';
+  import { hideComparative } from '$lib/stores';
 
   export let rows;
   export let query;
@@ -40,25 +40,29 @@
     },
   ];
 
-  const controls = $session.hideComparative
-    ?
-    [
-      {
-        type: 'select',
-      },
-    ]
-    :
-    [
-      {
-        type: 'set',
-      },
-      {
-        type: 'entryinfo',
-      },
-      {
-        type: 'select',
-      },
-    ];
+  $: controls = getControls($hideComparative);
+
+  function getControls() {
+    return $hideComparative
+      ?
+      [
+        {
+          type: 'select',
+        },
+      ]
+      :
+      [
+        {
+          type: 'set',
+        },
+        {
+          type: 'entryinfo',
+        },
+        {
+          type: 'select',
+        },
+      ];
+  }
 </script>
 
 <Table

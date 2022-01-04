@@ -1,25 +1,55 @@
 <script>
   import Icon from 'svelte-awesome';
   import { faBars } from '@fortawesome/free-solid-svg-icons';
+  import { hideComparative } from '$lib/stores';
   import { page, session } from '$app/stores';
 
-  const tabs = [
-    ['Entries', '/'],
-    ['Sets', '/sets'],
-    ['Languages', '/languages'],
-    ['Sources', '/sources'],
-    ['Comparison', '/compare'],
+  const allTabs = [
+    {
+      title: 'Entries',
+      url: '/',
+    },
+    {
+      title: 'Sets',
+      url: '/sets',
+      comparative: true,
+    },
+    {
+      title: 'Languages',
+      url: '/languages',
+    },
+    {
+      title: 'Sources',
+      url: '/sources',
+    },
+    {
+      title: 'Compare',
+      url: '/compare',
+    },
+    {
+      title: 'Saved Maps',
+      url: '/saved_maps',
+      private: true,
+    },
+    {
+      title: 'Users',
+      url: '/users',
+      private: true,
+    },
   ];
-  if ($session.user) {
-    tabs.push(
-      ['Saved Maps', '/saved_maps'],
-      ['Users', '/users']
-    );
-  } else if ($session.hideComparative) {
-    tabs.splice(1, 1);
-  }
 
+  $: tabs = getTabs($session, $hideComparative);
   let active = false;
+
+  function getTabs() {
+    if ($session.user) {
+      return allTabs;
+    } else if ($hideComparative) {
+      return allTabs.filter((field) => !field.comparative && !field.private);
+    } else {
+      return allTabs.filter((field) => !field.private);
+    }
+  }
 </script>
 
 <nav>
@@ -27,7 +57,7 @@
     <Icon data={faBars} scale={1.25} />
   </span>
   <ul class:active>
-    {#each tabs as [title, url]}
+    {#each tabs as { title, url }}
       <li class:active={$page.url.pathname === url}>
         <a href={url} on:click={() => active = false} sveltekit:prefetch>{title}</a>
       </li>

@@ -72,7 +72,7 @@
     },
     {
       key: 'question',
-      label: "Analyst’s question",
+      label: 'Analyst’s question',
       join: false,
     },
     {
