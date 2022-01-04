@@ -37,25 +37,23 @@
     },
   ];
 
-  $: controls = getControls($hideComparative);
+  const controlsAll = [
+    {
+      type: 'set',
+      comparative: true,
+    },
+    {
+      type: 'entryinfo',
+      comparative: true,
+    },
+  ];
+
+  $: controls = $hideComparative
+    ? controlsAll.filter((control) => !control.comparative)
+    : controlsAll;
 
   const updateFromCell = crud.updateFromCell('entry');
   let promise;
-
-  function getControls() {
-    return $hideComparative
-      ?
-      []
-      :
-      [
-        {
-          type: 'set',
-        },
-        {
-          type: 'entryinfo',
-        },
-      ];
-  }
 
   async function handleUpdate(e) {
     const { key, row, onSuccess, values } = e.detail;

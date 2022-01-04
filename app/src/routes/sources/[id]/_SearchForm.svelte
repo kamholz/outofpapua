@@ -9,7 +9,7 @@
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const values = { ...query };
 
-  const allFields = [
+  const fieldsAll = [
     {
       name: 'headword',
       label: 'Headword',
@@ -66,13 +66,9 @@
     },
   ];
 
-  $: fields = getFields($hideComparative);
-
-  function getFields() {
-    return $hideComparative
-      ? allFields.filter((field) => !field.comparative)
-      : allFields;
-  }
+  $: fields = $hideComparative
+    ? fieldsAll.filter((field) => !field.comparative)
+    : fieldsAll;
 
   function handleChange(e) {
     if (e.target.name === 'origin') {

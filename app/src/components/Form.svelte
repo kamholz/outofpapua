@@ -26,7 +26,7 @@
   export { className as class };
   $: haveTextCheckbox = fields.some(({ checkbox, type }) => type === 'text' && checkbox);
 
-  const formInput = {
+  const fieldComponent = {
     checkbox: Checkbox,
     email: Email,
     password: Password,
@@ -93,7 +93,7 @@
         {:else}
           <label for={field.name} class="label" transition:slide={{ duration: 200 }}>{field.label}:</label>
           <svelte:component
-            this={formInput[field.type]}
+            this={fieldComponent[field.type]}
             {field}
             {browserSubmit}
             {haveTextCheckbox}

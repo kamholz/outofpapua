@@ -30,7 +30,7 @@
   }
 </script>
 
-<div>
+<div class="login">
   {#if promise}
     {#await promise catch { message} }
       <span class="error">{message}</span>
@@ -41,17 +41,23 @@
     <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin}>
-      <label for="username">Email:</label>
-      <input type="text" id="username" name="username" bind:value={username}>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" bind:value={password}>
+      <div class="fields">
+        <label>
+          <span>Email:</span>
+          <input type="text" id="username" name="username" bind:value={username}>
+        </label>
+        <label>
+          <span>Password:</span>
+          <input type="password" id="password" name="password" bind:value={password}>
+        </label>
+      </div>
       <button type="submit" disabled={$pageLoading}>Login</button>
     </form>
   {/if}
 </div>
 
 <style lang="scss">
-  div {
+  .login {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -65,16 +71,20 @@
       border: 1px solid transparent;
     }
 
+    form, .fields {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      row-gap: 6px;
+    }
+
     label {
       margin-inline-start: 0.75em;
     }
 
-    input[type="text"] {
-      inline-size: 12em;
-    }
-
-    input[type="password"] {
-      inline-size: 7em;
+    input {
+      inline-size: 8em;
     }
 
     button {

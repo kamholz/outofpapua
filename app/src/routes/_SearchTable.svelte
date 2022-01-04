@@ -40,29 +40,23 @@
     },
   ];
 
-  $: controls = getControls($hideComparative);
+  const controls = [
+    {
+      type: 'set',
+    },
+    {
+      type: 'entryinfo',
+      comparative: true,
+    },
+    {
+      type: 'select',
+      comparative: true,
+    },
+  ];
 
-  function getControls() {
-    return $hideComparative
-      ?
-      [
-        {
-          type: 'select',
-        },
-      ]
-      :
-      [
-        {
-          type: 'set',
-        },
-        {
-          type: 'entryinfo',
-        },
-        {
-          type: 'select',
-        },
-      ];
-  }
+  $: controls = $hideComparative
+    ? controlsAll.filter((control) => !control.comparative)
+    : controlsAll;
 </script>
 
 <Table

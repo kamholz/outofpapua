@@ -4,7 +4,7 @@
   import { hideComparative } from '$lib/stores';
   import { page, session } from '$app/stores';
 
-  const allTabs = [
+  const tabsAll = [
     {
       title: 'Entries',
       url: '/',
@@ -43,11 +43,11 @@
 
   function getTabs() {
     if ($session.user) {
-      return allTabs;
+      return tabsAll;
     } else if ($hideComparative) {
-      return allTabs.filter((field) => !field.comparative && !field.private);
+      return tabsAll.filter((field) => !field.comparative && !field.private);
     } else {
-      return allTabs.filter((field) => !field.private);
+      return tabsAll.filter((field) => !field.private);
     }
   }
 </script>
