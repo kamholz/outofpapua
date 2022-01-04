@@ -97,10 +97,6 @@
       inline-size: 16em;
       margin-inline-end: 20px;
       margin-block-start: 6px;
-
-      label {
-        margin-block-end: 6px;
-      }
     }
   }
 </style>

@@ -2,7 +2,7 @@
   export let field;
   export let values;
   export let haveTextCheckbox;
-  export let browserSubmit;
+  export let browserSubmit;browserSubmit;
   const { name, required } = field;
 </script>
 

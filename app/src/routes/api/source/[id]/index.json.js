@@ -57,20 +57,17 @@ export const put = validateParams(requireAuth(async ({ body, locals, params }) =
   }
 }));
 
-export const del = validateParams(requireAdmin(async ({ params }) => {
-  return { status: 500 };
-  try {
-    const ids = await knex.transaction(async (trx) => {
-      await trx.column(trx.raw('delete_source_entries(?)', params.id));
-      return trx('source')
-      .where('id', params.id)
-      .returning('id')
-      .del();
-    });
-    return { body: { deleted: ids.length } };
-  } catch (e) {
-    console.log(e);
-    return sendPgError(e);
-  }
-}));
-
+export const del = validateParams(requireAdmin(() => ({ status: 500 })));
+// try {
+//   const ids = await knex.transaction(async (trx) => {
+//     await trx.column(trx.raw('delete_source_entries(?)', params.id));
+//     return trx('source')
+//     .where('id', params.id)
+//     .returning('id')
+//     .del();
+//   });
+//   return { body: { deleted: ids.length } };
+// } catch (e) {
+//   console.log(e);
+//   return sendPgError(e);
+// }

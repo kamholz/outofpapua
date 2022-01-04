@@ -3,7 +3,7 @@
   import SetPopover from '$components/SetPopover.svelte';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
 
-  export let control;
+  export let control;control;
   export let row;
   export let scale;
 </script>
