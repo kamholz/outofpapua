@@ -40,7 +40,7 @@
     },
   ];
 
-  const controls = [
+  const controlsAll = [
     {
       type: 'set',
     },
