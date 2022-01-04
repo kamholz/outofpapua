@@ -50,6 +50,7 @@ const compare_entries1 = `
       'headword', compare_entry.headword,
       'record_id', compare_entry.record_id,
       'origin', compare_entry.origin,
+      'origin_language_id', compare_entry.origin_language_id,
       'senses', compare_entry.senses,
       'set_ids', ${setIds('compare_entry.id')}
     )
@@ -121,6 +122,7 @@ export async function get({ locals, url: { searchParams } }) {
     'entry.headword',
     'entry.headword_degr',
     'entry.origin',
+    'entry.origin_language_id',
     'entry.record_id',
     'entry.senses',
     'source.language_id',
