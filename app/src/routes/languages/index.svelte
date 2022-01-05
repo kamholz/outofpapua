@@ -38,6 +38,9 @@
 </svelte:head>
 
 <h2>Languages</h2>
+<div>
+  <a href="/languages/map" sveltekit:prefetch>View map of languages</a>
+</div>
 <Table
   {rows}
   {query}
@@ -50,3 +53,9 @@
     on:refresh={handleRefresh}
   />
 {/if}
+
+<style>
+  div {
+    margin-block-end: 24px;
+  }
+</style>
