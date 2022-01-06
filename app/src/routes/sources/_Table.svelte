@@ -37,5 +37,6 @@
   {query}
   {controls}
   sortable
+  highlight
   on:link
 />

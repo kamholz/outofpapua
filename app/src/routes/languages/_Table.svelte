@@ -73,5 +73,6 @@
   {editable}
   {controls}
   sortable
+  highlight
   on:update={handleUpdate}
 />
