@@ -1922,6 +1922,21 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
+  'Stokhof & Flassy (1985)' => {
+    lang_target => 'mxn',
+    path => 'spreadsheets Upwork/Mooi Holle.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [5, 'sc'],
+      [8, 'lt'],
+      [1, 'note'],
+      [4, 'cf'],
+      [[6 .. 7], 'example', ['eng']],
+      [3, 'page_hum'],
+    ],
+  },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',
     path => 'Biak-LexiRumah_20191107.xlsx',
