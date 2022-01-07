@@ -2350,6 +2350,20 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Wattimury (nd)' => {
+    lang_target => 'gbi',
+    path => 'spreadsheets/Wattimury-dic.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'note'],
+      [1, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => '(to)',
+  },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Maybrat Ayamaru_Witani_1992.xlsx',
