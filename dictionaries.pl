@@ -783,6 +783,19 @@ our $dict = {
       [7, 'note'],
     ],
   },
+  'Lunow (nd)' => {
+    lang_target => 'mnx',
+    path => 'spreadsheets/Lunow_Sougb_list_Version2.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'note'],
+      [4, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Mandacan et al. (2020)' => {
     lang_target => 'mej',
     path => 'Kamus Indonesia-Meyah/Kamus Indonesia-Meyah-Inggris.xlsx',
