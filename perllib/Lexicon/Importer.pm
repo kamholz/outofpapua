@@ -189,8 +189,10 @@ EOF
 
     $tx->commit;
     say 'imported successfully';
+    return 1;
   } catch {
     say "failed: $_";
+    return 0;
   };
 }
 

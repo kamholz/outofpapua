@@ -50,8 +50,8 @@ if ($cmd eq 'export') {
   my $parser = $parser_class->new($args);
 
   if ($cmd eq 'import') {
-    Lexicon::Importer->new->import_lexicon($source_reference, $args->{lang_target}, $parser, @action);
-    system "cd app && script/ipa.js '$source_reference' update";
+    my $success = Lexicon::Importer->new->import_lexicon($source_reference, $args->{lang_target}, $parser, @action);
+    system "cd app && script/ipa.js '$source_reference' update" if $success;
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
