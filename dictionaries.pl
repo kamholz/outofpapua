@@ -2043,7 +2043,7 @@ our $dict = {
   },
   'van Staden (nd)' => {
     lang_target => 'tvo',
-    path => 'Tidore/Tidore_toolbox.txt',
+    path => 'Tidore/Tidore_toolbox_new.txt',
     parser => 'Marker',
     split => ',;',
     gloss_preprocess => \&replace_underscore,
