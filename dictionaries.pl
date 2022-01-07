@@ -306,6 +306,21 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
+  'Budiman (nd)' => {
+    lang_target => 'kax',
+    path => 'spreadsheets/Budiman-Kao-dic.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [[4 .. 6], 'example', ['ind', 'eng']],
+      [7, 'note'],
+      [1, 'page_num'],
+    ],
+    multiple_example_rows => 1,
+    strip => '(to)',
+  },
   'Collins (1982a)' => {
     lang_target => 'mky',
     path => 'Collins/East-Makian_Collins1982.xlsx',

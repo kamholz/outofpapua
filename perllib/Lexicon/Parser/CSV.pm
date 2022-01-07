@@ -38,6 +38,11 @@ has 'skip' => (
   default => 0,
 );
 
+has 'multiple_example_rows' => (
+  is => 'ro',
+  default => 0,
+);
+
 sub parse {
   my ($self, $path) = @_;
   $path ||= $self->path;
@@ -75,6 +80,7 @@ sub read_entries {
   my $mode = $self->mode;
   my $columns = $self->columns;
   my $split_headword = $self->split_headword;
+  my $multiple_example_rows = $self->multiple_example_rows;
 
   if ($mode ne 'entry_per_row' and $mode ne 'sense_per_row') {
     die "unknown mode: $mode";
@@ -92,21 +98,25 @@ sub read_entries {
         my $marker = 'lx';
         my $note = $arg;
 
-        if ($mode eq 'sense_per_row') {
-          if ($entry->{subentry}) {
-            die "invalid empty headword for subentry in row $row" if $value eq '';
-            $self->push_entry($entries, $entry);
-            $entry = { record => $entry->{record} };
-            $marker = 'se';
-          } elsif ($value eq '') { # new sense
+        if ($entry->{subentry}) {
+          die "invalid empty headword for subentry in row $row" if $value eq '';
+          $self->push_entry($entries, $entry);
+          $entry = $self->reset_entry($entry, 'headword');
+          $marker = 'se';
+        } elsif ($mode eq 'sense_per_row') {
+          if ($value eq '') { # new sense
               $self->add_sense($entry);
               push @{$entry->{record}}, ['sn', '' . scalar(@{$entry->{sense}||[]})];
               next;
           } else { # new entry
             $self->push_entry($entries, $entry) if $row > $row_min;
-            $entry = {};
+            $entry = $self->reset_entry($entry, 'record');
           }
         } else {
+          if (length $value or !$multiple_example_rows) {
+            $self->push_entry($entries, $entry);
+            $entry = $self->reset_entry($entry, 'record');
+          }
           next unless length $value;
         }
 
@@ -177,14 +187,9 @@ sub read_entries {
         push(@{$entry->{record}}, [$type, $_]) for @values;
       }
     }
-
-    if ($mode eq 'entry_per_row') {
-      $self->push_entry($entries, $entry);
-      $entry = {};
-    }
   }
 
-  $self->push_entry($entries, $entry) if $mode eq 'sense_per_row';
+  $self->push_entry($entries, $entry);
 
   return $entries;
 }

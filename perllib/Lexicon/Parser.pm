@@ -124,7 +124,7 @@ sub push_entry {
   my ($self, $entries, $entry) = @_;
 
   if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
-    if (!length $entry->{headword}) {
+    if (!ref $entry->{headword} and !length $entry->{headword}) {
       say "warning: empty headword";
       return;
     }
