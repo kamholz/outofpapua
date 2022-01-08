@@ -10,6 +10,7 @@ use Lexicon::Parser::ACD;
 use Lexicon::Parser::Dictionaria;
 use Lexicon::Parser::Fieldworks;
 use Lexicon::Parser::Flex;
+use Lexicon::Parser::LexiRumah;
 use Lexicon::Parser::LexiqueDocx;
 use Lexicon::Parser::LexiqueHTML;
 use Lexicon::Parser::Marker;

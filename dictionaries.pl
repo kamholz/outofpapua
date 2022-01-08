@@ -248,6 +248,69 @@ our $dict = {
     split_headword => ',',
     headword_preprocess => \&clear_hyphen,
   },
+  'Berry & Berry (1987k)' => {
+    lang_target => 'Kaburi Kambor',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kabu1249',
+  },
+  'Berry & Berry (1987l)' => {
+    lang_target => 'kzm', # Kais
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kais1235',
+  },
+  'Berry & Berry (1987m)' => {
+    lang_target => 'Kokoda Kasueri',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kasu1243',
+  },
+  'Berry & Berry (1987k)' => {
+    lang_target => 'Kemberano Kalitami',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kemb1235',
+  },
+  'Berry & Berry (1987l)' => {
+    lang_target => 'knd', # Konda
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kond1303',
+  },
+  'Berry & Berry (1987m)' => {
+    lang_target => 'Kokoda Negeri Besar',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'negr1235',
+  },
+  'Berry & Berry (1987n)' => {
+    lang_target => 'pru', # Puragi
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'pura1253',
+  },
+  'Berry & Berry (1987o)' => {
+    lang_target => 'ner', # Mugim
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'yaha1248',
+  },
+  'Berry & Berry (1987p)' => {
+    lang_target => 'Kaburi Kambor',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'berry87',
+    lexirumah_lect => 'kabu1249',
+  },
   'Berry & Berry (1990)' => {
     lang_target => 'Abun Ye',
     path => 'Abun-Indon-Eng Glossary/Abun-Indon-Eng Glossary A-Y_cleaned.xlsx',
@@ -2201,11 +2264,74 @@ our $dict = {
     strip => 'to',
 
   },
+  'Voorhoeve (1984a)' => {
+    lang_target => 'jbj', # Arandai
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'voorhoeve85',
+    lexirumah_lect => 'aran1237',
+  },
+  'Voorhoeve (1984b)' => {
+    lang_target => 'Kemberano Barau',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'voorhoeve85',
+    lexirumah_lect => 'bara1347',
+  },
+  'Voorhoeve (1984c)' => {
+    lang_target => 'Kemberano Weriagar',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'voorhoeve85',
+    lexirumah_lect => 'weri1246',
+  },
+  'Voorhoeve (1984d)' => {
+    lang_target => 'Kokoda Tarof',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'voorhoeve85',
+    lexirumah_lect => 'taro1259',
+  },
   'Voorhoeve (nd)' => {
     lang_target => 'tft',
     path => 'Voorhoeve_Ternate_19122021.txt',
     parser => 'Marker',
     strip => 'to',
+  },
+  'Vries (2004a)' => {
+    lang_target => 'Kaburi Benawa',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'vries04',
+    lexirumah_lect => 'kabu1249',
+  },
+  'Vries (2004b)' => {
+    lang_target => 'Kokoda Kasueri',
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'vries04',
+    lexirumah_lect => 'kasu1243',
+  },
+  'Vries (2004c)' => {
+    lang_target => 'pru', # Puragi
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'vries04',
+    lexirumah_lect => 'pura1253',
+  },
+  'Vries (2004d)' => {
+    lang_target => 'ner', # Mugim
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'vries04',
+    lexirumah_lect => 'yaha1248',
+  },
+  'Vries (2004e)' => {
+    lang_target => 'szp', # Inanwatan
+    path => 'LexiRumah',
+    parser => 'LexiRumah',
+    lexirumah_source => 'vries04',
+    lexirumah_lect => 'inan1242',
   },
   'Wada (1980a)' => {
     lang_target => 'gbi',
