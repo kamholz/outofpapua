@@ -257,17 +257,21 @@ our $dict = {
   },
   'Berry & Berry (1987l)' => {
     lang_target => 'kzm', # Kais
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'kais1235',
+    path => 'LexiRumah/toolbox/BerryBerry1987l.txt',
+    parser => 'Marker',
+    # path => 'LexiRumah',
+    # parser => 'LexiRumah',
+    # lexirumah_source => 'berry87',
+    # lexirumah_lect => 'kais1235',
   },
   'Berry & Berry (1987m)' => {
     lang_target => 'Kokoda Kasueri',
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'kasu1243',
+    path => 'LexiRumah/toolbox/BerryBerry1987m.txt',
+    parser => 'Marker',
+    # path => 'LexiRumah',
+    # parser => 'LexiRumah',
+    # lexirumah_source => 'berry87',
+    # lexirumah_lect => 'kasu1243',
   },
   'Berry & Berry (1987n)' => {
     lang_target => 'Kokoda Negeri Besar',
@@ -278,10 +282,12 @@ our $dict = {
   },
   'Berry & Berry (1987o)' => {
     lang_target => 'Kemberano Kalitami',
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'kemb1235',
+    path => 'LexiRumah/toolbox/BerryBerry1987o.txt',
+    parser => 'Marker',
+    # path => 'LexiRumah',
+    # parser => 'LexiRumah',
+    # lexirumah_source => 'berry87',
+    # lexirumah_lect => 'kemb1235',
   },
   'Berry & Berry (1987p)' => {
     lang_target => 'knd', # Konda
