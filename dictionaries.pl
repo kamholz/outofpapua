@@ -269,42 +269,42 @@ our $dict = {
     lexirumah_source => 'berry87',
     lexirumah_lect => 'kasu1243',
   },
-  'Berry & Berry (1987k)' => {
+  'Berry & Berry (1987n)' => {
     lang_target => 'Kemberano Kalitami',
     path => 'LexiRumah',
     parser => 'LexiRumah',
     lexirumah_source => 'berry87',
     lexirumah_lect => 'kemb1235',
   },
-  'Berry & Berry (1987l)' => {
+  'Berry & Berry (1987o)' => {
     lang_target => 'knd', # Konda
     path => 'LexiRumah',
     parser => 'LexiRumah',
     lexirumah_source => 'berry87',
     lexirumah_lect => 'kond1303',
   },
-  'Berry & Berry (1987m)' => {
+  'Berry & Berry (1987p)' => {
     lang_target => 'Kokoda Negeri Besar',
     path => 'LexiRumah',
     parser => 'LexiRumah',
     lexirumah_source => 'berry87',
     lexirumah_lect => 'negr1235',
   },
-  'Berry & Berry (1987n)' => {
+  'Berry & Berry (1987q)' => {
     lang_target => 'pru', # Puragi
     path => 'LexiRumah',
     parser => 'LexiRumah',
     lexirumah_source => 'berry87',
     lexirumah_lect => 'pura1253',
   },
-  'Berry & Berry (1987o)' => {
+  'Berry & Berry (1987r)' => {
     lang_target => 'ner', # Mugim
     path => 'LexiRumah',
     parser => 'LexiRumah',
     lexirumah_source => 'berry87',
     lexirumah_lect => 'yaha1248',
   },
-  'Berry & Berry (1987p)' => {
+  'Berry & Berry (1987s)' => {
     lang_target => 'Kaburi Kambor',
     path => 'LexiRumah',
     parser => 'LexiRumah',
