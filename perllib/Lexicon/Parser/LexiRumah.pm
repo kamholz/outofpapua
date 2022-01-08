@@ -21,7 +21,7 @@ sub parse {
   my ($self, $path, $key, $array) = @_;
 
   my $csv = Text::CSV->new({ auto_diag => 1 });
-  open my $fh, '<:crlf:encoding(' . $self->encoding->[0] . ')', $path or die $!;
+  open my $fh, '<:crlf:encoding(utf-8)', $path or die $!;
   $csv->column_names($csv->getline($fh));
   my $output = {};
   while (my $row = $csv->getline_hr($fh)) {
