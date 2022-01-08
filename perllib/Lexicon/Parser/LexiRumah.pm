@@ -69,7 +69,7 @@ sub read_entries {
       push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
     };
 
-    $add_marker->('Local_Orthography', 'lx', 'headword');
+    $add_marker->('Form_according_to_Source', 'lx', 'headword');
     $add_marker->('Form', 'ph', 'headword_ph');
     $add_gloss->('English', 'eng');
     $add_gloss->('Indonesian', 'ind');
