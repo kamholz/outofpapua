@@ -73,6 +73,7 @@ sub read_entries {
     $add_marker->('Form', 'ph', 'headword_ph');
     $add_gloss->('English', 'eng');
     $add_gloss->('Indonesian', 'ind');
+    $add_marker->('Comment', 'nt');
 
     $self->push_entry($entries, $entry);
     $entry = $self->reset_entry($entry, 'record');
