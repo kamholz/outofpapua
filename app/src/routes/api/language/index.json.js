@@ -39,7 +39,13 @@ export async function get({ locals, url: { searchParams } }) {
   if (query.category === 'descendants') {
     q
       .whereRaw('language.flag_language_list')
-      .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants'));
+      .select(
+        knex.raw('coalesce(language.descendants, language.dialects) as descendants'),
+        knex.raw(
+          'not exists ? as empty',
+          knex.select('*').from('source').where('source.language_id', knex.ref('language.id'))
+        )
+      );
   } else if (query.category === 'proto') {
     q.whereExists(function () {
       this.select('*').from('protolanguage').where('protolanguage.id', knex.ref('language.id'));
@@ -89,7 +95,7 @@ export async function get({ locals, url: { searchParams } }) {
     q.whereExists(function () { // hide empty sources
       this.select('*').from('source')
       .where('source.language_id', knex.ref('language.id'))
-      .where('source.public', knex.raw('true'));
+      .where(knex.raw('source.public'));
     });
   }
 
