@@ -55,7 +55,7 @@
   import { getContext, setContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, setSummaryCache } from '$lib/stores';
   import { serializeArrayParam } from '$lib/util';
   import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
@@ -74,7 +74,6 @@
   $: linkable = getContext('editable') && query.set !== 'linked';
   const selection = writable();
   setContext('selection', selection);
-  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
   let promise;
 

@@ -35,9 +35,8 @@
   import SearchForm from './_SearchForm.svelte';
   import SourceTable from './_Table.svelte';
   import { page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
 
   export let source;
   export let rows;
@@ -46,8 +45,6 @@
   export let rowCount;
   export let borrowlangSuggest;
   setContext('borrowlangSuggest', borrowlangSuggest);
-
-  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
 
   $: init(), $page;

@@ -42,11 +42,10 @@
   import keydown from '$lib/keydown';
   import { faFileAlt, faMapMarked, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
-  import { modal, pageLoading } from '$lib/stores';
+  import { modal, pageLoading, setSummaryCache } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
   import { page } from '$app/stores';
   import { slide } from 'svelte/transition';
-  import { writable } from 'svelte/store';
 
   export let set;
   export let borrowlangSuggest = null;
@@ -67,7 +66,7 @@
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
 
-  const setSummaryCache = writable({});
+  $setSummaryCache = {}; // eslint-disable-line prefer-const
   setContext('setSummaryCache', setSummaryCache);
 
   $: ({ members } = set);

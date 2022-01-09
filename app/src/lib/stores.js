@@ -8,6 +8,7 @@ import { showPublicOnly } from '$lib/util';
 export const hideComparative = derived(session, ($session) => $session.hideComparative && showPublicOnly($session));
 export const modal = writable(null);
 export const pageLoading = writable(0);
+export const setSummaryCache = writable({});
 
 export function getPreferences(session) {
   if (session.user) {

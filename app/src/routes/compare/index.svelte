@@ -46,9 +46,8 @@
   import List from './_List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import { page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
 
   export let error = null;
   export let rows = null;
@@ -72,7 +71,6 @@
   $: multiGlosslang = !(query.glosslang?.length === 1);
   $: multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
 
-  const setSummaryCache = writable();
   setContext('setSummaryCache', setSummaryCache);
 
   $: init(), $page;
