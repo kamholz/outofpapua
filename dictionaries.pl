@@ -2096,6 +2096,7 @@ our $dict = {
       [4, 'note', 'inflectional information:'],
       [[5 .. 6], 'example', ['eng']],
       [7, 'note', 'example number:'],
+      [8, 'note'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
