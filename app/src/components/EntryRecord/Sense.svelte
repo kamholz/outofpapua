@@ -1,5 +1,6 @@
 <script>
   import Form from '$components/EntryRecord/Form.svelte';
+  import MaybeLang from '$components/EntryRecord/MaybeLang.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
   import { getContext } from 'svelte';
@@ -31,7 +32,7 @@
 
   {#if translation}
     {#each langMarkerSorted(translation) as [txt, lang]}
-      <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span> (<span class="lang">{lang}</span>).
+      <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span><MaybeLang {lang} />.
     {/each}
   {/if}
 </Paragraph>

@@ -186,7 +186,7 @@
         font-weight: bold;
       }
 
-      .ph::before, .translation::before, .trans::before {
+      .ph::before, .translation::before, .trans::before, .lang::before {
         content: ' ';
       }
     }
