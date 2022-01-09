@@ -175,7 +175,7 @@
       }
 
       .example-p {
-        margin-inline-start: 20px;
+        margin-inline-start: 24px;
       }
 
       .pos, .label, .lang {
