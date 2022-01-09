@@ -4,10 +4,10 @@ SELECT
   coalesce(json_agg(
     json_build_object(
       'language_id', sgl.language_id,
-      'language_name', language.name,
+      'language_code', language.iso6393,
       'txt', sgl.txt
     )
-    ORDER BY language.name != 'English', lower(language.name)
+    ORDER BY language.iso6393 != 'eng' NULLS LAST, language.iso6393
   ) FILTER (WHERE sgl.sense_id IS NOT NULL), '[]'::json) AS glosses
 FROM sense
 LEFT JOIN sense_glosses_by_language sgl ON sgl.sense_id = sense.id
