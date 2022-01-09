@@ -2156,7 +2156,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 Gane b)' => {
-    lang_target => 'Gane Dalam-Gane Luar',
+    lang_target => 'Gane Gane Dalam-Gane Luar',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Gane Dalam-Gane Luar',
