@@ -200,8 +200,8 @@ export function glossesSummary(glosses, preferences) {
     .join('; ');
 }
 
-export function glossSummary({ language_name, txt }, preferences) {
-  return `‘${joinGlosses(txt)}’` + maybeLanguageName(language_name, preferences);
+export function glossSummary({ language_code, txt }, preferences) {
+  return `‘${joinGlosses(txt)}’` + maybeLanguageName(language_code, preferences);
 }
 
 export function glossesSummaryNoLanguage(glosses) {
@@ -224,10 +224,10 @@ export function maybeGloss(senses) {
     : '';
 }
 
-export function maybeLanguageName(language_name, preferences) {
-  return preferences?.hideGlossLang
-    ? ''
-    : ` (${language_name})`;
+export function maybeLanguageName(language_code, preferences) {
+  return language_code && preferences?.showGlossLang
+    ? ` (${language_code})`
+    : '';
 }
 
 export function parseGlosses(param) {

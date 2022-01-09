@@ -6,8 +6,8 @@
 
   const fields = [
     {
-      name: 'hideGlossLang',
-      label: 'Omit gloss language in entries',
+      name: 'showGlossLang',
+      label: 'Show gloss language in entries',
       type: 'checkbox',
     },
   ];

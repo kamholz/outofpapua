@@ -1,6 +1,6 @@
 export const defaultPreferences = {
   baseMap: 'cartodb-positron',
-  hideGlossLang: false,
+  showGlossLang: false,
   listPageSize: 50,
   tablePageSize: 100,
 };
@@ -22,8 +22,8 @@ export const schema = {
       type: 'string',
       enum: ['cartodb-positron', 'esri-gray-canvas', 'esri-shaded-relief'],
     },
-    hideGlossLang: {
-      description: 'whether to hide showing the gloss language in the interface',
+    showGlossLang: {
+      description: 'whether to show the gloss language in the interface',
       type: 'boolean',
     },
     listPageSize: {
