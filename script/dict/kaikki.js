@@ -24,13 +24,20 @@ function convertEntry(entry) {
     console.log(`\\ph ${ipa}`);
   }
   if (pos) {
-    console.log(`\\ps ${pos}`);  
+    let mungedPos = pos;
+    if (senses.length === 1 && senses[0].raw_glosses.length === 1) {
+      const match = senses[0].raw_glosses[0].match(/^(\((?:transitive|intransitive|demonstrative|stative)\)) (.+)$/);
+      if (match) {
+        mungedPos += ' ' + match[1];
+        senses[0].raw_glosses[0] = match[2];
+      }
+    }
+    console.log(`\\ps ${mungedPos}`);
   }
   for (const [i, sense] of senses.entries()) {
     console.log(`\\sn ${i + 1}`);
-    const glosses  = sense.raw_glosses.map(mungeGloss);
-    for (const gloss of glosses) {
-      console.log(`\\g_Eng ${gloss}`);
+    for (const gloss of sense.raw_glosses) {
+      console.log(`\\g_Eng ${mungeGloss(gloss)}`);
     }
   }
   if (etymology_text) {
