@@ -2159,7 +2159,7 @@ our $dict = {
     lang_target => 'Gane Gane Dalam-Gane Luar',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Gane Dalam-Gane Luar',
+    sheet => 'Gane Gane Dalam-Gane Luar ',
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
@@ -2362,7 +2362,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 Bajo)' => {
-    lang_target => '',
+    lang_target => 'Indonesian Bajau Kayoa',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bajo',
