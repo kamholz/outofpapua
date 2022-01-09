@@ -130,6 +130,13 @@ export function parseRecord(data, formatting) {
     }
   }
 
+  fixPos(output);
+  if (output.subentry) {
+    for (const sub of output.subentry) {
+      fixPos(sub);
+    }
+  }
+
   return output;
 
   function getMarkerConversion() {
@@ -194,6 +201,16 @@ export function parseRecord(data, formatting) {
       sense = {};
       pushKey(entry, 'sense', sense);
       state = 'sense';
+    }
+  }
+
+  function fixPos(entry) {
+    if (entry.pos && entry.sense) {
+      for (const s of entry.sense) {
+        if (!s.pos) {
+          s.pos = entry.pos;
+        }
+      }
     }
   }
 }

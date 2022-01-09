@@ -1,5 +1,6 @@
 <script>
   import Form from '$components/EntryRecord/Form.svelte';
+  import Paragraph from '$components/EntryRecord/Paragraph.svelte';
 
   export let data;
   export let key;
@@ -11,9 +12,13 @@
 </script>
 
 {#if join}
-  <span class="label">{label}:</span> {#each items as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} {link} />{/each}{#if !(!trans && items[items.length - 1].match(/\.$/))}.{/if}
+  <Paragraph period={!(!trans && items[items.length - 1].match(/\.$/))}>
+    <span class="label">{label}:</span> {#each items as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} {link} />{/each}
+  </Paragraph>
 {:else}
   {#each items as item}
-    <span class="label">{label}:</span> <Form {item} {key} {trans} {link} />{#if !(!trans && item.match(/\.$/))}.{/if}
+    <Paragraph period={!(!trans && item.match(/\.$/))}>
+      <span class="label">{label}:</span> <Form {item} {key} {trans} {link} />
+    </Paragraph>
   {/each}
 {/if}

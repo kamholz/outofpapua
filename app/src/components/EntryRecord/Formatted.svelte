@@ -5,7 +5,9 @@
 
   export let data;
   export let source;
+  export let compact = false;
   setContext('source', source);
+  setContext('compact', compact);
   const entry = parseRecord(data, source.formatting);
 </script>
 

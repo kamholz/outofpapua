@@ -1,12 +1,13 @@
 <script>
   import Form from '$components/EntryRecord/Form.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
-  import Pos from '$components/EntryRecord/Pos.svelte';
+  import Paragraph from '$components/EntryRecord/Paragraph.svelte';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
-  import { toolboxMarkup } from '$lib/util';
+  import { mungePos, toolboxMarkup } from '$lib/util';
 
   export let sense;
+  export let num = null;
   const { formatting } = getContext('source');
   const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
 
@@ -19,15 +20,21 @@
   ];
 </script>
 
-{#if sense.pos}
-  <Pos pos={sense.pos} />
-{/if}
+<Paragraph>
+  {#if num}
+    <span class="sense-num">({num})</span>
+  {/if}
 
-{#if translation}
-  {#each langMarkerSorted(translation) as [txt, lang]}
-    <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span> (<span class="lang">{lang}</span>).
-  {/each}
-{/if}
+  {#if sense.pos}
+    <span class="pos">{mungePos(sense.pos)}.</span>
+  {/if}
+
+  {#if translation}
+    {#each langMarkerSorted(translation) as [txt, lang]}
+      <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span> (<span class="lang">{lang}</span>).
+    {/each}
+  {/if}
+</Paragraph>
 
 {#each notes as { key, label, join }}
   {#if key in sense}
@@ -37,6 +44,8 @@
 
 {#if sense.example}
   {#each sense.example as item}
-    <Form {item} key="example" trans />.
+    <Paragraph class="example-p">
+      <Form {item} key="example" trans />.
+    </Paragraph>
   {/each}
 {/if}

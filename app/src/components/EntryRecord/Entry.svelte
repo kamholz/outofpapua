@@ -1,9 +1,11 @@
 <script>
   import Note from '$components/EntryRecord/Note.svelte';
-  import Pos from '$components/EntryRecord/Pos.svelte';
+  import Paragraph from '$components/EntryRecord/Paragraph.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
+  import { getContext } from 'svelte';
 
   export let entry;
+  const compact = getContext('compact');
 
   const notesPre = [
     {
@@ -121,9 +123,11 @@
   }
 </script>
 
-<div class="entry">
+<div class="entry" class:compact>
   {#if entry.headword}
-    <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}.
+    <Paragraph class="headword-p">
+      <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}
+    </Paragraph>
   {/if}
 
   {#each notesPre as { key, label, join, trans }}
@@ -132,15 +136,10 @@
     {/if}
   {/each}
 
-  {#if entry.pos}
-    <Pos pos={entry.pos} />
-  {/if}
-
   {#if entry.sense}
     {#if entry.sense.length > 1}
       {#each entry.sense as sense, i}
-        <span class="sense-num">({i + 1})</span>
-        <Sense {sense} />
+        <Sense {sense} num={i + 1} />
       {/each}
     {:else}
       <Sense sense={entry.sense[0]} />
@@ -167,21 +166,41 @@
     @include indent;
 
     :global {
+      p {
+        margin-block-end: 12px;
+      }
+
+      .headword-p {
+        font-size: 19px;
+      }
+
+      .example-p {
+        margin-inline-start: 20px;
+      }
+
       .pos, .label, .lang {
         font-style: italic;
-      } 
+      }
 
       .headword, .variant, .sense-num, .singular, .plural, .form, .synonym, .antonym {
         font-weight: bold;
       }
 
-      .sense-num::before, .ph::before, .translation::before, .label::before, .form::before, .trans::before {
+      .ph::before, .translation::before, .trans::before {
+        content: ' ';
+      }
+    }
+
+    &.compact :global {
+      .sense-num::before, .label::before, .form::before {
         content: ' ';
       }
     }
   }
 
-  .subentries :global(.entry) {
-    margin-block-start: 16px;
+  .subentries :global {
+    .entry {
+      margin-block-start: 16px;
+    }
   }
 </style>

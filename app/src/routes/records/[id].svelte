@@ -49,6 +49,6 @@
   }
 
   button {
-    margin-block-start: var(--item-sep);
+    margin-block-start: 10px;
   }
 </style>
