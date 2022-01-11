@@ -1,8 +1,6 @@
 <script context="module">
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
 
-  export const ssr = false;
-
   export async function load({ fetch, params, url: { searchParams } }) {
     const props = {};
 

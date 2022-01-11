@@ -1,6 +1,4 @@
 <script>
-  import 'leaflet.fullscreen/Control.FullScreen.css';
-  import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape, formatReflexIpa, maybeGloss } from '$lib/util';
@@ -8,6 +6,13 @@
   import { getContext, onDestroy, onMount } from 'svelte';
   import { maxZoom } from '$lib/preferences';
   import { yiq } from 'yiq';
+
+  import L from 'leaflet';
+  import tooltipLayout from 'leaflet-tooltip-layout';
+  
+  import 'leaflet.fullscreen';
+  import 'leaflet.fullscreen/Control.FullScreen.css';
+  import 'leaflet/dist/leaflet.css';
 
   export let languages;
   export let families;
@@ -35,8 +40,6 @@
     }
   }
 
-  let L;
-  let tooltipLayout;
   let map;
   let layer;
 
@@ -50,11 +53,7 @@
   $: updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy);
   $: cssVars = getCssVars(colors, colorBy);
 
-  onMount(async () => {
-    L = await import('leaflet');
-    tooltipLayout = await import('leaflet-tooltip-layout');
-    await import('leaflet.fullscreen');
-
+  onMount(() => {
     map = L.map('map', {
       // closePopupOnClick: false,
       fullscreenControl: true,

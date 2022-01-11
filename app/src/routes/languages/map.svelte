@@ -1,6 +1,4 @@
 <script context="module">
-  export const ssr = false;
-
   export async function load({ fetch }) {
     const props = {};
     const res = await fetch('/api/language.json?category=location');

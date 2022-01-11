@@ -33,7 +33,9 @@ export async function handle({ request, resolve }) {
 
   locals.hideComparative = showPublicOnly(locals) && config.HIDE_COMPARATIVE === '1';
 
-  return resolve(request);
+  return resolve(request, {
+    ssr: !request.url.pathname.match(/\/map$/),
+  });
 }
 
 export function getSession({ locals }) {
