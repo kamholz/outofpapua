@@ -2387,6 +2387,12 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'van der Leeden (nd)' => {
+    lang_target => 'slz',
+    path => 'Maya/Maya_toolbox_cleaned.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox_new.txt',
