@@ -49,7 +49,7 @@
 {#if sense.example}
   {#each sense.example as item}
     <Paragraph class="example-p">
-      <Form {item} key="example" trans />.
+      <Form {item} key="example" trans />{#if compact}.{/if}
     </Paragraph>
   {/each}
 {/if}
