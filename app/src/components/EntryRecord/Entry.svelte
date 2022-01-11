@@ -1,4 +1,5 @@
 <script>
+  import Div from '$components/EntryRecord/Div.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
@@ -24,14 +25,14 @@
       label: 'Plural',
       join: true,
     },
+    {
+      key: 'paradigm',
+      label: 'Paradigms',
+      join: true,
+    },
   ];
 
   const notesPost = [
-    {
-      key: 'domain',
-      label: 'Semantic domain',
-      join: true,
-    },
     {
       key: 'scientific',
       label: 'Scientific name',
@@ -83,18 +84,23 @@
       join: false,
     },
     {
+      key: 'domain',
+      label: 'Semantic domain',
+      join: true,
+    },
+    {
       key: 'etymology',
       label: 'Etymology',
       join: false,
     },
     {
-      key: 'source',
-      label: 'Source',
-      join: true,
+      key: 'etymologyComment',
+      label: 'Etymology comment',
+      join: false,
     },
     {
-      key: 'reference',
-      label: 'Reference',
+      key: 'lexicalFunction',
+      label: 'Lexical functions',
       join: true,
     },
     {
@@ -116,6 +122,16 @@
       trans: true,
       link: true,
     },
+    {
+      key: 'source',
+      label: 'Source',
+      join: true,
+    },
+    {
+      key: 'reference',
+      label: 'Reference',
+      join: true,
+    },
   ];
 
   function getPh(txt) {
@@ -124,25 +140,25 @@
 </script>
 
 <div class="entry" class:compact>
-  {#if entry.headword}
-    <Paragraph class="headword-p">
+  <Paragraph class="headword-p">
+    {#if entry.headword}
       <span class="headword">{entry.headword.join(', ')}</span>{#if entry.ph}<span class="ph">{getPh(entry.ph)}</span>{/if}
-    </Paragraph>
-  {/if}
-
-  {#each notesPre as { key, label, join, trans }}
-    {#if key in entry}
-      <Note data={entry} {key} {label} {join} {trans} />
+    {:else}
+      <span class="headword">[missing headword]</span>
     {/if}
-  {/each}
+  </Paragraph>
 
-  {#if entry.sense}
-    {#if entry.sense.length > 1}
+  <Div>
+    {#each notesPre as { key, label, join, trans }}
+      {#if key in entry}
+        <Note data={entry} {key} {label} {join} {trans} />
+      {/if}
+    {/each}
+
+    {#if entry.sense}
       {#each entry.sense as sense, i}
         <Sense {sense} num={i + 1} />
       {/each}
-    {:else}
-      <Sense sense={entry.sense[0]} />
     {/if}
 
     {#each notesPost as { key, label, join, trans, link }}
@@ -150,22 +166,28 @@
         <Note data={entry} {key} {label} {join} {trans} {link} />
       {/if}
     {/each}
-  {/if}
+  </Div>
 </div>
 
 {#if entry.subentry}
-  <div class="subentries">
-    {#each entry.subentry as subentry}
-      <svelte:self entry={subentry} />
-    {/each}
-  </div>
+  {#each entry.subentry as subentry}
+    <svelte:self entry={subentry} />
+  {/each}
 {/if}
 
 <style lang="scss">
   .entry {
     @include indent;
 
+    &:not(:first-child) {
+      margin-block-start: 16px;
+    }
+
     :global {
+      > div {
+        margin-inline-start: 20px;
+      }
+
       p {
         margin-block-end: 12px;
       }
@@ -175,7 +197,7 @@
       }
 
       .example-p {
-        margin-inline-start: 24px;
+        margin-inline-start: 20px;
       }
 
       .pos, .label, .lang {
@@ -195,12 +217,6 @@
       .sense-num::before, .label::before, .form::before {
         content: ' ';
       }
-    }
-  }
-
-  .subentries :global {
-    .entry {
-      margin-block-start: 16px;
     }
   }
 </style>

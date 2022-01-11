@@ -28,9 +28,11 @@ const multiMarkerForm = Object.fromEntries(
 
 const entryMarker = {
   an: 'antonym',
+  ec: 'etymologyComment',
   ee: 'encyclopedic',
   et: 'etymology',
   lc: 'citation',
+  lf: 'lexicalFunction',
   mr: 'morph',
   na: 'anthro',
   nd: 'discourse',
@@ -39,6 +41,7 @@ const entryMarker = {
   nq: 'question',
   ns: 'socio',
   nt: 'note',
+  pd: 'paradigm',
   pl: 'plural',
   rf: 'reference',
   sc: 'scientific',
@@ -105,12 +108,12 @@ export function parseRecord(data, formatting) {
         entry.ph = value;
       } else if (marker in multiMarkerForm) {
         const newState = multiMarkerForm[marker];
-        savedState = state;
-        state = newState;
-        const { level } = multiMarker[state];
+        const { level } = multiMarker[newState];
         if (level === 'sense') {
           addSense(false);
         }
+        savedState = state;
+        state = newState;
         multi = [];
         pushKey(level === 'sense' ? sense : entry, state, multi);
         push(multi, value);

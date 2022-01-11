@@ -12,13 +12,9 @@
 </script>
 
 {#if join}
-  <Paragraph period={!(!trans && items[items.length - 1].match(/\.$/))}>
-    <span class="label">{label}:</span> {#each items as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} {link} />{/each}
-  </Paragraph>
+  <Paragraph period={!(!trans && items[items.length - 1].match(/\.$/))}><span class="label">{label}:</span> {#each items as item, i}{#if i !== 0}; {/if}<Form {item} {key} {trans} {link} />{/each}</Paragraph>
 {:else}
   {#each items as item}
-    <Paragraph period={!(!trans && item.match(/\.$/))}>
-      <span class="label">{label}:</span> <Form {item} {key} {trans} {link} />
-    </Paragraph>
+    <Paragraph period={!(!trans && item.match(/\.$/))}><span class="label">{label}:</span> <Form {item} {key} {trans} {link} /></Paragraph>
   {/each}
 {/if}

@@ -350,9 +350,10 @@ export function sortFunction(fn) {
 
 export function toolboxMarkup(text) {
   return escapeHtml(text)
-    .replace(/\bfv:(.+?)(?= |$)/g, formatFv);
+    .replace(/\bf[iv]:(.+?)(?= |$)/g, wrapEm)
+    .replace(/\|f[iv]?\{(.+?)\}/g, wrapEm);
 
-  function formatFv(_, p1) {
+  function wrapEm(_, p1) {
     return `<em>${p1}</em>`;
   }
 }
