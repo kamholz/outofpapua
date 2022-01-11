@@ -156,9 +156,13 @@
     {/each}
 
     {#if entry.sense}
-      {#each entry.sense as sense, i}
-        <Sense {sense} num={i + 1} />
-      {/each}
+      {#if entry.sense.length > 1}
+        {#each entry.sense as sense, i}
+          <Sense {sense} num={i + 1} />
+        {/each}
+      {:else}
+        <Sense sense={entry.sense[0]} />
+      {/if}
     {/if}
 
     {#each notesPost as { key, label, join, trans, link }}

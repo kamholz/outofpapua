@@ -9,6 +9,7 @@
 
   export let sense;
   export let num = null;
+  const compact = getContext('compact');
   const { formatting } = getContext('source');
   const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
 
@@ -24,6 +25,8 @@
 <Paragraph>
   {#if num}
     <span class="sense-num">({num})</span>
+  {:else if !compact}
+    <span class="sense-num">•&nbsp;</span>
   {/if}
 
   {#if sense.pos}
