@@ -25,7 +25,7 @@
     "sass": "^1.45.2",
     "screenfull": "^5.2.0",
     "svelecte": "^3.5.2",
-    "svelte": "^3.46.0",
+    "svelte": "^3.46.1",
     "svelte-awesome": "^2.4.2",
     "svelte-persistent-store": "github:kamholz/svelte-persistent-store",
     "svelte-popperjs": "^1.2.8",
