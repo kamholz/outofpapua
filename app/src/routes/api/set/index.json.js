@@ -117,7 +117,8 @@ export const get = requireComparative(async ({ locals, url: { searchParams } }) 
   };
 });
 
-export const post = requireAuth(async ({ body, locals }) => {
+export const post = requireAuth(async ({ locals, request }) => {
+  const body = await request.json();
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {

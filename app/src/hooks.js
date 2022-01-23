@@ -5,15 +5,15 @@ import { knex } from '$lib/db';
 import { showPublicOnly } from '$lib/util';
 import * as auth from '$lib/auth';
 
-export async function handle({ request, resolve }) {
-  const { headers, locals } = request;
+export async function handle({ event, resolve }) {
+  const { locals, request: { headers }, url } = event;
 
-  const cookies = cookie.parse(headers.cookie || '');
+  const cookies = cookie.parse(headers.get('cookie') || '');
   locals.user = await auth.verifyAccessTokenCookie(cookies);
 
   // silent refresh
-  if (!locals.user && cookies.refreshtoken && request.url.pathname !== '/auth/refresh') {
-    return auth.redirectToRefresh(request);
+  if (!locals.user && cookies.refreshtoken && url.pathname !== '/auth/refresh') {
+    return new Response(null, auth.redirectToRefresh(url));
   }
 
   locals.preferences = defaultPreferences;
@@ -33,8 +33,8 @@ export async function handle({ request, resolve }) {
 
   locals.hideComparative = showPublicOnly(locals) && config.HIDE_COMPARATIVE === '1';
 
-  return resolve(request, {
-    ssr: !request.url.pathname.match(/\/map$/),
+  return resolve(event, {
+    ssr: !url.pathname.match(/\/map$/),
   });
 }
 

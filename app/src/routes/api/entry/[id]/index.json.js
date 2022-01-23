@@ -37,10 +37,10 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
   const { id } = params;
   const editable = await isEditable(id);
-  const updateParams = getFilteredParams(body, editable ? allowedEditable : allowedAll);
+  const updateParams = getFilteredParams(await request.json(), editable ? allowedEditable : allowedAll);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }

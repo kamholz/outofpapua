@@ -7,7 +7,7 @@ export const post = handler;
 export const put = handler;
 export const del = handler;
 
-function handler({ headers, url }) {
+function handler({ request: { headers }, url }) {
   const { searchParams } = url;
   const output = searchParams.has('redirect')
     ?
@@ -23,7 +23,7 @@ function handler({ headers, url }) {
       headers: {},
     };
 
-  const cookies = cookie.parse(headers.cookie || '');
+  const cookies = cookie.parse(headers.get('cookie') || '');
   const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
   if (newCookie) {
     output.headers['set-cookie'] = newCookie;

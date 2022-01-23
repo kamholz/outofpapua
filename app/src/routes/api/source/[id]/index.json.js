@@ -35,8 +35,8 @@ export const get = validateParams(async ({ locals, params }) => {
   }
 });
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
-  const updateParams = getFilteredParams(body, locals.user?.admin ? allowedAdmin : allowed);
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), locals.user?.admin ? allowedAdmin : allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }

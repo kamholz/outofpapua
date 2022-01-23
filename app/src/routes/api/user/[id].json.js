@@ -15,12 +15,12 @@ export const get = validateParams(requireAuth(async ({ params }) => {
   }
 }));
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
   const { user } = locals;
   if (!adminOrSelf(user, params.id)) {
     return { status: 401 };
   }
-  const updateParams = getFilteredParams(body, allowed);
+  const updateParams = getFilteredParams(await request.json(), allowed);
   if ('admin' in updateParams && !adminNotSelf(user, params.id)) {
     return { status: 401 };
   }

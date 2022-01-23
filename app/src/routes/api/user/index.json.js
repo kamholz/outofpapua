@@ -17,8 +17,8 @@ export const get = requireAuth(async () => {
 
 const required = new Set(['username', 'fullname', 'password']);
 
-export const post = requireAdmin(async ({ body }) => {
-  const params = getFilteredParams(body, required);
+export const post = requireAdmin(async ({ request }) => {
+  const params = getFilteredParams(await request.json(), required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

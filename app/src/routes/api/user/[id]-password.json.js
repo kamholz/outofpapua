@@ -3,12 +3,13 @@ import { checkUserPassword, requireAuth } from '$lib/auth';
 import { knex, sendPgError } from '$lib/db';
 import { validateParams } from '$lib/util';
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
   const { user } = locals;
   // eslint-disable-next-line eqeqeq
   if (!user.admin && user.id != params.id) { // only admins can modify other user's password
     return { status: 401 };
   }
+  const body = await request.json();
   if (!('new_password' in body) ||
     // eslint-disable-next-line eqeqeq
     ('current_password' in body === (user.admin && user.id != params.id)) // opposite of logical xor

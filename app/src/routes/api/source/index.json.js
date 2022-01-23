@@ -61,8 +61,8 @@ export async function get({ locals, url: { searchParams } }) {
   };
 }
 
-export const post = requireAuth(async ({ body, locals }) => {
-  const params = getFilteredParams(body, locals.user?.admin ? allowedAdmin : allowed);
+export const post = requireAuth(async ({ locals, request }) => {
+  const params = getFilteredParams(await request.json(), locals.user?.admin ? allowedAdmin : allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

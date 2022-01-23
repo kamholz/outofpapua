@@ -142,8 +142,8 @@ export async function get({ locals, url: { searchParams } }) {
 const allowedCreate = new Set(['headword', 'headword_ipa', 'origin', 'origin_language_id', 'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 
-export const post = requireAuth(async ({ body }) => {
-  const params = getFilteredParams(body, allowedCreate);
+export const post = requireAuth(async ({ request }) => {
+  const params = getFilteredParams(await request.json(), allowedCreate);
   if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
     return { status: 400, body: { error: errors.missing } };
   }

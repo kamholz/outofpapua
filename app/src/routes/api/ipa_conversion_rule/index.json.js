@@ -45,8 +45,8 @@ export async function get({ url: { searchParams } }) {
 
 const required = new Set(['name']);
 
-export const post = requireAdmin(async ({ body }) => {
-  const params = getFilteredParams(body, allowedCreateUpdate);
+export const post = requireAdmin(async ({ request }) => {
+  const params = getFilteredParams(await request.json(), allowedCreateUpdate);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

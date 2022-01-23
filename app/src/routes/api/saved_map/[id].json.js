@@ -20,8 +20,8 @@ export const get = validateParams(requireAuth(async ({ params }) => {
   }
 }));
 
-export const put = validateParams(requireAuth(async ({ body, params }) => {
-  const updateParams = getFilteredParams(body, allowed);
+export const put = validateParams(requireAuth(async ({ params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }

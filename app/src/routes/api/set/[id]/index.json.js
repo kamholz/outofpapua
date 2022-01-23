@@ -27,7 +27,8 @@ export const get = validateParams(requireComparative(async ({ locals, params }) 
   }
 }));
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+  const body = await request.json();
   let members;
   if ('members' in body) {
     if (!isIdArray(body.members)) {

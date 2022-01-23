@@ -20,8 +20,8 @@ export const get = requireAuth(async ({ locals }) => {
   };
 });
 
-export const post = requireAuth(async ({ body, locals }) => {
-  const params = getFilteredParams(body, allowed);
+export const post = requireAuth(async ({ locals, request }) => {
+  const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

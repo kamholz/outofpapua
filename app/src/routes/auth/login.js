@@ -1,11 +1,12 @@
 import * as auth from '$lib/auth';
 
-export async function post({ body }) {
-  if (!('username' in body && 'password' in body)) {
+export async function post({ request }) {
+  const body = await request.formData();
+  if (!(body.has('username') && body.has('password'))) {
     return { status: 400 };
   }
 
-  const user = await auth.checkUserPassword(body.username, body.password);
+  const user = await auth.checkUserPassword(body.get('username'), body.get('password'));
   if (user) {
     return {
       status: 200,

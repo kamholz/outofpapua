@@ -6,8 +6,8 @@ import { requireAuth } from '$lib/auth';
 const allowed = new Set(['set_ids']);
 const required = new Set(['set_ids']);
 
-export const post = validateParams(requireAuth(async ({ body, params }) => {
-  const updateParams = getFilteredParams(body, allowed);
+export const post = validateParams(requireAuth(async ({ params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(updateParams).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

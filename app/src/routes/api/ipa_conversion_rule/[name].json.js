@@ -4,8 +4,8 @@ import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
 import { requireAdmin } from '$lib/auth';
 
-export const put = requireAdmin(async ({ body, params }) => {
-  const updateParams = getFilteredParams(body, allowedCreateUpdate);
+export const put = requireAdmin(async ({ params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), allowedCreateUpdate);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }

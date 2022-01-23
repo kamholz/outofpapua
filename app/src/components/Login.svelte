@@ -40,7 +40,7 @@
     <span>Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
     <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
-    <form on:submit|preventDefault={handleLogin}>
+    <form on:submit|preventDefault={handleLogin} action="/auth/login" method="POST">
       <div class="fields">
         <label>
           <span>Email:</span>

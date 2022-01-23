@@ -112,11 +112,11 @@ function makeExpiredCookie(name) {
   });
 }
 
-export function redirectToRefresh(request) {
+export function redirectToRefresh(url) {
   return {
     status: 302,
     headers: {
-      location: '/auth/refresh?' + new URLSearchParams({ redirect: request.url }),
+      location: '/auth/refresh?' + new URLSearchParams({ redirect: url }),
     },
   };
 }

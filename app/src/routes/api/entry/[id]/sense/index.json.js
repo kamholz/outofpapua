@@ -5,8 +5,8 @@ import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser 
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
-  const insertParams = getFilteredParams(body, allowed);
+export const post = validateParams(requireAuth(async ({ locals, params, request }) => {
+  const insertParams = getFilteredParams(await request.json(), allowed);
   const { glosses } = insertParams;
   delete insertParams.glosses;
   try {

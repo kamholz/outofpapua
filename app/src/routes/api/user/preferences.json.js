@@ -6,7 +6,8 @@ import { schema } from '$lib/preferences';
 const ajv = new Ajv();
 const validate = ajv.compile(schema);
 
-export const put = requireAuth(async ({ body, locals }) => {
+export const put = requireAuth(async ({ locals, request }) => {
+  const body = await request.json();
   if (!validate(body)) {
     return { status: 400, body: { error: 'invalid preferences object' } };
   }

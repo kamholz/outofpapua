@@ -5,8 +5,8 @@ import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
-export const put = validateParams(requireAuth(async ({ body, locals, params }) => {
-  const updateParams = getFilteredParams(body, allowed);
+export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
   }

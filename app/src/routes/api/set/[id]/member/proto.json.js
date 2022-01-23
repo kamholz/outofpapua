@@ -7,8 +7,8 @@ const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
 
-export const post = validateParams(requireAuth(async ({ body, locals, params }) => {
-  const insertParams = getFilteredParams(body, allowed);
+export const post = validateParams(requireAuth(async ({ locals, params, request }) => {
+  const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

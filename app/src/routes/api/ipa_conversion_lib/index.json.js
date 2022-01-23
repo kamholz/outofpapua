@@ -21,8 +21,8 @@ export const get = requireAdmin(async () => {
 
 const required = new Set(['name']);
 
-export const post = requireAdmin(async ({ body }) => {
-  const params = getFilteredParams(body, allowed);
+export const post = requireAdmin(async ({ request }) => {
+  const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

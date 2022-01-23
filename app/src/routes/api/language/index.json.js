@@ -110,8 +110,8 @@ export async function get({ locals, url: { searchParams } }) {
   };
 }
 
-export const post = requireAuth(async ({ body }) => {
-  const params = getFilteredParams(body, required);
+export const post = requireAuth(async ({ request }) => {
+  const params = getFilteredParams(await request.json(), required);
   if (Object.keys(params).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
   }

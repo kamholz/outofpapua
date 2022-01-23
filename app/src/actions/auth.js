@@ -5,9 +5,9 @@ export async function login(username, password) {
   const res = await fetch('/auth/login', {
     method: 'POST',
     headers: {
-      'content-type': 'application/json',
+      'content-type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify({ username, password }),
+    body: new URLSearchParams({ username, password }),
   });
 
   if (res.ok) {
