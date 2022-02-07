@@ -9,7 +9,7 @@ import { requireAuth } from '$lib/auth';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
   'headword_ipa_exact', 'lang', 'langcat', 'page', 'pagesize', 'record', 'sort']);
-const allowed = new Set([...allowedHideComparative, 'borrowlang', 'origin', 'set']);
+const allowed = new Set([...allowedHideComparative, 'borrowlang', 'glosslang', 'origin', 'set']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['borrowlang', 'glosslang']);
