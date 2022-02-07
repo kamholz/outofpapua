@@ -224,6 +224,14 @@ export function maybeGloss(senses) {
     : '';
 }
 
+export function maybeEngGlosses(senses) {
+  const senseGlosses = senses.map(({ glosses }) => glosses?.[0]?.txt)
+    .filter((txt) => txt);
+  return senseGlosses.length
+    ? ' ' + senseGlosses.map((txt) => `‘${joinGlosses(txt)}’`).join('; ')
+    : '';
+}
+
 export function maybeLanguageName(language_code, preferences) {
   return language_code && preferences?.showGlossLang
     ? ` (${language_code})`
