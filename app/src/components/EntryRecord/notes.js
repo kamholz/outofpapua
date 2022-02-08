@@ -124,7 +124,7 @@ export const entryNotesPost = [
   },
 ];
 
-export const senseNotesPost = [
+export const senseNotes = [
   {
     key: 'literal',
     label: 'Literally',
