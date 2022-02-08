@@ -3,136 +3,11 @@
   import Note from '$components/EntryRecord/Note.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
   import Sense from '$components/EntryRecord/Sense.svelte';
+  import { entryNotesPost, entryNotesPre } from './notes';
   import { getContext } from 'svelte';
 
   export let entry;
   const compact = getContext('compact');
-
-  const notesPre = [
-    {
-      key: 'variant',
-      label: 'Variants',
-      trans: true,
-      join: true,
-    },
-    {
-      key: 'singular',
-      label: 'Singular',
-      join: true,
-    },
-    {
-      key: 'plural',
-      label: 'Plural',
-      join: true,
-    },
-    {
-      key: 'paradigm',
-      label: 'Paradigms',
-      join: true,
-    },
-  ];
-
-  const notesPost = [
-    {
-      key: 'scientific',
-      label: 'Scientific name',
-      join: true,
-    },
-    {
-      key: 'usage',
-      label: 'Usage',
-      join: false,
-    },
-    {
-      key: 'grammar',
-      label: 'Grammatical note',
-      join: false,
-    },
-    {
-      key: 'phono',
-      label: 'Phonological note',
-      join: false,
-    },
-    {
-      key: 'discourse',
-      label: 'Discourse note',
-      join: false,
-    },
-    {
-      key: 'socio',
-      label: 'Sociolinguistic note',
-      join: false,
-    },
-    {
-      key: 'anthro',
-      label: 'Anthropological note',
-      join: false,
-    },
-    {
-      key: 'note',
-      label: 'Note',
-      join: false,
-    },
-    {
-      key: 'question',
-      label: 'Analyst’s question',
-      join: false,
-    },
-    {
-      key: 'encyclopedic',
-      label: 'Encyclopedic info',
-      join: false,
-    },
-    {
-      key: 'domain',
-      label: 'Semantic domain',
-      join: true,
-    },
-    {
-      key: 'etymology',
-      label: 'Etymology',
-      join: false,
-    },
-    {
-      key: 'etymologyComment',
-      label: 'Etymology comment',
-      join: false,
-    },
-    {
-      key: 'lexicalFunction',
-      label: 'Lexical functions',
-      join: true,
-    },
-    {
-      key: 'synonym',
-      label: 'Synonyms',
-      join: true,
-      link: true,
-    },
-    {
-      key: 'antonym',
-      label: 'Antonyms',
-      join: true,
-      link: true,
-    },
-    {
-      key: 'crossref',
-      label: 'See also',
-      join: true,
-      trans: true,
-      link: true,
-    },
-    {
-      key: 'source',
-      label: 'Source',
-      join: true,
-    },
-    {
-      key: 'reference',
-      label: 'Reference',
-      join: true,
-    },
-  ];
 
   function getPh(txt) {
     return txt.match(/^\[/) ? txt : `[${txt}]`;
@@ -149,7 +24,7 @@
   </Paragraph>
 
   <Div>
-    {#each notesPre as { key, label, join, trans }}
+    {#each entryNotesPre as { key, label, join, trans }}
       {#if key in entry}
         <Note data={entry} {key} {label} {join} {trans} />
       {/if}
@@ -165,7 +40,7 @@
       {/if}
     {/if}
 
-    {#each notesPost as { key, label, join, trans, link }}
+    {#each entryNotesPost as { key, label, join, trans, link }}
       {#if key in entry}
         <Note data={entry} {key} {label} {join} {trans} {link} />
       {/if}
@@ -200,7 +75,7 @@
         font-size: 19px;
       }
 
-      .example-p {
+      .example-p, .sense-note-p {
         margin-inline-start: 20px;
       }
 

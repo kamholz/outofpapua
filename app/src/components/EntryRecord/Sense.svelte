@@ -6,20 +6,13 @@
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
   import { mungePos, toolboxMarkup } from '$lib/util';
+  import { senseNotes } from './notes';
 
   export let sense;
   export let num = null;
   const compact = getContext('compact');
   const { formatting } = getContext('source');
   const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
-
-  const notes = [
-    {
-      key: 'literal',
-      label: 'Literally',
-      join: true,
-    },
-  ];
 </script>
 
 <Paragraph>
@@ -40,9 +33,9 @@
   {/if}
 </Paragraph>
 
-{#each notes as { key, label, join }}
+{#each senseNotes as { key, label, join }}
   {#if key in sense}
-    <Note data={sense} {key} {label} {join} />
+    <Note data={sense} {key} {label} {join} class="sense-note-p" />
   {/if}
 {/each}
 

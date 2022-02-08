@@ -12,11 +12,6 @@ const langMarker = {
   r: 'reverse',
 };
 
-const senseMarker = {
-  lt: 'literal',
-  nt_sn: 'note',
-};
-
 const multiMarker = {
   crossref: { form: 'cf', trans: 'c', level: 'entry' },
   example: { form: 'xv', trans: 'x', level: 'sense' },
@@ -55,6 +50,14 @@ const entryMarker = {
 const entryMarkerArray = {
   mn: 'crossref',
 };
+
+const senseMarker = {
+  lt: 'literal',
+};
+
+for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'rf', 'sy', 'ue']) {
+  senseMarker[`${marker}_sn`] = entryMarker[marker];
+}
 
 export function parseRecord(data, formatting) {
   const markerConversion = getMarkerConversion();
