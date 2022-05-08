@@ -79,7 +79,7 @@ export const get = requireAuth(async ({ url: { searchParams } }) => {
       'language.name as language_name',
       'source.reference as source_reference'
     )
-    .orderBy('language.name', 'entry.headword_degr', 'entry.headword', 'source.reference')
+    .orderBy(['language.name', 'entry.headword_degr', 'entry.headword', 'source.reference'])
     .limit(max);
   if (linked) {
     q.select(knex.raw(`${setIds('entry.id')} as set_ids`));
