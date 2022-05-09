@@ -180,18 +180,6 @@ export function adminOrSelf(loggedInUser, userId) {
   return loggedInUser.admin || loggedInUser.id == userId; // eslint-disable-line eqeqeq
 }
 
-export function validateParams(handler) {
-  return (req) => {
-    for (const [key, value] of Object.entries(req.params)) {
-      if (!isId(value)) {
-        return { status: 404, body: '' };
-      }
-      req.params[key] = Number(value);
-    }
-    return handler(req);
-  };
-}
-
 // gloss formatting and parsing
 
 export function glossesSummary(glosses, preferences) {

@@ -1,10 +1,10 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
-import { getFilteredParams, validateParams } from '$lib/util';
+import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
-export const get = validateParams(requireAuth(async ({ params }) => {
+export const get = requireAuth(async ({ params }) => {
   const q = knex('saved_map')
     .where('saved_map.id', params.id)
     .first(
@@ -18,9 +18,9 @@ export const get = validateParams(requireAuth(async ({ params }) => {
   } else {
     return { status: 404, body: '' };
   }
-}));
+});
 
-export const put = validateParams(requireAuth(async ({ params, request }) => {
+export const put = requireAuth(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -39,9 +39,9 @@ export const put = validateParams(requireAuth(async ({ params, request }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
 
-export const del = validateParams(requireAuth(async ({ params }) => {
+export const del = requireAuth(async ({ params }) => {
   try {
     const ids = await knex.transaction((trx) =>
       trx('saved_map')
@@ -54,4 +54,4 @@ export const del = validateParams(requireAuth(async ({ params }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

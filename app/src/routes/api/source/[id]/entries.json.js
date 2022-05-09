@@ -1,7 +1,7 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
-  showPublicOnly, validateParams } from '$lib/util';
+  showPublicOnly } from '$lib/util';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
   'headword_ipa_exact', 'page', 'pagesize', 'record', 'sort']);
@@ -23,7 +23,7 @@ const sortCols = {
   senses: "lower(entry.senses -> 0 -> 'glosses' -> 0 ->> 'txt')",
 };
 
-export const get = validateParams(async ({ locals, params, url: { searchParams } }) => {
+export async function get({ locals, params, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams),
     locals.hideComparative ? allowedHideComparative : allowed);
   parseBooleanParams(query, boolean);
@@ -91,4 +91,4 @@ export const get = validateParams(async ({ locals, params, url: { searchParams }
       rows: await q,
     },
   };
-});
+}

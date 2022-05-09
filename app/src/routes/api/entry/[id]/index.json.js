@@ -1,6 +1,5 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, showPublicOnly,
-  validateParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, showPublicOnly } from '$lib/util';
 import { isEditable, nfc } from '../_params';
 import { knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -8,7 +7,7 @@ import { requireAuth } from '$lib/auth';
 const allowedAll = new Set(['multi_set', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
 
-export const get = validateParams(async ({ locals, params }) => {
+export async function get({ locals, params }) {
   const publicOnly = showPublicOnly(locals);
   const q = knex('entry')
     .join(`${publicOnly ? 'entry_details_public' : 'entry_details'} as ed`, 'ed.id', 'entry.id')
@@ -35,9 +34,9 @@ export const get = validateParams(async ({ locals, params }) => {
   } else {
     return { status: 404, body: '' };
   }
-});
+}
 
-export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const put = requireAuth(async ({ locals, params, request }) => {
   const { id } = params;
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(await request.json(), editable ? allowedEditable : allowedAll);
@@ -77,9 +76,9 @@ export const put = validateParams(requireAuth(async ({ locals, params, request }
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = requireAuth(async ({ locals, params }) => {
   try {
     const { id } = params;
     const editable = await isEditable(id);
@@ -101,4 +100,4 @@ export const del = validateParams(requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

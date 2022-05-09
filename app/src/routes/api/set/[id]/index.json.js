@@ -1,10 +1,10 @@
 import errors from '$lib/errors';
 import { allowed } from '../_params';
-import { getFilteredParams, isIdArray, showPublicOnly, validateParams } from '$lib/util';
+import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, name_auto, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth, requireComparative } from '$lib/auth';
 
-export const get = validateParams(requireComparative(async ({ locals, params }) => {
+export const get = requireComparative(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
   const row = await knex('set')
     .join(`${publicOnly ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id')
@@ -25,9 +25,9 @@ export const get = validateParams(requireComparative(async ({ locals, params }) 
   } else {
     return { status: 404, body: '' };
   }
-}));
+});
 
-export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const put = requireAuth(async ({ locals, params, request }) => {
   const body = await request.json();
   let members;
   if ('members' in body) {
@@ -80,9 +80,9 @@ export const put = validateParams(requireAuth(async ({ locals, params, request }
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
 
-export const del = validateParams(requireAuth(async ({ params }) => {
+export const del = requireAuth(async ({ params }) => {
   try {
     const ids = await knex.transaction((trx) =>
       trx('set')
@@ -95,4 +95,4 @@ export const del = validateParams(requireAuth(async ({ params }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

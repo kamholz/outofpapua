@@ -1,8 +1,8 @@
 import config from '$config';
 import cookie from 'cookie';
 import { defaultPreferences } from '$lib/preferences';
+import { isId, showPublicOnly } from '$lib/util';
 import { knex } from '$lib/db';
-import { showPublicOnly } from '$lib/util';
 import * as auth from '$lib/auth';
 
 export async function handle({ event, resolve }) {
@@ -32,6 +32,13 @@ export async function handle({ event, resolve }) {
   }
 
   locals.hideComparative = showPublicOnly(locals) && config.HIDE_COMPARATIVE === '1';
+
+  for (const [key, value] of Object.entries(event.params)) {
+    if (!isId(value)) {
+      return new Response('', { status: 404 });
+    }
+    event.params[key] = Number(value);
+  }
 
   return resolve(event, {
     ssr: !url.pathname.match(/\/map$/),

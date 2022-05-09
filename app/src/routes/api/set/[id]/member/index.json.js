@@ -1,12 +1,12 @@
 import errors from '$lib/errors';
-import { getFilteredParams, validateParams } from '$lib/util';
+import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['entry_id', 'note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 const required = new Set(['entry_id']);
 
-export const post = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const post = requireAuth(async ({ locals, params, request }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -27,4 +27,4 @@ export const post = validateParams(requireAuth(async ({ locals, params, request 
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

@@ -1,12 +1,12 @@
 import errors from '$lib/errors';
 import { arrayCmp, knex, sendPgError } from '$lib/db';
-import { getFilteredParams, isIdArray, validateParams } from '$lib/util';
+import { getFilteredParams, isIdArray } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['set_ids']);
 const required = new Set(['set_ids']);
 
-export const post = validateParams(requireAuth(async ({ params, request }) => {
+export const post = requireAuth(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(updateParams).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };
@@ -40,4 +40,4 @@ export const post = validateParams(requireAuth(async ({ params, request }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
-import { getFilteredParams, validateParams } from '$lib/util';
+import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
-export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const put = requireAuth(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -32,9 +32,9 @@ export const put = validateParams(requireAuth(async ({ locals, params, request }
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
 
-export const del = validateParams(requireAuth(async ({ locals, params }) => {
+export const del = requireAuth(async ({ locals, params }) => {
   try {
     const ids = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
@@ -49,4 +49,4 @@ export const del = validateParams(requireAuth(async ({ locals, params }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
-import { getFilteredParams, validateParams } from '$lib/util';
+import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const post = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const post = requireAuth(async ({ locals, params, request }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   const { glosses } = insertParams;
   delete insertParams.glosses;
@@ -35,4 +35,4 @@ export const post = validateParams(requireAuth(async ({ locals, params, request 
     console.log(e);
     return sendPgError(e);
   }
-}));
+});

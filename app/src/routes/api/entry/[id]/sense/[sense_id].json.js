@@ -1,11 +1,11 @@
 import errors from '$lib/errors';
 import { allowed } from './_params';
-import { getFilteredParams, validateParams } from '$lib/util';
+import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, sendPgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../_params';
 import { requireAuth } from '$lib/auth';
 
-export const put = validateParams(requireAuth(async ({ locals, params, request }) => {
+export const put = requireAuth(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   const { glosses } = updateParams;
   delete updateParams.glosses;
@@ -49,9 +49,9 @@ export const put = validateParams(requireAuth(async ({ locals, params, request }
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
 
-export const del = validateParams(requireAuth(async ({ params }) => {
+export const del = requireAuth(async ({ params }) => {
   try {
     if (!(await isEditable(params.id))) {
       return { status: 400, body: { error: errors.editableEntry } };
@@ -67,4 +67,4 @@ export const del = validateParams(requireAuth(async ({ params }) => {
     console.log(e);
     return sendPgError(e);
   }
-}));
+});
