@@ -906,6 +906,20 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Peranginangin (2022)' => {
+    lang_target => 'mqs',
+    path => 'spreadsheets/PeranginAngin2022-West_Makian.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [[3 .. 5 ], 'example', ['ind', 'eng']],
+      [6, 'note'],
+    ],
+    multiple_example_rows => 1,
+    strip => ['the','to'],
+  },
   'Price (2021)' => {
     lang_target => 'amk',
     path => 'Ambai Lexicon.db',
