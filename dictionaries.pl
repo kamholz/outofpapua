@@ -678,6 +678,32 @@ our $dict = {
     lang_national => 'id',
     split_heuristic => ',',
   },
+  'Hueting (1908a)' => {
+    lang_target => 'Pagu Isam',
+    path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [4, 'note'],
+      [0, 'note', 'number:'],
+    ],
+    strip => 'to',
+  },
+  'Hueting (1908b)' => {
+    lang_target => 'Pagu Tololiku',
+    path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [6, 'note'],
+      [0, 'note', 'number:'],
+    ],
+    strip => 'to',
+  },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
     path => 'Kamus kecil Gamkonora/Kamus kecil Gamkonora 2014 toolbox.txt',
