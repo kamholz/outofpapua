@@ -2765,9 +2765,9 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
-  'Wattimury (nd)' => {
+  'Wattimury et al. (1992)' => {
     lang_target => 'gbi',
-    path => 'spreadsheets/Wattimury-dic.xlsx',
+    path => 'spreadsheets/Wattimury,al1992-Galela.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
