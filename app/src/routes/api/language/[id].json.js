@@ -82,7 +82,7 @@ export const put = requireAuth(async ({ params, request }) => {
 export const del = requireAuth(async ({ params }) => {
   try {
     const { id } = params;
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('language')
       .where('id', id)
       .whereExists(function () {
@@ -91,7 +91,7 @@ export const del = requireAuth(async ({ params }) => {
       .returning('id')
       .del()
     );
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

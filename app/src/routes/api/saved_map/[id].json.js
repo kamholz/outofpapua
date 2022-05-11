@@ -26,13 +26,13 @@ export const put = requireAuth(async ({ params, request }) => {
     return { status: 400, body: { error: errors.noUpdatable } };
   }
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('saved_map')
       .where('id', params.id)
       .returning('id')
       .update(updateParams)
     );
-    if (ids.length) {
+    if (rows.length) {
       return { body: '' };
     }
   } catch (e) {
@@ -43,13 +43,13 @@ export const put = requireAuth(async ({ params, request }) => {
 
 export const del = requireAuth(async ({ params }) => {
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('saved_map')
       .where('id', params.id)
       .returning('id')
       .del()
     );
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

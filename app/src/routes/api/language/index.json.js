@@ -117,7 +117,7 @@ export const post = requireAuth(async ({ request }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx.with('inserted', (q) => {
         q.from('language')
         .returning('id')
@@ -129,7 +129,7 @@ export const post = requireAuth(async ({ request }) => {
         this.select('id').from('inserted');
       })
     );
-    return { body: { id: ids[0] } };
+    return { body: { id: rows[0].id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

@@ -53,21 +53,21 @@ export const put = requireAuth(async ({ locals, params, request }) => {
       const { id } = params;
       let found = false;
       if (haveUpdateParams) {
-        const ids = await trx('set')
+        const rows = await trx('set')
           .where('id', id)
           .returning('id')
           .update(updateParams);
-        if (ids.length) {
+        if (rows.length) {
           found = true;
         }
       }
       if (members) {
-        const ids = await trx('set_member')
+        const rows = await trx('set_member')
           .insert(members.map((v) => ({ entry_id: v, set_id: id })))
           .returning('entry_id')
           .onConflict(['entry_id', 'set_id'])
           .ignore();
-        if (ids.length) {
+        if (rows.length) {
           found = true;
         }
       }
@@ -84,13 +84,13 @@ export const put = requireAuth(async ({ locals, params, request }) => {
 
 export const del = requireAuth(async ({ params }) => {
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('set')
       .where('id', params.id)
       .returning('id')
       .del()
     );
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

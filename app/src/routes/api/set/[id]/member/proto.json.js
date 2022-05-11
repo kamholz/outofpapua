@@ -36,12 +36,12 @@ export const post = requireAuth(async ({ locals, params, request }) => {
       const entryIds = await trx('entry')
         .returning('id')
         .insert(insertParams);
-      const [entry_id] = entryIds;
+      const [{ id: entry_id }] = entryIds;
 
       const senseIds = await trx('sense')
         .returning('id')
         .insert({ entry_id, seq: 1 });
-      const [sense_id] = senseIds;
+      const [{ id: sense_id }] = senseIds;
       await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
 
       await trx('set_member')

@@ -25,12 +25,12 @@ export const post = requireAdmin(async ({ request }) => {
   ensureNfcParams(params, nfc);
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('usr')
       .returning('id')
       .insert(params)
     );
-    return { body: { id: ids[0] } };
+    return { body: { id: rows[0].id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

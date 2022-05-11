@@ -15,10 +15,10 @@ export const post = requireAuth(async ({ request }) => {
   }
   try {
     const id = await knex.transaction(async (trx) => {
-      const ids = await trx('set_group')
+      const rows = await trx('set_group')
         .returning('id')
         .insert({});
-      const [id] = ids;
+      const [{ id }] = rows;
       await trx('set')
         .update({ set_group_id: id })
         .where('id', arrayCmp(params.set_ids));

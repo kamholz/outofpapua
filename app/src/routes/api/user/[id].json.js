@@ -29,13 +29,13 @@ export const put = requireAuth(async ({ locals, params, request }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')
       .update(updateParams)
     );
-    if (ids.length) {
+    if (rows.length) {
       return { body: '' };
     }
   } catch (e) {
@@ -50,13 +50,13 @@ export const del = requireAuth(async ({ locals, params }) => {
     return { status: 401 };
   }
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')
       .del()
     );
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

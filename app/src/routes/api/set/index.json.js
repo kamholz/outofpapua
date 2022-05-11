@@ -139,10 +139,10 @@ export const post = requireAuth(async ({ locals, request }) => {
   try {
     const id = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
-      const ids = await trx('set')
+      const rows = await trx('set')
         .returning('id')
         .insert(params);
-      const [id] = ids;
+      const [{ id }] = rows;
       if (members) {
         if (reassign) {
           await trx('set_member')

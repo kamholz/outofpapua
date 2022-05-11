@@ -19,13 +19,13 @@ export const put = requireAuth(async ({ locals, params, request }) => {
     return { status: 400, body: { error: 'current password is incorrect' } };
   }
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('usr')
       .where('id', params.id)
       .returning('id')
       .update({ password: knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", body.new_password) })
     );
-    if (ids.length) {
+    if (rows.length) {
       return { body: '' };
     }
   } catch (e) {

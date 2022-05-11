@@ -32,7 +32,7 @@ export const post = requireAdmin(async ({ request }) => {
       .returning('name')
       .insert(params)
     );
-    return { body: { name: names[0] } };
+    return { body: { name: names[0].name } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

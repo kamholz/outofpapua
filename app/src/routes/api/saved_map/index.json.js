@@ -27,14 +27,14 @@ export const post = requireAuth(async ({ locals, request }) => {
   }
   params.usr_id = locals.user.id;
   try {
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('saved_map')
       .returning('id')
       .insert(params)
       .onConflict(['usr_id', 'name'])
       .merge()
     );
-    return { body: { id: ids[0] } };
+    return { body: { id: rows[0].id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

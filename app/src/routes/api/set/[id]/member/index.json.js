@@ -13,7 +13,7 @@ export const post = requireAuth(async ({ locals, params, request }) => {
   }
   try {
     insertParams.set_id = params.id;
-    const ids = await knex.transaction(async (trx) => {
+    const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
       return trx('set_member')
         .returning('entry_id')
@@ -22,7 +22,7 @@ export const post = requireAuth(async ({ locals, params, request }) => {
       // .onConflict(['entry_id', 'set_id'])
       // .merge([...]);
     });
-    return { body: { entry_id: ids[0] } };
+    return { body: { entry_id: rows[0].id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

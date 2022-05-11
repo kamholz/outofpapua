@@ -21,7 +21,7 @@ export const post = requireAuth(async ({ locals, params, request }) => {
       const senseIds = await trx('sense')
         .returning('id')
         .insert(insertParams);
-      const [sense_id] = senseIds;
+      const [{ id: sense_id }] = senseIds;
 
       if (glosses) {
         const language = await getGlossLanguage(trx);

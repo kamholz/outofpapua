@@ -293,9 +293,11 @@
           <span title="Delete" on:click={handleDelete}>
             <Icon data={faTrash} />
           </span>
-          <span title="Select" on:click={handleSelect}>
-            <Icon data={selection.has(entry.id) ? faCircleSolid : faCircleRegular} />
-          </span>
+          {#if selection}
+            <span title="Select" on:click={handleSelect}>
+              <Icon data={selection.has(entry.id) ? faCircleSolid : faCircleRegular} />
+            </span>
+          {/if}
         </div>
       {/if}
       <ul>

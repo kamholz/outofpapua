@@ -85,7 +85,7 @@ export const del = requireAuth(async ({ locals, params }) => {
     if (!editable) {
       return { status: 400, body: { error: errors.editableEntry } };
     }
-    const ids = await knex.transaction(async (trx) => {
+    const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
       await trx('sense')
         .where('entry_id', id)
@@ -95,7 +95,7 @@ export const del = requireAuth(async ({ locals, params }) => {
         .returning('id')
         .del();
     });
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

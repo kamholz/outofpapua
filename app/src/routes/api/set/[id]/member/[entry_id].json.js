@@ -17,7 +17,7 @@ export const put = requireAuth(async ({ locals, params, request }) => {
     updateParams.reflex_origin_language_id = null; // clear any existing reflex_origin_language_id
   }
   try {
-    const ids = await knex.transaction(async (trx) => {
+    const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
       return trx('set_member')
         .where('set_id', params.id)
@@ -25,7 +25,7 @@ export const put = requireAuth(async ({ locals, params, request }) => {
         .returning('entry_id')
         .update(updateParams);
     });
-    if (ids.length) {
+    if (rows.length) {
       return { body: '' };
     }
   } catch (e) {
@@ -36,7 +36,7 @@ export const put = requireAuth(async ({ locals, params, request }) => {
 
 export const del = requireAuth(async ({ locals, params }) => {
   try {
-    const ids = await knex.transaction(async (trx) => {
+    const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
       return trx('set_member')
         .where('set_id', params.id)
@@ -44,7 +44,7 @@ export const del = requireAuth(async ({ locals, params }) => {
         .returning('entry_id')
         .del();
     });
-    return { body: { deleted: ids.length } };
+    return { body: { deleted: rows.length } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);

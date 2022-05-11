@@ -162,12 +162,12 @@ export const post = requireAuth(async ({ request }) => {
     }
 
     params.headword = mungeHeadword(params.headword, Boolean(source.proto));
-    const ids = await knex.transaction((trx) =>
+    const rows = await knex.transaction((trx) =>
       trx('entry')
       .returning('id')
       .insert(params)
     );
-    return { body: { id: ids[0] } };
+    return { body: { id: rows[0].id } };
   } catch (e) {
     console.log(e);
     return sendPgError(e);
