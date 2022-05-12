@@ -538,6 +538,17 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Gane (2019)' => {
+    lang_target => 'loa',
+    path => 'spreadsheets/Gane2019-Loloda.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
   'Gasser (2016a)' => {
     lang_target => 'and',
     path => 'Talking Dictionaries/Ansus talking dictionary setup 2.0.xlsx',
@@ -2124,9 +2135,26 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Stokhof (1980)' => {
+  'Stokhof (1980a)' => {
     lang_target => 'mqo',
-    path => 'spreadsheets/Madole 169b (x 735).xlsx',
+    path => 'spreadsheets/Stokhof/Madole 169b (x 735).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'nld'],
+      [1, 'note', 'term number:'],
+      [4, 'note', 'inflectional information:'],
+      [[5 .. 6], 'example', ['eng']],
+      [7, 'note', 'example number:'],
+      [8, 'note'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
+  'Stokhof (1980b)' => {
+    lang_target => 'gbi',
+    path => 'spreadsheets/Stokhof/Galela 29 (x 828).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -2818,6 +2846,19 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => '(to)',
+  },
+  'Watuseke (1976)' => {
+    lang_target => 'mqs',
+    path => 'spreadsheets/Watuseke1976-West_Makian.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [[4 .. 5], 'example', ['eng']],
+      [2, 'et'],
+      [3, 'note'],
+      [6, 'page_num'],
+    ],
   },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
