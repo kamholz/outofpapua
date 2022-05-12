@@ -2859,6 +2859,7 @@ our $dict = {
       [3, 'note'],
       [6, 'page_num'],
     ],
+    strip => 'to',
   },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
