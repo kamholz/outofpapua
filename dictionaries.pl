@@ -3206,6 +3206,58 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Voorhoeve (nd Maybrat a)' => {
+    lang_target => 'Maybrat Ayamaru',
+    path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'va', 'split'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Voorhoeve (nd Maybrat b)' => {
+    lang_target => 'Maybrat Mare',
+    path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [4, 'va', 'split'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Voorhoeve (nd Maybrat c)' => {
+    lang_target => 'Maybrat West Ayfat',
+    path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [6, 'va', 'split'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Voorhoeve (nd Maybrat d)' => {
+    lang_target => 'Maybrat East Ayfat',
+    path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [8, 'va', 'split'],
+      [0, 'gloss', 'eng'],
+      [9, 'note'],
+    ],
+  },
+  'Voorhoeve (nd Maybrat e)' => {
+    lang_target => 'Karon',
+    path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [11, 'va', 'split'],
+      [0, 'gloss', 'eng'],
+      [12, 'note'],
+    ],
+  },
   'Vries (2004a)' => {
     lang_target => 'Kaburi Benawa',
     path => 'LexiRumah',
