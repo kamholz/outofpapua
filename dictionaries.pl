@@ -3124,6 +3124,8 @@ our $dict = {
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
     path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
     parser => 'Marker',
     strip => 'to',
