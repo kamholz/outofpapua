@@ -689,6 +689,12 @@ our $dict = {
     lang_national => 'id',
     split_heuristic => ',',
   },
+  'Hesse & Hesse (2021)' => {
+    lang_target => 'Tehit Imian',
+    path => 'Tehit Hesse.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
     path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
@@ -3124,10 +3130,10 @@ our $dict = {
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
-    lang_national => 'ind',
-    lang_regional => 'pmy',
     path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
     parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
     strip => 'to',
   },
   'van Staden (nd)' => {
