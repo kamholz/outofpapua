@@ -834,6 +834,21 @@ our $dict = {
     split => ',;',
     split_headword => ',',
   },
+  'Griffiths (1994)' => {
+    lang_target => 'had',
+    path => 'spreadsheets/Hatam_Dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [4, 'va', 'split'],
+      [1, 'pos'],
+      [2, 'gloss', 'eng'],
+      [3, 'ue'],
+      [6, 'note'],
+      [7, 'et'],
+      [5, 'cf'],
+    ],
+  },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
     path => 'webonary/sawai/*.html',
