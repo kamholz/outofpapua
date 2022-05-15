@@ -723,6 +723,66 @@ our $dict = {
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
+  'Jones (1986 a)' => {
+    lang_target => 'Yawa Ambaidiru',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Jones (1986 b)' => {
+    lang_target => 'Yawa Mariadei',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Jones (1986 c)' => {
+    lang_target => 'Yawa Konti Unai',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Jones (1986 d)' => {
+    lang_target => 'Yawa Tindaret',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Jones (1986 e)' => {
+    lang_target => 'Yawa Ariepi',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Jones (1986 f)' => {
+    lang_target => 'Yawa Sarawandori',
+    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
   'Jones, Paai & Paai (1989)' => {
     lang_target => 'Yawa Central',
     path => 'Fieldworks/Yawa.db',
