@@ -955,6 +955,20 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Malak & Likewati (2011)' => {
+    lang_target => 'mxn',
+    path => 'spreadsheets/Mooi dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va', 'split'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'note'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Mandacan et al. (2020)' => {
     lang_target => 'mej',
     path => 'Kamus Indonesia-Meyah/Kamus Indonesia-Meyah-Inggris.xlsx',
@@ -2793,7 +2807,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Stokhof & Flassy (1985)' => {
+  'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
     parser => 'Spreadsheet',
@@ -2807,6 +2821,22 @@ our $dict = {
       [5, 'cf', 'split'],
       [[7 .. 8], 'example', ['eng']],
       [4, 'page_hum'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
+  'Stokhof & Flassy (1985 Tehit a)' => {
+    lang_target => 'kps',
+    path => 'spreadsheets/Stokhof/Tehit Holle.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'cf', 'split'],
+      [4, 'note'],
+      [12, 'sc'],
+      [13, 'page_num'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
