@@ -846,6 +846,19 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Kamus Moi (nd)' => {
+    lang_target => 'mxn',
+    path => 'spreadsheets/Kamus Moi (app data).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'va'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      # [[4 .. 5], 'example', ['ind']],
+      [6, 'note'],
+    ],
+  },
   'Kijne (nd a)' => {
     lang_target => 'Yawa Turu',
     path => 'spreadsheets/8-Turu word list Kijne.xlsx',
