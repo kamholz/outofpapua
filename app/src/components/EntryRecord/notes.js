@@ -1,7 +1,7 @@
 const entryNotesPreShared = [
   {
     key: 'paradigm',
-    label: 'Inflectional class',
+    label: 'Inflection/class',
     join: true,
   },
   {
