@@ -835,7 +835,7 @@ our $dict = {
     split_headword => ',',
   },
   'Griffiths (1994)' => {
-    lang_target => 'had',
+    lang_target => 'Hatam Tinam',
     path => 'spreadsheets/Hatam_Dictionary.xlsx',
     parser => 'Spreadsheet',
     columns => [
