@@ -2987,6 +2987,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => 'to',
+    headword_preprocess => sub { $_[0] =~ tr/ʻʿʼʽˋ/'/r },
   },
   'Stokhof (1980b)' => {
     lang_target => 'gbi',
