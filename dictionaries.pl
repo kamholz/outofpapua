@@ -1262,10 +1262,22 @@ our $dict = {
     split => ',;',
     headword_preprocess => \&clear_question_mark,
   },
-  'Reesink (2002)' => {
+  'Reesink (2002a)' => {
     lang_target => 'Mansim',
     path => 'Mansim/Mansimdictionary.toolbox.txt',
     parser => 'Marker',
+  },
+  'Reesink (2002b)' => {
+    lang_target => 'mnx',
+    path => 'spreadsheets/ReesinkSougb_List_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'va'],
+      [1, 'gloss', 'eng'],
+      [3, 'note'],
+      [4, 'cf'],
+    ],
   },
   'Remijsen (2003)' => {
     lang_target => 'xmt',
