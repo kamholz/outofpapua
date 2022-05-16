@@ -615,6 +615,17 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Cottet (2015)' => {
+    lang_target => 'bdw',
+    path => 'spreadsheets/Mbaham_List_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'cf'],
+    ],
+    strip => 'to',
+  },
   'Dalrymple & Mofu (2009/10)' => {
     lang_target => 'bhw',
     path => 'Biak/Biak_dictionary_cleaned.txt',
