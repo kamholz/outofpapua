@@ -14,7 +14,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@sveltejs/adapter-node": "^1.0.0-next.73",
-    "@sveltejs/kit": "^1.0.0-next.330",
+    "@sveltejs/kit": "^1.0.0-next.331",
     "eslint": "^8.15.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-svelte3": "^4.0.0",
