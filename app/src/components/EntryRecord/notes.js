@@ -1,3 +1,16 @@
+const entryNotesPreShared = [
+  {
+    key: 'paradigm',
+    label: 'Inflectional class',
+    join: true,
+  },
+  {
+    key: 'morph',
+    label: 'Morphological form',
+    join: false,
+  },
+];
+
 export const entryNotesPre = [
   {
     key: 'variant',
@@ -15,11 +28,7 @@ export const entryNotesPre = [
     label: 'Plural',
     join: true,
   },
-  {
-    key: 'paradigm',
-    label: 'Paradigms',
-    join: true,
-  },
+  ...entryNotesPreShared,
 ];
 
 export const entryNotesPost = [
@@ -125,6 +134,7 @@ export const entryNotesPost = [
 ];
 
 export const senseNotes = [
+  ...entryNotesPreShared,
   {
     key: 'literal',
     label: 'Literally',
