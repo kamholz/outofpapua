@@ -535,6 +535,20 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Coenen (1953)' => {
+    lang_target => 'ihp',
+    path => 'spreadsheets/Iha_list_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va', 'split'],
+      [3, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+      [6, 'note'],
+    ],
+    strip => 'to',
+  },
   'Collins (1982a)' => {
     lang_target => 'mky',
     path => 'Collins/East-Makian_Collins1982.xlsx',
