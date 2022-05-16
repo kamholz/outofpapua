@@ -55,7 +55,7 @@ const senseMarker = {
   lt: 'literal',
 };
 
-for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'rf', 'sy', 'ue']) {
+for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'pd', 'rf', 'sy', 'ue']) {
   senseMarker[`${marker}_sn`] = entryMarker[marker];
 }
 

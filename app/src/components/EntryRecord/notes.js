@@ -4,11 +4,6 @@ const entryNotesPreShared = [
     label: 'Inflection/class',
     join: true,
   },
-  {
-    key: 'morph',
-    label: 'Morphological form',
-    join: false,
-  },
 ];
 
 export const entryNotesPre = [
@@ -27,6 +22,11 @@ export const entryNotesPre = [
     key: 'plural',
     label: 'Plural',
     join: true,
+  },
+  {
+    key: 'morph',
+    label: 'Morphological form',
+    join: false,
   },
   ...entryNotesPreShared,
 ];
