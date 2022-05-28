@@ -64,11 +64,16 @@
 <style lang="scss">
   .popover {
     padding: 8px;
+    max-width: 30em;
     @include popover;
   }
 
   .title {
     font-style: italic;
     margin-block-end: 4px;
+  }
+
+  li {
+    @include indent;
   }
 </style>
