@@ -7,7 +7,7 @@ const allowed = new Set(['entry_id', 'id', 'max', 'search']);
 const required = new Set(['search']);
 const nfc = new Set(['search']);
 const defaults = {
-  max: 100,
+  max: 250,
 };
 
 const name_auto = "coalesce(sna.name_auto->>'txt', set.id::text)";

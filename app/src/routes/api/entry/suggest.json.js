@@ -11,7 +11,7 @@ const arrayParams = new Set(['lang']);
 const nfc = new Set(['search']);
 const defaults = {
   linked: false,
-  max: 100,
+  max: 250,
 };
 
 export const get = requireAuth(async ({ url: { searchParams } }) => {
