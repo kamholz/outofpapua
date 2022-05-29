@@ -43,8 +43,9 @@
   </div>
 {/if}
 
+<NavBar type="compact" />
 <SiteHeading />
-<NavBar />
+<NavBar type="full" />
 <main>
 <!-- {#key $page.url.pathname}
   <div in:fade={{ duration: 200 }}> -->

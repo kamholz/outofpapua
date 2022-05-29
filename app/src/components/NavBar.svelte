@@ -4,6 +4,8 @@
   import { hideComparative } from '$lib/stores';
   import { page, session } from '$app/stores';
 
+  export let type; // compact, full
+
   const tabsAll = [
     {
       title: 'Entries',
@@ -52,10 +54,12 @@
   }
 </script>
 
-<nav>
-  <span on:click={() => active = !active}>
-    <Icon data={faBars} scale={1.25} />
-  </span>
+<nav class={type}>
+  {#if type === 'compact'}
+    <div on:click={() => active = !active}>
+      <Icon data={faBars} scale={1.25} />
+    </div>
+  {/if}
   <ul class:active>
     {#each tabs as { title, url }}
       <li class:active={$page.url.pathname === url}>
@@ -66,11 +70,19 @@
 </nav>
 
 <style lang="scss">
-  span {
-    display: none;
-    position: absolute;
-    top: 28px;
-    left: 28px;
+  nav {
+    &.compact {
+      display: none;
+    }
+    &.full {
+      display: block;
+    }
+  }
+
+  div {
+    width: 28px;
+    height: 28px;
+    margin-block-end: 6px;
 
     :global(.fa-icon) {
       margin: 0;
@@ -103,8 +115,13 @@
   }
 
   @media (max-width: $breakpoint_medium) {
-    span {
-      display: block;
+    nav {
+      &.compact {
+        display: block;
+      }
+      &.full {
+        display: none;
+      }
     }
 
     ul {

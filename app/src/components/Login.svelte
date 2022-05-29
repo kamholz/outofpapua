@@ -37,7 +37,7 @@
     {/await}
   {/if}
   {#if $session.user}
-    <span>Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
+    <span class="user">Logged in as: <a href="/profile" sveltekit:prefetch><strong>{$session.user.fullname}</strong></a></span>
     <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin} action="/auth/login" method="POST">
@@ -69,6 +69,10 @@
       margin-inline-end: .4em;
       @include error_color;
       border: 1px solid transparent;
+    }
+
+    .user {
+      margin-inline-start: 12px;
     }
 
     form, .fields {
