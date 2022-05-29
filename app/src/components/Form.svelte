@@ -24,7 +24,10 @@
   export let style = null;
   let className = null;
   export { className as class };
+  let form;
   $: haveTextCheckbox = fields.some(({ checkbox, type }) => type === 'text' && checkbox);
+  $: haveHotKeys = fields.some(({ hotkey }) => hotkey);
+  $: hotKeys = haveHotKeys && Object.fromEntries(fields.map(({ hotkey, name }) => [hotkey, name]));
 
   const fieldComponent = {
     checkbox: Checkbox,
@@ -70,15 +73,27 @@
       }
     }
   }
+
+  function handleKeyDown(e) {
+    const { altKey, ctrlKey, key, metaKey, shiftKey } = e;
+    if (hotKeys[key] && altKey === false && ctrlKey === true && metaKey === false && shiftKey === false) {
+      const formElement = form.elements[hotKeys[key]];
+      if (formElement) {
+        formElement.focus();
+        e.preventDefault();
+      }
+    }
+  }
 </script>
-  
+
 <form
-  on:submit={handleSubmit}
   {action}
   {method}
   novalidate
   {style}
   class={className}
+  bind:this={form}
+  on:submit={handleSubmit}
 >
   <div class="fields">
     {#each fields as field (field.name)}
@@ -122,6 +137,8 @@
   {/if}
   <slot name="hidden" />
 </form>
+
+<svelte:window on:keydown={haveHotKeys && handleKeyDown} />
 
 <style lang="scss">
   form {

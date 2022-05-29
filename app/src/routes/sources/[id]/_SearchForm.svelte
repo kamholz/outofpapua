@@ -15,6 +15,7 @@
       label: 'Headword',
       type: 'text',
       checkbox: ['headword_exact', 'Exact'],
+      hotkey: 'h',
     },
     {
       name: 'headword_ipa',
@@ -26,6 +27,7 @@
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
+      hotkey: 'g',
     },
     {
       name: 'record',
