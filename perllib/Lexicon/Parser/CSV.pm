@@ -43,6 +43,10 @@ has 'multiple_example_rows' => (
   default => 0,
 );
 
+has 'match' => (
+  is => 'ro',
+);
+
 sub parse {
   my ($self, $path) = @_;
   $path ||= $self->path;
@@ -81,6 +85,7 @@ sub read_entries {
   my $columns = $self->columns;
   my $split_headword = $self->split_headword;
   my $multiple_example_rows = $self->multiple_example_rows;
+  my $match = $self->match;
 
   if ($mode ne 'entry_per_row' and $mode ne 'sense_per_row') {
     die "unknown mode: $mode";
@@ -88,6 +93,10 @@ sub read_entries {
 
   my ($row_min, $row_max) = $self->row_range($rows);
   for my $row ($row_min .. $row_max) {
+    if ($match) {
+      next unless $match->(sub { $self->get_cell($rows, $row, $_[0]) });
+    }
+
     foreach my $col (@$columns) {
       my ($num, $type, $arg) = @$col;
       my $value = ref $num eq 'ARRAY'
