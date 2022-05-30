@@ -62,11 +62,15 @@ if ($cmd eq 'export') {
     my $records = $parser->get_toolbox_records(@action);
     $parser->print_toolbox_records($records, \*STDOUT);
   } elsif ($cmd eq 'diff_toolbox') {
+    my $json = JSON->new;
     open my $current, '>:encoding(utf-8)', 'tmp_current_lexicon.txt' or die $!;
     open my $new, '>:encoding(utf-8)', 'tmp_new_lexicon.txt' or die $!;
 
     Lexicon::Exporter::Marker->new->export_lexicon($source_reference, $current);
+
     my $records = $parser->get_toolbox_records(@action);
+    my %record_json = map { $_ => $json->encode($_) } @$records;
+    $records = [ sort { $record_json{$a} cmp $record_json{$b} } @$records ];
     $parser->print_toolbox_records($records, $new);
 
     system 'diff', '-u', 'tmp_current_lexicon.txt', 'tmp_new_lexicon.txt';
