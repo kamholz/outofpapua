@@ -3552,7 +3552,7 @@ our $dict = {
     lexirumah_source => 'voorhoeve85',
     lexirumah_lect => 'taro1259',
   },
-  'Voorhoeve (nd)' => {
+  'Voorhoeve and van Fraassen (nd)' => {
     lang_target => 'tft',
     path => 'Voorhoeve_Ternate_19122021.txt',
     parser => 'Marker',
