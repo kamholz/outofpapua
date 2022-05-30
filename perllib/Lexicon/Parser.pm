@@ -106,17 +106,25 @@ sub read_entries {
   die 'must be implemented by subclass';
 }
 
-sub print_toolbox {
+sub get_toolbox_records {
   my ($self, $action) = @_;
-  my %seen;
+  my (@records, %seen);
   foreach my $entry (@{$self->read_entries($action && $action eq 'messy')}) {
     my $record = $entry->{record};
     next if $seen{$record};
     $seen{$record} = 1;
+    push @records, $record;
+  }
+  return \@records;
+}
+
+sub print_toolbox_records {
+  my ($self, $records, $fh) = @_;
+  foreach my $record (@$records) {
     foreach my $rec (@$record) {
-      say "\\$rec->[0] $rec->[1]";
+      say $fh "\\$rec->[0] $rec->[1]";
     }
-    print "\n";
+    print $fh "\n";
   }
 }
 

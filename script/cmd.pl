@@ -4,7 +4,9 @@ use lib 'perllib';
 use Data::Dumper;
 use Dotenv -load => 'app/.env';
 use Encode 'decode_utf8';
+use JSON::MaybeXS;
 use Lexicon::Exporter::CSV;
+use Lexicon::Exporter::Marker;
 use Lexicon::Importer;
 use Lexicon::Parser::ACD;
 use Lexicon::Parser::Dictionaria;
@@ -23,11 +25,12 @@ our $dict;
 
 my ($cmd, $source_reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
-if ($cmd !~ /^(?:import|parse|print_toolbox|export)$/ or !$source_reference) {
+if ($cmd !~ /^(?:import|parse|print_toolbox|diff_toolbox|export)$/ or !$source_reference) {
   print "\n";
-  say "$0 import source_reference [update|overwrite]";
+  say "$0 import source_reference (update|overwrite)";
   say "$0 parse source_reference";
-  say "$0 print_toolbox source_reference [messy]";
+  say "$0 print_toolbox source_reference (messy)";
+  say "$0 diff_toolbox source_reference";
   say "$0 export source_reference";
   print "\n";
   say 'environment: OOP_DICTIONARY_DIR = dictionary directory, default ../dict';
@@ -56,7 +59,17 @@ if ($cmd eq 'export') {
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
-    $parser->print_toolbox(@action);
+    my $records = $parser->get_toolbox_records(@action);
+    $parser->print_toolbox_records($records, \*STDOUT);
+  } elsif ($cmd eq 'diff_toolbox') {
+    open my $current, '>:encoding(utf-8)', 'tmp_current_lexicon.txt' or die $!;
+    open my $new, '>:encoding(utf-8)', 'tmp_new_lexicon.txt' or die $!;
+
+    Lexicon::Exporter::Marker->new->export_lexicon($source_reference, $current);
+    my $records = $parser->get_toolbox_records(@action);
+    $parser->print_toolbox_records($records, $new);
+
+    system 'diff', '-u', 'tmp_current_lexicon.txt', 'tmp_new_lexicon.txt';
   }
 }
 

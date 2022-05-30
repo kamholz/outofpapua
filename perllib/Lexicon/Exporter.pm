@@ -28,11 +28,11 @@ sub export_lexicon {
   die "source not found" unless $source_id;
 
   my $entries = $db->query(<<'EOF', $source_id)->hashes;
-  SELECT entry.id, entry.headword, entry.senses, record.page_num
+  SELECT entry.id, entry.headword, entry.senses, record.data AS record, record.page_num
   FROM entry
   JOIN record ON record.id = entry.record_id
   WHERE entry.source_id = ?
-  ORDER BY entry.headword
+  ORDER BY entry.id
 EOF
 
   $_->{senses} = $json->decode($_->{senses}) for @$entries;
