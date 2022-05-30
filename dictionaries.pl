@@ -1320,6 +1320,7 @@ our $dict = {
       [1, 'headword'],
       [0, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
+      [4, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
   },
