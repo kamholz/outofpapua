@@ -64,7 +64,7 @@
 <style lang="scss">
   .popover {
     padding: 8px;
-    max-width: 30em;
+    max-width: 20em;
     @include popover;
   }
 
