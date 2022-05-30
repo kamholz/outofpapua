@@ -1115,7 +1115,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Litamahuputty (nd)' => {
+  'Litamahuputty (2012)' => {
     lang_target => 'max',
     path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
     parser => 'Spreadsheet',
