@@ -80,6 +80,7 @@
       const formElement = form.elements[hotKeys[key]];
       if (formElement) {
         formElement.focus();
+        formElement?.select();
         e.preventDefault();
       }
     }
