@@ -14,7 +14,7 @@
   import 'leaflet.fullscreen/Control.FullScreen.css';
   import 'leaflet/dist/leaflet.css';
 
-  const maxGlossLength = 15;
+  const maxGlossLength = 25;
 
   export let languages;
   export let families;
