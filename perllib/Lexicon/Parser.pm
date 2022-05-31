@@ -2,6 +2,7 @@ package Lexicon::Parser;
 use v5.14;
 use Moo;
 use namespace::clean;
+use Lexicon::Util 'ensure_nfc';
 use List::Util qw(all any uniqstr);
 use List::UtilsBy 'uniq_by';
 
@@ -122,7 +123,7 @@ sub print_toolbox_records {
   my ($self, $records, $fh) = @_;
   foreach my $record (@$records) {
     foreach my $rec (@$record) {
-      say $fh "\\$rec->[0] $rec->[1]";
+      say $fh "\\$rec->[0] ", ensure_nfc($rec->[1]);
     }
     print $fh "\n";
   }
