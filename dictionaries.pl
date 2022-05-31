@@ -520,7 +520,7 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
-  'Budiman (nd)' => {
+  'Budiman (2012)' => {
     lang_target => 'kax',
     path => 'spreadsheets/Budiman-Kao-dic.xlsx',
     parser => 'Spreadsheet',
