@@ -1,7 +1,7 @@
 <script>
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
-  import { escapeHtml as escape, formatReflexIpa, maybeGloss } from '$lib/util';
+  import { escapeHtml as escape, formatReflexIpa, truncateGloss } from '$lib/util';
   import { getBounds } from '$lib/leaflet';
   import { getContext, onDestroy, onMount } from 'svelte';
   import { maxZoom } from '$lib/preferences';
@@ -13,6 +13,8 @@
   import 'leaflet.fullscreen';
   import 'leaflet.fullscreen/Control.FullScreen.css';
   import 'leaflet/dist/leaflet.css';
+
+  const maxGlossLength = 15;
 
   export let languages;
   export let families;
@@ -209,10 +211,60 @@
 
   function getEntriesHtml(marker) {
     const selected = marker.entries.filter((entry) => entry.selected);
-    const items = showGloss
-      ? selected.map((entry) => `<em>${getHeadwordHtml(entry)}</em>${escape(maybeGloss(entry.senses))}`)
-      : selected.map((entry) => `<em>${getHeadwordHtml(entry)}</em>`);
-    return [...new Set(items)].join(', ');
+    const headwords = [];
+    const headwordMap = {};
+    for (const entry of selected) {
+      const headwordHtml = getHeadwordHtml(entry);
+      let headwordObj;
+      if (headwordHtml in headwordMap) {
+        headwordObj = headwordMap[headwordHtml];
+      } else {
+        headwordObj = {
+          headword: headwordHtml,
+          glosses: [],
+          glossMap: {},
+        };
+        headwordMap[headwordHtml] = headwordObj;
+        headwords.push(headwordObj);
+      }
+
+      if (showGloss) {
+        const { glosses, glossMap } = headwordObj;
+        for (const obj of maybeGlosses(entry.senses)) {
+          const { gloss, truncated } = obj;
+          if (gloss in glossMap) {
+            // show without … if any gloss exists without it
+            glossMap[gloss].truncated = Boolean(truncated & glossMap[gloss].truncated);
+          } else {
+            glosses.push(obj);
+            glossMap[gloss] = obj;
+          }
+        }
+      }
+    }
+
+    if (showGloss) {
+      // eslint-disable-next-line arrow-body-style
+      return headwords.map(({ headword, glosses }) => {
+        return glosses.length
+          ? `<em>${headword}</em> ‘${joinGlosses(glosses)}’`
+          : `<em>${headword}</em>`;
+      }).join(', ');
+    } else {
+      return headwords.map(({ headword }) => `<em>${headword}</em>`).join(', ');
+    }
+  }
+
+  function maybeGlosses(senses) {
+    const senseGlosses = senses.map(({ glosses }) => glosses?.[0]?.txt[0])
+      .filter((gloss) => gloss);
+    return senseGlosses.length
+      ? senseGlosses.map((gloss) => truncateGloss(gloss, maxGlossLength))
+      : [];
+  }
+
+  function joinGlosses(glosses) {
+    return glosses.map(({ gloss, truncated }) => truncated ? gloss + '…' : gloss).join(', ');
   }
 
   function getHeadwordHtml({ headword, headword_ipa, ipa_conversion_rule, reflex }) {

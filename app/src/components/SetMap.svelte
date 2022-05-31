@@ -129,7 +129,8 @@
       markersByLanguageCode[id].markers[key].entries.push({
         ...entry,
         ipa_conversion_rule,
-        reflex, set_id,
+        reflex,
+        set_id,
         selected: sel?.[entry.id] ?? true,
       });
     }

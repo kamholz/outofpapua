@@ -1,5 +1,5 @@
 <script>
-  import { maybeGloss } from '$lib/util';
+  import { maybeEngGlosses } from '$lib/util';
 
   export let entries;
   export let language;
@@ -20,12 +20,12 @@
             entries.filter((v) => v.selected).length === 1
           )
         }
-      />&nbsp;{entry.headword_ipa ?? entry.headword}{maybeGloss(entry.senses)}
+      />&nbsp;{entry.headword_ipa ?? entry.headword}{maybeEngGlosses(entry.senses)}
     </label>
   {/each}
 {:else}
   <span>
-    {entries[0].headword_ipa ?? entries[0].headword}{maybeGloss(entries[0].senses)}
+    {entries[0].headword_ipa ?? entries[0].headword}{maybeEngGlosses(entries[0].senses)}
   </span>
 {/if}
 

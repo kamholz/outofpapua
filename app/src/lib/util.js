@@ -206,6 +206,23 @@ export function joinGlosses(txt) {
   return txt.join(', ');
 }
 
+export function truncateGloss(txt, maxLength) {
+  if (txt.length <= maxLength) {
+    return { gloss: txt, truncated: false };
+  }
+  for (let i = maxLength; i > 0; i--) {
+    if (txt[i] === ' ') {
+      const gloss = txt.slice(0, i);
+      if (i + 1 < txt.length && (txt[i + 1] === '(' || txt[i + 1] === '[')) {
+        return { gloss, truncated: false };
+      } else {
+        return { gloss, truncated: true };
+      }
+    }
+  }
+  return { gloss: txt.slice(0, maxLength), truncated: true };
+}
+
 export function maybeGloss(senses) {
   return senses[0]?.glosses[0]?.txt[0]
     ? ` ‘${senses[0]?.glosses[0]?.txt[0]}’`
