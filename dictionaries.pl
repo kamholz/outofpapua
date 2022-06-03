@@ -1173,8 +1173,8 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'va', 'split'],
-      [2, 'gloss', 'eng'],
-      [3, 'gloss', 'ind'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
       [4, 'note'],
     ],
     mode => 'sense_per_row',
