@@ -2,7 +2,7 @@
 use v5.14;
 use lib 'perllib';
 use Data::Dumper;
-use Dotenv -load => 'app/.env';
+use Dotenv;
 use Encode 'decode_utf8';
 use JSON::MaybeXS;
 use Lexicon::Exporter::CSV;
@@ -19,6 +19,10 @@ use Lexicon::Parser::Marker;
 use Lexicon::Parser::Spreadsheet;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
+
+eval {
+  Dotenv->load('app/.env');
+};
 
 require './dictionaries.pl';
 our $dict;
