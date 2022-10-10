@@ -1,7 +1,7 @@
 <script context="module">
-  import { requireAdminLoad } from '$actions/auth';
+  import { requireAuthLoad } from '$actions/auth';
 
-  export const load = requireAdminLoad(async ({ fetch }) => {
+  export const load = requireAuthLoad(async ({ fetch }) => {
     const res = await fetch('/api/ipa_conversion_lib.json');
     if (!res.ok) {
       return { status: 500 };

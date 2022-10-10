@@ -2,9 +2,9 @@ import errors from '$lib/errors';
 import { allowedCreateUpdate } from './_params';
 import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
-import { requireAdmin } from '$lib/auth';
+import { requireAuth } from '$lib/auth';
 
-export const put = requireAdmin(async ({ params, request }) => {
+export const put = requireAuth(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowedCreateUpdate);
   if (!Object.keys(updateParams).length) {
     return { status: 400, body: { error: errors.noUpdatable } };
@@ -22,7 +22,7 @@ export const put = requireAdmin(async ({ params, request }) => {
   }
 });
 
-export const del = requireAdmin(async ({ params }) => {
+export const del = requireAuth(async ({ params }) => {
   try {
     const names = await knex.transaction((trx) =>
       trx('ipa_conversion_rule')
