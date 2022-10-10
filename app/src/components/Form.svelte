@@ -165,7 +165,7 @@
         .field {
           margin-inline-start: 12px;
           grid-column: 2 / 4;
-          &.narrow, &[type="checkbox"] {
+          &.narrow {
             grid-column: 2;
           }
         }      
