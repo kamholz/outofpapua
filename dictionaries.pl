@@ -3101,6 +3101,19 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Taylor (1990)' => {
+    lang_target => 'tlb',
+    path => 'Taylor 1990 - Tobelo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'note_sn'],
+      [3, 'note_sn', 'page'],
+    ],
+    mode => 'sense_per_row',
+    split => ';',
+  },
   'Teljeur (1982 Sawai a)' => {
     lang_target => 'Sawai Weda',
     path => 'spreadsheets/Teljeur.xlsx',
