@@ -168,6 +168,9 @@
           &.narrow {
             grid-column: 2;
           }
+          &[type="checkbox"] {
+            justify-self: start;
+          }
         }      
       }
     }
