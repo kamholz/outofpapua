@@ -1,0 +1,34 @@
+# Manual: data ingestion
+
+
+* dictionaries.pl is the most important file which is changed in order to ingest files
+    * top: name of the source as it should appear in the database
+        * if source already exist and is to be reingested, the names have to match!
+    * lang_target: ISO 639-1 code or otherwise fixed language name
+    * path: name of the file
+        * files are stored on the server
+    <!-- do we have access?-->
+    * parser: form of the file, either 'Spreadsheet' or 'Toolbox'
+    * columns: only for spreadsheets
+        * parameter consist of
+            * number of column
+                * columns start with 0 (leftmost one)!
+            * 'what's in this column?'
+            * optional: 'split'
+                * split_headword: split entries in headword column at ; (to create multiple headwords with the same gloss)
+                * split: splits gloss (or whatever it is usef for) at ; (or whatever the delimiter is)
+            * gloss always need a language code
+        * order reflects order in a toolbox file
+            * converts columns into toolbox markers
+
+* commands
+    * parse: <!-- coverts file into code, is this a required step? probably not?-->
+    * import '[name of source, as given in dictionaries.pl]': will import source, if source already exist it will result in an error
+        * update: will preserve all the existing sets, this may result in an error if it can't preserve the links
+        <!-- David's explanaton on what to do in this case is a quite confusing, probably needs to be checked once the situation occurs, min 27-31 -->
+        * overwrite: will overwrite everything and delete all the links
+    * print: prints spreadsheet in toolbox format
+
+* tries to run the IPA-conversion immediately after command 'import' is run
+    * doesn't work for new sources because there are no conversion rules specified yet
+    
