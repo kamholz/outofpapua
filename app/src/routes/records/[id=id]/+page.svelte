@@ -6,8 +6,8 @@
   export let data;
   $: ({
     record,
-    record: { data: recordData, source
-  }} = data);
+    record: { data: recordData, source },
+  } = data);
   let showFormatted = true;
 </script>
 
