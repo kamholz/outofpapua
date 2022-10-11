@@ -2,7 +2,8 @@ import { error } from '@sveltejs/kit';
 import { normalizeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
-export async function load({ fetch, session, url: { searchParams } }) {
+export async function load({ fetch, parent, url: { searchParams } }) {
+  const { preferences, user } = await parent();
   const data = {
     setAuthorSuggest: await suggest.setAuthor(fetch),
     sourceSuggest: await suggest.source(fetch),
@@ -12,7 +13,7 @@ export async function load({ fetch, session, url: { searchParams } }) {
   if (!data.sourceSuggest || !data.langSuggest || !data.glosslangSuggest) {
     throw error(500);
   }
-  if (session.user) {
+  if (user) {
     data.borrowlangSuggest = await suggest.borrowlang(fetch);
     if (!data.borrowlangSuggest) {
       throw error(500);
@@ -20,8 +21,8 @@ export async function load({ fetch, session, url: { searchParams } }) {
   }
 
   const query = normalizeQuery(searchParams);
-  query.pagesize ??= session.preferences.listPageSize;
-  const json = await reload(fetch, query, session.preferences);
+  query.pagesize ??= preferences.listPageSize;
+  const json = await reload(fetch, query);
   if (!json) {
     throw error(500);
   }

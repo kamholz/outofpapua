@@ -1,9 +1,10 @@
 import { error } from '@sveltejs/kit';
 import * as suggest from '$actions/suggest';
 
-export async function load({ fetch, params, session }) {
+export async function load({ fetch, params, parent }) {
+  const { user } = await parent();
   const data = {};
-  if (session.user) {
+  if (user) {
     data.borrowlangSuggest = await suggest.borrowlang(fetch);
     data.langSuggest = await suggest.langPlus(fetch);
     data.sourceSuggest = await suggest.editableSource(fetch);

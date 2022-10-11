@@ -4,7 +4,8 @@ import * as suggest from '$actions/suggest';
 
 const arrayNumParams = new Set(['glosslang']);
 
-export async function load({ fetch, session, url: { searchParams } }) {
+export async function load({ fetch, parent, url: { searchParams } }) {
+  const { user } = await parent();
   const data = {
     langSuggest: await suggest.langPlus(fetch),
     glosslangSuggest: await suggest.glosslang(fetch),
@@ -12,7 +13,7 @@ export async function load({ fetch, session, url: { searchParams } }) {
   if (!data.langSuggest || !data.glosslangSuggest) {
     throw error(500);
   }
-  if (session.user) {
+  if (user) {
     data.borrowlangSuggest = await suggest.borrowlang(fetch);
     if (!data.borrowlangSuggest) {
       throw error(500);

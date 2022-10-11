@@ -2,9 +2,10 @@ import { error } from '@sveltejs/kit';
 import { normalizeQuery, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
-export async function load({ fetch, session, url: { searchParams } }) {
+export async function load({ fetch, parent, url: { searchParams } }) {
+  const { user } = await parent();
   const data = {};
-  if (session.user) {
+  if (user) {
     data.protolangSuggest = await suggest.protolang(fetch);
     if (!data.protolangSuggest) {
       throw error(500);
