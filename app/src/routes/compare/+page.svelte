@@ -9,13 +9,12 @@
   import { setContext } from 'svelte';
 
   export let data;
-  export let error = null;
-
   $: ({
     pageCount,
     query,
     rowCount,
     rows,
+    error,
   } = data);
   const {
     langSuggest,

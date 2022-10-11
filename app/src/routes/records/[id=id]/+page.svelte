@@ -4,7 +4,10 @@
   import { fade } from 'svelte/transition';
 
   export let data;
-  $: ({ record, record: { data: recordData, source } } = data);
+  $: ({
+    record,
+    record: { data: recordData, source
+  }} = data);
   let showFormatted = true;
 </script>
 

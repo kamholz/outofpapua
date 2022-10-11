@@ -6,19 +6,23 @@
 
   export let data;
   $: ({ rules } = data);
-  const rulesByName = {};
-  for (const rule of rules) {
-    for (const field of stringifyFields) {
-      if (rule[field]) {
-        rule[field] = JSON.stringify(rule[field]);
-      }
-    }
-    rulesByName[rule.name] = rule;
-  }
 
   const arrayFields = ['chain_after', 'chain_before', 'lib'];
   const stringifyFields = [...arrayFields, 'replacements'];
   const nullifyFields = [...stringifyFields, 'function'];
+
+  $: rulesByName = (() => {
+    const rulesByName = {};
+    for (const rule of rules) {
+      for (const field of stringifyFields) {
+        if (rule[field]) {
+          rule[field] = JSON.stringify(rule[field]);
+        }
+      }
+      rulesByName[rule.name] = rule;
+    }
+    return rulesByName;
+  })();
 
   let selected = 'common';
   let promise;

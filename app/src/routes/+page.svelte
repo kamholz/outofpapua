@@ -14,7 +14,6 @@
   import * as crudSet from '$actions/crud/set';
 
   export let data;
-
   $: ({
     rows,
     query,

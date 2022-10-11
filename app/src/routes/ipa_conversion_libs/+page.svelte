@@ -6,10 +6,7 @@
 
   export let data;
   $: ({ libs } = data);
-  const libsByName = {};
-  for (const lib of libs) {
-    libsByName[lib.name] = lib;
-  }
+  $: libsByName = Object.fromEntries(libs.map((lib) => [lib.name, lib]));
 
   let selected = 'syllabify';
   let promise;

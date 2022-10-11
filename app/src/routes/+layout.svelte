@@ -11,7 +11,7 @@
   import { navigating, page } from '$app/stores';
   import { pageLoading, session } from '$lib/stores';
 
-  $session = {
+  $session = { // eslint-disable-line prefer-const
     preferences: $page.data.preferences,
     user: $page.data.user,
   };
