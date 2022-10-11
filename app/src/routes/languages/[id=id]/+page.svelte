@@ -7,10 +7,8 @@
   import * as crud from '$actions/crud';
 
   export let data;
-  const {
-    language,
-    protolangSuggest,
-  } = data;
+  $: ({ language } = data);
+  const { protolangSuggest } = data;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }

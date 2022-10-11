@@ -15,13 +15,13 @@
 
   export let data;
 
-  let {
+  $: ({
     rows,
-  } = data;
-  const {
     query,
     pageCount,
     rowCount,
+  } = data);
+  const {
     langSuggest,
     glosslangSuggest,
     borrowlangSuggest,
