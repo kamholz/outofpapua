@@ -3,7 +3,7 @@
   import Form from './Form.svelte';
   import List from './List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
-  import { page } from '$app/stores';
+  import { afterNavigate } from '$app/navigation';
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { reload } from './+page';
   import { setContext } from 'svelte';
@@ -38,7 +38,7 @@
 
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init($page);
+  afterNavigate(init);
 
   function init() {
     $setSummaryCache = {};

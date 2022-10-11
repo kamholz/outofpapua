@@ -2,7 +2,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from '../SearchForm.svelte';
   import SourceTable from '../Table.svelte';
-  import { page } from '$app/stores';
+  import { afterNavigate } from '$app/navigation';
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
 
@@ -18,7 +18,7 @@
   setContext('borrowlangSuggest', borrowlangSuggest);
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init($page);
+  afterNavigate(init);
 
   function init() {
     $setSummaryCache = {};

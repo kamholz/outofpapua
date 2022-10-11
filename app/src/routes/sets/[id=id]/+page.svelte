@@ -10,12 +10,11 @@
   import SetPopover from '$components/SetPopover.svelte';
   import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
+  import { afterNavigate, goto } from '$app/navigation';
   import { faFileAlt, faMapMarked, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
-  import { goto } from '$app/navigation';
   import { modal, pageLoading, setSummaryCache } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
-  import { page } from '$app/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 
@@ -52,7 +51,7 @@
     ])
   );
 
-  $: init(true, $page);
+  afterNavigate(() => init(true));
 
   function init(clearProto) {
     values.name = set.name;

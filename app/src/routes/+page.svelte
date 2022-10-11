@@ -4,9 +4,8 @@
   import SearchForm from './SearchForm.svelte';
   import SearchTable from './SearchTable.svelte';
   import SearchTableControls from './SearchTableControls.svelte';
+  import { afterNavigate, goto } from '$app/navigation';
   import { getContext, setContext } from 'svelte';
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { reload } from './+page';
   import { serializeArrayParam } from '$lib/util';
@@ -36,7 +35,7 @@
   setContext('setSummaryCache', setSummaryCache);
   let promise;
 
-  $: init($page);
+  afterNavigate(init);
 
   function init() {
     $setSummaryCache = {};
