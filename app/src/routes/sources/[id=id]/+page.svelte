@@ -3,9 +3,12 @@
   import { page } from '$app/stores';
   import { setContext } from 'svelte';
 
-  export let source;
-  export let protolangSuggest = null;
-  export let ipaConversionRuleSuggest = null;
+  export let data;
+  $: ({ source } = data);
+  const {
+    protolangSuggest,
+    ipaConversionRuleSuggest,
+  } = data;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }

@@ -5,12 +5,10 @@
   import { reload } from './+page';
 
   export let data;
-  let {
-    rows,
-  } = data;
-  const {
+  $: ({
     query,
-  } = data;
+    rows,
+  } = data);
   const editable = getContext('editable');
 
   async function handleRefresh() {

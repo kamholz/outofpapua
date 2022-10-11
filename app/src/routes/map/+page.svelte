@@ -2,10 +2,13 @@
   import SetMap from '$components/SetMap.svelte';
   import { setContext } from 'svelte';
 
-  export let entries;
-  export let name = null;
-  export let settings = {};
-  export let ipaFunctions;
+  export let data;
+  $: ({
+    entries,
+    name,
+    settings,
+  } = data);
+  const { ipaFunctions } = data;
   setContext('ipaFunctions', ipaFunctions);
 </script>
 

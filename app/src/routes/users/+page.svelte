@@ -3,7 +3,8 @@
   import Table from './Table.svelte';
   import { page } from '$app/stores';
 
-  export let rows;
+  export let data;
+  $: ({ rows } = data);
 
   async function handleRefresh() {
     rows = (await reload(fetch))?.rows;

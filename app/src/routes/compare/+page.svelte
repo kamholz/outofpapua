@@ -11,12 +11,12 @@
   export let data;
   export let error = null;
 
-  let { 
+  $: ({ 
     pageCount,
     query,
     rowCount,
     rows,
-  } = data;
+  } = data);
   const {
     langSuggest,
     glosslangSuggest,

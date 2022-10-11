@@ -3,8 +3,8 @@
   import EntryRecordRaw from '$components/EntryRecord/Raw.svelte';
   import { fade } from 'svelte/transition';
 
-  export let record;
-  $: ({ data, source } = record);
+  export let data;
+  $: ({ record, record: { data: recordData, source } } = data);
   let showFormatted = true;
 </script>
 
@@ -20,12 +20,12 @@
 {/if}
 {#if showFormatted}
   <div in:fade>
-    <EntryRecordFormatted {data} {source} />
+    <EntryRecordFormatted data={recordData} {source} />
     <button type="button" on:click={() => showFormatted = false}>Show Raw Version</button>
   </div>
 {:else}
   <div in:fade>
-    <EntryRecordRaw {data} />
+    <EntryRecordRaw data={recordData} />
     <button type="button" on:click={() => showFormatted = true}>Show Formatted Version</button>
   </div>
 {/if}

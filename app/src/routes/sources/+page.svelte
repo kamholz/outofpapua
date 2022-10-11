@@ -3,9 +3,12 @@
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
 
-  export let rows;
-  export let query;
-  export let protolangSuggest = null;
+  export let data;
+  $: ({
+    rows,
+    query,
+  } = data);
+  const { protolangSuggest } = data;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }

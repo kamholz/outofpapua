@@ -6,12 +6,15 @@
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let source;
-  export let rows;
-  export let query;
-  export let pageCount;
-  export let rowCount;
-  export let borrowlangSuggest;
+  export let data;
+  $: ({
+    source,
+    rows,
+    query,
+    pageCount,
+    rowCount,
+  } = data);
+  const { borrowlangSuggest } = data;
   setContext('borrowlangSuggest', borrowlangSuggest);
   setContext('setSummaryCache', setSummaryCache);
 

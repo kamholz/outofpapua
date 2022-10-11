@@ -5,7 +5,7 @@
   import { pageLoading } from '$lib/stores';
 
   export let data;
-  const { rules } = data;
+  $: ({ rules } = data);
   const rulesByName = {};
   for (const rule of rules) {
     for (const field of stringifyFields) {

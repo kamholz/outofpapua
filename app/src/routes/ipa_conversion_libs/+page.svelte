@@ -5,7 +5,7 @@
   import { pageLoading } from '$lib/stores';
 
   export let data;
-  const { libs } = data;
+  $: ({ libs } = data);
   const libsByName = {};
   for (const lib of libs) {
     libsByName[lib.name] = lib;

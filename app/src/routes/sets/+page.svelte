@@ -4,22 +4,27 @@
   import SearchForm from './SearchForm.svelte';
   import { setContext } from 'svelte';
 
-  export let rows;
-  export let setAuthorSuggest;
+  export let data;
+  $: ({
+    rows,
+    query,
+    pageCount,
+    rowCount,
+  } = data);
+  const {
+    setAuthorSuggest,
+    sourceSuggest,
+    langSuggest,
+    glosslangSuggest,
+    borrowlangSuggest,
+  } = data;
   setContext('setAuthorSuggest', setAuthorSuggest);
-  export let sourceSuggest;
   setContext('sourceSuggest', sourceSuggest);
-  export let langSuggest;
   setContext('langSuggest', langSuggest);
-  export let glosslangSuggest;
   setContext('glosslangSuggest', glosslangSuggest);
-  export let borrowlangSuggest = null;
   if (borrowlangSuggest) {
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
-  export let query;
-  export let pageCount;
-  export let rowCount;
 
   async function handleRefresh() {
     const json = await reload(fetch, query);

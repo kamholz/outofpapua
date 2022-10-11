@@ -19,12 +19,15 @@
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 
-  export let set;
-  export let borrowlangSuggest = null;
-  export let langSuggest = null;
-  export let sourceSuggest = null;
+  export let data;
+  $: ({ set } = data);
   const editable = getContext('editable');
   if (editable) {
+    const {
+      borrowlangSuggest,
+      langSuggest,
+      sourceSuggest,
+    } = data;
     setContext('borrowlangSuggest', borrowlangSuggest);
     setContext('langSuggest', langSuggest);
     setContext('sourceSuggest', sourceSuggest);
