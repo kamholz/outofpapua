@@ -40,7 +40,7 @@
     },
   ];
 
-  $: tabs = getTabs($page.data, $hideComparative);
+  $: tabs = getTabs($page, $hideComparative);
   let active = false;
 
   function getTabs() {

@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams } from '$lib/util';
-import { getGlossLanguage, insertGlosses, jsonError, knex, pgError, setTransactionUser } from '$lib/db';
+import { ensureNfcParams, getFilteredParams, jsonError } from '$lib/util';
+import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { json } from '@sveltejs/kit';
 import { requireAuth } from '$lib/auth';
 

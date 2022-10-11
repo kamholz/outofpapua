@@ -22,7 +22,7 @@ export async function update({ set_id, entry_id, values }) {
   await checkError(res, 'Could not update set member');
 }
 
-export async function DELETE({ set_id, entry_id }) {
+export async function del({ set_id, entry_id }) {
   const res = await fetch(`/api/set/${set_id}/member/${entry_id}`, {
     method: 'DELETE',
   });

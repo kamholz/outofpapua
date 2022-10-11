@@ -3,7 +3,7 @@ import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams, jsonErro
 import { error, json } from '@sveltejs/kit';
 import { getUser, requireAuth } from '$lib/auth';
 import { knex, pgError } from '$lib/db';
-import { nfc } from './params';
+import { nfc } from '../params';
 
 const allowed = new Set(['username', 'fullname', 'admin']);
 

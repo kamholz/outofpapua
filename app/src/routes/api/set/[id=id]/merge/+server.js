@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
-import { arrayCmp, jsonError, knex, pgError } from '$lib/db';
+import { arrayCmp, knex, pgError } from '$lib/db';
 import { error } from '@sveltejs/kit';
-import { getFilteredParams, isIdArray } from '$lib/util';
+import { getFilteredParams, isIdArray, jsonError } from '$lib/util';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['set_ids']);

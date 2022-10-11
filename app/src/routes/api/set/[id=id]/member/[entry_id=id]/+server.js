@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
 import { error, json } from '@sveltejs/kit';
-import { getFilteredParams } from '$lib/util';
-import { jsonError, knex, pgError, setTransactionUser } from '$lib/db';
+import { getFilteredParams, jsonError } from '$lib/util';
+import { knex, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);

@@ -15,6 +15,6 @@ export async function POST({ request }) {
     headers.append('set-cookie', auth.makeRefreshTokenCookie(user));
     return json({ user }, { headers });
   } else {
-    throw error(401);
+    throw error(403);
   }
 }

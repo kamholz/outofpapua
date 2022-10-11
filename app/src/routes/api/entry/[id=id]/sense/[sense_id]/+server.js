@@ -1,8 +1,8 @@
 import errors from '$lib/errors';
-import { allowed } from './params';
+import { allowed } from '../params';
 import { getFilteredParams, jsonError } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
-import { isEditable } from '../../params';
+import { isEditable } from '../../../params';
 import { json } from '@sveltejs/kit';
 import { requireAuth } from '$lib/auth';
 

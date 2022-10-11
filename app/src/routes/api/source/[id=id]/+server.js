@@ -62,7 +62,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
 
 export const DELETE = requireAdmin(() => {
   throw error(500);
-}
+});
 // try {
 //   const rows = await knex.transaction(async (trx) => {
 //     await trx.column(trx.raw('delete_source_entries(?)', params.id));
