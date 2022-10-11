@@ -1,6 +1,6 @@
 <script>
   import EditSourceForm from './EditForm.svelte';
-  import { afterNavigate } from '$app/navigation';
+  import { page } from '$app/stores';
   import { setContext } from 'svelte';
 
   export let data;
@@ -16,7 +16,7 @@
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
 
-  afterNavigate(init);
+  $: init($page);
 
   function init() {
     if (source.formatting && typeof source.formatting === 'object') {
