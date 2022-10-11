@@ -9,7 +9,12 @@
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   // import { fade } from 'svelte/transition';
   import { navigating, page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, session } from '$lib/stores';
+
+  $session = {
+    preferences: $page.data.preferences,
+    user: $page.data.user,
+  };
   // import { onMount } from 'svelte';
   // import { registerListener, broadcast } from '$lib/socket';
 
@@ -19,13 +24,13 @@
   //   document.body.style.opacity = null;
   //   registerListener(receiveBroadcast);
   //   setInterval(() => {
-  //     broadcast($page.data.user, `did thing #${count}`);
+  //     broadcast($session.user, `did thing #${count}`);
   //     count++;
   //   }, 1000);
   // });
 
   // async function receiveBroadcast(data) {
-  //   if (data.user !== $page.data.user?.fullname) {
+  //   if (data.user !== $session.user?.fullname) {
   //     data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   //     broadcasts.push(data);
   //     broadcasts = broadcasts;
@@ -49,7 +54,7 @@
 <main>
 <!-- {#key $page.url.pathname}
   <div in:fade={{ duration: 200 }}> -->
-  <PageContext data={$page.data}>
+  <PageContext session={$session}>
     <Modal styleWindow={{ width: '80vw' }}>
       <ModalContent />
     </Modal>

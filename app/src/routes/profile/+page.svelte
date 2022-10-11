@@ -1,8 +1,8 @@
 <script>
   import ProfilePage from './Page.svelte';
-  import { page } from '$app/stores';
+  import { session } from '$lib/stores';
 
-  const user = { ...$page.data.user };
+  const user = { ...$session.user };
   delete user.admin;
 </script>
 

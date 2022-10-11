@@ -18,7 +18,7 @@
   setContext('borrowlangSuggest', borrowlangSuggest);
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init(), $page;
+  $: init($page);
 
   function init() {
     $setSummaryCache = {};

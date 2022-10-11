@@ -1,7 +1,7 @@
 <script>
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
-  import { page } from '$app/stores';
+  import { session } from '$lib/stores';
 
   export let data;
   $: ({ rows } = data);
@@ -18,11 +18,11 @@
 <h2>Users</h2>
 <Table
   {rows}
-  admin={$page.data.user?.admin}
+  admin={$session.user?.admin}
   on:refresh={handleRefresh}
 />
 
-{#if $page.data.user?.admin}
+{#if $session.user?.admin}
   <h3>Create new user</h3>
   <CreateForm
     on:refresh={handleRefresh}

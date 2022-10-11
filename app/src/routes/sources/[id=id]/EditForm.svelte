@@ -3,8 +3,7 @@
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
   import { getContext } from 'svelte';
-  import { page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, session } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let source;
@@ -60,10 +59,10 @@
         name: 'public',
         label: 'Private',
         type: 'checkbox',
-        readonly: !$page.data.user?.admin,
+        readonly: !$session.user?.admin,
       }
     );
-    if (!source.is_proto && $page.data.user?.admin) {
+    if (!source.is_proto && $session.user?.admin) {
       fields.push(
         {
           name: 'ipa_conversion_rule',

@@ -1,8 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { login, logout } from '$actions/auth';
-  import { page } from '$app/stores';
-  import { pageLoading } from '$lib/stores';
+  import { pageLoading, session } from '$lib/stores';
   
   export let username;
   let password;
@@ -13,7 +12,7 @@
     try {
       promise = login(username, password);
       const user = await promise;
-      $page.data.user = user;
+      $session.user = user;
       password = null;
     } catch (e) {}
     $pageLoading--;
@@ -24,7 +23,7 @@
     try {
       promise = logout();
       await promise;
-      $page.data.user = null;
+      $session.user = null;
       goto('/');
     } catch (e) {}
     $pageLoading--;
@@ -37,8 +36,8 @@
       <span class="error">{message}</span>
     {/await}
   {/if}
-  {#if $page.data.user}
-    <span class="user">Logged in as: <a href="/profile" data-sveltekit-prefetch><strong>{$page.data.user.fullname}</strong></a></span>
+  {#if $session.user}
+    <span class="user">Logged in as: <a href="/profile" data-sveltekit-prefetch><strong>{$session.user.fullname}</strong></a></span>
     <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin} action="/auth/login" method="POST">

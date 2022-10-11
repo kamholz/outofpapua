@@ -1,7 +1,7 @@
 <script>
   import Icon from 'svelte-awesome';
   import { faBars } from '@fortawesome/free-solid-svg-icons';
-  import { hideComparative } from '$lib/stores';
+  import { hideComparative, session } from '$lib/stores';
   import { page } from '$app/stores';
 
   export let type; // compact, full
@@ -40,11 +40,11 @@
     },
   ];
 
-  $: tabs = getTabs($page, $hideComparative);
+  $: tabs = getTabs($session, $hideComparative);
   let active = false;
 
   function getTabs() {
-    if ($page.data.user) {
+    if ($session.user) {
       return tabsAll;
     } else if ($hideComparative) {
       return tabsAll.filter((field) => !field.comparative && !field.private);

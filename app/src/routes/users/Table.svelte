@@ -1,7 +1,7 @@
 <script>
   import Table from '$components/Table.svelte';
   import { boolean } from '$lib/util';
-  import { page } from '$app/stores';
+  import { session } from '$lib/stores';
 
   export let rows;
   export let admin = false;
@@ -27,7 +27,7 @@
     [
       {
         type: 'edit',
-        link: (row) => row.id === $page.data.user.id ? '/profile' : `/profile/${row.id}`,
+        link: (row) => row.id === $session.user.id ? '/profile' : `/profile/${row.id}`,
       },
     ]
     :
