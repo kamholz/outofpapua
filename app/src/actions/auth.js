@@ -52,7 +52,7 @@ export async function updatePassword(userId, values) {
   if (values.current_password === undefined) {
     delete values.current_password;
   }
-  const res = await fetch(`/api/user/${userId}-password`, {
+  const res = await fetch(`/api/user/${userId}/password`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',

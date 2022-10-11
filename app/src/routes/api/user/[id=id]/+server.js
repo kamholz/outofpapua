@@ -10,7 +10,7 @@ const allowed = new Set(['username', 'fullname', 'admin']);
 export const GET = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
   if (user) {
-    return { body: user };
+    return json(user);
   } else {
     throw error(404);
   }
