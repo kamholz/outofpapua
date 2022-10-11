@@ -1,7 +1,7 @@
 import config from '$config';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { knex } from '$lib/db';
 
 export async function getUser(userId) {

@@ -2,6 +2,7 @@
   import List from './List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
+  import { reload } from './+page';
   import { setContext } from 'svelte';
 
   export let data;

@@ -4,6 +4,7 @@
   import SourceTable from '../Table.svelte';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
+  import { reload } from './+page';
   import { setContext } from 'svelte';
 
   export let data;

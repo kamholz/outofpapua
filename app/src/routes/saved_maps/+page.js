@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit'; 
+import { error } from '@sveltejs/kit';
 import { requireAuthLoad } from '$actions/auth';
 
 export const load = requireAuthLoad(async ({ fetch }) => {

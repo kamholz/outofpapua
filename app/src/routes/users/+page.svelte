@@ -1,6 +1,7 @@
 <script>
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
+  import { reload } from './+page';
   import { session } from '$lib/stores';
 
   export let data;

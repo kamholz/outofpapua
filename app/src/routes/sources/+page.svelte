@@ -2,6 +2,7 @@
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
+  import { reload } from './+page';
 
   export let data;
   $: ({

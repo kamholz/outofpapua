@@ -16,6 +16,7 @@
   import { modal, pageLoading, setSummaryCache } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
   import { page } from '$app/stores';
+  import { reload } from './+page';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 

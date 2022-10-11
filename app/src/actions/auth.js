@@ -1,6 +1,5 @@
 import { checkError } from '$lib/util';
 import { error } from '@sveltejs/kit';
-import { page } from '$app/stores';
 
 export async function login(username, password) {
   const res = await fetch('/auth/login', {

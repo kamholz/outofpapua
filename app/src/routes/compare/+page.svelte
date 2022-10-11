@@ -11,7 +11,7 @@
   export let data;
   export let error = null;
 
-  $: ({ 
+  $: ({
     pageCount,
     query,
     rowCount,

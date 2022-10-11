@@ -1,5 +1,6 @@
 <script>
   import Table from './Table.svelte';
+  import { reload } from './+page';
 
   export let data;
   $: ({ rows } = data);
