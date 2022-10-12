@@ -8,7 +8,7 @@
 {#if page === num}
   <span>{num}</span>
 {:else}
-  <a href={pageUrl(num, sort)}>{num}</a>
+  <a href={pageUrl(num, sort)} data-sveltekit-prefetch="off">{num}</a>
 {/if}
 
 <style>

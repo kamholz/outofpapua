@@ -37,7 +37,7 @@
     {/await}
   {/if}
   {#if $session.user}
-    <span class="user">Logged in as: <a href="/profile" data-sveltekit-prefetch><strong>{$session.user.fullname}</strong></a></span>
+    <span class="user">Logged in as: <a href="/profile"><strong>{$session.user.fullname}</strong></a></span>
     <button type="button" on:click={handleLogout}>Logout</button>
   {:else}
     <form on:submit|preventDefault={handleLogin} action="/auth/login" method="POST">

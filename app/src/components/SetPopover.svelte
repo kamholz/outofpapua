@@ -31,7 +31,6 @@
 
 <a
   href="/sets/{id}"
-  data-sveltekit-prefetch
   use:popoverTrigger={popover}
 >
   <slot>

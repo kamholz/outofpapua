@@ -63,7 +63,7 @@
   <ul class:active>
     {#each tabs as { title, url }}
       <li class:active={$page.url.pathname === url}>
-        <a href={url} on:click={() => active = false} data-sveltekit-prefetch>{title}</a>
+        <a href={url} on:click={() => active = false}>{title}</a>
       </li>
     {/each}
   </ul>

@@ -204,7 +204,7 @@
     <span on:click={async () => $modal.setExport(await getModalProps())}>
       <Icon data={faFileAlt} {scale} />
     </span>
-    <a href="/sets/{set.id}/map" title="Map" data-sveltekit-prefetch>
+    <a href="/sets/{set.id}/map" title="Map">
       <Icon data={faMapMarked} {scale} />
     </a>
   </div>

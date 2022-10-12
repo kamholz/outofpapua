@@ -44,7 +44,7 @@
     on:change={handleSave}
   />
 {:else}
-  <a href="/sources/{source.id}/entries" data-sveltekit-prefetch>{source.reference}</a>
+  <a href="/sources/{source.id}/entries">{source.reference}</a>
   {#if editable && source.editable}
     <span
       class="icon"

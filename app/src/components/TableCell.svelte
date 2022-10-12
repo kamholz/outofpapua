@@ -56,7 +56,7 @@
       {#if href}
         <a
           {href}
-          data-sveltekit-prefetch={column.prefetch ?? null}
+          data-sveltekit-prefetch={column.prefetch ? null : 'off'}
         >{value(row)}</a>
       {:else}
         <span>{value(row)}</span>

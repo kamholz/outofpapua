@@ -22,7 +22,7 @@
 
 <h2>Languages</h2>
 <div>
-  <a href="/languages/map" data-sveltekit-prefetch>View map of languages</a>
+  <a href="/languages/map">View map of languages</a>
 </div>
 <Table
   {rows}
