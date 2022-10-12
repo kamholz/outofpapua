@@ -7,7 +7,7 @@
   import PageContext from '$components/PageContext.svelte';
   import SiteHeading from '$components/SiteHeading.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-  // import { fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import { navigating, page } from '$app/stores';
   import { pageLoading, session } from '$lib/stores';
 
@@ -52,16 +52,16 @@
 <SiteHeading />
 <NavBar type="full" />
 <main>
-<!-- {#key $page.url.pathname}
-  <div in:fade={{ duration: 200 }}> -->
-  <PageContext session={$session}>
-    <Modal styleWindow={{ width: '80vw' }}>
-      <ModalContent />
-    </Modal>
-    <slot />
-  </PageContext>
-  <!-- </div>
-{/key} -->
+{#key $page.url.pathname}
+  <div in:fade={{ duration: 200 }}>
+    <PageContext session={$session}>
+      <Modal styleWindow={{ width: '80vw' }}>
+        <ModalContent />
+      </Modal>
+      <slot />
+    </PageContext>
+  </div>
+{/key}
 </main>
 
 <!-- {#if broadcasts.length}
