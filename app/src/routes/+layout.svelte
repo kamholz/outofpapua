@@ -15,31 +15,6 @@
     preferences: $page.data.preferences,
     user: $page.data.user,
   };
-  // import { onMount } from 'svelte';
-  // import { registerListener, broadcast } from '$lib/socket';
-
-  // let broadcasts = [];
-
-  // onMount(() => {
-  //   document.body.style.opacity = null;
-  //   registerListener(receiveBroadcast);
-  //   setInterval(() => {
-  //     broadcast($session.user, `did thing #${count}`);
-  //     count++;
-  //   }, 1000);
-  // });
-
-  // async function receiveBroadcast(data) {
-  //   if (data.user !== $session.user?.fullname) {
-  //     data.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  //     broadcasts.push(data);
-  //     broadcasts = broadcasts;
-  //   }
-  // }
-
-  // function clearBroadcasts() {
-  //   broadcasts = [];
-  // }
 </script>
 
 {#if $navigating || $pageLoading > 0}
@@ -63,50 +38,3 @@
   </div>
 {/key}
 </main>
-
-<!-- {#if broadcasts.length}
-  <div id="activity" bind:this={activity} transition:fade={{ duration: 200 }}>
-    <ul>
-      {#each broadcasts as { user, action, time }}
-        <li transition:slide>
-          <span><strong>{time}</strong> {user} {action}</span>
-        </li>
-      {/each}
-    </ul>
-    <span class="close" on:click={clearBroadcasts}>
-      <Icon data={faTimes} />
-    </span>
-  </div>
-{/if}
-
-<style lang="scss">
-  #activity {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    inline-size: 250px;
-    max-block-size: 250px;
-    border-radius: 6px;
-    border: 1px solid black;
-    padding: 10px;
-    font-size: 14px;
-    overflow: hidden;
-
-    ul {
-      margin-block-start: 8px;
-    }
-
-    li {
-      margin-inline-start: 1.25em;
-    }
-
-    span.close {
-      position: absolute;
-      top: 3px;
-      right: 3px;
-      &:hover {
-        color: gray;
-      }
-    }
-  }
-</style> -->
