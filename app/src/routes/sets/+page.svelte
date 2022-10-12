@@ -2,7 +2,8 @@
   import List from './List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
-  import { reload } from './+page';
+  import { invalidateAll } from '$app/navigation';
+  import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let data;
@@ -28,12 +29,9 @@
   }
 
   async function handleRefresh() {
-    const json = await reload(fetch, query);
-    if (json) {
-      ({ rows } = json);
-      ({ pageCount } = json);
-      ({ rowCount } = json);
-    }
+    $pageLoading++;
+    await invalidateAll();
+    $pageLoading--;
   }
 </script>
 

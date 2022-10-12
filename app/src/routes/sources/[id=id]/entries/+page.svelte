@@ -2,9 +2,9 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from '../SearchForm.svelte';
   import SourceTable from '../Table.svelte';
+  import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
-  import { reload } from './+page';
   import { setContext } from 'svelte';
 
   export let data;
@@ -27,7 +27,7 @@
 
   async function handleRefresh() {
     $pageLoading++;
-    rows = (await reload(fetch, source.id, query))?.rows;
+    await invalidateAll();
     $pageLoading--;
     init();
   }

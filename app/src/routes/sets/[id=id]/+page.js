@@ -13,15 +13,12 @@ export async function load({ fetch, params, parent }) {
     }
   }
 
-  data.set = await reload(fetch, params.id);
-  if (!data.set) {
+  const res = await fetch(`/api/set/${params.id}`);
+  if (!res.ok) {
     throw error(404);
   }
+  data.set = await res.json();
 
   return data;
 }
 
-export async function reload(fetch, id) {
-  const res = await fetch(`/api/set/${id}`);
-  return res.ok ? res.json() : null;
-}

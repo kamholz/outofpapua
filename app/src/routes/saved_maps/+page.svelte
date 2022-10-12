@@ -1,12 +1,15 @@
 <script>
   import Table from './Table.svelte';
-  import { reload } from './+page';
+  import { invalidateAll } from '$app/navigation';
+  import { pageLoading } from '$lib/stores';
 
   export let data;
   $: ({ rows } = data);
 
   async function handleRefresh() {
-    rows = (await reload(fetch))?.rows;
+    $pageLoading++;
+    await invalidateAll();
+    $pageLoading--;
   }
 </script>
 

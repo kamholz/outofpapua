@@ -5,10 +5,9 @@
   import SearchTable from './SearchTable.svelte';
   import SearchTableControls from './SearchTableControls.svelte';
   import { getContext, setContext } from 'svelte';
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
-  import { reload } from './+page';
   import { serializeArrayParam } from '$lib/util';
   import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
@@ -57,7 +56,7 @@
 
   async function handleRefresh() {
     $pageLoading++;
-    rows = (await reload(fetch, query))?.rows;
+    await invalidateAll();
     $pageLoading--;
     init();
   }

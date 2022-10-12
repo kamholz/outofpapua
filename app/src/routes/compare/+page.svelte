@@ -3,9 +3,9 @@
   import Form from './Form.svelte';
   import List from './List.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
+  import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
-  import { reload } from './+page';
   import { setContext } from 'svelte';
 
   export let data;
@@ -45,10 +45,7 @@
 
   async function handleRefresh() {
     $pageLoading++;
-    const json = await reload(fetch, query);
-    if (json) {
-      ({ pageCount, query, rowCount, rows } = json);
-    }
+    await invalidateAll();
     $pageLoading--;
     init();
   }

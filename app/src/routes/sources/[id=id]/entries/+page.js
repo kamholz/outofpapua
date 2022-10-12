@@ -10,21 +10,18 @@ export async function load({ fetch, params, url: { searchParams } }) {
     throw error(500);
   }
 
-  const res = await fetch(`/api/source/${params.id}`);
-  if (!res.ok) {
+  const sourceRes = await fetch(`/api/source/${params.id}`);
+  if (!sourceRes.ok) {
     throw error(404);
   }
-  data.source = await res.json();
-  const json = await reload(fetch, params.id, searchParams);
-  if (!json) {
+  data.source = await sourceRes.json();
+
+  const entriesRes = await fetch(`/api/source/${params.id}/entries` + optionalQuery(searchParams));
+  if (!entriesRes.ok) {
     throw error(500);
   }
+  const json = await entriesRes.json();
   Object.assign(data, json); // populates query, pageCount, rows, rowCount
 
   return data;
-}
-
-export async function reload(fetch, id, searchParams) {
-  const res = await fetch(`/api/source/${id}/entries` + optionalQuery(searchParams));
-  return res.ok ? res.json() : null;
 }

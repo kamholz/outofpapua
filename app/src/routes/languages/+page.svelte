@@ -2,7 +2,8 @@
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
   import { getContext } from 'svelte';
-  import { reload } from './+page';
+  import { invalidateAll } from '$app/navigation';
+  import { pageLoading } from '$lib/stores';
 
   export let data;
   $: ({
@@ -12,7 +13,9 @@
   const editable = getContext('editable');
 
   async function handleRefresh() {
-    rows = (await reload(fetch, query))?.rows;
+    $pageLoading++;
+    await invalidateAll();
+    $pageLoading--;
   }
 </script>
 

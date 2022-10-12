@@ -22,16 +22,13 @@ export async function load({ fetch, parent, url: { searchParams } }) {
 
   const query = normalizeQuery(searchParams);
   query.pagesize ??= preferences.listPageSize;
-  const json = await reload(fetch, query);
-  if (!json) {
+
+  const res = await fetch('/api/set?' + new URLSearchParams(query));
+  if (!res.ok) {
     throw error(500);
   }
+  const json = await res.json();
   Object.assign(data, json); // populates query, pageCount, rows, rowCount
 
   return data;
-}
-
-export async function reload(fetch, query) {
-  const res = await fetch('/api/set?' + new URLSearchParams(query));
-  return res.ok ? res.json() : null;
 }

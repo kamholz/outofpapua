@@ -12,11 +12,10 @@
   import keydown from '$lib/keydown';
   import { faFileAlt, faMapMarked, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { modal, pageLoading, setSummaryCache } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
   import { page } from '$app/stores';
-  import { reload } from './+page';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 
@@ -71,13 +70,14 @@
     }
   }
 
-  async function handleRefresh(clearProto) {
-    const newSet = await reload(fetch, set.id);
-    if (newSet) {
-      set = newSet;
-      init(clearProto);
-    } else {
+  async function handleRefresh(type) {
+    if (type === 'delete' && members.length === 1) {
       goto('/');
+    } else {
+      $pageLoading++;
+      await invalidateAll();
+      $pageLoading--;
+      init(type === 'clearProto');
     }
   }
 
@@ -114,7 +114,8 @@
       values.name = name;
       handleUpdate('name', async () => {
         if (name === '') {
-          set = await reload(fetch, set.id);
+          // set = await reload(fetch, set.id);
+          await invalidateAll();
           values.name = set.name;
           name = set.name_auto.txt;
         }
@@ -128,7 +129,7 @@
     try {
       promise = promises.pending.unlink = updater({ id, values: { set_group_id: null } });
       await promise;
-      await handleRefresh(false);
+      await handleRefresh();
     } catch (e) {}
 
     if (promise && promise === promises.pending.unlink) {
@@ -148,7 +149,7 @@
     try {
       promise = promises.pending.delete = crud.del('set', set.id);
       await promise;
-      goto('/sets');
+      goto('/');
     } catch (e) {}
     if (promise && promise === promises.pending.delete) {
       promises.pending.delete = null;
@@ -163,7 +164,7 @@
     try {
       promise = promises.pending.split = crud.create('set', { members: [...selection], reassignExisting: true });
       await promise;
-      await handleRefresh(false);
+      await handleRefresh();
     } catch (e) {}
     if (promise && promise === promises.pending.split) {
       promises.pending.split = null;
@@ -254,7 +255,7 @@
         {#if editable}
           <LinkSetForm
             {set}
-            on:refresh={() => handleRefresh(false)}
+            on:refresh={() => handleRefresh()}
           />
         {/if}
       </div>
@@ -266,7 +267,7 @@
     <SectionWrapper label="Link existing entry">
       <LinkExistingForm
         {set}
-        on:refresh={() => handleRefresh(false)}
+        on:refresh={() => handleRefresh()}
       />
     </SectionWrapper>
     <hr>
@@ -275,7 +276,7 @@
       <AddProtoForm
         {set}
         bind:values={createProtoValues}
-        on:refresh={() => handleRefresh(true)}
+        on:refresh={() => handleRefresh('clearProto')}
       />
     </SectionWrapper>
     <hr>
@@ -302,7 +303,7 @@
       {set}
       bind:collapsed={collapsedMembers[member.entry.id]}
       bind:selection
-      on:refresh={() => handleRefresh(false)}
+      on:refresh={({ detail }) => handleRefresh(detail)}
     />
     <hr>
   {/each}

@@ -17,10 +17,11 @@ export async function load({ fetch, url: { searchParams } }) {
 
   const query = normalizeQuery(searchParams);
   if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
-    const json = await reload(fetch, query);
-    if (!json) {
+    const res = await fetch('/api/entry' + serializeQuery(query));
+    if (!res.ok) {
       throw error(500);
     }
+    const json = await res.json();
     Object.assign(data, json); // populates query, pageCount, rows, rowCount
   } else {
     parseArrayParams(query, arrayParams);
@@ -38,9 +39,4 @@ export async function load({ fetch, url: { searchParams } }) {
   }
 
   return data;
-}
-
-export async function reload(fetch, query) {
-  const res = await fetch('/api/entry' + serializeQuery(query));
-  return res.ok ? res.json() : null;
 }

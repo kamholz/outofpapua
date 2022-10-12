@@ -22,10 +22,11 @@ export async function load({ fetch, parent, url: { searchParams } }) {
 
   const query = normalizeQuery(searchParams);
   if ('lang1' in query && 'lang2' in query) {
-    const json = await reload(fetch, query);
-    if (!json) {
+    const res = await fetch('/api/entry/compare?' + new URLSearchParams(query));
+    if (!(res.ok || res.status === 400)) {
       throw error(500);
     }
+    const json = await res.json();
     Object.assign(data, json); // populates query, pageCount, rows, rowCount (or error)
   } else {
     parseArrayNumParams(query, arrayNumParams);
@@ -35,7 +36,3 @@ export async function load({ fetch, parent, url: { searchParams } }) {
   return data;
 }
 
-export async function reload(fetch, query) {
-  const res = await fetch('/api/entry/compare?' + new URLSearchParams(query));
-  return res.ok || res.status === 400 ? res.json() : null;
-}

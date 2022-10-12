@@ -4,16 +4,12 @@ import { normalizeQuery, serializeQuery } from '$lib/util';
 export async function load({ fetch, url: { searchParams } }) {
   const data = {};
 
-  const json = await reload(fetch, normalizeQuery(searchParams));
-  if (!json) {
+  const res = await fetch('/api/language' + serializeQuery({ ...normalizeQuery(searchParams), details: 1 }));
+  if (!res.ok) {
     throw error(500);
   }
+  const json = await res.json();
   Object.assign(data, json);
 
   return data;
-}
-
-export async function reload(fetch, query) {
-  const res = await fetch('/api/language' + serializeQuery({ ...query, details: 1 }));
-  return res.ok ? res.json() : null;
 }

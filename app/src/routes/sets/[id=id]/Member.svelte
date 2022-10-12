@@ -99,7 +99,7 @@
     try {
       promise = promises.pending.delete = crudSetMember.del({ set_id: set.id, entry_id: entry.id });
       await promise;
-      dispatch('refresh');
+      dispatch('refresh', 'delete');
     } catch (e) {}
     if (promise && promise === promises.pending.delete) {
       promises.pending.delete = null;
