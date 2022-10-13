@@ -1,6 +1,5 @@
 import * as auth from '$lib/auth';
 
-import cookie from 'cookie';
 import { error } from '@sveltejs/kit';
 
 export const GET = handler;
@@ -8,7 +7,7 @@ export const POST = handler;
 export const PUT = handler;
 export const DELETE = handler;
 
-function handler({ request: { headers: reqHeaders }, url }) {
+function handler({ cookies, url }) {
   let status;
   const headers = {};
   const { searchParams } = url;
@@ -19,17 +18,17 @@ function handler({ request: { headers: reqHeaders }, url }) {
     throw error(401);
   }
 
-  const cookies = cookie.parse(reqHeaders.get('cookie') || '');
-  const newCookie = auth.makeAccessTokenCookieFromRefreshToken(cookies);
-  if (newCookie) {
-    headers['set-cookie'] = newCookie;
+  const accessToken = auth.getAccessTokenFromRefreshToken(cookies.get(auth.REFRESH_TOKEN_COOKIE));
+  if (accessToken) {
+    cookies.set(auth.ACCESS_TOKEN_COOKIE, accessToken, auth.COOKIE_OPTIONS);
     if (searchParams.has('redirect')) {
       headers.location = searchParams.get('redirect');
     } else {
       status = 200;
     }
   } else {
-    headers['set-cookie'] = auth.makeExpiredCookies();
+    cookies.delete(auth.ACCESS_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
+    cookies.delete(auth.REFRESH_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
   }
 
   return new Response(null, { status, headers });

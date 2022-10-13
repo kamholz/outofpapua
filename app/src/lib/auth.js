@@ -1,8 +1,17 @@
 import config from '$config';
-import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { error } from '@sveltejs/kit';
 import { knex } from '$lib/db';
+
+export const ACCESS_TOKEN_COOKIE = 'accesstoken';
+export const REFRESH_TOKEN_COOKIE = 'refreshtoken';
+export const COOKIE_OPTIONS = {
+  httpOnly: true,
+  maxAge: config.ACCESS_TOKEN_LIFE,
+  path: '/',
+  sameSite: 'lax',
+  secure: true,
+};
 
 export async function getUser(userId) {
   const row = await knex('usr')
@@ -21,34 +30,14 @@ export async function checkUserPassword(username, password) {
   return row ?? null;
 }
 
-export function makeAccessTokenCookie(user) {
-  return cookie.serialize('accesstoken', makeAccessToken(user), {
-    httpOnly: true,
-    maxAge: config.ACCESS_TOKEN_LIFE,
-    path: '/',
-    sameSite: 'lax',
-    secure: true,
-  });
-}
-
-function makeAccessToken(user) {
+export function makeAccessToken(user) {
   return jwt.sign(makePayload(user), config.ACCESS_TOKEN_SECRET, {
     algorithm: 'HS256',
     expiresIn: Number(config.ACCESS_TOKEN_LIFE),
   });
 }
 
-export function makeRefreshTokenCookie(user) {
-  return cookie.serialize('refreshtoken', makeRefreshToken(user), {
-    httpOnly: true,
-    maxAge: config.REFRESH_TOKEN_LIFE,
-    path: '/',
-    sameSite: 'lax',
-    secure: true,
-  });
-}
-
-function makeRefreshToken(user) {
+export function makeRefreshToken(user) {
   return jwt.sign(makePayload(user), config.REFRESH_TOKEN_SECRET, {
     algorithm: 'HS256',
     expiresIn: Number(config.REFRESH_TOKEN_LIFE),
@@ -59,9 +48,9 @@ function makePayload(user) {
   return { id: user.id };
 }
 
-export function verifyAccessTokenCookie(cookies) {
-  if (cookies.accesstoken) {
-    const payload = verifyAccessToken(cookies.accesstoken);
+export function getUserFromAccessToken(accessToken) {
+  if (accessToken) {
+    const payload = verifyAccessToken(accessToken);
     if (payload) {
       return getUser(payload.id);
     }
@@ -79,11 +68,11 @@ function verifyAccessToken(accessToken) {
   }
 }
 
-export function makeAccessTokenCookieFromRefreshToken(cookies) {
-  if (cookies.refreshtoken) {
-    const payload = verifyRefreshToken(cookies.refreshtoken);
+export function getAccessTokenFromRefreshToken(refreshToken) {
+  if (refreshToken) {
+    const payload = verifyRefreshToken(refreshToken);
     if (payload) {
-      return makeAccessTokenCookie(payload);
+      return makeAccessToken(payload);
     }
   }
 
@@ -97,20 +86,6 @@ function verifyRefreshToken(refreshToken) {
     //console.log(e);
     return null;
   }
-}
-
-export function makeExpiredCookies() {
-  return [makeExpiredCookie('accesstoken'), makeExpiredCookie('refreshtoken')];
-}
-
-function makeExpiredCookie(name) {
-  return cookie.serialize(name, '', {
-    expires: new Date(0),
-    httpOnly: true,
-    path: '/',
-    sameSite: true,
-    secure: true,
-  });
 }
 
 export function redirectToRefresh(url) {

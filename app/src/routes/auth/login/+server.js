@@ -2,7 +2,7 @@ import { error, json } from '@sveltejs/kit';
 
 import * as auth from '$lib/auth';
 
-export async function POST({ request }) {
+export async function POST({ cookies, request }) {
   const body = await request.formData();
   if (!(body.has('username') && body.has('password'))) {
     throw error(400);
@@ -10,10 +10,9 @@ export async function POST({ request }) {
 
   const user = await auth.checkUserPassword(body.get('username'), body.get('password'));
   if (user) {
-    const headers = new Headers();
-    headers.append('set-cookie', auth.makeAccessTokenCookie(user));
-    headers.append('set-cookie', auth.makeRefreshTokenCookie(user));
-    return json({ user }, { headers });
+    cookies.set(auth.ACCESS_TOKEN_COOKIE, auth.makeAccessToken(user), auth.COOKIE_OPTIONS);
+    cookies.set(auth.REFRESH_TOKEN_COOKIE, auth.makeRefreshToken(user), auth.COOKIE_OPTIONS);
+    return json({ user });
   } else {
     throw error(403);
   }

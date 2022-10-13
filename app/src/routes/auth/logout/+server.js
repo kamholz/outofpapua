@@ -1,9 +1,10 @@
-import { makeExpiredCookies } from '$lib/auth';
+import * as auth from '$lib/auth';
 
-export function GET() {
+export function GET({ cookies }) {
+  cookies.delete(auth.ACCESS_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
+  cookies.delete(auth.REFRESH_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
   return new Response(null, {
     headers: {
-      'set-cookie': makeExpiredCookies(),
       'cache-control': 'no-store',
     },
   });
