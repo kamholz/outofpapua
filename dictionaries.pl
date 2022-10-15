@@ -3390,6 +3390,7 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
     strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'van Staden (nd)' => {
     lang_target => 'tvo',
