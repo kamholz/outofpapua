@@ -873,6 +873,7 @@ our $dict = {
       [7, 'et'],
       [5, 'cf'],
     ],
+    strip => 'to',
   },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
