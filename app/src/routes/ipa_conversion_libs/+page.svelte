@@ -1,14 +1,14 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from './Form.svelte';
+  import Svelecte from '$lib/svelecte';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
   export let data;
   $: ({ libs } = data);
-  $: libsByName = Object.fromEntries(libs.map((lib) => [lib.name, lib]));
 
-  let selected = 'syllabify';
+  let selected = data.libs.find((lib) => lib.name === 'syllabify');
   let promise;
 
   async function handleSubmit(e) {
@@ -18,7 +18,7 @@
     $pageLoading++;
     try {
       promise = (async () => {
-        const res = await fetch(`/api/ipa_conversion_lib/${selected}`, {
+        const res = await fetch(`/api/ipa_conversion_lib/${selected.name}`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json',
@@ -41,31 +41,44 @@
 
 <h2>IPA Conversion Libs</h2>
 
-<label>
-  Choose:
-  <select bind:value={selected}>
-    {#each libs as lib (lib.name)}
-      <option value={lib.name}>{lib.name}</option>
-    {/each}
-  </select>
-</label>
+<div class="choose">
+  <span>Choose library:</span>
+  <Svelecte
+    options={libs}
+    valueField="name"
+    valueAsObject={true}
+    bind:value={selected}
+  />
+</div>
 
-<div>
+<div class="lib">
   {#if promise}
     {#await promise catch { message } }
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <Form lib={libsByName[selected]} on:submit={handleSubmit} />
+  <Form lib={selected} on:submit={handleSubmit} />
 </div>
 
 <style lang="scss">
-  label {
+  .choose {
     display: block;
     margin-block-end: var(--item-sep);
+
+    span {
+      margin-inline-end: 6px;
+    }
+
+    :global {
+      .svelecte-control {
+        display: inline-block;
+        vertical-align: middle;
+        inline-size: 25em;
+      }
+    }
   }
 
-  div {
+  .lib {
     :global {
       textarea {
         font-family: "Monaco", "Menlo", monospace;

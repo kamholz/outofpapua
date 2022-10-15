@@ -1,30 +1,15 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from './Form.svelte';
+  import Svelecte from '$lib/svelecte';
+  import { arrayFields, nullifyFields } from './+page';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
   export let data;
   $: ({ rules } = data);
 
-  const arrayFields = ['chain_after', 'chain_before', 'lib'];
-  const stringifyFields = [...arrayFields, 'replacements'];
-  const nullifyFields = [...stringifyFields, 'function'];
-
-  $: rulesByName = (() => {
-    const rulesByName = {};
-    for (const rule of rules) {
-      for (const field of stringifyFields) {
-        if (rule[field]) {
-          rule[field] = JSON.stringify(rule[field]);
-        }
-      }
-      rulesByName[rule.name] = rule;
-    }
-    return rulesByName;
-  })();
-
-  let selected = 'common';
+  let selected = data.rules.find((rule) => rule.name === 'common');
   let promise;
 
   const codeByName = {};
@@ -49,7 +34,7 @@
     $pageLoading++;
     try {
       promise = (async () => {
-        const res = await fetch(`/api/ipa_conversion_rule/${selected}`, {
+        const res = await fetch(`/api/ipa_conversion_rule/${selected.name}`, {
           method: 'PUT',
           headers: {
             'content-type': 'application/json',
@@ -61,7 +46,7 @@
         }
       })();
       await promise;
-      delete codeByName[selected];
+      delete codeByName[selected.name];
     } catch (e) {}
     $pageLoading--;
   }
@@ -72,15 +57,15 @@
       return;
     }
 
-    if (!codeByName[selected]) {
+    if (!codeByName[selected.name]) {
       $pageLoading++;
       try {
-        codeByName[selected] = await getCode(selected);
+        codeByName[selected.name] = await getCode(selected.name);
       } catch (e) {}
       $pageLoading--;
     }
 
-    const code = codeByName[selected];
+    const code = codeByName[selected.name];
     if (code) {
       try {
         testOutput = code(testInput);
@@ -115,22 +100,23 @@
 
 <h2>IPA Conversion Rules</h2>
 
-<label>
-  Choose:
-  <select bind:value={selected}>
-    {#each rules as rule (rule.name)}
-      <option value={rule.name}>{rule.name}</option>
-    {/each}
-  </select>
-</label>
+<div class="choose">
+  <span>Choose rule set:</span>
+  <Svelecte
+    options={rules}
+    valueField="name"
+    valueAsObject={true}
+    bind:value={selected}
+  />
+</div>
 
-<div class="rules">
+<div class="rule">
   {#if promise}
     {#await promise catch { message } }
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <Form rule={rulesByName[selected]} on:submit={handleSubmit} />
+  <Form rule={selected} on:submit={handleSubmit} />
 </div>
 
 <h3>Tester</h3>
@@ -150,12 +136,24 @@
 </div>
 
 <style lang="scss">
-  label {
+  .choose {
     display: block;
-    margin-block-end: var(--item-sep)
+    margin-block-end: var(--item-sep);
+
+    span {
+      margin-inline-end: 6px;
+    }
+
+    :global {
+      .svelecte-control {
+        display: inline-block;
+        vertical-align: middle;
+        inline-size: 25em;
+      }
+    }
   }
 
-  .rules {
+  .rule {
     :global {
       textarea {
         @include monospace;
