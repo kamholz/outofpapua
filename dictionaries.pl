@@ -39,7 +39,7 @@ our $dict = {
       [4, 'va', 'split'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 126)' => {
@@ -51,7 +51,7 @@ our $dict = {
       [3, 'headword'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 129)' => {
@@ -63,7 +63,7 @@ our $dict = {
       [3, 'headword'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 131)' => {
@@ -76,7 +76,7 @@ our $dict = {
       [4, 'va', 'split'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 133)' => {
@@ -88,7 +88,7 @@ our $dict = {
       [3, 'headword'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 429)' => {
@@ -101,8 +101,8 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [5, 'note'],
-      [0, 'note', 'item number:'],
+      [5, 'nt'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 430)' => {
@@ -115,8 +115,8 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [5, 'note'],
-      [0, 'note', 'item number:'],
+      [5, 'nt'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 431)' => {
@@ -129,7 +129,7 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 432)' => {
@@ -142,7 +142,7 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 464)' => {
@@ -155,7 +155,7 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 465)' => {
@@ -168,7 +168,7 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'pmy'],
-      [0, 'note', 'item number:'],
+      [0, 'nt', 'item number:'],
     ],
   },
   'Anceaux (nd 758)' => {
@@ -217,7 +217,7 @@ our $dict = {
       [0, 'headword'],
       [1, 'gloss', 'ind'],
       [2, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
     ],
   },
   'Berry & Berry (1987a)' => {
@@ -231,7 +231,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -249,7 +249,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -267,7 +267,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -285,7 +285,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -303,7 +303,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -321,7 +321,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -339,7 +339,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -357,7 +357,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -375,7 +375,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -393,7 +393,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
       [1, 'sd'],
-      [2, 'note', 'term number:'],
+      [2, 'nt', 'term number:'],
       [0, 'page_num'],
     ],
     split => '/',
@@ -485,7 +485,7 @@ our $dict = {
       [1, 'va'],
       [2, 'gloss', 'eng'],
       [3, 'pos'],
-      [5, 'note'],
+      [5, 'nt'],
       [4, 'page_num'],
     ],
     strip => 'to',
@@ -529,7 +529,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
       [[4 .. 6], 'example', ['ind', 'eng']],
-      [7, 'note'],
+      [7, 'nt'],
       [1, 'page_num'],
     ],
     multiple_example_rows => 1,
@@ -545,7 +545,7 @@ our $dict = {
       [3, 'gloss', 'nld'],
       [4, 'gloss', 'eng'],
       [5, 'gloss', 'ind'],
-      [6, 'note'],
+      [6, 'nt'],
     ],
     strip => 'to',
   },
@@ -560,7 +560,7 @@ our $dict = {
       [[4, 5], 'example', ['eng']],
       [[6, 7], 'example', ['eng']],
       [3, 'cf'],
-      [8, 'note'],
+      [8, 'nt'],
       [1, 'page_num'],
     ],
     strip => 'to',
@@ -591,8 +591,8 @@ our $dict = {
       [[4, 5], 'example', ['eng']],
       [[6, 7], 'example', ['eng']],
       [8, 'et'],
-      [9, 'note'],
-      [10, 'note', 'Voorhoeve (1982):'],
+      [9, 'nt'],
+      [10, 'nt', 'Voorhoeve (1982):'],
       [3, 'cf'],
       [1, 'page_num'],
     ],
@@ -608,8 +608,8 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [[4, 5], 'example', ['eng']],
       [6, 'et'],
-      [7, 'note'],
-      [8, 'note', 'Voorhoeve (1982):'],
+      [7, 'nt'],
+      [8, 'nt', 'Voorhoeve (1982):'],
       [3, 'cf'],
       [1, 'page_num'],
     ],
@@ -692,7 +692,7 @@ our $dict = {
       [4, 'gloss', 'eng'],
       [1, 'et'],
       [5, 'pd_sn'],
-      [7, 'note'],
+      [7, 'nt'],
       [6, 'page_num'],
     ],
     mode => 'sense_per_row',
@@ -708,8 +708,8 @@ our $dict = {
       [3, 'gloss', 'ind'],
       [4, 'examples', \&examples_flassy],
       [2, 'ng'],
-      [5, 'note'],
-      [6, 'note', 'dialect:'],
+      [5, 'nt'],
+      [6, 'nt', 'dialect:'],
       [7, 'cf'],
       [8, 'page_num'],
     ],
@@ -735,7 +735,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -749,7 +749,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -763,7 +763,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -778,7 +778,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => ['to'],
@@ -792,7 +792,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -806,7 +806,7 @@ our $dict = {
       [3, 'pos'],
       [2, 'gloss', 'eng'],
       [11, 'gloss', 'ind'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -834,7 +834,7 @@ our $dict = {
       [4, 'pos'],
       [3, 'gloss', 'eng'],
       [1, 'gloss', 'ind'],
-      [5, 'note'],
+      [5, 'nt'],
     ],
     split => ',/',
     strip => 'to',
@@ -847,8 +847,8 @@ our $dict = {
       [0, 'headword'],
       [1, 'pos'],
       [2, 'gloss', 'eng'],
-      [3, 'note', 'literally:'],
-      [4, 'note'],
+      [3, 'nt', 'literally:'],
+      [4, 'nt'],
       [5, 'et'],
     ],
   },
@@ -869,10 +869,11 @@ our $dict = {
       [1, 'pos'],
       [2, 'gloss', 'eng'],
       [3, 'ue'],
-      [6, 'note'],
+      [6, 'nt'],
       [7, 'et'],
       [5, 'cf'],
     ],
+    strip => 'to',
   },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
@@ -895,8 +896,8 @@ our $dict = {
       [3, 'headword'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [4, 'note'],
-      [0, 'note', 'number:'],
+      [4, 'nt'],
+      [0, 'nt', 'number:'],
     ],
     strip => 'to',
   },
@@ -908,8 +909,8 @@ our $dict = {
       [5, 'headword'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [6, 'note'],
-      [0, 'note', 'number:'],
+      [6, 'nt'],
+      [0, 'nt', 'number:'],
     ],
     strip => 'to',
   },
@@ -1054,7 +1055,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
       # [[4 .. 5], 'example', ['ind']],
-      [6, 'note'],
+      [6, 'nt'],
     ],
   },
   'Kijne (nd a)' => {
@@ -1123,7 +1124,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note']
+      [2, 'nt']
     ],
     split => ',',
   },
@@ -1137,7 +1138,7 @@ our $dict = {
       [0, 'gloss', 'ind'],
       [1, 'gloss', 'eng'],
       [6, 'page_num'],
-      [7, 'note'],
+      [7, 'nt'],
     ],
   },
   'Lobat (2017b)' => {
@@ -1150,7 +1151,7 @@ our $dict = {
       [0, 'gloss', 'ind'],
       [1, 'gloss', 'eng'],
       [6, 'page_num'],
-      [7, 'note'],
+      [7, 'nt'],
     ],
   },
   'Lunow (nd)' => {
@@ -1161,7 +1162,7 @@ our $dict = {
       [0, 'headword'],
       [1, 'va'],
       [2, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
       [4, 'page_num'],
     ],
     strip => 'to',
@@ -1175,7 +1176,7 @@ our $dict = {
       [1, 'va', 'split'],
       [2, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
-      [4, 'note'],
+      [4, 'nt'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -1216,7 +1217,7 @@ our $dict = {
       [7, 'pos'],
       [4, 'gloss', 'ind'],
       [6, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
       [8, 'page_num'],
     ],
     mode => 'sense_per_row',
@@ -1233,7 +1234,7 @@ our $dict = {
       [7, 'pos'],
       [4, 'gloss', 'ind'],
       [6, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
       [8, 'page_num'],
     ],
     mode => 'sense_per_row',
@@ -1250,7 +1251,7 @@ our $dict = {
       [7, 'pos'],
       [4, 'gloss', 'ind'],
       [6, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
       [8, 'page_num'],
     ],
     mode => 'sense_per_row',
@@ -1272,7 +1273,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
       [[3 .. 5 ], 'example', ['ind', 'eng']],
-      [6, 'note'],
+      [6, 'nt'],
     ],
     multiple_example_rows => 1,
     strip => ['the','to'],
@@ -1315,7 +1316,7 @@ our $dict = {
       [5, 'ph'],
       [8, 'gloss', 'eng'],
       [1, 'gloss', 'ind'],
-      [10, 'note'],
+      [10, 'nt'],
       [2, 'so'],
       [9, 'page_num'],
     ],
@@ -1335,7 +1336,7 @@ our $dict = {
       [0, 'headword'],
       [2, 'va'],
       [1, 'gloss', 'eng'],
-      [3, 'note'],
+      [3, 'nt'],
       [4, 'cf'],
     ],
   },
@@ -2246,7 +2247,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit f.2)' => {
@@ -2257,7 +2258,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit f.1)' => {
@@ -2268,7 +2269,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.9)' => {
@@ -2279,7 +2280,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.8)' => {
@@ -2290,7 +2291,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.6)' => {
@@ -2301,7 +2302,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.7)' => {
@@ -2312,7 +2313,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.4)' => {
@@ -2323,7 +2324,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.5)' => {
@@ -2334,7 +2335,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.3)' => {
@@ -2345,7 +2346,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.14)' => {
@@ -2356,7 +2357,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.2)' => {
@@ -2367,7 +2368,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.13)' => {
@@ -2378,7 +2379,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.12)' => {
@@ -2389,7 +2390,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.10)' => {
@@ -2400,7 +2401,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.11)' => {
@@ -2411,7 +2412,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit d.1)' => {
@@ -2422,7 +2423,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit c)' => {
@@ -2433,7 +2434,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit j)' => {
@@ -2444,7 +2445,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit a)' => {
@@ -2455,7 +2456,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.7)' => {
@@ -2466,7 +2467,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.6)' => {
@@ -2477,7 +2478,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.5)' => {
@@ -2488,7 +2489,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.4)' => {
@@ -2499,7 +2500,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.3)' => {
@@ -2510,7 +2511,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.2)' => {
@@ -2521,7 +2522,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit e.1)' => {
@@ -2532,7 +2533,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit h.2)' => {
@@ -2543,7 +2544,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit h.1)' => {
@@ -2554,7 +2555,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit b)' => {
@@ -2565,7 +2566,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit i.2)' => {
@@ -2576,7 +2577,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit i.1)' => {
@@ -2587,7 +2588,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit g.1)' => {
@@ -2598,7 +2599,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Tehit g.2)' => {
@@ -2609,7 +2610,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Seget)' => {
@@ -2620,7 +2621,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moraid)' => {
@@ -2631,7 +2632,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi c)' => {
@@ -2642,7 +2643,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi d)' => {
@@ -2653,7 +2654,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi a)' => {
@@ -2664,7 +2665,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi b)' => {
@@ -2675,7 +2676,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi e.4)' => {
@@ -2686,7 +2687,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi e.3)' => {
@@ -2697,7 +2698,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Moi e.1)' => {
@@ -2708,7 +2709,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Kalabra e.1)' => {
@@ -2719,7 +2720,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Kalabra a)' => {
@@ -2730,7 +2731,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Kalabra b.1)' => {
@@ -2741,7 +2742,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Kalabra b.2)' => {
@@ -2752,7 +2753,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note'],
+      [2, 'nt'],
     ],
   },
   'Smits & Voorhoeve (1998 Wooi)' => {
@@ -3015,11 +3016,11 @@ our $dict = {
       [0, 'headword'],
       [2, 'gloss', 'eng'],
       [3, 'gloss', 'nld'],
-      [1, 'note', 'term number:'],
+      [1, 'nt', 'term number:'],
       [4, 'pd_sn'],
       [[5 .. 6], 'example', ['eng']],
-      [7, 'note', 'example number:'],
-      [8, 'note'],
+      [7, 'nt', 'example number:'],
+      [8, 'nt'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -3033,8 +3034,8 @@ our $dict = {
       [0, 'headword'],
       [3, 'gloss', 'eng'],
       [1, 'pd_sn'],
-      [2, 'note', 'number:'],
-      [4, 'note'],
+      [2, 'nt', 'number:'],
+      [4, 'nt'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -3047,8 +3048,8 @@ our $dict = {
       [0, 'headword'],
       [3, 'gloss', 'eng'],
       [1, 'pd_sn'],
-      [2, 'note', 'number:'],
-      [4, 'note'],
+      [2, 'nt', 'number:'],
+      [4, 'nt'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -3061,8 +3062,8 @@ our $dict = {
       [0, 'headword'],
       [2, 'gloss', 'eng'],
       [[3 .. 4], 'example', ['eng']],
-      [3, 'note', 'number:'],
-      [5, 'note'],
+      [3, 'nt', 'number:'],
+      [5, 'nt'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -3092,7 +3093,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [6, 'sc'],
       [9, 'lt'],
-      [2, 'note'],
+      [2, 'nt'],
       [5, 'cf', 'split'],
       [[7 .. 8], 'example', ['eng']],
       [4, 'page_hum'],
@@ -3109,7 +3110,7 @@ our $dict = {
       [1, 'va'],
       [2, 'gloss', 'eng'],
       [3, 'cf', 'split'],
-      [4, 'note'],
+      [4, 'nt'],
       [12, 'sc'],
       [13, 'page_num'],
     ],
@@ -3123,8 +3124,8 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'note_sn'],
-      [3, 'note_sn', 'page'],
+      [2, 'nt_sn'],
+      [3, 'nt_sn', 'page'],
     ],
     mode => 'sense_per_row',
     split => ';',
@@ -3174,7 +3175,7 @@ our $dict = {
       [2, 'headword'],
       [0, 'gloss', 'eng'],
       [1, 'gloss', 'ind'],
-      [3, 'note'],
+      [3, 'nt'],
     ],
     split => '/',
   },
@@ -3367,7 +3368,7 @@ our $dict = {
       [2, 'headword'],
       [0, 'gloss', 'eng'],
       [1, 'gloss', 'ind'],
-      [3, 'note'],
+      [3, 'nt'],
     ],
     split => '/',
   },
@@ -3390,10 +3391,10 @@ our $dict = {
     columns => [
       [12, 'headword'],
       [11, 'ph'],
-      [0, 'note', 'concept number:'],
+      [0, 'nt', 'concept number:'],
       [4, 'gloss', 'eng'],
       [5, 'gloss', 'ind'],
-      [13, 'note'],
+      [13, 'nt'],
     ],
     strip => 'to',
   },
@@ -3404,6 +3405,7 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
     strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'van Staden (nd)' => {
     lang_target => 'tvo',
@@ -3439,9 +3441,9 @@ our $dict = {
       [0, 'subentry'],
       [1, 'headword'],
       [5, 'va', 'split'],
-      [4, 'note', 'root:'],
-      [2, 'note', 'register:'],
-      [3, 'note', 'taboo substitute for:'],
+      [4, 'nt', 'root:'],
+      [2, 'nt', 'register:'],
+      [3, 'nt', 'taboo substitute for:'],
       [8, 'gloss', 'ind'],
       [9, 'gloss', 'max'],
       [10, 'gloss', 'eng'],
@@ -3453,7 +3455,7 @@ our $dict = {
       [[28 .. 30], 'example', ['ind', 'eng']],
       [[31 .. 33], 'example', ['ind', 'eng']],
       [[34 .. 36], 'example', ['ind', 'eng']],
-      [37, 'note'],
+      [37, 'nt'],
       [6, 'cf', 'split'],
       [7, 'page_num'],
     ],
@@ -3505,8 +3507,8 @@ our $dict = {
       [[7, 8], 'example', ['eng']],
       [[9, 10], 'example', ['eng']],
       [11, 'et'],
-      [2, 'note', 'register:'],
-      [12, 'note'],
+      [2, 'nt', 'register:'],
+      [12, 'nt'],
     ],
     strip => 'to',
 
@@ -3525,8 +3527,8 @@ our $dict = {
       [[7, 8], 'example', ['eng']],
       [[9, 10], 'example', ['eng']],
       [11, 'et'],
-      [2, 'note', 'register:'],
-      [12, 'note'],
+      [2, 'nt', 'register:'],
+      [12, 'nt'],
     ],
     strip => 'to',
 
@@ -3545,8 +3547,8 @@ our $dict = {
       [[7, 8], 'example', ['eng']],
       [[9, 10], 'example', ['eng']],
       [11, 'et'],
-      [2, 'note', 'register:'],
-      [12, 'note'],
+      [2, 'nt', 'register:'],
+      [12, 'nt'],
     ],
     split => ';',
     strip => 'to',
@@ -3624,7 +3626,7 @@ our $dict = {
       [7, 'headword'],
       [8, 'va', 'split'],
       [0, 'gloss', 'eng'],
-      [9, 'note'],
+      [9, 'nt'],
     ],
   },
   'Voorhoeve (nd Maybrat e)' => {
@@ -3635,7 +3637,7 @@ our $dict = {
       [10, 'headword'],
       [11, 'va', 'split'],
       [0, 'gloss', 'eng'],
-      [12, 'note'],
+      [12, 'nt'],
     ],
   },
   'Vries (2004a)' => {
@@ -3681,7 +3683,7 @@ our $dict = {
       [3, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3694,7 +3696,7 @@ our $dict = {
       [4, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3707,7 +3709,7 @@ our $dict = {
       [5, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3720,7 +3722,7 @@ our $dict = {
       [6, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3733,7 +3735,7 @@ our $dict = {
       [7, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3746,7 +3748,7 @@ our $dict = {
       [8, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3759,7 +3761,7 @@ our $dict = {
       [9, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3772,7 +3774,7 @@ our $dict = {
       [10, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3785,7 +3787,7 @@ our $dict = {
       [11, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3798,7 +3800,7 @@ our $dict = {
       [12, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3811,7 +3813,7 @@ our $dict = {
       [13, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3824,7 +3826,7 @@ our $dict = {
       [14, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [0, 'note', 'AA/Ht:'],
+      [0, 'nt', 'AA/Ht:'],
     ],
     split => ',;',
     split_headword => ',;',
@@ -3837,7 +3839,7 @@ our $dict = {
       [0, 'headword'],
       [2, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
-      [4, 'note'],
+      [4, 'nt'],
       [1, 'page_num'],
     ],
     mode => 'sense_per_row',
@@ -3852,7 +3854,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [[4 .. 5], 'example', ['eng']],
       [2, 'et'],
-      [3, 'note'],
+      [3, 'nt'],
       [6, 'page_num'],
     ],
     strip => 'to',

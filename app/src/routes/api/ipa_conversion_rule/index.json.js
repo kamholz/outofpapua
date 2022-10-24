@@ -3,7 +3,7 @@ import { allowedCreateUpdate } from './_params';
 import { arrayCmp, knex, sendPgError } from '$lib/db';
 import { getFilteredParams, normalizeQuery, parseArrayParams } from '$lib/util';
 import { pageMax } from '$lib/preferences';
-import { requireAdmin } from '$lib/auth';
+import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['names', 'type']);
 const arrayParams = new Set(['names']);
@@ -45,7 +45,7 @@ export async function get({ url: { searchParams } }) {
 
 const required = new Set(['name']);
 
-export const post = requireAdmin(async ({ request }) => {
+export const post = requireAuth(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowedCreateUpdate);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };

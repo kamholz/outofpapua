@@ -323,10 +323,10 @@ sub _normalize_gloss {
   $txt =~ s/(?<=\S)_(?=\S)/ /g; # remove underscore between words
   $txt =~ s/(?:^| )\K([^.]\S+[^.])(?= |$)/$1 =~ s{(?<=\w)\.(?=\w)}{ }gr/ge; # remove dot between words
   $txt =~ s/^[=?] //;
-  $txt =~ s/^(?:be|\(be\)|to be|\(to be\)|a|\(a\)|an|\(an\)|the|\(the\)) //;
+  $txt =~ s/^(?:be|\(be\)|to be|\(to be\)|a|\(a\)|an|\(an\)|the|\(the\)) (?=\w)//;
 
   if ($strip) {
-    $txt =~ s/^\Q$_\E // for @$strip;
+    $txt =~ s/^\Q$_\E (?=\w)// for @$strip;
   }
 
   return $txt;

@@ -65,7 +65,7 @@
       .suggest {
         display: grid;
         grid-template-columns: 35% 65%;
-        gap: 6px;
+        gap: 18px;
       }
     }
   }

@@ -188,14 +188,11 @@ sub read_entries {
           }
         }
         push @{$entry->{sense}[-1]{example}}, $example;
-      } elsif ($type eq 'note') {
-        my @values = split /\n/, $value;
-        push(@{$entry->{record}}, ['nt', $arg ? "$arg $_" : $_]) for @values;
-      } elsif ($type eq 'note_sn') {
-        my @values = split /\n/, $value;
-        push(@{$entry->{record}}, ['nt_sn', $arg ? "$arg $_" : $_]) for @values;
       } elsif ($type =~ /^[a-z]{2}(?:_[a-z]{2})?$/) {
         my @values = $arg && $arg eq 'split' ? split(/ *; */, $value) : split(/\n/, $value);
+        if ($arg and $arg ne 'split') {
+          @values = map { "$arg $_" } @values;
+        }
         push(@{$entry->{record}}, [$type, $_]) for @values;
       }
     }

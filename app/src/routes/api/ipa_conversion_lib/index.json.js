@@ -2,9 +2,9 @@ import errors from '$lib/errors';
 import { allowed } from './_params';
 import { getFilteredParams } from '$lib/util';
 import { knex, sendPgError } from '$lib/db';
-import { requireAdmin } from '$lib/auth';
+import { requireAuth } from '$lib/auth';
 
-export const get = requireAdmin(async () => {
+export const get = requireAuth(async () => {
   const q = knex('ipa_conversion_lib as icl')
     .select(
       'icl.name',
@@ -21,7 +21,7 @@ export const get = requireAdmin(async () => {
 
 const required = new Set(['name']);
 
-export const post = requireAdmin(async ({ request }) => {
+export const post = requireAuth(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return { status: 400, body: { error: errors.missing } };

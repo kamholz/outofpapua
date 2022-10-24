@@ -20,7 +20,11 @@ use Lexicon::Parser::Spreadsheet;
 binmode STDOUT, ':encoding(utf-8)';
 binmode STDERR, ':encoding(utf-8)';
 
-eval {
+local $Data::Dumper::Terse = 1;
+local $Data::Dumper::Sortkeys = 1;
+local $Data::Dumper::Useperl = 1;
+
+eval { # silently fail if not present
   Dotenv->load('app/.env');
 };
 
