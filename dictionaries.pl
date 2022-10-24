@@ -3067,6 +3067,21 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Stokhof (1980e)' => {
+    lang_target => 'loa',
+    path => 'Loda 80 (x969).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'nld'],
+      [1, 'note', 'number'],
+      [[4 .. 5], 'example', ['eng']], 
+      [6, 'note', 'example number:'],
+      [7, 'note'],
+    ],
+    split => ';',
+  },
   'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
