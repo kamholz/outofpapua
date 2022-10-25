@@ -1278,6 +1278,19 @@ our $dict = {
     multiple_example_rows => 1,
     strip => ['the','to'],
   },
+  'Pikkert et al. (1994)' => {
+    lang_target => 'tvo',
+    path => 'Pikkert, al 1994 - Tidore.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    split => ';',
+  },
   'Price (2021)' => {
     lang_target => 'amk',
     path => 'Ambai Lexicon.db',
