@@ -3384,6 +3384,20 @@ our $dict = {
     ],
     split => '/',
   },
+  'van Baarda (1904)' => {
+    lang_target => 'loa',
+    path => 'van Baarda 1904 - Loloda.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [4, 'et'],
+      [5, 'nt'],
+      [1, 'page_num'],
+    ],
+    split => ';',
+  },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',
     path => 'Biak-LexiRumah_20191107.xlsx',
