@@ -2,6 +2,50 @@ use v5.14;
 use utf8;
 
 our $dict = {
+  'Adriani & Kruijt (1914a)' => {
+    lang_target => 'mky',
+    path => 'Adriani, Kruijt 1914.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [0, 'nt', 'number:'],
+    ],
+  },
+   'Adriani & Kruijt (1914b)' => {
+    lang_target => 'bzq',
+    path => 'Adriani, Kruijt 1914.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [0, 'nt', 'number:'],
+    ],
+  },
+   'Adriani & Kruijt (1914c)' => {
+    lang_target => 'szw',
+    path => 'Adriani, Kruijt 1914.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [0, 'nt', 'number:'],
+    ],
+  },
+    'Adriani & Kruijt (1914d)' => {
+    lang_target => 'gzn',
+    path => 'Adriani, Kruijt 1914.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [0, 'nt', 'number:'],
+    ],
+  },
   'Ajamiseba et al. (1989)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Mai Brat Vocabulary.xlsx',
