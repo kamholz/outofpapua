@@ -926,6 +926,19 @@ our $dict = {
     lang_national => 'id',
     split_heuristic => ',',
   },
+  'Henning & Henning (1991)' => {
+    lang_target => 'wad',
+    path => 'Wandamen_List.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    split => ';',
+  },
   'Hesse & Hesse (2021)' => {
     lang_target => 'Tehit Imian',
     path => 'Tehit Hesse.txt',
