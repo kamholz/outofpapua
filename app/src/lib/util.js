@@ -177,7 +177,7 @@ export function adminNotSelf(loggedInUser, userId) {
 }
 
 export function adminOrSelf(loggedInUser, userId) {
-  return isAdmin(loggedInUser.role) || loggedInUser.id == userId; // eslint-disable-line eqeqeq
+  return isAdmin(loggedInUser) || loggedInUser.id == userId; // eslint-disable-line eqeqeq
 }
 
 export function isAdmin(loggedInUser) {
