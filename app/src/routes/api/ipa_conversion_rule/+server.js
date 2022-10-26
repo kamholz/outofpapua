@@ -4,7 +4,7 @@ import { arrayCmp, knex, pgError } from '$lib/db';
 import { getFilteredParams, jsonError, normalizeQuery, parseArrayParams } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { pageMax } from '$lib/preferences';
-import { requireAuth } from '$lib/auth';
+import { requireEditor } from '$lib/auth';
 
 const allowed = new Set(['names', 'type']);
 const arrayParams = new Set(['names']);
@@ -42,7 +42,7 @@ export async function GET({ url: { searchParams } }) {
 
 const required = new Set(['name']);
 
-export const POST = requireAuth(async ({ request }) => {
+export const POST = requireEditor(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowedCreateUpdate);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return jsonError(errors.missing);

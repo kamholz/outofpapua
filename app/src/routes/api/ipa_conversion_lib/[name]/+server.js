@@ -3,9 +3,9 @@ import { allowed } from '../params';
 import { getFilteredParams, jsonError } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { knex, pgError } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireEditor } from '$lib/auth';
 
-export const PUT = requireAuth(async ({ params, request }) => {
+export const PUT = requireEditor(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errors.noUpdatable);
@@ -23,7 +23,7 @@ export const PUT = requireAuth(async ({ params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ params }) => {
+export const DELETE = requireEditor(async ({ params }) => {
   try {
     const names = await knex.transaction((trx) =>
       trx('ipa_conversion_lib')

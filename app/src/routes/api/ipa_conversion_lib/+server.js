@@ -3,9 +3,9 @@ import { allowed } from './params';
 import { getFilteredParams, jsonError } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { knex, pgError } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireEditor } from '$lib/auth';
 
-export const GET = requireAuth(async () => {
+export const GET = requireEditor(async () => {
   const q = knex('ipa_conversion_lib as icl')
     .select(
       'icl.name',
@@ -18,7 +18,7 @@ export const GET = requireAuth(async () => {
 
 const required = new Set(['name']);
 
-export const POST = requireAuth(async ({ request }) => {
+export const POST = requireEditor(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return jsonError(errors.missing);
