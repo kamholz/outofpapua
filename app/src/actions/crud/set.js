@@ -48,7 +48,7 @@ export async function linkSets(set, newSetId) {
 }
 
 export async function merge({ id, set_ids }) {
-  const res = await fetch(`/api/set/${id}/merge.json`, {
+  const res = await fetch(`/api/set/${id}/merge`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

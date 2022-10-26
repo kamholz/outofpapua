@@ -2,9 +2,9 @@
   import { getPreferences } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let session;
-  setContext('editable', Boolean(session.user));
-  setContext('preferences', getPreferences(session));
+  export let data;
+  setContext('editable', Boolean(data.user));
+  setContext('preferences', getPreferences(data));
 </script>
 
 <slot />

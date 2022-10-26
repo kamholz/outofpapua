@@ -21,7 +21,7 @@
 
   async function fetchSet() {
     if (!set) {
-      const res = await fetch(`/api/set/${id}.json`);
+      const res = await fetch(`/api/set/${id}`);
       if (res.ok) {
         $cache[id] = await res.json();
       }
@@ -31,7 +31,7 @@
 
 <a
   href="/sets/{id}"
-  sveltekit:prefetch
+  data-sveltekit-prefetch
   use:popoverTrigger={popover}
 >
   <slot>

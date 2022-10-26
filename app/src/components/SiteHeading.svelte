@@ -1,13 +1,13 @@
 <script>
   import Login from '$components/Login.svelte';
-  import { session } from '$app/stores';
+  import { page } from '$app/stores';
 
   const title = 'OUTOFPAPUA database: Lexicons of the West Papuan language area';
 </script>
 
 <div>
   <h1>{title}</h1>
-  <Login username={$session.user?.username} />
+  <Login username={$page.data.user?.username} />
 </div>
 
 <style lang="scss">

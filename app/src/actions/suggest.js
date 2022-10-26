@@ -1,12 +1,12 @@
 import { glossesSummary, serializeArrayParam } from '$lib/util';
 
 export async function lang(fetch) {
-  const res = await fetch('/api/language.json');
+  const res = await fetch('/api/language');
   return res.ok ? (await res.json()).rows : null;
 }
 
 export async function langPlus(fetch) {
-  const res = await fetch('/api/language.json?category=descendants');
+  const res = await fetch('/api/language?category=descendants');
   if (!res.ok) {
     return null;
   }
@@ -25,22 +25,22 @@ export async function langPlus(fetch) {
 }
 
 export async function protolang(fetch) {
-  const res = await fetch('/api/language.json?category=proto');
+  const res = await fetch('/api/language?category=proto');
   return res.ok ? (await res.json()).rows : null;
 }
 
 export async function glosslang(fetch) {
-  const res = await fetch('/api/language.json?category=gloss');
+  const res = await fetch('/api/language?category=gloss');
   return res.ok ? (await res.json()).rows : null;
 }
 
 export async function borrowlang(fetch) {
-  const res = await fetch('/api/language.json?category=borrow');
+  const res = await fetch('/api/language?category=borrow');
   return res.ok ? (await res.json()).rows : null;
 }
 
 export async function source(fetch) {
-  const res = await fetch('/api/source.json?sort=language');
+  const res = await fetch('/api/source?sort=language');
   if (!res.ok) {
     return null;
   }
@@ -49,7 +49,7 @@ export async function source(fetch) {
 }
 
 export async function editableSource(fetch) {
-  const res = await fetch('/api/source.json?category=editable&sort=language');
+  const res = await fetch('/api/source?category=editable&sort=language');
   if (!res.ok) {
     return null;
   }
@@ -65,7 +65,7 @@ export async function set({ entry_id, search, set_id }) {
   if (set_id) {
     params.set('id', set_id);
   }
-  const res = await fetch('/api/set/suggest.json?' + params);
+  const res = await fetch('/api/set/suggest?' + params);
   if (!res.ok) {
     return null;
   }
@@ -73,7 +73,7 @@ export async function set({ entry_id, search, set_id }) {
 }
 
 export async function setAuthor(fetch) {
-  const res = await fetch('/api/set/author.json');
+  const res = await fetch('/api/set/author');
   if (!res.ok) {
     return null;
   }
@@ -95,7 +95,7 @@ export async function setMember({ entry_id, languages, linked, match, search, se
   if (linked) {
     params.set('linked', 1);
   }
-  const res = await fetch('/api/entry/suggest.json?' + params);
+  const res = await fetch('/api/entry/suggest?' + params);
   if (!res.ok) {
     return null;
   }
@@ -107,6 +107,6 @@ export async function setMember({ entry_id, languages, linked, match, search, se
 }
 
 export async function ipaConversionRule(fetch) {
-  const res = await fetch('/api/ipa_conversion_rule.json');
+  const res = await fetch('/api/ipa_conversion_rule');
   return res.ok ? (await res.json()).rows : null;
 }

@@ -7,6 +7,6 @@
   export let scale;
 </script>
 
-<a href={control.link(row)} title="View" sveltekit:prefetch>
+<a href={control.link(row)} title="View" data-sveltekit-prefetch>
   <Icon data={faExternalLinkSquareAlt} {scale} />
 </a>

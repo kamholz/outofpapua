@@ -1,7 +1,7 @@
 import { checkError } from '$lib/util';
 
 export async function create({ entry_id, values }) {
-  const res = await fetch(`/api/entry/${entry_id}/sense.json`, {
+  const res = await fetch(`/api/entry/${entry_id}/sense`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -12,7 +12,7 @@ export async function create({ entry_id, values }) {
 }
 
 export async function update({ entry_id, sense_id, values }) {
-  const res = await fetch(`/api/entry/${entry_id}/sense/${sense_id}.json`, {
+  const res = await fetch(`/api/entry/${entry_id}/sense/${sense_id}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
@@ -22,8 +22,8 @@ export async function update({ entry_id, sense_id, values }) {
   await checkError(res, 'Could not update sense');
 }
 
-export async function del({ entry_id, sense_id }) {
-  const res = await fetch(`/api/entry/${entry_id}/sense/${sense_id}.json`, {
+export async function DELETE({ entry_id, sense_id }) {
+  const res = await fetch(`/api/entry/${entry_id}/sense/${sense_id}`, {
     method: 'DELETE',
   });
   await checkError(res, 'Could not delete sense');

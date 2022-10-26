@@ -1,0 +1,48 @@
+import errors from '$lib/errors';
+import { arrayCmp, jsonError, knex, pgError } from '$lib/db';
+import { error } from '@sveltejs/kit';
+import { getFilteredParams, isIdArray } from '$lib/util';
+import { requireAuth } from '$lib/auth';
+
+const allowed = new Set(['set_ids']);
+const required = new Set(['set_ids']);
+
+export const POST = requireAuth(async ({ params, request }) => {
+  const updateParams = getFilteredParams(await request.json(), allowed);
+  if (Object.keys(updateParams).length !== required.size) {
+    return jsonError(errors.missing);
+  }
+  if (!isIdArray(updateParams.set_ids)) {
+    return jsonError('"set_ids" parameter must be an array of set ids');
+  }
+  try {
+    let found = false;
+    await knex.transaction(async (trx) => {
+      const set = await trx('set').first('note').where('id', params.id);
+      if (set) {
+        found = true;
+
+        const notes = [
+          set.note,
+          ...await trx('set').pluck('note').where('id', arrayCmp(updateParams.set_ids)),
+        ].filter((v) => v !== null);
+        const note = notes.length ? notes.join('\n\n') : null;
+        if (note !== set.note) {
+          await trx('set').update({ note }).where('id', params.id);
+        }
+
+        return trx('set_member')
+          .update({ set_id: params.id })
+          .where('set_id', arrayCmp(updateParams.set_ids));
+      }
+    });
+    if (found) {
+      return new Response(null);
+    } else {
+      throw error(400);
+    }
+  } catch (e) {
+    console.log(e);
+    return pgError(e);
+  }
+});

@@ -18,7 +18,7 @@ export function get(type, ...args) {
 
 export function makeCreater(type) {
   return async function (values) {
-    const res = await fetch(`/api/${type}.json`, {
+    const res = await fetch(`/api/${type}`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -36,7 +36,7 @@ export function create(type, ...args) {
 
 export function makeUpdater(type) {
   return async function ({ id, values }) {
-    const res = await fetch(`/api/${type}/${id}.json`, {
+    const res = await fetch(`/api/${type}/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -62,7 +62,7 @@ export function updateFromCell(type) {
 
 export function makeDeleter(type) {
   return async function (id) {
-    const res = await fetch(`/api/${type}/${id}.json`, {
+    const res = await fetch(`/api/${type}/${id}`, {
       method: 'DELETE',
     });
     await checkError(res, 'Could not delete');

@@ -5,7 +5,7 @@ export function boolean(value) {
 }
 
 export function isId(param) {
-  return param.match(/^[1-9][0-9]*$/);
+  return /^[1-9][0-9]*$/.test(param);
 }
 
 export function isIdArray(param) {
@@ -369,4 +369,13 @@ export function toolboxMarkup(text) {
   function wrapEm(_, p1) {
     return `<em>${p1}</em>`;
   }
+}
+
+export function jsonError(error) {
+  return new Response(JSON.stringify({ error }), {
+    status: 400,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
 }

@@ -1,5 +1,6 @@
 import { checkError } from '$lib/util';
-import { session } from '$app/stores';
+import { error } from '@sveltejs/kit';
+import { page } from '$app/stores';
 
 export async function login(username, password) {
   const res = await fetch('/auth/login', {
@@ -12,7 +13,7 @@ export async function login(username, password) {
 
   if (res.ok) {
     const { user } = await res.json();
-    session.update((v) => ({ ...v, user }));
+    return user;
   } else {
     throw new Error('login failed');
   }
@@ -20,18 +21,17 @@ export async function login(username, password) {
 
 export async function logout() {
   const res = await fetch('/auth/logout');
-  if (res.ok) {
-    session.update((v) => ({ ...v, user: null }));
-  } else {
+  if (!res.ok) {
     throw new Error('logout error');
   }
 }
 
 export function requireAuthLoad(handler) {
   handler = handler ?? (() => ({}));
-  return (req) => {
-    if (!req.session.user) {
-      return { status: 401 };
+  return async (req) => {
+    const { user } = await req.parent();
+    if (!user) {
+      throw error(401);
     }
     return handler(req);
   };
@@ -39,9 +39,10 @@ export function requireAuthLoad(handler) {
 
 export function requireAdminLoad(handler) {
   handler = handler ?? (() => ({}));
-  return (req) => {
-    if (!req.session.user?.admin) {
-      return { status: 401 };
+  return async (req) => {
+    const { user } = await req.parent();
+    if (!user?.admin) {
+      throw error(401);
     }
     return handler(req);
   };
@@ -51,7 +52,7 @@ export async function updatePassword(userId, values) {
   if (values.current_password === undefined) {
     delete values.current_password;
   }
-  const res = await fetch(`/api/user/${userId}.password.json`, {
+  const res = await fetch(`/api/user/${userId}-password`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',

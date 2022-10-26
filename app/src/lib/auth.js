@@ -1,6 +1,7 @@
 import config from '$config';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
+import { error, redirect } from '@sveltejs/kit';
 import { knex } from '$lib/db';
 
 export async function getUser(userId) {
@@ -113,18 +114,18 @@ function makeExpiredCookie(name) {
 }
 
 export function redirectToRefresh(url) {
-  return {
+  return new Response(null, {
     status: 302,
     headers: {
       location: '/auth/refresh?' + new URLSearchParams({ redirect: url }),
     },
-  };
+  });
 }
 
 export function requireAuth(handler) {
   return (req) => {
     if (!req.locals.user) {
-      return { status: 401 };
+      throw error(401);
     }
     return handler(req);
   };
@@ -133,7 +134,7 @@ export function requireAuth(handler) {
 export function requireAdmin(handler) {
   return (req) => {
     if (!req.locals.user?.admin) {
-      return { status: 401 };
+      throw error(401);
     }
     return handler(req);
   };
@@ -142,7 +143,7 @@ export function requireAdmin(handler) {
 export function requireComparative(handler) {
   return (req) => {
     if (req.locals.hideComparative) {
-      return { status: 401 };
+      throw error(401);
     }
     return handler(req);
   };

@@ -1,6 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
-import { mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
+import { jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({
@@ -211,8 +211,8 @@ export async function getLanguageIds(param) {
 
 // error handling
 
-export function sendPgError(e) {
-  return { status: 400, body: { error: formatPgError(e) } };
+export function pgError(e) {
+  return jsonError(formatPgError(e));
 }
 
 function formatPgError(e) {

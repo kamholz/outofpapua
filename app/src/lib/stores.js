@@ -1,18 +1,18 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { cookieStorage, persist } from 'svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
 import { derived, readable, writable } from 'svelte/store';
-import { session } from '$app/stores';
+import { page } from '$app/stores';
 import { showPublicOnly } from '$lib/util';
 
-export const hideComparative = derived(session, ($session) => $session.hideComparative && showPublicOnly($session));
+export const hideComparative = derived(page, ($page) => $page.data.hideComparative && showPublicOnly($page.data));
 export const modal = writable(null);
 export const pageLoading = writable(0);
 export const setSummaryCache = writable({});
 
-export function getPreferences(session) {
-  if (session.user) {
-    const preferences = writable(session.preferences);
+export function getPreferences(data) {
+  if (data.user) {
+    const preferences = writable(data.preferences);
     return {
       subscribe: preferences.subscribe,
       set: ($preferences) => {
@@ -34,12 +34,12 @@ export function getPreferences(session) {
       delete: preferences.delete,
     };
   } else {
-    return readable({ ...defaultPreferences, ...session.preferences });
+    return readable({ ...defaultPreferences, ...data.preferences });
   }
 }
 
 function syncPreferences($preferences) {
-  return fetch('/api/user/preferences.json', {
+  return fetch('/api/user/preferences', {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',

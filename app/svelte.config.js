@@ -1,5 +1,4 @@
 import node from '@sveltejs/adapter-node';
-import path from 'path';
 import sveltePreprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -20,16 +19,6 @@ const config = {
 
     prerender: {
       enabled: false,
-    },
-
-    vite: {
-      resolve: {
-        alias: {
-          $actions: path.resolve('./src/actions'),
-          $components: path.resolve('./src/components'),
-          $config: path.resolve('./src/config'),
-        },
-      },
     },
   },
 };
