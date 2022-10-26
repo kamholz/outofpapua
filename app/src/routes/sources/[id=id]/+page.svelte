@@ -1,14 +1,18 @@
 <script>
-  import EditSourceForm from './EditForm.svelte';
+  import EditForm from './EditForm.svelte';
   import { page } from '$app/stores';
   import { setContext } from 'svelte';
 
   export let data;
   $: ({ source } = data);
   const {
+    langSuggest,
     protolangSuggest,
     ipaConversionRuleSuggest,
   } = data;
+  if (langSuggest) {
+    setContext('langSuggest', langSuggest);
+  }
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
@@ -30,7 +34,7 @@
 </svelte:head>
 
 <h3>Source: {source.reference}</h3>
-<EditSourceForm {source} />
+<EditForm {source} />
 
 <div>
   <a href="/sources/{source.id}/entries">View Entries</a>

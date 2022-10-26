@@ -1,7 +1,7 @@
 import errors from '$lib/errors';
-import { allowed, allowedAdmin, nfc, required } from './params';
+import { allowed, allowedEditor, nfc, required } from './params';
 import { applySortParams, filterPublicSources, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, isAdmin, jsonError, normalizeQuery, parseBooleanParams,
+import { ensureNfcParams, getFilteredParams, isEditor, jsonError, normalizeQuery, parseBooleanParams,
   stripParams } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { requireAuth } from '$lib/auth';
@@ -62,7 +62,7 @@ export async function GET({ locals, url: { searchParams } }) {
 }
 
 export const POST = requireAuth(async ({ locals, request }) => {
-  const params = getFilteredParams(await request.json(), isAdmin(locals.user) ? allowedAdmin : allowed);
+  const params = getFilteredParams(await request.json(), isEditor(locals.user) ? allowedEditor : allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return jsonError(errors.missing);
   }

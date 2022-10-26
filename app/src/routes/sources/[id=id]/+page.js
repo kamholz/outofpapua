@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { isAdmin } from '$lib/util';
+import { isEditor } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
 export async function load({ fetch, params, parent }) {
@@ -17,9 +17,10 @@ export async function load({ fetch, params, parent }) {
         throw error(500);
       }
     }
-    if (isAdmin(user)) {
+    if (isEditor(user)) {
       data.ipaConversionRuleSuggest = await suggest.ipaConversionRule(fetch);
-      if (!data.ipaConversionRuleSuggest) {
+      data.langSuggest = await suggest.lang(fetch);
+      if (!(data.ipaConversionRuleSuggest || data.langSuggest)) {
         throw error(500);
       }
     }

@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
-import { allowed, allowedAdmin, nfc } from '../params';
-import { ensureNfcParams, getFilteredParams, isAdmin, jsonError } from '$lib/util';
+import { allowed, allowedEditor, nfc } from '../params';
+import { ensureNfcParams, getFilteredParams, isEditor, jsonError } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { filterPublicSources, knex, pgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
@@ -37,12 +37,28 @@ export async function GET({ locals, params }) {
 }
 
 export const PUT = requireAuth(async ({ locals, params, request }) => {
-  const updateParams = getFilteredParams(await request.json(), isAdmin(locals.user) ? allowedAdmin : allowed);
+  const updateParams = getFilteredParams(await request.json(), isEditor(locals.user) ? allowedEditor : allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errors.noUpdatable);
   }
   ensureNfcParams(params, nfc);
   try {
+    if ('language_id' in updateParams && !isEditor(locals.user)) {
+      const editable = await knex('source')
+        .where('id', params.id)
+        .whereRaw('editable')
+        .first('id');
+      if (!editable) {
+        return jsonError('contributors can only modify language of proto-language sources');
+      }
+      const proto = await knex('protolanguage')
+        .where('id', params.language_id)
+        .first('id');
+      if (!proto) {
+        return jsonError('contributors can only change source language to a proto-language');
+      }
+    }
+
     const rows = await knex.transaction((trx) =>
       trx('source')
       .where('id', params.id)

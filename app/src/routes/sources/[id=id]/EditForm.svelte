@@ -3,24 +3,25 @@
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
   import { getContext } from 'svelte';
-  import { isAdmin } from '$lib/util';
+  import { isEditor } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let source;
   source = togglePublic(source);
   const editable = getContext('editable');
+  const langSuggest = getContext('langSuggest');
   const protolangSuggest = getContext('protolangSuggest');
   const ipaConversionRuleSuggest = getContext('ipaConversionRuleSuggest');
 
   const fields = [
-    editable && source.editable
+    editable && (isEditor($session.user) || source.editable)
       ?
       {
         name: 'language_id',
         label: 'Language',
         type: 'suggest',
-        options: protolangSuggest,
+        options: source.editable ? protolangSuggest : langSuggest,
         required: true,
       }
       :
@@ -60,10 +61,10 @@
         name: 'public',
         label: 'Private',
         type: 'checkbox',
-        readonly: !isAdmin($session.user),
+        readonly: !isEditor($session.user),
       }
     );
-    if (!source.is_proto && isAdmin($session.user)) {
+    if (!source.is_proto && isEditor($session.user)) {
       fields.push(
         {
           name: 'ipa_conversion_rule',
