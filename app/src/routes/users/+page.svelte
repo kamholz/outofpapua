@@ -2,6 +2,7 @@
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
   import { invalidateAll } from '$app/navigation';
+  import { isAdmin } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
 
   export let data;
@@ -21,11 +22,11 @@
 <h2>Users</h2>
 <Table
   {rows}
-  admin={$session.user?.admin}
+  adminView={isAdmin($session.user)}
   on:refresh={handleRefresh}
 />
 
-{#if $session.user?.admin}
+{#if isAdmin($session.user)}
   <h3>Create new user</h3>
   <CreateForm
     on:refresh={handleRefresh}

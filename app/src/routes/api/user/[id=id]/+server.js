@@ -5,7 +5,7 @@ import { getUser, requireAuth } from '$lib/auth';
 import { knex, pgError } from '$lib/db';
 import { nfc } from '../params';
 
-const allowed = new Set(['username', 'fullname', 'admin']);
+const allowed = new Set(['username', 'fullname', 'role']);
 
 export const GET = requireAuth(async ({ params }) => {
   const user = await getUser(params.id);
@@ -22,7 +22,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
     throw error(401);
   }
   const updateParams = getFilteredParams(await request.json(), allowed);
-  if ('admin' in updateParams && !adminNotSelf(user, params.id)) {
+  if ('role' in updateParams && !adminNotSelf(user, params.id)) {
     throw error(401);
   }
   if (!Object.keys(updateParams).length) {

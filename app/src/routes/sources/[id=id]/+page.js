@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { isAdmin } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
 export async function load({ fetch, params, parent }) {
@@ -16,7 +17,7 @@ export async function load({ fetch, params, parent }) {
         throw error(500);
       }
     }
-    if (user.admin) {
+    if (isAdmin(user)) {
       data.ipaConversionRuleSuggest = await suggest.ipaConversionRule(fetch);
       if (!data.ipaConversionRuleSuggest) {
         throw error(500);

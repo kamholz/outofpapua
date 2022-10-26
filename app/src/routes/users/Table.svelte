@@ -1,10 +1,9 @@
 <script>
   import Table from '$components/Table.svelte';
-  import { boolean } from '$lib/util';
   import { session } from '$lib/stores';
 
   export let rows;
-  export let admin = false;
+  export let adminView;
 
   const columns = [
     {
@@ -16,13 +15,13 @@
       title: 'Email',
     },
     {
-      key: 'admin',
-      title: 'Admin',
-      value: (v) => boolean(v.admin),
+      key: 'role',
+      title: 'Role',
+      value: (v) => v.role.charAt(0).toUpperCase() + v.role.slice(1),
     },
   ];
 
-  const controls = admin
+  const controls = adminView
     ?
     [
       {

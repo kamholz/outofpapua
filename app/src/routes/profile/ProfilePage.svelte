@@ -4,11 +4,12 @@
   import PreferenceForm from './PreferenceForm.svelte';
   import ProfileForm from './ProfileForm.svelte';
   import { goto } from '$app/navigation';
+  import { isAdmin } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
   export let user;
-  export let admin;
+  export let adminView;
   let promise;
 
   const del = crud.makeDeleter('user');
@@ -38,10 +39,10 @@
 {/if}
 <ProfileForm
   {user}
-  {admin}
+  {adminView}
 />
 
-{#if !admin}
+{#if !adminView}
   <h3>Preferences</h3>
   <PreferenceForm />
 {/if}
@@ -49,9 +50,9 @@
 <h3>Change password</h3>
 <PasswordForm
   {user}
-  {admin}
+  {adminView}
 />
 
-{#if admin && !user.admin}
+{#if adminView && !isAdmin(user)}
   <button type="button" class="delete" on:click={handleDelete}>Delete User</button>
 {/if}

@@ -1,4 +1,4 @@
-import { checkError } from '$lib/util';
+import { checkError, isAdmin, isEditor } from '$lib/util';
 import { error } from '@sveltejs/kit';
 
 export async function login(username, password) {
@@ -40,7 +40,18 @@ export function requireAdminLoad(handler) {
   handler = handler ?? (() => ({}));
   return async (req) => {
     const { user } = await req.parent();
-    if (!user?.admin) {
+    if (!isAdmin(user)) {
+      throw error(401);
+    }
+    return handler(req);
+  };
+}
+
+export function requireEditorLoad(handler) {
+  handler = handler ?? (() => ({}));
+  return async (req) => {
+    const { user } = await req.parent();
+    if (!isEditor(user)) {
       throw error(401);
     }
     return handler(req);

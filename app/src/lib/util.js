@@ -173,11 +173,19 @@ export function stripParams(params, iterable) {
 // authorization and handlers
 
 export function adminNotSelf(loggedInUser, userId) {
-  return loggedInUser.admin && loggedInUser.id != userId; // eslint-disable-line eqeqeq
+  return isAdmin(loggedInUser) && loggedInUser.id != userId; // eslint-disable-line eqeqeq
 }
 
 export function adminOrSelf(loggedInUser, userId) {
-  return loggedInUser.admin || loggedInUser.id == userId; // eslint-disable-line eqeqeq
+  return isAdmin(loggedInUser.role) || loggedInUser.id == userId; // eslint-disable-line eqeqeq
+}
+
+export function isAdmin(loggedInUser) {
+  return loggedInUser?.role === 'admin';
+}
+
+export function isEditor(loggedInUser) {
+  return ['admin', 'editor'].includes(loggedInUser?.role);
 }
 
 // gloss formatting and parsing

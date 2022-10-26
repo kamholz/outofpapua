@@ -1,6 +1,7 @@
 import config from '$config';
 import jwt from 'jsonwebtoken';
 import { error } from '@sveltejs/kit';
+import { isAdmin, isEditor } from './util';
 import { knex } from '$lib/db';
 
 export const ACCESS_TOKEN_COOKIE = 'accesstoken';
@@ -15,14 +16,14 @@ export const COOKIE_OPTIONS = {
 
 export async function getUser(userId) {
   const row = await knex('usr')
-    .first('id', 'username', 'fullname', 'admin')
+    .first('id', 'username', 'fullname', 'role')
     .where('id', userId);
   return row ?? null;
 }
 
 export async function checkUserPassword(username, password) {
   const row = await knex('usr')
-    .first('id', 'username', 'fullname', 'admin')
+    .first('id', 'username', 'fullname', 'role')
     .where({
       username,
       password: knex.raw('pgcrypto.crypt(?, password)', password),
@@ -108,7 +109,16 @@ export function requireAuth(handler) {
 
 export function requireAdmin(handler) {
   return (req) => {
-    if (!req.locals.user?.admin) {
+    if (!isAdmin(req.locals.user)) {
+      throw error(401);
+    }
+    return handler(req);
+  };
+}
+
+export function requireEditor(handler) {
+  return (req) => {
+    if (!isEditor(req.locals.user)) {
       throw error(401);
     }
     return handler(req);

@@ -1,19 +1,19 @@
 import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
 import { error } from '@sveltejs/kit';
-import { jsonError } from '$lib/util';
+import { isAdmin, jsonError } from '$lib/util';
 import { knex, pgError } from '$lib/db';
 
 export const PUT = requireAuth(async ({ locals, params, request }) => {
   const { user } = locals;
   // eslint-disable-next-line eqeqeq
-  if (!user.admin && user.id != params.id) { // only admins can modify other user's password
+  if (!isAdmin(user) && user.id != params.id) { // only admins can modify other user's password
     throw error(401);
   }
   const body = await request.json();
   if (!('new_password' in body) ||
     // eslint-disable-next-line eqeqeq
-    ('current_password' in body === (user.admin && user.id != params.id)) // opposite of logical xor
+    ('current_password' in body === (isAdmin(user) && user.id != params.id)) // opposite of logical xor
   ) {
     return jsonError(errors.missing);
   }

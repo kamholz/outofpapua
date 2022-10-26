@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { allowed, allowedAdmin, nfc } from '../params';
-import { ensureNfcParams, getFilteredParams, jsonError } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, isAdmin, jsonError } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { filterPublicSources, knex, pgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
@@ -37,7 +37,7 @@ export async function GET({ locals, params }) {
 }
 
 export const PUT = requireAuth(async ({ locals, params, request }) => {
-  const updateParams = getFilteredParams(await request.json(), locals.user?.admin ? allowedAdmin : allowed);
+  const updateParams = getFilteredParams(await request.json(), isAdmin(locals.user) ? allowedAdmin : allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errors.noUpdatable);
   }

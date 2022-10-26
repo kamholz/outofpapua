@@ -3,6 +3,7 @@
   import Form from '$components/Form.svelte';
   import Record from '$components/Record.svelte';
   import { getContext } from 'svelte';
+  import { isAdmin } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
   import * as crud from '$actions/crud';
 
@@ -59,10 +60,10 @@
         name: 'public',
         label: 'Private',
         type: 'checkbox',
-        readonly: !$session.user?.admin,
+        readonly: !isAdmin($session.user),
       }
     );
-    if (!source.is_proto && $session.user?.admin) {
+    if (!source.is_proto && isAdmin($session.user)) {
       fields.push(
         {
           name: 'ipa_conversion_rule',

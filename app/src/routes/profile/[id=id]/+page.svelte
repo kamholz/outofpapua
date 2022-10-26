@@ -1,8 +1,8 @@
 <script>
-  import ProfilePage from '../Page.svelte';
+  import ProfilePage from '../ProfilePage.svelte';
 
   export let data;
   $: ({ user } = data);
 </script>
 
-<ProfilePage {user} admin={true} />
+<ProfilePage {user} adminView={true} />

@@ -7,7 +7,7 @@ import { requireAdmin, requireAuth } from '$lib/auth';
 
 export const GET = requireAuth(async () => {
   const q = knex('usr')
-    .select('id', 'username', 'fullname', 'admin')
+    .select('id', 'username', 'fullname', 'role')
     .orderBy('fullname');
   return json({ rows: await q });
 });

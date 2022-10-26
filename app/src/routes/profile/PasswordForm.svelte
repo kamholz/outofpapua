@@ -5,7 +5,7 @@
   import { updatePassword } from '$actions/auth';
 
   export let user;
-  export let admin;
+  export let adminView;
   let passwordValues = {};
   let promise;
 
@@ -30,7 +30,7 @@
     },
   ];
 
-  if (admin) {
+  if (adminView) {
     fields.shift();
   }
 

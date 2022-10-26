@@ -5,7 +5,13 @@
   import * as crud from '$actions/crud';
 
   export let user;
-  export let admin;
+  export let adminView;
+
+  const roles = [
+    { id: 'contributor', name: 'Contributor' },
+    { id: 'editor', name: 'Editor' },
+    { id: 'admin', name: 'Admin' },
+  ];
 
   const fields = [
     {
@@ -22,11 +28,13 @@
     },
   ];
 
-  if (admin) {
+  if (adminView) {
     fields.push({
-      name: 'admin',
-      label: 'Admin',
-      type: 'checkbox',
+      name: 'role',
+      label: 'Role',
+      type: 'suggest',
+      options: roles,
+      required: true,
     });
   }
 
