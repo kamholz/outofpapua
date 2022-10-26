@@ -927,7 +927,7 @@ our $dict = {
     split_heuristic => ',',
   },
   'Henning & Henning (1991)' => {
-    lang_target => 'wad',
+    lang_target => 'Wamesa Wandamen',
     path => 'Wandamen_List.xlsx',
     parser => 'Spreadsheet',
     columns => [
