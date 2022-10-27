@@ -20,15 +20,15 @@ function handler({ cookies, url }) {
 
   const accessToken = auth.getAccessTokenFromRefreshToken(cookies.get(auth.REFRESH_TOKEN_COOKIE));
   if (accessToken) {
-    cookies.set(auth.ACCESS_TOKEN_COOKIE, accessToken, auth.COOKIE_OPTIONS);
+    cookies.set(auth.ACCESS_TOKEN_COOKIE, accessToken, auth.ACCESS_TOKEN_OPTIONS);
     if (searchParams.has('redirect')) {
       headers.location = searchParams.get('redirect');
     } else {
       status = 200;
     }
   } else {
-    cookies.delete(auth.ACCESS_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
-    cookies.delete(auth.REFRESH_TOKEN_COOKIE, auth.COOKIE_OPTIONS);
+    cookies.delete(auth.ACCESS_TOKEN_COOKIE, auth.ACCESS_TOKEN_OPTIONS);
+    cookies.delete(auth.REFRESH_TOKEN_COOKIE, auth.REFRESH_TOKEN_OPTIONS);
   }
 
   return new Response(null, { status, headers });

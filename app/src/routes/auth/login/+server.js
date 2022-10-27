@@ -10,8 +10,8 @@ export async function POST({ cookies, request }) {
 
   const user = await auth.checkUserPassword(body.get('username'), body.get('password'));
   if (user) {
-    cookies.set(auth.ACCESS_TOKEN_COOKIE, auth.makeAccessToken(user), auth.COOKIE_OPTIONS);
-    cookies.set(auth.REFRESH_TOKEN_COOKIE, auth.makeRefreshToken(user), auth.COOKIE_OPTIONS);
+    cookies.set(auth.ACCESS_TOKEN_COOKIE, auth.makeAccessToken(user), auth.ACCESS_TOKEN_OPTIONS);
+    cookies.set(auth.REFRESH_TOKEN_COOKIE, auth.makeRefreshToken(user), auth.REFRESH_TOKEN_OPTIONS);
     return json({ user });
   } else {
     throw error(403);

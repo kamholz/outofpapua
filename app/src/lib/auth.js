@@ -6,12 +6,20 @@ import { knex } from '$lib/db';
 
 export const ACCESS_TOKEN_COOKIE = 'accesstoken';
 export const REFRESH_TOKEN_COOKIE = 'refreshtoken';
-export const COOKIE_OPTIONS = {
+
+const COOKIE_OPTIONS = {
   httpOnly: true,
-  maxAge: config.ACCESS_TOKEN_LIFE,
   path: '/',
   sameSite: 'lax',
   secure: true,
+};
+export const ACCESS_TOKEN_OPTIONS = {
+  ...COOKIE_OPTIONS,
+  maxAge: config.ACCESS_TOKEN_LIFE,
+};
+export const REFRESH_TOKEN_OPTIONS = {
+  ...COOKIE_OPTIONS,
+  maxAge: config.REFRESH_TOKEN_LIFE,
 };
 
 export async function getUser(userId) {
