@@ -1,10 +1,12 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import Form from '$components/Form.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
+
+  export let type;
 
   let values = {};
   let error = null;
@@ -17,6 +19,17 @@
       required: true,
     },
   ];
+
+  if (type === 'dialect') {
+    const langSuggest = getContext('langSuggest');
+    fields.push({
+      name: 'dialect_parent_id',
+      label: 'Language',
+      type: 'suggest',
+      options: langSuggest,
+      required: true,
+    });
+  }
 
   const creater = crud.makeCreater('language');
 

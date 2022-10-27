@@ -1,14 +1,16 @@
 import errors from '$lib/errors';
 import { applySortParams, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, jsonError, normalizeQuery, parseBooleanParams,
+import { ensureNfcParams, getFilteredParams, isEditor, jsonError, normalizeQuery, parseBooleanParams,
   showPublicOnly, stripParams } from '$lib/util';
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { nfc, required } from './params';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['asc', 'category', 'details', 'sort']);
 const boolean = new Set(['asc', 'details']);
 const strip = new Set(['category', 'details']);
+
+const allowedCreate = new Set([...required, 'dialect_parent_id']);
 
 const defaults = {
   asc: true,
@@ -77,7 +79,8 @@ export async function GET({ locals, url: { searchParams } }) {
         'language.parent_id',
         'parent.name as parent_name',
         knex.raw('coalesce(language.iso6393, dialect_parent.iso6393) as iso6393'),
-        knex.raw('exists (select from protolanguage where protolanguage.id = language.id) as is_proto')
+        knex.raw('exists (select from protolanguage where protolanguage.id = language.id) as is_proto'),
+        knex.raw('(language.dialect_parent_id is not null) as is_dialect')
       );
 
     // count entries
@@ -109,26 +112,46 @@ export async function GET({ locals, url: { searchParams } }) {
   });
 }
 
-export const POST = requireAuth(async ({ request }) => {
-  const params = getFilteredParams(await request.json(), required);
-  if (Object.keys(params).length !== required.size) {
+export const POST = requireAuth(async ({ locals, request }) => {
+  const params = getFilteredParams(await request.json(), allowedCreate);
+  if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return jsonError(errors.missing);
   }
   ensureNfcParams(params, nfc);
   try {
-    const rows = await knex.transaction((trx) =>
-      trx.with('inserted', (q) => {
-        q.from('language')
+    if ('dialect_parent_id' in params) {
+      if (!isEditor(locals.user)) {
+        throw error(401);
+      }
+
+      const rows = await knex
+        .fromRaw('language (name, dialect_parent_id)')
         .returning('id')
-        .insert(params);
-      })
-      .from('protolanguage')
-      .returning('id')
-      .insert(function () {
-        this.select('id').from('inserted');
-      })
-    );
-    return json({ id: rows[0].id });
+        .insert(function () {
+          this.select(knex.raw('?, ?', [params.name, params.dialect_parent_id]))
+          .whereNotExists(function () {
+            this.select('*').from('protolanguage').where('id', params.dialect_parent_id);
+          })
+          .whereNotExists(function () {
+            this.select('*').from('language').where('id', params.dialect_parent_id).whereNotNull('dialect_parent_id');
+          });
+        });
+      return json({ id: rows[0]?.id ?? null });
+    } else {
+      const rows = await knex.transaction((trx) =>
+        trx.with('inserted', (q) => {
+          q.from('language')
+          .returning('id')
+          .insert(params);
+        })
+        .from('protolanguage')
+        .returning('id')
+        .insert(function () {
+          this.select('id').from('inserted');
+        })
+      );
+      return json({ id: rows[0].id });
+    }
   } catch (e) {
     console.log(e);
     return pgError(e);

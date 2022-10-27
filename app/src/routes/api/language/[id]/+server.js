@@ -22,7 +22,8 @@ export async function GET({ locals, params }) {
       'language.parent_id',
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto'),
-      'protolanguage.prefer_set_name'
+      'protolanguage.prefer_set_name',
+      knex.raw('language.dialect_parent_id is not null as is_dialect')
     );
 
   if (showPublicOnly(locals)) {
@@ -39,6 +40,7 @@ export async function GET({ locals, params }) {
 
   const row = await q;
   if (row) {
+    row.numentries = Number(row.numentries);
     return json(row);
   } else {
     throw error(404);

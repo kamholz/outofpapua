@@ -1,15 +1,20 @@
 <script>
   import CreateForm from './CreateForm.svelte';
   import Table from './Table.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, setContext } from 'svelte';
   import { invalidateAll } from '$app/navigation';
-  import { pageLoading } from '$lib/stores';
+  import { isEditor } from '$lib/util';
+  import { pageLoading, session } from '$lib/stores';
 
   export let data;
   $: ({
     query,
     rows,
   } = data);
+  const { langSuggest } = data;
+  if (langSuggest) {
+    setContext('langSuggest', langSuggest);
+  }
   const editable = getContext('editable');
 
   async function handleRefresh() {
@@ -36,8 +41,16 @@
 {#if editable}
   <h3>Create proto-language</h3>
   <CreateForm
+    type="proto"
     on:refresh={handleRefresh}
   />
+  {#if isEditor($session.user)}
+    <h3>Create dialect</h3>
+    <CreateForm
+      type="dialect"
+      on:refresh={handleRefresh}
+    />
+  {/if}
 {/if}
 
 <style>
