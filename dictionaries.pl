@@ -750,7 +750,7 @@ our $dict = {
       [0, 'subentry'],
       [1, 'headword'],
       [3, 'gloss', 'ind'],
-      [4, 'examples', \&examples_flassy],
+      [4, 'examples', examples_slash('ind')],
       [2, 'ng'],
       [5, 'nt'],
       [6, 'nt', 'dialect:'],
@@ -3975,19 +3975,22 @@ sub strip_paren {
 
 # example conversion
 
-sub examples_flassy {
-  my ($txt) = @_;
-  my @examples;
-  foreach my $line (split /\n/, $txt) {
-    if ($line =~ m{^(.+?) *// *(.+?) *$}) {
-      my ($xv, $xn) = ($1, $2);
-      $xn =~ s{ *// *}{ }g;
-      push @examples, [$xv, [$xn, 'ind']];
-    } else {
-      warn "could not match example line: $line";
+sub examples_slash {
+  my ($tr_lang) = @_;
+  return sub {
+    my ($txt) = @_;
+    my @examples;
+    foreach my $line (split /\n/, $txt) {
+      if ($line =~ m{^(.+?) *// *(.+?) *$}) {
+        my ($xv, $tr) = ($1, $2);
+        $tr =~ s{ *// *}{ }g;
+        push @examples, [$xv, [$tr, $tr_lang]];
+      } else {
+        warn "could not match example line: $line";
+      }
     }
-  }
-  return @examples;
+    return @examples;
+  };
 }
 
 1;
