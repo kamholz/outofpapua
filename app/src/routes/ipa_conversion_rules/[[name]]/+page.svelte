@@ -1,33 +1,41 @@
 <script>
   import Alert from '$components/Alert.svelte';
-  import Form from './Form.svelte';
+  import CreateForm from './CreateForm.svelte';
+  import EditForm from './EditForm.svelte';
   import Svelecte from '$lib/svelecte';
+  import keydown from '$lib/keydown';
   import { arrayFields, nullifyFields } from './+page';
+  import { goto } from '$app/navigation';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
   export let data;
-  $: ({ rules } = data);
+  $: ({
+    name,
+    rules,
+  } = data);
 
-  let selected = data.rules.find((rule) => rule.name === 'common');
-  let promise;
+  let selected = data.rules.find((rule) => rule.name === data.name) || {};
+  $: rule = { ...selected };
 
   const codeByName = {};
-  let testInput;
-  let testOutput;
+  let testInput = '';
+  let testOutput = '';
+  let promise;
 
   $: if (selected) {
     testOutput = '';
   }
 
   async function handleSubmit(e) {
-    const submitValues = { ...e.detail.values };
+    const values = { ...e.detail.values };
+  
     for (const field of nullifyFields) {
-      submitValues[field] = nullify(submitValues[field]);
+      values[field] = nullify(values[field]);
     }
     for (const field of arrayFields) {
-      if (submitValues[field]) {
-        submitValues[field] = JSON.parse(submitValues[field]);
+      if (values[field]) {
+        values[field] = JSON.parse(values[field]);
       }
     }
 
@@ -39,7 +47,7 @@
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify(submitValues),
+          body: JSON.stringify(values),
         });
         if (!res.ok) {
           throw new Error('Could not save');
@@ -47,6 +55,10 @@
       })();
       await promise;
       delete codeByName[selected.name];
+
+      if (values.name !== selected.name) {
+        gotoRule(values.name);
+      }
     } catch (e) {}
     $pageLoading--;
   }
@@ -92,21 +104,25 @@
     }
     return (0, eval)(code);
   }
+
+  function gotoRule(name) {
+    goto(`/ipa_conversion_rules/${name}`);
+  }
 </script>
 
 <svelte:head>
-  <title>IPA Conversion Rules | Out of Papua</title>
+  <title>IPA Conversion Rulesets | Out of Papua</title>
 </svelte:head>
 
-<h2>IPA Conversion Rules</h2>
+<h2>IPA Conversion Rulesets</h2>
 
 <div class="choose">
   <span>Choose rule set:</span>
   <Svelecte
     options={rules}
     valueField="name"
-    valueAsObject={true}
-    bind:value={selected}
+    value={name}
+    bind:readSelection={selected}
   />
 </div>
 
@@ -116,14 +132,18 @@
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <Form rule={selected} on:submit={handleSubmit} />
+  <EditForm {rule} on:submit={handleSubmit} />
 </div>
 
-<h3>Tester</h3>
+<h3>Conversion Tester</h3>
 
 <div class="tester">
   <div>
-    <span>Input:</span><input type="text" bind:value={testInput}>
+    <span>Input:</span><input
+      type="text"
+      bind:value={testInput}
+      use:keydown={{ enter: handleTest }}
+    >
   </div>
   <div>
     <span>Output:</span><span>{testOutput}</span>
@@ -134,6 +154,9 @@
     on:click={handleTest}
   >Run</button>
 </div>
+
+<h3>Create New Ruleset</h3>
+<CreateForm on:refresh={(e) => gotoRule(e.detail)} />
 
 <style lang="scss">
   .choose {
@@ -182,6 +205,10 @@
       > :first-child {
         inline-size: 4em;
       }
+    }
+
+    input {
+      inline-size: 20em;
     }
   }
 </style>

@@ -5,6 +5,11 @@
 
   const fields = [
     {
+      name: 'name',
+      label: 'Name',
+      type: 'text',
+    },
+    {
       name: 'code',
       label: 'Code',
       type: 'textarea',

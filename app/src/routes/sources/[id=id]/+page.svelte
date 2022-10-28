@@ -40,6 +40,10 @@
   <a href="/sources/{source.id}/entries">View Entries</a>
 </div>
 
+<div>
+  <a href="/ipa_conversion_rules/{source.ipa_conversion_rule}">Edit IPA Conversion Rules</a>
+</div>
+
 <style>
   div {
     margin-block-start: var(--item-sep);

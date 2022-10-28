@@ -5,6 +5,11 @@
 
   const fields = [
     {
+      name: 'name',
+      label: 'Name',
+      type: 'text',
+    },
+    {
       name: 'lowercase',
       label: 'Lowercase',
       type: 'checkbox',

@@ -1,19 +1,25 @@
 <script>
   import Alert from '$components/Alert.svelte';
-  import Form from './Form.svelte';
+  import CreateForm from './CreateForm.svelte';
+  import EditForm from './EditForm.svelte';
   import Svelecte from '$lib/svelecte';
+  import { goto } from '$app/navigation';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
   export let data;
-  $: ({ libs } = data);
+  $: ({
+    libs,
+    name,
+  } = data);
 
-  let selected = data.libs.find((lib) => lib.name === 'syllabify');
+  let selected = data.libs.find((lib) => lib.name === data.name) || {};
+  $: lib = { ...selected };
   let promise;
 
   async function handleSubmit(e) {
-    const submitValues = { ...e.detail.values };
-    submitValues.code = nullify(submitValues.code);
+    const values = { ...e.detail.values };
+    values.code = nullify(values.code);
 
     $pageLoading++;
     try {
@@ -23,15 +29,23 @@
           headers: {
             'content-type': 'application/json',
           },
-          body: JSON.stringify(submitValues),
+          body: JSON.stringify(values),
         });
         if (!res.ok) {
           throw new Error('Could not save');
         }
       })();
       await promise;
+
+      if (values.name !== selected.name) {
+        gotoLib(values.name);
+      }
     } catch (e) {}
     $pageLoading--;
+  }
+
+  function gotoLib(name) {
+    goto(`/ipa_conversion_libs/${name}`);
   }
 </script>
 
@@ -46,8 +60,8 @@
   <Svelecte
     options={libs}
     valueField="name"
-    valueAsObject={true}
-    bind:value={selected}
+    value={name}
+    bind:readSelection={selected}
   />
 </div>
 
@@ -57,8 +71,11 @@
       <Alert type="error" {message} />
     {/await}
   {/if}
-  <Form lib={selected} on:submit={handleSubmit} />
+  <EditForm {lib} on:submit={handleSubmit} />
 </div>
+
+<h3>Create New Lib</h3>
+<CreateForm on:refresh={(e) => gotoLib(e.detail)} />
 
 <style lang="scss">
   .choose {
