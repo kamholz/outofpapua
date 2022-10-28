@@ -18,6 +18,9 @@ sub read_entries {
   my $lang_english = $self->lang_english;
   my $lang_national = $self->lang_national;
   my $lang_regional = $self->lang_regional;
+  my $lang_english3 = code3($lang_english);
+  my $lang_national3 = code3($lang_national);
+  my $lang_regional3 = code3($lang_regional);
 
   foreach my $file (@files) {
     my $dom = $self->parse($file);
@@ -66,63 +69,63 @@ sub read_entries {
       };
 
       foreach my $sense ($senses->find('.sense')->each) {
-          my $glosses = $sense->at('[class^="definition"], .gloss');
-          next unless $glosses;
+        my $glosses = $sense->at('[class^="definition"], .gloss');
+        next unless $glosses;
 
-          $self->add_sense($entry);
-          $sense_added = 0;
-          # sense-specific pos, overrides any shared entry pos
-          $sense_pos = get_text_lexique_html($sense, '.partofspeech');
-          my $pos = $sense_pos // $entry_pos;
+        $self->add_sense($entry);
+        $sense_added = 0;
+        # sense-specific pos, overrides any shared entry pos
+        $sense_pos = get_text_lexique_html($sense, '.partofspeech');
+        my $pos = $sense_pos // $entry_pos;
 
-          my $ge = get_gloss_lexique_html($glosses, $lang_english);
-          if (length $ge) {
+        my $ge = get_gloss_lexique_html($glosses, $lang_english);
+        if (length $ge) {
+          $add_sense_record->();
+          $self->add_gloss($entry, 'gloss', $ge, $lang_english3, $pos);
+          push @{$entry->{record}}, [marker_with_code('g', $lang_english3), $ge];
+        }
+        if ($lang_national) {
+          my $gn = get_gloss_lexique_html($glosses, $lang_national);
+          if (length $gn) {
             $add_sense_record->();
-            $self->add_gloss($entry, 'gloss', $ge, $lang_english, $pos);
-            push @{$entry->{record}}, [marker_with_code('g', code3($lang_english)), $ge];
+            $self->add_gloss($entry, 'gloss', $gn, $lang_national3, $pos);
+            push @{$entry->{record}}, [marker_with_code('g', $lang_national3), $gn];
           }
-          if ($lang_national) {
-            my $gn = get_gloss_lexique_html($glosses, $lang_national);
-            if (length $gn) {
-              $add_sense_record->();
-              $self->add_gloss($entry, 'gloss', $gn, $lang_national, $pos);
-              push @{$entry->{record}}, [marker_with_code('g', code3($lang_national)), $gn];
-            }
+        }
+        if ($lang_regional) {
+          my $gr = get_gloss_lexique_html($glosses, $lang_regional);
+          if (length $gr) {
+            $add_sense_record->();
+            $self->add_gloss($entry, 'gloss', $gr, $lang_regional3, $pos);
+            push @{$entry->{record}}, [marker_with_code('g', $lang_regional3), $gr];
           }
-          if ($lang_regional) {
-            my $gr = get_gloss_lexique_html($glosses, $lang_regional);
-            if (length $gr) {
-              $add_sense_record->();
-              $self->add_gloss($entry, 'gloss', $gr, $lang_regional, $pos);
-              push @{$entry->{record}}, [marker_with_code('g', code3($lang_regional)), $gr];
-            }
-          }
+        }
 
-          foreach my $example_el ($sense->find('.examplescontent')->each) {
-            my $xv = $example_el->at('.example');
-            next unless $xv;
-            $xv = trim($xv->all_text);
-            my $example = $self->add_example($entry, $xv, $pos);
-            push @{$entry->{record}}, ['xv', $xv];
-            foreach my $tr ($example_el->find('.translation > span[lang]')->each) {
-              my $lang = $tr->attr('lang');
-              next unless $lang;
-              $lang = code3($lang);
-              my $txt = trim($tr->all_text);
-              push @$example, [$txt, $lang];
-              push @{$entry->{record}}, [marker_with_code('x', $lang), $txt];
-            }
+        foreach my $example_el ($sense->find('.examplescontent')->each) {
+          my $xv = $example_el->at('.example');
+          next unless $xv;
+          $xv = trim($xv->all_text);
+          my $example = $self->add_example($entry, $xv, $pos);
+          push @{$entry->{record}}, ['xv', $xv];
+          foreach my $tr ($example_el->find('.translation > span[lang]')->each) {
+            my $lang = $tr->attr('lang');
+            next unless $lang;
+            $lang = code3($lang);
+            my $txt = trim($tr->all_text);
+            push @$example, [$txt, $lang];
+            push @{$entry->{record}}, [marker_with_code('x', $lang), $txt];
           }
+        }
 
-          my $ee = $sense->at('.encyclopedicinfo');
-          if ($ee) {
-            push @{$entry->{record}}, ['ee', trim($ee->all_text)];
-          }
+        my $ee = $sense->at('.encyclopedicinfo');
+        if ($ee) {
+          push @{$entry->{record}}, ['ee', trim($ee->all_text)];
+        }
 
-          my $sc = $sense->at('.scientificname');
-          if ($sc) {
-            push @{$entry->{record}}, ['sc', trim($sc->all_text)];
-          }
+        my $sc = $sense->at('.scientificname');
+        if ($sc) {
+          push @{$entry->{record}}, ['sc', trim($sc->all_text)];
+        }
       }
 
       foreach my $etym ($entry_el->find('.etymologies .etymology')->each) {
