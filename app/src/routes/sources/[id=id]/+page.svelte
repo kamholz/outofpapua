@@ -1,6 +1,9 @@
 <script>
+  import Alert from '$components/Alert.svelte';
   import EditForm from './EditForm.svelte';
+  import { checkError, isEditor } from '$lib/util';
   import { page } from '$app/stores';
+  import { pageLoading, session } from '$lib/stores';
   import { setContext } from 'svelte';
 
   export let data;
@@ -20,12 +23,26 @@
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
 
+  let promise;
+
   $: init($page);
 
   function init() {
     if (source.formatting && typeof source.formatting === 'object') {
       source.formatting = JSON.stringify(source.formatting);
     }
+  }
+
+  async function handleRule() {
+    $pageLoading++;
+    try {
+      promise = (async () => {
+        const res = await fetch(`/api/source/${source.id}/convert`, { method: 'POST' });
+        checkError(res);
+      })();
+      await promise;
+    } catch (e) {}
+    $pageLoading--;
   }
 </script>
 
@@ -40,9 +57,22 @@
   <a href="/sources/{source.id}/entries">View Entries</a>
 </div>
 
-<div>
-  <a href="/ipa_conversion_rules/{source.ipa_conversion_rule}">Edit IPA Conversion Rules</a>
-</div>
+{#if isEditor($session.user)}
+  <div>
+    <a href="/ipa_conversion_rules/{source.ipa_conversion_rule}">Edit IPA Conversion Ruleset</a>
+  </div>
+
+  <div>
+    <button on:click={handleRule} disabled={$pageLoading}>Run IPA Conversion</button>
+  </div>
+  {#if promise}
+    {#await promise then}
+      <Alert type="success" message="Conversion successful" />
+    {:catch { message }}
+      <Alert type="error" {message} />
+    {/await}
+  {/if}
+{/if}
 
 <style>
   div {
