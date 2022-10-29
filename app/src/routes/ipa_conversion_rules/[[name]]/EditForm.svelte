@@ -36,7 +36,7 @@
     },
     {
       name: 'lib',
-      label: 'Lib',
+      label: '<a href="/ipa_conversion_libs">Lib</a>',
       type: 'textarea',
     },
   ];

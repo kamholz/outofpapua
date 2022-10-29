@@ -101,13 +101,15 @@
       {#if !field.hide}
         {#if field.readonly}
           <span class="label">
-            {field.label}:
+            {@html field.label}:
           </span>
           <span class="field">
             {formDisplayValue(values[field.name], field.type)}
           </span>
         {:else}
-          <label for={field.name} class="label" transition:slide={{ duration: 200 }}>{field.label}:</label>
+          <label for={field.name} class="label" transition:slide={{ duration: 200 }}>
+            {@html field.label}:
+          </label>
           <svelte:component
             this={fieldComponent[field.type]}
             {field}
