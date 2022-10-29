@@ -9,7 +9,7 @@ const stringifyFields = [...arrayFields, 'replacements'];
 export const nullifyFields = [...stringifyFields, 'function'];
 
 export const load = requireEditorLoad(async ({ fetch, params: { name } }) => {
-  if (!name.length) {
+  if (!name?.length) {
     throw redirect(302, defaultRuleUrl);
   }
 

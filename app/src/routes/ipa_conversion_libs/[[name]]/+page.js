@@ -5,7 +5,7 @@ const defaultLib = 'syllabify';
 const defaultLibUrl = `/ipa_conversion_libs/${defaultLib}`;
 
 export const load = requireEditorLoad(async ({ fetch, params: { name } }) => {
-  if (!name.length) {
+  if (!name?.length) {
     throw redirect(302, defaultLibUrl);
   }
 
