@@ -280,7 +280,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987b)' => {
     lang_target => 'mxn',
@@ -298,7 +298,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987c)' => {
     lang_target => 'msg',
@@ -316,7 +316,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987d)' => {
     lang_target => 'kzz',
@@ -334,7 +334,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987e)' => {
     lang_target => 'Tehit Salmit',
@@ -352,7 +352,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987f)' => {
     lang_target => 'Tehit Sawiat',
@@ -370,7 +370,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987g)' => {
     lang_target => 'Tehit Tehijit',
@@ -388,7 +388,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987h)' => {
     lang_target => 'Abun Ji',
@@ -406,7 +406,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987i)' => {
     lang_target => 'Abun Tat',
@@ -424,7 +424,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987j)' => {
     lang_target => 'asz',
@@ -442,7 +442,7 @@ our $dict = {
     ],
     split => '/',
     split_headword => ',',
-    headword_preprocess => \&clear_hyphen,
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Berry & Berry (1987k)' => {
     lang_target => 'Kaburi Kambor',
@@ -762,14 +762,9 @@ our $dict = {
     columns => [
       [0, 'subentry'],
       [1, 'headword'],
-<<<<<<< HEAD
-      [3, 'gloss', 'ind'],
-      [4, 'examples', examples_slash('ind')],
-=======
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
-      [5, 'examples', \&same_cell_examples],
->>>>>>> added Donohue (1998)
+      [5, 'examples', examples_slash('ind')],
       [2, 'ng'],
       [6, 'nt'],
       [7, 'nt', 'dialect:'],
@@ -788,7 +783,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [4, 'gloss', 'ind'],
-      [5, 'examples', \&same_cell_examples],
+      [5, 'examples', examples_slash('ind')],
       [2, 'ng'],
       [6, 'nt'],
       [7, 'nt', 'dialect:'],
@@ -1121,7 +1116,7 @@ our $dict = {
     lang_regional => 'ind',
     lang_national => 'ind',
     split_heuristic => ',',
-    gloss_preprocess => \&clear_hyphen,
+    gloss_preprocess => ignore_if_only_char('-'),
   },
   'Kamholz (nd b)' => {
     lang_target => 'jau',
@@ -1129,7 +1124,7 @@ our $dict = {
     parser => 'Marker',
     lang_regional => 'ind',
     lang_national => 'ind',
-    gloss_preprocess => \&clear_hyphen,
+    gloss_preprocess => ignore_if_only_char('-'),
   },
   'Kamholz (nd c)' => {
     lang_target => 'ire',
@@ -1137,7 +1132,7 @@ our $dict = {
     parser => 'Marker',
     lang_regional => 'ind',
     lang_national => 'ind',
-    gloss_preprocess => \&clear_hyphen,
+    gloss_preprocess => ignore_if_only_char('-'),
   },
   'Kamholz (nd d)' => {
     lang_target => 'gop',
@@ -1145,7 +1140,7 @@ our $dict = {
     parser => 'Marker',
     lang_regional => 'ind',
     lang_national => 'ind',
-    gloss_preprocess => \&clear_hyphen,
+    gloss_preprocess => ignore_if_only_char('-'),
   },
   'Kamholz (nd e)' => {
     lang_target => 'kjr',
@@ -1323,9 +1318,9 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
-    headword_preprocess => \&clear_hyphen,
-    gloss_preprocess => \&clear_question_mark,
-    pos_preprocess => \&clear_question_mark,
+    headword_preprocess => ignore_if_only_char('-'),
+    gloss_preprocess => ignore_if_only_char('?'),
+    pos_preprocess => ignore_if_only_char('?'),
   },
   'Menick (nd)' => {
     lang_target => 'mxn',
@@ -1459,7 +1454,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ',;',
-    headword_preprocess => \&clear_question_mark,
+    headword_preprocess => ignore_if_only_char('?'),
   },
   'Reesink (2002a)' => {
     lang_target => 'Mansim',
@@ -3156,7 +3151,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3173,7 +3168,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3190,7 +3185,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3207,7 +3202,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3224,7 +3219,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3241,7 +3236,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3258,7 +3253,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3275,7 +3270,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3292,7 +3287,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3309,7 +3304,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3326,7 +3321,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3343,7 +3338,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3360,7 +3355,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3377,7 +3372,7 @@ our $dict = {
       [1, 'headword'],
       [3, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'examples', \&same_cell_examples],
+      [4, 'examples', examples_slash('ind')],
       [5, 'nt', 'dialect:'],
       [6, 'cf'],
       [7, 'page_num'],
@@ -3875,8 +3870,8 @@ our $dict = {
     path => 'Tidore/Tidore_toolbox_new.txt',
     parser => 'Marker',
     split => ',;',
-    gloss_preprocess => \&replace_underscore,
-    headword_preprocess => \&replace_underscore,
+    gloss_preprocess => replace_with_space('_'),
+    headword_preprocess => replace_with_space('_'),
   },
   'van Staden (2000)' => {
     lang_target => 'tvo',
@@ -4346,16 +4341,22 @@ our $dict = {
 
 # headword and gloss cleanup
 
-sub clear_hyphen {
+sub replace_with_space('_') {
   return $_[0] =~ s/^-+$//r;
 }
 
-sub clear_question_mark {
-  return $_[0] =~ s/^\?+$//r;
+sub ignore_if_only_char {
+  my ($char) = @_;
+  return sub {
+    return $_[0] =~ s/^\Q${char}\E+$//r;
+  }
 }
 
-sub replace_underscore {
-  return $_[0] =~ s/_/ /gr;
+sub replace_with_space {
+  my ($re) = @_;
+  return sub {
+    return $_[0] =~ s/\Q${re}\E/ /gr;
+  }
 }
 
 sub strip_paren {
@@ -4364,7 +4365,6 @@ sub strip_paren {
 
 # example conversion
 
-<<<<<<< HEAD
 sub examples_slash {
   my ($tr_lang) = @_;
   return sub {
@@ -4374,22 +4374,12 @@ sub examples_slash {
       if ($line =~ m{^(.+?) *// *(.+?) *$}) {
         my ($xv, $tr) = ($1, $2);
         $tr =~ s{ *// *}{ }g;
+        # $tr =~ s{.*// *}{}g;
+        # $tr =~ s/^'|'$//g;
         push @examples, [$xv, [$tr, $tr_lang]];
       } else {
         warn "could not match example line: $line";
       }
-=======
-sub same_cell_examples {
-  my ($txt) = @_;
-  my @examples;
-  foreach my $line (split /\n/, $txt) {
-    if ($line =~ m{^(.+?) *// *(.+?) *$}) {
-      my ($xv, $xn) = ($1, $2);
-      $xn =~ s{ *// *}{ }g;
-      push @examples, [$xv, [$xn, 'ind']];
-    } else {
-      warn "could not match example line: $line";
->>>>>>> added Donohue (1998)
     }
     return @examples;
   };
