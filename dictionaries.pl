@@ -4341,10 +4341,6 @@ our $dict = {
 
 # headword and gloss cleanup
 
-sub replace_with_space('_') {
-  return $_[0] =~ s/^-+$//r;
-}
-
 sub ignore_if_only_char {
   my ($char) = @_;
   return sub {
