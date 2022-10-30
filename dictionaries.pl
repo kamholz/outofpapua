@@ -700,6 +700,19 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
+  'Donohue (1998)' => {
+    lang_target => 'wsa',
+    path => 'Warembori_List_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'va', 'split'],
+      [3, 'cf'],
+      [4, 'nt'],
+    ],
+    split => ';',
+  },
   'Donohue (2001)' => {
     lang_target => 'swr',
     path => 'spreadsheets/5-Saweru words in Donohue split intransitivity paper.xlsx',
@@ -742,22 +755,53 @@ our $dict = {
     mode => 'sense_per_row',
     strip => '(to)',
   },
-  'Flassy (1978)' => {
+  'Flassy (1977/78a)' => {
     lang_target => 'kps',
-    path => 'spreadsheets Upwork/Tehit-Indonesian dictionary.xlsx',
+    path => 'Tehit-Indonesian dictionary.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'subentry'],
       [1, 'headword'],
+<<<<<<< HEAD
       [3, 'gloss', 'ind'],
       [4, 'examples', examples_slash('ind')],
+=======
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [5, 'examples', \&same_cell_examples],
+>>>>>>> added Donohue (1998)
       [2, 'ng'],
-      [5, 'nt'],
-      [6, 'nt', 'dialect:'],
-      [7, 'cf'],
-      [8, 'page_num'],
+      [6, 'nt'],
+      [7, 'nt', 'dialect:'],
+      [8, 'cf'],
+      [9, 'page_num'],
     ],
     mode => 'sense_per_row',
+    split => ';',
+  },
+    'Flassy (1977/78b)' => {
+    lang_target => 'kps',
+    path => 'Tehit Flassy (Dialects).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [5, 'examples', \&same_cell_examples],
+      [2, 'ng'],
+      [6, 'nt'],
+      [7, 'nt', 'dialect:'],
+      [8, 'cf'],
+      [9, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    split => ';',
+  },
+   'Flassy (2018)' => {
+    lang_target => 'Tehit Teminabuan',
+    path => 'Tehit Teminabuan.txt',
+    parser => 'Marker',
   },
   'Gane (2019)' => {
     lang_target => 'loa',
@@ -1045,6 +1089,30 @@ our $dict = {
     parser => 'Marker',
     headword_citation_action => 'prefer_root',
     skip_marker => 'lx_Eng',
+  },
+  'Kakerissa et al. (1986)' => {
+    lang_target => 'bpq',
+    path => 'Kakerissa 1986 - Gorom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Kakerissa et al. (1996)' => {
+    lang_target => 'bpq',
+    path => 'Kakerissaetal1996_Banda.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    split => ';',
   },
   'Kamholz (nd a)' => {
     lang_target => 'mhz',
@@ -3078,6 +3146,244 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Soeparno (1977a)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977b)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Bosnik',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977c)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Korem',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977d)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Manwor',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977e)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Meos War',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977f)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Numfor',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977g)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Ron',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977h)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Samber',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977i)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Sopen',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977j)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Sor',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977k)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Sorido',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977l)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Sowek',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977m)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Urembori',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Soeparno (1977n)' => {
+    lang_target => 'bhw',
+    path => 'Biak dictionary.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Biak Tepin',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'examples', \&same_cell_examples],
+      [5, 'nt', 'dialect:'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    split => ';',
+  },
   'Stokhof (1980a)' => {
     lang_target => 'mqo',
     path => 'spreadsheets/Stokhof/Madole 169b (x 735).xlsx',
@@ -3465,6 +3771,79 @@ our $dict = {
       [4, 'et'],
       [5, 'nt'],
       [1, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Usher (nd a)' => {
+    lang_target => 'Proto-Eastern Timor',
+    path => 'Usher_nd_PEastTimor-PFRATA_reconstructions.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'PET',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'Usher (nd b)' => {
+    lang_target => 'Proto-FATRATA',
+    path => 'Usher_nd_PEastTimor-PFRATA_reconstructions.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'PFATRATA',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'Usher & Schapper (2018)' => {
+    lang_target => 'Proto-Mbaham-Iha',
+    path => 'Proto-Mbaham-Iha.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+    split => ';',
+    split_headword => '~',
+  },
+  'Usher & Schapper (2022a)' => {
+    lang_target => 'Proto-Greater West Bomberai',
+    path => 'ProtoGreaterWestBomberai_UsherSchapper2022.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'Usher & Schapper (2022b)' => {
+    lang_target => 'Proto-Timor-Alor-Pantar',
+    path => 'ProtoGreaterWestBomberai_UsherSchapper2022.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'Usher & Schapper (2022c)' => {
+    lang_target => 'Proto-Eastern Timor',
+    path => 'ProtoGreaterWestBomberai_UsherSchapper2022.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'Usher & Schapper (2022d)' => {
+    lang_target => 'Proto-Alor-Pantar',
+    path => 'ProtoGreaterWestBomberai_UsherSchapper2022.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
     ],
     split => ';',
   },
@@ -3915,6 +4294,16 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Walker & Himmelmann (nd)' => {
+    lang_target => 'ihp',
+    path => 'Walker_Himmelmann_Iha_Wordlist.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
   'Wattimury et al. (1992)' => {
     lang_target => 'gbi',
     path => 'spreadsheets/Wattimury,al1992-Galela.xlsx',
@@ -3975,6 +4364,7 @@ sub strip_paren {
 
 # example conversion
 
+<<<<<<< HEAD
 sub examples_slash {
   my ($tr_lang) = @_;
   return sub {
@@ -3988,6 +4378,18 @@ sub examples_slash {
       } else {
         warn "could not match example line: $line";
       }
+=======
+sub same_cell_examples {
+  my ($txt) = @_;
+  my @examples;
+  foreach my $line (split /\n/, $txt) {
+    if ($line =~ m{^(.+?) *// *(.+?) *$}) {
+      my ($xv, $xn) = ($1, $2);
+      $xn =~ s{ *// *}{ }g;
+      push @examples, [$xv, [$xn, 'ind']];
+    } else {
+      warn "could not match example line: $line";
+>>>>>>> added Donohue (1998)
     }
     return @examples;
   };
