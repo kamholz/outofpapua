@@ -13,7 +13,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-   'Adriani & Kruijt (1914b)' => {
+  'Adriani & Kruijt (1914b)' => {
     lang_target => 'bzq',
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
@@ -24,7 +24,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-   'Adriani & Kruijt (1914c)' => {
+  'Adriani & Kruijt (1914c)' => {
     lang_target => 'szw',
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
@@ -35,7 +35,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-    'Adriani & Kruijt (1914d)' => {
+  'Adriani & Kruijt (1914d)' => {
     lang_target => 'gzn',
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
@@ -774,7 +774,7 @@ our $dict = {
     mode => 'sense_per_row',
     split => ';',
   },
-    'Flassy (1977/78b)' => {
+  'Flassy (1977/78b)' => {
     lang_target => 'kps',
     path => 'Tehit Flassy (Dialects).xlsx',
     parser => 'Spreadsheet',
@@ -793,7 +793,7 @@ our $dict = {
     mode => 'sense_per_row',
     split => ';',
   },
-   'Flassy (2018)' => {
+  'Flassy (2018)' => {
     lang_target => 'Tehit Teminabuan',
     path => 'Tehit Teminabuan.txt',
     parser => 'Marker',
