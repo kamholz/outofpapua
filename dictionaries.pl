@@ -1086,7 +1086,7 @@ our $dict = {
     skip_marker => 'lx_Eng',
   },
   'Kakerissa et al. (1986)' => {
-    lang_target => 'bpq',
+    lang_target => 'ges',
     path => 'Kakerissa 1986 - Gorom.xlsx',
     parser => 'Spreadsheet',
     columns => [
