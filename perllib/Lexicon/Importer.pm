@@ -36,11 +36,16 @@ sub import_lexicon {
     my $db = $self->db;
     my $tx = $db->begin;
 
-    # look for source id
-    my $source_id = select_single($db, 'SELECT id FROM source WHERE reference = ?', $source_reference);
-    # not found, create new source
-    unless ($source_id) {
-      my $lang_id = $self->get_language_id($lang_code);
+    my $lang_id = $self->get_language_id($lang_code);
+    # look for existing source
+    my $source = $db->query('SELECT id, language_id FROM source WHERE reference = ?', $source_reference)->hash;
+    my $source_id = $source->{id};
+    if ($source_id) {
+      if ($lang_id and $source->{language_id} != $lang_id) {
+        $db->query('UPDATE source SET language_id = ? WHERE id = ?', $lang_id, $source_id);
+        $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
+      }
+    } else {
       $source_id = select_single($db, 'INSERT INTO source (reference, language_id) VALUES (?, ?) RETURNING id', $source_reference, $lang_id);
       $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
     }
@@ -49,7 +54,7 @@ sub import_lexicon {
     $db->query('ALTER TABLE sense DISABLE TRIGGER update_entry_senses');
 
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
-      die 'source entries already exist, aborting' unless $action =~ /^(?:update|overwrite)$/;
+      die 'source entries already exist: you must specify update or overwrite' unless $action =~ /^(?:update|overwrite)$/;
       if ($action eq 'overwrite') {
         say 'deleting existing entries';
         $db->query('SELECT delete_source_entries(?)', $source_id);
@@ -89,6 +94,7 @@ EOF
       }
       if ($entry_id) { # entry to replace
         $seen_entry_id{$entry_id} = 1;
+        push(@entry_ids, $entry_id);
 
         $db->query(<<'EOF', $entry_id); # delete existing senses
 DELETE FROM sense
@@ -107,7 +113,6 @@ VALUES (?, ?, ?, ?, ?, ?)
 RETURNING id
 EOF
       }
-      push(@entry_ids, $entry_id) if $action eq 'update';
 
       my $sense_seq = 1;
       foreach my $sense (@{$entry->{sense}||[]}) {
@@ -158,7 +163,7 @@ WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_mem
 EOF
         if (@linked) {
           print Dumper(\@linked), "\n";
-          die 'aborting: would have deleted linked entries above ("update force" to override)';
+          die 'aborting: would have deleted links from entries above ("update force" to override)';
         }
       }
 
