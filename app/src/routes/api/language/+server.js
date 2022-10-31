@@ -123,6 +123,9 @@ export const POST = requireAuth(async ({ locals, request }) => {
       if (!isEditor(locals.user)) {
         throw error(401);
       }
+      if (!params.dialect_parent_id) {
+        return jsonError('dialect_parent_id cannot be null');
+      }
 
       const rows = await knex
         .fromRaw('language (name, dialect_parent_id)')
