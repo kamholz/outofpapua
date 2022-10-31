@@ -794,7 +794,7 @@ our $dict = {
     split => ';',
   },
   'Flassy (2018)' => {
-    lang_target => 'Tehit Teminabuan',
+    lang_target => 'kps',
     path => 'Tehit Teminabuan.txt',
     parser => 'Marker',
   },
@@ -1098,7 +1098,7 @@ our $dict = {
     split => ';',
   },
   'Kakerissa et al. (1996)' => {
-    lang_target => 'bpq',
+    lang_target => 'bnd',
     path => 'Kakerissaetal1996_Banda.xlsx',
     parser => 'Spreadsheet',
     columns => [
