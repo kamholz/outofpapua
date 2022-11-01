@@ -976,6 +976,7 @@ our $dict = {
       [3, 'page_num'],
     ],
     mode => 'sense_per_row',
+    strip => 'to',
     split => ';',
   },
   'Hesse & Hesse (2021)' => {
