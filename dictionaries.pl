@@ -3292,6 +3292,7 @@ our $dict = {
       [6, 'cf'],
       [7, 'page_num'],
     ],
+    mode => 'sense_per_row',
     split => ';',
   },
   'Soeparno (1977j)' => {
