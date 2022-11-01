@@ -34,7 +34,7 @@
   const creater = crud.makeCreater('language');
 
   async function handleCreate() {
-    if (!values.dialect_parent_id) {
+    if (type === 'dialect' && !values.dialect_parent_id) {
       error = "Language is required";
       return;
     }
