@@ -83,6 +83,7 @@
         testOutput = code(testInput);
       } catch (e) {
         testOutput = 'error evaluating code';
+        console.error(e);
       }
     } else {
       testOutput = 'error fetching code';
