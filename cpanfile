@@ -10,5 +10,5 @@ requires 'Moo', '2.004004';
 requires 'namespace::clean', '0.27';
 requires 'Spreadsheet::ParseXLSX', '0.27';
 requires 'Text::CSV', '2.0';
-requires 'Text::Levenshtein', '0.32';
+requires 'Text::Levenshtein', '0.15';
 requires 'Try::Tiny', '0.30';
