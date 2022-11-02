@@ -26,6 +26,7 @@ sub import_lexicon {
   my ($self, $source_reference, $lang_code, $parser, $action, $action2) = @_;
   $action //= 'create';
   die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
+  $action2 //= '';
 
   say "\nstarting import: $source_reference";
 
@@ -40,18 +41,21 @@ sub import_lexicon {
     # look for existing source
     my $source = $db->query('SELECT id, language_id FROM source WHERE reference = ?', $source_reference)->hash;
     my $source_id = $source->{id};
-    if ($source_id) {
-      if ($lang_id and $source->{language_id} != $lang_id) {
-        $db->query('UPDATE source SET language_id = ? WHERE id = ?', $lang_id, $source_id);
+
+    if ($action2 ne 'debug') {
+      if ($source_id) {
+        if ($lang_id and $source->{language_id} != $lang_id) {
+          $db->query('UPDATE source SET language_id = ? WHERE id = ?', $lang_id, $source_id);
+          $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
+        }
+      } else {
+        $source_id = select_single($db, 'INSERT INTO source (reference, language_id) VALUES (?, ?) RETURNING id', $source_reference, $lang_id);
         $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
       }
-    } else {
-      $source_id = select_single($db, 'INSERT INTO source (reference, language_id) VALUES (?, ?) RETURNING id', $source_reference, $lang_id);
-      $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
-    }
 
-    $db->query('ALTER TABLE sense_gloss DISABLE TRIGGER update_sense_glosses');
-    $db->query('ALTER TABLE sense DISABLE TRIGGER update_entry_senses');
+      $db->query('ALTER TABLE sense_gloss DISABLE TRIGGER update_sense_glosses');
+      $db->query('ALTER TABLE sense DISABLE TRIGGER update_entry_senses');
+    }
 
     if (select_single($db, 'SELECT EXISTS (SELECT FROM entry WHERE source_id = ?)', $source_id)) {
       die 'source entries already exist: you must specify update or overwrite' unless $action =~ /^(?:update|overwrite)$/;
@@ -68,12 +72,39 @@ sub import_lexicon {
       die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
       #next unless length $entry->{headword};
 
+      $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa headword_ph root/;
+
       my $ident = entry_identifier($entry);
       if ($seen_entry{$ident}) {
         say "skipping duplicate: $entry->{headword}";
         next;
       }
       $seen_entry{$ident} = 1;
+
+      my ($entry_id, $match);
+      if ($action eq 'update') {
+        $match = get_matching_entry($db, $entry, $source_id);
+        if ($match) {
+          $entry_id = $match->{id};
+          if ($action2 eq 'debug') {
+            say 'matched database entry:';
+            print Dumper($match);
+            say 'new entry:';
+            print Dumper($entry), "\n";
+          }
+        } elsif ($action2 eq 'debug') {
+          say 'warning: unmatched new entry:';
+          print Dumper($entry), "\n";
+        }
+      }
+
+      if ($entry_id and $seen_entry_id{$entry_id}) {
+        $entry_id = undef;
+        say 'warning: already matched entry, not matching it again';
+        say Dumper($entry) unless $action2 eq 'debug';
+      }
+
+      next if $action2 eq 'debug';
 
       my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
@@ -85,13 +116,6 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa headword_ph root/;
-
-      my $entry_id = $action eq 'update' ? get_entry_id($db, $entry, $source_id) : undef;
-      if ($entry_id and $seen_entry_id{$entry_id}) {
-        say "warning: already replaced entry id $entry_id, not replacing it again";
-        $entry_id = undef;
-      }
       if ($entry_id) { # entry to replace
         $seen_entry_id{$entry_id} = 1;
         push(@entry_ids, $entry_id);
@@ -155,7 +179,7 @@ EOF
     if ($action eq 'update') {
       @entry_ids = uniqint @entry_ids;
 
-      unless ($action2 and $action2 eq 'force') {
+      unless ($action2 eq 'force') {
         my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
@@ -178,6 +202,9 @@ WHERE entry.source_id = ? AND entry.id != ALL(?)
 EOF
     }
 
+    die 'blah';
+    die 'debug' if $action2 eq 'debug';
+
     $db->query(<<'EOF', $source_id);
 UPDATE sense SET glosses = sg.glosses
 FROM sense_glosses sg, entry
@@ -196,7 +223,7 @@ EOF
     say 'imported successfully';
     return 1;
   } catch {
-    say "failed: $_";
+    say "failed: $_" unless $_ eq 'debug';
     return 0;
   };
 }
@@ -240,7 +267,7 @@ sub get_language_id {
   return $language_cache{$code};
 }
 
-sub get_entry_id {
+sub get_matching_entry {
   my ($db, $entry, $source_id) = @_;
 
   return $entry->{id} if $entry->{id};
@@ -248,8 +275,8 @@ sub get_entry_id {
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   say "no glosses, not sure what to do: $entry->{headword}", return unless @glosses;
 
-  my $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
-SELECT entry.id
+  my $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
+SELECT entry.id, entry.headword, entry.senses
 FROM entry
 JOIN sense on sense.entry_id = entry.id
 JOIN sense_gloss ON sense_gloss.sense_id = sense.id
@@ -258,10 +285,10 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-  return $id->[0] if $id;
+  return $match if $match;
 
-  $id = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->array;
-SELECT entry.id
+  $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
+SELECT entry.id, entry.headword, entry.senses
 FROM entry
 JOIN sense on sense.entry_id = entry.id
 JOIN sense_gloss ON sense_gloss.sense_id = sense.id
@@ -270,7 +297,7 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-  return $id->[0] if $id;
+  return $match if $match;
   return undef;
 
   # if (@ids > 1) {
@@ -279,8 +306,8 @@ EOF
 
   my @variants = get_variants($entry);
   if (@variants) {
-    $id = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->array;
-SELECT entry.id
+    $match = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->hash;
+SELECT entry.id, entry.headword, entry.senses
 FROM entry
 JOIN sense on sense.entry_id = entry.id
 JOIN sense_gloss ON sense_gloss.sense_id = sense.id
@@ -289,7 +316,7 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-    return $id->[0] if $id;
+    return $match if $match;
   }
 
   return undef;
