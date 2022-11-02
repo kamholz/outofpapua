@@ -9,7 +9,7 @@ use Mojo::Pg;
 use Text::Levenshtein 'distance';
 use Try::Tiny;
 
-my $MAX_LEVENSHTEIN_DISTANCE = 2;
+my $MAX_LEVENSHTEIN_DISTANCE = 1;
 
 my $json = JSON->new;
 
@@ -205,7 +205,6 @@ WHERE entry.source_id = ? AND entry.id != ALL(?)
 EOF
     }
 
-    die 'blah';
     die 'debug' if $action2 eq 'debug';
 
     $db->query(<<'EOF', $source_id);
@@ -312,11 +311,6 @@ GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-  if ($match) {
-    say "matched via gloss only";
-    say Dumper($match);
-    say Dumper($entry);
-  }
   return $match if $match && distance($match->{headword}, $entry->{headword}) <= $MAX_LEVENSHTEIN_DISTANCE;
 
   return undef;
