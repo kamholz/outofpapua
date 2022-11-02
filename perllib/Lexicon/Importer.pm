@@ -6,7 +6,10 @@ use namespace::clean;
 use Data::Dumper;
 use List::Util qw/uniqint uniqstr/;
 use Mojo::Pg;
+use Text::Levenshtein 'distance';
 use Try::Tiny;
+
+my $MAX_LEVENSHTEIN_DISTANCE = 2;
 
 my $json = JSON->new;
 
@@ -26,7 +29,7 @@ sub import_lexicon {
   my ($self, $source_reference, $lang_code, $parser, $action, $action2) = @_;
   $action //= 'create';
   die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
-  $action2 //= '';
+  $action2 //= 'default';
 
   say "\nstarting import: $source_reference";
 
@@ -179,7 +182,7 @@ EOF
     if ($action eq 'update') {
       @entry_ids = uniqint @entry_ids;
 
-      unless ($action2 eq 'force') {
+      if ($action2 eq 'default') { # not force or debug
         my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
@@ -273,7 +276,7 @@ sub get_matching_entry {
   return $entry->{id} if $entry->{id};
 
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
-  say "no glosses, not sure what to do: $entry->{headword}", return unless @glosses;
+  say "no glosses for entry, not sure what to do: $entry->{headword}", return unless @glosses;
 
   my $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
@@ -298,28 +301,42 @@ ORDER BY count(*) DESC
 LIMIT 1
 EOF
   return $match if $match;
-  return undef;
 
-  # if (@ids > 1) {
-  #   die "multiple existing entry ids matched for $entry->{headword}, aborting: " . join(', ', @ids);
-  # }
-
-  my @variants = get_variants($entry);
-  if (@variants) {
-    $match = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->hash;
+  $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
 JOIN sense on sense.entry_id = entry.id
 JOIN sense_gloss ON sense_gloss.sense_id = sense.id
-WHERE entry.source_id = ? AND entry.headword = ANY(?) AND sense_gloss.txt = ANY(?)
+WHERE entry.source_id = ? AND sense_gloss.txt = ANY(?)
 GROUP BY entry.id
 ORDER BY count(*) DESC
 LIMIT 1
 EOF
-    return $match if $match;
+  if ($match) {
+    say "matched via gloss only";
+    say Dumper($match);
+    say Dumper($entry);
   }
+  return $match if $match && distance($match->{headword}, $entry->{headword}) <= $MAX_LEVENSHTEIN_DISTANCE;
 
   return undef;
+
+#   my @variants = get_variants($entry);
+#   if (@variants) {
+#     $match = $db->query(<<'EOF', $source_id, \@variants, \@glosses)->hash;
+# SELECT entry.id, entry.headword, entry.senses
+# FROM entry
+# JOIN sense on sense.entry_id = entry.id
+# JOIN sense_gloss ON sense_gloss.sense_id = sense.id
+# WHERE entry.source_id = ? AND entry.headword = ANY(?) AND sense_gloss.txt = ANY(?)
+# GROUP BY entry.id
+# ORDER BY count(*) DESC
+# LIMIT 1
+# EOF
+#     return $match if $match;
+#   }
+
+#   return undef;
 }
 
 sub get_variants {
