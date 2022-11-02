@@ -302,7 +302,7 @@ LIMIT 1
 EOF
   return $match if $match;
 
-  $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
+  $match = $db->query(<<'EOF', $source_id, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
 JOIN sense on sense.entry_id = entry.id
