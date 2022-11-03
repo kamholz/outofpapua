@@ -76,6 +76,14 @@ sub import_lexicon {
       #next unless length $entry->{headword};
 
       $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa headword_ph root/;
+      foreach my $sense (@{$entry->{sense}||[]}) {
+        $sense->{pos} = ensure_nfc($sense->{pos});
+        foreach my $item (qw/gloss definition/) {
+          foreach my $val (@{$sense->{$item}||[]}) {
+            $val->[0] = ensure_nfc($val->[0]);
+          }
+        }
+      }
 
       my $ident = entry_identifier($entry);
       if ($seen_entry{$ident}) {
@@ -145,7 +153,7 @@ EOF
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
 
-        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq, ensure_nfc($sense->{pos}));
+        my $sense_id = select_single($db, <<'EOF', $entry_id, $sense_seq, $sense->{pos});
 INSERT INTO sense (entry_id, seq, pos) VALUES (?, ?, ?)
 RETURNING id
 EOF
@@ -157,7 +165,7 @@ EOF
             my $language_id = $self->get_language_id($val->[1]);
             die "no language found for gloss: $val->[0]" unless $language_id;
             $db->query("INSERT INTO sense_${item} (sense_id, language_id, txt, seq) VALUES (?, ?, ?, ?)",
-              $sense_id, $language_id, ensure_nfc($val->[0]), $seq);
+              $sense_id, $language_id, $val->[0], $seq);
             $seq++;
           }
         }
@@ -277,6 +285,7 @@ sub get_matching_entry {
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   say "no glosses for entry, not sure what to do: $entry->{headword}", return unless @glosses;
 
+  # exact headword + exact gloss
   my $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
@@ -289,6 +298,7 @@ LIMIT 1
 EOF
   return $match if $match;
 
+  # degr headword + exact gloss
   $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
@@ -301,6 +311,21 @@ LIMIT 1
 EOF
   return $match if $match;
 
+  # degr headword + degr gloss
+  $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
+SELECT entry.id, entry.headword, entry.senses
+FROM entry
+JOIN sense on sense.entry_id = entry.id
+JOIN sense_gloss ON sense_gloss.sense_id = sense.id
+WHERE entry.source_id = ? AND entry.headword_degr = degr(?)
+  AND sense_gloss.txt_degr = ANY(ARRAY(SELECT degr(unnest(?::text[]))))
+GROUP BY entry.id
+ORDER BY count(*) DESC
+LIMIT 1
+EOF
+  return $match if $match;
+
+  # Levenshtein-1 headword + exact gloss
   $match = $db->query(<<'EOF', $source_id, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
