@@ -31,7 +31,7 @@ sub import_lexicon {
   die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
   $action2 //= 'default';
 
-  say "\nstarting import: $source_reference";
+  say "\nstarting import: $source_reference\n";
 
   # key is stringified object reference
   my %seen_record_ids;
