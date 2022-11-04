@@ -105,16 +105,19 @@ sub import_lexicon {
             say 'new entry:';
             print Dumper($entry), "\n";
           }
+          if ($seen_entry_id{$entry_id}) {
+            $entry_id = undef;
+            if ($debug) {
+              say 'warning: already matched database entry above, not matching it again';
+            } else {
+              say 'warning: already matched database entry not matching it again:';
+              say Dumper($entry), "\n" unless $debug;
+            }
+          }
         } elsif ($debug) {
           say 'warning: unmatched new entry:';
           print Dumper($entry), "\n";
         }
-      }
-
-      if ($entry_id and $seen_entry_id{$entry_id}) {
-        $entry_id = undef;
-        say 'warning: already matched entry, not matching it again';
-        say Dumper($entry), "\n" unless $debug;
       }
 
       next if $debug;
