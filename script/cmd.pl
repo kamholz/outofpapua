@@ -53,7 +53,7 @@ if ($cmd eq 'export') {
   my ($source_reference, $lang_code) = @action;
   die "no source_reference given" unless $source_reference;
   die "no language code or name given" unless $lang_code;
-  Lexicon::Importer->new->import_lexicon($source_reference, $lang_code);
+  Lexicon::Importer->new->update_source_language($source_reference, $lang_code);
 } else {
   if (!exists $dict->{$source_reference}) {
     die "unknown source: $source_reference";
