@@ -50,8 +50,7 @@ if ($cmd !~ /^(?:diff_toolbox|export|import|parse|print_toolbox|update_source_la
 if ($cmd eq 'export') {
   Lexicon::Exporter::CSV->new->export_lexicon($source_reference, \*STDOUT);
 } elsif ($cmd eq 'update_source_language') {
-  my ($source_reference, $lang_code) = @action;
-  die "no source_reference given" unless $source_reference;
+  my ($lang_code) = @action;
   die "no language code or name given" unless $lang_code;
   Lexicon::Importer->new->update_source_language($source_reference, $lang_code);
 } else {
