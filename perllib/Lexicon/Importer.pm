@@ -194,7 +194,7 @@ EOF
       my @entry_ids = map { $_ + 0 } keys %seen_entry_id;
 
       if ($action2 eq 'default') { # not force or debug
-        my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
+        my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->hashes->each;
 SELECT entry.id, entry.headword, entry.origin, entry.senses
 FROM entry
 WHERE entry.source_id = ? AND entry.id != ALL(?) AND (
