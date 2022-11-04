@@ -4,7 +4,7 @@ use Moo;
 use JSON::MaybeXS;
 use namespace::clean;
 use Data::Dumper;
-use List::Util qw/uniqint uniqstr/;
+use List::Util 'uniqstr';
 use Mojo::Pg;
 use Text::Levenshtein 'distance';
 use Try::Tiny;
@@ -110,7 +110,7 @@ sub import_lexicon {
             if ($debug) {
               say 'warning: already matched database entry above, not matching it again';
             } else {
-              say 'warning: already matched database entry, not matching it again:';
+              say "\nwarning: already matched database entry, not matching it again:";
               say Dumper($entry), "\n" unless $debug;
             }
           }
@@ -381,6 +381,34 @@ sub get_variants {
     }
   }
   return @variants;
+}
+
+
+sub update_source_language {
+  my ($self, $source_reference, $lang_code) = @_;
+
+  try {
+    my $db = $self->db;
+    my $tx = $db->begin;
+
+    my $lang_id = $self->get_language_id($lang_code);
+
+    # look for existing source
+    my $source = $db->query('SELECT id, language_id FROM source WHERE reference = ?', $source_reference)->hash;
+    die "could not find source in database: $source_reference" unless $source;
+    my $source_id = $source->{id};
+
+    $db-query(<<'EOF', $lang_id, $source_id);
+UPDATE source SET language_id = ? WHERE id = ?
+EOF
+
+    $tx->commit;
+    say 'updated successfully';
+    return 1;
+  } catch {
+    say "failed: $_";
+    return 0;
+  }
 }
 
 1;

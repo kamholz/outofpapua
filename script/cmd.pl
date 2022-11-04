@@ -35,11 +35,12 @@ my ($cmd, $source_reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
 if ($cmd !~ /^(?:import|parse|print_toolbox|diff_toolbox|export)$/ or !$source_reference) {
   print "\n";
-  say "$0 import source_reference (update|overwrite)";
-  say "$0 parse source_reference";
-  say "$0 print_toolbox source_reference (messy)";
   say "$0 diff_toolbox source_reference";
   say "$0 export source_reference";
+  say "$0 import source_reference [update|overwrite] [force|debug]";
+  say "$0 parse source_reference";
+  say "$0 print_toolbox source_reference [messy]";
+  say "$0 update_source_language source_reference code|name"
   print "\n";
   say 'environment: OOP_DICTIONARY_DIR = dictionary directory, default ../dict';
   print "\n";
@@ -48,6 +49,11 @@ if ($cmd !~ /^(?:import|parse|print_toolbox|diff_toolbox|export)$/ or !$source_r
 
 if ($cmd eq 'export') {
   Lexicon::Exporter::CSV->new->export_lexicon($source_reference, \*STDOUT);
+} elsif ($cmd eq 'update_source_language') {
+  my ($source_reference, $lang_code) = @action;
+  die "no source_reference given" unless $source_reference;
+  die "no language code or name given" unless $lang_code;
+  Lexicon::Importer->new->import_lexicon($source_reference, $lang_code);
 } else {
   if (!exists $dict->{$source_reference}) {
     die "unknown source: $source_reference";
