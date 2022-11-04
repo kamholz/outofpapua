@@ -110,7 +110,7 @@ sub import_lexicon {
             if ($debug) {
               say 'warning: already matched database entry above, not matching it again';
             } else {
-              say 'warning: already matched database entry not matching it again:';
+              say 'warning: already matched database entry, not matching it again:';
               say Dumper($entry), "\n" unless $debug;
             }
           }
@@ -206,7 +206,7 @@ WHERE entry.source_id = ? AND entry.id != ALL(?) AND (
 )
 EOF
         if (@linked) {
-          print Dumper(\@linked), "\n";
+          print "\n", Dumper(\@linked), "\n";
           die 'aborting: would have deleted links or origin from entries above ("update force" to override)';
         }
       }
