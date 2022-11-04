@@ -33,7 +33,7 @@ our $dict;
 
 my ($cmd, $source_reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
-if ($cmd !~ /^(?:import|parse|print_toolbox|diff_toolbox|export)$/ or !$source_reference) {
+if ($cmd !~ /^(?:diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$source_reference) {
   print "\n";
   say "$0 diff_toolbox source_reference";
   say "$0 export source_reference";
