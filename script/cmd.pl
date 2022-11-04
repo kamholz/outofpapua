@@ -40,7 +40,7 @@ if ($cmd !~ /^(?:import|parse|print_toolbox|diff_toolbox|export)$/ or !$source_r
   say "$0 import source_reference [update|overwrite] [force|debug]";
   say "$0 parse source_reference";
   say "$0 print_toolbox source_reference [messy]";
-  say "$0 update_source_language source_reference code|name"
+  say "$0 update_source_language source_reference code|name";
   print "\n";
   say 'environment: OOP_DICTIONARY_DIR = dictionary directory, default ../dict';
   print "\n";

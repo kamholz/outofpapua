@@ -394,11 +394,11 @@ sub update_source_language {
     my $lang_id = $self->get_language_id($lang_code);
 
     # look for existing source
-    my $source = $db->query('SELECT id, language_id FROM source WHERE reference = ?', $source_reference)->hash;
+    my $source = $db->query('SELECT id FROM source WHERE reference = ?', $source_reference)->hash;
     die "could not find source in database: $source_reference" unless $source;
     my $source_id = $source->{id};
 
-    $db-query(<<'EOF', $lang_id, $source_id);
+    $db->query(<<'EOF', $lang_id, $source_id);
 UPDATE source SET language_id = ? WHERE id = ?
 EOF
 
