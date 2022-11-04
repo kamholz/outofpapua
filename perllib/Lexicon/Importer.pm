@@ -30,6 +30,7 @@ sub import_lexicon {
   $action //= 'create';
   die "unknown action: $action" unless $action =~ /^(?:create|update|overwrite)$/;
   $action2 //= 'default';
+  my $debug = $action2 eq 'debug';
 
   say "\nstarting import: $source_reference\n";
 
@@ -41,11 +42,11 @@ sub import_lexicon {
     my $tx = $db->begin;
 
     my $lang_id = $self->get_language_id($lang_code);
+
     # look for existing source
     my $source = $db->query('SELECT id, language_id FROM source WHERE reference = ?', $source_reference)->hash;
     my $source_id = $source->{id};
-
-    if ($action2 ne 'debug') {
+    unless ($debug) {
       if ($source_id) {
         if ($lang_id and $source->{language_id} != $lang_id) {
           $db->query('UPDATE source SET language_id = ? WHERE id = ?', $lang_id, $source_id);
@@ -56,6 +57,7 @@ sub import_lexicon {
         $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
       }
 
+      # disable glosses/senses triggers for performance
       $db->query('ALTER TABLE sense_gloss DISABLE TRIGGER update_sense_glosses');
       $db->query('ALTER TABLE sense DISABLE TRIGGER update_entry_senses');
     }
@@ -69,12 +71,12 @@ sub import_lexicon {
     }
 
     my $entries = $parser->read_entries;
-    my (%seen_entry, %seen_entry_id, @entry_ids);
+    my (%seen_entry, %seen_entry_id);
 
     foreach my $entry (@{$entries||[]}) {
-      die('empty headword in entry: ' . $json->encode($entry->{record})) unless length $entry->{headword};
-      #next unless length $entry->{headword};
+      die('empty headword in entry: ' . Dumper($entry->{record})) unless length $entry->{headword};
 
+      # NFC all the things
       $entry->{$_} = ensure_nfc($entry->{$_}) for qw/headword headword_ipa headword_ph root/;
       foreach my $sense (@{$entry->{sense}||[]}) {
         $sense->{pos} = ensure_nfc($sense->{pos});
@@ -97,13 +99,13 @@ sub import_lexicon {
         $match = get_matching_entry($db, $entry, $source_id);
         if ($match) {
           $entry_id = $match->{id};
-          if ($action2 eq 'debug') {
+          if ($debug) {
             say 'matched database entry:';
             print Dumper($match);
             say 'new entry:';
             print Dumper($entry), "\n";
           }
-        } elsif ($action2 eq 'debug') {
+        } elsif ($debug) {
           say 'warning: unmatched new entry:';
           print Dumper($entry), "\n";
         }
@@ -112,11 +114,12 @@ sub import_lexicon {
       if ($entry_id and $seen_entry_id{$entry_id}) {
         $entry_id = undef;
         say 'warning: already matched entry, not matching it again';
-        say Dumper($entry) unless $action2 eq 'debug';
+        say Dumper($entry), "\n" unless $debug;
       }
 
-      next if $action2 eq 'debug';
+      next if $debug;
 
+      # insert record
       my $record_id = $seen_record_ids{$entry->{record}};
       unless ($record_id) {
         $record_id = select_single($db, <<'EOF', jsonify_record($entry->{record}), $entry->{page_num});
@@ -127,9 +130,8 @@ EOF
         $seen_record_ids{$entry->{record}} = $record_id;
       }
 
-      if ($entry_id) { # entry to replace
+      if ($entry_id) { # matched old entry
         $seen_entry_id{$entry_id} = 1;
-        push(@entry_ids, $entry_id);
 
         $db->query(<<'EOF', $entry_id); # delete existing senses
 DELETE FROM sense
@@ -141,7 +143,7 @@ UPDATE entry
 SET headword = ?, headword_ipa = ?, headword_ph = ?, root = ?, record_id = ?
 WHERE id = ?
 EOF
-      } else {
+      } else { # didn't match old entry
         $entry_id = select_single($db, <<'EOF', $source_id, map({ $entry->{$_} } qw/headword headword_ipa headword_ph root/), $record_id);
 INSERT INTO entry (source_id, headword, headword_ipa, headword_ph, root, record_id)
 VALUES (?, ?, ?, ?, ?, ?)
@@ -149,6 +151,7 @@ RETURNING id
 EOF
       }
 
+      # insert senses
       my $sense_seq = 1;
       foreach my $sense (@{$entry->{sense}||[]}) {
         next unless %{$sense||{}};
@@ -188,20 +191,24 @@ EOF
     }
 
     if ($action eq 'update') {
-      @entry_ids = uniqint @entry_ids;
+      my @entry_ids = map { $_ + 0 } keys %seen_entry_id;
 
       if ($action2 eq 'default') { # not force or debug
         my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->arrays->each;
-SELECT entry.id, entry.headword, entry.senses
+SELECT entry.id, entry.headword, entry.origin, entry.senses
 FROM entry
-WHERE entry.source_id = ? AND entry.id != ALL(?) AND EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
+WHERE entry.source_id = ? AND entry.id != ALL(?) AND (
+  entry.origin IS NOT NULL OR
+  EXISTS (SELECT FROM set_member sm WHERE sm.entry_id = entry.id)
+)
 EOF
         if (@linked) {
           print Dumper(\@linked), "\n";
-          die 'aborting: would have deleted links from entries above ("update force" to override)';
+          die 'aborting: would have deleted links or origin from entries above ("update force" to override)';
         }
       }
 
+      # delete unmatched entries
       $db->query(<<'EOF', $source_id, \@entry_ids);
 DELETE FROM sense
 USING entry
@@ -213,8 +220,9 @@ WHERE entry.source_id = ? AND entry.id != ALL(?)
 EOF
     }
 
-    die 'debug' if $action2 eq 'debug';
+    die 'debug' if $debug;
 
+    # bulk generate glosses/senses; re-enable triggers
     $db->query(<<'EOF', $source_id);
 UPDATE sense SET glosses = sg.glosses
 FROM sense_glosses sg, entry
@@ -225,7 +233,6 @@ UPDATE entry SET senses = es.senses
 FROM entry_senses es
 WHERE entry.id = es.id AND entry.source_id = ?
 EOF
-
     $db->query('ALTER TABLE sense_gloss ENABLE TRIGGER update_sense_glosses');
     $db->query('ALTER TABLE sense ENABLE TRIGGER update_entry_senses');
 
