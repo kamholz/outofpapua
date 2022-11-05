@@ -135,9 +135,16 @@ has 'filter_entry' => (
   default => sub { to_array_map('mn') },
 );
 
+# whether to look for and skip a toolbox header at the beginning of the file
 has 'has_toolbox_header' => (
   is => 'ro',
   default => 1,
+);
+
+# whether to carry over a sense's pos to the next sense and apply it if the sense has none
+has 'remember_pos_across_senses' => (
+  is => 'ro',
+  default => 0,
 );
 
 around BUILDARGS => sub {
@@ -170,10 +177,11 @@ sub read_entries {
   my $example_trans = $self->example_trans;
   my $page_num = $self->page_num;
   my $skip_marker = $self->skip_marker;
+  my $remember_pos_across_senses = $self->remember_pos_across_senses;
 
   my $entries = [];
   my $entry = {};
-  my ($seen_pos, $seen_example);
+  my ($seen_pos, $seen_pos_before_sense, $seen_sense, $seen_example);
 
   foreach my $line ($self->parse) {
     my ($marker_orig, $txt, $headword_flag) = @$line;
@@ -199,7 +207,7 @@ sub read_entries {
     if ($headword->{$marker} or $headword_flag) {
       $self->push_entry($entries, $entry);
       $entry = $self->reset_entry($entry, $record->{$marker} ? 'record' : 'headword');
-      $seen_pos = undef;
+      $seen_pos = $seen_pos_before_sense = $seen_sense = undef;
       $entry->{headword} = normalize_headword($txt);
     } elsif ($headword_citation->{$marker}) {
       $entry->{headword_citation} = normalize_headword($txt);
@@ -207,6 +215,7 @@ sub read_entries {
       $entry->{headword_ph} = normalize_ph($txt);
     } elsif ($pos->{$marker}) {
       $seen_pos = $txt;
+      $seen_pos_before_sense = !$seen_sense;
     } elsif (exists $gloss->{$marker}) {
       $self->add_gloss($entry, 'gloss', $txt, $lang // $gloss->{$marker}, $seen_pos);
     } elsif (exists $reverse->{$marker}) {
@@ -216,6 +225,7 @@ sub read_entries {
     } elsif ($sense->{$marker}) {
       $self->add_sense($entry);
       $seen_sense = 1;
+      $seen_pos = undef unless $remember_pos_across_senses || $seen_pos_before_sense;
     } elsif ($example->{$marker}) {
       $seen_example = $self->add_example($entry, $txt, $seen_pos);
     } elsif ($example_trans->{$marker}) {
