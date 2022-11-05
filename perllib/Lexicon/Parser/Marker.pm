@@ -135,6 +135,11 @@ has 'filter_entry' => (
   default => sub { to_array_map('mn') },
 );
 
+has 'has_toolbox_header' => (
+  is => 'ro',
+  default => 1,
+);
+
 around BUILDARGS => sub {
   my ($orig, $class, @args) = @_;
   my $attr = $class->$orig(@args);
@@ -210,6 +215,7 @@ sub read_entries {
       $self->add_gloss($entry, 'definition', $txt, $lang // $definition->{$marker}, $seen_pos);
     } elsif ($sense->{$marker}) {
       $self->add_sense($entry);
+      $seen_sense = 1;
     } elsif ($example->{$marker}) {
       $seen_example = $self->add_example($entry, $txt, $seen_pos);
     } elsif ($example_trans->{$marker}) {
@@ -255,9 +261,11 @@ sub parse {
 
   open my $in, $mode, ($path // $self->path) or die $!;
 
-  # skip over the MDF header.
-  while (defined(my $line = <$in>)) {
-    last if $line =~ /^\s*$/;
+  if ($self->has_toolbox_header) {
+    # skip over the MDF header.
+    while (defined(my $line = <$in>)) {
+      last if $line =~ /^\s*$/;
+    }
   }
 
   my (@lines, $last_marker, $last_txt);
