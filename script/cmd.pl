@@ -31,10 +31,12 @@ eval { # silently fail if not present
 require './dictionaries.pl';
 our $dict;
 
-my ($cmd, $source_reference, @action) = map { decode_utf8($_, 1) } @ARGV;
+my ($cmd, $reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
-if ($cmd !~ /^(?:diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$source_reference) {
+if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
   print "\n";
+  say "$0 delete_ipa_lib ipa_lib";
+  say "$0 delete_ipa_ruleset ipa_ruleset";
   say "$0 diff_toolbox source_reference";
   say "$0 export source_reference";
   say "$0 import source_reference [update|overwrite] [force|debug]";
@@ -48,17 +50,21 @@ if ($cmd !~ /^(?:diff_toolbox|export|import|parse|print_toolbox|update_source_la
 }
 
 if ($cmd eq 'export') {
-  Lexicon::Exporter::CSV->new->export_lexicon($source_reference, \*STDOUT);
+  Lexicon::Exporter::CSV->new->export_lexicon($reference, \*STDOUT);
 } elsif ($cmd eq 'update_source_language') {
   my ($lang_code) = @action;
   die "no language code or name given" unless $lang_code;
-  Lexicon::Importer->new->update_source_language($source_reference, $lang_code);
+  Lexicon::Importer->new->update_source_language($reference, $lang_code);
+} elsif ($cmd eq 'delete_ipa_lib') {
+  Lexicon::Importer->new->delete_ipa_lib($reference);
+} elsif ($cmd eq 'delete_ipa_ruleset') {
+  Lexicon::Importer->new->delete_ipa_ruleset($reference);
 } else {
-  if (!exists $dict->{$source_reference}) {
-    die "unknown source: $source_reference";
+  if (!exists $dict->{$reference}) {
+    die "unknown source: $reference";
   }
 
-  my $args = $dict->{$source_reference};
+  my $args = $dict->{$reference};
   die "no parser given" unless $args->{parser};
   die "no lang_target given" unless $args->{lang_target};
   my $dir = $ENV{OOP_DICTIONARY_DIR} // '../dict';
@@ -67,8 +73,8 @@ if ($cmd eq 'export') {
   my $parser = $parser_class->new($args);
 
   if ($cmd eq 'import') {
-    my $success = Lexicon::Importer->new->import_lexicon($source_reference, $args->{lang_target}, $parser, @action);
-    system "cd app && script/ipa.js '$source_reference' update" if $success;
+    my $success = Lexicon::Importer->new->import_lexicon($reference, $args->{lang_target}, $parser, @action);
+    system "cd app && script/ipa.js '$reference' update" if $success;
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
@@ -79,7 +85,7 @@ if ($cmd eq 'export') {
     open my $current, '>:encoding(utf-8)', 'tmp_current_lexicon.txt' or die $!;
     open my $new, '>:encoding(utf-8)', 'tmp_new_lexicon.txt' or die $!;
 
-    Lexicon::Exporter::Marker->new->export_lexicon($source_reference, $current);
+    Lexicon::Exporter::Marker->new->export_lexicon($reference, $current);
 
     my $records = $parser->get_toolbox_records(@action);
     my %record_json = map { $_ => $json->encode($_) } @$records;

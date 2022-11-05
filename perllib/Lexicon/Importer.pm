@@ -37,7 +37,7 @@ sub import_lexicon {
   # key is stringified object reference
   my %seen_record_ids;
 
-  try {
+  return try {
     my $db = $self->db;
     my $tx = $db->begin;
 
@@ -387,7 +387,7 @@ sub get_variants {
 sub update_source_language {
   my ($self, $source_reference, $lang_code) = @_;
 
-  try {
+  return try {
     my $db = $self->db;
     my $tx = $db->begin;
 
@@ -401,13 +401,63 @@ sub update_source_language {
     $db->query(<<'EOF', $lang_id, $source_id);
 UPDATE source SET language_id = ? WHERE id = ?
 EOF
-
     $tx->commit;
+
     say 'updated successfully';
     return 1;
   } catch {
     say "failed: $_";
     return 0;
+  }
+}
+
+sub delete_ipa_lib {
+  my ($self, $ipa_lib) = @_;
+  return try {
+    my $db = $self->db;
+    my $tx = $db->begin;
+
+    my $found = $db->query(<<'EOF', $ipa_lib);
+DELETE FROM ipa_conversion_lib
+WHERE name = ?
+RETURNING name
+EOF
+    $tx->commit;
+
+    if ($found) {
+      say 'deleted successfully';
+    } else {
+      say 'lib not found';
+    }
+    return 1;
+  } catch {
+    say "failed: $_";
+    return 0;
+  }
+}
+
+sub delete_ipa_ruleset {
+  my ($self, $ipa_ruleset) = @_;
+  return try {
+    my $db = $self->db;
+    my $tx = $db->begin;
+
+    my $found = $db->query(<<'EOF', $ipa_ruleset)->hash;
+DELETE FROM ipa_conversion_rule
+WHERE name = ?
+RETURNING name
+EOF
+    $tx->commit;
+
+    if ($found) {
+      say 'deleted successfully';
+    } else {
+      say 'ruleset not found';
+    }
+    return 1;
+  } catch {
+    say "failed: $_";
+    return 0;  
   }
 }
 

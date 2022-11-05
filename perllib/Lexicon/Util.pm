@@ -51,10 +51,10 @@ sub apply_encodings {
     return decode_lax($encodings->[0], $txt);
   } else {
     foreach my $encoding (@$encodings) {
-      try {
-        my $new_txt = decode($encoding, $txt);
-        return $new_txt;
+      my $new_txt = try {
+        return decode($encoding, $txt);
       };
+      return $new_txt if defined $new_txt;
     }
   }
 
