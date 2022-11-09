@@ -3783,7 +3783,7 @@ our $dict = {
     split => ';',
   },
   'Usher (nd b)' => {
-    lang_target => 'Proto-FATRATA',
+    lang_target => 'Proto-FRATA',
     path => 'Usher_nd_PEastTimor-PFRATA_reconstructions.xlsx',
     parser => 'Spreadsheet',
     sheet => 'PFATRATA',
