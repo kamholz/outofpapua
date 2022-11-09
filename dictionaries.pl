@@ -797,6 +797,10 @@ our $dict = {
     lang_target => 'kps',
     path => 'Tehit Teminabuan.txt',
     parser => 'Marker',
+     gloss => {
+      ge => 'eng',
+    },
+  },
   },
   'Gane (2019)' => {
     lang_target => 'loa',
