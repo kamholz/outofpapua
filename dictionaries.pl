@@ -95,6 +95,17 @@ our $dict = {
     ],
     split => ',',
   },
+  'Anceaux (nd c)' => {
+    lang_target => 'bhc',
+    path => 'Biga (Anceaux).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+    ],
+    split => ',',
+  },
   'Anceaux (nd 119)' => {
     lang_target => 'mxn',
     path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
