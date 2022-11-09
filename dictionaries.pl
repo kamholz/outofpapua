@@ -834,7 +834,6 @@ our $dict = {
       ge => 'eng',
     },
   },
-  },
   'Gane (2019)' => {
     lang_target => 'loa',
     path => 'spreadsheets/Gane2019-Loloda.xlsx',
