@@ -1524,6 +1524,15 @@ our $dict = {
       [4, 'cf'],
     ],
   },
+  'Remijsen (2001a)' => {
+    lang_target => 'bhc',
+    path => 'Biga.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
   'Remijsen (2017)' => {
     lang_target => 'xmt',
     path => 'Matbat_MageyDialect_2003_Lexicography/Matbat_Vocabulary.toolbox_cleaned.txt',
