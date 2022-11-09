@@ -73,6 +73,17 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Anceaux (nd a)' => {
+    lang_target => 'slz',
+    path => 'Maya Misool (Anceaux).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+    ],
+    split => ',',
+  },
   'Anceaux (nd 119)' => {
     lang_target => 'mxn',
     path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
