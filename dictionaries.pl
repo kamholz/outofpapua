@@ -1328,6 +1328,19 @@ our $dict = {
     path => 'Menick_Moi_Dictionary.txt',
     parser => 'Marker',
   },
+  'Musgrave (nd)' => {
+    lang_target => 'tlu',
+    path => 'Musgrave_Sou Ama Teru_Lexicon.txt',
+    parser => 'Marker',
+    gloss => {
+      ge => 'eng',
+      gn => 'ind'
+    },
+    definition => {
+      de => 'eng',
+      dn => 'ind'
+    }
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
