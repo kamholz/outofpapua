@@ -4304,6 +4304,14 @@ our $dict = {
     split => ',;',
     split_headword => ',;',
   },
+  'Walker (nd)' => {
+    lang_target => 'kwh',
+    path => 'Koiwai_Version3_Cleaned.txt',
+    parser => 'Marker',
+    gloss => {
+      ge => 'eng',
+      gn => 'ind'
+  },
   'Walker & Himmelmann (nd)' => {
     lang_target => 'ihp',
     path => 'Walker_Himmelmann_Iha_Wordlist.xlsx',
