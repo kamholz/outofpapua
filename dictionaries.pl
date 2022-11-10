@@ -4356,6 +4356,7 @@ our $dict = {
     gloss => {
       ge => 'eng',
       gn => 'ind'
+    },
   },
   'Walker & Himmelmann (nd)' => {
     lang_target => 'ihp',
