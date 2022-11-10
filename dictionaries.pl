@@ -612,6 +612,12 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Clark (2022)' => {
+    lang_target => 'Tobelo Boëng',
+    path => 'Clark2022Tobelo.txt',
+    parser => 'Marker',
+    split => ';',
+  },
   'Coenen (1953)' => {
     lang_target => 'ihp',
     path => 'spreadsheets/Iha_list_cleaned.xlsx',
