@@ -1588,7 +1588,7 @@ our $dict = {
   },
   'Remijsen (2001h)' => {
     lang_target => 'wuy',
-    path => 'Wuayai.txt',
+    path => 'Wauyai.txt',
     parser => 'Marker',
     split => ';',
     gloss => {
