@@ -1532,6 +1532,69 @@ our $dict = {
       ge => 'eng',
     },
   },
+  'Remijsen (2001b)' => {
+    lang_target => 'xmx',
+    path => 'Butleh.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001c)' => {
+    lang_target => 'kgb',
+    path => 'Kawe.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001d)' => {
+    lang_target => 'lcc',
+    path => 'Laganyan.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001e)' => {
+    lang_target => 'xmt',
+    path => 'Matbat.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001f)' => {
+    lang_target => 'slz',
+    path => 'Misool Maya.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001g)' => {
+    lang_target => 'xmt',
+    path => 'Salawati Maya.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
+  'Remijsen (2001h)' => {
+    lang_target => 'wuy',
+    path => 'Wuayai.txt',
+    parser => 'Marker',
+    split => ';',
+    gloss => {
+      ge => 'eng',
+    },
+  },
   'Remijsen (2017)' => {
     lang_target => 'xmt',
     path => 'Matbat_MageyDialect_2003_Lexicography/Matbat_Vocabulary.toolbox_cleaned.txt',
