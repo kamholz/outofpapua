@@ -1578,7 +1578,7 @@ our $dict = {
     },
   },
   'Remijsen (2001g)' => {
-    lang_target => 'xmt',
+    lang_target => 'slz',
     path => 'Salawati Maya.txt',
     parser => 'Marker',
     split => ';',
