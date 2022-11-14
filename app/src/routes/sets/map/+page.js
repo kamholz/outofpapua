@@ -17,7 +17,7 @@ export async function load({ fetch, url: { searchParams } }) {
     if (!res.ok) {
       throw error(500);
     }
-    const { name, mapData } = await res.json();
+    const { name, data: mapData } = await res.json();
     data.name = name;
     data.settings = mapData.settings;
   }
