@@ -4389,10 +4389,18 @@ our $dict = {
   },
   'Vries (2004e)' => {
     lang_target => 'szp', # Inanwatan
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'vries04',
-    lexirumah_lect => 'inan1242',
+    path => 'Inanwatan_List.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'pos'],
+      [5, 'nt'],
+      [6, 'cf'],
+    ],
+    split => ';',
   },
   'Wada (1980a)' => {
     lang_target => 'gbi',
