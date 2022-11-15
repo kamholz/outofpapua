@@ -258,7 +258,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Arnold (2019)' => {
+  'Arnold (2019a)' => {
     lang_target => 'wgo',
     path => 'Ambel_FullLexicon_RootBased.db',
     parser => 'Marker',
