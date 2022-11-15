@@ -3,7 +3,7 @@ use utf8;
 
 our $dict = {
   'Adriani & Kruijt (1914a)' => {
-    lang_target => 'mky',
+    lang_target => 'mky', #East Makian
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -14,7 +14,7 @@ our $dict = {
     ],
   },
   'Adriani & Kruijt (1914b)' => {
-    lang_target => 'bzq',
+    lang_target => 'bzq', #Buli
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -25,7 +25,7 @@ our $dict = {
     ],
   },
   'Adriani & Kruijt (1914c)' => {
-    lang_target => 'szw',
+    lang_target => 'szw', #Sawai
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -40,7 +40,7 @@ our $dict = {
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [5, 'headword'],
+      [6, 'headword'],
       [2, 'gloss', 'eng'],
       [1, 'gloss', 'nld'],
       [0, 'nt', 'number:'],
