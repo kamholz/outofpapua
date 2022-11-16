@@ -4069,6 +4069,13 @@ our $dict = {
     ],
     split => ';',
   },
+  'van Baarda (1895)' => {
+    lang_target => 'gbi',
+    path => 'vanBaarda1895Galela.txt',
+    parser => 'Marker',
+    strip => 'to',
+    split => ';',
+  },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',
     path => 'Biak-LexiRumah_20191107.xlsx',
