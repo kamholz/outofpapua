@@ -272,6 +272,7 @@ our $dict = {
     lang_target => 'Seget Kalobo',
     path => 'Seget Kalobo.db',
     parser => 'Marker',
+    skip_marker => ['lx_Seg', 'ps_Pap']
   },
   'Bax (2019)' => {
     lang_target => 'gei',
