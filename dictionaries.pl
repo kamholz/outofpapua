@@ -270,7 +270,7 @@ our $dict = {
   },
   'Arnold (2019b)' => {
     lang_target => 'Seget Kalobo',
-    path => 'ASeget Kalobo.db',
+    path => 'Seget Kalobo.db',
     parser => 'Marker',
   },
   'Bax (2019)' => {
