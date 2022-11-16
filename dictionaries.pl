@@ -268,6 +268,11 @@ our $dict = {
     reverse_action => 'prefer',
     skip_marker => 'lx_Amb',
   },
+  'Arnold (2019b)' => {
+    lang_target => 'Seget Kalobo',
+    path => 'ASeget Kalobo.db',
+    parser => 'Marker',
+  },
   'Bax (2019)' => {
     lang_target => 'gei',
     path => 'Bax/Bax_final-version.txt',
