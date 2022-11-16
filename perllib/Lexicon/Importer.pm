@@ -1,9 +1,9 @@
 package Lexicon::Importer;
 use v5.14;
 use Moo;
-use JSON::MaybeXS;
 use namespace::clean;
 use Data::Dumper;
+use JSON::MaybeXS;
 use List::Util 'uniqstr';
 use Mojo::Pg;
 use Text::Levenshtein 'distance';
@@ -53,7 +53,12 @@ sub import_lexicon {
           $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
         }
       } else {
-        $source_id = select_single($db, 'INSERT INTO source (reference, language_id) VALUES (?, ?) RETURNING id', $source_reference, $lang_id);
+        my $formatting = make_source_formatting($parser);
+        $source_id = select_single($db, <<'EOF', $source_reference, $lang_id, $formatting);
+INSERT INTO source (reference, language_id, formatting)
+VALUES (?, ?, ?)
+RETURNING id
+EOF
         $db->query('UPDATE language SET flag_language_list = true WHERE id = ? AND NOT flag_language_list', $lang_id);
       }
 
@@ -459,6 +464,17 @@ EOF
     say "failed: $_";
     return 0;  
   }
+}
+
+sub make_source_formatting {
+  my ($parser) = @_;
+  my $lang_national = $parser->lang_national ne 'und' && $parser->lang_national;
+  my $lang_regional = $parser->lang_regional ne 'und' && $parser->lang_regional;
+
+  my $formatting;
+  $formatting->{langNational} = $lang_national if $lang_national;
+  $formatting->{langRegional} = $lang_regional if $lang_regional;
+  return $formatting ? JSON->new->canonical->encode($formatting) : undef;
 }
 
 1;
