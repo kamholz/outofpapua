@@ -55,8 +55,18 @@ const senseMarker = {
   lt: 'literal',
 };
 
+const exampleMarker = {};
+
+const exampleMarkerArray = {
+  cf_x: 'crossref',
+};
+
 for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'pd', 'rf', 'sy', 'ue']) {
   senseMarker[`${marker}_sn`] = entryMarker[marker];
+}
+
+for (const marker of ['na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'ue']) {
+  exampleMarker[`${marker}_x`] = entryMarker[marker];
 }
 
 export function parseRecord(data, formatting) {
@@ -88,6 +98,10 @@ export function parseRecord(data, formatting) {
         if (marker === multiMarker[state].trans) {
           push(multi, [value, lang]);
           continue marker;
+        } else if (state === 'example' && marker in exampleMarker) {
+          pushKey(multi, exampleMarker[marker], value);
+        } else if (state === 'example' && marker in exampleMarkerArray) {
+          pushKey(multi, exampleMarkerArray[marker], [value]);
         } else {
           state = savedState;
         }

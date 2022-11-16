@@ -24,9 +24,9 @@
   </Paragraph>
 
   <Div>
-    {#each entryNotesPre as { key, label, join, trans }}
+    {#each entryNotesPre as { key, label, join, trans, link  }}
       {#if key in entry}
-        <Note data={entry} {key} {label} {join} {trans} />
+        <Note data={entry} {key} {label} {join} {trans} {link} />
       {/if}
     {/each}
 
@@ -77,6 +77,10 @@
 
       .example-p, .sense-note-p {
         margin-inline-start: 20px;
+      }
+
+      .example-note-p {
+        margin-inline-start: 36px;
       }
 
       .pos, .label, .lang {

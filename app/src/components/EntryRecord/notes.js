@@ -31,12 +31,7 @@ export const entryNotesPre = [
   ...entryNotesPreShared,
 ];
 
-export const entryNotesPost = [
-  {
-    key: 'scientific',
-    label: 'Scientific name',
-    join: true,
-  },
+const entryNotesPostShared = [
   {
     key: 'usage',
     label: 'Usage',
@@ -72,6 +67,15 @@ export const entryNotesPost = [
     label: 'Note',
     join: false,
   },
+];
+
+export const entryNotesPost = [
+  {
+    key: 'scientific',
+    label: 'Scientific name',
+    join: true,
+  },
+  ...entryNotesPostShared,
   {
     key: 'question',
     label: 'Analyst’s question',
@@ -141,4 +145,15 @@ export const senseNotes = [
     join: true,
   },
   ...entryNotesPost,
+];
+
+export const exampleNotes = [
+  ...entryNotesPostShared,
+  {
+    key: 'crossref',
+    label: 'See also',
+    join: true,
+    trans: true,
+    link: true,
+  },
 ];

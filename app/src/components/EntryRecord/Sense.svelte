@@ -3,10 +3,10 @@
   import MaybeLang from '$components/EntryRecord/MaybeLang.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
+  import { exampleNotes, senseNotes } from './notes';
   import { getContext } from 'svelte';
   import { langMarkerSorted } from '$lib/parse_record';
   import { mungePos, toolboxMarkup } from '$lib/util';
-  import { senseNotes } from './notes';
 
   export let sense;
   export let num = null;
@@ -33,9 +33,9 @@
   {/if}
 </Paragraph>
 
-{#each senseNotes as { key, label, join }}
+{#each senseNotes as { key, label, join, trans, link }}
   {#if key in sense}
-    <Note data={sense} {key} {label} {join} class="sense-note-p" />
+    <Note data={sense} {key} {label} {join} {trans} {link} class="sense-note-p" />
   {/if}
 {/each}
 
@@ -44,5 +44,10 @@
     <Paragraph class="example-p">
       <Form {item} key="example" trans />{#if compact}.{/if}
     </Paragraph>
+    {#each exampleNotes as { key, label, join, trans, link }}
+      {#if key in item}
+        <Note data={item} {key} {label} {join} {trans} {link} class="example-note-p" />
+      {/if}
+    {/each}
   {/each}
 {/if}
