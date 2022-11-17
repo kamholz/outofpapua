@@ -13,9 +13,13 @@
     name,
   } = data);
 
-  let selected = data.libs.find((lib) => lib.name === data.name) || {};
+  let selected = findLib(data.name) || {};
   $: lib = { ...selected };
   let promise;
+
+  function handleChange() {
+    window.history.replaceState(null, '', libUrl(selected.name));
+  }
 
   async function handleSubmit(e) {
     const values = { ...e.detail.values };
@@ -37,15 +41,21 @@
       })();
       await promise;
 
-      if (values.name !== selected.name) {
-        gotoLib(values.name);
+      if (values.name === selected.name) {
+        Object.assign(findLib(selected.name), values);
+      } else {
+        goto(libUrl(values.name, { replaceState: true }));
       }
     } catch (e) {}
     $pageLoading--;
   }
 
-  function gotoLib(name) {
-    goto(`/ipa_conversion_libs/${name}`);
+  function findLib(name) {
+    return data.libs.find((lib) => lib.name === name);
+  }
+
+  function libUrl(name) {
+    return `/ipa_conversion_libs/${name}`;
   }
 </script>
 
@@ -62,6 +72,7 @@
     valueField="name"
     value={name}
     bind:readSelection={selected}
+    on:change={handleChange}
   />
 </div>
 
@@ -75,7 +86,7 @@
 </div>
 
 <h3>Create New Lib</h3>
-<CreateForm on:refresh={(e) => gotoLib(e.detail)} />
+<CreateForm on:refresh={(e) => goto(libUrl(e.detail))} />
 
 <style lang="scss">
   .choose {

@@ -15,7 +15,7 @@
     rules,
   } = data);
 
-  let selected = data.rules.find((rule) => rule.name === data.name) || {};
+  let selected = findRule(data.name) || {};
   $: rule = { ...selected };
 
   const codeByName = {};
@@ -23,8 +23,9 @@
   let testOutput = '';
   let promise;
 
-  $: if (selected) {
+  function handleChange() {
     testOutput = '';
+    window.history.replaceState(null, '', ruleUrl(selected.name));
   }
 
   async function handleSubmit(e) {
@@ -56,8 +57,10 @@
       await promise;
       delete codeByName[selected.name];
 
-      if (values.name !== selected.name) {
-        gotoRule(values.name);
+      if (values.name === selected.name) {
+        Object.assign(findRule(selected.name), values);
+      } else {
+        goto(ruleUrl(values.name), { replaceState: true });
       }
     } catch (e) {}
     $pageLoading--;
@@ -106,8 +109,12 @@
     return (0, eval)(code);
   }
 
-  function gotoRule(name) {
-    goto(`/ipa_conversion_rules/${name}`);
+  function findRule(name) {
+    return data.rules.find((rule) => rule.name === name);
+  }
+
+  function ruleUrl(name) {
+    return `/ipa_conversion_rules/${name}`;
   }
 </script>
 
@@ -124,6 +131,7 @@
     valueField="name"
     value={name}
     bind:readSelection={selected}
+    on:change={handleChange}
   />
 </div>
 
@@ -157,7 +165,7 @@
 </div>
 
 <h3>Create New Ruleset</h3>
-<CreateForm on:refresh={(e) => gotoRule(e.detail)} />
+<CreateForm on:refresh={(e) => goto(ruleUrl(e.detail))} />
 
 <style lang="scss">
   .choose {

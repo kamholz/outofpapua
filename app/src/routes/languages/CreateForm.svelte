@@ -35,7 +35,7 @@
 
   async function handleCreate() {
     if (type === 'dialect' && !values.dialect_parent_id) {
-      error = "Language is required";
+      error = 'Language is required';
       return;
     }
     $pageLoading++;
