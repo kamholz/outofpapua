@@ -76,7 +76,7 @@ EOF
     }
 
     my $entries = $parser->read_entries;
-    my (%seen_entry, %seen_entry_id);
+    my (%seen_entry, %seen_entry_id, @entry_ids);
 
     foreach my $entry (@{$entries||[]}) {
       die('empty headword in entry: ' . Dumper($entry->{record})) unless length $entry->{headword};
@@ -159,6 +159,11 @@ RETURNING id
 EOF
       }
 
+      if ($action eq 'update') {
+        # save entry id so it won't be deleted later
+        push @entry_ids, $entry_id;
+      }
+
       # insert senses
       my $sense_seq = 1;
       foreach my $sense (@{$entry->{sense}||[]}) {
@@ -199,8 +204,6 @@ EOF
     }
 
     if ($action eq 'update') {
-      my @entry_ids = map { $_ + 0 } keys %seen_entry_id;
-
       if ($action2 eq 'default') { # not force or debug
         my @linked = $db->query(<<'EOF', $source_id, \@entry_ids)->hashes->each;
 SELECT entry.id, entry.headword, entry.origin, entry.senses
