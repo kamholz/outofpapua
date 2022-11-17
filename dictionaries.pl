@@ -4310,7 +4310,7 @@ our $dict = {
     strip => 'to',
   },
   'Voorhoeve (1984e)' => {
-    lang_target => 'Kokoda Kasuweri',
+    lang_target => 'Kokoda Kasueri',
     path => 'Arandai_List_Version4.xlsx',
     parser => 'Spreadsheet',
     columns => [
