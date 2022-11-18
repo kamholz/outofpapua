@@ -4447,6 +4447,19 @@ our $dict = {
     ],
     split => ';',
   },
+  'Vries (2004f)' => {
+    lang_target => 'oni', # Patipi Kokas
+    path => 'Other_lists_De_Vries_2004.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Patipi Kokas',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split => ';',
+    split_headword => ';',
+    strip => 'to',
+  },
   'Wada (1980a)' => {
     lang_target => 'gbi',
     path => 'Wada_1980/Wada.xlsx',
