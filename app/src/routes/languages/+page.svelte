@@ -16,6 +16,7 @@
     setContext('langSuggest', langSuggest);
   }
   const editable = getContext('editable');
+  let showLanguagesWithNoEntries = false;
 
   async function handleRefresh() {
     $pageLoading++;
@@ -35,8 +36,16 @@
 <Table
   {rows}
   {query}
+  {showLanguagesWithNoEntries}
   on:refresh={handleRefresh}
 />
+
+{#if isEditor($session.user)}
+  <form>
+    <input type="checkbox" id="showLanguagesWithNoEntries" bind:checked={showLanguagesWithNoEntries} />
+    <label for="showLanguagesWithNoEntries">Show Languages With No Entries</label>
+  </form>
+{/if}
 
 {#if editable}
   <h3>Create proto-language</h3>
@@ -56,5 +65,13 @@
 <style>
   div {
     margin-block-end: 24px;
+  }
+
+  form {
+    margin-block-start: 18px;
+    margin-block-end: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 </style>

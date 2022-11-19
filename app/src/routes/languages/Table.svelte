@@ -7,8 +7,12 @@
   
   export let rows;
   export let query;
+  export let showLanguagesWithNoEntries;
   const editable = getContext('editable');
   $: parents = rows.filter((row) => row.is_proto);
+  $: visibleRows = showLanguagesWithNoEntries
+    ? rows
+    : rows.filter((row) => row.is_proto || row.numentries !== "0");
 
   $: columns = [
     {
@@ -68,7 +72,7 @@
 {/await}
 <Table
   {columns}
-  {rows}
+  rows={visibleRows}
   {query}
   {editable}
   {controls}
