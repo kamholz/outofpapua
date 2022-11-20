@@ -33,10 +33,11 @@ our $dict;
 
 my ($cmd, $reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
-if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
+if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|delete_source|diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
   print "\n";
   say "$0 delete_ipa_lib ipa_lib";
   say "$0 delete_ipa_ruleset ipa_ruleset";
+  say "$0 delete_source source_reference";
   say "$0 diff_toolbox source_reference";
   say "$0 export source_reference";
   say "$0 import source_reference [update|overwrite] [force|debug]";
@@ -59,6 +60,8 @@ if ($cmd eq 'export') {
   Lexicon::Importer->new->delete_ipa_lib($reference);
 } elsif ($cmd eq 'delete_ipa_ruleset') {
   Lexicon::Importer->new->delete_ipa_ruleset($reference);
+} elsif ($cmd eq 'delete_source') {
+  Lexicon::Importer->new->delete_source($reference);
 } else {
   if (!exists $dict->{$reference}) {
     die "unknown source: $reference";

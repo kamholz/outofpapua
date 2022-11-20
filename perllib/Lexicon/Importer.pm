@@ -276,6 +276,13 @@ sub jsonify_record {
   return $json->encode([ map { [ $_->[0], ensure_nfc($_->[1]) ] } @$record ]);
 }
 
+sub get_source_id {
+  my ($self, $source_reference) = @_;
+  my $source = $self->db->query('SELECT id FROM source WHERE reference = ?', $source_reference)->hash;
+  die "could not find source in database: $source_reference" unless $source;
+  return $source->{id};
+}
+
 sub get_language_id {
   my ($self, $code) = @_;
   state %language_cache;
@@ -400,11 +407,7 @@ sub update_source_language {
     my $tx = $db->begin;
 
     my $lang_id = $self->get_language_id($lang_code);
-
-    # look for existing source
-    my $source = $db->query('SELECT id FROM source WHERE reference = ?', $source_reference)->hash;
-    die "could not find source in database: $source_reference" unless $source;
-    my $source_id = $source->{id};
+    my $source_id = $self->get_source_id($source_reference);
 
     $db->query(<<'EOF', $lang_id, $source_id);
 UPDATE source SET language_id = ? WHERE id = ?
@@ -466,6 +469,32 @@ EOF
   } catch {
     say "failed: $_";
     return 0;  
+  }
+}
+
+sub delete_source {
+  my ($self, $source_reference) = @_;
+
+  print qq(\nAre you sure you want to delete the source "${source_reference}"? [y/N] );
+  my $response = <STDIN>;
+  chomp $response;
+  print "\n";
+  if ($response =~ /^(?:y|yes)$/) {
+    return try {
+      my $source_id = $self->get_source_id($source_reference);
+
+      my $db = $self->db;
+      my $tx = $db->begin;
+      $db->query('SELECT delete_source_entries(?)', $source_id);
+      $db->query('DELETE FROM source WHERE id = ?', $source_id);
+      $tx->commit;
+      say "deleted successfully";
+    } catch {
+      say "failed: $_";
+      return 0;
+    }
+  } else {
+    say "aborting";
   }
 }
 
