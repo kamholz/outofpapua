@@ -993,6 +993,19 @@ our $dict = {
     mode => 'sense_per_row',
     split => ';',
   },
+  'Flassy (1987)' => {
+    lang_target => 'bdw',
+    path => 'Flassy 1987 - Bahaam.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num']
+    ]
+    split => ';',
+    split_headword => ';',
+  }
   'Flassy (2018)' => {
     lang_target => 'kps',
     path => 'Tehit Teminabuan.txt',
