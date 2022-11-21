@@ -1005,7 +1005,7 @@ our $dict = {
     ]
     split => ';',
     split_headword => ';',
-  }
+  },
   'Flassy (2018)' => {
     lang_target => 'kps',
     path => 'Tehit Teminabuan.txt',
