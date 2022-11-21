@@ -705,7 +705,7 @@ our $dict = {
     strip => 'to',
   },
   'Collins (1986a)' => {
-    lang_target => 'ste',
+    lang_target => 'ste', #Seti
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -716,7 +716,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986b)' => {
-    lang_target => 'ste',
+    lang_target => 'ste', #Seti Adabai
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -727,7 +727,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986c)' => {
-    lang_target => 'bty',
+    lang_target => 'bty', #Bobot Werinama
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -738,7 +738,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986d)' => {
-    lang_target => 'bty',
+    lang_target => 'bty', #Bobot Naiyaba
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -749,7 +749,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986e)' => {
-    lang_target => 'bty',
+    lang_target => 'bty',#Bobot Tobo
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -760,7 +760,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986f)' => {
-    lang_target => 'bnf',
+    lang_target => 'bnf', #Masiwang Kota Baru
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -771,7 +771,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986g)' => {
-    lang_target => 'bnf',
+    lang_target => 'bnf', #Masiwang Dawang
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -782,7 +782,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986h)' => {
-    lang_target => 'ges',
+    lang_target => 'ges', #Geser Selor
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -793,7 +793,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986i)' => {
-    lang_target => 'ges',
+    lang_target => 'ges', #Geser Pulau Panjang
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -804,7 +804,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986j)' => {
-    lang_target => 'ges',
+    lang_target => 'ges', #Geser
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -815,7 +815,7 @@ our $dict = {
     split => ';',
   },
   'Collins (1986k)' => {
-    lang_target => 'ges',
+    lang_target => 'ges', #Geser Kilmuri
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -826,11 +826,33 @@ our $dict = {
     split => ';',
   },
   'Collins (1986l)' => {
-    lang_target => 'wah',
+    lang_target => 'wah', #Watubela Efa
     path => 'EaternSeram_Collins1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [12, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split_headword => ';',
+    split => ';',
+  },
+  'Collins (1986m)' => {
+    lang_target => 'bnd',
+    path => 'EaternSeram_Collins1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+    split_headword => ';',
+    split => ';',
+  },
+  'Collins (1986n)' => {
+    lang_target => 'bnd',
+    path => 'EaternSeram_Collins1986.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
       [0, 'gloss', 'eng'],
     ],
     split_headword => ';',
