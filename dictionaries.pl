@@ -955,7 +955,7 @@ our $dict = {
     lang_target => 'kps',
     path => 'Tehit Flassy (Dialects).xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Sfaryere'
+    sheet => 'Sfaryere',
     columns => [
       [0, 'subentry'],
       [1, 'headword'],
