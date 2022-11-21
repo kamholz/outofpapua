@@ -1006,6 +1006,19 @@ our $dict = {
     split => ';',
     split_headword => ';',
   },
+  'Flassy (1992)' => {
+    lang_target => 'ihp',
+    path => 'Flassy 1992 - Iha_translated_cleaned.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'page_num'],
+    ],
+    split => ';',
+    split_headword => ';',
+  },
   'Flassy (2018)' => {
     lang_target => 'kps',
     path => 'Tehit Teminabuan.txt',
