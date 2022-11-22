@@ -974,7 +974,7 @@ our $dict = {
     split => ';',
   },
   'Flassy (1977/78b)' => {
-    lang_target => 'kps',
+    lang_target => 'kps', #Tehit Sfaryere
     path => 'Tehit Flassy (Dialects).xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sfaryere',
@@ -988,7 +988,65 @@ our $dict = {
       [6, 'nt'],
       [9, 'page_num'],
     ],
-    mode => 'sense_per_row',
+    split => ';',
+  },
+  'Flassy (1977/78c)' => {
+    lang_target => 'kps', #Tehit Yimian
+    path => 'Tehit Flassy (Dialects).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Yimian',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [2, 'ng'],
+      [9, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Flassy (1977/78d)' => {
+    lang_target => 'kps', #Tehit Sayfi
+    path => 'Tehit Flassy (Dialects).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sayfi',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [2, 'ng'],
+      [9, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Flassy (1977/78e)' => {
+    lang_target => 'kps', #Tehit Mbolfle
+    path => 'Tehit Flassy (Dialects).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Mbolfle',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [9, 'page_num'],
+    ],
+    split => ';',
+  },
+  'Flassy (1977/78f)' => {
+    lang_target => 'kps', #Tehit Sawiat
+    path => 'Tehit Flassy (Dialects).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sawiat',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [2, 'ng'],
+      [9, 'page_num'],
+    ],
     split => ';',
   },
   'Flassy (1987)' => {
