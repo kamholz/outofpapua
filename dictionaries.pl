@@ -986,8 +986,6 @@ our $dict = {
       [5, 'examples', same_cell_examples('ind')],
       [2, 'ng'],
       [6, 'nt'],
-      [7, 'nt', 'dialect:'],
-      [8, 'cf'],
       [9, 'page_num'],
     ],
     mode => 'sense_per_row',
