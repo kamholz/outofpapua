@@ -304,6 +304,16 @@ export async function checkError(res, message) {
   }
 }
 
+export function escapeDiacritics(txt) {
+  return txt
+    .replace(/\p{M}/gu, (match) => '\\u' + ('0000' + match.codePointAt(0).toString(16)).slice(-4));
+}
+
+export function unescapeUnicode(txt) {
+  return txt
+    .replace(/\\u([a-zA-Z0-9]{4})/g, (_, p1) => String.fromCharCode(parseInt(p1, 16)));
+}
+
 export function escapeHtml(txt) {
   return txt
     .replace(/&/g, '&amp;')

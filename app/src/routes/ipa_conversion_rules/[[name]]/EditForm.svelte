@@ -1,5 +1,6 @@
 <script>
   import Form from '$components/Form.svelte';
+  import { escapeDiacritics, unescapeUnicode } from '$lib/util';
 
   export let rule;
 
@@ -48,4 +49,19 @@
   submitLabel="Save"
   on:submit
   style="--form-width: 50em; --label-width: 18%;"
-/>
+>
+  <div slot="buttons">
+    <button type="button"
+      on:click={() => rule.replacements = unescapeUnicode(rule.replacements)}
+    >Unescape All</button>
+    <button type="button"
+      on:click={() => rule.replacements = escapeDiacritics(rule.replacements)}
+    >Escape Diacritics</button>
+  </div>
+</Form>
+
+<style>
+  div {
+    display: flex;
+  }
+</style>
