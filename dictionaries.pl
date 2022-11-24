@@ -3809,6 +3809,8 @@ our $dict = {
       [7, 'note'],
     ],
     split => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
   },
   'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
