@@ -3797,7 +3797,7 @@ our $dict = {
   },
   'Stokhof (1980e)' => {
     lang_target => 'loa',
-    path => 'Loda 80 (x969).xlsx',
+    path => 'spreadsheets/Stokhof/Loda 80 (x969).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
