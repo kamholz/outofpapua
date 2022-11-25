@@ -1538,6 +1538,17 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
+  'Kijne (nd f)' => {
+    lang_target => 'kjr',
+    path => 'Kijne Kurudu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
+      [3, 'nt'],
+    ],
+  },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
     path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
