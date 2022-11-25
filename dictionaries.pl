@@ -631,6 +631,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'va', 'split'],
+      [2, 'cf'],
       [3, 'gloss', 'nld'],
       [4, 'gloss', 'eng'],
       [5, 'gloss', 'ind'],
