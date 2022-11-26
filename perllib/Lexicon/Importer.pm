@@ -104,7 +104,7 @@ EOF
         $match = get_matching_entry($db, $entry, $source_id);
         if ($match) {
           $entry_id = $match->{id};
-          if ($debug) {
+          if ($debug and $match ne $entry) {
             say 'matched database entry:';
             print Dumper($match);
             say 'new entry:';
@@ -305,7 +305,7 @@ sub get_language_id {
 sub get_matching_entry {
   my ($db, $entry, $source_id) = @_;
 
-  return $entry->{id} if $entry->{id};
+  return $entry if $entry->{id};
 
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
   say "no glosses for entry, not sure what to do: $entry->{headword}", return unless @glosses;
@@ -350,7 +350,7 @@ LIMIT 1
 EOF
   return $match if $match;
 
-  # Levenshtein-1 headword + exact gloss
+  # Levenshtein headword + exact gloss
   $match = $db->query(<<'EOF', $source_id, \@glosses)->hash;
 SELECT entry.id, entry.headword, entry.senses
 FROM entry
