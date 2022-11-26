@@ -305,10 +305,13 @@ sub get_language_id {
 sub get_matching_entry {
   my ($db, $entry, $source_id) = @_;
 
-  return $entry if $entry->{id};
+  if ($entry->{id}) {
+    my $found = $db->query('SELECT id FROM entry WHERE id = ?', $entry->{id})->hash;
+    return $entry if $found;
+  }
 
   my @glosses = uniqstr map { $_->[0] } map { @{$_->{gloss}||[]} } @{$entry->{sense}||[]};
-  say "no glosses for entry, not sure what to do: $entry->{headword}", return unless @glosses;
+  say "warning: no glosses for entry, not sure how to match it: $entry->{headword}", return unless @glosses;
 
   # exact headword + exact gloss
   my $match = $db->query(<<'EOF', $source_id, $entry->{headword}, \@glosses)->hash;
