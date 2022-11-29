@@ -1081,6 +1081,18 @@ our $dict = {
     path => 'Tehit Teminabuan.txt',
     parser => 'Marker',
   },
+  'Fortgens (1905)' => {
+    lang_target => 'saj',
+    path => 'Fortgens1905-Ibu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [3, 'page_num'],
+    ],
+    split => ';',
+  },
   'Gane (2019)' => {
     lang_target => 'loa',
     path => 'spreadsheets/Gane2019-Loloda.xlsx',
