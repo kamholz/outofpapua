@@ -1320,7 +1320,7 @@ our $dict = {
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
-  'Jones (1986 a)' => {
+  'Jones (1986a)' => {
     lang_target => 'Yawa Ambaidiru',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
@@ -1330,7 +1330,7 @@ our $dict = {
       [1, 'gloss', 'ind'],
     ],
   },
-  'Jones (1986 b)' => {
+  'Jones (1986b)' => {
     lang_target => 'Yawa Mariadei',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
@@ -1340,7 +1340,7 @@ our $dict = {
       [1, 'gloss', 'ind'],
     ],
   },
-  'Jones (1986 c)' => {
+  'Jones (1986c)' => {
     lang_target => 'Yawa Konti Unai',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
@@ -1350,7 +1350,7 @@ our $dict = {
       [1, 'gloss', 'ind'],
     ],
   },
-  'Jones (1986 d)' => {
+  'Jones (1986d)' => {
     lang_target => 'Yawa Tindaret',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
@@ -1360,7 +1360,7 @@ our $dict = {
       [1, 'gloss', 'ind'],
     ],
   },
-  'Jones (1986 e)' => {
+  'Jones (1986e)' => {
     lang_target => 'Yawa Ariepi',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
@@ -1370,7 +1370,7 @@ our $dict = {
       [1, 'gloss', 'ind'],
     ],
   },
-  'Jones (1986 f)' => {
+  'Jones (1986f)' => {
     lang_target => 'Yawa Sarawandori',
     path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
     parser => 'Spreadsheet',
