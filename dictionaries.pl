@@ -4228,6 +4228,7 @@ our $dict = {
     lang_target => 'gbi',
     path => 'vanBaarda1895Galela.txt',
     parser => 'Marker',
+    gloss_preprocess => sub { $_[0] =~ s/^to be or become(?: a)? +//r },
     strip => 'to',
     split => ';',
   },
