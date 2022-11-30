@@ -4228,8 +4228,12 @@ our $dict = {
     lang_target => 'gbi',
     path => 'vanBaarda1895Galela.txt',
     parser => 'Marker',
+<<<<<<< Updated upstream
     gloss_preprocess => sub { $_[0] =~ s/^to be or become(?: a)? +//r },
     strip => 'to',
+=======
+    strip => 'to be or become',
+>>>>>>> Stashed changes
     split => ';',
   },
   'van den Heuvel (nd)' => {
