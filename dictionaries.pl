@@ -1326,7 +1326,7 @@ our $dict = {
   },
   'Hueting (1908c)' => {
     lang_target => 'tlb',
-    path => 'Hueting1908 - Tobelo1',
+    path => 'Hueting1908 - Tobelo1.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
