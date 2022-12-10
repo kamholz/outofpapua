@@ -59,7 +59,7 @@
 
 {#if isEditor($session.user)}
   <div>
-    <a href="/ipa_conversion_rules/{source.ipa_conversion_rule}">Edit IPA Conversion Ruleset</a>
+    <a href="/ipa_conversion_rules/{source.ipa_conversion_rule ?? ''}">Edit IPA Conversion Ruleset</a>
   </div>
 
   <div>
