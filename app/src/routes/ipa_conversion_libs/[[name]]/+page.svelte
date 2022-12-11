@@ -18,7 +18,7 @@
   let promise;
 
   function handleChange() {
-    window.history.replaceState(null, '', libUrl(selected.name));
+    window.history.pushState(null, '', libUrl(selected.name));
   }
 
   async function handleSubmit(e) {
@@ -44,7 +44,7 @@
       if (values.name === selected.name) {
         Object.assign(findLib(selected.name), values);
       } else {
-        goto(libUrl(values.name, { replaceState: true }));
+        goto(libUrl(values.name));
       }
     } catch (e) {}
     $pageLoading--;

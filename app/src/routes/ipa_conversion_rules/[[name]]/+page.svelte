@@ -25,7 +25,7 @@
 
   function handleChange() {
     testOutput = '';
-    window.history.replaceState(null, '', ruleUrl(selected.name));
+    window.history.pushState(null, '', ruleUrl(selected.name));
   }
 
   async function handleSubmit(e) {
@@ -60,7 +60,7 @@
       if (values.name === selected.name) {
         Object.assign(findRule(selected.name), values);
       } else {
-        goto(ruleUrl(values.name), { replaceState: true });
+        goto(ruleUrl(values.name));
       }
     } catch (e) {}
     $pageLoading--;
