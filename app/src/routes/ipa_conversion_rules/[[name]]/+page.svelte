@@ -4,7 +4,7 @@
   import EditForm from './EditForm.svelte';
   import Svelecte from '$lib/svelecte';
   import keydown from '$lib/keydown';
-  import { arrayFields, nullifyFields } from './+page';
+  import { arrayFields, nullifyFields } from './fields';
   import { goto } from '$app/navigation';
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';

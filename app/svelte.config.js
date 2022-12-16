@@ -16,10 +16,6 @@ const config = {
     // You can create optimized builds for different platforms by
     // specifying a different adapter
     adapter: node(),
-
-    prerender: {
-      enabled: false,
-    },
   },
 };
 

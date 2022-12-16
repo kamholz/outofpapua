@@ -23,7 +23,7 @@
 <div class="header">
   <div>
     <CollapseIndicator bind:collapsed />
-    <strong>Set: <a href="/sets/{set.id}" data-sveltekit-prefetch="off">{set.name_auto.txt}</a></strong>
+    <strong>Set: <a href="/sets/{set.id}" data-sveltekit-preload-data="off">{set.name_auto.txt}</a></strong>
   </div>
   <span title="Select" on:click={handleSelect}>
     <Icon data={selection.has(set.id) ? faCircleSolid : faCircleRegular} />

@@ -53,7 +53,7 @@
     {#each columns as { key, sortKey, title } (key)}
       <th>
         {#if sortable}
-          <a href={getSortQuery(sortKey, query)} data-sveltekit-prefetch="off">
+          <a href={getSortQuery(sortKey, query)} data-sveltekit-preload-data="off">
             {title}
             {#if sortKey === query.sort}
               <Icon data={query.asc ? faCaretUp : faCaretDown} />

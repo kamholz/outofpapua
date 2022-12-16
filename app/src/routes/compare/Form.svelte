@@ -52,7 +52,9 @@
   }
 
   function swapLanguages() {
-    [values.lang1, values.lang2] = [values.lang2, values.lang1];
+    const { lang1, lang2 } = values;
+    values.lang1 = lang2;
+    values.lang2 = lang1;
   }
 </script>
 

@@ -1,12 +1,9 @@
 import { error, redirect } from '@sveltejs/kit';
 import { requireEditorLoad } from '$actions/auth';
+import { stringifyFields } from './fields';
 
 const defaultRule = 'common';
 const defaultRuleUrl = `/ipa_conversion_rules/${defaultRule}`;
-
-export const arrayFields = ['chain_after', 'chain_before', 'lib'];
-const stringifyFields = [...arrayFields, 'replacements'];
-export const nullifyFields = [...stringifyFields, 'function'];
 
 export const load = requireEditorLoad(async ({ fetch, params: { name } }) => {
   if (!name?.length) {
