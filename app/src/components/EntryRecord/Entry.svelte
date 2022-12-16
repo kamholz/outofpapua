@@ -87,12 +87,33 @@
         font-style: italic;
       }
 
-      .headword, .variant, .sense-num, .singular, .plural, .form, .synonym, .antonym {
+      .headword, .sense-num, .variant, .singular, .plural, .form, .morph, .synonym, .antonym {
         font-weight: bold;
+        .trans {
+          font-weight: normal;
+        }
       }
 
-      .ph::before, .translation::before, .trans::before, .lang::before {
+      .ph::before, .translation::before, .lang::before {
         content: ' ';
+      }
+
+      .trans::before {
+        content: ' ‘';
+      }
+
+      .trans::after {
+        content: '’';
+      }
+
+      .variant {
+        .trans::before {
+          content: ' (';
+        }
+
+        .trans::after {
+          content: ')';
+        }
       }
     }
 
