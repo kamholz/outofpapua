@@ -130,6 +130,18 @@ export async function GET({ locals, url: { searchParams } }) {
     }
   }
 
+  if ('record' in query) {
+    const seenRecord = new Set();
+    for (const row of rows) {
+      if (seenRecord.has(row.record_id)) {
+        row.seen_record = true;
+      } else {
+        row.seen_record = false;
+        seenRecord.add(row.record_id);
+      }
+    }
+  }
+
   return json({
     query,
     pageCount,
