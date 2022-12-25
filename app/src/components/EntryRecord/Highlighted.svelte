@@ -3,6 +3,7 @@
   
   export let strings;
   export let showUnmatchedEntries = false;
+  export let collapsed = false;
   let node;
 
   onMount(() => {
@@ -15,10 +16,11 @@
         }
       }
       if (!showUnmatchedEntries) {
-        entry.style.display = 'none';
+        // entry.style.display = 'none';
+        entry.remove();
       }
     }
-    node.style.display = 'block';
+    node.style.display = 'flex';
   });
 
   function highlightMatches(node) {
@@ -70,15 +72,40 @@
       }
     }
   }
+
+  function toggle() {
+    collapsed = !collapsed;
+  }
 </script>
 
-<div bind:this={node}>
-  <slot />
+<div class="highlighted" bind:this={node}>
+  <div class="triangle" on:click={toggle}>
+    {#if collapsed}
+      <span>▶</span><em>show match context</em>
+    {:else}
+      <span>▼</span>
+    {/if}
+  </div>
+  <div class:collapsed>
+    <slot />
+  </div>
 </div>
 
 <style lang="scss">
-  div {
+  .highlighted {
     display: none;
+    padding-inline-start: 1em;
+
+    .triangle {
+      cursor: default;
+      > span {
+        padding-inline-end: 0.5em;
+      }
+    }
+
+    .collapsed {
+      display: none;
+    }
 
     :global(mark) {
       font-weight: bold;

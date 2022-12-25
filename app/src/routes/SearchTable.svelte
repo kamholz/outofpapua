@@ -71,7 +71,7 @@
   let:row
   on:link
 >
-  <EntryRecordHighlighted strings={row.record_match}>
+  <EntryRecordHighlighted strings={row.record_match} collapsed={row.seen_record}>
     <EntryRecordFormatted
       data={row.record_data}
       source={{ id: row.source_id, formatting: row.source_formatting }}
