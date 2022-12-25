@@ -104,7 +104,7 @@ export function applyEntrySearchParams(q, query) {
     if (query.origin === 'borrowed' && query.borrowlang) {
       q.where('entry.origin_language_id', arrayCmp(query.borrowlang));
     }
-  } else if (query.origin === 'unknown') {
+  } else if (query.origin === 'unspecified') {
     q.whereNull('entry.origin');
   }
 

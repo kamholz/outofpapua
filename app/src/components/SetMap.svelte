@@ -31,7 +31,7 @@
       borrowed: '#dc143c',
       inherited: '#800080',
       mixed: '#006400',
-      unknown: '#000000',
+      unspecified: '#000000',
     },
   };
   export let familyIcon = null;

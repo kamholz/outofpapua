@@ -45,8 +45,8 @@
       <input type="color" bind:value={colors.origin.mixed} />
     </label>
     <label>
-      Unknown:
-      <input type="color" bind:value={colors.origin.unknown} />
+      Unspecified:
+      <input type="color" bind:value={colors.origin.unspecified} />
     </label>
   {:else}
     {#each sets as set (set.id)}

@@ -281,7 +281,7 @@ export function formatReflexIpa(reflex, headword_ipa, func) {
 }
 
 export function originSummary(entry) {
-  let origin = entry.origin ?? 'unknown';
+  let origin = entry.origin ?? 'unspecified';
   if (origin === 'borrowed' && entry.origin_language_name) {
     origin += ` from ${entry.origin_language_name}`;
   }

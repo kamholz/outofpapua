@@ -123,7 +123,7 @@
                 bind:group={values.origin}
                 on:change={() => handleUpdate('origin')}
               >
-              <span>unknown</span>
+              <span>unspecified</span>
             </label>
           </div>
         </div>

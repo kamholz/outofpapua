@@ -294,7 +294,7 @@
         return singleOrigin;
       }
     }
-    return 'unknown';
+    return 'unspecified';
   }
 
   function getCssVars(colors) {
