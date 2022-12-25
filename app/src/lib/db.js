@@ -1,6 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
-import { jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
+import { degrHyphenRegex, jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({
@@ -118,10 +118,11 @@ export function applyEntrySearchParams(q, query) {
 export function applyHeadwordGlossSearchParams(q, query) {
   for (const p of ['headword', 'headword_ipa']) {
     if (p in query) {
+      const regex = mungeRegex(query[p]);
       if (query[`${p}_exact`]) {
-        q.where(`entry.${p}`, '~*', mungeRegex(query[p]));
+        q.where(`entry.${p}`, '~*', regex);
       } else {
-        q.where(`entry.${p}_degr`, '~*', knex.raw('degr_regex(?)', mungeRegex(query[p])));
+        q.where(`entry.${p}_degr`, '~*', knex.raw('degr_regex(?)', degrHyphenRegex(regex)));
       }
     }
   }

@@ -354,6 +354,12 @@ export function mungeRegex(txt) {
   return txt.replace(/^\*/, '\\*');
 }
 
+export function degrHyphenRegex(txt) {
+  return txt.replace(/([^[\]]*)(\[[^[\]]+\])?/g,
+    (_, p1 = '', p2 = '') => p1.replace(/-/g, '') + p2
+  );
+}
+
 export function parseLanguageLocation(language) {
   const match = language.location.match(/^\((.+),(.+)\)$/);
   language.location = match
