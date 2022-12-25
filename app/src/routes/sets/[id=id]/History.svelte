@@ -64,11 +64,11 @@
           {:else if event === 'set_member_reflex'}
             changed entry [<Entry {details} />] reflex to {stringifyQuoted(details.text)}
           {:else if event === 'set_member_reflex_origin'}
-            changed entry [<Entry {details} />] reflex origin to “{details.text ?? 'unknown'}”
+            changed entry [<Entry {details} />] reflex origin to “{details.text ?? 'unspecified'}”
           {:else if event === 'set_member_reflex_origin_language_id'}
             changed entry [<Entry {details} />] reflex origin language to {stringify(details.language_name)}
           {:else if event === 'entry_origin'}
-            changed entry [<Entry {details} />] origin to “{details.text ?? 'unknown'}”
+            changed entry [<Entry {details} />] origin to “{details.text ?? 'unspecified'}”
           {:else if event === 'entry_origin_language_id'}
             changed entry [<Entry {details} />] origin language to {stringify(details.language_name)}
           {:else if event === 'entry_created'}
