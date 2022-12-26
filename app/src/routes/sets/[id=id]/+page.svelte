@@ -37,6 +37,7 @@
   let name;
   let createProtoValues;
   let selection;
+  let splitSetId;
   const promises = { pending: {}, fulfilled: {} };
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
@@ -163,8 +164,9 @@
     let promise;
     try {
       promise = promises.pending.split = crud.create('set', { members: [...selection], reassignExisting: true });
-      await promise;
+      const newSet = await promise;
       await handleRefresh();
+      splitSetId = newSet.id;
     } catch (e) {}
     if (promise && promise === promises.pending.split) {
       promises.pending.split = null;
@@ -187,6 +189,10 @@
 <svelte:head>
   <title>Set: {name} | Out of Papua</title>
 </svelte:head>
+
+{#if splitSetId}
+  <Alert type="success" message={`Selection was successfully split into <a href="/sets/${splitSetId}">new set</a>`} html />
+{/if}
 
 <h2>
   {#if editable}
@@ -291,7 +297,7 @@
       <button
         type="button"
         on:click={handleSplit}
-        disabled={selection.size === 0 || selection.size === members.length}
+        disabled={selection.size === 0 || selection.size === members.length || $pageLoading}
       >Split Selected Into New Set</button>
     {/if}
   </div>
@@ -323,7 +329,7 @@
       <button
         type="button"
         on:click={handleSplit}
-        disabled={selection.size === 0 || selection.size === members.length}
+        disabled={selection.size === 0 || selection.size === members.length || $pageLoading}
       >Split Selected Into New Set</button>
     {/if}
   </div>

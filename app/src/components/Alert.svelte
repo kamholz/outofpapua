@@ -5,12 +5,17 @@
 
   export let message;
   export let type;
+  export let html = false;
   let open = true;
 </script>
 
 {#if message && open}
   <div class={type} transition:slide>
-    {message}
+    {#if html}
+      {@html message}
+    {:else}
+      {message}
+    {/if}
     <span title="Close" on:click={() => open = false}>
       <Icon data={faTimes} />
     </span>
