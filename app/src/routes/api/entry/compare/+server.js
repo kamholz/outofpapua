@@ -85,7 +85,7 @@ export async function GET({ locals, url: { searchParams } }) {
   if (!lang1 || !lang2) {
     throw error(500);
   }
-  if (lang1.some((a) => lang2.some((b) => a === b))) {
+  if (hasOverlap(lang1, lang2)) {
     return jsonError('languages 1 and 2 overlap', query);
   }
 
@@ -162,4 +162,9 @@ export async function GET({ locals, url: { searchParams } }) {
     rowCount,
     rows,
   });
+}
+
+function hasOverlap(lang1, lang2) {
+  const lang2Set = new Set(lang2);
+  return lang1.some((v) => lang2Set.has(v));
 }
