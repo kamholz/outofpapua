@@ -191,7 +191,9 @@
 </svelte:head>
 
 {#if splitSetId}
-  <Alert type="success" message={`Selection was successfully split into <a href="/sets/${splitSetId}">new set</a>`} html />
+  <Alert type="success">
+    Selection was successfully split into <a href="/sets/{splitSetId}">new set</a>
+  </Alert>
 {/if}
 
 <h2>
@@ -220,7 +222,7 @@
 <div class="set">
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
     {#await promises.fulfilled[key] catch { message }}
-      <Alert type="error" {message} />
+      <Alert type="error">{message}</Alert>
     {/await}
   {/each}
   <div class="set-item">

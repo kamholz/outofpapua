@@ -34,7 +34,7 @@
 <h2>Profile</h2>
 {#if promise}
   {#await promise catch { message }}
-    <Alert type="error" {message} />
+    <Alert type="error">{message}</Alert>
   {/await}
 {/if}
 <ProfileForm

@@ -36,7 +36,7 @@
   }
 </script>
 
-<Alert type="error" message={error} />
+<Alert type="error">{error}</Alert>
 <Form
   {fields}
   bind:values

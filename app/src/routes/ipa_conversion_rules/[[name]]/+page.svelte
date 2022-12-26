@@ -138,7 +138,7 @@
 <div class="rule">
   {#if promise}
     {#await promise catch { message } }
-      <Alert type="error" {message} />
+      <Alert type="error">{message}</Alert>
     {/await}
   {/if}
   <EditForm {rule} on:submit={handleSubmit} />

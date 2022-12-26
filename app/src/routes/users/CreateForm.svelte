@@ -60,9 +60,9 @@
 
 {#if promise}
   {#await promise then}
-    <Alert type="success" message="New user created" />
+    <Alert type="success">New user created</Alert>
   {:catch { message }}
-    <Alert type="error" message="Create user failed" />
+    <Alert type="error">Create user failed</Alert>
   {/await}
 {/if}
 <Form

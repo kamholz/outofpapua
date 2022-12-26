@@ -3,19 +3,13 @@
   import { faTimes } from '@fortawesome/free-solid-svg-icons';
   import { slide } from 'svelte/transition';
 
-  export let message;
   export let type;
-  export let html = false;
   let open = true;
 </script>
 
-{#if message && open}
+{#if open}
   <div class={type} transition:slide>
-    {#if html}
-      {@html message}
-    {:else}
-      {message}
-    {/if}
+    <slot />
     <span title="Close" on:click={() => open = false}>
       <Icon data={faTimes} />
     </span>

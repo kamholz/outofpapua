@@ -109,9 +109,9 @@
 {#if editable}
   {#if promise}
     {#await promise then}
-      <Alert type="success" message="Changes saved" />
+      <Alert type="success">Changes saved</Alert>
     {:catch { message }}
-      <Alert type="error" {message} />
+      <Alert type="error">{message}</Alert>
     {/await}
   {/if}
   <Form

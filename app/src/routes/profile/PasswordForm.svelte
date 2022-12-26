@@ -58,9 +58,9 @@
 
 {#if promise}
   {#await promise then}
-    <Alert type="success" message="Password changed" />
+    <Alert type="success">Password changed</Alert>
   {:catch { message }}
-    <Alert type="error" {message} />
+    <Alert type="error">{message}</Alert>
   {/await}
 {/if}
 <Form

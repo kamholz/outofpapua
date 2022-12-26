@@ -67,9 +67,9 @@
   </div>
   {#if promise}
     {#await promise then}
-      <Alert type="success" message="Conversion successful" />
+      <Alert type="success">Conversion successful</Alert>
     {:catch { message }}
-      <Alert type="error" {message} />
+      <Alert type="error">{message}</Alert>
     {/await}
   {/if}
 {/if}

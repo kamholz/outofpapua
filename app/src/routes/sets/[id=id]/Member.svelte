@@ -229,7 +229,7 @@
 {#if !collapsed}
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
     {#await promises.fulfilled[key] catch { message }}
-      <Alert type="error" {message} />
+      <Alert type="error">{message}</Alert>
     {/await}
   {/each}
 {/if}

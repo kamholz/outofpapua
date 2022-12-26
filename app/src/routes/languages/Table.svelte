@@ -68,7 +68,7 @@
 </script>
 
 {#await promise catch { message }}
-  <Alert type="error" {message} />
+  <Alert type="error">{message}</Alert>
 {/await}
 <Table
   {columns}

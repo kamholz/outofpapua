@@ -92,7 +92,7 @@
     {#if rows.length}
       {#if promise}
         {#await promise catch { message }}
-          <Alert type="error" {message} />
+          <Alert type="error">{message}</Alert>
         {/await}
       {/if}
       <SearchTable

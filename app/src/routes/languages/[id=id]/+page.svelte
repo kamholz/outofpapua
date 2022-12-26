@@ -37,7 +37,7 @@
 <h3>Language: {language.name}</h3>
 {#if promise}
   {#await promise catch { message }}
-    <Alert type="error" {message} />
+    <Alert type="error">{message}</Alert>
   {/await}
 {/if}
 <EditForm {language} />

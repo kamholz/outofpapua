@@ -57,7 +57,7 @@
 
 <h2>Compare languages</h2>
 {#if error}
-  <Alert type="error" message="Error: {error}" />
+  <Alert type="error">Error: {error}</Alert>
 {/if}
 <Form
   {query}
