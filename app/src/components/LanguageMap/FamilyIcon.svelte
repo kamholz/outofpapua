@@ -10,7 +10,7 @@
   {family.name}:
   <Svelecte
     options={icons}
-    class="svelecte-icons"
+    class="svelecte-control svelecte-icons"
     valueField="value"
     labelField="value"
     searchable={false}
