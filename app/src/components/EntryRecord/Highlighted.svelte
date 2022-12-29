@@ -3,7 +3,6 @@
   
   export let strings;
   strings = strings.map((v) => v.toLowerCase());
-  export let collapsed = false;
   let node;
 
   onMount(() => {
@@ -68,40 +67,16 @@
       }
     }
   }
-
-  function toggle() {
-    collapsed = !collapsed;
-  }
 </script>
 
-<div class="highlighted" bind:this={node}>
-  <div class="triangle" on:click={toggle}>
-    {#if collapsed}
-      <span>▶</span><em>show match context</em>
-    {:else}
-      <span>▼</span>
-    {/if}
-  </div>
-  <div class:collapsed>
-    <slot />
-  </div>
+<div bind:this={node}>
+  <slot />
 </div>
 
 <style lang="scss">
-  .highlighted {
+  div {
     display: none;
     padding-inline-start: 1em;
-
-    .triangle {
-      cursor: default;
-      > span {
-        padding-inline-end: 0.5em;
-      }
-    }
-
-    .collapsed {
-      display: none;
-    }
 
     :global(mark) {
       font-weight: bold;

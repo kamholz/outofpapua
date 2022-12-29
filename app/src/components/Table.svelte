@@ -15,6 +15,7 @@
   export let controls = null;
   export let highlight = false;
   export let searchContext = false;
+  export let searchContextCollapsed = () => false;
   let editingCell = null;
 
   $: for (const column of columns) {
@@ -50,6 +51,9 @@
 
 <table class:hoverhighlight={highlight} class:searchcontext={searchContext}>
   <thead>
+    {#if searchContext}
+      <th></th>
+    {/if}
     {#each columns as { key, sortKey, title } (key)}
       <th>
         {#if sortable}
@@ -75,22 +79,16 @@
         {columns}
         {controls}
         {editable}
+        {searchContext}
+        searchContextCollapsed={searchContextCollapsed(row)}
         bind:editingCell
         on:update
         on:delete
         on:select
         on:link
-      />
-      {#if searchContext}
-        <tr>
-          <td colspan={columns.length}>
-            <slot {row} />
-          </td>
-          {#if controls}
-            <td></td>
-          {/if}
-        </tr>
-      {/if}
+      >
+        <slot {row} />
+      </TableRow>
     {/each}
   </tbody>
 </table>
@@ -140,6 +138,12 @@
 
       tr:nth-child(4n+1), tr:nth-child(4n+2) {
         background-color: white;
+      }
+
+      th:first-child, td:first-child {
+        padding-inline-end: 0;
+        max-inline-size: 24px;
+        cursor: default;
       }
     }
 

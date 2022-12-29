@@ -69,10 +69,11 @@
   {pageCount}
   highlight
   searchContext={Boolean(query.record)}
+  searchContextCollapsed={(row) => row.seen_record}
   let:row
   on:link
 >
-  <EntryRecordHighlighted strings={row.record_match} collapsed={row.seen_record}>
+  <EntryRecordHighlighted strings={row.record_match}>
     <EntryRecordFormatted
       data={row.record_data}
       source={{ id: row.source_id, formatting: row.source_formatting }}
