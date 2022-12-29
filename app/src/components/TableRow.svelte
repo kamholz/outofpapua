@@ -9,9 +9,20 @@
   export let controls;
   export let editable;
   export let editingCell;
+  export let searchContext;
+  export let searchContextCollapsed;
+
+  function toggleSearchContext() {
+    searchContextCollapsed = !searchContextCollapsed;
+  }
 </script>
 
 <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
+  {#if searchContext}
+    <td on:click={toggleSearchContext}>
+      { searchContextCollapsed ? '▶' : '▼'}
+    </td>
+  {/if}
   {#each columns as column (column.key)}
     <TableCell
       bind:row
@@ -31,3 +42,21 @@
     />
   {/if}
 </tr>
+
+{#if searchContext}
+  <tr class:collapsed={searchContextCollapsed}>
+    <td></td>
+    <td colspan={columns.length} class="context">
+      <slot />
+    </td>
+    {#if controls}
+      <td></td>
+    {/if}
+  </tr>
+{/if}
+
+<style>
+  .collapsed {
+    display: none;
+  }
+</style>
