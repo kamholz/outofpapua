@@ -1,5 +1,5 @@
 <script>
-  import { matchReflex } from '$lib/util';
+  import { matchReflex, reflexToHtml } from '$lib/util';
 
   export let reflex;
   export let headword;
@@ -17,7 +17,7 @@
 </script>
 
 {#if space}
-  {#if before?.length}{before}&thinsp;|&thinsp;{/if}<strong>{reflexProper}</strong>{#if after?.length}&thinsp;|&thinsp;{after}{/if}
+  {#if before?.length}{before}&thinsp;|&thinsp;{/if}{@html reflexToHtml(reflexProper)}{#if after?.length}&thinsp;|&thinsp;{after}{/if}
 {:else}
-  {#if before?.length}{before}|{/if}<strong>{reflexProper}</strong>{#if after?.length}|{after}{/if}
+  {#if before?.length}{before}|{/if}{@html reflexToHtml(reflexProper)}{#if after?.length}|{after}{/if}
 {/if}

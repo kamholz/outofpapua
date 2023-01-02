@@ -80,6 +80,7 @@
         }
       }
     } catch (e) {
+      console.log(e);
       values[key] = obj[key];
     }
     if (promise && promise === promises.pending[key]) {

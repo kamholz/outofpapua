@@ -276,13 +276,20 @@ export function formatReflexIpa(reflex, headword_ipa, func) {
     return ['', headword_ipa, ''];
   }
 
-  const [before, reflexProper, after] = matchReflex(reflex).map((v) => v.length ? func(v) : v);
+  const [before, reflexProper, after] = matchReflex(reflex)
+    .replace(/[<>]/g, '') // remove infix marking
+    .map((v) => v.length ? func(v) : v);
 
   if ((!before.length || headword_ipa.startsWith(before)) && (!after.length || headword_ipa.endsWith(after))) {
     return [before, headword_ipa.slice(before.length, headword_ipa.length - after.length), after];
   } else {
     return [before, reflexProper, after];
   }
+}
+
+export function reflexToHtml(reflexProper) {
+  return reflexProper.replace(/([^<>]+)|(?:<([^<>]+)>)/g,
+    (_, p1, p2) => p1?.length ? `<strong>${escapeHtml(p1)}</strong>` : `<${escapeHtml(p2)}>`);
 }
 
 export function originSummary(entry) {
