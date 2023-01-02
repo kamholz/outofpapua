@@ -121,12 +121,6 @@ form {
 
 .infix {
   font-weight: normal;
-  &::before {
-    content: '‹';
-  }
-  &::after {
-    content: '›';
-  }
 }
 
 // svelecte

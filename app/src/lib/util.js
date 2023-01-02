@@ -294,7 +294,7 @@ export function formatInfix(reflexProper) {
   let infix = false;
   for (const txt of reflexProper.split(/<<|>>/)) {
     if (infix) {
-      html += `<span class="infix">${escapeHtml(txt)}</span>`;
+      html += `<span class="infix">‹${escapeHtml(txt)}›</span>`;
     } else if (txt.length) {
       html += escapeHtml(txt);
     }
