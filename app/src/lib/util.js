@@ -276,9 +276,11 @@ export function formatReflexIpa(reflex, headword_ipa, func) {
     return ['', headword_ipa, ''];
   }
 
-  const [before, reflexProper, after] = matchReflex(reflex)
-    .replace(/[<>]/g, '') // remove infix marking
-    .map((v) => v.length ? func(v) : v);
+  const [before, reflexProper, after] = (() => {
+    const [b, rp, a] = matchReflex(reflex);
+    // remove infix marking
+    return [b, rp.replace(/<<|>>/g, ''), a];
+  })().map((v) => v.length ? func(v) : v);
 
   if ((!before.length || headword_ipa.startsWith(before)) && (!after.length || headword_ipa.endsWith(after))) {
     return [before, headword_ipa.slice(before.length, headword_ipa.length - after.length), after];
@@ -287,9 +289,18 @@ export function formatReflexIpa(reflex, headword_ipa, func) {
   }
 }
 
-export function reflexToHtml(reflexProper) {
-  return reflexProper.replace(/([^<>]+)|(?:<([^<>]+)>)/g,
-    (_, p1, p2) => p1?.length ? `<strong>${escapeHtml(p1)}</strong>` : `<${escapeHtml(p2)}>`);
+export function formatInfix(reflexProper) {
+  let html = '';
+  let infix = false;
+  for (const txt of reflexProper.split(/<<|>>/)) {
+    if (infix) {
+      html += `<span class="infix">${escapeHtml(txt)}</span>`;
+    } else if (txt.length) {
+      html += escapeHtml(txt);
+    }
+    infix = !infix;
+  }
+  return html;
 }
 
 export function originSummary(entry) {
