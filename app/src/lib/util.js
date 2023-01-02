@@ -262,7 +262,12 @@ export function parseGlosses(param) {
 // entry formatting
 
 export function matchReflex(reflex) {
-  return reflex.match(/^(.*)\|(.+)\|(.*)$/).slice(1);
+  const match = reflex.match(/^(.*)\|(.+)\|(.*)$/);
+  if (match) {
+    return match.slice(1);
+  } else {
+    return ['', reflex, ''];
+  }
 }
 
 export function formatReflexIpa(reflex, headword_ipa, func) {
