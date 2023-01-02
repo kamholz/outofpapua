@@ -41,7 +41,7 @@
 {#each set.members as { entry, language, note, reflex, source }}
   <p>
     {language.name}
-    <em><Reflex {reflex} headword={entry.headword} /></em>
+    <em><Reflex {reflex} headword={entry.headword} space={false} /></em>
     {#if entry.headword_ipa}
       <ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />
     {/if}
