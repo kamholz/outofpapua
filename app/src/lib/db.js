@@ -234,6 +234,8 @@ function formatPgError(e) {
           return 'tried to set parent language to descendant';
         case 'set_member_reflex_check':
           return 'invalid format for reflex';
+        case 'headword_check':
+          return 'invalid headword: |, <<, and >> are not allowed';
         default:
           return 'unknown error';
       }

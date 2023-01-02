@@ -248,6 +248,7 @@
         <span class={entry.origin}>{language.name}</span>
         {#if editingProto}
           <Input
+            autofocus
             bind:value={protoValues.headword}
             on:submit={handleSaveProto} 
             on:cancel={handleEditProtoCancel}
