@@ -12,7 +12,7 @@
   $: parents = rows.filter((row) => row.is_proto);
   $: visibleRows = showLanguagesWithNoEntries
     ? rows
-    : rows.filter((row) => row.is_proto || row.numentries !== "0");
+    : rows.filter((row) => row.is_proto || row.numentries !== '0');
 
   $: columns = [
     {
