@@ -5,14 +5,20 @@ import * as suggest from '$actions/suggest';
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang']);
 
-export async function load({ fetch, url: { searchParams } }) {
+export async function load({ fetch, parent, url: { searchParams } }) {
+  const { user } = await parent();
   const data = {
     langSuggest: await suggest.langPlus(fetch),
     glosslangSuggest: await suggest.glosslang(fetch),
-    borrowlangSuggest: await suggest.borrowlang(fetch),
   };
-  if (!data.langSuggest || !data.glosslangSuggest || !data.borrowlangSuggest) {
+  if (!data.langSuggest || !data.glosslangSuggest) {
     throw error(500);
+  }
+  if (user) {
+    data.borrowlangSuggest = await suggest.borrowlang(fetch);
+    if (!data.borrowlangSuggest) {
+      throw error(500);
+    }
   }
 
   const query = normalizeQuery(searchParams);

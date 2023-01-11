@@ -26,7 +26,9 @@
   } = data;
   setContext('langSuggest', langSuggest);
   setContext('glosslangSuggest', glosslangSuggest);
-  setContext('borrowlangSuggest', borrowlangSuggest);
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
 
   $: linkable = getContext('editable') && query.set !== 'linked';
   const selection = writable();

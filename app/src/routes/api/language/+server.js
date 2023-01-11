@@ -12,6 +12,8 @@ const strip = new Set(['category', 'details']);
 
 const allowedCreate = new Set([...required, 'dialect_parent_id']);
 
+const sourceFilterableCategories = new Set(['descendants', 'location']);
+
 const defaults = {
   asc: true,
   details: false,
@@ -95,7 +97,7 @@ export async function GET({ locals, url: { searchParams } }) {
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('language.id', 'parent.id', 'dialect_parent.id');
-  } else if (showPublicOnly(locals)) {
+  } else if (showPublicOnly(locals) && (!query.category || sourceFilterableCategories.has(query.category))) {
     q.whereExists(function () { // hide empty sources
       this.select('*').from('source')
       .where('source.language_id', knex.ref('language.id'))
