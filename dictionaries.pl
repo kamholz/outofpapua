@@ -4323,8 +4323,9 @@ our $dict = {
   },
   'Verdizade (2023)' => {
     lang_target => 'Seget',
-    path => 'seget attempt1.db',
+    path => 'seget attempt2.db',
     parser => 'Marker',
+    skip_marker => 'ps_Ind',
   },
   'Visser (2020)' => {
     lang_target => 'kgv',
