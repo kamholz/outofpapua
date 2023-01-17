@@ -4323,7 +4323,7 @@ our $dict = {
   },
   'Verdizade (2023)' => {
     lang_target => 'Seget',
-    path => 'seget attempt1.db',
+    path => 'seget attempt3 (root based).db',
     parser => 'Marker',
     skip_marker => 'ps_Ind',
   },
