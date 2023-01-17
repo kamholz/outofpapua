@@ -4321,6 +4321,11 @@ our $dict = {
     parser => 'Marker',
     split_headword => ',',
   },
+  'Verdizade (2023)' => {
+    lang_target => 'Seget',
+    path => 'seget attempt1.db',
+    parser => 'Marker',
+  },
   'Visser (2020)' => {
     lang_target => 'kgv',
     path => 'dictionaria-kalamang-5f28ae2',
