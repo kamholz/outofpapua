@@ -1677,6 +1677,39 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'Nacher (2012)' => {
+    lang_target => 'ddg',
+    path => 'Nacher Fataluku Dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'subentry'],
+      [2, 'va'],
+      [3, 'pl'],
+      [4, 'cf'],
+      [5, 'gloss', 'eng'],
+      [6, 'gloss', 'por'],
+      [7, 'gloss', 'tet'],
+      [8, 'et'],
+      [9, 'page_num'],
+      [[10 .. 11], 'example', ['por']], #1
+      [[12 .. 13], 'example', ['por']], #2
+      [[14 .. 15], 'example', ['por']], #3
+      [[16 .. 17], 'example', ['por']], #4
+      [[18 .. 19], 'example', ['por']], #5
+      [[20 .. 21], 'example', ['por']], #6
+      [[22 .. 23], 'example', ['por']], #7
+      [[24 .. 25], 'example', ['por']], #8
+      [[26 .. 27], 'example', ['por']], #9
+      [[28 .. 29], 'example', ['por']], #10
+      [[30 .. 31], 'example', ['por']], #11
+      [[32 .. 33], 'example', ['por']], #12
+      [[34 .. 35], 'example', ['por']], #13
+      [[36 .. 37], 'example', ['por']], #14
+    ],
+    split_headword => ';',
+    strip => 'to',
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
