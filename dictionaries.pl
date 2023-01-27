@@ -4307,6 +4307,19 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
+   'van Schie (2022)' => {
+    lang_target => 'swr',
+    path => 'Saweru (Van Schie, 2022).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'va'],
+      [5, 'ph']
+    ],
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox_new.txt',
