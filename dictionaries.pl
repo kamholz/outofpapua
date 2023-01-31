@@ -4307,7 +4307,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
-   'van Schie (2022)' => {
+   'van Schie (2022a)' => {
     lang_target => 'swr',
     path => 'Saweru (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
@@ -4317,7 +4317,18 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'gloss', 'ind'],
       [4, 'va'],
-      [5, 'ph']
+      [5, 'ph'],
+    ],
+  },
+   'van Schie (2022b)' => {
+    lang_target => 'yva', #Kainui
+    path => 'Yawa Kainui (Van Schie, 2022).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [5, 'ph'],
     ],
   },
   'van Staden (nd)' => {
