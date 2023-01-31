@@ -4346,7 +4346,7 @@ our $dict = {
   },
   'van Schie (2022d)' => {
     lang_target => 'yva', #Mariadei
-    path => 'Yawa mariadei (Van Schie, 2022).xlsx',
+    path => 'Yawa Mariadei (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
