@@ -4344,6 +4344,21 @@ our $dict = {
       [[5 .. 7], 'example', ['eng', 'ind']],
     ],
   },
+  'van Schie (2022d)' => {
+    lang_target => 'yva', #Mariadei
+    path => 'Yawa mariadei (Van Schie, 2022).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'ps'],
+      [4, 'va'],
+      [5, 'ph'],
+      [[6 .. 8], 'example', ['eng', 'ind']],
+    ],
+    mode => 'sense_per_row',
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox_new.txt',
