@@ -4326,9 +4326,9 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [2, 'gloss', 'eng'],
-      [3, 'gloss', 'ind'],
-      [5, 'ph'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'ph'],
     ],
   },
    'van Schie (2022c)' => {
