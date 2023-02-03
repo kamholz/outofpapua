@@ -4360,8 +4360,8 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'van Schie (2022e)' => {
-    lang_target => 'yva', #Mariadei
-    path => 'Yawa Mariadei (Van Schie, 2022).xlsx',
+    lang_target => 'yva', #Turu
+    path => 'Yawa Turu (van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
