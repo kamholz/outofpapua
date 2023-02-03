@@ -1568,10 +1568,21 @@ our $dict = {
     ],
   },
   'Kotynski (2022)' => {
-    lang_target => 'tby',
+    lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
     parser => 'Marker',
-    lang_national => 'ind',
+    gloss => {
+      ge => 'eng',
+      gn => 'ind'
+    },
+    definition => {
+      de => 'eng',
+      dn => 'ind'
+    }
+    example => {
+      xe => 'eng'
+      xn => 'ind'
+    }
     strip => 'to',
   },
   'Litamahuputty (2012)' => {
