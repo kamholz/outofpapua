@@ -1578,7 +1578,7 @@ our $dict = {
     definition => {
       de => 'eng',
       dn => 'ind'
-    }
+    },
     strip => 'to',
   },
   'Litamahuputty (2012)' => {
