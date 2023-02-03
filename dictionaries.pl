@@ -1571,9 +1571,20 @@ our $dict = {
     lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
     parser => 'Marker',
-    lang_national => 'ind',
     strip => 'to',
     skip_marker => 'dv',
+    gloss => {
+      ge => 'eng',
+      gn => 'ind'
+    },
+    definition => {
+      de => 'eng',
+      dn => 'ind'
+    },
+    example => {
+      xe => 'eng',
+      xn => 'ind'
+    },
   },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
