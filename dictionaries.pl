@@ -1572,19 +1572,9 @@ our $dict = {
     path => 'Dictionary_Tabaru.txt',
     parser => 'Marker',
     strip => 'to',
-    skip_marker => ['dv', 'dr', 'gr'],
-    gloss => {
-      ge => 'eng',
-      gn => 'ind'
-    },
-    definition => {
-      de => 'eng',
-      dn => 'ind'
-    },
-    example => {
-      xe => 'eng',
-      xn => 'ind'
-    },
+    skip_marker => ['dv'],
+    lang_regional => 'max',
+    lang_national => 'ind',
   },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
