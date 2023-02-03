@@ -1571,6 +1571,7 @@ our $dict = {
     lang_target => 'tby',
     path => 'Dictionary_Tabaru.txt',
     parser => 'Marker',
+    lang_national => 'ind',
     strip => 'to',
   },
   'Litamahuputty (2012)' => {
