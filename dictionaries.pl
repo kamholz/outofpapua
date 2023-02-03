@@ -4359,6 +4359,20 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'van Schie (2022e)' => {
+    lang_target => 'yva', #Mariadei
+    path => 'Yawa Mariadei (Van Schie, 2022).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'va'],
+      [5, 'ph'],
+    ],
+    mode => 'sense_per_row',
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox_new.txt',
