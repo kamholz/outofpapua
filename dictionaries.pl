@@ -1579,6 +1579,10 @@ our $dict = {
       de => 'eng',
       dn => 'ind'
     },
+    example => {
+      xe => 'eng',
+      xn => 'ind'
+    },
     strip => 'to',
   },
   'Litamahuputty (2012)' => {
