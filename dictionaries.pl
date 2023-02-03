@@ -1580,7 +1580,7 @@ our $dict = {
       dn => 'ind'
     }
     example => {
-      xe => 'eng'
+      xe => 'eng',
       xn => 'ind'
     },
     strip => 'to',
