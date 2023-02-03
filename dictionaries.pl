@@ -1569,7 +1569,7 @@ our $dict = {
   },
   'Kotynski (2022)' => {
     lang_target => 'tby',
-    path => 'Dictionary_Tabaru',
+    path => 'Dictionary_Tabaru.txt',
     parser => 'Marker',
     strip => 'to',
   },
