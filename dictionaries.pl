@@ -1567,6 +1567,12 @@ our $dict = {
       [3, 'nt'],
     ],
   },
+  'Kotynski (2022)' => {
+    lang_target => 'tby',
+    path => 'Dictionary_Tabaru',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
     path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
