@@ -1574,6 +1574,7 @@ our $dict = {
     strip => 'to',
     skip_marker => 'dv',
     skip_marker => 'dr',
+    skip_marker => 'gr',
     gloss => {
       ge => 'eng',
       gn => 'ind'
