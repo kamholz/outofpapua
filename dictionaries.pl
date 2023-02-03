@@ -1573,6 +1573,7 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
     skip_marker => 'dv',
+    skip_marker => 'dr',
     gloss => {
       ge => 'eng',
       gn => 'ind'
