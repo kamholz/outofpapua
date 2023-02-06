@@ -60,7 +60,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Anceaux (1961)' => {
+  'Anceaux (1961a)' => {
     lang_target => 'bsm',
     path => 'spreadsheets/Busami.xlsx',
     parser => 'Spreadsheet',
@@ -72,6 +72,34 @@ our $dict = {
     ],
     split => ',;',
     split_headword => ',;',
+  },
+  'Anceaux (1961b)' => {
+    lang_target => 'kjr',
+    path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'note', 'number:']
+      [1, 'gloss', 'eng'],
+      [2, 'headword'],
+    ],
+    split => ',',
+    split_headword => ',',
+    strip => 'to'
+    headword_preprocess => ignore_if_only_char('-'),
+  },
+  'Anceaux (1961c)' => {
+    lang_target => 'wbb',
+    path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'note', 'number:']
+      [1, 'gloss', 'eng'],
+      [3, 'headword'],
+    ],
+    split => ',',
+    split_headword => ',',
+    strip => 'to'
+    headword_preprocess => ignore_if_only_char('-'),
   },
   'Anceaux (nd a)' => {
     lang_target => 'slz',
