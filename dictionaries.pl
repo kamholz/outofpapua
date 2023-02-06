@@ -1832,8 +1832,8 @@ our $dict = {
     path => 'Mairasi_Comparative_List.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'gloss', 'eng'],
       [1, 'headword'], 
+      [0, 'gloss', 'eng'],
     ],
     strip => 'to',
     split => ';',
@@ -1843,8 +1843,8 @@ our $dict = {
     path => 'Mairasi_Comparative_List.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'gloss', 'eng'],
       [2, 'headword'], 
+      [0, 'gloss', 'eng'],
     ],
     strip => 'to',
     split => ';',
@@ -1854,8 +1854,8 @@ our $dict = {
     path => 'Mairasi_Comparative_List.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'gloss', 'eng'],
       [3, 'headword'], 
+      [0, 'gloss', 'eng'],
     ],
     strip => 'to',
     split => ';',
