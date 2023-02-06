@@ -5049,6 +5049,7 @@ our $dict = {
       [2, 'headword'],
       [3, 'page_num'],
     ],
+    mode => 'sense_per_row',
     split => ';',
     split_headword => ';',
   },
