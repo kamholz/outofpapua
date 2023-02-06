@@ -5047,7 +5047,7 @@ our $dict = {
       [0, 'gloss', 'ind'],
       [1, 'gloss', 'eng'],
       [2, 'headword'],
-      [5, 'page_num'],
+      [3, 'page_num'],
     ],
     split => ';',
     split_headword => ';',
