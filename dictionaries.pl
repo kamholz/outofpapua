@@ -958,6 +958,7 @@ our $dict = {
     lang_target => 'abs',
     path => 'AmbonMalay_cleaned_Version3.txt',
     parser => 'Marker',
+    lang_national => 'ind',
   },
   'Donohue (nd)' => {
     lang_target => 'swr',
