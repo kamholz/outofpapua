@@ -78,7 +78,7 @@ our $dict = {
     path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'note', 'number:']
+      [0, 'note', 'number:'],
       [1, 'gloss', 'eng'],
       [2, 'headword'],
     ],
@@ -92,7 +92,7 @@ our $dict = {
     path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'note', 'number:']
+      [0, 'note', 'number:'],
       [1, 'gloss', 'eng'],
       [3, 'headword'],
     ],
