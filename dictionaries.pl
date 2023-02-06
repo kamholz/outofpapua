@@ -4452,11 +4452,16 @@ our $dict = {
     parser => 'Marker',
     split_headword => ',',
   },
-  'Verdizade (2023)' => {
-    lang_target => 'Seget',
-    path => 'seget attempt3 (root based).db',
+  'Veloso (2016)' => {
+    lang_target => 'tft',
+    path => 'Voorhoeve_Ternate_19122021.txt',
     parser => 'Marker',
-    skip_marker => 'ps_Ind',
+    strip => 'to',
+  },
+  'Verdizade (2023)' => {
+    lang_target => 'nxa',
+    path => 'Veloso_2016_Naueti.txt',
+    parser => 'Marker',
   },
   'Visser (2020)' => {
     lang_target => 'kgv',
