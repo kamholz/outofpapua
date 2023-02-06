@@ -1793,6 +1793,39 @@ our $dict = {
     split_headword => ',',
     match => sub { shift->(2) =~ /Kebar/ },
   },
+  'Peckham (1991a)' => {
+    lang_target => 'zrs',
+    path => 'Mairasi_Comparative_List.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'gloss', 'eng'],
+      [1, 'headword'], 
+    ],
+    strip => 'to',
+    split => ';',
+  },
+  'Peckham (1991b)' => {
+    lang_target => 'mnu',
+    path => 'Mairasi_Comparative_List.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'gloss', 'eng'],
+      [2, 'headword'], 
+    ],
+    strip => 'to',
+    split => ';',
+  },
+  'Peckham (1991c)' => {
+    lang_target => 'etz',
+    path => 'Mairasi_Comparative_List.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'gloss', 'eng'],
+      [3, 'headword'], 
+    ],
+    strip => 'to',
+    split => ';',
+  },
   'Peranginangin (2014)' => {
     lang_target => 'pgu',
     path => 'Pagu/kamus Pagu_baru_2014[10975] toolbox.txt',
