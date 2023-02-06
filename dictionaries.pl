@@ -956,7 +956,7 @@ our $dict = {
   },
   'Devin (nd)' => {
     lang_target => 'abs',
-    path => 'AmbonMalay_cleaned_Version3',
+    path => 'AmbonMalay_cleaned_Version3.txt',
     parser => 'Marker',
   },
   'Donohue (nd)' => {
