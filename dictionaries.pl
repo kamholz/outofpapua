@@ -78,9 +78,9 @@ our $dict = {
     path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'note', 'number:'],
-      [1, 'gloss', 'eng'],
       [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'note', 'number:'],
     ],
     split => ',',
     split_headword => ',',
@@ -92,9 +92,9 @@ our $dict = {
     path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'note', 'number:'],
-      [1, 'gloss', 'eng'],
       [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'note', 'number:'], 
     ],
     split => ',',
     split_headword => ',',
@@ -1748,8 +1748,8 @@ our $dict = {
     path => 'Nacher Fataluku Dictionary.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'headword'],
       [1, 'subentry'],
+      [0, 'headword'],
       [2, 'va'],
       [3, 'pl'],
       [4, 'cf'],
