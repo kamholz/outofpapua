@@ -3586,7 +3586,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977b)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Bosnik',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Bosnik',
