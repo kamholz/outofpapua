@@ -4487,7 +4487,7 @@ our $dict = {
     split_headword => ',',
   },
   'Veloso (2016)' => {
-    lang_target => 'tft',
+    lang_target => 'nxa',
     path => 'Voorhoeve_Ternate_19122021.txt',
     parser => 'Marker',
     strip => 'to',
