@@ -5044,9 +5044,9 @@ our $dict = {
     path => 'Iha (Widodo 2012).xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'gloss', 'ind'],
-      [1, 'gloss', 'eng'],
-      [2, 'headword'],
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
     mode => 'sense_per_row',
