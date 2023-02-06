@@ -954,6 +954,11 @@ our $dict = {
     split => ',;',
     split_headword => ',;/',
   },
+  'Devin (nd)' => {
+    lang_target => 'abs',
+    path => 'AmbonMalay_cleaned_Version3',
+    parser => 'Marker',
+  },
   'Donohue (nd)' => {
     lang_target => 'swr',
     path => 'spreadsheets/3-Saweru words in Donohue phonology paper.xlsx',
@@ -4393,7 +4398,7 @@ our $dict = {
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
-    path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
+    path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
