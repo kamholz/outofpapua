@@ -4966,6 +4966,20 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Widodo (2012)' => {
+    lang_target => 'Iha',
+    path => 'Iha (Widodo 2012).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
+      [2, 'headword'],
+      [[3 .. 4], 'example', ['ind']],
+      [5, 'page_num'],
+    ],
+    split => ';',
+    split_headword => ';',
+  },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Maybrat Ayamaru_Witani_1992.xlsx',
