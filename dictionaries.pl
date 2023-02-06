@@ -3603,7 +3603,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977c)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Korem',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Korem',
@@ -3620,7 +3620,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977d)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Manwor',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Manwor',
@@ -3637,7 +3637,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977e)' => {
-    lang_target => 'mvx',
+    lang_target => 'Meoswar',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Meos War',
@@ -3654,7 +3654,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977f)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Numfor',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Numfor',
@@ -3671,7 +3671,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977g)' => {
-    lang_target => 'rnn',
+    lang_target => 'Roon',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Ron',
@@ -3688,7 +3688,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977h)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Samper',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Samber',
@@ -3705,7 +3705,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977i)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Sopen',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Sopen',
@@ -3723,7 +3723,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977j)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Sor',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Sor',
@@ -3740,7 +3740,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977k)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Sorido',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Sorido',
@@ -3757,7 +3757,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977l)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Sowek',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Sowek',
@@ -3774,7 +3774,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977m)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Urembori',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Urembori',
@@ -3791,7 +3791,7 @@ our $dict = {
     split => ';',
   },
   'Soeparno (1977n)' => {
-    lang_target => 'bhw',
+    lang_target => 'Biak Tepin',
     path => 'Biak dictionary.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Biak Tepin',
