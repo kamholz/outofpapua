@@ -4488,14 +4488,15 @@ our $dict = {
   },
   'Veloso (2016)' => {
     lang_target => 'nxa',
-    path => 'Voorhoeve_Ternate_19122021.txt',
+    path => 'Veloso_2016_Naueti.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Verdizade (2023)' => {
-    lang_target => 'nxa',
-    path => 'Veloso_2016_Naueti.txt',
+    lang_target => 'Seget',
+    path => 'seget attempt3 (root based).db', 
     parser => 'Marker',
+
   },
   'Visser (2020)' => {
     lang_target => 'kgv',
