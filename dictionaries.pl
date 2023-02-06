@@ -84,7 +84,7 @@ our $dict = {
     ],
     split => ',',
     split_headword => ',',
-    strip => 'to'
+    strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
   'Anceaux (1961c)' => {
@@ -98,7 +98,7 @@ our $dict = {
     ],
     split => ',',
     split_headword => ',',
-    strip => 'to'
+    strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
   'Anceaux (nd a)' => {
