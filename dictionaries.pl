@@ -1828,6 +1828,17 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
+  'Narfafan & Sutriani (2011)' => {
+    lang_target => 'agf',
+    path => 'Arguni_Narfafan_2011.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [2, 'va'],
+      [3, 'nt'],
+    ],
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
