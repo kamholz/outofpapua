@@ -4466,7 +4466,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
-    lang_vernacular => 'slz'
+    lang_vernacular => 'slz',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
