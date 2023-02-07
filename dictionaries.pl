@@ -2,17 +2,6 @@ use v5.14;
 use utf8;
 
 our $dict = {
-  'AA' => {
-  lang_target => 'mky',
-  path => 'test.xlsx',
-  parser => 'Spreadsheet',
-  columns => [
-  [0, 'headword'],
-  [1, 'gloss', 'eng'],
-  [2, 'headword'],
-  [1, 'gloss', 'eng'],
-  ],
-  },
   'Adriani & Kruijt (1914a)' => {
     lang_target => 'mky', #East Makian
     path => 'Adriani, Kruijt 1914.xlsx',
@@ -1473,7 +1462,7 @@ our $dict = {
   },
   'Jones (1986a)' => {
     lang_target => 'Yawa Ambaidiru',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
@@ -1483,7 +1472,7 @@ our $dict = {
   },
   'Jones (1986b)' => {
     lang_target => 'Yawa Mariadei',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
@@ -1493,7 +1482,7 @@ our $dict = {
   },
   'Jones (1986c)' => {
     lang_target => 'Yawa Konti Unai',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
@@ -1503,7 +1492,7 @@ our $dict = {
   },
   'Jones (1986d)' => {
     lang_target => 'Yawa Tindaret',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [5, 'headword'],
@@ -1513,7 +1502,7 @@ our $dict = {
   },
   'Jones (1986e)' => {
     lang_target => 'Yawa Ariepi',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [6, 'headword'],
@@ -1523,7 +1512,7 @@ our $dict = {
   },
   'Jones (1986f)' => {
     lang_target => 'Yawa Sarawandori',
-    path => 'spreadsheets/Yawa_Dialects_Jones_1986.xlsx',
+    path => 'spreadsheets/Yawa dialects Jones 1986.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [7, 'headword'],
