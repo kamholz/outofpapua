@@ -9,7 +9,7 @@ our $dict = {
   columns => [
   [0, 'headword'],
   [1, 'gloss', 'eng'],
-  [2, 'se'],
+  [2, 'headword'],
   [1, 'gloss', 'eng'],
   ],
   },
