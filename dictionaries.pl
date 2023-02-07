@@ -1007,7 +1007,7 @@ our $dict = {
     lang_target => 'oni',
     path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Onin Tibatibananam'
+    sheet => 'Onin Tibatibananam',
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
@@ -1018,7 +1018,7 @@ our $dict = {
     lang_target => 'skz',
     path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Sekar'
+    sheet => 'Sekar',
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
@@ -1029,7 +1029,7 @@ our $dict = {
     lang_target => 'bed',
     path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Bedoanas'
+    sheet => 'Bedoanas',
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
@@ -1039,7 +1039,7 @@ our $dict = {
     lang_target => 'erw',
     path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Erokwanas'
+    sheet => 'Erokwanas',
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
