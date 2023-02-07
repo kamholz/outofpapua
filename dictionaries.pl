@@ -1061,7 +1061,7 @@ our $dict = {
     parser => 'Marker',
     skip_marker => 'lx_Eng',
   },
-  'Ellen (1916)' => {
+  'Ellen (1916a)' => {
     lang_target => 'mqo',
     path => 'spreadsheets/Modole_Ellen1916.xlsx',
     parser => 'Spreadsheet',
@@ -1076,6 +1076,21 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => '(to)',
+  },
+  'Ellen (1916b)' => {
+    lang_target => 'pgu',
+    path => 'Ellen 1916 - Pagu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'pd_sn'],
+      [2, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [7, 'nt'],
+      [3, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
   },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
