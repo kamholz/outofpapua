@@ -1003,6 +1003,49 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
+  'Donohue (2010a)' => {
+    lang_target => 'oni',
+    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Onin Tibatibananam'
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'va'],
+    ],
+  },
+  'Donohue (2010b)' => {
+    lang_target => 'skz',
+    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sekar'
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'va'],
+    ],
+  },
+  'Donohue (2010c)' => {
+    lang_target => 'bed',
+    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Bedoanas'
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Donohue (2010d)' => {
+    lang_target => 'erw',
+    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Erokwanas'
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'va'],
+    ],
+  },
   'Donohue & Ayeri (nd)' => {
     lang_target => 'swr',
     path => 'Fieldworks/Saweru.db',
