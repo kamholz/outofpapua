@@ -4065,6 +4065,20 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Stokhof (1980f)' => {
+    lang_target => 'tvo',
+    path => 'spreadsheets/Stokhof/Tidore 167 (x 957) LPB.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'nld'],
+      [0, 'nt_sn', 'number:'],
+      [4, 'nt'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
