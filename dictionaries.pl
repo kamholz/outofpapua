@@ -11,8 +11,8 @@ our $dict = {
   [1, 'gloss', 'eng'],
   [2, 'se'],
   [1, 'gloss', 'eng'],
-  ]
-  }
+  ],
+  },
   'Adriani & Kruijt (1914a)' => {
     lang_target => 'mky', #East Makian
     path => 'Adriani, Kruijt 1914.xlsx',
