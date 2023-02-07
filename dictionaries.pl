@@ -689,6 +689,7 @@ our $dict = {
     split => ';',
     strip => 'to',
     definition_action => 'merge',
+    lang_national => 'ind',
   },
   'Clark (2022)' => {
     lang_target => 'Tobelo Boëng',
