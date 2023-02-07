@@ -682,6 +682,14 @@ our $dict = {
     split_headword => ';',
     split => ';',
   },
+  'Christensen (nd)' => {
+    lang_target => 'kje',
+    path => 'Christensen_nd_Kisar.txt',
+    parser => 'Marker',
+    split => ';',
+    strip => 'to',
+    definition_action => 'merge',
+  },
   'Clark (2022)' => {
     lang_target => 'Tobelo Boëng',
     path => 'Clark2022Tobelo.txt',
