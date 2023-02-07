@@ -1005,7 +1005,7 @@ our $dict = {
   },
   'Donohue (2010a)' => {
     lang_target => 'oni',
-    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    path => 'Donohue_2010.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Onin Tibatibananam',
     columns => [
