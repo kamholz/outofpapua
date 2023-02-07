@@ -1016,7 +1016,7 @@ our $dict = {
   },
   'Donohue (2010b)' => {
     lang_target => 'skz',
-    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    path => 'Donohue_2010.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sekar',
     columns => [
@@ -1027,7 +1027,7 @@ our $dict = {
   },
   'Donohue (2010c)' => {
     lang_target => 'bed',
-    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    path => 'Donohue_2010.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bedoanas',
     columns => [
@@ -1037,7 +1037,7 @@ our $dict = {
   },
   'Donohue (2010d)' => {
     lang_target => 'erw',
-    path => 'Donohue_2010_Onin Tibatibananam-Sekar-Bedoanas-Erokwanas).xlsx',
+    path => 'Donohue_2010.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Erokwanas',
     columns => [
