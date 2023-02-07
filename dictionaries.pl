@@ -2,6 +2,17 @@ use v5.14;
 use utf8;
 
 our $dict = {
+  'AA' => {
+  lang_target => 'mky',
+  path => 'test.xlsx',
+  parser => 'Spreadsheet',
+  columns => [
+  [0, 'headword'],
+  [1, 'gloss', 'eng'],
+  [2, 'se'],
+  [1, 'gloss', 'eng'],
+  ]
+  }
   'Adriani & Kruijt (1914a)' => {
     lang_target => 'mky', #East Makian
     path => 'Adriani, Kruijt 1914.xlsx',
