@@ -973,7 +973,7 @@ our $dict = {
       [1, 'se'],
       [0, 'headword'],
       [2, 'gloss', 'eng'],
-      [6, 'gloss', ''], #???
+      [6, 'gloss', 'ind'], 
       [7, 'gloss', 'nld'],
       [3, 'pl'],
       [4, 'va'],
