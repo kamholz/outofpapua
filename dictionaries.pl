@@ -956,6 +956,32 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'de Josselin de Jong (1947)' => { #not ingested
+    lang_target => 'ilu',
+    path => 'de Josselin de Jong 1947 Iliuun Erai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [6, 'gloss', ''], #???
+      [7, 'gloss', 'nld'],
+      [3, 'pl'],
+      [4, 'va'],
+      [5, 'nt', 'literally:'],
+      [8, 'nt'],
+      [9, 'cf'],
+      [[10 .. 11], 'example', ['eng']], #1
+      [[12 .. 13], 'example', ['eng']], #2
+      [[14 .. 15], 'example', ['eng']], #3
+      [[16 .. 17], 'example', ['eng']], #4
+      [[18 .. 19], 'example', ['eng']], #5
+      [[20 .. 21], 'example', ['eng']], #6
+      [[22 .. 23], 'example', ['eng']], #7
+    ],
+    split_headword => ';',
+    strip => 'to',
+  },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
     path => 'Dol/dol_maybrat2007_toolbox.txt',
