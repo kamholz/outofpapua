@@ -646,6 +646,15 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Carr (2004)' => {
+    lang_target => 'mkz', 
+    path => 'Carr2004_MakasaeOssu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+  },
   'Chlenova (2010a)' => {
     lang_target => 'Gorom', 
     path => 'Chlenova2010_Gorom-Geser-Watubela.xlsx',
