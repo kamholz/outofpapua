@@ -4019,7 +4019,7 @@ our $dict = {
     path => 'Bukalabang dictionary.txt',
     parser => 'Marker',
     lang_national => 'ind',
-  }
+  },
   'Stokhof (1980a)' => {
     lang_target => 'mqo',
     path => 'spreadsheets/Stokhof/Madole 169b (x 735).xlsx',
