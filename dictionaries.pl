@@ -2115,6 +2115,12 @@ our $dict = {
     lang_regional => 'pmy',
     strip => 'to',
   },
+  'Robinson (2005)' => { #not ingested
+    lang_target => 'kem',
+    path => 'KemakAtsabe_Robinson_2005.txt',
+    parser => 'Marker',
+    definition_action => 'prefer',
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
@@ -4014,8 +4020,8 @@ our $dict = {
     ],
     split => ';',
   },
-   'Steinhauer (nd)' => {
-    lang_target => 'Bukalabang',
+   'Steinhauer (nd)' => { #not ingested
+    lang_target => 'Bukalabang', #?
     path => 'Bukalabang dictionary.txt',
     parser => 'Marker',
     lang_national => 'ind',
