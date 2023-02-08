@@ -5206,6 +5206,7 @@ our $dict = {
       [4, 'nt'],
       [5, 'page_num'],
     ],
+    split_headword => ';',
   },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
