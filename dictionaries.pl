@@ -1416,6 +1416,17 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Haan (2001)' => {
+    lang_target => 'adn',
+    path => 'Adang Kokar Haan 2001.xlsx',
+    parser => 'spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'lt'],
+    ],
+    split_headword => ';',
+  },
   'Halmahera Lingua Centre (2019)' => {
     lang_target => 'szw',
     path => 'webonary/sawai/*.html',
