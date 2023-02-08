@@ -1419,7 +1419,7 @@ our $dict = {
   'Haan (2001)' => {
     lang_target => 'adn',
     path => 'Adang Kokar Haan 2001.xlsx',
-    parser => 'spreadsheet',
+    parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
