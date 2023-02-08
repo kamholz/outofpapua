@@ -5194,6 +5194,19 @@ our $dict = {
     split => ';',
     split_headword => ';',
   },
+  'Wirz (1923)' => {
+    lang_target => 'mej',
+    path => 'Wirz 1923 - Mansibaber.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'deu'],
+      [2, 'gloss', 'lat'],
+      [3, 'gloss', 'eng'],
+      [4, 'nt'],
+      [5, 'page_num'],
+    ],
+  },
   'Witani (1992)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Maybrat Ayamaru_Witani_1992.xlsx',
