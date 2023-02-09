@@ -1729,7 +1729,7 @@ our $dict = {
   },
   'Kijne (nd b)' => {
     lang_target => 'swr',
-    path => 'spreadsheets/9-Saweru-Turu word list Kijne.xlsx',
+    path => 'Saweru-Turu (Kijne, nd b&c).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'headword'],
@@ -1740,7 +1740,7 @@ our $dict = {
   },
   'Kijne (nd c)' => {
     lang_target => 'Yawa Turu',
-    path => 'spreadsheets/9-Saweru-Turu word list Kijne.xlsx',
+    path => 'Saweru-Turu (Kijne, nd b&c).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
