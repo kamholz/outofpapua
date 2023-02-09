@@ -983,7 +983,6 @@ our $dict = {
       [4, 'page_num'],
     ],
     strip => 'to',
-    split_headword => ';',
     mode => 'sense_per_row',
   },
   'Dalrymple & Mofu (2009/10)' => {
