@@ -4041,8 +4041,8 @@ our $dict = {
     ],
     split => ';',
   },
-   'Steinhauer (nd)' => { #not ingested
-    lang_target => 'Bukalabang', #?
+   'Steinhauer (nd)' => { 
+    lang_target => 'beu',
     path => 'Bukalabang dictionary.txt',
     parser => 'Marker',
     lang_national => 'ind',
