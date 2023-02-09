@@ -1763,7 +1763,7 @@ our $dict = {
   },
   'Kijne (nd e)' => {
     lang_target => 'Yawa Ambaidiru',
-    path => 'spreadsheets/11-Ambaidiru word list Kijne.xlsx',
+    path => 'Ambaidiru (Kijne nd e).xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
