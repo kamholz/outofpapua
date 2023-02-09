@@ -960,7 +960,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'ue'],
-      [2, 'ps'],
+      [2, 'ps_sn'],
       [3, 'gloss', 'eng'],
       [4, 'nt'],
       [5, 'page_num'],
@@ -978,7 +978,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'cf'],
-      [2, 'ps'],
+      [2, 'ps_sn'],
       [3, 'gloss', 'eng'],
       [4, 'page_num'],
     ],
