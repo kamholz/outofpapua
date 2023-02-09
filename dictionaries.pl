@@ -990,6 +990,7 @@ our $dict = {
     ],
     split_headword => ';',
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
