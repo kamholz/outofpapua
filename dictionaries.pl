@@ -2217,6 +2217,7 @@ our $dict = {
     path => 'KemakAtsabe_Robinson_2005.txt',
     parser => 'Marker',
     definition_action => 'prefer',
+    headword_citation_action => 'prefer_root'
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
