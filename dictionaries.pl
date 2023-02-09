@@ -1515,6 +1515,24 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'Heston (2015)' => {
+    lang_target => 'Fataluku Central',
+    path => 'Heston 2015 Central Fataluku.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sheet1'
+    columns => [
+      [0, 'headword'],
+      [1, 'sn'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'lat'],
+      [4, 'gloss', 'tet'], 
+      [5, 'lt'],
+      [6, 'nt'],
+      [7, 'et'],
+      [8, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
     path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
