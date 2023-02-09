@@ -1517,7 +1517,7 @@ our $dict = {
   },
   'Heston (2015)' => {
     lang_target => 'Fataluku Central',
-    path => 'Heston 2015 Central Fataluku.xlsx',
+    path => 'Heston2015CentralFataluku.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
