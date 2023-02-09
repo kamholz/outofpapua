@@ -970,7 +970,7 @@ our $dict = {
     split_headword => ';',
     mode => 'sense_per_row',
   },
-  'Correia (2011b)' => {
+  'Correia (2011b)' => { #not ingested failed: could not read worksheet at perllib/Lexicon/Parser/Spreadsheet.pm line 25.
     lang_target => 'Makasae Northeast',
     path => 'Correia 2011 Makasae Laga.xlsx',
     parser => 'Spreadsheet',
@@ -1890,7 +1890,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
-  'Nacher (2012)' => {
+  'Nacher (2012a)' => {
     lang_target => 'ddg',
     path => 'Nacher Fataluku Dictionary.xlsx',
     parser => 'Spreadsheet',
@@ -1919,6 +1919,20 @@ our $dict = {
       [[32 .. 33], 'example', ['por']], #12
       [[34 .. 35], 'example', ['por']], #13
       [[36 .. 37], 'example', ['por']], #14
+    ],
+    split_headword => ';',
+    strip => 'to',
+  },
+  'Nacher (2012b)' => {
+    lang_target => 'Makasae Fatumaka',
+    path => 'Makasae Fatumaka_Nacher_2012.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'por'],
+      [3, 'gloss', 'tet'],
+      [4, 'et'],
     ],
     split_headword => ';',
     strip => 'to',
