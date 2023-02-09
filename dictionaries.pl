@@ -974,7 +974,7 @@ our $dict = {
     lang_target => 'Makasae Northeast',
     path => 'Correia 2011 Makasae Laga.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Makasae North-East',
+    sheet => 'Makasae NorthEast',
     columns => [
       [0, 'headword'],
       [1, 'cf'],
