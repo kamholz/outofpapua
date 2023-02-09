@@ -4561,7 +4561,7 @@ our $dict = {
     },
     definition => {
       de => 'eng',
-    }
+    },
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
