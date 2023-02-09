@@ -965,7 +965,7 @@ our $dict = {
       [4, 'gloss', 'eng'],
       [5, 'nt'],
       [6, 'page_num'],
-      [[[7 .. 8], 'example', ['eng']],]
+      [[[7 .. 8], 'example', ['eng']],],
     ],
     strip => 'to',
     split_headword => ';',
