@@ -965,7 +965,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
-  'de Josselin de Jong (1947)' => { #not ingested
+  'de Josselin de Jong (1947)' => {
     lang_target => 'ilu',
     path => 'de Josselin de Jong 1947 Iliuun Erai.xlsx',
     parser => 'Spreadsheet',
@@ -4551,11 +4551,14 @@ our $dict = {
     lang_target => 'slz',
     path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
     parser => 'Marker',
-    lang_national => 'ind',
-    lang_regional => 'pmy',
-    lang_vernacular => 'slz',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
+    gloss => {
+      ge => 'eng',
+      gn => 'ind',
+      gr => 'pmy',
+      gv => 'slz',
+    },
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
