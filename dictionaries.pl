@@ -1985,6 +1985,18 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Penn (2006)' => {
+    lang_target => 'gal',
+    path => 'Penn 2006 Dadua.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'], 
+      [0, 'gloss', 'por'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'tet'],
+    ],
+  },
   'Peranginangin (2014)' => {
     lang_target => 'pgu',
     path => 'Pagu/kamus Pagu_baru_2014[10975] toolbox.txt',
