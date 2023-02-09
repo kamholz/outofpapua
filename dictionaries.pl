@@ -1519,7 +1519,6 @@ our $dict = {
     lang_target => 'Fataluku Central',
     path => 'Heston 2015 Central Fataluku.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Sheet1',
     columns => [
       [0, 'headword'],
       [1, 'sn'],
