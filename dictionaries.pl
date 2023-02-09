@@ -970,7 +970,7 @@ our $dict = {
     path => 'de Josselin de Jong 1947 Iliuun Erai.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [2, 'gloss', 'eng'],
       [6, 'gloss', 'ind'], 
