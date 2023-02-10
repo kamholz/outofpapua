@@ -971,7 +971,7 @@ our $dict = {
     split_headword => ';',
     mode => 'sense_per_row',
   },
-  'Correia (2011b)' => { #not ingested failed: could not read worksheet at perllib/Lexicon/Parser/Spreadsheet.pm line 25.
+  'Correia (2011b)' => {
     lang_target => 'Makasae Northeast',
     path => 'Correia2011_MakasaeNortheast.xlsx',
     parser => 'Spreadsheet',
@@ -1458,6 +1458,7 @@ our $dict = {
       [5, 'cf'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Haan (2001)' => {
     lang_target => 'adn',
