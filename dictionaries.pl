@@ -973,9 +973,8 @@ our $dict = {
   },
   'Correia (2011b)' => { #not ingested failed: could not read worksheet at perllib/Lexicon/Parser/Spreadsheet.pm line 25.
     lang_target => 'Makasae Northeast',
-    path => 'Correia 2011 Makasae Laga.xlsx',
+    path => 'Correia2011_MakasaeNortheast.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Makasae NorthEast',
     columns => [
       [0, 'headword'],
       [1, 'cf'],
