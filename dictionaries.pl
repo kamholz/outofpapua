@@ -4937,7 +4937,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Voorhoeve and van Fraassen (nd)' => {
+  'Voorhoeve & van Fraassen (nd)' => {
     lang_target => 'tft',
     path => 'Voorhoeve_Ternate_19122021.txt',
     parser => 'Marker',
