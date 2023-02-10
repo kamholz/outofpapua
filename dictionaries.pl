@@ -1471,7 +1471,7 @@ our $dict = {
     ],
     split_headword => ';',
   },
-  'Halmahera Lingua Centre (2019)' => {
+  'Whisler (2019)' => {
     lang_target => 'szw',
     path => 'webonary/sawai/*.html',
     parser => 'LexiqueHTML',
