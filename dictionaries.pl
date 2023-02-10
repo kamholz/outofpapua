@@ -1473,9 +1473,9 @@ our $dict = {
   },
   'Whisler (2019)' => {
     lang_target => 'szw',
-    path => 'webonary/sawai/*.html',
-    parser => 'LexiqueHTML',
-    lang_national => 'id',
+    path => 'Whisler2019Sawai.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
     split_heuristic => ',',
   },
   'Hayami-Allen (2001)' => {
