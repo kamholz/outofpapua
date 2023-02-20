@@ -4118,11 +4118,18 @@ our $dict = {
     ],
     split => ';',
   },
-   'Steinhauer (nd)' => { 
+  'Steinhauer (nd)' => { 
     lang_target => 'beu',
     path => 'Bukalabang dictionary.txt',
     parser => 'Marker',
     lang_national => 'ind',
+  },
+  'Steinhauer & Gomang (2016)' => { 
+    lang_target => 'beu',
+    path => 'Steinhauer_Gomang_2016_BlagarPura.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    definition_action => 'merge',
   },
   'Stokhof (1980a)' => {
     lang_target => 'mqo',
@@ -4627,7 +4634,7 @@ our $dict = {
     strip => 'to',
   },
   'van den Berg & Matsumura (2008)' => {
-    lang_target => 'irh',
+    lang_target => 'Irarutu Gusimawa',
     path => 'vandenBergMatsumura2008_IrarutuGusimawa.xlsx',
     parser => 'Spreadsheet',
     columns => [
