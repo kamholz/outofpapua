@@ -4741,6 +4741,11 @@ our $dict = {
       alt_translation1 => 'ind',
     },
   },
+  'Visser (nd)' => {
+    lang_target => 'urn',
+    path => 'uruangnirin-lexicon-20231002.db', 
+    parser => 'Marker',
+  },
   'Visser & Voorhoeve (1987a)' => {
     lang_target => 'saj',
     path => 'spreadsheets/Sahu/wordlist_Sahu_Visser,Voorhoeve1987_fixed.csv',
