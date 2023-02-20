@@ -4129,8 +4129,8 @@ our $dict = {
     path => 'Steinhauer_Gomang_2016_BlagarPura.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    lang_regional => 'ind',
     definition_action => 'merge',
-    skip_marker => 'un',
   },
   'Stokhof (1980a)' => {
     lang_target => 'mqo',
