@@ -4130,6 +4130,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     definition_action => 'merge',
+    skip_marker => 'un',
   },
   'Stokhof (1980a)' => {
     lang_target => 'mqo',
