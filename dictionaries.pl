@@ -4626,6 +4626,16 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'van den Berg & Matsumura (2008)' => {
+    lang_target => 'irh',
+    path => 'vandenBergMatsumura2008_IrarutuGusimawa.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
     path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
