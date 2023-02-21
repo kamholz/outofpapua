@@ -1810,6 +1810,7 @@ our $dict = {
       [1, 'ps'],
       [2, 'gloss', 'eng'],
     ],
+  }
   'Kotynski (2022)' => {
     lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
@@ -1827,7 +1828,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
-      [2, 'nt']
+      [2, 'nt'],
     ],
     split => ',',
   },
