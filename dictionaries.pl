@@ -1811,6 +1811,24 @@ our $dict = {
       [2, 'gloss', 'eng'],
     ],
   },
+  'Koda (2012)' => {
+    lang_target => 'Blagar Kolijahi',
+    path => 'Koda 2012 Blagar Kolijahi dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'cf'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [[5 .. 6], 'example', ['ind']], #1
+      [[7 .. 8], 'example', ['ind']], #2
+      [[9 .. 10], 'example', ['ind']], #3
+      [11, 'page_num'],
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+  },
   'Kotynski (2022)' => {
     lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
