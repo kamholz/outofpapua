@@ -1801,7 +1801,7 @@ our $dict = {
       [3, 'nt'],
     ],
   },
-  'Kluge (2018)' => {
+  'Kluge (2017)' => {
     lang_target => 'pmy',
     path => 'Kluge (2017) Papuan Malay.xlsx',
     parser => 'Spreadsheet',
