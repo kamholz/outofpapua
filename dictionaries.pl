@@ -1801,6 +1801,15 @@ our $dict = {
       [3, 'nt'],
     ],
   },
+  'Kluge (2018)' => {
+    lang_target => 'pmy',
+    path => 'Kluge (2017) Papuan Malay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+    ],
   'Kotynski (2022)' => {
     lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
