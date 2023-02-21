@@ -1810,7 +1810,7 @@ our $dict = {
       [1, 'ps'],
       [2, 'gloss', 'eng'],
     ],
-  }
+  },
   'Kotynski (2022)' => {
     lang_target => 'Tobaru',
     path => 'Dictionary_Tabaru.txt',
