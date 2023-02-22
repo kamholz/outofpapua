@@ -632,7 +632,7 @@ our $dict = {
     split_heuristic => ',/',
   },
   'Boarccaech (2013)' => {
-    lang_target => 'abd',
+    lang_target => 'adb',
     path => 'Boarccaech 2013 Hresuk.xlsx',
     parser => 'Spreadsheet',
     columns => [
