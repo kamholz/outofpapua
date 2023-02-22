@@ -1287,6 +1287,24 @@ our $dict = {
     path => 'Tehit Teminabuan.txt',
     parser => 'Marker',
   },
+  'Fogaca (2015)' => {
+    lang_target => 'mkz',
+    path => 'Fogaca 2015 Makasae Baucau.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'por'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'tet'],
+      [[5 .. 8], 'example', ['eng', 'por', 'tet']], #1
+      [[9 .. 12], 'example', ['eng', 'por', 'tet']], #2
+      [[13 .. 16], 'example', ['eng', 'por', 'tet']], #3
+      [17, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Fortgens (1905)' => {
     lang_target => 'saj',
     path => 'Fortgens1905-Ibu.xlsx',
