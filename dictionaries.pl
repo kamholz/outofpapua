@@ -631,6 +631,21 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
+  'Boarccaech (2013)' => {
+    lang_target => 'abd',
+    path => 'Boarccaech 2013 Hresuk.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'lt'],
+      [2, 'gloss', 'por'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'lat'],
+      [5, 'cf'],
+      [[6 .. 7], 'example', ['por']],
+    ],
+    strip => 'to',
+  },
   'Budiman (2012)' => {
     lang_target => 'kax',
     path => 'spreadsheets/Budiman-Kao-dic.xlsx',
