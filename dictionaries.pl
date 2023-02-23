@@ -1645,6 +1645,7 @@ our $dict = {
     lang_target => 'wmh',
     path => 'HimmelmannEtAl_2006_Waimaa.txt',
     parser => 'Marker',
+    definition_action => 'merge',
   },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
