@@ -1203,7 +1203,7 @@ our $dict = {
     ],
   },
   'Duarte (1990d)' => {
-    lang_target => 'ilu', #Dadua Manroni
+    lang_target => 'gal', #Dadua Manroni
     path => 'Atauro lists Barros Duarte 1990.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Dadua Manroni',
@@ -4788,7 +4788,6 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
     gloss => {
-      ge => 'eng',
       gn => 'ind',
       gr => 'pmy',
       gv => 'slz',
