@@ -4375,7 +4375,7 @@ our $dict = {
       [0, 'headword'],
       [1, 'va'],
       [3, 'gloss', 'eng'],
-      [6, 'sc'],
+      [6, 'gloss', 'lat'],
       [9, 'lt'],
       [2, 'nt'],
       [5, 'cf', 'split'],
