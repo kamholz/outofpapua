@@ -1641,6 +1641,11 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Himmelmann et al. (2006)' => {
+    lang_target => 'wmh',
+    path => 'HimmelmannEtAl_2006_Waimaa.txt',
+    parser => 'Marker',
+  },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
     path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
