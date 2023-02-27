@@ -286,6 +286,16 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Atjo (2008)' => {
+    lang_target => 'Ternate',
+    path => 'Atjo 2008 - Ternate.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'page_num'],
+    ],
+  },
   'Arnold (2019a)' => {
     lang_target => 'wgo',
     path => 'Ambel_FullLexicon_RootBased.db',
