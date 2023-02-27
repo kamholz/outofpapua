@@ -2362,6 +2362,20 @@ our $dict = {
     definition_action => 'prefer',
     headword_citation_action => 'prefer_root'
   },
+  'Rugebregt et al. (1986)' => {
+    lang_target => 'Tobelo',
+    path => 'Rugebregt 1986 - Tobelo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'pd_sn'],
+      [0, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'nt_sn', 'page:'],
+    ],
+    mode => 'sense_per_row',
+    split_headword => ';',
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
