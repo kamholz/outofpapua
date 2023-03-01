@@ -286,7 +286,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Atjo (2008)' => {
+  'Atjo (2008)' => { #not ingested
     lang_target => 'Ternate',
     path => 'Atjo 2008 - Ternate.xlsx',
     parser => 'Spreadsheet',
@@ -4424,6 +4424,20 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => 'to',
+  },
+  'Tamelan (2021)' => {
+    lang_target => 'row',
+    path => 'Tamelan 2021 Dela.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'nt_sn'],
+      [4, 'mr'],
+      [5, 'va'],
+    ],
+    mode => 'sense_per_row',
   },
   'Taylor (1990)' => {
     lang_target => 'tlb',
