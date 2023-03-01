@@ -1418,6 +1418,18 @@ our $dict = {
     ],
     split => ';',
   },
+  'Friday (nd)' => {
+    lang_target => 'ddg',
+    path => 'Friday_nd_Fataluku.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'nld'],
+      [1, 'gloss', 'lat'],
+      [2, 'gloss', 'tet'],
+    ],
+  },
   'Gane (2019)' => {
     lang_target => 'loa',
     path => 'spreadsheets/Gane2019-Loloda.xlsx',
