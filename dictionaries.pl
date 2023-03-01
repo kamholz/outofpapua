@@ -4848,14 +4848,6 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
-    gloss => {
-      gn => 'ind',
-      gr => 'pmy',
-      gv => 'slz',
-    },
-    definition => {
-      de => 'eng',
-    },
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
