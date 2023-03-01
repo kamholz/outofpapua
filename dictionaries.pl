@@ -1420,7 +1420,7 @@ our $dict = {
   },
   'Friday (nd)' => {
     lang_target => 'ddg',
-    path => 'Friday_nd_Fataluku.xls',
+    path => 'Friday_nd_Fataluku.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
