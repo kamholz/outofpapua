@@ -1262,6 +1262,11 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Engelenhoven (nd)' => {
+    lang_target => 'Fataluku Tutuala',
+    path => 'vanEngelenhoven_nd_FatalukuTutuala.txt',
+    parser => 'Marker',
+  },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
     path => 'Tehit-Indonesian dictionary.xlsx',
@@ -5082,7 +5087,7 @@ our $dict = {
   },
   'Voorhoeve (1984a)' => {
     lang_target => 'jbj', # Arandai
-    path => 'Arandai_List_Version4.xlsx',
+    path => 'Arandai_List_Version5.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [8, 'headword'],
@@ -5097,7 +5102,7 @@ our $dict = {
   },
   'Voorhoeve (1984b)' => {
     lang_target => 'Kemberano Barau',
-    path => 'Arandai_List_Version4.xlsx',
+    path => 'Arandai_List_Version5.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'headword'],
@@ -5111,7 +5116,7 @@ our $dict = {
   },
   'Voorhoeve (1984c)' => {
     lang_target => 'Kemberano Weriagar',
-    path => 'Arandai_List_Version4.xlsx',
+    path => 'Arandai_List_Version5.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
@@ -5126,7 +5131,7 @@ our $dict = {
   },
   'Voorhoeve (1984d)' => {
     lang_target => 'Kokoda Tarof',
-    path => 'Arandai_List_Version4.xlsx',
+    path => 'Arandai_List_Version5.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [12, 'headword'],
@@ -5140,7 +5145,7 @@ our $dict = {
   },
   'Voorhoeve (1984e)' => {
     lang_target => 'Kokoda Kasueri',
-    path => 'Arandai_List_Version4.xlsx',
+    path => 'Arandai_List_Version5.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [15, 'headword'],
