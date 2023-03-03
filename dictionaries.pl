@@ -4723,6 +4723,18 @@ our $dict = {
     ],
     split => '/',
   },
+  'Trainor (nd)' => {
+    lang_target => 'ddg',
+    path => 'Trainor_nd_Fataluku_birdlist.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'lat'],
+      [3, 'gloss', 'ind'],
+    ],
+    smode => 'sense_per_row',
+  },
   'van Baarda (1904)' => {
     lang_target => 'loa',
     path => 'van Baarda 1904 - Loloda.xlsx',
