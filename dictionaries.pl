@@ -1041,7 +1041,7 @@ our $dict = {
       [[10 .. 11], 'example', ['eng']],
       [12, 'sy'],
       [13, 'nt'],
-    ]
+    ],
     split_headword => ';',
     strip => 'to',
   },
