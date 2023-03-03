@@ -1023,6 +1023,28 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'de Josselin de Jong (1937)' => {
+    lang_target => 'oia',
+    path => 'de Josselin de Jong (1937) Oirata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'lat'],
+      [5, 'gloss', 'ind'], 
+      [4, 'gloss', 'nld'],
+      [6, 'lt'],
+      [7, 'cf'],
+      [8, 'page_num'],
+      [9, 'et'],
+      [[10 .. 11], 'example', ['eng']],
+      [12, 'sy'],
+      [13, 'nt'],
+    ]
+    split_headword => ';',
+    strip => 'to',
+  },
   'de Josselin de Jong (1947)' => {
     lang_target => 'ilu',
     path => 'de Josselin de Jong 1947 Iliuun Erai.xlsx',
