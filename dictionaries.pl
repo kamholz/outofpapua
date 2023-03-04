@@ -1728,6 +1728,76 @@ our $dict = {
     parser => 'Marker',
     strip => ['the','to','a'],
   },
+  'Hughes (2009a)' => {
+    lang_target => 'khe', #Korowai Abiowage
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009b)' => {
+    lang_target => 'kzv', #Komyandaret Donokit
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009c)' => {
+    lang_target => 'kvz', #Tsaukambo Waliburu
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009d)' => {
+    lang_target => 'tkx', #Tangko Kawemaot
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009e)' => {
+    lang_target => 'nkj', #Naka Burunggop
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009f)' => {
+    lang_target => 'wms', #Wambon Manggelum
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
+  'Hughes (2009g)' => {
+    lang_target => 'wng', #Wanggom Biwage Dua
+    path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+    ],
+  },
   'Imelda & Bowden (2014)' => {
     lang_target => 'gak',
     path => 'Kamus kecil Gamkonora/Kamus kecil Gamkonora 2014 toolbox.txt',
