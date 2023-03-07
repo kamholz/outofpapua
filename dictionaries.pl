@@ -1072,7 +1072,7 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
-   'de Josselin de Jong (1987)' => {
+   'de Josselin de Jong (1987)' => { #not ingested
     lang_target => 'lex',
     path => 'de Josselin de Jong 1987 Wetan.xlsx',
     parser => 'Spreadsheet',
@@ -4846,7 +4846,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 Bajo)' => {
-    lang_target => 'Indonesian Bajau Kayoa',
+    lang_target => 'Bajau Kayoa',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bajo',
