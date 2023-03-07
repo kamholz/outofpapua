@@ -5056,6 +5056,12 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Verdizade (2022)' => {
+    lang_target => 'Moi Yeflio',
+    path => 'Moi Jeflio.txt', 
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Verdizade (2023)' => {
     lang_target => 'Seget',
     path => 'seget attempt4 (root based).db', 
