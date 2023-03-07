@@ -1728,6 +1728,22 @@ our $dict = {
     parser => 'Marker',
     strip => ['the','to','a'],
   },
+  'Hughes (1995)' => {
+    lang_target => 'kvo', #Dobel
+    path => 'Dobel_Hughes1995.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'lat'],
+      [4, 'et'],
+      [5, 'lt'],
+      [[6 .. 7], 'example', ['eng']],
+      [[8 .. 9], 'example', ['eng']],
+      [10, 'nt'],
+    ],
+  },
   'Hughes (2009a)' => {
     lang_target => 'khe', #Korowai Abiowage
     path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
@@ -1769,7 +1785,7 @@ our $dict = {
     ],
   },
   'Hughes (2009e)' => {
-    lang_target => 'nkj', #Naka Burunggop
+    lang_target => 'nkj', #Nakai Burunggop
     path => 'Hugher2009 Korowai Komyandaret Tsaukambo Wanggom Nakai Wambon Wanggom.xlsx',
     parser => 'Spreadsheet',
     columns => [
