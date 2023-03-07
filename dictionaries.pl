@@ -1072,6 +1072,31 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+   'de Josselin de Jong (1987)' => {
+    lang_target => 'lex',
+    path => 'de Josselin de Jong 1987 Wetan.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'], 
+      [3, 'gloss', 'lat'],
+      [5, 'pl'],
+      [6, 'mr'],
+      [7, 'lt'],
+      [8, 'et'],
+      [9, 'nt'],
+      [10, 'cf'],
+      [[11 .. 12], 'example', ['eng']], #1
+      [[13 .. 14], 'example', ['eng']], #2
+      [[15 .. 16], 'example', ['eng']], #3
+      [[17 .. 18], 'example', ['eng']], #4
+      [[19 .. 20], 'example', ['eng']], #5
+    ],
+    split_headword => ';',
+    strip => 'to',
+  },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
     path => 'Dol/dol_maybrat2007_toolbox.txt',
