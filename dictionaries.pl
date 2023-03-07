@@ -5061,6 +5061,7 @@ our $dict = {
     path => 'Moi Jeflio.txt', 
     parser => 'Marker',
     lang_national => 'ind',
+    lang_regional => 'pmy',
   },
   'Verdizade (2023)' => {
     lang_target => 'Seget',
