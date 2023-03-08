@@ -4761,7 +4761,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 West Makian b)' => {
-    lang_target => 'West Makian Talapoa',
+    lang_target => 'West Makian Talapao',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'West Makian Sabale Talapoa',
