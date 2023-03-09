@@ -4988,7 +4988,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'van den Crab (1862a)' => {
+  'van der Crab (1862a)' => {
     lang_target => 'lcq', #Batumerah
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -4999,7 +4999,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862b)' => {
+  'van der Crab (1862b)' => {
     lang_target => 'alo', #Larike
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5010,7 +5010,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862c)' => {
+  'van der Crab (1862c)' => {
     lang_target => 'hrk', #Kailolo
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5021,7 +5021,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862d)' => {
+  'van der Crab (1862d)' => {
     lang_target => 'mhs', #Buru Beach
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5032,7 +5032,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862e)' => {
+  'van der Crab (1862e)' => {
     lang_target => 'mhs', #Buru Interior
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5043,7 +5043,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862f)' => {
+  'van der Crab (1862f)' => {
     lang_target => 'Ternate',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5054,7 +5054,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862g)' => {
+  'van der Crab (1862g)' => {
     lang_target => 'Tidore',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5065,7 +5065,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-  'van den Crab (1862h)' => {
+  'van der Crab (1862h)' => {
     lang_target => 'Sahu',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5076,7 +5076,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862i)' => {
+  'van der Crab (1862i)' => {
     lang_target => 'Gamkonora',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5087,7 +5087,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862j)' => {
+  'van der Crab (1862j)' => {
     lang_target => 'Gane',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5098,7 +5098,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862k)' => {
+  'van der Crab (1862k)' => {
     lang_target => 'West Makian',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5109,7 +5109,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862l)' => {
+  'van der Crab (1862l)' => {
     lang_target => 'East Makian',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5120,7 +5120,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862m)' => {
+  'van der Crab (1862m)' => {
     lang_target => 'tom',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5131,7 +5131,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862n)' => { #not ingested
+  'van der Crab (1862n)' => { #not ingested
     lang_target => '', #Tonpaka
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
@@ -5142,7 +5142,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'van den Crab (1862o)' => {
+  'van der Crab (1862o)' => {
     lang_target => 'bnq',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
