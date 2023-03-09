@@ -4988,6 +4988,171 @@ our $dict = {
     ],
     split => ';',
   },
+  'van den Crab (1862a)' => {
+    lang_target => 'lcq', #Batumerah
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862b)' => {
+    lang_target => 'alo', #Larike
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862c)' => {
+    lang_target => 'hrk', #Kailolo
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862d)' => {
+    lang_target => 'mhs', #Buru Beach
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862e)' => {
+    lang_target => 'mhs', #Buru Interior
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862f)' => {
+    lang_target => 'Ternate',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862g)' => {
+    lang_target => 'Tidore',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [2, 'page_num'],
+    ],
+  },
+  'van den Crab (1862h)' => {
+    lang_target => 'Sahu',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862i)' => {
+    lang_target => 'Gamkonora',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862j)' => {
+    lang_target => 'Gane',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862k)' => {
+    lang_target => 'West Makian',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862l)' => {
+    lang_target => 'East Makian',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [16, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862m)' => {
+    lang_target => 'tom',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [17, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862n)' => { #not ingested
+    lang_target => '', #Tonpaka
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [18, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
+  'van den Crab (1862o)' => {
+    lang_target => 'bnq',
+    path => 'van der Crab 1862.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [19, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [11, 'page_num'],
+    ],
+  },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
     path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
