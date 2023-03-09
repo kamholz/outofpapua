@@ -4979,7 +4979,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'van den Berg (1953)' => {
+  'van den Bergh (1953)' => { #not ingested
     lang_target => 'Banggai',
     path => 'Banggai - trial 1.xlsx',
     parser => 'Spreadsheet',
