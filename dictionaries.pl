@@ -4985,9 +4985,9 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'nl'],
+      [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
-      [3, 'page_num'],
+      [3, 'pg'],
     ],
   },
   'van den Berg & Matsumura (2008)' => {
