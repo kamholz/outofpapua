@@ -4979,6 +4979,17 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'van den Berg (1953)' => {
+    lang_target => 'Banggai',
+    path => 'Banggai - trial 1.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nl'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
   'van den Berg & Matsumura (2008)' => {
     lang_target => 'Irarutu Gusimawa',
     path => 'vandenBergMatsumura2008_IrarutuGusimawa.xlsx',
