@@ -4998,6 +4998,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
   },
   'van der Crab (1862b)' => {
     lang_target => 'alo', #Larike
