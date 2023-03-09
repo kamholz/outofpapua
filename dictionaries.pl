@@ -2397,6 +2397,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     split => ';',
+    strip => '(to)',
   },
   'Price (2021)' => {
     lang_target => 'amk',
