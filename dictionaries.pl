@@ -5497,6 +5497,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     split_headword => ';',
+    split => ';',
   },
   'Voorhoeve & van Fraassen (nd)' => {
     lang_target => 'tft',
