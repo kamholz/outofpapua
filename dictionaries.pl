@@ -1769,6 +1769,7 @@ our $dict = {
       [10, 'nt'],
     ],
     split_headword => ';',
+    split => ';',
   },
   'Hughes (2009a)' => {
     lang_target => 'khe', #Korowai Abiowage
