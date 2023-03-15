@@ -1817,10 +1817,7 @@ our $dict = {
     parser => 'Marker',
     definition_action => 'merge',
     split => ';',
-    skip_marker => 're',
-    skip_marker => 'rm',
-    skip_marker => 'rt',
-    skip_marker => 'rp',
+    skip_marker => ['re', 'rm', 'rt', 'rp'],
   },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
