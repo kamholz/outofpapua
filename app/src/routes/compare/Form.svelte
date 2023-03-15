@@ -44,7 +44,7 @@
   ];
 
   function emptyGloss() {
-    return values?.gloss === undefined || values.gloss.match(/^\s*$/);
+    return !values.gloss || values.gloss.match(/^\s*$/);
   }
 
   function handleGlossChange() {
