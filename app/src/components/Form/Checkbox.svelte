@@ -3,7 +3,7 @@
   export let values;
   export let haveTextCheckbox;haveTextCheckbox;
   export let browserSubmit;browserSubmit;
-  const { name, required } = field;
+  const { disabled,  name, required } = field;
 </script>
 
 <input
@@ -14,5 +14,6 @@
   class="field"
   bind:checked={values[name]}
   {required}
+  {disabled}
   on:change
 >

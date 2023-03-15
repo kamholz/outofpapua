@@ -82,6 +82,10 @@ export async function GET({ locals, url: { searchParams } }) {
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
+  if (query.fuzzy && (!('gloss' in query) || query.gloss.match(/^\s*$/))) {
+    throw error(500);
+  }
+
   const lang1 = await getLanguageIds(query.lang1);
   const lang2 = await getLanguageIds(query.lang2);
   if (!lang1 || !lang2) {

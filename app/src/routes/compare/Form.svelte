@@ -7,7 +7,9 @@
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
-  const values = { ...query };
+  let values = { ...query };
+  let formRef;
+  $: handleGlossChange(values.gloss);
 
   const fields = [
     {
@@ -37,8 +39,19 @@
       name: 'fuzzy',
       label: 'Fuzzy matching',
       type: 'checkbox',
+      disabled: emptyGloss(),
     },
   ];
+
+  function emptyGloss() {
+    return values?.gloss === undefined || values.gloss.match(/^\s*$/);
+  }
+
+  function handleGlossChange() {
+    if (formRef) {
+      formRef.elements.namedItem('fuzzy').disabled = emptyGloss();
+    }
+  }
 
   function handleValidation(e) {
     const { form, values } = e.detail;
@@ -65,7 +78,8 @@
 
 <Form
   {fields}
-  {values}
+  bind:values
+  bind:form={formRef}
   submitLabel="Compare"
   clearable
   browserSubmit

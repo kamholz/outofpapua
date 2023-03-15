@@ -24,7 +24,7 @@
   export let style = null;
   let className = null;
   export { className as class };
-  let form;
+  export let form;
   $: haveTextCheckbox = fields.some(({ checkbox, type }) => type === 'text' && checkbox);
   $: haveHotKeys = fields.some(({ hotkey }) => hotkey);
   $: hotKeys = haveHotKeys && Object.fromEntries(fields.map(({ hotkey, name }) => [hotkey, name]));
