@@ -1279,6 +1279,15 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
+  'Edwards (2018)' => { #not ingested
+    lang_target => 'aaz',
+    path => 'Edwards_2018_Amarasi.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'mkn',
+    split => ';',
+    definition_action => 'merge',
+  },
   'Edwards (2021a)' => {
     lang_target => 'Proto-Rote-Meto',
     path => 'Edwards (2021) RUM reconstructions.xlsx',
@@ -1808,6 +1817,10 @@ our $dict = {
     parser => 'Marker',
     definition_action => 'merge',
     split => ';',
+    skip_marker => 're',
+    skip_marker => 'rm',
+    skip_marker => 'rt',
+    skip_marker => 'rp',
   },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
