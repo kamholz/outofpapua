@@ -1096,6 +1096,7 @@ our $dict = {
     ],
     split_headword => ';',
     strip => 'to',
+    split => ';',
   },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
@@ -1720,6 +1721,7 @@ our $dict = {
     path => 'HimmelmannEtAl_2006_Waimaa.txt',
     parser => 'Marker',
     definition_action => 'merge',
+    split => ';',
   },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
