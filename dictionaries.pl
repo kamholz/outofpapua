@@ -1279,7 +1279,7 @@ our $dict = {
       [11, 'page_num'],
     ],
   },
-  'Edwards (2018)' => { #not ingested
+  'Edwards (2018)' => { 
     lang_target => 'aaz',
     path => 'Edwards_2018_Amarasi.txt',
     parser => 'Marker',
