@@ -1353,7 +1353,7 @@ our $dict = {
     split => ';',
   },
   'Edwards (2021g)' => {
-    lang_target => '	Proto-Central-Eastern Malayo-Polynesian',
+    lang_target => 'Proto-Central-Eastern Malayo-Polynesian',
     path => 'Edwards (2021) RUM reconstructions.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Proto-CEMP',
