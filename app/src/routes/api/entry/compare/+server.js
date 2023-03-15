@@ -3,13 +3,14 @@ import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCou
   knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, normalizeQuery, parseArrayNumParams,
-  parseArrayParams } from '$lib/util';
+  parseArrayParams, parseBooleanParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { nfc } from '../params';
 
-const allowed = new Set(['gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize']);
+const allowed = new Set(['fuzzy', 'gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize']);
 const arrayNumParams = new Set(['glosslang']);
 const arrayParams = new Set(['lang1', 'lang2']);
+const booleanParams = new Set(['fuzzy']);
 const defaults = {
   page: 1,
   pagesize: defaultPreferences.listPageSize,
@@ -77,6 +78,7 @@ export async function GET({ locals, url: { searchParams } }) {
   }
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);
+  parseBooleanParams(query, booleanParams);
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
@@ -94,7 +96,12 @@ export async function GET({ locals, url: { searchParams } }) {
     .with('lang2', (cte) => makeCte(cte, { lang: lang2, locals, query }))
     .from('lang1')
     .leftJoin('lang2', function () {
-      this.on('lang2.language_id', 'lang1.language_id').andOn('lang2.txt_degr', 'lang1.txt_degr');
+      this.on('lang2.language_id', 'lang1.language_id');
+      if (query.fuzzy) {
+        this.on('lang2.txt_degr', knex.raw('operator(pgtrgm.%)'), 'lang1.txt_degr');
+      } else {
+        this.on('lang2.txt_degr', 'lang1.txt_degr');
+      }
     })
     .select('lang1.id as lang1_id', 'lang2.id as lang2_id')
     .distinct();

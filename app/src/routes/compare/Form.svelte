@@ -33,6 +33,11 @@
       type: 'suggestMulti',
       options: glosslangSuggest,
     },
+    {
+      name: 'fuzzy',
+      label: 'Fuzzy matching',
+      type: 'checkbox',
+    },
   ];
 
   function handleValidation(e) {
@@ -65,7 +70,7 @@
   clearable
   browserSubmit
   help={RegexHelp}
-  style="--form-width: 35em; --label-width: 30%;"
+  style="--form-width: 40em; --label-width: 30%;"
   on:beforesubmit={handleValidation}
 >
   <svelte:fragment slot="hidden">
