@@ -1760,6 +1760,7 @@ our $dict = {
       [2, 'nt'],
     ],
     split_headword => ';',
+    split => ';',
   },
   'Hayami-Allen (2001)' => {
     lang_target => 'tft',
