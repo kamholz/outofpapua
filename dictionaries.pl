@@ -5609,6 +5609,13 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
+  'Voorhoeve (1987)' => {
+    lang_target => 'msg',
+    path => 'moraid vorhoeve',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split => ';',
+  },
   'Voorhoeve (1995)' => {
     lang_target => 'Irarutu Fruata',
     path => 'IrarutuFruata_Voorhoeve_1995.xlsx',
