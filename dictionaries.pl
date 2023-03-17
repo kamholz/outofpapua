@@ -1750,12 +1750,16 @@ our $dict = {
     ],
     split_headword => ';',
   },
-  'Whisler (2019)' => {
-    lang_target => 'szw',
-    path => 'Whisler2019Sawai.txt',
-    parser => 'Marker',
-    lang_national => 'ind',
-    split_heuristic => ',',
+  'Hull (2004)' => {
+    lang_target => 'Makasae Baucau',
+    path => 'Hull2004_MakasaeBaucau.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'nt'],
+    ],
+    split_headword => ';',
   },
   'Hayami-Allen (2001)' => {
     lang_target => 'tft',
@@ -5933,6 +5937,13 @@ our $dict = {
       [6, 'page_num'],
     ],
     strip => 'to',
+  },
+  'Whisler (2019)' => {
+    lang_target => 'szw',
+    path => 'Whisler2019Sawai.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split_heuristic => ',',
   },
   'Widodo (2012)' => {
     lang_target => 'ihp',
