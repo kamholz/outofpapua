@@ -5010,6 +5010,17 @@ our $dict = {
     ],
     split => ';',
   },
+  'Usher (nd c)' => {
+    lang_target => 'Proto-Tanimbar',
+    path => 'Usher_nd_Proto-TanimbarReconstructions.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'lat'],
+    ],
+    split => ';',
+  },
   'Usher & Schapper (2018)' => {
     lang_target => 'Proto-Mbaham-Iha',
     path => 'Proto-Mbaham-Iha.xlsx',
