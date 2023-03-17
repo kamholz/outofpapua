@@ -5611,7 +5611,7 @@ our $dict = {
   },
   'Voorhoeve (1987)' => {
     lang_target => 'msg',
-    path => 'moraid vorhoeve',
+    path => 'moraid vorhoeve.txt',
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
