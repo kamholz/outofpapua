@@ -2642,6 +2642,20 @@ our $dict = {
     mode => 'sense_per_row',
     split_headword => ';',
   },
+  'Sawaki (nd)' => {
+    lang_target => 'wbw',
+    path => 'Wooilex.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    definition_action => 'disprefer',
+  },
+  'Schapper (2022)' => {
+    lang_target => 'Maybrat Mare',
+    path => 'Schapper_2022_Mare.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split => ';',
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
@@ -2653,13 +2667,6 @@ our $dict = {
       [4, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
-  },
-  'Sawaki (nd)' => {
-    lang_target => 'wbw',
-    path => 'Wooilex.txt',
-    parser => 'Marker',
-    lang_national => 'ind',
-    definition_action => 'disprefer',
   },
   'Smits & Voorhoeve (1998 Yawa a)' => {
     lang_target => 'Yawa Ambaidiru',
