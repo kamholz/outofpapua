@@ -5381,9 +5381,16 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
-  'Verdizade (2022)' => {
+  'Verdizade (2022a)' => {
     lang_target => 'Moi Yeflio',
     path => 'Moi Jeflio.txt', 
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
+  },
+  'Verdizade (2022b)' => {
+    lang_target => 'sbg',
+    path => 'Segun.txt', 
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
