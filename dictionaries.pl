@@ -5454,7 +5454,7 @@ our $dict = {
       [0, 'headword'],
       [2, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
-      [1, 'page_num']
+      [1, 'page_num'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
@@ -5468,8 +5468,8 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'ps'],
       [1, 'nt'],
-      [5, 'nt']
-      [0, 'nt', 'number:']
+      [5, 'nt'],
+      [0, 'nt', 'number:'],
     ],
   },
   'Visser & Voorhoeve (1987d)' => {
@@ -5481,8 +5481,8 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'ps'],
       [1, 'nt'],
-      [7, 'nt']
-      [0, 'nt', 'number:']
+      [7, 'nt'],
+      [0, 'nt', 'number:'],
     ],
   },
   'Visser & Voorhoeve (1987e)' => {
@@ -5494,8 +5494,8 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'ps'],
       [1, 'nt'],
-      [9, 'nt']
-      [0, 'nt', 'number:']
+      [9, 'nt'],
+      [0, 'nt', 'number:'],
     ],
   },
   'Visser & Voorhoeve (1987f)' => {
@@ -5507,8 +5507,8 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'ps'],
       [1, 'nt'],
-      [11, 'nt']
-      [0, 'nt', 'number:']
+      [11, 'nt'],
+      [0, 'nt', 'number:'],
     ],
   },
   'Voorhoeve (1975a)' => {
