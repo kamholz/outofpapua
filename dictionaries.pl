@@ -5459,6 +5459,58 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Visser & Voorhoeve (1987c)' => {
+    lang_target => 'Sahu Talai',
+    path => 'Visser, Voorhoeve 1987 dialects.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
+      [1, 'nt'],
+      [5, 'nt']
+      [0, 'nt', 'number:']
+    ],
+  },
+  'Visser & Voorhoeve (1987d)' => {
+    lang_target => 'Waioli',
+    path => 'Visser, Voorhoeve 1987 dialects.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
+      [1, 'nt'],
+      [7, 'nt']
+      [0, 'nt', 'number:']
+    ],
+  },
+  'Visser & Voorhoeve (1987e)' => {
+    lang_target => 'Gamkonora',
+    path => 'Visser, Voorhoeve 1987 dialects.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
+      [1, 'nt'],
+      [9, 'nt']
+      [0, 'nt', 'number:']
+    ],
+  },
+  'Visser & Voorhoeve (1987f)' => {
+    lang_target => 'Sahu Ibu',
+    path => 'Visser, Voorhoeve 1987 dialects.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
+      [1, 'nt'],
+      [11, 'nt']
+      [0, 'nt', 'number:']
+    ],
+  },
   'Voorhoeve (1975a)' => {
     lang_target => 'yva',
     path => 'spreadsheets/7-Yawa small word list Anceaux.xlsx',
