@@ -2644,6 +2644,16 @@ our $dict = {
     lang_national => 'ind',
     definition_action => 'disprefer',
   },
+  'Sarmento (nd)' => {
+    lang_target => 'Makasae Osoroa',
+    path => 'Sarmento_nd_MakasaeOsoroa.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
   'Schapper (2022)' => {
     lang_target => 'Maybrat Mare',
     path => 'Schapper_2022_Mare.txt',
