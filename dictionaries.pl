@@ -5295,6 +5295,31 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
+  'van Engelenhoven (2004)' => {
+    lang_target => 'lti',
+    path => 'van Engelenhoven (2004) Leti.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [5, 'gloss', 'lat'],
+      [6, 'mr'],
+      [7, 'lt'],
+      [8, 'et'],
+      [9, 'page_num'],
+      [10, 'va'],
+      [11, 've'],
+      [12, 'cf'],
+      [13, 'nt'],
+      [[14 .. 15], 'example', ['eng']],
+    ],
+    split_headword => ';',
+    split => ',',
+    strip => 'to',
+  },
    'van Schie (2022a)' => {
     lang_target => 'swr',
     path => 'Saweru (Van Schie, 2022).xlsx',
@@ -5547,7 +5572,6 @@ our $dict = {
       [12, 'nt'],
     ],
     strip => 'to',
-
   },
   'Voorhoeve (1982b)' => {
     lang_target => 'West Makian Sabalé',
@@ -5567,7 +5591,6 @@ our $dict = {
       [12, 'nt'],
     ],
     strip => 'to',
-
   },
   'Voorhoeve (1982c)' => {
     lang_target => 'West Makian Bobawa',
