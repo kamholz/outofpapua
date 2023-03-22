@@ -2630,7 +2630,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'pd_sn'],
-      [0, 'gloss', 'ind'],
+      [2, 'gloss', 'ind'],
       [3, 'gloss', 'eng'],
       [4, 'nt_sn', 'page:'],
     ],
