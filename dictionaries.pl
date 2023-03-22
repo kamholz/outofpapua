@@ -2650,7 +2650,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [1, 'headword'],
-      [2, 'gloss', 'eng'],
+      [0, 'gloss', 'eng'],
     ],
     split => ';',
   },
