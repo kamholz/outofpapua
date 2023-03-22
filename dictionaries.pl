@@ -1405,11 +1405,6 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Engelenhoven (nd)' => {
-    lang_target => 'Fataluku Tutuala',
-    path => 'vanEngelenhoven_nd_FatalukuTutuala.txt',
-    parser => 'Marker',
-  },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
     path => 'Tehit-Indonesian dictionary.xlsx',
@@ -5295,12 +5290,17 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
+  'van Engelenhoven (nd)' => {
+    lang_target => 'Fataluku Tutuala',
+    path => 'vanEngelenhoven_nd_FatalukuTutuala.txt',
+    parser => 'Marker',
+  },
   'van Engelenhoven (2004)' => {
     lang_target => 'lti',
     path => 'van Engelenhoven (2004) Leti.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [2, 'ps'],
       [3, 'gloss', 'eng'],
