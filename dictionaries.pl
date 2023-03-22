@@ -5327,7 +5327,7 @@ our $dict = {
       [[14 .. 15], 'example', ['eng']],
     ],
     split_headword => ';',
-    split => ',',
+    split => ';',
     strip => 'to',
   },
    'van Schie (2022a)' => {
