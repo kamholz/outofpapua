@@ -2516,6 +2516,16 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
+  'Pszczolka (nd)' => {
+    lang_target => 'bay',
+    path => 'Pszczolka_nd_Batuley.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'abs',
+    definition_action => 'merge',
+    skip_marker => ['gcz', 'dcz', 'xcz', 'nt', 'nq', 'np', 're', 'rr', 'rn'],
+    split => ';', 
+  },
   'Purba et al. (1987)' => {
     lang_target => 'kzz',
     path => 'spreadsheets/kalabra_dictionary_Purba et al_1987.xlsx',
