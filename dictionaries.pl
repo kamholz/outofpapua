@@ -159,7 +159,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 129)' => {
+  'Anceaux (1956b)' => {
     lang_target => 'Kalabra Kuwani',
     path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
     parser => 'Spreadsheet',
@@ -2654,9 +2654,16 @@ our $dict = {
     ],
     split => ';',
   },
-  'Schapper (2022)' => {
+  'Schapper (2022a)' => {
     lang_target => 'Maybrat Mare',
     path => 'Schapper_2022_Mare.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split => ';',
+  },
+  'Schapper (2022b)' => {
+    lang_target => 'Karon',
+    path => 'Schapper_2022_Karon.txt',
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
