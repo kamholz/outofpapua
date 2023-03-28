@@ -2518,7 +2518,7 @@ our $dict = {
   },
   'Pszczolka (nd)' => {
     lang_target => 'bay',
-    path => 'Pszczolka_nd_Batuley.db',
+    path => 'Pszczolka_nd_Batuley.txt',
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'abs',
