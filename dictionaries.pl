@@ -2419,6 +2419,16 @@ our $dict = {
     split_headword => ',',
     match => sub { shift->(2) =~ /Kebar/ },
   },
+  'Olson (nd)' => {
+    lang_target => 'kvv',
+    path => 'Olson_nd_Kola.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'abs',
+    definition_action => 'merge',
+    skip_marker => ['nt', 'nq', 'np', 'npd', 're', 'rr', 'rn', 'so', 'ref'],
+    split => ';', 
+  },
   'Peckham (1991a)' => {
     lang_target => 'zrs',
     path => 'Mairasi_Comparative_List.xlsx',
