@@ -44,21 +44,23 @@
   {query}
 />
 
-{#if rows.length}
-  <div class="info">
-    Total sets found: {rowCount}
-  </div>
-  <List
-    {rows}
-    {query}
-    {pageCount}
-    on:refresh={handleRefresh}
-  />
-  <div class="controls">
-    <PageSizeSelect {query} preferenceKey="listPageSize" />
-  </div>
-{:else}
-  <div class="notfound">no sets found</div>
+{#if rows}
+  {#if rows.length}
+    <div class="info">
+      Total sets found: {rowCount}
+    </div>
+    <List
+      {rows}
+      {query}
+      {pageCount}
+      on:refresh={handleRefresh}
+    />
+    <div class="controls">
+      <PageSizeSelect {query} preferenceKey="listPageSize" />
+    </div>
+  {:else}
+    <div class="notfound">no sets found</div>
+  {/if}
 {/if}
 
 <style lang="scss">

@@ -21,14 +21,27 @@ export async function load({ fetch, parent, url: { searchParams } }) {
   }
 
   const query = normalizeQuery(searchParams);
-  query.pagesize ??= preferences.listPageSize;
 
-  const res = await fetch('/api/set?' + new URLSearchParams(query));
-  if (!res.ok) {
-    throw error(500);
+  if (hasRequiredQueryParam(query)) {
+    query.pagesize ??= preferences.listPageSize;
+
+    const res = await fetch('/api/set?' + new URLSearchParams(query));
+    if (!res.ok) {
+      throw error(500);
+    }
+    const json = await res.json();
+    Object.assign(data, json); // populates query, pageCount, rows, rowCount
+  } else {
+    data.query = {};
   }
-  const json = await res.json();
-  Object.assign(data, json); // populates query, pageCount, rows, rowCount
 
   return data;
+}
+
+const requiredParams = new Set(['headword', 'headword_ipa', 'gloss', 'note', 'author_id', 'source', 'lang', 'glosslang']);
+
+function hasRequiredQueryParam(query) {
+  return Object.entries(query).some(([key, value]) => {
+    return requiredParams.has(key) && value?.length;
+  });
 }
