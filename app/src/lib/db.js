@@ -236,6 +236,9 @@ function formatPgError(e) {
           return 'invalid format for reflex';
         case 'headword_check':
           return 'invalid headword: |, <<, and >> are not allowed';
+        case 'ipa_conversion_rule_name_check':
+        case 'ipa_conversion_lib_name_check':
+          return 'invalid name: must contain only letters, numbers, or _';
         default:
           return 'unknown error';
       }

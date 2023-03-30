@@ -52,7 +52,9 @@
   }
 </script>
 
-<Alert type="error">{error}</Alert>
+{#if error}
+  <Alert type="error">{error}</Alert>
+{/if}
 <Form
   {fields}
   bind:values
