@@ -692,30 +692,6 @@ our $dict = {
     split_headword => ';',
     split => ';',
   },
-   'Chlenova (2010b)' => {
-    lang_target => 'Geser', 
-    path => 'Chlenova2010_Gorom-Geser-Watubela.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [1, 'headword'],
-      [3, 'gloss', 'ind'],
-      [4, 'gloss', 'eng'],
-    ],
-    split_headword => ';',
-    split => ';',
-  },
-   'Chlenova (2010c)' => {
-    lang_target => 'wah', 
-    path => 'Chlenova2010_Gorom-Geser-Watubela.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [2, 'headword'],
-      [3, 'gloss', 'ind'],
-      [4, 'gloss', 'eng'],
-    ],
-    split_headword => ';',
-    split => ';',
-  },
   'Christensen (nd)' => {
     lang_target => 'kje',
     path => 'Christensen_nd_Kisar.txt',
