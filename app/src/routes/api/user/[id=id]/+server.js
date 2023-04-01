@@ -37,6 +37,9 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
       .update(updateParams)
     );
     if (rows.length) {
+      if ('fullname' in updateParams) {
+        knex.raw('select repopulate_set_details_cached()').then(() => {});
+      }
       return new Response(null);
     } else {
       throw error(404);

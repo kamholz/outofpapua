@@ -14,16 +14,18 @@ export const POST = requireAuth(async ({ locals, params, request }) => {
   }
   try {
     insertParams.set_id = params.id;
-    const rows = await knex.transaction(async (trx) => {
+    const id = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
-      return trx('set_member')
+      const rows = await trx('set_member')
         .returning('entry_id')
         .insert(insertParams);
       // would override existing set membership:
       // .onConflict(['entry_id', 'set_id'])
       // .merge([...]);
+      await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
+      return rows[0].id;
     });
-    return json({ entry_id: rows[0].id });
+    return json({ entry_id: id });
   } catch (e) {
     console.log(e);
     return pgError(e);

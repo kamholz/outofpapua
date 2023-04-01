@@ -59,13 +59,18 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
       }
     }
 
-    const rows = await knex.transaction((trx) =>
-      trx('source')
-      .where('id', params.id)
-      .returning('id')
-      .update(updateParams)
-    );
-    if (rows.length) {
+    const found = await knex.transaction(async (trx) => {
+      const rows = await trx('source')
+        .where('id', params.id)
+        .returning('id')
+        .update(updateParams);
+      const found = rows.length;
+      if (found) {
+        await trx.raw('select repopulate_set_details_cached_for_source(?)', [params.id]);
+      }
+      return found;
+    });
+    if (found) {
       return new Response(null);
     } else {
       throw error(404);

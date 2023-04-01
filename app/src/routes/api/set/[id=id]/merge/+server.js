@@ -16,12 +16,9 @@ export const POST = requireAuth(async ({ params, request }) => {
     return jsonError('"set_ids" parameter must be an array of set ids');
   }
   try {
-    let found = false;
-    await knex.transaction(async (trx) => {
+    const found = await knex.transaction(async (trx) => {
       const set = await trx('set').first('note').where('id', params.id);
       if (set) {
-        found = true;
-
         const notes = [
           set.note,
           ...await trx('set').pluck('note').where('id', arrayCmp(updateParams.set_ids)),
@@ -31,9 +28,13 @@ export const POST = requireAuth(async ({ params, request }) => {
           await trx('set').update({ note }).where('id', params.id);
         }
 
-        return trx('set_member')
+        await trx('set_member')
           .update({ set_id: params.id })
           .where('set_id', arrayCmp(updateParams.set_ids));
+        await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
+        return true;
+      } else {
+        return false;
       }
     });
     if (found) {

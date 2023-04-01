@@ -74,6 +74,9 @@ export const PUT = requireAuth(async ({ params, request }) => {
       }
     });
     if (found) {
+      if ('name' in updateParams || 'prefer_set_name' in protoParams) {
+        knex.raw('select repopulate_set_details_cached()').then(() => {});
+      }
       return new Response(null);
     } else {
       throw error(404);

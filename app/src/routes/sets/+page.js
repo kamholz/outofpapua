@@ -21,19 +21,14 @@ export async function load({ fetch, parent, url: { searchParams } }) {
   }
 
   const query = normalizeQuery(searchParams);
+  query.pagesize ??= preferences.listPageSize;
 
-  if (hasRequiredQueryParam(query)) {
-    query.pagesize ??= preferences.listPageSize;
-
-    const res = await fetch('/api/set?' + new URLSearchParams(query));
-    if (!res.ok) {
-      throw error(500);
-    }
-    const json = await res.json();
-    Object.assign(data, json); // populates query, pageCount, rows, rowCount
-  } else {
-    data.query = {};
+  const res = await fetch('/api/set?' + new URLSearchParams(query));
+  if (!res.ok) {
+    throw error(500);
   }
+  const json = await res.json();
+  Object.assign(data, json); // populates query, pageCount, rows, rowCount
 
   return data;
 }

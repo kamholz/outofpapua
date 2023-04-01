@@ -19,9 +19,9 @@ SELECT set.id,
     SELECT json_agg(
       json_build_object(
         'id', set2.id,
-        'name', coalesce(sna.name_auto->>'txt', set.id::text)
+        'name', coalesce(sna.name_auto->>'txt', set2.id::text)
       )
-      ORDER BY sna.name_auto->>'txt', lpad(set.id::text, 10, '0')
+      ORDER BY sna.name_auto->>'txt', lpad(set2.id::text, 10, '0')
     )
     FROM set set2
     JOIN set_name_auto sna ON sna.id = set2.id
@@ -56,9 +56,9 @@ SELECT set.id,
     SELECT json_agg(
       json_build_object(
         'id', set2.id,
-        'name', coalesce(sna.name_auto->>'txt', set.id::text)
+        'name', coalesce(sna.name_auto->>'txt', set2.id::text)
       )
-      ORDER BY sna.name_auto->>'txt', lpad(set.id::text, 10, '0')
+      ORDER BY sna.name_auto->>'txt', lpad(set2.id::text, 10, '0')
     )
     FROM set set2
     JOIN set_name_auto_public sna ON sna.id = set2.id

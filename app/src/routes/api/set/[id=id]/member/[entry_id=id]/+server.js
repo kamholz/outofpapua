@@ -18,15 +18,20 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
     updateParams.reflex_origin_language_id = null; // clear any existing reflex_origin_language_id
   }
   try {
-    const rows = await knex.transaction(async (trx) => {
+    const found = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
-      return trx('set_member')
+      const rows = await trx('set_member')
         .where('set_id', params.id)
         .where('entry_id', params.entry_id)
         .returning('entry_id')
         .update(updateParams);
+      const found = rows.length;
+      if (found) {
+        await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
+      }
+      return found;
     });
-    if (rows.length) {
+    if (found) {
       return new Response(null);
     } else {
       throw error(404);

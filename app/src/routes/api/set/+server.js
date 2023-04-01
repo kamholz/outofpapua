@@ -19,7 +19,7 @@ const defaults = {
   sort: 'name',
 };
 const sortCols = {
-  name: ["sd.name_auto ->> 'txt'", "lpad(set.id::text, 10, '0')"],
+  name: ["sdc.name_auto ->> 'txt'", "lpad(sdc.id::text, 10, '0')"],
 };
 
 export const GET = requireComparative(async ({ locals, url: { searchParams } }) => {
@@ -32,7 +32,7 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
   const publicOnly = showPublicOnly(locals);
 
   const q = knex('set')
-    .join(`${publicOnly ? 'set_details_public' : 'set_details'} as sd`, 'sd.id', 'set.id');
+    .join(`${publicOnly ? 'set_details_cached_public' : 'set_details_cached'} as sdc`, 'sdc.id', 'set.id');
 
   const existsq = knex('set_member')
     .where('set_member.set_id', knex.ref('set.id'))
@@ -95,11 +95,11 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
   q.select(
     'set.id',
     'set.author_id',
-    'sd.author_name',
+    'sdc.author_name',
     'set.name',
     knex.raw(name_auto),
     'set.note',
-    'sd.members'
+    'sdc.members'
   );
 
   const pageCount = applyPageParams(q, query, rowCount);
@@ -152,6 +152,7 @@ export const POST = requireAuth(async ({ locals, request }) => {
             .insert(members.map((v) => ({ entry_id: v, set_id: id })));
         }
       }
+      await trx.raw('select repopulate_set_details_cached_for_set(?)', [id]);
       return id;
     });
     return json({ id });

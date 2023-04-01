@@ -47,6 +47,7 @@ export const POST = requireAuth(async ({ locals, params, request }) => {
 
       await trx('set_member')
         .insert({ entry_id, set_id: params.id });
+      await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
 
       return entry_id;
     });

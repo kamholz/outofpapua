@@ -249,7 +249,7 @@ function formatPgError(e) {
 
 // SQL strings
 
-export const name_auto = "coalesce(sd.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto";
+export const name_auto = "coalesce(sdc.name_auto, json_build_object('txt', set.id::text, 'type', 'id')) as name_auto";
 
 export function setIds(col) {
   return `nullif(array(select sm.set_id from set_member sm where sm.entry_id = ${col} order by sm.entry_id), '{}')`;

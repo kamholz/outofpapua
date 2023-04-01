@@ -44,6 +44,8 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
         const language = await getGlossLanguage();
         await insertGlosses(trx, { sense_id, language_id: language.id, glosses });
       }
+
+      await trx.raw('select repopulate_set_details_cached_for_entry(?)', [id]);
     });
     return new Response(null);
   } catch (e) {
