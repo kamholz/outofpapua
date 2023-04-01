@@ -32,7 +32,7 @@ export async function GET({ locals, url: { searchParams } }) {
       'entry.origin_language_id',
       'ed.origin_language_name',
       'entry.record_id',
-      'ed.senses',
+      'entry.senses',
       'ed.source',
       'ed.language'
     );

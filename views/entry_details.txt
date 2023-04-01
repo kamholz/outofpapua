@@ -2,7 +2,6 @@ CREATE OR REPLACE VIEW entry_details AS
 SELECT
   entry.id,
   origin_language.name AS origin_language_name,
-  entry.senses,
   json_build_object(
     'id', source.id,
     'reference', source.reference,
@@ -29,7 +28,6 @@ CREATE OR REPLACE VIEW entry_details_public AS
 SELECT
   entry.id,
   origin_language.name AS origin_language_name,
-  entry.senses,
   json_build_object(
     'id', source.id,
     'reference', source.reference,
