@@ -46,11 +46,13 @@ export const DELETE = requireAuth(async ({ locals, params }) => {
   try {
     const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
-      return trx('set_member')
+      const rows = await trx('set_member')
         .where('set_id', params.id)
         .where('entry_id', params.entry_id)
         .returning('entry_id')
         .del();
+      await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
+      return rows;
     });
     return json({ deleted: rows.length });
   } catch (e) {

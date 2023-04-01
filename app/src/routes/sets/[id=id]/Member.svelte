@@ -416,7 +416,7 @@
           <li transition:slide|local>
             <span></span>
             <span class="indented">
-              <span class="label">Add to set:</span>
+              <span class="label">Add to other set:</span>
               <SuggestSet
                 set_id={set.id}
                 entry_id={entry.id}

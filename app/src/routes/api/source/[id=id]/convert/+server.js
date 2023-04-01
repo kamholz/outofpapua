@@ -4,7 +4,7 @@ import { requireEditor } from '$lib/auth';
 
 export const POST = requireEditor(async ({ params }) => {
   try {
-    await knex.transaction(async (trx) => {
+    const error = await knex.transaction(async (trx) => {
       const source = await trx('source')
         .where('id', params.id)
         .first('id', 'ipa_conversion_rule', 'use_ph_for_ipa');
@@ -35,11 +35,14 @@ export const POST = requireEditor(async ({ params }) => {
           .where('id', entry.id)
           .update({ headword_ipa: ipa });
       }
-
-      await trx.raw('select repopulate_set_details_cached_for_source(?)', [params.id]);
     });
 
-    return new Response(null);
+    if (error) {
+      return error;
+    } else {
+      knex.raw('select repopulate_set_details_cached()').then(() => {});
+      return new Response(null);
+    }
   } catch (e) {
     console.log(e);
     return pgError(e);

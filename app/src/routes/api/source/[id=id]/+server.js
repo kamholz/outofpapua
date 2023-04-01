@@ -65,12 +65,12 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
         .returning('id')
         .update(updateParams);
       const found = rows.length;
-      if (found) {
-        await trx.raw('select repopulate_set_details_cached_for_source(?)', [params.id]);
-      }
       return found;
     });
     if (found) {
+      if ('reference' in updateParams) {
+        knex.raw('select repopulate_set_details_cached()').then(() => {});
+      }
       return new Response(null);
     } else {
       throw error(404);
