@@ -64,14 +64,19 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
   ensureNfcParams(updateParams, nfc);
   try {
-    const rows = await knex.transaction(async (trx) => {
+    const found = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
-      return trx('entry')
+      const rows = await trx('entry')
         .where('id', id)
         .returning('id')
         .update(updateParams);
+      const found = rows.length;
+      if (found) {
+        await trx.raw('select repopulate_set_details_cached_for_entry(?)', [id]);
+      }
+      return found;
     });
-    if (rows.length) {
+    if (found) {
       return new Response(null);
     } else {
       throw error(404);

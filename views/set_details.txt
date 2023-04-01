@@ -15,18 +15,6 @@ SELECT set.id,
       'source', smd.source
     ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
   ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members,
-  (CASE WHEN set.set_group_id IS NULL THEN NULL ELSE (
-    SELECT json_agg(
-      json_build_object(
-        'id', set2.id,
-        'name', coalesce(sna.name_auto->>'txt', set2.id::text)
-      )
-      ORDER BY sna.name_auto->>'txt', lpad(set2.id::text, 10, '0')
-    )
-    FROM set set2
-    JOIN set_name_auto sna ON sna.id = set2.id
-    WHERE set2.set_group_id = set.set_group_id AND set2.id != set.id
-  ) END) AS set_group
 FROM set
 JOIN set_member ON set_member.set_id = set.id
 JOIN set_member_details smd ON smd.set_id = set.id AND smd.entry_id = set_member.entry_id
@@ -52,18 +40,6 @@ SELECT set.id,
       'source', smd.source
     ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
   ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members,
-  (CASE WHEN set.set_group_id IS NULL THEN NULL ELSE (
-    SELECT json_agg(
-      json_build_object(
-        'id', set2.id,
-        'name', coalesce(sna.name_auto->>'txt', set2.id::text)
-      )
-      ORDER BY sna.name_auto->>'txt', lpad(set2.id::text, 10, '0')
-    )
-    FROM set set2
-    JOIN set_name_auto_public sna ON sna.id = set2.id
-    WHERE set2.set_group_id = set.set_group_id AND set2.id != set.id
-  ) END) AS set_group
 FROM set
 JOIN set_member ON set_member.set_id = set.id
 JOIN set_member_details_public smd ON smd.set_id = set.id AND smd.entry_id = set_member.entry_id

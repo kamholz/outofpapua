@@ -136,6 +136,7 @@ export const POST = requireAuth(async ({ locals, request }) => {
   const params = getFilteredParams(body, allowed);
   params.author_id = locals.user.id;
   try {
+    let oldSets;
     const id = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);
       const rows = await trx('set')
@@ -144,6 +145,10 @@ export const POST = requireAuth(async ({ locals, request }) => {
       const [{ id }] = rows;
       if (members) {
         if (reassign) {
+          oldSets = await trx('set_member')
+            .select('set_id')
+            .distinct()
+            .where('entry_id', arrayCmp(members));
           await trx('set_member')
             .update({ set_id: id })
             .where('entry_id', arrayCmp(members));
@@ -153,6 +158,11 @@ export const POST = requireAuth(async ({ locals, request }) => {
         }
       }
       await trx.raw('select repopulate_set_details_cached_for_set(?)', [id]);
+      if (oldSets) {
+        for (const { set_id } of oldSets) {
+          await trx.raw('select repopulate_set_details_cached_for_set(?)', [set_id]);
+        }
+      }
       return id;
     });
     return json({ id });
