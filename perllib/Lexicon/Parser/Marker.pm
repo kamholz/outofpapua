@@ -113,7 +113,7 @@ has 'example_trans' => (
 # marker(s) for record's page_num
 has 'page_num' => (
   is => 'ro',
-  default => sub { to_array_map('bib_Eng') },
+  default => sub { to_array_map(['bib_Eng','page_num']) },
 );
 
 # marker(s) to skip
