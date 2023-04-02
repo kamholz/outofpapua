@@ -5,7 +5,7 @@ import { knex, pgError } from '$lib/db';
 import { nfc } from '../params';
 import { requireAuth } from '$lib/auth';
 
-const allowed = new Set(['location', 'name', 'note', 'parent_id', 'prefer_set_name']);
+const allowed = new Set(['location', 'name', 'note', 'parent_id', 'prefer_set_name', 'region']);
 const proto = new Set(['prefer_set_name']);
 
 export async function GET({ locals, params }) {
@@ -23,7 +23,8 @@ export async function GET({ locals, params }) {
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto'),
       'protolanguage.prefer_set_name',
-      knex.raw('language.dialect_parent_id is not null as is_dialect')
+      knex.raw('language.dialect_parent_id is not null as is_dialect'),
+      'language.region'
     );
 
   if (showPublicOnly(locals)) {

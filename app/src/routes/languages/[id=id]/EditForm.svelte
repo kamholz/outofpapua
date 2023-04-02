@@ -9,6 +9,7 @@
   export let language;
   const editable = getContext('editable');
   const protolangSuggest = getContext('protolangSuggest');
+  const regionSuggest = getContext('regionSuggest');
 
   const fields = [
     {
@@ -39,6 +40,23 @@
       {
         name: 'parent_name',
         label: 'Parent',
+        type: 'text',
+      },
+    editable
+      ?
+      {
+        name: 'region',
+        label: 'Region',
+        type: 'suggest',
+        options: regionSuggest,
+        svelecteProps: {
+          valueField: 'name',
+        },
+      }
+      :
+      {
+        name: 'region',
+        label: 'Region',
         type: 'text',
       },
     {
@@ -85,7 +103,7 @@
     {fields}
     values={language}
     submitLabel="Save"
-    style="--form-width: 35em; --label-width: 20%;"
+    style="--form-width: 37em; --label-width: 28%;"
     on:submit={handleUpdate}
   />
 {:else}

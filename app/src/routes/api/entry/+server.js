@@ -9,7 +9,7 @@ import { nfc } from './params';
 import { requireAuth } from '$lib/auth';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
-  'headword_ipa_exact', 'lang', 'langcat', 'page', 'pagesize', 'record', 'sort']);
+  'headword_ipa_exact', 'lang', 'langcat', 'page', 'pagesize', 'record', 'region', 'sort']);
 const allowed = new Set([...allowedHideComparative, 'borrowlang', 'glosslang', 'origin', 'set']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
 const arrayParams = new Set(['lang']);
@@ -80,6 +80,13 @@ export async function GET({ locals, url: { searchParams } }) {
       joinSource();
       subq.where('source.language_id', arrayCmp(lang));
     }
+  }
+
+  if ('region' in query) {
+    joinSource();
+    subq.whereIn('source.language_id', function () {
+      this.select('id').from('language').where('region', query.region);
+    });
   }
 
   const q = knex

@@ -7,6 +7,7 @@
   export let query;
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
+  const regionSuggest = getContext('regionSuggest');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const preferences = getContext('preferences');
   const values = { ...query };
@@ -89,6 +90,13 @@
       label: 'Gloss languages',
       type: 'suggestMulti',
       options: glosslangSuggest,
+    },
+    {
+      name: 'region',
+      label: 'Region',
+      type: 'suggest',
+      options: regionSuggest,
+      svelecteProps: { valueField: 'name' },
     },
   ];
 

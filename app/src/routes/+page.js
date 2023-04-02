@@ -10,6 +10,7 @@ export async function load({ fetch, parent, url: { searchParams } }) {
   const data = {
     langSuggest: await suggest.langPlus(fetch),
     glosslangSuggest: await suggest.glosslang(fetch),
+    regionSuggest: await suggest.region(fetch),
   };
   if (!data.langSuggest || !data.glosslangSuggest) {
     throw error(500);

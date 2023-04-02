@@ -22,10 +22,12 @@
   const {
     langSuggest,
     glosslangSuggest,
+    regionSuggest,
     borrowlangSuggest,
   } = data;
   setContext('langSuggest', langSuggest);
   setContext('glosslangSuggest', glosslangSuggest);
+  setContext('regionSuggest', regionSuggest);
   if (borrowlangSuggest) {
     setContext('borrowlangSuggest', borrowlangSuggest);
   }

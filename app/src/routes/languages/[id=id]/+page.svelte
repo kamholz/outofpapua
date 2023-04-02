@@ -8,9 +8,12 @@
 
   export let data;
   $: ({ language } = data);
-  const { protolangSuggest } = data;
+  const { protolangSuggest, regionSuggest } = data;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
+  }
+  if (regionSuggest) {
+    setContext('regionSuggest', regionSuggest);
   }
   const editable = getContext('editable');
 

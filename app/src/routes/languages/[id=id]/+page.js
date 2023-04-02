@@ -11,6 +11,7 @@ export async function load({ fetch, params, parent }) {
   data.language = await res.json();
   if (user) {
     data.protolangSuggest = await suggest.protolang(fetch);
+    data.regionSuggest = await suggest.region(fetch);
   }
   return data;
 }
