@@ -76,8 +76,14 @@ if ($cmd eq 'export') {
   my $parser = $parser_class->new($args);
 
   if ($cmd eq 'import') {
-    my $success = Lexicon::Importer->new->import_lexicon($reference, $args->{lang_target}, $parser, @action);
-    system "cd app && script/ipa.js '$reference' update" if $success;
+    my $importer = Lexicon::Importer->new;
+    my $success = $importer->import_lexicon($reference, $args->{lang_target}, $parser, @action);
+    if ($success) {
+      system "cd app && script/ipa.js '$reference' update";
+      if ($action[0] eq 'update' or $action[0] eq 'overwrite') {
+        $importer->refresh_cache;
+      }
+    }
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
