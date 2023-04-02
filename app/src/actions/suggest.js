@@ -40,7 +40,7 @@ export async function borrowlang(fetch) {
 }
 
 export async function region(fetch) {
-  const res = await fetch('/api/language/region');
+  const res = await fetch('/api/region');
   return res.ok ? (await res.json()).rows : null;
 }
 
