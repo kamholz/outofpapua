@@ -8,11 +8,14 @@ export async function linkEntries(entries, onSuccess) {
 
   let existingSetId = null;
   const setIdsList = entries.map((entry) => entry.set_ids).filter((setIds) => setIds);
+
   if (setIdsList.length) {
     const setIds = new Set(setIdsList.flat());
     if (setIds.size === 1) {
       [existingSetId] = [...setIds];
     } else {
+      // in the case where multiple sets are found in the entries,
+      // exactly one set must be shared across all entries that belong to a set
       for (const setId of setIds) {
         if (setIdsList.every((v) => v.includes(setId))) {
           if (existingSetId) {
@@ -21,6 +24,10 @@ export async function linkEntries(entries, onSuccess) {
             existingSetId = setId;
           }
         }
+      }
+
+      if (!existingSetId) {
+        throw new Error('Could not link entries: they belong to multiple sets, not sure what to do');
       }
     }
   }

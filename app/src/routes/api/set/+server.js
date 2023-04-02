@@ -157,7 +157,7 @@ export const POST = requireAuth(async ({ locals, request }) => {
             .insert(members.map((v) => ({ entry_id: v, set_id: id })));
         }
       }
-      await trx.raw('select repopulate_set_details_cached_for_set(?)', [id]);
+      await trx.raw('select populate_set_details_cached_for_set(?)', [id]);
       if (oldSets) {
         for (const { set_id } of oldSets) {
           await trx.raw('select repopulate_set_details_cached_for_set(?)', [set_id]);
