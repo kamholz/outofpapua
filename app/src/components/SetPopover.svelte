@@ -5,7 +5,7 @@
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
-  import { glossSummaryNoLanguage } from '$lib/util';
+  import { glossSummaryNoLanguage, toolboxMarkup } from '$lib/util';
 
   export let id;
   const cache = getContext('setSummaryCache');
@@ -52,7 +52,7 @@
             <Reflex {reflex} headword={entry.headword} space={false} />
           </span>
           {#if entry.senses[0]?.glosses?.[0]}
-            {glossSummaryNoLanguage(entry.senses[0].glosses[0])}
+            {@html toolboxMarkup(glossSummaryNoLanguage(entry.senses[0].glosses[0]))}
           {/if}
         </li>
       {/each}
