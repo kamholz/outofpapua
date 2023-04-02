@@ -27,6 +27,7 @@
     {
       title: 'Compare',
       url: '/compare',
+      private: true,
     },
     {
       title: 'Saved Maps',

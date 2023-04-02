@@ -50,7 +50,6 @@
     },
     {
       type: 'select',
-      comparative: true,
     },
   ];
 

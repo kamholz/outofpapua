@@ -10,6 +10,7 @@
   import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
   import { parseLanguageLocation, sortFunction } from '$lib/util';
+  import { session } from '$lib/stores';
   import * as crud from '$actions/crud';
   const preferences = getContext('preferences');
 
@@ -209,14 +210,16 @@
 
 <div class="map">
   <div class="settings">
-    <Section name="Save and Restore" collapsed>
-      <SaveRestore
-        {getView}
-        {setView}
-        bind:name
-        on:save={handleSave}
-      />
-    </Section>
+    {#if $session.user}
+      <Section name="Save and Restore" collapsed>
+        <SaveRestore
+          {getView}
+          {setView}
+          bind:name
+          on:save={handleSave}
+        />
+      </Section>
+    {/if}
     <Section name="Settings">
       <Settings
         bind:baseMap

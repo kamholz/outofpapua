@@ -6,6 +6,7 @@ import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, 
   parseArrayParams, parseBooleanParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { nfc } from '../params';
+import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['fuzzy', 'gloss', 'glosslang', 'lang1', 'lang2', 'page', 'pagesize']);
 const arrayNumParams = new Set(['glosslang']);
@@ -71,7 +72,7 @@ const compare_entries2 = `
   ) FILTER (WHERE found_with_compare.compare_language_id IS NOT NULL)
 `;
 
-export async function GET({ locals, url: { searchParams } }) {
+export const GET = requireAuth(async ({ locals, url: { searchParams } }) => {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
     return jsonError(errors.insufficientSearch);
@@ -173,7 +174,7 @@ export async function GET({ locals, url: { searchParams } }) {
     rowCount,
     rows,
   });
-}
+});
 
 function hasOverlap(lang1, lang2) {
   const lang2Set = new Set(lang2);
