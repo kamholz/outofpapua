@@ -40,7 +40,7 @@
 <h2>{source.reference}: {source.language_name}</h2>
 {#if source.reference_full}
   <div class="info">
-    <em>Cite this source as:</em> {source.reference_full}
+    <em>Original citation:</em> {source.reference_full}
   </div>
 {/if}
 {#if source.note}
