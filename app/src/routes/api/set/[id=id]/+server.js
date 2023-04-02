@@ -8,17 +8,17 @@ import { requireAuth, requireComparative } from '$lib/auth';
 export const GET = requireComparative(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
   const row = await knex('set')
-    .join(`${publicOnly ? 'set_details_cached_public' : 'set_details_cached'} as sdc`, 'sdc.id', 'set.id')
+    .join(`${publicOnly ? 'set_details_cached_public' : 'set_details_cached'} as sd`, 'sd.id', 'set.id')
     .leftJoin(`${publicOnly ? 'set_group_details_public' : 'set_group_details'} as sgd`, 'sgd.id', 'set.id')
     .where('set.id', params.id)
     .first(
       'set.id',
       'set.author_id',
-      'sdc.author_name',
+      'sd.author_name',
       'set.name',
       knex.raw(name_auto),
       'set.note',
-      'sdc.members',
+      'sd.members',
       'sgd.set_group',
       'set.set_group_id'
     );

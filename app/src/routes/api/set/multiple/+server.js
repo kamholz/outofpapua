@@ -22,16 +22,16 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
   }
 
   const q = knex('set')
-    .join(`${showPublicOnly(locals) ? 'set_details_cached_public' : 'set_details_cached'} as sdc`, 'sdc.id', 'set.id')
+    .join(`${showPublicOnly(locals) ? 'set_details_cached_public' : 'set_details_cached'} as sd`, 'sd.id', 'set.id')
     .where('set.id', arrayCmp(query.ids))
     .select(
       'set.id',
       'set.author_id',
-      'sdc.author_name',
+      'sd.author_name',
       'set.name',
       knex.raw(name_auto),
       'set.note',
-      'sdc.members'
+      'sd.members'
     );
 
   return json({ rows: await q });

@@ -11,7 +11,7 @@ const defaults = {
   max: 250,
 };
 
-const name_auto = "coalesce(sdc.name_auto ->> 'txt', sdc.id::text)";
+const name_auto = "coalesce(sd.name_auto ->> 'txt', sd.id::text)";
 
 export const GET = requireAuth(async ({ url: { searchParams } }) => {
   const query = getFilteredParams(normalizeQuery(searchParams), allowed);
@@ -21,11 +21,11 @@ export const GET = requireAuth(async ({ url: { searchParams } }) => {
   ensureNfcParams(query, nfc);
   const { max, search } = { ...defaults, ...query };
   const q = knex('set')
-    .join('set_details_cached as sdc', 'sdc.id', 'set.id')
+    .join('set_details_cached as sd', 'sd.id', 'set.id')
     .where(knex.raw(name_auto), '~*', knex.raw('degr_regex(?)', mungeRegex(search)))
     .select('set.id', knex.raw(`${name_auto} as name`))
-    .orderBy(knex.raw("sdc.name_auto ->> 'txt'"))
-    .orderBy(knex.raw("lpad(sdc.id::text, 10, '0')"))
+    .orderBy(knex.raw("sd.name_auto ->> 'txt'"))
+    .orderBy(knex.raw("lpad(sd.id::text, 10, '0')"))
     .limit(max);
 
   if ('id' in query) {

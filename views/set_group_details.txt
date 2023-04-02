@@ -3,13 +3,13 @@ SELECT set.id,
   (CASE WHEN set.set_group_id IS NULL THEN NULL ELSE (
     SELECT json_agg(
       json_build_object(
-        'id', sdc.id,
-        'name', coalesce(sdc.name_auto->>'txt', sdc.id::text)
+        'id', sd.id,
+        'name', coalesce(sd.name_auto->>'txt', sd.id::text)
       )
-      ORDER BY sdc.name_auto->>'txt', lpad(sdc.id::text, 10, '0')
+      ORDER BY sd.name_auto->>'txt', lpad(sd.id::text, 10, '0')
     )
     FROM set set2
-    JOIN set_details_cached sdc ON sdc.id = set2.id
+    JOIN set_details_cached sd ON sd.id = set2.id
     WHERE set2.set_group_id = set.set_group_id AND set2.id != set.id
   ) END) AS set_group
 FROM set
@@ -19,13 +19,13 @@ CREATE OR REPLACE VIEW set_group_details_public AS
 SELECT set.id,
   json_agg(
     json_build_object(
-      'id', sdc.id,
-      'name', coalesce(sdc.name_auto->>'txt', sdc.id::text)
+      'id', sd.id,
+      'name', coalesce(sd.name_auto->>'txt', sd.id::text)
     )
-    ORDER BY sdc.name_auto->>'txt', lpad(sdc.id::text, 10, '0')
+    ORDER BY sd.name_auto->>'txt', lpad(sd.id::text, 10, '0')
   ) AS set_group
 FROM set
 JOIN set set2 ON set2.set_group_id = set.set_group_id AND set2.id != set.id
-JOIN set_details_public_cached sdc ON sdc.id = set2.id
+JOIN set_details_public_cached sd ON sd.id = set2.id
 GROUP BY set.id
 ;
