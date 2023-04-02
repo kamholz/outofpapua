@@ -66,6 +66,11 @@ has 'lang_regional' => (
   default => 'und',
 );
 
+has 'lang_latin' => (
+  is => 'ro',
+  default => 'lat',
+);
+
 # valid values: 'merge', 'merge_[max]', 'prefer', 'prefer_[max]', 'disprefer', 'ignore'
 has 'reverse_action' => (
   is => 'ro',

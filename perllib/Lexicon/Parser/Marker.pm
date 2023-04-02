@@ -53,6 +53,7 @@ has 'gloss' => (
       ge => $self->lang_english,
       gr => $self->lang_regional,
       gn => $self->lang_national,
+      sc => $self->lang_latin,
       g  => 'und',
     };
   },
