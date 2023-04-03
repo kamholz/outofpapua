@@ -32,19 +32,26 @@ foreach my $letter ($res->dom->find('.lpTitleLetter')->each) {
     die "fetch failed, giving up\n";
   }
 
-  foreach my $page ($res->dom->find('#wp_page_numbers a')->each) {
-    my $num = strip($page->content);
-    next if $num !~ /^\d+$/;
-    my $filename = $letter_str . '_' . sprintf("%03d", $num) . '.html';
-    say "$filename ...";
+  my @pages = $res->dom->find('#wp_page_numbers a')->each;
+  if (@pages) {
+    foreach my $page (@pages) {
+      my $num = strip($page->content);
+      next if $num !~ /^\d+$/;
+      my $filename = $letter_str . '_' . sprintf("%03d", $num) . '.html';
+      say "$filename ...";
 
-    my $query = strip($page->attr('href'));
-    my $res = $ua->get($base_url . $query)->result;
-    if (!$res->is_success) {
-      say $res->code;
-      die "fetch failed, giving up\n";
+      my $query = strip($page->attr('href'));
+      my $res = $ua->get($base_url . $query)->result;
+      if (!$res->is_success) {
+        say $res->code;
+        die "fetch failed, giving up\n";
+      }
+      write_text $filename, $res->body;
     }
-    write_text $filename, $res->body;
+  } else {
+      my $filename = $letter_str . '_' . sprintf("%03d", 1) . '.html';
+      say "$filename ...";
+      write_text $filename, $res->body;
   }
 }
 
