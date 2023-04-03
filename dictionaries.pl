@@ -6139,6 +6139,11 @@ our $dict = {
       [2, 'gloss', 'eng'],
     ],
   },
+  'Yayasan Pemberdayaan Masyarakat Desa (2020)' => {
+    lang_target => 'frd',
+    path => 'webonary/fordata/*.html',
+    parser => 'LexiqueHTML',
+  },
 };
 
 # headword and gloss cleanup

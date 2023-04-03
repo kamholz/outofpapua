@@ -26,7 +26,7 @@ foreach my $letter ($res->dom->find('.lpTitleLetter')->each) {
   my $query = strip($letter->attr('href'));
 
   say "\nFetching letter: $letter_str";
-  my $res = $ua->get($base_url . $query)->result;
+  my $res = $ua->get($url)->result;
   if (!$res->is_success) {
     die "fetch failed, giving up\n";
   }
