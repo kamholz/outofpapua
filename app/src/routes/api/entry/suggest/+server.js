@@ -33,7 +33,9 @@ export const GET = requireAuth(async ({ url: { searchParams } }) => {
     .select('entry.id');
 
   if (match === 'headword') {
-    subq.where('entry.headword_degr', '~*', knex.raw('degr_regex(?)', mungedSearch));
+    subq.where('entry.headword', '~*', mungedSearch);
+    // old behavior:
+    // subq.where('entry.headword_degr', '~*', knex.raw('degr_regex(?)', mungedSearch));
   } else {
     subq
       .join('sense', 'sense.entry_id', 'entry.id')
