@@ -4725,10 +4725,11 @@ our $dict = {
     strip => 'to',
   },
   'Stresemann (1927)' => {
-    lang_target => 'abs',
+    lang_target => 'Proto-Ambon',
     path => 'extracted ur-ambonisch.txt',
     parser => 'Marker',
     split => ';',
+    lang_national => 'deu',
   },
   'Tamelan (2021)' => {
     lang_target => 'row',
