@@ -33,11 +33,12 @@
       type: 'suggestMulti',
       options: glosslangSuggest,
     },
-  ];
-
-  function emptyGloss() {
-    return !values.gloss || values.gloss.match(/^\s*$/);
-  }
+    {
+      name: 'loose',
+      label: 'Looser matching',
+      type: 'checkbox',
+    },
+];
 
   function handleValidation(e) {
     const { form, values } = e.detail;
