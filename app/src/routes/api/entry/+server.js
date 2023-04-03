@@ -1,6 +1,6 @@
 import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
-  knex, pgError, setIds } from '$lib/db';
+  knex, pgError, record_match, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, mungeHeadword, mungeRegex,
   normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
@@ -121,8 +121,7 @@ export async function GET({ locals, url: { searchParams } }) {
       .select(
         'source.formatting as source_formatting',
         'record.data as record_data',
-        knex.raw("array(select distinct (regexp_matches(record_text(record.data), ?, 'g'))[1]) as record_match",
-          `(${mungeRegex(query.record)})`)
+        knex.raw(record_match, `(${mungeRegex(query.record)})`)
       );
   }
 

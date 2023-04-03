@@ -109,9 +109,11 @@ export function applyEntrySearchParams(q, query) {
   }
 
   if ('record' in query) {
-    q
-      .join('record', 'record.id', 'entry.record_id')
-      .where(knex.raw('record_text(record.data)'), '~*', mungeRegex(query.record));
+    q.whereExists(function () {
+      this.select('*').from('record_row')
+        .where('record_row.id', knex.ref('entry.record_id'))
+        .where('record_row.value', '~*', mungeRegex(query.record));
+    });
   }
 }
 
@@ -250,6 +252,12 @@ function formatPgError(e) {
 // SQL strings
 
 export const name_auto = "coalesce(sd.name_auto, json_build_object('txt', sd.id::text, 'type', 'id')) as name_auto";
+
+export const record_match = `array(
+  select distinct (regexp_matches(record_row.value, ?, 'g'))[1]
+  from record_row
+  where record_row.id = entry.record_id
+) as record_match`;
 
 export function setIds(col) {
   return `nullif(array(select sm.set_id from set_member sm where sm.entry_id = ${col} order by sm.entry_id), '{}')`;

@@ -1,4 +1,5 @@
-import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, setIds } from '$lib/db';
+import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, record_match,
+  setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
   showPublicOnly } from '$lib/util';
@@ -76,8 +77,7 @@ export async function GET({ locals, params, url: { searchParams } }) {
       .join('record', 'record.id', 'entry.record_id')
       .select(
         'record.data as record_data',
-        knex.raw("array(select distinct (regexp_matches(record_text(record.data), ?, 'g'))[1]) as record_match",
-          `(${mungeRegex(query.record)})`)
+        knex.raw(record_match, `(${mungeRegex(query.record)})`)
       );
   }
 
