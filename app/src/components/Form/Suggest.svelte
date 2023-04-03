@@ -4,12 +4,15 @@
 
   export let field;
   export let values;
-  export let haveTextCheckbox;haveTextCheckbox;
+  export let haveCheckbox;haveCheckbox;
   export let browserSubmit;
   const { name, options, required, svelecteProps } = field;
 </script>
 
-<div class="field" transition:slide={{ duration: 200 }}>
+<div
+  class="field"
+  transition:slide={{ duration: 200 }}
+>
   <Svelecte
     {options}
     props={svelecteProps}

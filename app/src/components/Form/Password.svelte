@@ -1,7 +1,7 @@
 <script>
   export let field;
   export let values;
-  export let haveTextCheckbox;
+  export let haveCheckbox;
   export let browserSubmit;browserSubmit;
   const { name, required } = field;
 </script>
@@ -11,10 +11,10 @@
   id={name}
   {name}
   class="field"
-  class:narrow={haveTextCheckbox}
+  class:narrow={haveCheckbox}
   bind:value={values[name]}
   {required}
 >
-{#if haveTextCheckbox}
+{#if haveCheckbox}
   <span></span>
 {/if}

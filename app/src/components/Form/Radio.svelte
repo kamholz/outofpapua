@@ -1,7 +1,7 @@
 <script>
   export let field;
   export let values;
-  export let haveTextCheckbox;haveTextCheckbox;
+  export let haveCheckbox;haveCheckbox;
   export let browserSubmit;browserSubmit;
   const { name, options, required } = field;
 </script>

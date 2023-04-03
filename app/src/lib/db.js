@@ -1,6 +1,6 @@
 import config from '$config';
 import knexModule from 'knex';
-import { degrHyphenRegex, jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
+import { degrHyphenRegex, isId, jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
 import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({
@@ -210,6 +210,26 @@ export async function getLanguageIds(param) {
   } else {
     return null;
   }
+}
+
+export async function getLanguageIdsSingle(param) {
+  const plus = param.match(/^(.+)\+$/);
+  let id = plus ? plus[1] : param;
+  if (isId(id)) {
+    id = Number(id);
+  } else {
+    return null;
+  }
+  const lang = [id];
+  if (plus) {
+    const descendants = (await knex('language')
+      .where('id', id)
+      .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants')))
+      .map((v) => v.descendants)
+      .filter((v) => v);
+    lang.push(...descendants[0]);
+  }
+  return lang;
 }
 
 // error handling

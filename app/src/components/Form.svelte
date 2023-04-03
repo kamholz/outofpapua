@@ -25,7 +25,7 @@
   let className = null;
   export { className as class };
   export let form;
-  $: haveTextCheckbox = fields.some(({ checkbox, type }) => type === 'text' && checkbox);
+  $: haveCheckbox = fields.some(({ checkbox }) => checkbox);
   $: haveHotKeys = fields.some(({ hotkey }) => hotkey);
   $: hotKeys = haveHotKeys && Object.fromEntries(fields.map(({ hotkey, name }) => [hotkey, name]));
 
@@ -114,7 +114,7 @@
             this={fieldComponent[field.type]}
             {field}
             {browserSubmit}
-            {haveTextCheckbox}
+            {haveCheckbox}
             bind:values
             on:change
           />
@@ -182,7 +182,7 @@
       flex-direction: row-reverse;
       align-items: center;
       justify-content: space-between;
-      margin-block: 9px 3px;
+      margin-block: 11px 3px;
 
       > .buttons {
         display: flex;

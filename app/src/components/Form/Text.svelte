@@ -1,7 +1,9 @@
 <script>
+  import CheckboxSide from '$components/Form/CheckboxSide.svelte';
+
   export let field;
   export let values;
-  export let haveTextCheckbox;
+  export let haveCheckbox;
   export let browserSubmit;browserSubmit;
   const { checkbox, name, required } = field;
 </script>
@@ -11,26 +13,16 @@
   id={name}
   {name}
   class="field"
-  class:narrow={haveTextCheckbox}
+  class:narrow={haveCheckbox}
   bind:value={values[name]}
   {required}
 >
 {#if checkbox}
-  <label>
-    <input
-      type="checkbox"
-      name={checkbox[0]}
-      value="1"
-      bind:checked={values[checkbox[0]]}
-    >
-    {checkbox[1]}
-  </label>
-{:else if haveTextCheckbox}
+  <CheckboxSide
+    name={checkbox[0]}
+    bind:checked={values[checkbox[0]]}
+    label={checkbox[1]}
+  />
+{:else if haveCheckbox}
   <span></span>
 {/if}
-
-<style>
-  label {
-    margin-inline: 12px 0;
-  }
-</style>

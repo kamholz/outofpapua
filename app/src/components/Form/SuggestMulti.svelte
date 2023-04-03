@@ -1,4 +1,5 @@
 <script>
+  import CheckboxSide from '$components/Form/CheckboxSide.svelte';
   import Svelecte from '$components/Svelecte.svelte';
   import { serializeArrayParam } from '$lib/util';
   import { slide } from 'svelte/transition';
@@ -7,10 +8,14 @@
   export let values;
   export let haveTextCheckbox;haveTextCheckbox;
   export let browserSubmit;
-  const { name, options, required, svelecteProps } = field;
+  const { checkbox, name, options, required, svelecteProps } = field;
 </script>
 
-<div class="field" transition:slide={{ duration: 200 }}>
+<div
+  class="field"
+  class:narrow={checkbox}
+  transition:slide={{ duration: 200 }}
+>
   <Svelecte
     {options}
     multiple
@@ -27,3 +32,10 @@
     >
   {/if}
 </div>
+{#if checkbox}
+  <CheckboxSide
+    name={checkbox[0]}
+    bind:checked={values[checkbox[0]]}
+    label={checkbox[1]}
+  />
+{/if}

@@ -1,6 +1,6 @@
 import { allowed } from './params';
 import { applyHeadwordGlossSearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount,
-  getLanguageIds, knex, name_auto, pgError, setTransactionUser } from '$lib/db';
+  getLanguageIds, getLanguageIdsSingle, knex, name_auto, pgError, setTransactionUser } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { error, json } from '@sveltejs/kit';
 import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
@@ -8,8 +8,8 @@ import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNum
 import { requireAuth, requireComparative } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
-  'headword_ipa', 'headword_ipa_exact', 'lang', 'note', 'page', 'pagesize', 'sort', 'source']);
-const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact']);
+  'headword_ipa', 'headword_ipa_exact', 'lang', 'lang_all', 'note', 'page', 'pagesize', 'sort', 'source']);
+const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact', 'lang_all']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
 const defaults = {
@@ -47,6 +47,30 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
     }
   }
 
+  if ('lang' in query) {
+    if (query.lang_all) {
+      for (const lang of query.lang) {
+        const langIds = await getLanguageIdsSingle(lang);
+        if (langIds) {
+          const thisExistsq = existsq.clone()
+            .join('source', 'source.id', 'entry.source_id')
+            .where('source.language_id', arrayCmp(langIds));
+          if (publicOnly) {
+            thisExistsq.where('source.public');
+          }
+          q.whereExists(thisExistsq);
+        }
+      }
+    } else {
+      const langIds = await getLanguageIds(query.lang);
+      if (langIds) {
+        joinSource();
+        existsq.where('source.language_id', arrayCmp(langIds));
+        existsqNeeded = true;
+      }
+    }
+  }
+
   if ('headword' in query || 'headword_ipa' in query || 'gloss' in query) {
     applyHeadwordGlossSearchParams(existsq, query);
     existsqNeeded = true;
@@ -54,15 +78,6 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
 
   if ('author_id' in query) {
     q.where('set.author_id', query.author_id);
-  }
-
-  if ('lang' in query) {
-    const lang = await getLanguageIds(query.lang);
-    if (lang) {
-      joinSource();
-      existsq.where('source.language_id', arrayCmp(lang));
-      existsqNeeded = true;
-    }
   }
 
   if ('source' in query) {
