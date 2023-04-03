@@ -4725,7 +4725,7 @@ our $dict = {
     strip => 'to',
   },
   'Stresemann (1927)' => {
-    lang_target => 'Proto-Ambon',
+    lang_target => 'abs',
     path => 'extracted ur-ambonisch.txt',
     parser => 'Marker',
     split => ';',
