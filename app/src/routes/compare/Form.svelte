@@ -8,8 +8,6 @@
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
   let values = { ...query };
-  let formRef;
-  $: handleGlossChange(values.gloss);
 
   const fields = [
     {
@@ -35,22 +33,10 @@
       type: 'suggestMulti',
       options: glosslangSuggest,
     },
-    {
-      name: 'fuzzy',
-      label: 'Fuzzy matching',
-      type: 'checkbox',
-      disabled: emptyGloss(),
-    },
   ];
 
   function emptyGloss() {
     return !values.gloss || values.gloss.match(/^\s*$/);
-  }
-
-  function handleGlossChange() {
-    if (formRef) {
-      formRef.elements.namedItem('fuzzy').disabled = emptyGloss();
-    }
   }
 
   function handleValidation(e) {
@@ -79,12 +65,11 @@
 <Form
   {fields}
   bind:values
-  bind:form={formRef}
   submitLabel="Compare"
   clearable
   browserSubmit
   help={RegexHelp}
-  style="--form-width: 40em; --label-width: 30%;"
+  style="--form-width: 35em; --label-width: 30%;"
   on:beforesubmit={handleValidation}
 >
   <svelte:fragment slot="hidden">
