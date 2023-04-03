@@ -4724,6 +4724,12 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Stresemann (1927)' => {
+    lang_target => 'Proto-Ambon',
+    path => 'extracted ur-ambonisch.txt',
+    parser => 'Marker',
+    split => ';',
+  }
   'Tamelan (2021)' => {
     lang_target => 'row',
     path => 'Tamelan 2021 Dela.xlsx',
