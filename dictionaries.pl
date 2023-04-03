@@ -2633,6 +2633,33 @@ our $dict = {
     mode => 'sense_per_row',
     split_headword => ';',
   },
+  'Rumalean & Rumanama (2022)' => {
+    lang_target => 'Gorom',
+    path => 'Rumalean and Rumanama 2022 Gorom.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'abs'],
+      [4, 'nt'],
+      [5, 'page_num'],
+      [[6 .. 7], 'example', ['ind']], #1
+      [[8 .. 9], 'example', ['ind']], #2
+      [[10 .. 11], 'example', ['ind']], #3
+      [[12 .. 13], 'example', ['ind']], #4
+      [[14 .. 15], 'example', ['ind']], #5
+      [[16 .. 17], 'example', ['ind']], #6
+      [[18 .. 19], 'example', ['ind']], #7
+      [[20 .. 21], 'example', ['ind']], #8
+      [[22 .. 23], 'example', ['ind']], #9
+      [[24 .. 25], 'example', ['ind']], #10
+      [[26 .. 27], 'example', ['ind']], #11
+      [[28 .. 29], 'example', ['ind']], #12
+      [[30 .. 31], 'example', ['ind']], #13
+    ],
+    split_headword => ';',
+  },
   'Sawaki (nd)' => {
     lang_target => 'wbw',
     path => 'Wooilex.txt',
