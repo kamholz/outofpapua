@@ -5298,7 +5298,7 @@ our $dict = {
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
-    path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
+    path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
     parser => 'Marker',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },

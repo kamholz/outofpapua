@@ -161,6 +161,9 @@ sub read_entries {
         my $lang = $arg;
         $self->add_gloss($entry, 'gloss', $value, $lang);
         push @{$entry->{record}}, [marker_with_code('g', $lang), $value];
+      } elsif ($type eq 'sc') {
+        $self->add_gloss($entry, 'gloss', $value, $self->lang_latin);
+        push @{$entry->{record}}, ['sc', $value];
       } elsif ($type eq 'examples') {
         my @examples = $arg->($value);
         if (@examples) {
