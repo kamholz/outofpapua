@@ -24,6 +24,7 @@ chdir $dir;
 foreach my $letter ($res->dom->find('.lpTitleLetter')->each) {
   my $letter_str = lc strip($letter->content);
   my $query = strip($letter->attr('href'));
+  my $url = $query =~ /^https?:/ ? $query : $base_url . $query;
 
   say "\nFetching letter: $letter_str";
   my $res = $ua->get($url)->result;
