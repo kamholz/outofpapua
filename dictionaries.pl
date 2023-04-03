@@ -4989,20 +4989,6 @@ our $dict = {
     ],
     smode => 'sense_per_row',
   },
-  'van Baarda (1904)' => {
-    lang_target => 'loa',
-    path => 'van Baarda 1904 - Loloda.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [3, 'gloss', 'eng'],
-      [2, 'gloss', 'nld'],
-      [4, 'et'],
-      [5, 'nt'],
-      [1, 'page_num'],
-    ],
-    split => ';',
-  },
   'Usher (nd a)' => {
     lang_target => 'Proto-Eastern Timor',
     path => 'Usher_nd_PEastTimor-PFRATA_reconstructions.xlsx',
@@ -5084,6 +5070,20 @@ our $dict = {
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
+    ],
+    split => ';',
+  },
+  'van Baarda (1904)' => {
+    lang_target => 'loa',
+    path => 'van Baarda 1904 - Loloda.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [4, 'et'],
+      [5, 'nt'],
+      [1, 'page_num'],
     ],
     split => ';',
   },
