@@ -2690,6 +2690,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
+    definition_action => 'merge',
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
