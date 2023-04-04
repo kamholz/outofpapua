@@ -23,7 +23,7 @@ export async function GET({ locals, params }) {
       'parent.name as parent_name',
       knex.raw('protolanguage.id is not null as is_proto'),
       'protolanguage.prefer_set_name',
-      knex.raw('language.dialect_parent_id is not null as is_dialect'),
+      'dialect_parent.name as dialect_parent_name',
       'language.region'
     );
 

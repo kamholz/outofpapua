@@ -17,6 +17,18 @@
       label: 'Name',
       type: 'text',
     },
+  ];
+
+  if (language.dialect_parent_name) {
+    fields.push({
+        name: 'dialect_parent_name',
+        label: 'Dialect of',
+        type: 'text',
+        readonly: true,
+    });
+  }
+
+  fields.push(
     {
       name: 'iso6393',
       label: 'ISO 639-3',
@@ -65,16 +77,14 @@
       type: 'text',
       readonly: true,
     },
-  ];
+  );
 
   if (editable && language.is_proto) {
-    fields.push(
-      {
-        name: 'prefer_set_name',
-        label: 'Prefer for set names',
-        type: 'checkbox',
-      }
-    );
+    fields.push({
+      name: 'prefer_set_name',
+      label: 'Prefer for set names',
+      type: 'checkbox',
+    });
   }
 
   const update = crud.makeUpdater('language');
