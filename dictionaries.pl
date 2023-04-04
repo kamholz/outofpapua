@@ -671,6 +671,11 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Busenitz & Bradbury (2016)' => {
+    lang_target => 'blz',
+    path => 'webonary/balantak/*.html',
+    parser => 'LexiqueHTML',
+  },
   'Carr (2004)' => {
     lang_target => 'mkz', 
     path => 'Carr2004_MakasaeOssu.xlsx',
@@ -5171,6 +5176,11 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'pg'],
     ],
+  },
+  'van den Berg & Sidu Marafad (2016)' => {
+    lang_target => 'mnb',
+    path => 'webonary/muna/*.html',
+    parser => 'LexiqueHTML',
   },
   'van den Berg & Matsumura (2008)' => {
     lang_target => 'Irarutu Gusimawa',
