@@ -7,7 +7,6 @@
   import * as crud from '$actions/crud';
 
   export let type;
-
   let values = {};
   let error = null;
 
@@ -41,7 +40,7 @@
     $pageLoading++;
     try {
       error = null;
-      await creater(values);
+      await creater({ ...values, type });
       values = {};
       dispatch('refresh');
     } catch (e) {
@@ -59,6 +58,6 @@
   {fields}
   bind:values
   submitLabel="Create"
-  style="--form-width: 21em; --label-width: 24%;"
+  style="--form-width: 24em; --label-width: 24%;"
   on:submit={handleCreate}
 />

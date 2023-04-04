@@ -59,6 +59,11 @@
       type="dialect"
       on:refresh={handleRefresh}
     />
+    <h3>Create language with no ISO code</h3>
+    <CreateForm
+      type="lang"
+      on:refresh={handleRefresh}
+    />
   {/if}
 {/if}
 
