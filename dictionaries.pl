@@ -2545,6 +2545,11 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Pusat Penerjemahan Alkitab GMIM (2018)' => {
+    lang_target => 'xmm',
+    path => 'webonary/muna/*.html',
+    parser => 'LexiqueHTML',
+  },
   'Reesink (nd)' => {
     lang_target => 'had',
     path => 'Hatam/Hatam Vocab list.xlsx',
