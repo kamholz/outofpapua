@@ -986,6 +986,11 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Coward (nd)' => {
+    lang_target => 'frd',
+    path => 'webonary/fordata/*.html',
+    parser => 'LexiqueHTML',
+  },
   'Dalrymple & Mofu (2009/10)' => {
     lang_target => 'bhw',
     path => 'Biak/Biak_dictionary_cleaned.txt',
@@ -2333,7 +2338,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Narfafan & Sutriani (2011)' => {
+  'Narfafan & Sutriani (2011)' => { 
     lang_target => 'agf',
     path => 'Arguni_Narfafan_2011.xlsx',
     parser => 'Spreadsheet',
@@ -2342,6 +2347,18 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [2, 'va'],
       [3, 'nt'],
+    ],
+  },
+  'Nazarudin (2013)' => { #not ingested
+    lang_target => 'Oirata',
+    path => 'Nazarudin 2013 Oirata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [1, 'ps'],
+
     ],
   },
   'Odé (2004a)' => {
