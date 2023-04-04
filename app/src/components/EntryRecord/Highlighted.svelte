@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   
   export let strings;
-  strings = strings.map((v) => v.toLowerCase());
   let node;
 
   onMount(() => {
@@ -35,7 +34,7 @@
       }
       const { textContent } = resultNode;
       const textContentLower = textContent.toLowerCase();
-      if (strings.some((v) => textContent.includes(v))) {
+      if (strings.some((v) => textContentLower.includes(v))) {
         matches.push({ resultNode, textContent, textContentLower, parent });
       }
     }
@@ -50,12 +49,12 @@
             if (index > 0) {
               parent.insertBefore(document.createTextNode(textContent.slice(0, index)), resultNode);
             }
+            const restIndex = index + string.length;
 
             const mark = document.createElement('mark');
-            mark.textContent = string;
+            mark.textContent = textContent.slice(index, restIndex);
             parent.insertBefore(mark, resultNode);
 
-            const restIndex = index + string.length;
             textContent = textContent.slice(restIndex);
             textContentLower = textContentLower.slice(restIndex);
             continue;

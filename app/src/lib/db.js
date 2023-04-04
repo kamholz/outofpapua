@@ -274,7 +274,7 @@ function formatPgError(e) {
 export const name_auto = "coalesce(sd.name_auto, json_build_object('txt', sd.id::text, 'type', 'id')) as name_auto";
 
 export const record_match = `array(
-  select distinct (regexp_matches(record_row.value, ?, 'g'))[1]
+  select distinct lower((regexp_matches(record_row.value, ?, 'gi'))[1])
   from record_row
   where record_row.id = entry.record_id
 ) as record_match`;
