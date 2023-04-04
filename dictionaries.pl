@@ -6144,6 +6144,11 @@ our $dict = {
     path => 'webonary/fordata/*.html',
     parser => 'LexiqueHTML',
   },
+  'Luang (unknown)' => {
+    lang_target => 'lex',
+    path => 'Luang lexicon Luang to English.html',
+    parser => 'LexiqueDocx',
+  },
 };
 
 # headword and gloss cleanup
