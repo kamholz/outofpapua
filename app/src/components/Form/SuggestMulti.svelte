@@ -6,7 +6,7 @@
 
   export let field;
   export let values;
-  export let haveTextCheckbox;haveTextCheckbox;
+  export let haveCheckbox;haveCheckbox;
   export let browserSubmit;
   const { checkbox, name, options, required, svelecteProps } = field;
 </script>
