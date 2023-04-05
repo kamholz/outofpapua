@@ -5150,11 +5150,23 @@ our $dict = {
     split => ';',
   },
   'van Baarda (1895)' => {
-    lang_target => 'gbi',
+    lang_target => 'Galela',
     path => 'vanBaarda1895Galela.txt',
     parser => 'Marker',
     gloss_preprocess => sub { $_[0] =~ s/^to be or become(?: a)? +//r },
     strip => 'to',
+    split => ';',
+  },
+  'van Baarda (1908)' => {
+    lang_target => 'Galela',
+    path => 'van Baarda 1908 - Galela.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [3, 'page_num'],
+    ],
     split => ';',
   },
   'van den Heuvel (nd)' => {
