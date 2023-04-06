@@ -2,14 +2,19 @@
   import { onMount } from 'svelte';
   
   export let strings;
+  export let showUnmatchedEntries = false;
   let node;
 
   onMount(() => {
     for (const entry of node.querySelectorAll('.entry')) {
-      const textContent = entry.textContent.toLowerCase();
-      if (strings.some((v) => textContent.includes(v))) {
-        highlightMatches(entry);
-      } else {
+      if (strings) {
+        const textContent = entry.textContent.toLowerCase();
+        if (strings.some((v) => textContent.includes(v))) {
+          highlightMatches(entry);
+          continue;
+        }
+      }
+      if (!showUnmatchedEntries) {
         entry.style.display = 'none';
       }
     }

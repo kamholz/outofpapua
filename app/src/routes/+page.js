@@ -12,7 +12,7 @@ export async function load({ fetch, parent, url: { searchParams } }) {
     glosslangSuggest: await suggest.glosslang(fetch),
     regionSuggest: await suggest.region(fetch),
   };
-  if (!data.langSuggest || !data.glosslangSuggest) {
+  if (!data.langSuggest || !data.glosslangSuggest || !data.regionSuggest) {
     throw error(500);
   }
   if (user) {
