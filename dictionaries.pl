@@ -2547,7 +2547,7 @@ our $dict = {
   },
   'Pusat Penerjemahan Alkitab GMIM (2018)' => {
     lang_target => 'xmm',
-    path => 'webonary/muna/*.html',
+    path => 'webonary/manado/*.html',
     parser => 'LexiqueHTML',
   },
   'Reesink (nd)' => {
@@ -5196,7 +5196,7 @@ our $dict = {
   },
   'van den Berg & Sidu Marafad (2016)' => {
     lang_target => 'mnb',
-    path => 'webonary/muna/a_001.html',
+    path => 'webonary/muna/*.html',
     parser => 'LexiqueHTML',
   },
   'van den Berg & Matsumura (2008)' => {
