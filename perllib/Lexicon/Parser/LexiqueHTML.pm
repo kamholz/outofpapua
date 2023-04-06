@@ -69,7 +69,7 @@ sub read_entries {
       };
 
       foreach my $sense ($senses->find('.sense')->each) {
-        my $glosses = $sense->at('[class^="definition"], .gloss');
+        my $glosses = $sense->at('[class^="definition"], .gloss, .definition_L2');
         next unless $glosses;
 
         $self->add_sense($entry);

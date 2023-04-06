@@ -21,10 +21,10 @@
 
   if (language.dialect_parent_name) {
     fields.push({
-        name: 'dialect_parent_name',
-        label: 'Dialect of',
-        type: 'text',
-        readonly: true,
+      name: 'dialect_parent_name',
+      label: 'Dialect of',
+      type: 'text',
+      readonly: true,
     });
   }
 
@@ -76,7 +76,7 @@
       label: '# Entries',
       type: 'text',
       readonly: true,
-    },
+    }
   );
 
   if (editable && language.is_proto) {

@@ -1,5 +1,4 @@
 <script>
-  import Alert from '$components/Alert.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
   import SearchTable from './SearchTable.svelte';

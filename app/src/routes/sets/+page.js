@@ -32,11 +32,3 @@ export async function load({ fetch, parent, url: { searchParams } }) {
 
   return data;
 }
-
-const requiredParams = new Set(['headword', 'headword_ipa', 'gloss', 'note', 'author_id', 'source', 'lang', 'glosslang']);
-
-function hasRequiredQueryParam(query) {
-  return Object.entries(query).some(([key, value]) => {
-    return requiredParams.has(key) && value?.length;
-  });
-}

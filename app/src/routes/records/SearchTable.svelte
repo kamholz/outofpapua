@@ -3,7 +3,6 @@
   import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
-  import { hideComparative } from '$lib/stores';
 
   export let rows;
   export let query;

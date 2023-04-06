@@ -5196,7 +5196,7 @@ our $dict = {
   },
   'van den Berg & Sidu Marafad (2016)' => {
     lang_target => 'mnb',
-    path => 'webonary/muna/*.html',
+    path => 'webonary/muna/a_001.html',
     parser => 'LexiqueHTML',
   },
   'van den Berg & Matsumura (2008)' => {

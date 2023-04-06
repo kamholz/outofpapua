@@ -3,7 +3,7 @@
   export let values;
   export let haveCheckbox;haveCheckbox;
   export let browserSubmit;browserSubmit;
-  const { disabled,  name, required } = field;
+  const { disabled, name, required } = field;
 </script>
 
 <input
