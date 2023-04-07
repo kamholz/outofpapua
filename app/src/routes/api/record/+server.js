@@ -1,15 +1,10 @@
 import errors from '$lib/errors';
-import { applyPageParams, applySortParams, arrayCmp, getCount, getLanguageIds, knex } from '$lib/db';
+import { applyPageParams, applySortParams, arrayCmp, getCount, getLanguageIds, knex, record_match,
+  setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { getFilteredParams, jsonError, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
-
-const record_match = `array(
-  select distinct lower((regexp_matches(record_row.value, ?, 'gi'))[1])
-  from record_row
-  where record_row.id = record.id
-) as record_match`;
 
 const allowed = new Set(['asc', 'lang', 'langcat', 'page', 'pagesize', 'record', 'record_marker', 'region', 'sort',
   'source']);
@@ -26,6 +21,8 @@ const defaults = {
 const sortCols = {
   language: 'language.name',
   source: 'source.reference',
+  headword: ['entry.headword_degr', 'entry.headword'],
+  headword_ipa: 'entry.headword_ipa',
 };
 
 export async function GET({ locals, url: { searchParams } }) {
@@ -38,26 +35,25 @@ export async function GET({ locals, url: { searchParams } }) {
   parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
-  const q = knex('record')
-    .join('record_source as rs', 'rs.id', 'record.id')
-    .join('source', 'source.id', 'rs.source_id')
-    .join('language', 'language.id', 'source.language_id');
+  const q = knex('entry')
+    .join('record', 'record.id', 'entry.record_id')
+    .join('source', 'source.id', 'entry.source_id')
+    .join('language', 'language.id', 'source.language_id')
+    .leftJoin('language as origin_language', 'origin_language.id', 'entry.origin_language_id');
 
   if (showPublicOnly(locals)) {
     q.whereRaw('source.public');
   }
 
-  if ('record' in query || 'record_marker' in query) {
-    q.whereExists(function () {
-      this.select('*').from('record_row').where('record_row.id', knex.ref('record.id'));
-      if ('record_marker' in query) {
-        this.where('record_row.marker', query.record_marker);
-      }
-      if ('record' in query) {
-        this.where('record_row.value', '~*', mungeRegex(query.record));
-      }
-    });
-  }
+  q.whereExists(function () {
+    this.select('*').from('record_row').where('record_row.id', knex.ref('record.id'));
+    if ('record_marker' in query) {
+      this.where('record_row.marker', query.record_marker);
+    }
+    if ('record' in query) {
+      this.where('record_row.value', '~*', mungeRegex(query.record));
+    }
+  });
 
   if (query.langcat === 'lang') {
     q.whereNotExists(function () {
@@ -89,11 +85,20 @@ export async function GET({ locals, url: { searchParams } }) {
   const rowCount = await getCount(q);
 
   q.select(
-    'record.id',
+    'entry.id',
+    'entry.headword',
+    'entry.headword_ipa',
+    'entry.origin',
+    'entry.origin_language_id',
+    'origin_language.name as origin_language_name',
+    'entry.record_id',
     'record.data as record_data',
+    'language.id as language_id',
+    'language.name as language_name',
     'source.reference as source_reference',
+    'source.editable as source_editable',
     'source.formatting as source_formatting',
-    'language.name as language_name'
+    knex.raw(`${setIds('entry.id')} as set_ids`),
   );
 
   if ('record' in query) {
@@ -101,13 +106,25 @@ export async function GET({ locals, url: { searchParams } }) {
   }
 
   const pageCount = applyPageParams(q, query, rowCount);
-  applySortParams(q, query, sortCols, ['language', 'source']);
+  applySortParams(q, query, sortCols, ['language', 'headword']);
 
   console.log(q.toString());
+  const rows = await q;
+
+  const seenRecord = new Set();
+  for (const row of rows) {
+    if (seenRecord.has(row.record_id)) {
+      row.seen_record = true;
+    } else {
+      row.seen_record = false;
+      seenRecord.add(row.record_id);
+    }
+  }
+
   return json({
     query,
     pageCount,
     rowCount,
-    rows: await q,
+    rows,
   });
 }

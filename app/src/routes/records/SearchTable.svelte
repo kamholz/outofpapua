@@ -3,6 +3,7 @@
   import EntryRecordHighlighted from '$components/EntryRecord/Highlighted.svelte';
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
+  import { hideComparative } from '$lib/stores';
 
   export let rows;
   export let query;
@@ -21,14 +22,31 @@
       title: 'Source',
       link: (row) => `/sources/${row.source_id}/entries?pagesize=${$preferences.tablePageSize}`,
     },
-  ];
-
-  const controls = [
     {
-      type: 'view',
-      link: (row) => `/records/${row.id}`,
+      key: 'headword',
+      title: 'Headword',
+      link: (row) => !row.source_editable && row.record_id && `/records/${row.record_id}`,
+      class: (row) => row.origin,
+    },
+    {
+      key: 'headword_ipa',
+      title: 'IPA',
     },
   ];
+
+  const controlsAll = [
+    {
+      type: 'set',
+    },
+    {
+      type: 'entryinfo',
+      comparative: true,
+    },
+  ];
+
+  $: controls = $hideComparative
+    ? controlsAll.filter((control) => !control.comparative)
+    : controlsAll;
 </script>
 
 <Table
@@ -41,6 +59,7 @@
   {pageCount}
   highlight
   searchContext={Boolean(query.record || query.record_marker)}
+  searchContextCollapsed={(row) => row.seen_record}
   let:row
 >
   <EntryRecordHighlighted strings={row.record_match} showUnmatchedEntries>

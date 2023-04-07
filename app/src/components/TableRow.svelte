@@ -12,14 +12,14 @@
   export let searchContext;
   export let searchContextCollapsed;
 
-  function toggleSearchContext() {
+  function toggleSearchContextCollapsed() {
     searchContextCollapsed = !searchContextCollapsed;
   }
 </script>
 
 <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
   {#if searchContext}
-    <td on:click={toggleSearchContext}>
+    <td on:click={toggleSearchContextCollapsed}>
       { searchContextCollapsed ? '▶' : '▼'}
     </td>
   {/if}

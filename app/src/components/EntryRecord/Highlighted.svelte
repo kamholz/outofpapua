@@ -19,7 +19,7 @@
         entry.remove();
       }
     }
-    node.style.display = 'flex';
+    node.style.display = 'block';
   });
 
   function highlightMatches(node) {

@@ -12,10 +12,10 @@
 </script>
 
 <svelte:head>
-  <title>Entry from {source.reference} | Out of Papua</title>
+  <title>Entry record from {source.reference} | Out of Papua</title>
 </svelte:head>
 
-<h2>Entry from {source.reference}: {source.language_name}</h2>
+<h2>Entry record from {source.reference}: {source.language_name}</h2>
 {#if record.page_num}
   <div>
     Page number: {record.page_num}

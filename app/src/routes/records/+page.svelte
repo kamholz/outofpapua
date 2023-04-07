@@ -2,7 +2,9 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
   import SearchTable from './SearchTable.svelte';
+  import { page } from '$app/stores';
   import { setContext } from 'svelte';
+  import { setSummaryCache } from '$lib/stores';
 
   export let data;
   $: ({
@@ -19,13 +21,21 @@
   setContext('sourceSuggest', sourceSuggest);
   setContext('langSuggest', langSuggest);
   setContext('regionSuggest', regionSuggest);
+
+  setContext('setSummaryCache', setSummaryCache);
+
+  $: init($page);
+
+  function init() {
+    $setSummaryCache = {};
+  }
 </script>
 
 <svelte:head>
-  <title>Search records | Out of Papua</title>
+  <title>Search entry records | Out of Papua</title>
 </svelte:head>
 
-<h2>Search records</h2>
+<h2>Search entry records</h2>
 <SearchForm
   {query}
 />

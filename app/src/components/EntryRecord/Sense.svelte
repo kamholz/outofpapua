@@ -11,8 +11,6 @@
   export let sense;
   export let num = null;
   const compact = getContext('compact');
-  const { formatting } = getContext('source');
-  const translation = sense.definition ?? (formatting?.preferReverse ? sense.reverse ?? sense.gloss : sense.gloss);
 </script>
 
 <Paragraph>
@@ -26,8 +24,8 @@
     <span class="pos">{mungePos(sense.pos)}.</span>
   {/if}
 
-  {#if translation}
-    {#each langMarkerSorted(translation) as [txt, lang]}
+  {#if sense.translation}
+    {#each langMarkerSorted(sense.translation) as [txt, lang]}
       <span class="translation">{@html txt.map(toolboxMarkup).join('; ')}</span><MaybeLang {lang} />.
     {/each}
   {/if}

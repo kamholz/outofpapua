@@ -71,6 +71,9 @@ for (const marker of ['na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'ue']) {
 
 export function parseRecord(data, formatting) {
   const markerConversion = getMarkerConversion();
+  const preferTranslation = formatting?.preferReverse // last ones take precedence
+    ? ['gloss', 'reverse', 'definition']
+    : ['gloss', 'definition'];
   const output = {};
 
   let entry = output;
@@ -150,10 +153,10 @@ export function parseRecord(data, formatting) {
     }
   }
 
-  fixPos(output);
+  postProcess(output);
   if (output.subentry) {
     for (const sub of output.subentry) {
-      fixPos(sub);
+      postProcess(sub);
     }
   }
 
@@ -224,14 +227,28 @@ export function parseRecord(data, formatting) {
     }
   }
 
-  function fixPos(entry) {
-    if (entry.pos && entry.sense) {
+  function postProcess(entry) {
+    const { pos } = entry;
+    if (entry.sense) {
       for (const s of entry.sense) {
-        if (!s.pos) {
-          s.pos = entry.pos;
+        if (pos && !s.pos) {
+          s.pos = pos;
         }
+        mergeTranslations(s);
       }
     }
+  }
+
+  function mergeTranslations(sense) {
+    sense.translation = {};
+    for (const key of preferTranslation) {
+      if (sense[key]) {
+        Object.assign(sense.translation, sense[key]);
+      }
+    }
+    delete sense.definition;
+    delete sense.reverse;
+    delete sense.gloss;
   }
 }
 

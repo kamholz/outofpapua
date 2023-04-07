@@ -122,6 +122,10 @@
     }
 
     :global {
+      td {
+        vertical-align: top;
+      }
+
       tr:nth-child(even) {
         background-color: var(--light-gray);
       }
