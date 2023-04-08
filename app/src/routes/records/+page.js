@@ -1,10 +1,12 @@
 import { error } from '@sveltejs/kit';
-import { normalizeQuery, parseArrayParams, serializeQuery } from '$lib/util';
+import { normalizeQuery, parseArrayNumParams, parseArrayParams, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
-const arrayParams = new Set(['lang']);
+const arrayParams = new Set(['lang', 'region']);
+const arrayNumParams = new Set(['source']);
 
-export async function load({ fetch, url: { searchParams } }) {
+export async function load({ fetch, parent, url: { searchParams } }) {
+  const { user } = await parent();
   const data = {
     sourceSuggest: await suggest.source(fetch),
     langSuggest: await suggest.langPlus(fetch),
@@ -12,6 +14,12 @@ export async function load({ fetch, url: { searchParams } }) {
   };
   if (!data.sourceSuggest || !data.langSuggest || !data.regionSuggest) {
     throw error(500);
+  }
+  if (user) {
+    data.borrowlangSuggest = await suggest.borrowlang(fetch);
+    if (!data.borrowlangSuggest) {
+      throw error(500);
+    }
   }
 
   const query = normalizeQuery(searchParams);
@@ -24,6 +32,7 @@ export async function load({ fetch, url: { searchParams } }) {
     Object.assign(data, json); // populates query, pageCount, rows, rowCount
   } else {
     parseArrayParams(query, arrayParams);
+    parseArrayNumParams(query, arrayNumParams);
     if (!('langcat' in query)) {
       query.langcat = 'lang';
     }

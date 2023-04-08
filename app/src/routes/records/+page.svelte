@@ -17,10 +17,14 @@
     sourceSuggest,
     langSuggest,
     regionSuggest,
+    borrowlangSuggest,
   } = data;
   setContext('sourceSuggest', sourceSuggest);
   setContext('langSuggest', langSuggest);
   setContext('regionSuggest', regionSuggest);
+  if (borrowlangSuggest) {
+    setContext('borrowlangSuggest', borrowlangSuggest);
+  }
 
   setContext('setSummaryCache', setSummaryCache);
 

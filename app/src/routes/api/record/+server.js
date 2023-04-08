@@ -108,9 +108,7 @@ export async function GET({ locals, url: { searchParams } }) {
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['language', 'headword']);
 
-  console.log(q.toString());
   const rows = await q;
-
   const seenRecord = new Set();
   for (const row of rows) {
     if (seenRecord.has(row.record_id)) {
