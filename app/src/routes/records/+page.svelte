@@ -2,9 +2,10 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
   import SearchTable from './SearchTable.svelte';
+  import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
+  import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
-  import { setSummaryCache } from '$lib/stores';
 
   export let data;
   $: ({
@@ -33,6 +34,13 @@
   function init() {
     $setSummaryCache = {};
   }
+
+  async function handleRefresh() {
+    $pageLoading++;
+    await invalidateAll();
+    $pageLoading--;
+    init();
+  }
 </script>
 
 <svelte:head>
@@ -56,6 +64,7 @@
         {rows}
         {query}
         {pageCount}
+        on:link={handleRefresh}
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />

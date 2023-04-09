@@ -61,6 +61,7 @@
   searchContext={Boolean(query.record || query.record_marker)}
   searchContextCollapsed={(row) => row.seen_record}
   let:row
+  on:link
 >
   <EntryRecordHighlighted strings={row.record_match} showUnmatchedEntries>
     <EntryRecordFormatted
