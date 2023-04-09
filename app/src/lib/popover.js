@@ -17,6 +17,7 @@ export function createPopover(args) {
 
 export function popoverTrigger(node, popover) {
   const { click, hide, hover, popperRef, prefetch, show } = popover;
+  popover.trigger = node;
   let open = false;
   let clickOpen = false;
   let waitingToShow = false;
@@ -81,14 +82,14 @@ export function popoverTrigger(node, popover) {
     }
   }
 
-  function onMouseEnter() {
+  function onMouseEnter(e) {
     if (clickOpen) {
       return;
     }
     if (waitingToHide) {
       clearTimeout(timeout);
       waitingToHide = false;
-    } else {
+    } else if (e.currentTarget === popover.trigger) {
       waitingToShow = true;
       prefetch?.();
       timeout = setTimeout(() => {

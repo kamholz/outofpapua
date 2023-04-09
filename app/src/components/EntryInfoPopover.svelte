@@ -63,6 +63,7 @@
   async function handleSelectSetMember(e) {
     $pageLoading++;
     try {
+      showPopover = false;
       await crudSet.linkEntries([entry, e.detail], () => dispatch('link'));
     } catch (err) {}
     $pageLoading--;
