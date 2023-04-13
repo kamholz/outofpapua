@@ -5376,11 +5376,12 @@ our $dict = {
     ],
   },
   'van der Leeden (nd)' => {
-    lang_target => 'Maya',
+    lang_target => 'slz',
     path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
     parser => 'Marker',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
+    lang_national => 'ind',
   },
   'van Engelenhoven (nd)' => {
     lang_target => 'Fataluku Tutuala',
