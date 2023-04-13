@@ -5382,6 +5382,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
     lang_national => 'ind',
+    lang_regional => 'pmy',
   },
   'van Engelenhoven (nd)' => {
     lang_target => 'Fataluku Tutuala',
