@@ -4718,7 +4718,7 @@ our $dict = {
     strip => 'to',
   },
   'Stokhof & Flassy (1985 Moi)' => {
-    lang_target => 'Moi',
+    lang_target => 'mxn',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
     parser => 'Spreadsheet',
     columns => [
