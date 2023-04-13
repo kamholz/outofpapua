@@ -2712,7 +2712,7 @@ our $dict = {
     split => ';',
   },
   'Schapper (2022b)' => {
-    lang_target => 'Karon',
+    lang_target => 'Karon Senopi',
     path => 'Schapper_2022_Karon.txt',
     parser => 'Marker',
     lang_national => 'ind',
@@ -5376,7 +5376,7 @@ our $dict = {
     ],
   },
   'van der Leeden (nd)' => {
-    lang_target => 'slz',
+    lang_target => 'Maya',
     path => 'Maya/Maya_toolbox_cleaned_Version3.txt',
     parser => 'Marker',
     strip => 'to',
