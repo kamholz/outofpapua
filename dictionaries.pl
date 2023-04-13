@@ -642,7 +642,7 @@ our $dict = {
     split_heuristic => ',/',
   },
   'Boarccaech (2013)' => {
-    lang_target => 'adb',
+    lang_target => 'Hresuk',
     path => 'Boarccaech 2013 Hresuk.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1010,7 +1010,7 @@ our $dict = {
     lang_national => 'ind',
   },
   'de Josselin de Jong (1937)' => {
-    lang_target => 'oia',
+    lang_target => 'Oirata',
     path => 'de Josselin de Jong (1937) Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1058,8 +1058,8 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
-   'de Josselin de Jong (1987)' => { #not ingested
-    lang_target => 'lex',
+   'de Josselin de Jong (1987)' => {
+    lang_target => 'Wetan',
     path => 'de Josselin de Jong 1987 Wetan.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1190,7 +1190,7 @@ our $dict = {
     skip_marker => 'lx_Eng',
   },
   'Duarte (1990a)' => {
-    lang_target => 'adb', #Hresuk Bikeli
+    lang_target => 'Hresuk Bikeli',
     path => 'Atauro lists Barros Duarte 1990.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Hresuk Bikeli',
@@ -1209,7 +1209,7 @@ our $dict = {
     ],
   },
   'Duarte (1990b)' => {
-    lang_target => 'adb', #Rasua Beloi
+    lang_target => 'Rasua Beloi', 
     path => 'Atauro lists Barros Duarte 1990.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Rasua Beloi',
@@ -1228,7 +1228,7 @@ our $dict = {
     ],
   },
   'Duarte (1990c)' => {
-    lang_target => 'adb', #Raklungu Makadade
+    lang_target => 'Raklungu Makadade',
     path => 'Atauro lists Barros Duarte 1990.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Raklungu Makadade',
@@ -1247,7 +1247,7 @@ our $dict = {
     ],
   },
   'Duarte (1990d)' => {
-    lang_target => 'gal', #Dadua Manroni
+    lang_target => 'gal', #Dadu'a Manroni
     path => 'Atauro lists Barros Duarte 1990.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Dadua Manroni',
@@ -1548,7 +1548,7 @@ our $dict = {
     split => ';',
   },
   'Friday (nd)' => {
-    lang_target => 'ddg',
+    lang_target => 'Fataluku',
     path => 'Friday_nd_Fataluku.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1838,7 +1838,7 @@ our $dict = {
     strip => ['the','to','a'],
   },
   'Hughes (1995)' => {
-    lang_target => 'kvo', #Dobel
+    lang_target => 'Dobel',
     path => 'Dobel_Hughes1995.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -4718,7 +4718,7 @@ our $dict = {
     strip => 'to',
   },
   'Stokhof & Flassy (1985 Moi)' => {
-    lang_target => 'mxn',
+    lang_target => 'Moi',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -4736,7 +4736,7 @@ our $dict = {
     strip => 'to',
   },
   'Stokhof & Flassy (1985 Tehit a)' => {
-    lang_target => 'kps',
+    lang_target => 'Tehit',
     path => 'spreadsheets/Stokhof/Tehit Holle.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -5040,7 +5040,7 @@ our $dict = {
     split => '/',
   },
   'Trainor (nd)' => {
-    lang_target => 'ddg',
+    lang_target => 'Fataluku',
     path => 'Trainor_nd_Fataluku_birdlist.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -5388,7 +5388,7 @@ our $dict = {
     parser => 'Marker',
   },
   'van Engelenhoven (2004)' => {
-    lang_target => 'lti',
+    lang_target => 'Leti',
     path => 'van Engelenhoven (2004) Leti.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -6160,7 +6160,7 @@ our $dict = {
     split_headword => ';',
   },
   'Wirz (1923)' => {
-    lang_target => 'mej',
+    lang_target => 'Meyah Manokwari',
     path => 'Wirz 1923 - Mansibaber.xlsx',
     parser => 'Spreadsheet',
     columns => [
