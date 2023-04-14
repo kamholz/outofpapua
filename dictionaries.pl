@@ -2320,10 +2320,11 @@ our $dict = {
     parser => 'Marker',
   },
   'Musgrave (nd)' => {
-    lang_target => 'tlu',
+    lang_target => 'Sou Amana Teru',
     path => 'Musgrave_Sou Ama Teru_Lexicon.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    definition_action => 'merge',
   },
   'Nacher (2012a)' => {
     lang_target => 'ddg',
