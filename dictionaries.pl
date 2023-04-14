@@ -5561,6 +5561,7 @@ our $dict = {
     lang_other => {
       alt_translation1 => 'ind',
     },
+    strip => 'to',
   },
   'Visser (nd)' => {
     lang_target => 'urn',
