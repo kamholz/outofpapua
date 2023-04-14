@@ -2199,6 +2199,35 @@ our $dict = {
     lang_regional => 'max',
     lang_national => 'ind',
   },
+  'Laidig & Laidig (1991)' => {
+    lang_target => 'Larike',
+    path => 'LaidigLaidig1991_LarikeDictionary_Version5.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'abs'],
+      [4, 'gloss', 'eng'],
+      [5, 'sc'],
+      [6, 'sy'],
+      [7, '1s'],
+      [8, '3si'],
+      [9, '3sn'],
+      [10, 'pl'],
+      [11, 'lt'],
+      [12, 'va'],
+      [13, 'nt'],
+      [[14 .. 16], 'example', ['ind', 'eng']], #1
+      [[17 .. 19], 'example', ['ind', 'eng']], #2
+      [[20 .. 22], 'example', ['ind', 'eng']], #3
+      [23, 'cf'],
+      [24, 'page_num'],
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
     path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
