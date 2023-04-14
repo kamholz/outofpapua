@@ -1547,7 +1547,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'Friday (nd)' => {
+  'Friday (2005)' => {
     lang_target => 'Fataluku',
     path => 'Friday_nd_Fataluku.xlsx',
     parser => 'Spreadsheet',
