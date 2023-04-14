@@ -2392,7 +2392,12 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [3, 'gloss', 'ind'],
       [1, 'ps'],
-
+      [4, 'sc'],
+      [5, 'sy'],
+      [6, 'page_num'],
+      [[7 .. 8], 'example', ['ind']], #1
+      [[9 .. 10], 'example', ['ind']], #2
+      [[11 .. 12], 'example', ['ind']], #3
     ],
   },
   'Odé (2004a)' => {
