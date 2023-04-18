@@ -2156,10 +2156,10 @@ our $dict = {
     path => 'Kijne Kurudu.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [2, 'headword'],
+      [3, 'headword'],
       [0, 'gloss', 'nld'],
-      [1, 'gloss', 'eng'],
-      [3, 'nt'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
     ],
   },
   'Kluge (2017)' => {
