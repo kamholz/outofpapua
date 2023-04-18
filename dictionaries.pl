@@ -2153,7 +2153,7 @@ our $dict = {
   },
   'Kijne (nd f)' => {
     lang_target => 'kjr',
-    path => 'Kijne Kurudu.xlsx',
+    path => 'Wordlist Kurudu Kijne_QR421_Ambai_Kurudu_only_one_variety_20230120.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
