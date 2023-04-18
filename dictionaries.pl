@@ -1831,7 +1831,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Hueting (1908c)' => {
+  'Taylor (nd)' => {
     lang_target => 'tlb',
     path => 'Hueting1908Tobelo.txt',
     parser => 'Marker',
