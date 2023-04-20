@@ -4752,6 +4752,19 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Stokhof (1982)' => {
+    lang_target => 'Geser',
+    path => 'Stokhof_1982_Geser.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+    ],
+    strip => 'to',
+  },
   'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/Mooi Holle.xlsx',
@@ -4792,6 +4805,69 @@ our $dict = {
     parser => 'Marker',
     split => ';',
     lang_national => 'deu',
+  },
+  'Taber (1993a)' => {
+    lang_target => 'vbb', #Southeast Babar
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993b)' => {
+    lang_target => 'sve', #Serili
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993c)' => {
+    lang_target => 'vme', #East Masela
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993d)' => {
+    lang_target => 'mxz', #Central Masela
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993e)' => {
+    lang_target => 'emw', #Emplawas
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993f)' => {
+    lang_target => 'tvm', #tele-Masbuar
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
+  },
+  'Taber (1993g)' => {
+    lang_target => 'imr', #Imroing
+    path => 'Taber_1993_Babarlists.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [7, 'gloss', 'eng'],
+    ],
   },
   'Tamelan (2021)' => {
     lang_target => 'row',
@@ -6230,6 +6306,15 @@ our $dict = {
     lang_target => 'lex',
     path => 'Luang lexicon Luang to English.html',
     parser => 'LexiqueDocx',
+  },
+  'Zobel (2017)' => {
+    lang_target => 'Proto-South Babar',
+    path => 'Zobel_2017_Proto-South Babar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
   },
 };
 
