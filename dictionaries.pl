@@ -6269,13 +6269,12 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'ind'],
-      [2, 'gloss', 'eng'],
-      [3, 'page_num'],
+      [2, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
+      [[3 .. 5], 'example', ['eng', 'ind']],
     ],
     mode => 'sense_per_row',
     split => ';',
-    split_headword => ';',
   },
   'Wirz (1923)' => {
     lang_target => 'Meyah Manokwari',
