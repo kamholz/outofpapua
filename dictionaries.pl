@@ -1518,7 +1518,7 @@ our $dict = {
   },
   'Flassy (2018)' => {
     lang_target => 'kps',
-    path => 'Tehit Teminabuan.txt',
+    path => 'Tehit Teminabuan (Flassy 2018).txt',
     parser => 'Marker',
   },
   'Fogaca (2015)' => {
