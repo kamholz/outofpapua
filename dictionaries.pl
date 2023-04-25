@@ -1520,6 +1520,8 @@ our $dict = {
     lang_target => 'kps',
     path => 'Tehit Teminabuan Flassy 2018.txt',
     parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
   },
   'Fogaca (2015)' => {
     lang_target => 'Makasae Baucau',
