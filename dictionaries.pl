@@ -2407,6 +2407,23 @@ our $dict = {
       [[11 .. 12], 'example', ['ind']], #3
     ],
   },
+  'Niggemeyer (1951)' => { 
+    lang_target => 'alp',
+    path => 'Niggemeyer 1951 - Alune.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'deu'],
+      [8, 'gloss', 'ind'],
+      [3, 'nt'],
+      [4, 'page_num'],
+      [5, 'cf'],
+      [6, 'et'],
+      [7, 'sc'],
+    ],
+    split_headword => ';',
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
