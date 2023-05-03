@@ -60,6 +60,56 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Anceaux (1956a)' => {
+    lang_target => 'mxn',
+    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Moi, list 119',
+    columns => [
+      [3, 'headword'],
+      [4, 'va', 'split'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [0, 'nt', 'item number:'],
+    ],
+  },
+  'Anceaux (1956b)' => {
+    lang_target => 'Kalabra Kuwani',
+    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Kuwani, list 129',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [0, 'nt', 'item number:'],
+    ],
+  },
+  'Anceaux (1956c)' => {
+    lang_target => 'kps',
+    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Tehit, list 131 (132)',
+    columns => [
+      [3, 'headword'],
+      [4, 'va', 'split'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [0, 'nt', 'item number:'],
+    ],
+  },
+  'Anceaux (1956d)' => {
+    lang_target => 'Maybrat Ayamaru',
+    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Maybrat Ayamaru list 133',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [0, 'nt', 'item number:'],
+    ],
+  },
   'Anceaux (1961a)' => {
     lang_target => 'bsm',
     path => 'spreadsheets/Busami.xlsx',
@@ -134,20 +184,7 @@ our $dict = {
     ],
     split => ',',
   },
-  'Anceaux (nd 119)' => {
-    lang_target => 'mxn',
-    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Moi, list 119',
-    columns => [
-      [3, 'headword'],
-      [4, 'va', 'split'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'eng'],
-      [0, 'nt', 'item number:'],
-    ],
-  },
-  'Anceaux (nd 126)' => {
+  'Anceaux (nd d)' => {
     lang_target => 'Tehit Teminabuan',
     path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
     parser => 'Spreadsheet',
@@ -159,44 +196,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (1956b)' => {
-    lang_target => 'Kalabra Kuwani',
-    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Kuwani, list 129',
-    columns => [
-      [3, 'headword'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'eng'],
-      [0, 'nt', 'item number:'],
-    ],
-  },
-  'Anceaux (nd 131)' => {
-    lang_target => 'kps',
-    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Tehit, list 131 (132)',
-    columns => [
-      [3, 'headword'],
-      [4, 'va', 'split'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'eng'],
-      [0, 'nt', 'item number:'],
-    ],
-  },
-  'Anceaux (nd 133)' => {
-    lang_target => 'Maybrat Ayamaru',
-    path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Maybrat Ayamaru list 133',
-    columns => [
-      [3, 'headword'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'eng'],
-      [0, 'nt', 'item number:'],
-    ],
-  },
-  'Anceaux (nd 429)' => {
+  'Anceaux (nd e)' => {
     lang_target => 'mxn',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -210,7 +210,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 430)' => {
+  'Anceaux (nd f)' => {
     lang_target => 'kzz',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -224,7 +224,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 431)' => {
+  'Anceaux (nd g)' => {
     lang_target => 'msg',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -237,7 +237,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 432)' => {
+  'Anceaux (nd h)' => {
     lang_target => 'Abun Madik',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -250,7 +250,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 464)' => {
+  'Anceaux (nd i)' => {
     lang_target => 'Moi Waliam',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -263,7 +263,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 465)' => {
+  'Anceaux (nd j)' => {
     lang_target => 'Moi Waipu',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
@@ -276,7 +276,7 @@ our $dict = {
       [0, 'nt', 'item number:'],
     ],
   },
-  'Anceaux (nd 758)' => {
+  'Anceaux (nd k)' => {
     lang_target => 'sbg',
     path => 'spreadsheets/Anceaux  archive materials - Seget list 758.xlsx',
     parser => 'Spreadsheet',
@@ -284,6 +284,28 @@ our $dict = {
       [2, 'headword'],
       [0, 'gloss', 'pmy'],
       [1, 'gloss', 'eng'],
+    ],
+  },
+  'Anceaux (nd k)' => {
+    lang_target => 'sbg',
+    path => 'spreadsheets/Anceaux  archive materials - Seget list 758.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'pmy'],
+      [1, 'gloss', 'eng'],
+    ],
+  },
+  'Anceaux (nd l)' => {
+    lang_target => 'Papuan Malay',
+    path => 'Papuan Malay Anceaux, nd.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [3, 'gloss', 'eng'],
+      [2, 'sc'],
+      [4, 'page_num'],
     ],
   },
   'Atjo (2008)' => { #not ingested
