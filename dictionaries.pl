@@ -1833,6 +1833,13 @@ our $dict = {
     split => ';',
     skip_marker => ['re', 'rm', 'rt', 'rp'],
   },
+  'Hinton (2023)' => {
+    lang_target => 'tzn', #Tugun
+    path => 'Hinton_2023_Tugun.txt',
+    parser => 'Marker',
+    split => ';',
+    strip => 'to',
+  },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
     path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
