@@ -1839,6 +1839,7 @@ our $dict = {
     parser => 'Marker',
     split => ';',
     strip => 'to',
+    lang_national => 'ind',
   },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
