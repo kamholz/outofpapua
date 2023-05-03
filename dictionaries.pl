@@ -1435,6 +1435,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     split => ';',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Flassy (1977/78b)' => {
     lang_target => 'kps', #Tehit Sfaryere
