@@ -298,7 +298,7 @@ our $dict = {
   },
   'Anceaux (nd l)' => {
     lang_target => 'Papuan Malay',
-    path => 'Papuan Malay -Anceaux, nd.xlsx',
+    path => 'Papuan Malay Anceaux nd.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
