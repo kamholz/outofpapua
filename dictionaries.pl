@@ -298,7 +298,7 @@ our $dict = {
   },
   'Anceaux (nd l)' => {
     lang_target => 'Papuan Malay',
-    path => 'Papuan Malay Anceaux, nd.xlsx',
+    path => 'Papuan Malay -Anceaux, nd.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -306,6 +306,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [2, 'sc'],
       [4, 'page_num'],
+      [[5 .. 7], 'example', ['ind', 'eng']],
     ],
   },
   'Atjo (2008)' => { #not ingested
