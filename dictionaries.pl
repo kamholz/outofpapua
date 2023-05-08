@@ -2812,11 +2812,13 @@ our $dict = {
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [1, 'headword'],
-      [0, 'gloss', 'ind'],
-      [3, 'gloss', 'eng'],
-      [4, 'gloss', 'nld'],
-      [2, 'page_num'],
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'va'],
+      [5, 'page_num'],
+      [[6 .. 8], 'example', ['eng', 'ind']],
     ],
   },
   'Smits & Voorhoeve (1998 Yawa a)' => {
