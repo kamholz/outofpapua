@@ -1021,7 +1021,7 @@ our $dict = {
   },
   'Coward (2021)' => {
     lang_target => 'slu',
-    path => 'selaru_clean',
+    path => 'selaru_clean.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
