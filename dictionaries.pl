@@ -1019,6 +1019,12 @@ our $dict = {
     path => 'webonary/fordata/*.html',
     parser => 'LexiqueHTML',
   },
+  'Coward (2021)' => {
+    lang_target => 'slu',
+    path => 'selaru_clean',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Dalrymple & Mofu (2009/10)' => {
     lang_target => 'bhw',
     path => 'Biak/Biak_dictionary_cleaned.txt',
