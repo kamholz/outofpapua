@@ -1420,7 +1420,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Flassy (1977/78a)' => {
+  'Flassy alt (1977/78a)' => {
     lang_target => 'kps',
     path => 'Tehit-Indonesian dictionary_April_2023.xlsx',
     parser => 'Spreadsheet',
@@ -1442,6 +1442,12 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     split => ';',
+  },
+  'Flassy (1977/78a)' => {
+    lang_target => 'kps',
+    path => 'Flassy 1977-78 Tehit.txt.txt',
+    parser => 'Marker',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Flassy (1977/78b)' => {
     lang_target => 'kps', #Tehit Sfaryere
