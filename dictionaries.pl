@@ -1445,7 +1445,7 @@ our $dict = {
   },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
-    path => 'Flassy 1977-78 Tehit.txt.txt',
+    path => 'Flassy 1977-78 Tehit.txt',
     parser => 'Marker',
     headword_preprocess => sub { s/^ø-//r },
   },
