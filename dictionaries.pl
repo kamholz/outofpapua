@@ -1772,6 +1772,12 @@ our $dict = {
     ],
     split_headword => ';',
   },
+  'van Hasselt & van Hasselt (1947)' => {
+    lang_target => 'Biak',
+    path => 'VanHasselt_Numfor_Biak.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Hull (2004)' => {
     lang_target => 'Makasae Baucau',
     path => 'Hull2004_MakasaeBaucau.xlsx',
