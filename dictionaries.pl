@@ -4803,6 +4803,21 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Stokhof (1980g)' => {
+    lang_target => 'Sawai Weda',
+    path => 'spreadsheets/Stokhof/Weda 162 (x 864).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'nld'],
+      [1, 'nt_sn', 'number:'],
+      [4, 'sc'],
+      [5, 'nt'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Stokhof (1982)' => {
     lang_target => 'Geser',
     path => 'Stokhof_1982_Geser.xlsx',
