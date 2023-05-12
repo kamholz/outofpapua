@@ -4817,6 +4817,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => 'to',
+    split_headword => ';',
   },
   'Stokhof (1982)' => {
     lang_target => 'Geser',
