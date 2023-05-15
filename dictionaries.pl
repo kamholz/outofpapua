@@ -2232,6 +2232,15 @@ our $dict = {
     lang_regional => 'max',
     lang_national => 'ind',
   },
+  'Kratochvíl & Delpada (2008)' => {
+    lang_target => 'abz',
+    path => 'KratochvílDelpada_2008_Abui.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'mkn',
+    definition_action => 'merge',
+    skip_marker => ['re', 'rr', 'rn'],
+  },
   'Kratochvíl, Bantara & Malaikosa (2014)' => {
     lang_target => 'swt',
     path => 'KratochvílBantaraMalaikosa_2014_Sawila.db',
