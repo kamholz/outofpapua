@@ -1038,6 +1038,25 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'da Silva (2012)' => {
+    lang_target => 'wlh',
+    path => 'Da Silva 2012 Welaun.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'tet'],
+      [4, 'gloss', 'eng'],
+      [2, 'va'],
+      [5, 'nt'],
+      [1, 'page_num'],
+      [[6 .. 7], 'example', ['tet']], #1
+      [[8 .. 9], 'example', ['tet']], #2
+      [[10 .. 11], 'example', ['tet']], #3
+      [[12 .. 13], 'example', ['tet']], #4
+      [[14 .. 15], 'example', ['tet']], #5
+    ],
+    strip => 'to',
+  },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
     path => 'de Josselin de Jong (1937) Oirata.xlsx',
