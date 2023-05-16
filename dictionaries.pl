@@ -1039,7 +1039,7 @@ our $dict = {
     lang_national => 'ind',
   },
   'da Silva (2012)' => {
-    lang_target => 'wlh',
+    lang_target => 'Welaun',
     path => 'Da Silva 2012 Welaun.xlsx',
     parser => 'Spreadsheet',
     columns => [
