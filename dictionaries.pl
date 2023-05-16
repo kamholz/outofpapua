@@ -21,7 +21,7 @@ our $dict = {
       [4, 'headword'],
       [2, 'gloss', 'eng'],
       [1, 'gloss', 'nld'],
-      [0, 'nt', 'number:'],
+      [0, 'nt', 'number:'], lang
     ],
   },
   'Adriani & Kruijt (1914c)' => {
@@ -6345,6 +6345,21 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split_heuristic => ',',
+  },
+  'Widhyasmaramurti (2013)' => {
+    lang_target => 'kpu',
+    path => 'Widhyasmaramurti 2013 Kafoa.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
+      [3, 'va'],
+      [4, 'nt'],
+      [5, 'page_num'],
+      [[6 .. 7], 'example', ['eng', 'ind']],
+    ],
+    split => ';',
   },
   'Widodo (2012)' => {
     lang_target => 'ihp',
