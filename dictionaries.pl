@@ -21,7 +21,7 @@ our $dict = {
       [4, 'headword'],
       [2, 'gloss', 'eng'],
       [1, 'gloss', 'nld'],
-      [0, 'nt', 'number:'], lang
+      [0, 'nt', 'number:'],
     ],
   },
   'Adriani & Kruijt (1914c)' => {
