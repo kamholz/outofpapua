@@ -2841,6 +2841,15 @@ our $dict = {
     split => ';',
     definition_action => 'merge',
   },
+  'Schapper & Manimau (2011)' => {
+    lang_target => 'woi',
+    path => 'SchapperManimau2011_Kamang.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split => ';',
+    definition_action => 'merge',
+    skip_marker => ['rr', 're', 'rn'],
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
