@@ -970,6 +970,26 @@ our $dict = {
     split_headword => ';',
     split => ';',
   },
+  'Collins (2003)' => {
+    lang_target => 'asl',
+    path => 'Collins (2003) Asilulu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'eng'],
+      [4, 'sc'],
+      [5, 'nt'],
+      [6, 'ue'],
+      [7, 'cf'],
+      [8, 'et'],
+      [9, 'page_num'],
+      [[10 .. 11], 'example', ['eng']],
+      [[12 .. 13], 'example', ['eng']],
+      [[14 .. 15], 'example', ['eng']],
+      ],
+  },
   'Cottet (2015)' => {
     lang_target => 'bdw',
     path => 'spreadsheets/Mbaham_List_cleaned.xlsx',
@@ -2841,7 +2861,7 @@ our $dict = {
     split => ';',
     definition_action => 'merge',
   },
-  'Schapper & Manimau (2011)' => {
+  'Schapper & Manimau (2011)' => { #not ingested due to unsolved error
     lang_target => 'woi',
     path => 'SchapperManimau2011_Kamang.txt',
     parser => 'Marker',
