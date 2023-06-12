@@ -972,6 +972,13 @@ our $dict = {
   },
   'Collins (2003)' => {
     lang_target => 'asl',
+    path => 'Collins (2003) Asilulu.txt',
+    parser => 'Marker',
+    strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
+  },
+  'Collins (2003a)' => {
+    lang_target => 'asl',
     path => 'Collins (2003) Asilulu.xlsx',
     parser => 'Spreadsheet',
     columns => [
