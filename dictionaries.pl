@@ -6027,7 +6027,7 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
-  'Voorhoeve (nd Maybrat a)' => {
+  'Voorhoeve (1982 Maybrat a)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
@@ -6037,7 +6037,7 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Voorhoeve (nd Maybrat b)' => {
+  'Voorhoeve (1982 Maybrat b)' => {
     lang_target => 'Maybrat Mare',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
@@ -6047,7 +6047,7 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Voorhoeve (nd Maybrat c)' => {
+  'Voorhoeve (1982 Maybrat c)' => {
     lang_target => 'Maybrat West Ayfat',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
@@ -6057,7 +6057,7 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Voorhoeve (nd Maybrat d)' => {
+  'Voorhoeve (1982 Maybrat d)' => {
     lang_target => 'Maybrat East Ayfat',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
@@ -6068,7 +6068,7 @@ our $dict = {
       [9, 'nt'],
     ],
   },
-  'Voorhoeve (nd Maybrat e)' => {
+  'Voorhoeve (1982 Maybrat e)' => {
     lang_target => 'Karon',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
