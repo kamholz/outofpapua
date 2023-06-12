@@ -989,6 +989,9 @@ our $dict = {
       [[12 .. 13], 'example', ['eng']],
       [[14 .. 15], 'example', ['eng']],
       ],
+      strip => 'to',
+      mode => 'sense_per_row',
+      headword_preprocess => sub { s/^ø-//r },
   },
   'Cottet (2015)' => {
     lang_target => 'bdw',
