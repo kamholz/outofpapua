@@ -5410,6 +5410,12 @@ our $dict = {
       [3, 'pg'],
     ],
   },
+  'van den Berg (2018)' => {
+    lang_target => 'Muna',
+    path => 'vandenBerg2018_Muna.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'van den Berg & Sidu Marafad (2016)' => {
     lang_target => 'mnb',
     path => 'webonary/muna/*.html',
