@@ -990,7 +990,7 @@ our $dict = {
       [0, 'headword'],
       [1, 'cf'],
       [2, 'ue'],
-      [3, 'ps_sn'],
+      [3, 'ps'],
       [4, 'gloss', 'eng'],
       [5, 'nt'],
       [6, 'page_num'],
