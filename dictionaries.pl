@@ -1442,7 +1442,7 @@ our $dict = {
     lang_target => 'Pre-Proto-Rote-Meto',
     path => 'Edwards (2021) RUM reconstructions.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Proto-CEMP',
+    sheet => 'Pre-Proto-Rote-Meto',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
