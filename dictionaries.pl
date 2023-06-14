@@ -640,7 +640,7 @@ our $dict = {
     parser => 'Marker',
     split_headword => ';',
     strip => 'to',
-  }
+  },
   'Blust & Trussel (ongoing a)' => {
     lang_target => 'Proto-Austronesian',
     path => 'acd',
