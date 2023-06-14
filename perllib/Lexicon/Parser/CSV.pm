@@ -191,7 +191,7 @@ sub read_entries {
           }
         }
         push @{$entry->{sense}[-1]{example}}, $example;
-      } elsif ($type =~ /^[a-z]{2}(?:_[a-z]{2})?$/) {
+      } elsif ($type =~ /^[a-z0-9]{2}(?:_[a-z]{2})?$/) {
         my @values = $arg && $arg eq 'split' ? split(/ *; */, $value) : split(/\n/, $value);
         if ($arg and $arg ne 'split') {
           @values = map { "$arg $_" } @values;
