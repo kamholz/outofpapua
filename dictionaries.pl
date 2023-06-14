@@ -634,6 +634,13 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Bloyd (2020)' => {
+    lang_target => 'szn',
+    path => 'Bloyd 2020 - Sula.txt',
+    parser => 'Marker',
+    split_headword => ';',
+    strip => 'to',
+  }
   'Blust & Trussel (ongoing a)' => {
     lang_target => 'Proto-Austronesian',
     path => 'acd',
@@ -2662,6 +2669,7 @@ our $dict = {
     lang_target => 'Buli',
     path => 'Toolbox_Maan1940Buli.txt',
     parser => 'Marker',
+    strip => 'to',
   },
   'Mandacan et al. (2020)' => {
     lang_target => 'mej',
