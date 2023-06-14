@@ -1438,6 +1438,19 @@ our $dict = {
     ],
     split => ';',
   },
+  'Edwards (2021h)' => {
+    lang_target => 'Pre-Proto-Rote-Meto',
+    path => 'Edwards (2021) RUM reconstructions.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-CEMP',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'nt'],
+    ],
+    split => ';',
+  },
   'Ellen (1916a)' => {
     lang_target => 'mqo',
     path => 'spreadsheets/Modole_Ellen1916.xlsx',
