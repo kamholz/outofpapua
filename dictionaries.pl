@@ -335,6 +335,11 @@ our $dict = {
     parser => 'Marker',
     skip_marker => ['lx_Seg', 'ps_Pap']
   },
+  'Baird (2003)' => {
+    lang_target => 'Kafoa',
+    path => 'Baird_2003_Kafoa.txt',
+    parser => 'Marker',
+  },
   'Banamtuan (2021)' => {
     lang_target => 'kyo',
     path => 'Banamtuan 2021 - Klon Bring.xlsx',
