@@ -3134,6 +3134,15 @@ our $dict = {
     ],
     split => ';',
   },
+  'Schapper (2020)' => {
+    lang_target => 'kvw',
+    path => 'Schapper 2020 - Wersing Peitoko.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    split => ';',
+    definition_action => 'merge',
+    skip_marker => ['rr', 're', 'rn'],
+  },
   'Schapper (2022a)' => {
     lang_target => 'Maybrat Mare',
     path => 'Schapper_2022_Mare.txt',
