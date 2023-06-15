@@ -2148,13 +2148,14 @@ our $dict = {
     strip => 'to',
     lang_national => 'ind',
   },
-  'Holton & Lamma Koly (2008)' => { #not ingested, regional language
+  'Holton & Lamma Koly (2008)' => {
     lang_target => 'lev',
     path => 'Holton, Lamma Koly 2008 - Western Pantar Tubbe.db',
     parser => 'Marker',
     split => ';',
     strip => 'to',
     lang_national => 'ind',
+    lang_regional => 'mkn',
     definition_action => 'merge',
     skip_marker => ['re', 'rr', 'rn'],
   },
@@ -3160,11 +3161,12 @@ our $dict = {
     ],
     split => ';',
   },
-  'Schapper (2020)' => { #not ingested, regional language?
+  'Schapper (2020)' => {
     lang_target => 'kvw',
     path => 'Schapper 2020 - Wersing Peitoko.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    lang_regional => 'mkn',
     split => ';',
     definition_action => 'merge',
     skip_marker => ['rr', 're', 'rn'],
