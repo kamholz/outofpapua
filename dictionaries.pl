@@ -335,6 +335,17 @@ our $dict = {
     parser => 'Marker',
     skip_marker => ['lx_Seg', 'ps_Pap']
   },
+  'Banamtuan (2021)' => {
+    lang_target => 'kyo',
+    path => 'Banamtuan 2021 - Klon Bring.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Klon Bring',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'mr'],
+    ],
+  },
   'Bax (2019)' => {
     lang_target => 'gei',
     path => 'Bax/Bax_final-version.txt',
@@ -2132,6 +2143,16 @@ our $dict = {
     strip => 'to',
     lang_national => 'ind',
   },
+  'Holton & Lamma Koly (2008)' => { #not ingested, regional language
+    lang_target => 'lev',
+    path => 'Holton, Lamma Koly 2008 - Western Pantar Tubbe.db',
+    parser => 'Marker',
+    split => ';',
+    strip => 'to',
+    lang_national => 'ind',
+    definition_action => 'merge',
+    skip_marker => ['re', 'rr', 'rn'],
+  },
   'Hueting (1908a)' => {
     lang_target => 'Pagu Isam',
     path => 'spreadsheets/Hueting 1908 - Isam, Tololiku.xlsx',
@@ -3134,7 +3155,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'Schapper (2020)' => {
+  'Schapper (2020)' => { #not ingested, regional language?
     lang_target => 'kvw',
     path => 'Schapper 2020 - Wersing Peitoko.txt',
     parser => 'Marker',
