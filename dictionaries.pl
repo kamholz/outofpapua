@@ -2629,7 +2629,7 @@ our $dict = {
   },
   'Lekedee Study Group (2006a)' => {
     lang_target => 'tkd',
-    path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
+    path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Tokodede Likisa',
     columns => [
@@ -2654,7 +2654,7 @@ our $dict = {
   },
   'Lekedee Study Group (2006c)' => {
     lang_target => 'tkd',
-    path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
+    path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Tokodede Bazartete',
     columns => [
