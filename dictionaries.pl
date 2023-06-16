@@ -2565,7 +2565,7 @@ our $dict = {
   },
   'Koda (2012)' => {
     lang_target => 'Blagar Kolijahi',
-    path => 'Koda 2012 Blagar Kolijahi dictionary.xlsx',
+    path => 'Koda_2012_BlagarKolijahi.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
@@ -2573,10 +2573,11 @@ our $dict = {
       [2, 'cf'],
       [3, 'gloss', 'ind'],
       [4, 'gloss', 'eng'],
-      [[5 .. 6], 'example', ['ind']], #1
-      [[7 .. 8], 'example', ['ind']], #2
-      [[9 .. 10], 'example', ['ind']], #3
-      [11, 'page_num'],
+      [5, 'sc'],
+      [[6 .. 7], 'example', ['ind']], #1
+      [[8 .. 9], 'example', ['ind']], #2
+      [[10 .. 11], 'example', ['ind']], #3
+      [12, 'page_num'],
     ],
     split_headword => ';',
     mode => 'sense_per_row',
