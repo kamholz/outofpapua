@@ -2132,6 +2132,16 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Hicks (1983)' => {
+    lang_target => 'Makasae Loihuna',
+    path => 'Hicks_1983_MakasaeLoihuno.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'nt'],
+    ],
+  },
   'Himmelmann et al. (2006)' => {
     lang_target => 'wmh',
     path => 'HimmelmannEtAl_2006_Waimaa.txt',
