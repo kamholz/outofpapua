@@ -2627,6 +2627,43 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Lekedee Study Group (2006a)' => {
+    lang_target => 'tkd',
+    path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Tokodede Likisa'
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'tet']
+      [2, 'gloss', 'eng'],
+      [3, 'et'],
+    ],
+    strip => 'to',
+  },
+  'Lekedee Study Group (2006b)' => {
+    lang_target => 'tkd',
+    path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Tokodede Maubara'
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'tet']
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
+  'Lekedee Study Group (2006c)' => {
+    lang_target => 'tkd',
+    path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Tokodede Bazartete'
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'tet']
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
+  },
   'Litamahuputty (2012)' => {
     lang_target => 'max',
     path => 'Ternate Malay/Ternate_Malay_Wordlist_reformatted.xlsx',
@@ -2723,6 +2760,18 @@ our $dict = {
     lang_target => 'mxn',
     path => 'Menick_Moi_Dictionary.txt',
     parser => 'Marker',
+  },
+  'Menick (1996)' => { #not ingested
+    lang_target => 'mxn',
+    path => 'Mencik_1996_Moi.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+    split => ',;',
+  },
   },
   'Musgrave (nd)' => {
     lang_target => 'Sou Amana Teru',
