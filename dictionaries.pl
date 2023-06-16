@@ -2634,7 +2634,7 @@ our $dict = {
     sheet => 'Tokodede Likisa',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'tet']
+      [1, 'gloss', 'tet'],
       [2, 'gloss', 'eng'],
       [3, 'et'],
     ],
@@ -2647,7 +2647,7 @@ our $dict = {
     sheet => 'Tokodede Maubara',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'tet']
+      [1, 'gloss', 'tet'],
       [2, 'gloss', 'eng'],
     ],
     strip => 'to',
@@ -2659,7 +2659,7 @@ our $dict = {
     sheet => 'Tokodede Bazartete',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'tet']
+      [1, 'gloss', 'tet'],
       [2, 'gloss', 'eng'],
     ],
     strip => 'to',
