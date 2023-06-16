@@ -2631,7 +2631,7 @@ our $dict = {
     lang_target => 'tkd',
     path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Tokodede Likisa'
+    sheet => 'Tokodede Likisa',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'tet']
@@ -2644,7 +2644,7 @@ our $dict = {
     lang_target => 'tkd',
     path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Tokodede Maubara'
+    sheet => 'Tokodede Maubara',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'tet']
@@ -2656,7 +2656,7 @@ our $dict = {
     lang_target => 'tkd',
     path => 'Lekede’eStudyGroup_2006_TokodedeDialects.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Tokodede Bazartete'
+    sheet => 'Tokodede Bazartete',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'tet']
