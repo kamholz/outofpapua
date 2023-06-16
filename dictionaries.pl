@@ -2772,7 +2772,6 @@ our $dict = {
     ],
     split => ',;',
   },
-  },
   'Musgrave (nd)' => {
     lang_target => 'Sou Amana Teru',
     path => 'Musgrave_Sou Ama Teru_Lexicon.txt',
