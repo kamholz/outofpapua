@@ -14,7 +14,7 @@
   const dispatch = createEventDispatcher();
   import { faCheckSquare, faCircle as faCircleSolid, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
-  import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
+  import { glossSummaryNoLanguage, glossesSummaryToolboxMarkup, mungePos, normalizeParam, originSummary,
     parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
@@ -309,7 +309,7 @@
             {#if editingProto}
               <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
             {:else}
-              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{glossesSummary(senses[0].glosses, $preferences)}</span>
+              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{@html glossesSummaryToolboxMarkup(senses[0].glosses, $preferences)}</span>
             {/if}
           </li>
         {:else}
@@ -320,7 +320,7 @@
               {:else}
                 <span></span>
               {/if}
-              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{glossesSummary(sense.glosses, $preferences)}</span>
+              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{@html glossesSummaryToolboxMarkup(sense.glosses, $preferences)}</span>
             </li>
           {/each}
         {/if}

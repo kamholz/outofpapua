@@ -196,6 +196,10 @@ export function glossesSummary(glosses, preferences) {
     .join('; ');
 }
 
+export function glossesSummaryToolboxMarkup(glosses, preferences) {
+  return toolboxMarkup(glossesSummary(glosses, preferences));
+}
+
 export function glossSummary({ language_code, txt }, preferences) {
   return `‘${joinGlosses(txt)}’` + maybeLanguageName(language_code, preferences);
 }
