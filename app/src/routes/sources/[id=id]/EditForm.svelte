@@ -49,6 +49,12 @@
       readonly: true,
     },
     {
+      name: 'ingestion_time',
+      label: 'Last ingested',
+      type: 'datetime',
+      readonly: true,
+    },
+    {
       name: 'note',
       label: 'Note',
       type: 'textarea',

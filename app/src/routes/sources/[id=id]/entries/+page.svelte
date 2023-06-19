@@ -2,6 +2,7 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from '../SearchForm.svelte';
   import SourceTable from '../Table.svelte';
+  import { formDisplayValue} from '$lib/util';
   import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
@@ -41,6 +42,11 @@
 {#if source.reference_full}
   <div class="info">
     <em>Original citation:</em> {source.reference_full}
+  </div>
+{/if}
+{#if source.ingestion_time}
+  <div class="info">
+    <em>Last ingested:</em> {formDisplayValue(source.ingestion_time, 'datetime')}
   </div>
 {/if}
 {#if source.note}

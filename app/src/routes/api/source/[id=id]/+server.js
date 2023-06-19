@@ -12,6 +12,7 @@ const columns = [
   'source.language_id',
   'source.note',
   'source.editable',
+  'source.ingestion_time',
   'language.name as language_name',
   knex.raw('protolanguage.id is not null as is_proto'),
 ];
