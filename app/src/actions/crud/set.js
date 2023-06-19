@@ -45,12 +45,13 @@ export async function linkEntries(entries, onSuccess) {
   onSuccess?.();
 }
 
-export async function linkSets(set, newSetId) {
-  const { set_group_id } = set;
-  if (set_group_id) {
-    await crud.update('set', { id: newSetId, values: { set_group_id } });
-  } else {
-    await crud.create('set_group', { set_ids: [set.id, newSetId] });
+export async function linkSets(set, newSet) {
+  if (set.set_group_id) { // add new set to current set's group
+    await crud.update('set', { id: newSet.id, values: { set_group_id: set.set_group_id } });
+  } else if (newSet.set_group_id) { // add current set to new set's group
+    await crud.update('set', { id: set.id, values: { set_group_id: newSet.set_group_id } });
+  } else { // create new group for both
+    await crud.create('set_group', { set_ids: [set.id, newSet.id] });
   }
 }
 

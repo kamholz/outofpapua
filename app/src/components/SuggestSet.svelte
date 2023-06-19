@@ -6,6 +6,7 @@
 
   export let entry_id = null;
   export let set_id = null;
+  export let exclude_grouped = false;
   let selection = null;
   let value = null;
 
@@ -18,7 +19,7 @@
 </script>
 
 <Svelecte
-  fetch={(search) => suggest.set({ entry_id, search, set_id })}
+  fetch={(search) => suggest.set({ entry_id, exclude_grouped, search, set_id })}
   labelField="name"
   searchField="name"
   valueField="id"

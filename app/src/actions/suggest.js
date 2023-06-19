@@ -62,13 +62,16 @@ export async function editableSource(fetch) {
   return rows.map((row) => ({ id: row.id, name: `${row.language}: ${row.reference}` }));
 }
 
-export async function set({ entry_id, search, set_id }) {
+export async function set({ entry_id, search, set_id, exclude_grouped }) {
   const params = new URLSearchParams({ search });
   if (entry_id) {
     params.set('entry_id', entry_id);
   }
   if (set_id) {
     params.set('id', set_id);
+  }
+  if (exclude_grouped) {
+    params.set('exclude_grouped', 1);
   }
   const res = await fetch('/api/set/suggest?' + params);
   if (!res.ok) {

@@ -10,10 +10,10 @@
   let promise;
 
   async function handleAdd(e) {
-    const { id } = e.detail;
+    const newSet = e.detail;
     $pageLoading++;
     try {
-      promise = crudSet.linkSets(set, id);
+      promise = crudSet.linkSets(set, newSet);
       await promise;
       dispatch('refresh');
     } catch (e) {}
@@ -31,6 +31,7 @@
     <span>Add set:</span>
     <SuggestSet
       set_id={set.id}
+      exclude_grouped={Boolean(set.set_group_id)}
       on:select={handleAdd}
     />
   </li>
