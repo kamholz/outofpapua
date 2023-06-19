@@ -233,7 +233,7 @@ EOF
 
     die 'debug' if $debug;
 
-    # bulk generate glosses/senses; re-enable triggers
+    # bulk generate glosses/senses
     $db->query(<<'EOF', $source_id);
 UPDATE sense SET glosses = sg.glosses
 FROM sense_glosses sg, entry
@@ -244,8 +244,14 @@ UPDATE entry SET senses = es.senses
 FROM entry_senses es
 WHERE entry.id = es.id AND entry.source_id = ?
 EOF
+    # re-enable triggers
     $db->query('ALTER TABLE sense_gloss ENABLE TRIGGER update_sense_glosses');
     $db->query('ALTER TABLE sense ENABLE TRIGGER update_entry_senses');
+    # update ingestion timestamp
+    $db->query(<<'EOF', $source_id);
+UPDATE source SET ingestion_time = clock_timestamp()
+WHERE id = ?
+EOF
 
     $tx->commit;
     say 'imported successfully';
