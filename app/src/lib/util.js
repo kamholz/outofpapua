@@ -351,7 +351,7 @@ export function escapeHtml(txt) {
 export function formDisplayValue(value, type) {
   if (type === 'checkbox') {
     return boolean(value);
-  } else if (type === 'datetime') {
+  } else if (type === 'timestamp') {
     return value ? new Date(value).toUTCString() : '';
   } else {
     return stringify(value);

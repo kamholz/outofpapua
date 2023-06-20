@@ -51,7 +51,7 @@
     {
       name: 'ingestion_time',
       label: 'Last ingested',
-      type: 'datetime',
+      type: 'timestamp',
       readonly: true,
     },
     {
