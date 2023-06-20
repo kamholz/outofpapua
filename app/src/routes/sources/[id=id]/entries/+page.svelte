@@ -3,10 +3,10 @@
   import SearchForm from '../SearchForm.svelte';
   import SourceTable from '../Table.svelte';
   import { formDisplayValue } from '$lib/util';
+  import { getContext, setContext } from 'svelte';
   import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
-  import { setContext } from 'svelte';
 
   export let data;
   $: ({
@@ -19,6 +19,7 @@
   const { borrowlangSuggest } = data;
   setContext('borrowlangSuggest', borrowlangSuggest);
   setContext('setSummaryCache', setSummaryCache);
+  const editable = getContext('editable');
 
   $: init($page);
 
@@ -44,7 +45,7 @@
     <em>Original citation:</em> {source.reference_full}
   </div>
 {/if}
-{#if source.ingestion_time}
+{#if editable && source.ingestion_time}
   <div class="info">
     <em>Last ingested:</em> {formDisplayValue(source.ingestion_time, 'timestamp')}
   </div>
