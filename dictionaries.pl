@@ -340,6 +340,15 @@ our $dict = {
     path => 'Baird_2003_Kafoa.txt',
     parser => 'Marker',
   },
+  'Balle (nd)' => {
+    lang_target => 'heg',
+    path => 'Balle_nd_Helong.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'mkn',
+    skip_marker => ['re', 'rr', 'rn'],
+    definition_action => 'merge',
+  },
   'Banamtuan (2021)' => {
     lang_target => 'kyo',
     path => 'Banamtuan 2021 - Klon Bring.xlsx',
