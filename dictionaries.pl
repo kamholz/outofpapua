@@ -2582,9 +2582,9 @@ our $dict = {
     split_headword => ';',
     mode => 'sense_per_row',
   },
-  'Kotynski (2022)' => {
-    lang_target => 'Tobaru',
-    path => 'Dictionary_Tabaru.txt',
+  'Kotynski (2023)' => {
+    lang_target => 'Tabaru',
+    path => 'Kotynski_2023_Tabaru.db',
     parser => 'Marker',
     strip => 'to',
     skip_marker => ['dv'],
