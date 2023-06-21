@@ -3242,6 +3242,20 @@ our $dict = {
     ],
     split => ';',
   },
+  'Saunders (2003)' => {
+    lang_target => 'Naueti Uatolari',
+    path => 'Saunders_2003_NauetiUatolari.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'tet'],
+      [3, 'lt'],
+      [4, 'et'],
+      [5, 'nt'],
+      [6, 'page_num'],
+    ],
+  },
   'Schapper (2020)' => {
     lang_target => 'kvw',
     path => 'Schapper 2020 - Wersing Peitoko.txt',
