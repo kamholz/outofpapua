@@ -1741,7 +1741,7 @@ our $dict = {
   },
   'Ferreira (2005)' => {
     lang_target => 'idt', #Idate
-    path => 'Ferreira_2005_Idate',
+    path => 'Ferreira_2005_Idate.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
