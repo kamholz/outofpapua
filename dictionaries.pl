@@ -1739,6 +1739,19 @@ our $dict = {
       [6, 'page_num'],
     ],
   },
+  'Ferreira (2005)' => {
+    lang_target => 'idt', #Idate
+    path => 'Ferreira_2005_Idate',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'tet'],
+      [2, 'gloss', 'eng'],
+      [3, 'et'],
+      [4, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
     path => 'Flassy 1977-78 Tehit.txt',
