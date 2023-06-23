@@ -134,10 +134,17 @@ sub print_toolbox_records {
   }
 }
 
+my %SKIPPABLE = (
+  headword => 1,
+  record => 1,
+  subentry => 1,
+  page_num => 1,
+);
+
 sub push_entry {
   my ($self, $entries, $entry) = @_;
 
-  if (any { $_ ne 'headword' and $_ ne 'record' } keys %{$entry||{}}) {
+  if (any { !$SKIPPABLE{$_} } keys %{$entry||{}}) {
     if (!ref $entry->{headword} and !length $entry->{headword}) {
       say "warning: empty headword";
       return;
