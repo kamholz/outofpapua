@@ -40,7 +40,7 @@ export const POST = requireEditor(async ({ params }) => {
     if (error) {
       return error;
     } else {
-      knex.raw('select repopulate_set_details_cached()').then(() => {});
+      knex.raw('call repopulate_set_details_cached2()').then(() => {});
       return new Response(null);
     }
   } catch (e) {
