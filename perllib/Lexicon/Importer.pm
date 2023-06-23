@@ -510,7 +510,7 @@ sub delete_source {
 sub refresh_cache {
   my ($self) = @_;
   say 'refreshing cache...';
-  $self->db->query('SELECT repopulate_set_details_cached()');
+  $self->db->query('CALL repopulate_set_details_cached()');
 }
 
 sub make_source_formatting {
