@@ -4945,6 +4945,20 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Sneddon (1984)' => {
+    lang_target => 'Proto-Sangiric',
+    path => 'Sneddon_1984_ProtoSangiric.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'note'],
+      [4, 'note', 'see footnote'],
+      [5, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Soeparno (1977a)' => {
     lang_target => 'bhw',
     path => 'Biak dictionary.xlsx',
