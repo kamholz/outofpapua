@@ -4947,7 +4947,7 @@ our $dict = {
   },
   'Sneddon (1984)' => {
     lang_target => 'Proto-Sangiric',
-    path => 'Sneddon_1984_ProtoSangiric.xlsx',
+    path => 'Sneddon_1984_ProtoSangir.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
