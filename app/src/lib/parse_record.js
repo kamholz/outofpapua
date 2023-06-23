@@ -236,6 +236,18 @@ export function parseRecord(data, formatting) {
         }
         mergeTranslations(s);
       }
+
+      // remove empty senses
+      entry.sense = entry.sense.filter((sense) => {
+        let numKeys = Object.keys(sense).length;
+        if (Object.keys(sense.translation).length === 0) {
+          numKeys--;
+        }
+        return numKeys;
+      });
+      if (!entry.sense.length) {
+        delete entry.sense;
+      }
     }
   }
 
