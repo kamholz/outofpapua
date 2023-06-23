@@ -3281,6 +3281,12 @@ our $dict = {
     split => ';',
     definition_action => 'merge',
   },
+  'Schapper (2022c)' => {
+    lang_target => 'Irires',
+    path => 'Schapper_2022c_Irires.txt',
+    parser => 'Marker',
+    split => ';',
+  },
   'Schapper & Manimau (2011)' => { #not ingested due to unsolved error
     lang_target => 'woi',
     path => 'SchapperManimau2011_Kamang.txt',
