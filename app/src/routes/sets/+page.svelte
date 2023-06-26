@@ -40,6 +40,9 @@
 </svelte:head>
 
 <h2>Search sets</h2>
+<!-- <div class="link">
+  <a href="/sets/export">Export sets</a>
+</div> -->
 <SearchForm
   {query}
 />
@@ -71,5 +74,9 @@
 
   .controls {
     margin-block: var(--item-sep);
+  }
+
+  .link {
+    margin-block-end: var(--item-sep);
   }
 </style>

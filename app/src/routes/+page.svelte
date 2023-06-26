@@ -79,13 +79,14 @@
 </svelte:head>
 
 <h2>Search entries</h2>
-<div class="link">
-  <a href="/records">Search entry records</a>
-</div>
 <SearchForm
   {query}
 />
+<div class="link">
+  <a href="/records">Search entry records</a>
+</div>
 {#if rows}
+  <hr>
   <div class="container">
     {#if rows.length}
       <div class="controls">
@@ -118,6 +119,10 @@
 {/if}
 
 <style lang="scss">
+  hr {
+    margin-block-start: var(--item-sep);
+  }
+
   .container {
     display: inline-block;
   }
@@ -129,6 +134,6 @@
   }
 
   .link {
-    margin-block-end: var(--item-sep);
+    margin-block-start: var(--item-sep);
   }
 </style>
