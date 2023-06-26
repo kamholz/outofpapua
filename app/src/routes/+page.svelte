@@ -79,21 +79,21 @@
 </svelte:head>
 
 <h2>Search entries</h2>
+<div class="link">
+  <a href="/records">Search entry records</a>
+</div>
 <SearchForm
   {query}
 />
-
 {#if rows}
   <div class="container">
-    <div class="controls">
-      <div>
-        Total found: {rowCount}
-      </div>
-      {#if rows.length}
-        <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
-      {/if}
-    </div>
     {#if rows.length}
+      <div class="controls">
+        <div>
+          Total found: {rowCount}
+        </div>
+        <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
+      </div>
       {#if promise}
         {#await promise catch { message }}
           <Alert type="error">{message}</Alert>
@@ -126,5 +126,9 @@
     margin-block: var(--item-sep);
     display: flex;
     justify-content: space-between;
+  }
+
+  .link {
+    margin-block-end: var(--item-sep);
   }
 </style>
