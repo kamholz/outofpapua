@@ -2098,6 +2098,22 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
+  'Hull (2001)' => {
+    lang_target => 'mgm',
+    path => 'Hull2004_MakasaeBaucau.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'eng'],
+      [[4 .. 5], 'example', ['eng']],
+      [6, 'page_num'],
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Hull (2004)' => {
     lang_target => 'Makasae Baucau',
     path => 'Hull2004_MakasaeBaucau.xlsx',
