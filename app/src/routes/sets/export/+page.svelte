@@ -9,7 +9,7 @@
     query,
     sets,
   } = data);
-  $: ancestors = language.ancestors && new Set(language.ancestors);
+  $: ancestors = language?.ancestors && new Set(language.ancestors);
   const {
     protolangSuggest,
   } = data;
