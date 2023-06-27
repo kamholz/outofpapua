@@ -1899,7 +1899,7 @@ our $dict = {
   },
   'Fortgens (1921)' => { #not ingested
     lang_target => 'tlv',
-    path => 'Fortgens_1921-Taliabo.xlsx',
+    path => 'Fortgens_1921_Taliabo.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
