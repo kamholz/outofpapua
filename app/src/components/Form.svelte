@@ -1,6 +1,5 @@
 <script>
   import Checkbox from '$components/Form/Checkbox.svelte';
-  import CheckboxInline from '$components/Form/CheckboxInline.svelte';
   import Email from '$components/Form/Email.svelte';
   import Password from '$components/Form/Password.svelte';
   import Radio from '$components/Form/Radio.svelte';
@@ -32,7 +31,6 @@
 
   const fieldComponent = {
     checkbox: Checkbox,
-    checkbox_inline: CheckboxInline,
     email: Email,
     password: Password,
     radio: Radio,
@@ -109,13 +107,9 @@
             {formDisplayValue(values[field.name], field.type)}
           </span>
         {:else}
-          {#if field.type === 'checkbox_inline'}
-            <span></span>
-          {:else}
-            <label for={field.name} class="label" transition:slide={{ duration: 200 }}>
-              {@html field.label}:
-            </label>
-          {/if}
+          <label for={field.name} class="label" transition:slide={{ duration: 200 }}>
+            {@html field.label}:
+          </label>
           <svelte:component
             this={fieldComponent[field.type]}
             {field}
