@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW language_ancestors AS
+SELECT
+  language.id,
+  ancestor.id AS ancestor_id,
+  ancestor.parent_ids AS ancestors
+FROM language
+LEFT JOIN LATERAL (
+  WITH RECURSIVE ancestor(id, parent_id, parent_ids) AS (
+    SELECT language2.id,
+      language2.parent_id,
+      CASE WHEN language2.parent_id IS NULL THEN NULL ELSE ARRAY[language2.parent_id] END
+    FROM language language2
+    WHERE language2.id = language.id
+    UNION ALL
+    SELECT language2.id, language2.parent_id,
+      CASE WHEN language2.parent_id IS NULL THEN ancestor.parent_ids ELSE ancestor.parent_ids || language2.parent_id END
+    FROM ancestor
+    JOIN language language2 ON language2.id = ancestor.parent_id
+  )
+  SELECT ancestor.id, ancestor.parent_ids
+  FROM ancestor
+  JOIN language ON language.id = ancestor.id
+  WHERE ancestor.parent_id IS NULL
+) ancestor ON true;
