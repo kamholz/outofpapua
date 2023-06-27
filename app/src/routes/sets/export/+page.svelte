@@ -9,7 +9,6 @@
     query,
     sets,
   } = data);
-  $: ancestors = language?.ancestors && new Set(language.ancestors);
   const {
     protolangSuggest,
   } = data;
@@ -51,7 +50,7 @@
   </div>
   {#each sets as set}
     <hr>
-    <ExportSet {set} {ancestors} {includeDescendants} {includeBorrowed} {includeAncestors} />
+    <ExportSet {set} {includeDescendants} {includeBorrowed} {includeAncestors} />
   {/each}
 {/if}
 

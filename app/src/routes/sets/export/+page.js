@@ -15,6 +15,7 @@ export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => 
   }
 
   if (query.protolang) {
+    query.protolang = Number(query.protolang);
     const res = await fetch('/api/set/export' + serializeQuery(query));
     if (!res.ok) {
       throw error(500);
