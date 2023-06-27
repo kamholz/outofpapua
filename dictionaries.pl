@@ -2100,7 +2100,7 @@ our $dict = {
   },
   'Hull (2001)' => {
     lang_target => 'mgm',
-    path => 'Hull2004_MakasaeBaucau.xlsx',
+    path => 'Hull_2001_MambaeAinaro.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
