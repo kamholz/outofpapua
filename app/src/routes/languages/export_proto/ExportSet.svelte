@@ -1,20 +1,13 @@
 <script>
-  import ExportSetMember from "./ExportSetMember.svelte";
+  import ExportSetMember from './ExportSetMember.svelte';
+  import { getContext } from 'svelte';
+  const settings = getContext('settings');
 
   export let set;
-  export let includeDescendants;
-  export let includeBorrowed;
-  export let includeAncestors;
 </script>
 
 <div>
-  <h4>{set.headword.entry.headword}</h4>
-
-  {#each set.members.self as member}
-    <ExportSetMember {member} />
-  {/each}
-
-  {#if includeAncestors && set.members.ancestor.length}
+  {#if $settings.includeAncestors && set.members.ancestor.length}
     <div class="heading">
       Ancestors:
     </div>
@@ -23,7 +16,7 @@
     {/each}
   {/if}
 
-  {#if includeDescendants && set.members.descendant.length}
+  {#if $settings.includeDescendants && set.members.descendant.length}
     <div class="heading">
       Descendants:
     </div>
@@ -32,7 +25,7 @@
     {/each}
   {/if}
 
-  {#if includeBorrowed && set.members.borrowed.length}
+  {#if $settings.includeBorrowed && set.members.borrowed.length}
     <div class="heading">
       Borrowed:
     </div>

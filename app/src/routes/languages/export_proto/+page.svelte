@@ -1,13 +1,14 @@
 <script>
   import SearchForm from './SearchForm.svelte';
-  import ExportSet from './ExportSet.svelte';
+  import ExportEntry from './ExportEntry.svelte';
   import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
   export let data;
   $: ({
-    language,
     query,
-    sets,
+    language,
+    entries,
   } = data);
   const {
     protolangSuggest,
@@ -15,9 +16,12 @@
   setContext('protolangSuggest', protolangSuggest);
   setContext('language', language);
 
-  let includeDescendants = false;
-  let includeBorrowed = false;
-  let includeAncestors = false;
+  const settings = writable({
+    includeDescendants: false,
+    includeBorrowed: false,
+    includeAncestors: false,
+  });
+  setContext('settings', settings);
 </script>
 
 <svelte:head>
@@ -29,28 +33,28 @@
   {query}
 />
 
-{#if sets}
+{#if entries}
   <div class="settings">
     <h4>Settings</h4>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={includeDescendants} name="include_descendants" id="include_descendants">
+      <input type="checkbox" bind:checked={$settings.includeDescendants} name="include_descendants" id="include_descendants">
       <label for="include_descendants">Include descendant forms</label>
     </div>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={includeBorrowed} name="include_borrowed" id="include_borrowed">
+      <input type="checkbox" bind:checked={$settings.includeBorrowed} name="include_borrowed" id="include_borrowed">
       <label for="include_borrowed">Include borrowed forms</label>
     </div>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={includeAncestors} name="include_ancestors" id="include_ancestors">
+      <input type="checkbox" bind:checked={$settings.includeAncestors} name="include_ancestors" id="include_ancestors">
       <label for="include_ancestors">Include ancestor forms</label>
     </div>
   </div>
-  {#each sets as set}
+  {#each entries as entry}
     <hr>
-    <ExportSet {set} {includeDescendants} {includeBorrowed} {includeAncestors} />
+    <ExportEntry {entry} />
   {/each}
 {/if}
 
