@@ -2098,7 +2098,7 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
-  'Hull (2001)' => { #not ingested due to unknown error
+  'Hull (2001)' => {
     lang_target => 'mgm',
     path => 'Hull_2001_MambaeAinaro.xlsx',
     parser => 'Spreadsheet',
@@ -5352,7 +5352,7 @@ our $dict = {
     strip => 'to',
     split_headword => ';',
   },
-  'Stokhof (1980h)' => {
+  'Stokhof (1980h)' => { 
     lang_target => 'Gane',
     path => 'spreadsheets/Stokhof/Gane 172 (x 760).xlsx',
     parser => 'Spreadsheet',
@@ -5370,7 +5370,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to', '(to)',
   },
-  'Stokhof (1980i)' => {
+  'Stokhof (1980i)' => { 
     lang_target => 'mqa',
     path => 'spreadsheets/Stokhof/Maba 168 (x 919).xlsx',
     parser => 'Spreadsheet',
