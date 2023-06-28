@@ -24,41 +24,43 @@ export const GET = requireAuth(async ({ params }) => {
       const ancestors = new Set(language.ancestors || []);
       const descendants = new Set(language.descendants || []);
 
-      const subq = trx('entry')
-        .join('source', 'source.id', 'entry.source_id')
+      const q = trx('entry')
+        .whereExists(function () {
+          this.select('*').from('source')
+          .where('source.id', knex.ref('entry.source_id'))
+          .where('source.language_id', protolangId)
+        })
+        .joinRaw(`
+          JOIN LATERAL (
+            SELECT json_agg(
+              json_build_object(
+                'id', set.id,
+                'name', ${name_auto},
+                'author_name', sd.author_name,
+                'members', sd.members
+              )
+              order by ${name_auto}
+            ) as sets
+            FROM set
+            JOIN set_details_cached sd ON sd.id = set.id
+            WHERE EXISTS (
+              SELECT FROM set_member sm WHERE sm.set_id = set.id AND sm.entry_id = entry.id
+            )
+          ) s ON TRUE
+        `)
         .join('set_member as sm', 'sm.entry_id', 'entry.id')
         .join('set', 'set.id', 'sm.set_id')
         .join('set_details_cached as sd', 'sd.id', 'set.id')
         .select(
           'entry.id',
           'entry.headword',
-          'entry.headword_degr',
-          'set.id as set_id',
-          knex.raw(`${name_auto} as set_name`),
-          'sd.author_name as set_author_name',
-          'sd.members as set_members'
+          'entry.senses',
+          's.sets'
         )
-        .where('source.language_id', protolangId);
-
-      const q = trx
-        .from(subq.as('entry'))
-        .select(
-          'entry.id',
-          'entry.headword',
-          knex.raw(`json_agg(
-            json_build_object(
-              'id', entry.set_id,
-              'name', entry.set_name,
-              'author_name', entry.set_author_name,
-              'members', entry.set_members
-            )
-            order by entry.set_name
-          ) as sets`)
-        )
-        .groupBy('entry.id', 'entry.headword', 'entry.headword_degr')
         .orderBy('entry.headword_degr')
         .orderBy('entry.headword')
         .orderBy('entry.id');
+
       const entries = await q;
 
       for (const entry of entries) {

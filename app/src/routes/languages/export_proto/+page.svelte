@@ -17,7 +17,7 @@
   setContext('language', language);
 
   const settings = writable({
-    includeDescendants: false,
+    includeDescendants: true,
     includeBorrowed: false,
     includeAncestors: false,
   });
