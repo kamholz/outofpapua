@@ -69,7 +69,6 @@
   submitLabel="Compare"
   clearable
   browserSubmit
-  help={RegexHelp}
   style="--form-width: 35em; --label-width: 30%;"
   on:beforesubmit={handleValidation}
 >
@@ -82,5 +81,9 @@
       type="button"
       on:click={swapLanguages}
     >Swap Languages</button>
+  </svelte:fragment>
+
+  <svelte:fragment slot="controls">
+    <RegexHelp />
   </svelte:fragment>
 </Form>

@@ -117,11 +117,24 @@
   submitLabel="Search"
   clearable
   browserSubmit
-  help={RegexHelp}
   style="--form-width: 40em; --label-width: 23.5%; --checkbox-width: 5em;"
   on:change={handleChange}
 >
   <svelte:fragment slot="hidden">
     <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
   </svelte:fragment>
+  <div slot="controls">
+    <RegexHelp />
+    <span></span>
+    <a href="/records">Search entry records</a>
+    <span></span>
+  </div>
 </Form>
+
+<style>
+  div {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

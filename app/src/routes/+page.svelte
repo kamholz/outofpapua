@@ -82,11 +82,7 @@
 <SearchForm
   {query}
 />
-<div class="link">
-  <a href="/records">Search entry records</a>
-</div>
 {#if rows}
-  <hr>
   <div class="container">
     {#if rows.length}
       <div class="controls">
@@ -131,9 +127,5 @@
     margin-block: var(--item-sep);
     display: flex;
     justify-content: space-between;
-  }
-
-  .link {
-    margin-block-start: var(--item-sep);
   }
 </style>

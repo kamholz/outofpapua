@@ -17,7 +17,6 @@
   export let values = {};
   export let submitLabel = null;
   export let clearable = false;
-  export let help = null;
   export let action = null;
   export let method = null;
   export let browserSubmit = false;
@@ -122,7 +121,7 @@
       {/if}
     {/each}
   </div>
-  {#if submitLabel || help}
+  {#if submitLabel || $$slots.controls}
     <div class="controls">
       <div class="buttons">
         {#if submitLabel}
@@ -133,9 +132,7 @@
         {/if}
         <slot name="buttons" />
       </div>
-      {#if help}
-        <svelte:component this={help} />
-      {/if}
+      <slot name="controls" />
     </div>
   {/if}
   <slot name="hidden" />

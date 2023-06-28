@@ -59,8 +59,6 @@ export const GET = requireAuth(async ({ params }) => {
         .orderBy('entry.headword_degr')
         .orderBy('entry.headword')
         .orderBy('entry.id');
-
-      console.log(q.toString());
       const entries = await q;
 
       for (const entry of entries) {
