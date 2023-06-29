@@ -7,7 +7,7 @@
 </script>
 
 <div>
-  {#if $settings.includeAncestors && set.members.ancestor.length}
+  {#if $settings.include_ancestors && set.members.ancestor.length}
     <div class="heading">
       Ancestors:
     </div>
@@ -16,7 +16,7 @@
     {/each}
   {/if}
 
-  {#if $settings.includeDescendants && set.members.descendant.length}
+  {#if $settings.include_descendants && set.members.descendant.length}
     <div class="heading">
       Descendants:
     </div>
@@ -25,7 +25,7 @@
     {/each}
   {/if}
 
-  {#if $settings.includeBorrowed && set.members.borrowed.length}
+  {#if $settings.include_borrowed && set.members.borrowed.length}
     <div class="heading">
       Borrowed:
     </div>

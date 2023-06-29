@@ -1,10 +1,20 @@
 import { error } from '@sveltejs/kit';
-import { normalizeQuery, serializeQuery } from '$lib/util';
+import { normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
 
+const boolean = new Set(['include_descendants', 'borrowed', 'include_descendants']);
+
+const defaults = {
+  include_descendants: true,
+  include_borrowed: false,
+  include_ancestors: false,
+};
+
 export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => {
-  const query = normalizeQuery(searchParams);
+  let query = normalizeQuery(searchParams);
+  parseBooleanParams(query, boolean);
+  query = { ...defaults, ...query };
 
   const data = {
     protolangSuggest: await suggest.protolang(fetch),
