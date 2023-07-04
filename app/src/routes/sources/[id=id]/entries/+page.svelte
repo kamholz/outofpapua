@@ -2,10 +2,10 @@
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from '../SearchForm.svelte';
   import SourceTable from '../Table.svelte';
-  import { getContext, setContext } from 'svelte';
   import { invalidateAll } from '$app/navigation';
   import { page } from '$app/stores';
   import { pageLoading, setSummaryCache } from '$lib/stores';
+  import { setContext } from 'svelte';
 
   export let data;
   $: ({
@@ -18,7 +18,6 @@
   const { borrowlangSuggest } = data;
   setContext('borrowlangSuggest', borrowlangSuggest);
   setContext('setSummaryCache', setSummaryCache);
-  const editable = getContext('editable');
 
   $: init($page);
 

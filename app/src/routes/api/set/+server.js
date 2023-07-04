@@ -8,7 +8,7 @@ import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNum
 import { requireAuth, requireComparative } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
-  'headword_ipa', 'headword_ipa_exact', 'lang', 'lang_all', 'note', 'page', 'pagesize', 'sort', 'source']);
+  'headword_ipa', 'headword_ipa_exact', 'lang', 'lang_all', 'name', 'note', 'page', 'pagesize', 'sort', 'source']);
 const boolean = new Set(['asc', 'headword_exact', 'headword_ipa_exact', 'lang_all']);
 const arrayParams = new Set(['lang']);
 const arrayNumParams = new Set(['glosslang', 'source']);
@@ -83,6 +83,11 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
   if ('source' in query) {
     existsq.where('entry.source_id', arrayCmp(query.source));
     existsqNeeded = true;
+  }
+
+  if ('name' in query) {
+    const name = mungeRegex(query.name);
+    q.where(knex.raw("sd.name_auto ->> 'txt'"), '~*', name);
   }
 
   if ('note' in query) {

@@ -16,7 +16,7 @@ export const GET = requireAuth(async ({ params }) => {
           'language.id',
           'language.name',
           'language.ancestors',
-          'language.descendants',
+          'language.descendants'
         );
       if (!language) {
         throw new Error('protolang not found');
@@ -28,7 +28,7 @@ export const GET = requireAuth(async ({ params }) => {
         .whereExists(function () {
           this.select('*').from('source')
           .where('source.id', knex.ref('entry.source_id'))
-          .where('source.language_id', protolangId)
+          .where('source.language_id', protolangId);
         })
         .joinRaw(`
           JOIN LATERAL (

@@ -98,7 +98,7 @@ export async function GET({ locals, url: { searchParams } }) {
     'source.reference as source_reference',
     'source.editable as source_editable',
     'source.formatting as source_formatting',
-    knex.raw(`${setIds('entry.id')} as set_ids`),
+    knex.raw(`${setIds('entry.id')} as set_ids`)
   );
 
   if ('record' in query) {

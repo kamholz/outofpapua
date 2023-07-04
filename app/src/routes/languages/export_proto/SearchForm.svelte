@@ -13,7 +13,7 @@
       label: 'Proto-language',
       type: 'suggest',
       options: protolangSuggest,
-    }
+    },
   ];
 </script>
 

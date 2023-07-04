@@ -1,6 +1,6 @@
 <script>
-  import SearchForm from './SearchForm.svelte';
   import ExportEntry from './ExportEntry.svelte';
+  import SearchForm from './SearchForm.svelte';
   import { browser } from '$app/environment';
   import { onDestroy, setContext } from 'svelte';
   import { page } from '$app/stores';
@@ -42,10 +42,8 @@
             if (currentQueryString.get(key) !== '1') {
               changed = true;
             }
-          } else {
-            if (currentQueryString.has(key)) {
-              changed = true;
-            }
+          } else if (currentQueryString.has(key)) {
+            changed = true;
           }
         }
 

@@ -37,6 +37,11 @@
       type: 'text',
     },
     {
+      name: 'name',
+      label: 'Set Name',
+      type: 'text',
+    },
+    {
       name: 'author_id',
       label: 'Set Author',
       type: 'suggest',
