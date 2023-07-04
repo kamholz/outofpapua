@@ -14,6 +14,9 @@
 
 <style lang="scss">
   hr {
+    background-color: gray;
+    height: 1px;
+    border: 0;
     margin-block: 60px 14px;
   }
 
