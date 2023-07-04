@@ -6383,7 +6383,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-'Voorhoeve (nd)' => {
+'Voorhoeve (nd a)' => {
     lang_target => 'asi',
     path => 'Voorhoevend_nd_Buruwai.xlsx',
     parser => 'Spreadsheet',
@@ -6401,6 +6401,35 @@ our $dict = {
       [[12 .. 13], 'example', ['eng']], #3
       [[14 .. 15], 'example', ['eng']], #4
       [[16 .. 17], 'example', ['eng']], #5
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
+  'Voorhoeve (nd b)' => {
+    lang_target => 'irx',
+    path => 'Voorhoeve_nd_KamrauUbia-Sermuku.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'nt', 'same as/also:'],
+      [5, 'va'],
+      [6, 'et'],
+      [7, 'cf'],
+      [[8 .. 9], 'example', ['eng']], #1
+      [[10 .. 11], 'example', ['eng']], #2
+      [[12 .. 13], 'example', ['eng']], #3
+      [[14 .. 15], 'example', ['eng']], #4
+      [[16 .. 17], 'example', ['eng']], #5
+      [[18 .. 19], 'example', ['eng']], #6
+      [[20 .. 21], 'example', ['eng']], #7
+      [[22 .. 23], 'example', ['eng']], #8
+      [[24 .. 25], 'example', ['eng']], #9
+      [[26 .. 27], 'example', ['eng']], #10
+      [[28 .. 29], 'example', ['eng']], #11
     ],
     split_headword => ';',
     mode => 'sense_per_row',
