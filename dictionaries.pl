@@ -6388,8 +6388,8 @@ our $dict = {
     path => 'Voorhoevend_nd_Buruwai.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'subentry'],
-      [1, 'headword'],
+      [1, 'subentry'],
+      [0, 'headword'],
       [2, 'gloss', 'eng'],
       [3, 'gloss', 'ind'],
       [4, 'va'],
