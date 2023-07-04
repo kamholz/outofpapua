@@ -37,6 +37,10 @@
       text-align: center;
       gap: 10px;
       width: 53%;
+
+      span {
+        line-height: 1.4;
+      }
     }
   }
 </style>
