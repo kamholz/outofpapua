@@ -6383,6 +6383,29 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
+'Voorhoeve (nd)' => {
+    lang_target => 'asi',
+    path => 'Voorhoevend_nd_Buruwai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'subentry'],
+      [1, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'va'],
+      [5, 'mr'],
+      [6, 'et'],
+      [7, 'cf']
+      [[8 .. 9], 'example', ['eng']], #1
+      [[10 .. 11], 'example', ['eng']], #2
+      [[12 .. 13], 'example', ['eng']], #3
+      [[14 .. 15], 'example', ['eng']], #4
+      [[16 .. 17], 'example', ['eng']], #5
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Voorhoeve (1975a)' => {
     lang_target => 'yva',
     path => 'spreadsheets/7-Yawa small word list Anceaux.xlsx',
