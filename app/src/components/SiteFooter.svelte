@@ -14,20 +14,21 @@
 
 <style lang="scss">
   hr {
-    margin-block: 60px 20px;
+    margin-block: 60px 14px;
   }
 
   footer {
+    font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     .logo {
-      width: 70px;
+      width: 50px;
     }
 
     .cc {
-      width: 100px;
+      width: 90px;
     }
 
     > :nth-child(2) {
