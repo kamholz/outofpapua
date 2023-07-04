@@ -37,7 +37,8 @@
       align-items: center;
       text-align: center;
       gap: 10px;
-      width: 53%;
+      width: 40%;
+      max-width: 550px;
 
       span {
         line-height: 1.4;
