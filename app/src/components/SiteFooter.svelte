@@ -1,10 +1,10 @@
 <hr>
 <footer>
   <a href="https://outofpapua.com">
-    <img class="logo" src="/logo.png" alt="OUTOFPAPUA logo">
+    <img src="/logo.png" alt="OUTOFPAPUA logo">
   </a>
   <div>
-    <img class="cc" src="/cc-by-nc.png" alt="CC-BY-NC">
+    <img src="/cc-by-nc.png" alt="CC-BY-NC">
     <span>
       OUTOFPAPUA database edited by David Kamholz and Antoinette Schapper is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
     </span>
@@ -26,12 +26,11 @@
     align-items: center;
     justify-content: space-between;
 
-    .logo {
-      width: 50px;
-    }
-
-    .cc {
-      width: 90px;
+    > a {
+      align-self: flex-start;
+      > img {
+        width: 50px;
+      }
     }
 
     > :nth-child(2) {
@@ -40,10 +39,14 @@
       align-items: center;
       text-align: center;
       gap: 10px;
-      width: 40%;
-      max-width: 550px;
+      width: 400px;
+      max-width: 50%;
 
-      span {
+      > img {
+        width: 90px;
+      }
+
+      > span {
         line-height: 1.4;
       }
     }
