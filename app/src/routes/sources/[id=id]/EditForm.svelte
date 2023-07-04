@@ -56,6 +56,14 @@
   ];
 
   if (editable) {
+    fields.splice(-1, 0,
+      {
+        name: 'ingestion_time',
+        label: 'Last ingested',
+        type: 'timestamp',
+        readonly: true,
+      }
+    );
     fields.push(
       {
         name: 'public',
