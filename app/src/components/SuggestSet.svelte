@@ -26,6 +26,7 @@
   clearable
   searchable
   placeholder=""
+  disableSifter
   bind:value
   bind:readSelection={selection}
   on:change={handleSelect}
