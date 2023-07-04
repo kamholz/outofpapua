@@ -1,7 +1,11 @@
 import { checkError } from '$lib/util';
 
-export async function create({ set_id, values }) {
-  const res = await fetch(`/api/set/${set_id}/member`, {
+export async function create({ set_id, other_set_id, values }) {
+  let url = `/api/set/${set_id}/member`;
+  if (other_set_id) {
+    url += `?other_set_id=${other_set_id}`;
+  }
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

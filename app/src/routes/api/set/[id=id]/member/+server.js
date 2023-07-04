@@ -1,16 +1,20 @@
 import errors from '$lib/errors';
-import { getFilteredParams, jsonError } from '$lib/util';
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
+import { getFilteredParams, isId, jsonError } from '$lib/util';
 import { knex, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
 const allowed = new Set(['entry_id', 'note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 const required = new Set(['entry_id']);
 
-export const POST = requireAuth(async ({ locals, params, request }) => {
+export const POST = requireAuth(async ({ locals, params, request, url: { searchParams } }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return jsonError(errors.missing);
+  }
+  const otherSetId = searchParams.get('other_set_id');
+  if (otherSetId && !isId(otherSetId)) {
+    throw error(400);
   }
   try {
     insertParams.set_id = params.id;
@@ -23,6 +27,9 @@ export const POST = requireAuth(async ({ locals, params, request }) => {
       // .onConflict(['entry_id', 'set_id'])
       // .merge([...]);
       await trx.raw('select repopulate_set_details_cached_for_set(?)', [params.id]);
+      if (otherSetId) {
+        await trx.raw('select repopulate_set_details_cached_for_set(?)', [otherSetId]);
+      }
       return rows[0].id;
     });
     return json({ entry_id: id });

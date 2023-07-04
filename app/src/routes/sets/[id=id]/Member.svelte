@@ -205,7 +205,11 @@
     $pageLoading++;
     let promise;
     try {
-      promise = promises.pending.link = crudSetMember.create({ set_id: id, values: { entry_id: entry.id } });
+      promise = promises.pending.link = crudSetMember.create({
+        set_id: id,
+        other_set_id: set.id,
+        values: { entry_id: entry.id },
+      });
       await promise;
       dispatch('refresh');
     } catch (e) {}
