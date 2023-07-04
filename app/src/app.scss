@@ -44,8 +44,8 @@ h3 {
 }
 
 hr {
-  background-color: #555;
-  height: 2px;
+  background-color: gray;
+  height: 3px;
   border: 0;
 }
 
@@ -101,7 +101,8 @@ form {
 
 .notfound {
   font-style: italic;
-  margin-block: var(--item-sep);
+  // margin-block: var(--item-sep);
+  margin-block-start: var(--item-sep);
 }
 
 .borrowed {

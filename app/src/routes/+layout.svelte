@@ -5,6 +5,7 @@
   import ModalContent from '$components/Modal/Content.svelte';
   import NavBar from '$components/NavBar.svelte';
   import PageContext from '$components/PageContext.svelte';
+  import SiteFooter from '$components/SiteFooter.svelte';
   import SiteHeading from '$components/SiteHeading.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
@@ -38,3 +39,4 @@
   </div>
 {/key}
 </main>
+<SiteFooter />
