@@ -202,11 +202,11 @@ function glossSummary({ language_code, txt }, preferences) {
   return `‘${joinGlosses(txt)}’` + maybeLanguageName(language_code, preferences);
 }
 
-export function glossesSummaryNoLanguage(glosses) {
-  return glosses
-    .map((gloss) => glossSummaryNoLanguage(gloss))
-    .join('; ');
-}
+// export function glossesSummaryNoLanguage(glosses) {
+//   return glosses
+//     .map((gloss) => glossSummaryNoLanguage(gloss))
+//     .join('; ');
+// }
 
 export function glossesSummaryPreferred(glosses) {
   return glosses

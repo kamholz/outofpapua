@@ -1,12 +1,12 @@
 <script>
   import Glosses from '$components/Glosses.svelte';
+  import Reflex from '$components/Reflex.svelte';
 
   export let member;
-  $: glosses = member.entry.senses?.[0]?.glosses;
 </script>
 
 <div>
-  {member.language.name} <em>{member.entry.headword}</em> <Glosses {glosses} language={false} />
+  {member.language.name} <Reflex reflex={member.reflex} headword={member.entry.headword} space={false} /> <Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />
 </div>
 
 <style>

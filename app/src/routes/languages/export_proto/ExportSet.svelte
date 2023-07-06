@@ -7,19 +7,7 @@
 </script>
 
 <div>
-  {#if $settings.include_ancestors && set.members.ancestor.length}
-    <h4>
-      Ancestors:
-    </h4>
-    {#each set.members.ancestor as member}
-      <ExportSetMember {member} />
-    {/each}
-  {/if}
-
   {#if $settings.include_descendants && set.members.descendant.length}
-    <h4>
-      Descendants:
-    </h4>
     {#each set.members.descendant as member}
       <ExportSetMember {member} />
     {/each}
@@ -37,6 +25,7 @@
 
 <style>  
   div {
-    margin-inline-start: 40px;
+    margin-block-start: 8px;
+    margin-inline-start: 24px;
   }
 </style>

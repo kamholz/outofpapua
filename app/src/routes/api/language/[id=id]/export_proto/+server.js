@@ -86,6 +86,11 @@ export const GET = requireAuth(async ({ params }) => {
               list.push(member);
             }
           }
+
+          if (ancestor.length) {
+            ancestor.reverse();
+          }
+
           set.members = { ancestor, descendant, borrowed, other };
         }
       }
