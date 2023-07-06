@@ -8,27 +8,27 @@
 
 <div>
   {#if $settings.include_ancestors && set.members.ancestor.length}
-    <div class="heading">
+    <h4>
       Ancestors:
-    </div>
+    </h4>
     {#each set.members.ancestor as member}
       <ExportSetMember {member} />
     {/each}
   {/if}
 
   {#if $settings.include_descendants && set.members.descendant.length}
-    <div class="heading">
+    <h4>
       Descendants:
-    </div>
+    </h4>
     {#each set.members.descendant as member}
       <ExportSetMember {member} />
     {/each}
   {/if}
 
   {#if $settings.include_borrowed && set.members.borrowed.length}
-    <div class="heading">
+    <h4>
       Borrowed:
-    </div>
+    </h4>
     {#each set.members.borrowed as member}
       <ExportSetMember {member} />
     {/each}
@@ -36,8 +36,7 @@
 </div>
 
 <style>  
-  .heading {
-    text-decoration: underline;
-    margin-block-start: 14px;
+  div {
+    margin-inline-start: 40px;
   }
 </style>

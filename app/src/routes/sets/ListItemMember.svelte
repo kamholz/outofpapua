@@ -3,7 +3,7 @@
   import EntryLink from '$components/EntryLink.svelte';
   import Reflex from '$components/Reflex.svelte';
   import { getContext } from 'svelte';
-  import { glossesSummaryToolboxMarkup } from '$lib/util';
+  import { glossesSummary, toolboxMarkup } from '$lib/util';
 
   export let member;
   let { entry } = member;
@@ -24,7 +24,7 @@
 </div>
 <div>
   {#if entry.senses[0]?.glosses?.[0]}
-    {@html glossesSummaryToolboxMarkup(entry.senses[0].glosses, $preferences)}
+    {@html toolboxMarkup(glossesSummary(entry.senses[0].glosses, $preferences))}
   {/if}
 </div>
 

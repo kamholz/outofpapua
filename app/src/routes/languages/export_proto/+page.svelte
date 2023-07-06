@@ -86,8 +86,8 @@
       <label for="include_ancestors">Include ancestor forms</label>
     </div>
   </div>
+  <hr>
   {#each entries as entry}
-    <hr>
     <ExportEntry {entry} />
   {/each}
 {/if}
@@ -106,7 +106,5 @@
     }
   }
 
-  hr {
-    margin-block: 12px;
-  }
+  @include hr;
 </style>

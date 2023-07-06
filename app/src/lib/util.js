@@ -190,14 +190,12 @@ export function isEditor(loggedInUser) {
 
 // gloss formatting and parsing
 
+const preferred = new Set(['eng', 'lat']);
+
 export function glossesSummary(glosses, preferences) {
   return glosses
     .map((gloss) => glossSummary(gloss, preferences))
     .join('; ');
-}
-
-export function glossesSummaryToolboxMarkup(glosses, preferences) {
-  return toolboxMarkup(glossesSummary(glosses, preferences));
 }
 
 export function glossSummary({ language_code, txt }, preferences) {
@@ -206,6 +204,13 @@ export function glossSummary({ language_code, txt }, preferences) {
 
 export function glossesSummaryNoLanguage(glosses) {
   return glosses
+    .map((gloss) => glossSummaryNoLanguage(gloss))
+    .join('; ');
+}
+
+export function glossesSummaryPreferred(glosses) {
+  return glosses
+    .filter(({ language_code }) => preferred.has(language_code))
     .map((gloss) => glossSummaryNoLanguage(gloss))
     .join('; ');
 }
