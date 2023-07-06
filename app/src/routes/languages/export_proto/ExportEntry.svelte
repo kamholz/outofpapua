@@ -1,13 +1,13 @@
 <script>
   import ExportSet from './ExportSet.svelte';
-  import { glossesSummaryPreferred, toolboxMarkup } from '$lib/util';
+  import Glosses from '$components/Glosses.svelte';
 
   export let entry;
   $: glosses = entry.senses?.[0]?.glosses;
 </script>
 
 <div>
-  <h4>{entry.headword} {#if glosses}{@html toolboxMarkup(glossesSummaryPreferred(glosses))}{/if}</h4>
+  <h4>{entry.headword} <Glosses {glosses} preferred /></h4>
 
   {#each entry.sets as set}
     <ExportSet {set} />

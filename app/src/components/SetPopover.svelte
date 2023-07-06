@@ -1,11 +1,11 @@
 <script>
+  import Glosses from '$components/Glosses.svelte';
   import Icon from 'svelte-awesome';
   import Reflex from '$components/Reflex.svelte';
   import { createPopover, popoverContent, popoverTrigger } from '$lib/popover';
   import { faBezierCurve } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
-  import { glossSummaryNoLanguage, toolboxMarkup } from '$lib/util';
 
   export let id;
   const cache = getContext('setSummaryCache');
@@ -51,9 +51,7 @@
             {language.name}
             <Reflex {reflex} headword={entry.headword} space={false} />
           </span>
-          {#if entry.senses[0]?.glosses?.[0]}
-            {@html toolboxMarkup(glossSummaryNoLanguage(entry.senses[0].glosses[0]))}
-          {/if}
+          <Glosses glosses={entry.senses[0]?.glosses} single />
         </li>
       {/each}
     </ul>

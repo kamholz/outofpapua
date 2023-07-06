@@ -1,6 +1,7 @@
 <script>
   import Alert from '$components/Alert.svelte';
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
+  import Glosses from '$components/Glosses.svelte';
   import Icon from 'svelte-awesome';
   import Input from './Input.svelte';
   import MemberReference from './MemberReference.svelte';
@@ -14,8 +15,7 @@
   const dispatch = createEventDispatcher();
   import { faCheckSquare, faCircle as faCircleSolid, faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
-  import { glossSummaryNoLanguage, glossesSummary, mungePos, normalizeParam, originSummary,
-    parseGlosses, toolboxMarkup } from '$lib/util';
+  import { mungePos, normalizeParam, originSummary, parseGlosses } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
@@ -26,7 +26,6 @@
   export let set;
   export let collapsed;
   export let selection;
-  const preferences = getContext('preferences');
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const promises = { pending: {}, fulfilled: {} };
@@ -246,7 +245,7 @@
         {language.name}
         <MemberReflex reflex={values.reflex} {entry} />
       </span>
-      {#if senses[0]?.glosses?.[0]}<span>{glossSummaryNoLanguage(senses[0].glosses[0])}</span>{/if}<span><OriginSummary {entry} /></span>
+      <Glosses glosses={senses[0]?.glosses} single /><span><OriginSummary {entry} /></span>
     {:else}
       <p>
         <span class={entry.origin}>{language.name}</span>
@@ -313,7 +312,7 @@
             {#if editingProto}
               <span class="indent"><Input bind:value={protoValues.glosses} on:submit={handleSaveProto} on:cancel={handleEditProtoCancel} /></span>
             {:else}
-              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}{@html toolboxMarkup(glossesSummary(senses[0].glosses, $preferences))}</span>
+              <span class="indent">{#if senses[0].pos}<em>{mungePos(senses[0].pos)}</em>. {/if}<Glosses glosses={senses[0].glosses} /></span>
             {/if}
           </li>
         {:else}
@@ -324,7 +323,7 @@
               {:else}
                 <span></span>
               {/if}
-              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}{@html toolboxMarkup(glossesSummary(sense.glosses, $preferences))}</span>
+              <span class="indent">{i + 1}. {#if sense.pos}<em>{mungePos(sense.pos)}</em>. {/if}<Glosses glosses={sense.glosses} /></span>
             </li>
           {/each}
         {/if}

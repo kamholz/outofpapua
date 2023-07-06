@@ -198,7 +198,7 @@ export function glossesSummary(glosses, preferences) {
     .join('; ');
 }
 
-export function glossSummary({ language_code, txt }, preferences) {
+function glossSummary({ language_code, txt }, preferences) {
   return `‘${joinGlosses(txt)}’` + maybeLanguageName(language_code, preferences);
 }
 

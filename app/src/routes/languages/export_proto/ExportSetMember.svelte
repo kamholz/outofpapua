@@ -1,12 +1,12 @@
 <script>
-  import { glossesSummaryNoLanguage, toolboxMarkup } from '$lib/util';
+  import Glosses from '$components/Glosses.svelte';
 
   export let member;
   $: glosses = member.entry.senses?.[0]?.glosses;
 </script>
 
 <div>
-  {member.language.name} <em>{member.entry.headword}</em> {#if glosses}{@html toolboxMarkup(glossesSummaryNoLanguage(glosses))}{/if}
+  {member.language.name} <em>{member.entry.headword}</em> <Glosses {glosses} language={false} />
 </div>
 
 <style>

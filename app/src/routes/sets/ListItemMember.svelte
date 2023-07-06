@@ -1,14 +1,12 @@
 <script>
   import EntryInfoPopover from '$components/EntryInfoPopover.svelte';
   import EntryLink from '$components/EntryLink.svelte';
+  import Glosses from '$components/Glosses.svelte';
   import Reflex from '$components/Reflex.svelte';
-  import { getContext } from 'svelte';
-  import { glossesSummary, toolboxMarkup } from '$lib/util';
 
   export let member;
   let { entry } = member;
   const { language, reflex, source } = member;
-  const preferences = getContext('preferences');
 </script>
 
 <div class={entry.origin}>
@@ -23,9 +21,7 @@
   {source.reference}
 </div>
 <div>
-  {#if entry.senses[0]?.glosses?.[0]}
-    {@html toolboxMarkup(glossesSummary(entry.senses[0].glosses, $preferences))}
-  {/if}
+  <Glosses glosses={entry.senses[0]?.glosses} />
 </div>
 
 <style lang="scss">
