@@ -39,8 +39,8 @@
       align-items: center;
       text-align: center;
       gap: 10px;
-      width: 400px;
-      max-width: 50%;
+      width: 550px;
+      max-width: 75%;
 
       > img {
         width: 90px;
