@@ -25,11 +25,6 @@ export const GET = requireAuth(async ({ params }) => {
       const descendants = new Set(language.descendants || []);
 
       const q = trx('entry')
-        .whereExists(function () {
-          this.select('*').from('source')
-          .where('source.id', knex.ref('entry.source_id'))
-          .where('source.language_id', protolangId);
-        })
         .joinRaw(`
           JOIN LATERAL (
             SELECT json_agg(
@@ -48,6 +43,11 @@ export const GET = requireAuth(async ({ params }) => {
             )
           ) s ON TRUE
         `)
+        .whereExists(function () {
+          this.select('*').from('source')
+          .where('source.id', knex.ref('entry.source_id'))
+          .where('source.language_id', protolangId);
+        })
         .select(
           'entry.id',
           'entry.headword',
@@ -59,8 +59,12 @@ export const GET = requireAuth(async ({ params }) => {
         .orderBy('entry.id');
 
       const entries = await q;
+      const ipaConversionFunctions = new Set();
 
       for (const entry of entries) {
+        // if (entry.source_ipa_conversion_rule) {
+        //   ipaConversionFunctions.add(entry.source_ipa_conversion_rule);
+        // }
         for (const set of entry.sets) {
           const ancestor = [];
           const descendant = [];
@@ -81,6 +85,10 @@ export const GET = requireAuth(async ({ params }) => {
                 list = other;
               }
               list.push(member);
+
+              if (member.source.ipa_conversion_rule) {
+                ipaConversionFunctions.add(member.source.ipa_conversion_rule);
+              }
             } else if (member.entry.id === entry.id) {
               entry.set_member_note = member.note;
             }
@@ -93,8 +101,7 @@ export const GET = requireAuth(async ({ params }) => {
           set.members = { ancestor, descendant, borrowed, other };
         }
       }
-
-      return { language, entries };
+      return { language, entries, ipa_conversion_functions: [...ipaConversionFunctions] };
     });
 
     return json(response);

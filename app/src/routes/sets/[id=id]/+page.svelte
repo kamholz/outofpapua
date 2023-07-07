@@ -8,11 +8,11 @@
   import Member from './Member.svelte';
   import SectionWrapper from './SectionWrapper.svelte';
   import SetPopover from '$components/SetPopover.svelte';
-  import ipaConversionFunctions from '$actions/ipa_conversion_functions';
   import keydown from '$lib/keydown';
   import { faFileAlt, faMapMarked, faTrash } from '@fortawesome/free-solid-svg-icons';
   import { getContext, setContext } from 'svelte';
   import { goto, invalidateAll } from '$app/navigation';
+  import { ipaConversionFunctionsFromEntries } from '$actions/ipa_conversion_functions';
   import { modal, pageLoading, setSummaryCache } from '$lib/stores';
   import { normalizeParam } from '$lib/util';
   import { page } from '$app/stores';
@@ -180,7 +180,7 @@
     // const nameEntry = set.name_auto.entry_id
     //   ? await crud.get('entry', set.name_auto.entry_id)
     //   : null;
-    const ipaFunctions = await ipaConversionFunctions(fetch, set.members);
+    const ipaFunctions = await ipaConversionFunctionsFromEntries(fetch, set.members);
     $pageLoading--;
     return { ipaFunctions, set };
   }

@@ -1,8 +1,20 @@
 import { serializeArrayParam } from '$lib/util';
 
-export default async function (fetch, entries) {
-  const names = new Set(entries.map(({ source }) => source.ipa_conversion_rule));
-  if (!names.size) {
+export function ipaConversionFunctionsFromEntries(fetch, entries) {
+  const names = new Set(
+    entries
+      .filter(({ source }) => source.ipa_conversion_rule)
+      .map(({ source }) => source.ipa_conversion_rule)
+  );
+  return ipaConversionFunctions(fetch, names);
+}
+
+export async function ipaConversionFunctions(fetch, names) {
+  if (names instanceof Set) {
+    if (!names.size) {
+      return {};
+    }
+  } else if (!names.length) {
     return {};
   }
   const res = await fetch('/api/ipa_conversion_rule?'

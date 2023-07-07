@@ -1,5 +1,5 @@
-import ipaConversionFunctions from '$actions/ipa_conversion_functions';
 import { error } from '@sveltejs/kit';
+import { ipaConversionFunctionsFromEntries } from '$actions/ipa_conversion_functions';
 
 export async function load({ fetch, url: { searchParams } }) {
   const data = {};
@@ -10,7 +10,7 @@ export async function load({ fetch, url: { searchParams } }) {
     throw error(500);
   }
   data.sets = (await res.json()).rows;
-  data.ipaFunctions = await ipaConversionFunctions(fetch, [].concat(...data.sets.map((set) => set.members)));
+  data.ipaFunctions = await ipaConversionFunctionsFromEntries(fetch, [].concat(...data.sets.map((set) => set.members)));
 
   if (searchParams.has('id')) {
     res = await fetch(`/api/saved_map/${searchParams.get('id')}`);

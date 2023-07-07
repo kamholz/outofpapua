@@ -17,6 +17,7 @@
   } = data;
   setContext('protolangSuggest', protolangSuggest);
   setContext('language', language);
+  setContext('ipaFunctions', data.ipaFunctions);
 
   const settings = writable({});
   setContext('settings', settings);

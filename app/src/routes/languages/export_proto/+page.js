@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { ipaConversionFunctions } from '$actions/ipa_conversion_functions';
 import { normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
@@ -35,7 +36,9 @@ export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => 
       throw error(500);
     }
     const json = await res.json();
-    Object.assign(data, json); // populates language, sets
+    data.ipaFunctions = await ipaConversionFunctions(fetch, json.ipa_conversion_functions);
+    delete json.ipa_conversion_functions;
+    Object.assign(data, json); // populates language, entries
   }
 
   return data;
