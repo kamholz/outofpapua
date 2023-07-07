@@ -48,9 +48,6 @@ export const GET = requireAuth(async ({ params }) => {
             )
           ) s ON TRUE
         `)
-        .join('set_member as sm', 'sm.entry_id', 'entry.id')
-        .join('set', 'set.id', 'sm.set_id')
-        .join('set_details_cached as sd', 'sd.id', 'set.id')
         .select(
           'entry.id',
           'entry.headword',
@@ -84,6 +81,8 @@ export const GET = requireAuth(async ({ params }) => {
                 list = other;
               }
               list.push(member);
+            } else if (member.entry.id === entry.id) {
+              entry.set_member_note = member.note;
             }
           }
 

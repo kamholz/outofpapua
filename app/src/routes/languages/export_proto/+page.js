@@ -3,12 +3,16 @@ import { normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
 
-const boolean = new Set(['include_descendants', 'borrowed', 'include_descendants']);
+const boolean = new Set(['note', 'descendants', 'orthography', 'ipa', 'borrowed', 'ancestors', 'ancestor_glosses']);
 
 const defaults = {
-  include_descendants: true,
-  include_borrowed: false,
-  include_ancestors: false,
+  note: false,
+  descendants: true,
+  orthography: true,
+  ipa: true,
+  borrowed: false,
+  ancestors: false,
+  ancestor_glosses: false,
 };
 
 export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => {

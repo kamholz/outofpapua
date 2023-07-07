@@ -25,9 +25,11 @@
 
   function init() {
     $settings = {
-      include_descendants: data.query.include_descendants,
-      include_borrowed: data.query.include_borrowed,
-      include_ancestors: data.query.include_ancestors,
+      descendants: data.query.descendants,
+      orthography: data.query.orthography,
+      ipa: data.query.ipa,
+      borrowed: data.query.borrowed,
+      ancestors: data.query.ancestors,
     };
 
     if (browser && data.query.protolang) {
@@ -72,18 +74,41 @@
     <h4>Settings</h4>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={$settings.include_descendants} name="include_descendants" id="include_descendants">
-      <label for="include_descendants">Include descendant forms</label>
+      <input type="checkbox" bind:checked={$settings.note} name="note" id="note">
+      <label for="note">Show note</label>
     </div>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={$settings.include_borrowed} name="include_borrowed" id="include_borrowed">
-      <label for="include_borrowed">Include borrowed forms</label>
+      <input type="checkbox" bind:checked={$settings.descendants} name="descendants" id="descendants">
+      <label for="descendants">Show descendant forms</label>
+    </div>
+
+    <div class="indent">
+      <div class="checkbox">
+        <input type="checkbox" bind:checked={$settings.orthography} name="orthography" id="orthography" disabled={!$settings.descendants || !$settings.ipa}>
+        <label for="orthography">Show Orthography</label>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" bind:checked={$settings.ipa} name="ipa" id="ipa" disabled={!$settings.descendants || !$settings.orthography}>
+        <label for="ipa">Show IPA</label>
+      </div>
     </div>
 
     <div class="checkbox">
-      <input type="checkbox" bind:checked={$settings.include_ancestors} name="include_ancestors" id="include_ancestors">
-      <label for="include_ancestors">Include ancestor forms</label>
+      <input type="checkbox" bind:checked={$settings.borrowed} name="borrowed" id="borrowed">
+      <label for="borrowed">Show borrowed forms</label>
+    </div>
+
+    <div class="checkbox">
+      <input type="checkbox" bind:checked={$settings.ancestors} name="ancestors" id="ancestors">
+      <label for="ancestors">Show ancestor forms</label>
+    </div>
+
+    <div class="indent">
+      <div class="checkbox">
+        <input type="checkbox" bind:checked={$settings.ancestor_glosses} name="ancestor_glosses" id="ancestor_glosses" disabled={!$settings.ancestors}>
+        <label for="ancestor_glosses">Show glosses</label>
+      </div>
     </div>
   </div>
   <hr>
@@ -104,6 +129,10 @@
     input {
       margin-inline-end: 8px;
     }
+  }
+
+  .indent {
+    margin-inline-start: 20px;
   }
 
   @include hr;
