@@ -3340,7 +3340,7 @@ our $dict = {
     parser => 'Marker',
     split => ';',
   },
-  'Schapper (2023)' => {
+  'Schapper (2023a)' => {
     lang_target => 'seu',
     path => 'Koiwai.xlsx',
     parser => 'Spreadsheet',
