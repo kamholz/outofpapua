@@ -2098,6 +2098,12 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
+  'Held (1942)' => {
+    lang_target => 'wrp',
+    path => 'Held_1942_WaropenKai.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Hull (2001a)' => {
     lang_target => 'mgm',
     path => 'Hull_2001_MambaeAinaro.xlsx',
@@ -3333,6 +3339,20 @@ our $dict = {
     path => 'Schapper_2022c_Irires.txt',
     parser => 'Marker',
     split => ';',
+  },
+  'Schapper (2023)' => {
+    lang_target => 'seu',
+    path => 'Koiwai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
+      [3, 'pd'],
+      [4, 'sc'],
+      [5, 'lt'],
+      [[6 .. 7], 'example', ['ind']],
+    ],
   },
   'Schapper & Manimau (2011)' => { #not ingested due to unsolved error
     lang_target => 'woi',
