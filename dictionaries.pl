@@ -3341,8 +3341,8 @@ our $dict = {
     split => ';',
   },
   'Schapper (2023a)' => {
-    lang_target => 'seu',
-    path => 'Koiwai.xlsx',
+    lang_target => 'Koiwai',
+    path => 'Schapper_2023_Koiwai.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
