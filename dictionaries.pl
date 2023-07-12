@@ -2104,7 +2104,7 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
-  'Hull (2001a)' => {
+  'Hull (2001)' => {
     lang_target => 'mgm',
     path => 'Hull_2001_MambaeAinaro.xlsx',
     parser => 'Spreadsheet',
@@ -2120,7 +2120,19 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Hull (2001b)' => {
+  'Hull (2004)' => {
+    lang_target => 'Makasae Baucau',
+    path => 'Hull2004_MakasaeBaucau.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'nt'],
+    ],
+    split_headword => ';',
+    split => ';',
+  },
+  'Hull et al. (2001)' => {
     lang_target => 'bkx',
     path => 'Hull_2001_Baikeno.xlsx',
     parser => 'Spreadsheet',
@@ -2140,18 +2152,6 @@ our $dict = {
     split_headword => ';',
     mode => 'sense_per_row',
     strip => 'to',
-  },
-  'Hull (2004)' => {
-    lang_target => 'Makasae Baucau',
-    path => 'Hull2004_MakasaeBaucau.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'nt'],
-    ],
-    split_headword => ';',
-    split => ';',
   },
   'Hayami-Allen (2001)' => {
     lang_target => 'tft',
