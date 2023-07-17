@@ -285,6 +285,10 @@ export function formatReflexIpa(reflex, headword_ipa, func) {
     return ['', headword_ipa, ''];
   }
 
+  if (!func) {
+    func = (v) => v;
+  }
+
   const [before, reflexProper, after] = (() => {
     const [b, rp, a] = matchReflex(reflex);
     // remove infix marking
