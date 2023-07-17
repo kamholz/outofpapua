@@ -279,14 +279,10 @@ export function matchReflex(reflex) {
   }
 }
 
-export function formatReflexIpa(reflex, headword_ipa, func) {
+export function formatReflexIpa(reflex, headword_ipa, func = (v) => v) {
   // eslint-disable-next-line eqeqeq
   if (reflex == null) {
     return ['', headword_ipa, ''];
-  }
-
-  if (!func) {
-    func = (v) => v;
   }
 
   const [before, reflexProper, after] = (() => {
