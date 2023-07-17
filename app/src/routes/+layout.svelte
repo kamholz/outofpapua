@@ -9,12 +9,14 @@
   import SiteHeading from '$components/SiteHeading.svelte';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import { fade } from 'svelte/transition';
-  import { navigating, page } from '$app/stores';
+  import { navigating } from '$app/stores';
   import { pageLoading, session } from '$lib/stores';
 
+  export let data;
+
   $session = { // eslint-disable-line prefer-const
-    preferences: $page.data.preferences,
-    user: $page.data.user,
+    preferences: data.preferences,
+    user: data.user,
   };
 </script>
 
@@ -28,7 +30,7 @@
 <SiteHeading />
 <NavBar type="full" />
 <main>
-{#key $page.url.pathname}
+{#key data.url}
   <div in:fade={{ duration: 200 }}>
     <PageContext session={$session}>
       <Modal styleWindow={{ width: '80vw' }}>
