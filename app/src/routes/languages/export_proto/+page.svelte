@@ -11,13 +11,13 @@
     query,
     language,
     entries,
+    ipaFunctions,
   } = data);
   const {
     protolangSuggest,
   } = data;
   setContext('protolangSuggest', protolangSuggest);
   setContext('language', language);
-  setContext('ipaFunctions', data.ipaFunctions);
 
   const settings = writable({});
   setContext('settings', settings);
@@ -114,7 +114,7 @@
   </div>
   <hr>
   {#each entries as entry}
-    <ExportEntry {entry} />
+    <ExportEntry {entry} {ipaFunctions} />
   {/each}
 {/if}
 

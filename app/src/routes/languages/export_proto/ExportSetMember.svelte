@@ -3,7 +3,6 @@
   import Reflex from '$components/Reflex.svelte';
   import ReflexIPA from '$components/ReflexIPA.svelte';
   import { getContext } from 'svelte';
-  const ipaFunctions = getContext('ipaFunctions');
   const settings = getContext('settings');
 
   export let member;
@@ -13,6 +12,7 @@
     reflex,
     source,
   } = member);
+  export let ipaFunctions;
   $: ipa = $settings.ipa && entry.headword_ipa;
   $: orthography = $settings.orthography || !ipa;
 </script>

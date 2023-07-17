@@ -5,6 +5,7 @@
   const settings = getContext('settings');
 
   export let entry;
+  export let ipaFunctions;
 </script>
 
 {#each entry.sets as set}
@@ -16,14 +17,14 @@
     <div class="members">
       {#if $settings.descendants && set.members.descendant.length}
         {#each set.members.descendant as member}
-          <ExportSetMember {member} />
+          <ExportSetMember {member} {ipaFunctions} />
         {/each}
       {/if}
 
       {#if $settings.borrowed && set.members.borrowed.length}
         <div class="heading">Borrowed:</div>
         {#each set.members.borrowed as member}
-          <ExportSetMember {member} />
+          <ExportSetMember {member} {ipaFunctions} />
         {/each}
       {/if}
     </div>
