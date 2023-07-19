@@ -27,6 +27,7 @@
   export let headwordDisplay = sets ? 'reflex-only' : 'plain';
   export let lineLength = 3;
   export let colorBy = 'origin';
+  export let colorOriginLanguage = false;
   export let colors = {
     origin: {
       borrowed: '#dc143c',
@@ -43,11 +44,20 @@
   }
 
   const members = getMembers();
+  const originLanguages = getOriginLanguages();
   const languages = getLanguages();
   const families = getFamilies();
   const languageMarkers = getLanguageMarkers();
   const familiesSorted = Object.values(families)
     .sort(sortFunction((v) => v.name.toLowerCase()));
+
+  if (originLanguages.length) {
+    colors.originLanguage = Object.fromEntries(originLanguages.map(
+      ({ className }) => [className, '#000000'])
+    );
+  } else {
+    colorOriginLanguage = false;
+  }
 
   let updateLanguage;
   let updateFamily;
@@ -75,6 +85,19 @@
       }));
     }
     return members.filter(({ language }) => language.location);
+  }
+
+  function getOriginLanguages() {
+    const originLanguages = new Set();
+    for (const { entry: { origin_language_name } } of members) {
+      if (origin_language_name) {
+        originLanguages.add(origin_language_name);
+      }
+    }
+    return [...originLanguages].sort().map((name) => ({
+      name, 
+      className: getOriginLanguageClass(name),
+     }));
   }
 
   function getLanguages() {
@@ -127,13 +150,19 @@
         };
       }
 
-      markersByLanguageCode[id].markers[key].entries.push({
+      const marker = {
         ...entry,
         ipa_conversion_rule,
         reflex,
         set_id,
         selected: sel?.[entry.id] ?? true,
-      });
+      };
+
+      if (marker.origin_language_name) {
+        marker.origin_language_class = getOriginLanguageClass(marker.origin_language_name);
+      }
+
+      markersByLanguageCode[id].markers[key].entries.push(marker);
     }
 
     const languageMarkers = Object.values(markersByLanguageCode);
@@ -149,6 +178,10 @@
     }
   
     return languageMarkers;
+  }
+
+  function getOriginLanguageClass(name) {
+    return 'originlang-' + name.toLowerCase().replace(/ /g, '-');
   }
 
   async function handleSave() {
@@ -176,6 +209,7 @@
         headwordDisplay,
         lineLength,
         colorBy,
+        colorOriginLanguage,
         colors,
         familyIcon: Object.fromEntries(familiesSorted.map((v) => [v.id, v.shape])),
       },
@@ -234,8 +268,10 @@
     <Section name="Colors">
       <Colors
         bind:colorBy
+        bind:colorOriginLanguage
         bind:colors
         {sets}
+        {originLanguages}
       />
     </Section>
     {#if markerType !== 'label'}
@@ -280,6 +316,7 @@
     {headwordDisplay}
     {lineLength}
     {colorBy}
+    {colorOriginLanguage}
     {colors}
     bind:updateLanguage
     bind:updateFamily

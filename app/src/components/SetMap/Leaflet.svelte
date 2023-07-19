@@ -27,6 +27,7 @@
   export let headwordDisplay;
   export let lineLength;
   export let colorBy;
+  export let colorOriginLanguage;
   export let colors;
   const ipaFunctions = getContext('ipaFunctions');
 
@@ -39,6 +40,9 @@
     languageMarkersById[id].push(lm);
     for (const marker of lm.markers) {
       marker.originClass = getOriginClass(marker.entries);
+      if (marker.originClass === 'borrowed') {
+        marker.originLanguageClass = getOriginLanguageClass(marker.entries);
+      }
     }
   }
 
@@ -52,8 +56,8 @@
     }).addTo(map);
   }
 
-  $: updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy);
-  $: cssVars = getCssVars(colors, colorBy);
+  $: updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy, colorOriginLanguage);
+  $: cssVars = getCssVars(colors, colorBy, colorOriginLanguage);
 
   onMount(() => {
     map = L.map('map', {
@@ -281,9 +285,15 @@
   }
 
   function setColorVar(marker) {
-    marker.colorVar = colorBy === 'origin'
-      ? marker.originClass
-      : `set-${marker.entries[0].set_id}`;
+    if (colorBy === 'origin') {
+      if (colorOriginLanguage) {
+        marker.colorVar = marker.originLanguageClass || marker.originClass;
+      } else {
+        marker.colorVar = marker.originClass;
+      }
+    } else {
+      marker.colorVar = `set-${marker.entries[0].set_id}`;
+    }
   }
 
   function getOriginClass(entries) {
@@ -297,11 +307,28 @@
     return 'unspecified';
   }
 
+  function getOriginLanguageClass(entries) {
+    const originLanguageClasses = new Set(entries.map((v) => v.origin_language_class).filter((v) => v));
+    if (originLanguageClasses.size === 1) {
+      const [originLanguageClass] = [...originLanguageClasses];
+      return originLanguageClass;
+    }
+    return null;
+  }
+
   function getCssVars(colors) {
-    const vars = colorBy === 'origin'
-      ? [].concat(...Object.entries(colors.origin).map(([key, value]) => getCssVarsForColor(key, value)))
-      : [].concat(...Object.entries(colors.set).map(([key, value]) => getCssVarsForColor(`set-${key}`, value)));
-    return vars.join(';');
+    let vars;
+    if (colorBy === 'origin') {
+      vars = Object.entries(colors.origin).map(([key, value]) => getCssVarsForColor(key, value));
+      if (colorOriginLanguage) {
+        vars = vars.concat(
+          Object.entries(colors.originLanguage).map(([key, value]) => getCssVarsForColor(key, value))
+        );
+      }
+    } else {
+      vars = Object.entries(colors.set).map(([key, value]) => getCssVarsForColor(`set-${key}`, value));
+    }
+    return [].concat(...vars).join(';');
   }
 
   function getCssVarsForColor(name, color) {
