@@ -64,7 +64,7 @@
     :global {
       .suggest {
         display: grid;
-        grid-template-columns: 35% 65%;
+        grid-template-columns: 35% 64%;
         gap: 18px;
       }
     }
