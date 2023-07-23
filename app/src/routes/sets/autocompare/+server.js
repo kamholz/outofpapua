@@ -20,26 +20,23 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
   const { rows: sets } = await res.json();
 
   const languageNames = new Set();
-
   for (const set of sets) {
-    identifyMostCommonGloss(set);
-    identifyLanguageEntries(set);
+    collectMostCommonGloss(set);
+    collectLanguageEntries(set);
   }
-
   const languagesNamesSorted = [...languageNames].sort();
 
   const data = query.format === 'cog'
     ? makeCogTable(languagesNamesSorted, sets)
     : makeEdictorTable(languagesNamesSorted, sets);
-
   return text(data, {
     headers: {
       'content-type': 'text/plain',
-      'content-disposition': 'attachment; filename=cog.txt',
+      'content-disposition': `attachment; filename=${query.format}.txt`,
     },
   });
 
-  function identifyLanguageEntries(set) {
+  function collectLanguageEntries(set) {
     const { mostCommonGloss } = set;
     set.members = set.members.filter(({ entry }) => entry.uniqueGlosses.has(mostCommonGloss));
 
@@ -51,6 +48,9 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
       } else {
         languageEntries[languageName].push(headword);
       }
+    }
+    for (const entries of Object.values(languageEntries)) {
+      entries.sort();
     }
   }
 });
@@ -67,7 +67,7 @@ function getUniqueGlosses({ senses }) {
   return glossesSet;
 }
 
-function identifyMostCommonGloss(set) {
+function collectMostCommonGloss(set) {
   const glosses = {};
   for (const { entry } of set.members) {
     const uniqueGlosses = entry.uniqueGlosses = getUniqueGlosses(entry);
