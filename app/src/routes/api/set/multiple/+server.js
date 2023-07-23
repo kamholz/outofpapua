@@ -1,7 +1,7 @@
 import { arrayCmp, knex, name_auto } from '$lib/db';
-import { getFilteredParams, isIdArray, jsonError, normalizeQuery, parseArrayNumParams,
-  showPublicOnly } from '$lib/util';
+import { getFilteredParams, isIdArray, normalizeQuery, parseArrayNumParams, showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
+import { jsonError } from '$lib/error';
 import { pageMax } from '$lib/preferences';
 import { requireComparative } from '$lib/auth';
 

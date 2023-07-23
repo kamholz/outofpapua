@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { error, json } from '@sveltejs/kit';
-import { getFilteredParams, isId, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams, isId } from '$lib/util';
 import { knex, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
@@ -10,7 +10,7 @@ const required = new Set(['entry_id']);
 export const POST = requireAuth(async ({ locals, params, request, url: { searchParams } }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   const otherSetId = searchParams.get('other_set_id');
   if (otherSetId && !isId(otherSetId)) {

@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { allowed } from './params';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { knex, pgError } from '$lib/db';
 import { requireEditor } from '$lib/auth';
@@ -21,7 +21,7 @@ const required = new Set(['name']);
 export const POST = requireEditor(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   try {
     const names = await knex.transaction((trx) =>

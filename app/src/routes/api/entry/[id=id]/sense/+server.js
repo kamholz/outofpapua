@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { allowed } from './params';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../params';
 import { json } from '@sveltejs/kit';
@@ -13,7 +13,7 @@ export const POST = requireAuth(async ({ locals, params, request }) => {
   try {
     const entryId = params.id;
     if (!(await isEditable(entryId))) {
-      return jsonError(errors.editableEntry);
+      return jsonError(errorStrings.editableEntry);
     }
     insertParams.entry_id = entryId;
 

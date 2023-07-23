@@ -1,10 +1,10 @@
-import errors from '$lib/errors';
 import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIds,
   knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, normalizeQuery, parseArrayNumParams,
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, normalizeQuery, parseArrayNumParams,
   parseArrayParams, parseBooleanParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
+import { errorStrings, jsonError } from '$lib/error';
 import { nfc } from '../params';
 import { requireAuth } from '$lib/auth';
 
@@ -76,7 +76,7 @@ const compare_entries2 = `
 export const GET = requireAuth(async ({ locals, url: { searchParams } }) => {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
-    return jsonError(errors.insufficientSearch);
+    return jsonError(errorStrings.insufficientSearch);
   }
   parseArrayParams(query, arrayParams);
   parseArrayNumParams(query, arrayNumParams);

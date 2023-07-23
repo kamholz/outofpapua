@@ -1,7 +1,8 @@
 import { arrayCmp, knex } from '$lib/db';
-import { getFilteredParams, hideComparativeInEntry, isIdArray, jsonError, normalizeQuery, parseArrayNumParams,
+import { getFilteredParams, hideComparativeInEntry, isIdArray, normalizeQuery, parseArrayNumParams,
   showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
+import { jsonError } from '$lib/error';
 import { pageMax } from '$lib/preferences';
 
 const allowed = new Set(['ids']);

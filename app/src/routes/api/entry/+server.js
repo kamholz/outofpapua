@@ -1,9 +1,9 @@
-import errors from '$lib/errors';
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
   knex, pgError, record_match, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, mungeHeadword, mungeRegex,
-  normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, mungeRegex, normalizeQuery,
+  parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { nfc } from './params';
 import { requireAuth } from '$lib/auth';
@@ -35,7 +35,7 @@ export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams),
     locals.hideComparative ? allowedHideComparative : allowed);
   if (!['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
-    return jsonError(errors.insufficientSearch);
+    return jsonError(errorStrings.insufficientSearch);
   }
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);
@@ -162,10 +162,10 @@ const requiredCreate = new Set(['headword', 'source_id']);
 export const POST = requireAuth(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowedCreate);
   if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   if (params.origin_language_id && params.origin !== 'borrowed') {
-    return jsonError(errors.originLang);
+    return jsonError(errorStrings.originLang);
   }
   ensureNfcParams(params, nfc);
   try {

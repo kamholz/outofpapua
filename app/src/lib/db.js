@@ -1,6 +1,7 @@
 import config from '$config';
 import knexModule from 'knex';
-import { degrHyphenRegex, isId, jsonError, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
+import { degrHyphenRegex, isId, mungeRegex, partitionPlus, showPublicOnly } from '$lib/util';
+import { jsonError } from '$lib/error';
 import { pageMax } from '$lib/preferences';
 
 export const knex = knexModule({

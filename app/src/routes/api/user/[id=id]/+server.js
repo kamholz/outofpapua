@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
-import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams, jsonError } from '$lib/util';
+import { adminNotSelf, adminOrSelf, ensureNfcParams, getFilteredParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
+import { errorStrings, jsonError } from '$lib/error';
 import { getUser, requireAuth } from '$lib/auth';
 import { knex, pgError } from '$lib/db';
 import { nfc } from '../params';
@@ -26,7 +26,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
     throw error(401);
   }
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   ensureNfcParams(params, nfc);
   try {

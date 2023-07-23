@@ -1,7 +1,7 @@
-import errors from '$lib/errors';
 import { checkUserPassword, requireAuth } from '$lib/auth';
 import { error } from '@sveltejs/kit';
-import { isAdmin, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { isAdmin } from '$lib/util';
 import { knex, pgError } from '$lib/db';
 
 export const PUT = requireAuth(async ({ locals, params, request }) => {
@@ -15,7 +15,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
     // eslint-disable-next-line eqeqeq
     ('current_password' in body === (isAdmin(user) && user.id != params.id)) // opposite of logical xor
   ) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   if ('current_password' in body && !(await checkUserPassword(user.username, body.current_password))) {
     return jsonError('current password is incorrect');

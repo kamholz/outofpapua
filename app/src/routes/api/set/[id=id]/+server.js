@@ -1,7 +1,7 @@
-import errors from '$lib/errors';
 import { allowed } from '../params';
 import { error, json } from '@sveltejs/kit';
-import { getFilteredParams, isIdArray, jsonError, showPublicOnly } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, name_auto, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth, requireComparative } from '$lib/auth';
 
@@ -42,7 +42,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(body, allowed);
   const haveUpdateParams = Object.keys(updateParams).length;
   if (!members && !haveUpdateParams) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   if ('name' in updateParams && !('name_entry_id' in updateParams)) {
     updateParams.name_entry_id = null;

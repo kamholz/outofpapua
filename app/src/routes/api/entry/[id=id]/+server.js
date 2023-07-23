@@ -1,7 +1,6 @@
-import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, jsonError, mungeHeadword,
-  showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, showPublicOnly } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
+import { errorStrings, jsonError } from '$lib/error';
 import { isEditable, nfc } from '../params';
 import { knex, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -43,11 +42,11 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(await request.json(), editable ? allowedEditable : allowedAll);
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   if ('origin' in updateParams && updateParams.origin !== 'borrowed') {
     if (updateParams.origin_language_id) {
-      return jsonError(errors.originLang);
+      return jsonError(errorStrings.originLang);
     }
     updateParams.origin_language_id = null; // clear any existing origin_language_id
   }
@@ -92,7 +91,7 @@ export const DELETE = requireAuth(async ({ locals, params }) => {
     const { id } = params;
     const editable = await isEditable(id);
     if (!editable) {
-      return jsonError(errors.editableEntry);
+      return jsonError(errorStrings.editableEntry);
     }
     const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);

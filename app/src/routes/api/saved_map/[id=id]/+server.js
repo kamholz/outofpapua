@@ -1,7 +1,7 @@
-import errors from '$lib/errors';
 import { allowed } from '../params';
 import { error, json } from '@sveltejs/kit';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { knex, pgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
@@ -24,7 +24,7 @@ export const GET = requireAuth(async ({ params }) => {
 export const PUT = requireAuth(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   try {
     const rows = await knex.transaction((trx) =>

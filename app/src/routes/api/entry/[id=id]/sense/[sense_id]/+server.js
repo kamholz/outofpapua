@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { allowed } from '../params';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../../params';
 import { json } from '@sveltejs/kit';
@@ -11,11 +11,11 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   const { glosses } = updateParams;
   delete updateParams.glosses;
   if (!Object.keys(updateParams).length && !glosses) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   const { id, sense_id } = params;
   if (!(await isEditable(id))) {
-    return jsonError(errors.editableEntry);
+    return jsonError(errorStrings.editableEntry);
   }
 
   const rows = await knex('sense')
@@ -57,7 +57,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
 export const DELETE = requireAuth(async ({ params }) => {
   try {
     if (!(await isEditable(params.id))) {
-      return jsonError(errors.editableEntry);
+      return jsonError(errorStrings.editableEntry);
     }
     const rows = await knex.transaction((trx) =>
       trx('sense')

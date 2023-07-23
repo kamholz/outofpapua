@@ -1,7 +1,7 @@
-import errors from '$lib/errors';
 import { allowed, allowedEditor, nfc } from '../params';
-import { ensureNfcParams, getFilteredParams, isEditor, jsonError } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, isEditor } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
+import { errorStrings, jsonError } from '$lib/error';
 import { filterPublicSources, knex, pgError } from '$lib/db';
 import { requireAdmin, requireAuth } from '$lib/auth';
 
@@ -42,7 +42,7 @@ export async function GET({ locals, params }) {
 export const PUT = requireAuth(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), isEditor(locals.user) ? allowedEditor : allowed);
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   ensureNfcParams(params, nfc);
   try {
@@ -51,7 +51,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
         .where('id', params.id)
         .first(
           'editable',
-          knex.raw('exists (select from protolanguage where id = source.language_id) as is_proto'),
+          knex.raw('exists (select from protolanguage where id = source.language_id) as is_proto')
         )
         .forUpdate();
       if (!source) {
@@ -74,7 +74,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
           }
         }
       }
- 
+
       const rows = await trx('source')
         .where('id', params.id)
         .returning('id')

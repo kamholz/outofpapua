@@ -1,5 +1,5 @@
-import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, jsonError } from '$lib/util';
+import { ensureNfcParams, getFilteredParams } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { knex, pgError } from '$lib/db';
 import { nfc } from './params';
@@ -17,7 +17,7 @@ const required = new Set(['username', 'fullname', 'password']);
 export const POST = requireAdmin(async ({ request }) => {
   const params = getFilteredParams(await request.json(), required);
   if (Object.keys(params).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   ensureNfcParams(params, nfc);
   params.password = knex.raw("pgcrypto.crypt(?, pgcrypto.gen_salt('md5'))", params.password);

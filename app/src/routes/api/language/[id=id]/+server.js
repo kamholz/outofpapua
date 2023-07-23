@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, jsonError, showPublicOnly, splitParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, showPublicOnly, splitParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
+import { errorStrings, jsonError } from '$lib/error';
 import { knex, pgError } from '$lib/db';
 import { nfc } from '../params';
 import { requireAuth } from '$lib/auth';
@@ -51,7 +51,7 @@ export async function GET({ locals, params }) {
 export const PUT = requireAuth(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   ensureNfcParams(updateParams, nfc);
   const protoParams = splitParams(updateParams, proto);

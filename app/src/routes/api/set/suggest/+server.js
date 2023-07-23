@@ -1,6 +1,5 @@
-import errors from '$lib/errors';
-import { ensureNfcParams, getFilteredParams, jsonError, mungeRegex, normalizeQuery,
-  parseBooleanParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseBooleanParams } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { knex } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -19,7 +18,7 @@ const name_auto = "coalesce(sd.name_auto ->> 'txt', sd.id::text)";
 export const GET = requireAuth(async ({ url: { searchParams } }) => {
   const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (Object.keys(getFilteredParams(query, required)).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   parseBooleanParams(query, boolean);
   ensureNfcParams(query, nfc);

@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { allowed, required } from './params';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { json } from '@sveltejs/kit';
 import { knex, pgError } from '$lib/db';
 import { requireAuth } from '$lib/auth';
@@ -20,7 +20,7 @@ export const GET = requireAuth(async ({ locals }) => {
 export const POST = requireAuth(async ({ locals, request }) => {
   const params = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   params.usr_id = locals.user.id;
   try {

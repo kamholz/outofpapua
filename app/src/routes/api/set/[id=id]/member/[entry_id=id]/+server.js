@@ -1,6 +1,6 @@
-import errors from '$lib/errors';
 import { error, json } from '@sveltejs/kit';
-import { getFilteredParams, jsonError } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams } from '$lib/util';
 import { knex, pgError, setTransactionUser } from '$lib/db';
 import { requireAuth } from '$lib/auth';
 
@@ -9,11 +9,11 @@ const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_langu
 export const PUT = requireAuth(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
-    return jsonError(errors.noUpdatable);
+    return jsonError(errorStrings.noUpdatable);
   }
   if ('reflex_origin' in updateParams && updateParams.reflex_origin !== 'borrowed') {
     if (updateParams.reflex_origin_language_id) {
-      return jsonError(errors.originLang);
+      return jsonError(errorStrings.originLang);
     }
     updateParams.reflex_origin_language_id = null; // clear any existing reflex_origin_language_id
   }

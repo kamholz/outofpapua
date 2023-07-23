@@ -428,12 +428,3 @@ export function toolboxMarkup(text) {
     return `<em>${p1}</em>`;
   }
 }
-
-export function jsonError(error) {
-  return new Response(JSON.stringify({ error }), {
-    status: 400,
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
-}

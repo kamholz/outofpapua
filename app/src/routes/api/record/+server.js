@@ -1,9 +1,9 @@
-import errors from '$lib/errors';
 import { applyPageParams, applySortParams, arrayCmp, getCount, getLanguageIds, knex, record_match,
   setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { getFilteredParams, jsonError, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
-  parseBooleanParams, showPublicOnly } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
+import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
+  showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
 
 const allowed = new Set(['asc', 'lang', 'langcat', 'page', 'pagesize', 'record', 'record_marker', 'region', 'sort',
@@ -28,7 +28,7 @@ const sortCols = {
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!['record', 'record_marker'].some((attr) => attr in query)) {
-    return jsonError(errors.insufficientSearch);
+    return jsonError(errorStrings.insufficientSearch);
   }
   parseBooleanParams(query, boolean);
   parseArrayParams(query, arrayParams);

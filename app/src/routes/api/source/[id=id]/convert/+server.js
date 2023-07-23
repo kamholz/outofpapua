@@ -1,4 +1,4 @@
-import { jsonError } from '$lib/util';
+import { jsonError } from '$lib/error';
 import { knex, pgError } from '$lib/db';
 import { requireEditor } from '$lib/auth';
 

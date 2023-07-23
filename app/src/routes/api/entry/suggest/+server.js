@@ -1,7 +1,7 @@
-import errors from '$lib/errors';
 import { arrayCmp, getLanguageIds, knex, setIds } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, jsonError, mungeRegex, normalizeQuery, parseArrayParams,
+import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayParams,
   parseBooleanParams } from '$lib/util';
+import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { requireAuth } from '$lib/auth';
 
@@ -18,7 +18,7 @@ const defaults = {
 export const GET = requireAuth(async ({ url: { searchParams } }) => {
   const query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (Object.keys(getFilteredParams(query, required)).length !== required.size) {
-    return jsonError(errors.missing);
+    return jsonError(errorStrings.missing);
   }
   if (query.match !== 'headword' && query.match !== 'gloss') {
     return jsonError('match parameter must be "headword" or "gloss"');

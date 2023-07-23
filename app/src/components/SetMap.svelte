@@ -95,9 +95,9 @@
       }
     }
     return [...originLanguages].sort().map((name) => ({
-      name, 
+      name,
       className: getOriginLanguageClass(name),
-     }));
+    }));
   }
 
   function getLanguages() {
