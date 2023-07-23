@@ -1,5 +1,6 @@
 <script>
   import Alert from '$components/Alert.svelte';
+  import ListControls from './ListControls.svelte';
   import ListItem from './ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
   import { createEventDispatcher, getContext } from 'svelte';
@@ -49,26 +50,7 @@
 {/await}
 
 <hr>
-<div class="controls">
-  <div>
-    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
-    {#if editable}
-      <button
-        type="button"
-        disabled={$pageLoading || selection.size < 2}
-        on:click={handleMerge}
-      >Merge Selected Sets</button>
-    {/if}
-  </div>
-  <div>
-    <button
-      type="button"
-      disabled={$pageLoading || selection.size < 2}
-      on:click={handleMap}
-    >Map Selected Sets</button>
-  </div>
-</div>
+<ListControls {collapseAll} {handleMerge} {handleMap} {selection} />
 <hr>
 
 {#each rows as set, i (set.id)}
@@ -80,23 +62,13 @@
   <hr>
 {/each}
 
+<ListControls {collapseAll} {handleMerge} {handleMap} {selection} />
+<hr>
+
 {#if pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
 
 <style lang="scss">
   @include hr;
-
-  .controls {
-    display: flex;
-    justify-content: space-between;
-
-    :first-child {
-      @include button-left;
-    }
-
-    :last-child {
-      @include button-right;
-    }
-  }
 </style>
