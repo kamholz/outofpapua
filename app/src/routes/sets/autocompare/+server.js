@@ -44,13 +44,12 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
     for (const { entry: { headword }, language: { name: languageName } } of set.members) {
       languageNames.add(languageName);
       if (!(languageName in languageEntries)) {
-        languageEntries[languageName] = [headword];
-      } else {
-        languageEntries[languageName].push(headword);
+        languageEntries[languageName] = new Set();
       }
+      languageEntries[languageName].add(headword);
     }
-    for (const entries of Object.values(languageEntries)) {
-      entries.sort();
+    for (const [languageName, entries] of Object.entries(languageEntries)) {
+      languageEntries[languageName] = [...entries].sort();
     }
   }
 });
