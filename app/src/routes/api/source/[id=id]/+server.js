@@ -19,6 +19,8 @@ const columns = [
 const columnsLoggedIn = columns.concat('source.formatting', 'source.ipa_conversion_rule', 'source.public',
   'source.use_ph_for_ipa');
 
+const columnsDisallowedForEditable = ['ipa_conversion_rule', 'use_ph_for_ipa'];
+
 export async function GET({ locals, params }) {
   const q = knex('source')
     .join('language', 'language.id', 'source.language_id')
@@ -44,31 +46,44 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
   ensureNfcParams(params, nfc);
   try {
-    if ('language_id' in updateParams && !isEditor(locals.user)) {
-      const editable = await knex('source')
-        .where('id', params.id)
-        .whereRaw('editable')
-        .first('id');
-      if (!editable) {
-        return jsonError('contributors can only modify language of proto-language sources');
-      }
-      const proto = await knex('protolanguage')
-        .where('id', params.language_id)
-        .first('id');
-      if (!proto) {
-        return jsonError('contributors can only change source language to a proto-language');
-      }
-    }
-
     const found = await knex.transaction(async (trx) => {
+      const source = await trx('source')
+        .where('id', params.id)
+        .first(
+          'editable',
+          knex.raw('exists (select from protolanguage where id = source.language_id) as is_proto'),
+        )
+        .forUpdate();
+      if (!source) {
+        return false;
+      }
+
+      if ('language_id' in updateParams && !isEditor(locals.user)) {
+        if (!source.editable) {
+          return jsonError('contributors can only modify language of proto-language sources');
+        }
+        if (!source.is_proto) {
+          return jsonError('contributors can only change source language to a proto-language');
+        }
+      }
+
+      if (source.editable) {
+        for (const column of columnsDisallowedForEditable) {
+          if (column in updateParams) {
+            return jsonError(`"${column}" cannot be modified on editable sources`);
+          }
+        }
+      }
+ 
       const rows = await trx('source')
         .where('id', params.id)
         .returning('id')
         .update(updateParams);
-      const found = rows.length;
-      return found;
+      return rows.length;
     });
-    if (found) {
+    if (found instanceof Response) {
+      return found;
+    } else if (found) {
       if ('reference' in updateParams) {
         knex.raw('call repopulate_set_details_cached()').then(() => {});
       }

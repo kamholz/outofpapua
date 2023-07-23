@@ -72,7 +72,7 @@
         readonly: !isEditor($session.user),
       }
     );
-    if (!source.is_proto && isEditor($session.user)) {
+    if (!source.editable && isEditor($session.user)) {
       fields.push(
         {
           name: 'ipa_conversion_rule',
