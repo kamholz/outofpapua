@@ -4,6 +4,7 @@
   import { pageLoading } from '$lib/stores';
 
   export let collapseAll;
+  export let handleAutocompare;
   export let handleMap;
   export let handleMerge;
   export let selection;
@@ -23,6 +24,11 @@
     {/if}
   </div>
   <div>
+    <button
+      type="button"
+      disabled={$pageLoading || selection.size < 1}
+      on:click={() => handleAutocompare('cog')}
+    >Export Cog</button>
     <button
       type="button"
       disabled={$pageLoading || selection.size < 2}

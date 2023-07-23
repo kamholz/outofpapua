@@ -39,6 +39,13 @@
   function handleMap() {
     goto('/sets/map?' + new URLSearchParams({ sets: serializeArrayParam([...selection]) }));
   }
+
+  function handleAutocompare(format) {
+    goto('/sets/autocompare?' + new URLSearchParams({
+      ids: serializeArrayParam([...selection]),
+      format,
+    }));
+  }
 </script>
 
 {#if pageCount > 1}
@@ -50,7 +57,7 @@
 {/await}
 
 <hr>
-<ListControls {collapseAll} {handleMerge} {handleMap} {selection} />
+<ListControls {collapseAll} {handleAutocompare} {handleMerge} {handleMap} {selection} />
 <hr>
 
 {#each rows as set, i (set.id)}
@@ -62,7 +69,7 @@
   <hr>
 {/each}
 
-<ListControls {collapseAll} {handleMerge} {handleMap} {selection} />
+<ListControls {collapseAll} {handleAutocompare} {handleMerge} {handleMap} {selection} />
 <hr>
 
 {#if pageCount > 1}
