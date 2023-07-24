@@ -2098,8 +2098,14 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
-  'Held (1942)' => {
-    lang_target => 'wrp',
+  'Held (1942a)' => {
+    lang_target => 'Waropen Kai',
+    path => 'Held_1942_WaropenKai.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Held (1942b)' => {
+    lang_target => 'Waropen Napan',
     path => 'Held_1942_WaropenKai.txt',
     parser => 'Marker',
     strip => 'to',
