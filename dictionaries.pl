@@ -711,6 +711,18 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Boweden (2001)' => {
+    lang_target => 'East Makian',
+    path => 'Bowden_2001_East-Makian.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [3, 'et'],
+      [4, 'nt'],
+    ],
+    strip => 'to',
+  },
   'Budiman (2012)' => {
     lang_target => 'kax',
     path => 'spreadsheets/Budiman-Kao-dic.xlsx',
