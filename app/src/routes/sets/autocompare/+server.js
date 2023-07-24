@@ -21,14 +21,12 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
 
   const languageNames = new Set();
   for (const set of sets) {
-    collectMostCommonGloss(set);
     collectLanguageEntries(set);
   }
   const languagesNamesSorted = [...languageNames].sort();
 
-  const data = query.format === 'cog'
-    ? makeCogTable(languagesNamesSorted, sets)
-    : makeEdictorTable(languagesNamesSorted, sets);
+  const maker = query.format === 'cog' ? makeCogTable : makeEdictorTable;
+  const data = maker(languagesNamesSorted, sets)
   return text(data, {
     headers: {
       'content-type': 'text/plain',
@@ -37,9 +35,6 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
   });
 
   function collectLanguageEntries(set) {
-    const { mostCommonGloss } = set;
-    set.members = set.members.filter(({ entry }) => entry.uniqueGlosses.has(mostCommonGloss));
-
     const languageEntries = set.languageEntries = {};
     for (const { entry: { headword }, language: { name: languageName } } of set.members) {
       languageNames.add(languageName);
@@ -54,48 +49,12 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
   }
 });
 
-function getUniqueGlosses({ senses }) {
-  const glossesSet = new Set();
-  for (const { glosses } of senses) {
-    for (const { txt } of glosses) {
-      for (const gloss of txt) {
-        glossesSet.add(gloss);
-      }
-    }
-  }
-  return glossesSet;
-}
-
-function collectMostCommonGloss(set) {
-  const glosses = {};
-  for (const { entry } of set.members) {
-    const uniqueGlosses = entry.uniqueGlosses = getUniqueGlosses(entry);
-    for (const gloss of uniqueGlosses) {
-      if (!(gloss in glosses)) {
-        glosses[gloss] = 1;
-      } else {
-        glosses[gloss]++;
-      }
-    }
-  }
-
-  let maxCount = 0;
-  let maxGloss;
-  for (const [gloss, count] of Object.entries(glosses)) {
-    if (count > maxCount) {
-      maxCount = count;
-      maxGloss = gloss;
-    }
-  }
-  set.mostCommonGloss = maxGloss;
-}
-
 function makeCogTable(languageNames, sets) {
   let data = '';
 
   const row = [null];
   for (const set of sets) {
-    row.push(`${set.mostCommonGloss} (${set.name_auto.txt})`);
+    row.push(set.name_auto.txt);
   }
   addRow(row);
 

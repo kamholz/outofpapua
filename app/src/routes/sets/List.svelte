@@ -41,10 +41,10 @@
   }
 
   function handleAutocompare(format) {
-    goto('/sets/autocompare?' + new URLSearchParams({
+    window.location.href = '/sets/autocompare?' + new URLSearchParams({
       ids: serializeArrayParam([...selection]),
       format,
-    }));
+    });
   }
 </script>
 
