@@ -711,7 +711,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Boweden (2001)' => {
+  'Bowden (2001)' => {
     lang_target => 'East Makian',
     path => 'Bowden_2001_East-Makian.xlsx',
     parser => 'Spreadsheet',
