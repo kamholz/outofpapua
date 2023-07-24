@@ -2838,6 +2838,19 @@ our $dict = {
     ],
     split => ',;',
   },
+  'Manteanubun (nd)' => {
+    lang_target => 'kuv',
+    path => 'Manteanubun_nd_Kur.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    split => ';',
+    strip => 'to',
+  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07_Version2.db',
