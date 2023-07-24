@@ -2106,7 +2106,7 @@ our $dict = {
   },
   'Held (1942b)' => {
     lang_target => 'Waropen Napan',
-    path => 'Held_1942_WaropenKai.txt',
+    path => 'Held_1942_WaropenNapan.txt',
     parser => 'Marker',
     strip => 'to',
   },
