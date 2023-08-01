@@ -1767,6 +1767,18 @@ our $dict = {
       [6, 'page_num'],
     ],
   },
+  'Esserey (nd)' => {
+    lang_target => 'Keswui',
+    path => 'Esserey_nd_Keswui.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],,
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Ferreira (2005)' => {
     lang_target => 'idt', #Idate
     path => 'Ferreira_2005_Idate.xlsx',
