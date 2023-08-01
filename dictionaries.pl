@@ -349,6 +349,22 @@ our $dict = {
     skip_marker => ['re', 'rr', 'rn'],
     definition_action => 'merge',
   },
+  'Balukh (2020)' => {
+    lang_target => 'nfa',
+    path => 'Balukh_2020_Dhao.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'ps'],
+      [3, 'et'],
+      [4, 'sy'],
+      [5, 'cf'],
+      [6, 'va'],
+      [7, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Banamtuan (2021)' => {
     lang_target => 'kyo',
     path => 'Banamtuan 2021 - Klon Bring.xlsx',
