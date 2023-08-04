@@ -3110,6 +3110,12 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Peckham (2003)' => {
+    lang_target => 'Mairasi',
+    path => 'MAIRASI_trial_ingestion.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Penn (2006)' => {
     lang_target => 'gal',
     path => 'Penn 2006 Dadua.xlsx',
