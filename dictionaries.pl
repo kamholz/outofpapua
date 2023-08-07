@@ -1937,15 +1937,11 @@ our $dict = {
     ],
     split => ';',
   },
-  'Fortgens (1921)' => { #not ingested
+  'Fortgens (1921)' => { 
     lang_target => 'tlv',
-    path => 'Fortgens_1921_Taliabo.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'pg'],
-    ],
+    path => 'Fortgens_1921_Taliabo.txt',
+    parser => 'Marker',
+    strip => 'to',
   },
   'Friday (2005)' => {
     lang_target => 'Fataluku',
