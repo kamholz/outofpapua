@@ -5083,6 +5083,20 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Sneddon (1978)' => {
+    lang_target => 'Proto-Minahasan',
+    path => 'Sneddon_1978_ProtoMinahasan.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'nt'],
+      [4, 'nt', 'see footnote'],
+      [5, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Sneddon (1984)' => {
     lang_target => 'Proto-Sangiric',
     path => 'Sneddon_1984_ProtoSangir.xlsx',
