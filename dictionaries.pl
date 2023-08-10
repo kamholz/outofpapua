@@ -1226,7 +1226,7 @@ our $dict = {
     lang_target => 'ekg',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Kapauku'
+    sheet => 'Kapauku',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
