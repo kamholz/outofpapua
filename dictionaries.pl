@@ -1222,7 +1222,7 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
-  'Dobel (1960a)' => {
+  'Doble (1960a)' => {
     lang_target => 'ekg',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
