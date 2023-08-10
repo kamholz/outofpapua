@@ -286,16 +286,6 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Anceaux (nd k)' => {
-    lang_target => 'sbg',
-    path => 'spreadsheets/Anceaux  archive materials - Seget list 758.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [2, 'headword'],
-      [0, 'gloss', 'pmy'],
-      [1, 'gloss', 'eng'],
-    ],
-  },
   'Anceaux (nd l)' => {
     lang_target => 'Papuan Malay',
     path => 'Anceaux_nd_PapuanMalay.xlsx',
