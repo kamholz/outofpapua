@@ -298,7 +298,7 @@ our $dict = {
   },
   'Anceaux (nd l)' => {
     lang_target => 'Papuan Malay',
-    path => 'Papuan Malay Anceaux nd.xlsx',
+    path => 'Anceaux_nd_PapuanMalay.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -797,7 +797,7 @@ our $dict = {
   },
   'Coenen (1953)' => {
     lang_target => 'ihp',
-    path => 'spreadsheets/Iha_list_cleaned.xlsx',
+    path => 'spreadsheets/Coenen_1953_Iha.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -1220,6 +1220,23 @@ our $dict = {
     ],
     split_headword => ';',
     strip => 'to',
+    split => ';',
+  },
+  'Dobel (1960a)' => {
+    lang_target => 'ekg',
+    path => 'Doble_1960_Kapauku.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Kapauku'
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'nld',]
+      [5, 'gloss', 'eng'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
     split => ';',
   },
   'Dol (2007)' => {
@@ -5566,7 +5583,7 @@ our $dict = {
   },
   'Stokhof & Flassy (1985 Moi)' => {
     lang_target => 'mxn',
-    path => 'spreadsheets Upwork/Mooi Holle.xlsx',
+    path => 'spreadsheets Upwork/StokhofFlassy_1985_Moi.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
