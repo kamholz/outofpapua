@@ -1232,7 +1232,7 @@ our $dict = {
       [0, 'headword'],
       [2, 'ps'],
       [3, 'gloss', 'ind'],
-      [4, 'gloss', 'nld',]
+      [4, 'gloss', 'nld'],
       [5, 'gloss', 'eng'],
       [6, 'cf'],
       [7, 'page_num'],
