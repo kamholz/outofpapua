@@ -1237,7 +1237,7 @@ our $dict = {
       [6, 'cf'],
       [7, 'page_num'],
     ],
-    split => ';',
+    strip => 'to',
   },
   'Doble (1960b)' => {
     lang_target => 'Kapauku Paniai',
@@ -1254,7 +1254,7 @@ our $dict = {
       [6, 'cf'],
       [7, 'page_num'],
     ],
-    split => ';',
+    strip => 'to',
   },
   'Doble (1960c)' => {
     lang_target => 'Kapauku Tigi',
@@ -1271,7 +1271,7 @@ our $dict = {
       [6, 'cf'],
       [7, 'page_num'],
     ],
-    split => ';',
+    strip => 'to',
   },
   'Doble (1960d)' => {
     lang_target => 'Kapauku Enarotali',
@@ -1287,7 +1287,7 @@ our $dict = {
       [5, 'gloss', 'eng'],
       [7, 'page_num'],
     ],
-    split => ';',
+    strip => 'to',
   },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
