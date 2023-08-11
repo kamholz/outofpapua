@@ -1385,7 +1385,7 @@ our $dict = {
     skip_marker => 'lx_Eng',
   },
   'Drabbe (nd)' => {
-    lang_target => 'kgg',
+    lang_target => 'kgq',
     path => 'Drabbe_nd_Kamoro.xlsx',
     parser => 'Spreadsheet',
     columns => [
