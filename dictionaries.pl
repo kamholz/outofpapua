@@ -1384,6 +1384,31 @@ our $dict = {
     parser => 'Marker',
     skip_marker => 'lx_Eng',
   },
+  'Drabbe (nd)' => {
+    lang_target => 'kgg',
+    path => 'Drabbe_nd_Kamoro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'], 
+      [2, 'ps'],
+      [5, 'nt'],
+      [[6 .. 7], 'example', ['eng']], #1
+      [[8 .. 9], 'example', ['eng']], #2
+      [[10 .. 11], 'example', ['eng']], #3
+      [[12 .. 13], 'example', ['eng']], #4
+      [[14 .. 15], 'example', ['eng']], #5
+      [[16 .. 17], 'example', ['eng']], #6
+      [[18 .. 19], 'example', ['eng']], #7
+      [[20 .. 21], 'example', ['eng']], #8
+      [[22 .. 23], 'example', ['eng']], #9
+      [[24 .. 25], 'example', ['eng']], #10
+      [[26 .. 27], 'example', ['eng']], #11
+    ],
+    strip => 'to',
+  },
   'Duarte (1990a)' => {
     lang_target => 'Hresuk Bikeli',
     path => 'Atauro lists Barros Duarte 1990.xlsx',
