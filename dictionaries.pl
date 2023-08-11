@@ -306,7 +306,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'ind'],
-      [2, 'page_num'],
+      [2, 'sc'],
     ],
   },
   'Arnold (2019a)' => {
