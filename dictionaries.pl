@@ -2979,6 +2979,12 @@ our $dict = {
     gloss_preprocess => ignore_if_only_char('?'),
     pos_preprocess => ignore_if_only_char('?'),
   },
+  'Mead (1998)' => {
+    lang_target => 'mxn',
+    path => 'Mead_1998_Proto-Bungku-Tolaki.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Menick (nd)' => {
     lang_target => 'mxn',
     path => 'Menick_Moi_Dictionary.txt',
