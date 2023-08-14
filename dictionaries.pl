@@ -2161,6 +2161,12 @@ our $dict = {
     split => ',/',
     strip => 'to',
   },
+  'Geurtjens (1921)' => { 
+    lang_target => 'kei',
+    path => 'Geurtjens_1921_Kei.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Gravelle (2004)' => {
     lang_target => 'mej',
     path => 'gravelle meyah/gravelle_meyah2004v2 cleaned.xlsx',
