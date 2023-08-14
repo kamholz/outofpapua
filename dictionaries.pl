@@ -2992,8 +2992,12 @@ our $dict = {
   },
   'Menick (1996)' => { 
     lang_target => 'mxn',
-    path => 'Mencik_1996_Moi.xlsx',
-    parser => 'Marker',
+    path => 'Menick_1996_Moi.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
   },
   'Musgrave (nd)' => {
     lang_target => 'Sou Amana Teru',
