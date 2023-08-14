@@ -2980,7 +2980,7 @@ our $dict = {
     pos_preprocess => ignore_if_only_char('?'),
   },
   'Mead (1998)' => {
-    lang_target => 'mxn',
+    lang_target => 'Proto-Bungku-Tolaki',
     path => 'Mead_1998_Proto-Bungku-Tolaki.txt',
     parser => 'Marker',
     strip => 'to',
@@ -2990,16 +2990,10 @@ our $dict = {
     path => 'Menick_Moi_Dictionary.txt',
     parser => 'Marker',
   },
-  'Menick (1996)' => { #not ingested
+  'Menick (1996)' => { 
     lang_target => 'mxn',
     path => 'Mencik_1996_Moi.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'ind'],
-      [2, 'gloss', 'eng'],
-    ],
-    split => ',;',
+    parser => 'Marker',
   },
   'Musgrave (nd)' => {
     lang_target => 'Sou Amana Teru',
@@ -7232,6 +7226,14 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     split => ';',
+  },
+  'Willemsen (2021)' => {
+    lang_target => 'ret',
+    path => 'Willemsen_2021_Reta.de',
+    parser => 'Marker',
+    lang_national => 'ind',
+    definition_action => 'merge',
+    skip_marker => ['re', 'rr', 'rn'],
   },
   'Wirz (1923)' => {
     lang_target => 'Meyah Manokwari',
