@@ -7229,7 +7229,7 @@ our $dict = {
   },
   'Willemsen (2021)' => {
     lang_target => 'ret',
-    path => 'Willemsen_2021_Reta.de',
+    path => 'Willemsen_2021_Reta.db',
     parser => 'Marker',
     lang_national => 'ind',
     definition_action => 'merge',
