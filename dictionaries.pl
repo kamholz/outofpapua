@@ -7243,7 +7243,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     definition_action => 'merge',
-    skip_marker => ['re', 'rr', 'rn'],
+    skip_marker => ['re', 'rr', 'rn', 'lx_Eng', 'cet'],
   },
   'Wirz (1923)' => {
     lang_target => 'Meyah Manokwari',
