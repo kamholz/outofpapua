@@ -1860,6 +1860,7 @@ our $dict = {
       [3, 'page_num'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Ferreira (2005)' => {
     lang_target => 'idt', #Idate
@@ -2974,6 +2975,7 @@ our $dict = {
     ],
     split => ';',
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Matsumura (2016)' => {
     lang_target => 'irh',
