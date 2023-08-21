@@ -3377,7 +3377,7 @@ our $dict = {
   },
   'Remijsen (2017)' => {
     lang_target => 'xmt',
-    path => 'Matbat_MageyDialect_2003_Lexicography/Matbat_Vocabulary.toolbox_cleaned.txt',
+    path => 'Remijsen_2017_Matbat.txt',
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
