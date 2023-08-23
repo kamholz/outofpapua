@@ -6490,6 +6490,16 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'van Schie (2023a)' => {
+    lang_target => 'Yawa Tindaret',
+    path => 'van Schie_2023_YawaTindaret.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
   'van Staden (nd)' => {
     lang_target => 'tvo',
     path => 'Tidore/Tidore_toolbox_new.txt',
