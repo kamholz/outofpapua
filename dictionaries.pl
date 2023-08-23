@@ -5658,7 +5658,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Stokhof & Flassy (1985 Moi)' => {
+  'Stokhof & Flassy (1985a)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/StokhofFlassy_1985_Moi.xlsx',
     parser => 'Spreadsheet',
@@ -5676,7 +5676,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Stokhof & Flassy (1985 Tehit a)' => {
+  'Stokhof & Flassy (1985b)' => {
     lang_target => 'Tehit',
     path => 'spreadsheets/Stokhof/Tehit Holle.xlsx',
     parser => 'Spreadsheet',
