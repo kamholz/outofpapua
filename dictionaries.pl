@@ -6053,7 +6053,22 @@ our $dict = {
       [1, 'sc'],
       [3, 'gloss', 'ind'],
     ],
-    smode => 'sense_per_row',
+    mode => 'sense_per_row',
+  },
+  'unknown (2023)' => {
+    lang_target => 'Busami',
+    path => 'unknown_2023_Busami.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [1, 'va'],
+      [[4 .. 5], 'example', ['ind']],
+      [6, 'nt'],
+      [7, 'page_num'],
+    ],
+    mode => 'sense_per_row',
   },
   'Usher (nd a)' => {
     lang_target => 'Proto-Eastern Timor',
