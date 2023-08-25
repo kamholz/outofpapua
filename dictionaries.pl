@@ -6246,6 +6246,7 @@ our $dict = {
       [2, 'page_num'],
     ],
     split_headword => ';',
+    strip => 'to',
   },
   'van der Crab (1862b)' => {
     lang_target => 'alo', #Larike
@@ -6257,6 +6258,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862c)' => {
     lang_target => 'hrk', #Kailolo
@@ -6268,6 +6270,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862d)' => {
     lang_target => 'mhs', #Buru Beach
@@ -6279,6 +6282,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862e)' => {
     lang_target => 'mhs', #Buru Interior
@@ -6290,6 +6294,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862f)' => {
     lang_target => 'Ternate',
@@ -6301,6 +6306,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862g)' => {
     lang_target => 'Tidore',
@@ -6312,6 +6318,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862h)' => {
     lang_target => 'Sahu',
@@ -6323,6 +6330,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862i)' => {
     lang_target => 'Gamkonora',
@@ -6334,6 +6342,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862j)' => {
     lang_target => 'Gane',
@@ -6345,6 +6354,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862k)' => {
     lang_target => 'West Makian',
@@ -6356,6 +6366,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862l)' => {
     lang_target => 'East Makian',
@@ -6367,6 +6378,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862m)' => {
     lang_target => 'tom',
@@ -6378,6 +6390,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Crab (1862n)' => { #not ingested
     lang_target => '', #Tonpaka
@@ -6400,6 +6413,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
