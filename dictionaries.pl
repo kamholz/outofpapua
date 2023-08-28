@@ -1427,6 +1427,7 @@ our $dict = {
       [[9 .. 10], 'example', ['por']],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'Duarte (1990b)' => {
     lang_target => 'Rasua Beloi', 
@@ -1446,6 +1447,7 @@ our $dict = {
       [[9 .. 10], 'example', ['por']],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'Duarte (1990c)' => {
     lang_target => 'Raklungu Makadade',
@@ -1465,6 +1467,7 @@ our $dict = {
       [[9 .. 10], 'example', ['por']],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'Duarte (1990d)' => {
     lang_target => 'gal', #Dadu'a Manroni
@@ -1484,6 +1487,7 @@ our $dict = {
       [[9 .. 10], 'example', ['por']],
       [11, 'page_num'],
     ],
+    strip => 'to',
   },
   'Edwards (2017)' => { 
     lang_target => 'aaz',
