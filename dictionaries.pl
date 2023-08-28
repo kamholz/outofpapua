@@ -2267,6 +2267,20 @@ our $dict = {
     split_headword => ';',
     split => ';',
   },
+   'Hull (2006)' => {
+    lang_target => 'Makasae Baucau',
+    path => 'Hull_2006_MakasaeBaucau.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'gloss', 'tet'],
+      [4, 'gloss', 'eng'],
+      [2, 'ps'],
+      [5, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Hull et al. (2001)' => {
     lang_target => 'bkx',
     path => 'Hull_2001_Baikeno.xlsx',
