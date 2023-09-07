@@ -5222,7 +5222,7 @@ our $dict = {
   },
 'Soares (2012)' => {
     lang_target => 'Midiki',
-    path => 'Soares_2012_Midiki',
+    path => 'Soares_2012_Midiki.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
