@@ -5220,6 +5220,23 @@ our $dict = {
     ],
     strip => 'to',
   },
+'Soares (2012)' => {
+    lang_target => 'Midiki',
+    path => 'Soares_2012_Midiki',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'tet'],
+      [5, 'sc'],
+      [[6 .. 7], 'example', ['eng']],
+      [8, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Soeparno (1977a)' => {
     lang_target => 'bhw',
     path => 'Biak dictionary.xlsx',
