@@ -2226,6 +2226,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
+    headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
   'Held (1942a)' => {
     lang_target => 'Waropen Kai',
