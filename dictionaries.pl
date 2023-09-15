@@ -2590,7 +2590,7 @@ our $dict = {
     headword_citation_action => 'prefer_root',
     skip_marker => 'lx_Eng',
   },
-  'Kabera & Verdizade (2003)' => {
+  'Kabera & Verdizade (2023)' => {
     lang_target => 'dbn',
     path => 'Verdizade_2023_Esaro.xlsx',
     parser => 'Spreadsheet',
