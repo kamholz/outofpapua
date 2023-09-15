@@ -6992,7 +6992,7 @@ our $dict = {
   },
   'Voorhoeve & van Fraassen (nd)' => {
     lang_target => 'tft',
-    path => 'Voorhoeve_Ternate_19122021.txt',
+    path => 'Voorhoeve-vanFraassen_Ternate.txt',
     parser => 'Marker',
     strip => 'to',
   },
