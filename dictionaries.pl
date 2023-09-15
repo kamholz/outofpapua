@@ -2590,6 +2590,18 @@ our $dict = {
     headword_citation_action => 'prefer_root',
     skip_marker => 'lx_Eng',
   },
+  'Kabera & Verdizade (2003)' => {
+    lang_target => 'dbn',
+    path => 'Verdizade_2023_Esaro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'nt'],
+    ],
+    strip => 'to',
+  },
   'Kakerissa et al. (1986)' => {
     lang_target => 'ges',
     path => 'Kakerissa 1986 - Gorom.xlsx',
