@@ -6605,6 +6605,24 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Veloso (2016c)' => {
+    lang_target => 'krd',
+    path => 'Veloso2016_Kairui_Midiki.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Veloso (2016d)' => {
+    lang_target => 'Midiki',
+    path => 'Veloso2016_Kairui_Midiki.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
   'Verdizade (2022a)' => {
     lang_target => 'Moi Yeflio',
     path => 'Moi Jeflio.txt', 
