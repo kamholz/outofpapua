@@ -6593,9 +6593,15 @@ our $dict = {
     parser => 'Marker',
     split_headword => ',',
   },
-  'Veloso (2016)' => {
-    lang_target => 'nxa',
-    path => 'Veloso_2016_Naueti.txt',
+  'Veloso (2016a)' => {
+    lang_target => 'Naueti Uatolari',
+    path => 'Veloso_2016_Naueti_Uatolari.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Veloso (2016b)' => {
+    lang_target => 'Naueti Uatocarbau',
+    path => 'Veloso_2016_Naueti_Uatocarbau.txt',
     parser => 'Marker',
     strip => 'to',
   },
