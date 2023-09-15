@@ -6789,6 +6789,15 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Voorhoeve (1975c)' => {
+    lang_target => 'dbn',
+    path => 'Voorhoeve_1975_Esaro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+  },
   'Voorhoeve (1982a)' => {
     lang_target => 'mqs',
     path => 'voorhoeve_makian1982.xlsx',
