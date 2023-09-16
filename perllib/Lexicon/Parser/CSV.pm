@@ -76,7 +76,8 @@ sub get_cell {
 }
 
 sub read_entries {
-  my ($self) = @_;
+  my ($self, @action) = @_;
+  my $include_page_num = any { $_ eq 'include_page_num' } @action;
   my $rows = $self->parse;
 
   my $entries = [];
@@ -149,6 +150,7 @@ sub read_entries {
         $entry->{subentry} = $value eq 'TRUE' || $value eq '1' ? 1 : 0;
       } elsif ($type eq 'page_num') {
         $entry->{page_num} = "$value";
+        push @{$entry->{record}}, ['page_num', $value] if $include_page_num;
       } elsif ($type eq 'id') {
         $entry->{id} //= $value;
       } elsif ($type eq 'ph') {

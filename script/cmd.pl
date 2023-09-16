@@ -31,6 +31,8 @@ eval { # silently fail if not present
 require './dictionaries.pl';
 our $dict;
 
+my %print_toolbox_actions = map { $_ => 1 } qw/messy/;
+
 my ($cmd, $reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
 if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|delete_source|diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
@@ -87,6 +89,8 @@ if ($cmd eq 'export') {
   } elsif ($cmd eq 'parse') {
     say Dumper($parser->read_entries);
   } elsif ($cmd eq 'print_toolbox') {
+    @action = grep { $print_toolbox_actions{$_} } @action;
+    push @action, 'include_page_num';
     my $records = $parser->get_toolbox_records(@action);
     $parser->print_toolbox_records($records, \*STDOUT);
   } elsif ($cmd eq 'diff_toolbox') {

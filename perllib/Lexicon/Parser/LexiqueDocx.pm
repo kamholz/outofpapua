@@ -2,6 +2,7 @@ package Lexicon::Parser::LexiqueDocx;
 use v5.14;
 use Moo;
 use namespace::clean;
+use List::Util 'any';
 
 extends 'Lexicon::Parser::XML';
 with 'Lexicon::Util';
@@ -24,7 +25,8 @@ my %type_to_marker = (
 );
 
 sub read_entries {
-  my ($self, $messy) = @_;
+  my ($self, @action) = @_;
+  my $messy = any { $_ eq 'messy' } @action;
   my $dom = $self->parse;
   my $entries = [];
 

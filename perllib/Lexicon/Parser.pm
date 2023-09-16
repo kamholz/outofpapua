@@ -113,9 +113,9 @@ sub read_entries {
 }
 
 sub get_toolbox_records {
-  my ($self, $action) = @_;
+  my ($self, @action) = @_;
   my (@records, %seen);
-  foreach my $entry (@{$self->read_entries($action && $action eq 'messy')}) {
+  foreach my $entry (@{$self->read_entries(@action)}) {
     my $record = $entry->{record};
     next if $seen{$record};
     $seen{$record} = 1;
