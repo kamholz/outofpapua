@@ -3019,6 +3019,12 @@ our $dict = {
     gloss_preprocess => ignore_if_only_char('?'),
     pos_preprocess => ignore_if_only_char('?'),
   },
+   'McConvell (2023)' => {
+    lang_target => 'bzb',
+    path => 'McConvell_2023_Andio.db',
+    parser => 'Marker',
+    skip_marker => 'lx_Amb',
+  },
   'Mead (1998)' => {
     lang_target => 'Proto-Bungku-Tolaki',
     path => 'Mead_1998_Proto-Bungku-Tolaki.txt',
