@@ -5252,10 +5252,10 @@ our $dict = {
     path => 'Sneddon_1984_ProtoSangir.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'lc'],
+      [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'sc'],
-      [3, 'headword'],
+      [3, 'xv'],
       [4, 'nt', 'see footnote'],
       [5, 'pg'],
     ],
