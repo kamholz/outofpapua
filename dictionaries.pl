@@ -5224,7 +5224,7 @@ our $dict = {
     path => 'Sneddon_1978_ProtoMinahasan.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'lc'],
+      [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'sc'],
       [3, 'nt'],
