@@ -6692,12 +6692,8 @@ our $dict = {
   },
   'Visser & Voorhoeve (1987a)' => {
     lang_target => 'saj',
-    path => 'spreadsheets/Sahu/wordlist_Sahu_Visser,Voorhoeve1987.csv',
-    parser => 'CSV',
-    skip => 1,
-    sep_char => ',',
-    quote_char => '"',
-    escape_char => '"',
+    path => 'spreadsheets/Sahu/wordlist_Sahu_Visser,Voorhoeve1987.xlsx',
+    parser => 'spreadsheet',
     columns => [
       [0, 'subentry'],
       [1, 'headword'],
