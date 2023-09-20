@@ -2030,6 +2030,19 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Fricke (2013)' => { 
+    lang_target => 'Hewa (Indonesia)',
+    path => 'Fricke_2013_Hewa.txt',
+    parser => 'Marker',
+    definition_action => 'merge',
+    lang_national => 'ind',
+  },
+  'Fricke (2019)' => { 
+    lang_target => 'Central Lembata',
+    path => 'Fricke_2019_Central Lembata.txt',
+    parser => 'Marker',
+    definition_action => 'merge',
+  },
   'Friday (2005)' => {
     lang_target => 'Fataluku',
     path => 'Friday_nd_Fataluku.xlsx',
@@ -2790,6 +2803,34 @@ our $dict = {
       [1, 'gloss', 'ind'],
       [2, 'gloss', 'eng'],
     ],
+  },
+  'Klamer (2016)' => {
+    lang_target => 'jka',
+    path => 'Klamer_2016_Kaera.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+      [[3 .. 4], 'example', ['eng']],
+      [5, 'lt'],
+      [6, 'nt'],
+    ],
+    strip => 'to',
+  },
+  'Klamer (2019)' => {
+    lang_target => 'twe', #create dialect Sar (Indonesia) and add note to doc
+    path => 'Klamer_2016_Sar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+      [3, 'lt'],
+      [4, 'et'],
+      [5, 'nt'],
+    ],
+    strip => 'to',
   },
   'Kluge (2017)' => {
     lang_target => 'pmy',
@@ -5782,6 +5823,13 @@ our $dict = {
     split => ';',
     lang_national => 'deu',
   },
+  'Sulistyono (2021)' => {
+    lang_target => 'aol',
+    path => 'Sulistyono_2021_Alorese.db',
+    parser => 'Marker',
+    split => ';',
+    definition_action => 'merge',
+  },
   'Taber (1993a)' => {
     lang_target => 'vbb', #Southeast Babar
     path => 'Taber_1993_Babarlists.xlsx',
@@ -6506,6 +6554,21 @@ our $dict = {
     headword_preprocess => sub { s/^ø-//r },
     lang_national => 'ind',
     lang_regional => 'pmy',
+  },
+  'van Dijk (2000)' => {
+    lang_target => 'mxz',
+    path => 'vanDijk_2000_Central Marsela.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss','ind'],
+      [4, 'sc'],
+      [5, 'lt'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
   },
   'van Engelenhoven (nd)' => {
     lang_target => 'Fataluku Tutuala',
