@@ -2030,7 +2030,7 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
-  'Fricke (2013)' => { 
+  'Fricke (2013)' => { #not ingested, unknown languageS
     lang_target => 'Hewa (Indonesia)',
     path => 'Fricke_2013_Hewa.txt',
     parser => 'Marker',
@@ -2820,7 +2820,7 @@ our $dict = {
   },
   'Klamer (2019)' => {
     lang_target => 'twe', #create dialect Sar (Indonesia) and add note to doc
-    path => 'Klamer_2016_Sar.xlsx',
+    path => 'Klamer_2019_Sar.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
