@@ -2819,7 +2819,7 @@ our $dict = {
     strip => 'to',
   },
   'Klamer (2019)' => {
-    lang_target => 'Sar (Indonesia)', #create dialect Sar (Indonesia) and add note to doc
+    lang_target => 'Sar (Indonesia)',
     path => 'Klamer_2019_Sar.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -6319,6 +6319,14 @@ our $dict = {
       [3, 'page_num'],
     ],
     split => ';',
+  },
+   'van den Bergh (1953)' => {
+    lang_target => 'bgz',
+    path => 'vandenBergh_1953_Banggai.txt',
+    parser => 'Marker',
+    strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
+    split_headword => ';',
   },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',
