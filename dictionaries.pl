@@ -6325,6 +6325,7 @@ our $dict = {
     path => 'vandenBergh_1953_Banggai.txt',
     parser => 'Marker',
     strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'van den Heuvel (nd)' => {
     lang_target => 'bhw',
@@ -6339,17 +6340,6 @@ our $dict = {
       [13, 'nt'],
     ],
     strip => 'to',
-  },
-  'van den Bergh (1953)' => { #not ingested
-    lang_target => 'Banggai',
-    path => 'Banggai - trial 1.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'eng'],
-      [3, 'pg'],
-    ],
   },
   'van den Berg (2018)' => {
     lang_target => 'Muna',
