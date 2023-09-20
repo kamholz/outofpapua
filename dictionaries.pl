@@ -6325,7 +6325,6 @@ our $dict = {
     path => 'vandenBergh_1953_Banggai.txt',
     parser => 'Marker',
     strip => 'to',
-    headword_preprocess => sub { s/^ø-//r },
     split_headword => ';',
   },
   'van den Heuvel (nd)' => {
