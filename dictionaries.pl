@@ -6322,7 +6322,7 @@ our $dict = {
   },
    'van den Bergh (1953)' => {
     lang_target => 'bgz',
-    path => 'vandenBergh_1953_Banggai.txt',
+    path => 'vandenBergh_1953.txt',
     parser => 'Marker',
     strip => 'to',
   },
