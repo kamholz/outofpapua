@@ -2819,7 +2819,7 @@ our $dict = {
     strip => 'to',
   },
   'Klamer (2019)' => {
-    lang_target => 'twe', #create dialect Sar (Indonesia) and add note to doc
+    lang_target => 'Sar (Indonesia)', #create dialect Sar (Indonesia) and add note to doc
     path => 'Klamer_2019_Sar.xlsx',
     parser => 'Spreadsheet',
     columns => [
