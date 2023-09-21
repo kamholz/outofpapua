@@ -1627,6 +1627,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
     strip => 'to',
+    split_headword => ';',
   },
   'Elmberg (1968a)' => {
     lang_target => 'Maybrat',
