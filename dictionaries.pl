@@ -3080,169 +3080,169 @@ our $dict = {
     parser => 'Marker',
     skip_marker => 'lx_Amb',
   },
-  'Mead (1998)' => {
+  'Mead (1998a)' => {
     lang_target => 'Proto-Bungku-Tolaki',
     path => 'Mead_1998_Proto-Bungku-Tolaki.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998a)' => {
+  'Mead (1998b)' => {
     lang_target => 'lbw', #Asera
     path => 'Mead 1998/Mead 1998 ASE.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998b)' => {
+  'Mead (1998c)' => {
     lang_target => 'Bahonsuai',
     path => 'Mead 1998/Mead 1998 BAH.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998c)' => {
+  'Mead (1998d)' => {
     lang_target => 'Bungku',
     path => 'Mead 1998/Mead 1998 BNG.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998d)' => {
+  'Mead (1998e)' => {
     lang_target => 'Kodeoha',
     path => 'Mead 1998/Mead 1998 KOD.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998e)' => {
+  'Mead (1998f)' => {
     lang_target => 'Koroni',
     path => 'Mead 1998/Mead 1998 KOR.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998f)' => {
+  'Mead (1998g)' => {
     lang_target => 'Kulisusu',
     path => 'Mead 1998/Mead 1998 KUL.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998g)' => {
+  'Mead (1998h)' => {
     lang_target => 'lbw', #Laiwui
     path => 'Mead 1998/Mead 1998 LAI.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998h)' => {
+  'Mead (1998i)' => {
     lang_target => 'wru', #Lalomerui
     path => 'Mead 1998/Mead 1998 LAL.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998i)' => {
+  'Mead (1998j)' => {
     lang_target => 'bkz', #Landawe
     path => 'Mead 1998/Mead 1998 LAN.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998j)' => {
+  'Mead (1998k)' => {
     lang_target => 'lbw', #Mekongga
     path => 'Mead 1998/Mead 1998 MEK.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998k)' => {
+  'Mead (1998l)' => {
     lang_target => 'wow', #Menui
     path => 'Mead 1998/Mead 1998 MEN.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998l)' => {
+  'Mead (1998m)' => {
     lang_target => 'Mori Atas',
     path => 'Mead 1998/Mead 1998 MRA.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998m)' => {
+  'Mead (1998n)' => {
     lang_target => 'Mori Bawah',
     path => 'Mead 1998/Mead 1998 MRB.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998n)' => {
+  'Mead (1998o)' => {
     lang_target => 'Padoe',
     path => 'Mead 1998/Mead 1998 PAD.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998o)' => {
+  'Mead (1998p)' => {
     lang_target => 'Rahambuu',
     path => 'Mead 1998/Mead 1998 RAH.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998p)' => {
+  'Mead (1998q)' => {
     lang_target => 'bkz', #Routa
     path => 'Mead 1998/Mead 1998 ROU.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998q)' => {
+  'Mead (1998r)' => {
     lang_target => 'Taloki',
     path => 'Mead 1998/Mead 1998 TAL.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998r)' => {
+  'Mead (1998s)' => {
     lang_target => 'mqn', #Tokotu’a
     path => 'Mead 1998/Mead 1998 TOK.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998s)' => {
+  'Mead (1998t)' => {
     lang_target => 'lbw', #Konawe
     path => 'Mead 1998/Mead 1998 TOL.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998t)' => {
+  'Mead (1998u)' => {
     lang_target => 'Tomadino',
     path => 'Mead 1998/Mead 1998 TOM.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998u)' => {
+  'Mead (1998v)' => {
     lang_target => 'bkz', #Torete
     path => 'Mead 1998/Mead 1998 TOR.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998v)' => {
+  'Mead (1998w)' => {
     lang_target => 'bkz', #Tulambatu
     path => 'Mead 1998/Mead 1998 TUL.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998w)' => {
+  'Mead (1998x)' => {
     lang_target => 'bkz', #Waia
     path => 'Mead 1998/Mead 1998 WAI.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998x)' => {
+  'Mead (1998y)' => {
     lang_target => 'Waru',
     path => 'Mead 1998/Mead 1998 WAR.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998y)' => {
+  'Mead (1998z)' => {
     lang_target => 'Wawonii',
     path => 'Mead 1998/Mead 1998 WAW.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998z)' => {
+  'Mead (1998aa)' => {
     lang_target => 'lbw', #Wiwirano
     path => 'Mead 1998/Mead 1998 WIW.txt',
     parser => 'Marker',
     strip => 'to',
   },
-  'Mead (1998aa)' => {
+  'Mead (1998ab)' => {
     lang_target => 'mqn', #Rumbia-Poleang
     path => 'Mead 1998/Mead 1998 MRN.txt',
     parser => 'Marker',
@@ -5442,21 +5442,8 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Sneddon (1978tb)' => { #just for toolbox conversion
-    lang_target => 'Proto-Minahasan',
-    path => 'Sneddon_1978_ProtoMinahasan.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'sc'],
-      [3, 'nt'],
-      [4, 'nt', 'see footnote'],
-      [5, 'pg'],
-    ],
-    strip => 'to',
-  },
-  'Sneddon (1984)' => {
+  
+  'Sneddon (1984a)' => {
     lang_target => 'Proto-Sangiric',
     path => 'Sneddon_1984_ProtoSangir.xlsx',
     parser => 'Spreadsheet',
@@ -5470,18 +5457,34 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Sneddon (1984tb)' => { #just for toolbox conversion
-    lang_target => 'Proto-Sangiric',
-    path => 'Sneddon_1984_ProtoSangir.xlsx',
-    parser => 'Spreadsheet',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'sc'],
-      [3, 'xv'],
-      [4, 'nt', 'see footnote'],
-      [5, 'pg'],
-    ],
+  'Sneddon (1984b)' => { 
+    lang_target => 'Bantik',
+    path => 'Sneddon 1984/Sneddon 1984 Bantik.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984c)' => { 
+    lang_target => 'Ratahan',
+    path => 'Sneddon 1984/Sneddon 1984 Ratahan.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984d)' => { 
+    lang_target => 'Sangil',
+    path => 'Sneddon 1984/Sneddon 1984 Sangil.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984e)' => { 
+    lang_target => 'Sangir',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984f)' => { 
+    lang_target => 'Talaud',
+    path => 'Sneddon 1984/Sneddon 1984 Talaud.txt',
+    parser => 'Marker',
     strip => 'to',
   },
 'Soares (2012)' => {
