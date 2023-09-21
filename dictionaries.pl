@@ -3087,13 +3087,13 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998a)' => {
-    lang_target => 'Asera',
+    lang_target => 'lbw', #Asera
     path => 'Mead 1998/Mead 1998 ASE.txt',
     parser => 'Marker',
     strip => 'to',
   },
-' Mead (1998b)' => {
-    lang_target => 'Bahonusai',
+  'Mead (1998b)' => {
+    lang_target => 'Bahonsuai',
     path => 'Mead 1998/Mead 1998 BAH.txt',
     parser => 'Marker',
     strip => 'to',
@@ -3123,31 +3123,31 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998g)' => {
-    lang_target => 'Laiwui',
+    lang_target => 'lbw', #Laiwui
     path => 'Mead 1998/Mead 1998 LAI.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998h)' => {
-    lang_target => 'Lalomerui',
+    lang_target => 'wru', #Lalomerui
     path => 'Mead 1998/Mead 1998 LAL.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998i)' => {
-    lang_target => 'Landawe',
+    lang_target => 'bkz', #Landawe
     path => 'Mead 1998/Mead 1998 LAN.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998j)' => {
-    lang_target => 'Mekongga',
+    lang_target => 'lbw', #Mekongga
     path => 'Mead 1998/Mead 1998 MEK.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998k)' => {
-    lang_target => 'Menui',
+    lang_target => 'wow', #Menui
     path => 'Mead 1998/Mead 1998 MEN.txt',
     parser => 'Marker',
     strip => 'to',
@@ -3177,7 +3177,7 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998p)' => {
-    lang_target => 'Routa',
+    lang_target => 'bkz', #Routa
     path => 'Mead 1998/Mead 1998 ROU.txt',
     parser => 'Marker',
     strip => 'to',
@@ -3189,13 +3189,13 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998r)' => {
-    lang_target => 'Tokotu’a',
+    lang_target => 'mqn', #Tokotu’a
     path => 'Mead 1998/Mead 1998 TOK.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998s)' => {
-    lang_target => 'Konawe',
+    lang_target => 'lbw', #Konawe
     path => 'Mead 1998/Mead 1998 TOL.txt',
     parser => 'Marker',
     strip => 'to',
@@ -3207,19 +3207,19 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998u)' => {
-    lang_target => 'Torete',
+    lang_target => 'bkz', #Torete
     path => 'Mead 1998/Mead 1998 TOR.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998v)' => {
-    lang_target => 'Tulambatu',
+    lang_target => 'bkz', #Tulambatu
     path => 'Mead 1998/Mead 1998 TUL.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998w)' => {
-    lang_target => 'Waia',
+    lang_target => 'bkz', #Waia
     path => 'Mead 1998/Mead 1998 WAI.txt',
     parser => 'Marker',
     strip => 'to',
@@ -3237,13 +3237,13 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998z)' => {
-    lang_target => 'Wiwirano',
+    lang_target => 'lbw', #Wiwirano
     path => 'Mead 1998/Mead 1998 WIW.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Mead (1998aa)' => {
-    lang_target => 'Rumbia-Poleang',
+    lang_target => 'mqn', #Rumbia-Poleang
     path => 'Mead 1998/Mead 1998 MRN.txt',
     parser => 'Marker',
     strip => 'to',
