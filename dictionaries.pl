@@ -5428,7 +5428,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Sneddon (1978)' => {
+  'Sneddon (1978a)' => {
     lang_target => 'Proto-Minahasan',
     path => 'Sneddon_1978_ProtoMinahasan.xlsx',
     parser => 'Spreadsheet',
@@ -5442,7 +5442,36 @@ our $dict = {
     ],
     strip => 'to',
   },
-  
+  'Sneddon (1978b)' => { 
+    lang_target => 'Tombulu',
+    path => 'Sneddon 1978/Sneddon 1978 Tbl.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1978c)' => { 
+    lang_target => 'Tondano',
+    path => 'Sneddon 1978/Sneddon 1978 Tdn.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1978d)' => { 
+    lang_target => 'Tonsea',
+    path => 'Sneddon 1978/Sneddon 1978 Tse.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1978e)' => { 
+    lang_target => 'Tosawang',
+    path => 'Sneddon 1978/Sneddon 1978 Tsw.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1978f)' => { 
+    lang_target => 'Tontemboan',
+    path => 'Sneddon 1978/Sneddon 1978 Ttb.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Sneddon (1984a)' => {
     lang_target => 'Proto-Sangiric',
     path => 'Sneddon_1984_ProtoSangir.xlsx',
