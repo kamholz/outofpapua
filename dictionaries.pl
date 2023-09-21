@@ -2233,13 +2233,27 @@ our $dict = {
     ],
     split_headword => ';',
   },
-  'van Hasselt & van Hasselt (1947)' => {
+  'van Hasselt & van Hasselt (1947a)' => {
     lang_target => 'Biak Numfor',
     path => 'VanHasselt_Numfor_Biak.txt',
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
+  },
+  'van Hasselt & van Hasselt (1947b)' => {
+    lang_target => 'Biak',
+    path => 'VanHasselt_1947_Biak.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    strip => 'to',
+  },
+  'van Hasselt & van Hasselt (1947c)' => {
+    lang_target => 'Biak Sorido',
+    path => 'VanHasselt_1947_Sorido.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    strip => 'to',
   },
   'Held (1942a)' => {
     lang_target => 'Waropen Kai',
