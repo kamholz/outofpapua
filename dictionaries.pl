@@ -2235,7 +2235,7 @@ our $dict = {
   },
   'van Hasselt & van Hasselt (1947a)' => {
     lang_target => 'Biak Numfor',
-    path => 'VanHasselt_Numfor_Biak.txt',
+    path => 'vanHasselt_Numfor_Biak.txt',
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
@@ -2243,14 +2243,14 @@ our $dict = {
   },
   'van Hasselt & van Hasselt (1947b)' => {
     lang_target => 'Biak',
-    path => 'VanHasselt_1947_Biak.txt',
+    path => 'vanHasselt_1947_Biak.txt',
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
   },
   'van Hasselt & van Hasselt (1947c)' => {
     lang_target => 'Biak Sorido',
-    path => 'VanHasselt_1947_Sorido.txt',
+    path => 'vanHasselt_1947_Sorido.txt',
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
