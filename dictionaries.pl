@@ -6621,6 +6621,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862c)' => {
@@ -6633,6 +6634,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862d)' => {
@@ -6645,6 +6647,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862e)' => {
@@ -6657,6 +6660,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862f)' => {
@@ -6669,6 +6673,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862g)' => {
@@ -6681,6 +6686,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [2, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862h)' => {
@@ -6693,6 +6699,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862i)' => {
@@ -6705,6 +6712,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862j)' => {
@@ -6717,6 +6725,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862k)' => {
@@ -6729,6 +6738,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862l)' => {
@@ -6741,6 +6751,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862m)' => {
@@ -6753,6 +6764,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
     strip => 'to',
   },
   'van der Crab (1862n)' => { #not ingested
@@ -6765,6 +6777,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [11, 'page_num'],
     ],
+    split_headword => ';',
   },
   'van der Crab (1862o)' => {
     lang_target => 'bnq',
@@ -6777,6 +6790,7 @@ our $dict = {
       [11, 'page_num'],
     ],
     strip => 'to',
+    split_headword => ';',
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
