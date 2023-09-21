@@ -3374,7 +3374,7 @@ our $dict = {
     ],
   },
   'Niggemeyer (1951c)' => {
-    lang_target => 'Ambonese',
+    lang_target => 'abs',
     path => 'Niggemeyer_1951_Alune extracted languages.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Str 2',
