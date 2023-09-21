@@ -3344,7 +3344,7 @@ our $dict = {
       [[11 .. 12], 'example', ['ind']], #3
     ],
   },
-  'Niggemeyer (1951)' => { 
+  'Niggemeyer (1951a)' => { 
     lang_target => 'alp',
     path => 'Niggemeyer 1951 - Alune.xlsx',
     parser => 'Spreadsheet',
@@ -3360,6 +3360,30 @@ our $dict = {
       [7, 'sc'],
     ],
     split_headword => ';',
+  },
+  'Niggemeyer (1951b)' => {
+    lang_target => 'Paulohi',
+    path => 'Niggemeyer_1951_Alune extracted languages.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Str 1',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'deu'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
+  'Niggemeyer (1951c)' => {
+    lang_target => 'Ambonese',
+    path => 'Niggemeyer_1951_Alune extracted languages.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Str 2',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'deu'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
   },
   'Odé (2004a)' => {
     lang_target => 'akc',
