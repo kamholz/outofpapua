@@ -2368,7 +2368,7 @@ our $dict = {
   },
   'Hesse & Hesse (2021)' => {
     lang_target => 'Tehit Imian',
-    path => 'Tehit Hesse.txt',
+    path => 'Hesse_2021_Tehit.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
