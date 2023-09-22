@@ -6821,6 +6821,25 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
+   'van der Roest (1905)' => {
+    lang_target => 'Tobelo Boëng',
+    path => 'vanderRoest_1905_TobeloBoeng.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'pd'],
+      [2, 'va'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [[6 .. 8], 'example', ['nld', 'eng']],
+      [9, 'nt_x'],
+      [10, 'nt'],
+      [11, 'page_num'],
+    ],
+    strip => 'to',
+    mode => 'sense_per_row'
+  },
   'van Dijk (2000)' => {
     lang_target => 'mxz',
     path => 'vanDijk_2000_Central Marsela.xlsx',
