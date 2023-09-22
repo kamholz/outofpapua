@@ -2038,6 +2038,7 @@ our $dict = {
     parser => 'Marker',
     definition_action => 'merge',
     lang_national => 'ind',
+    lang_regional => 'mkn',
   },
   'Fricke (2019)' => { 
     lang_target => 'Central Lembata',
