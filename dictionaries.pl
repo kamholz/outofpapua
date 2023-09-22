@@ -367,7 +367,7 @@ our $dict = {
     ],
   },
    'Bateman (1980)' => {
-    lang_target => 'llu',
+    lang_target => 'tmu',
     path => 'Bateman_1980_Lau.txt',
     parser => 'Marker',
     strip => 'to',
