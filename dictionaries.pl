@@ -6591,6 +6591,12 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'van den Heuvel (2023)' => {
+    lang_target => 'Kurudu',
+    path => 'vandenHeuvel_2023_Kurudu.txt',
+    parser => 'Marker',
+    skip_marker => ['lx_Kur', 'hm',],
+  },
   'van den Berg (2018)' => {
     lang_target => 'Muna',
     path => 'vandenBerg2018_Muna.txt',
