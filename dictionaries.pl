@@ -366,6 +366,12 @@ our $dict = {
       [2, 'mr'],
     ],
   },
+   'Bateman (1980)' => {
+    lang_target => 'Lau',
+    path => 'Bateman_1980_Lau.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Bax (2019)' => {
     lang_target => 'gei',
     path => 'Bax/Bax_final-version.txt',
@@ -6129,6 +6135,13 @@ our $dict = {
       [6, 'headword'],
       [7, 'gloss', 'eng'],
     ],
+  },
+  'Taber & Taber (nd)' => {
+    lang_target => 'Luang',
+    path => 'Taber_nd_Luang.txt',
+    parser => 'Marker',
+    split => ';',
+    strip => 'to',
   },
   'Tamelan (2021)' => {
     lang_target => 'row',
