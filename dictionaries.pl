@@ -3486,7 +3486,7 @@ our $dict = {
   },
   'Peckham (2003)' => {
     lang_target => 'Mairasi',
-    path => 'MAIRASI_trial_ingestion.txt',
+    path => 'Peckham_2003_Mairasi.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
