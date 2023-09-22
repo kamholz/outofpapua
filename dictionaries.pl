@@ -2033,7 +2033,7 @@ our $dict = {
     strip => 'to',
   },
   'Fricke (2013)' => { #not ingested, unknown languageS
-    lang_target => 'Hewa (Indonesia)',
+    lang_target => 'Hewa (Sikka)',
     path => 'Fricke_2013_Hewa.txt',
     parser => 'Marker',
     definition_action => 'merge',
