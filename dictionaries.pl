@@ -3040,7 +3040,7 @@ our $dict = {
   },
   'Maan (1940)' => {
     lang_target => 'Buli',
-    path => 'Toolbox_Maan1940Buli.txt',
+    path => 'Maan_1940_Buli.txt',
     parser => 'Marker',
     strip => 'to',
   },
