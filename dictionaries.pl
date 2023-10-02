@@ -7849,6 +7849,22 @@ our $dict = {
     definition_action => 'merge',
     skip_marker => ['re', 'rr', 'rn', 'lx_Eng', 'cet'],
   },
+  'Wilson (nd)' => { #not ingested
+    lang_target => 'yev',
+    path => 'Wilson Yeri.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'nt'],
+      [3, 'ps'],
+      [5, 'gloss', 'eng'],
+      [6, 'nt'],
+      [7, 'nt', 'numbers:'],
+      [8, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Wirz (1923)' => {
     lang_target => 'Meyah Manokwari',
     path => 'Wirz 1923 - Mansibaber.xlsx',
