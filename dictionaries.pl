@@ -2473,6 +2473,23 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Heeschen (1983)' => {
+    lang_target => 'eip',
+    path => 'Colexification_tool/Eipomek (Heeschen 1983).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'ue'],
+      [4, 'nt', 'From:'],
+      [5, 'gloss', 'eng'],
+      [6, 'ee'],
+      [7, 'cf'],
+      [8, 'cp'],
+      [9, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Henning & Henning (1991)' => {
     lang_target => 'Wamesa Wandamen',
     path => 'Wandamen_List.xlsx',
