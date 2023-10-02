@@ -366,6 +366,20 @@ our $dict = {
       [2, 'mr'],
     ],
   },
+  'Barlow (2018)' => { #not ingested
+    lang_target => 'tmu',
+    path => 'Colexification_tool/Ulwa (Barlow 2018).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'bw'],
+      [4, 'va'],
+      [5, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
    'Bateman (1980)' => {
     lang_target => 'tmu',
     path => 'Bateman_1980_Lau.txt',
