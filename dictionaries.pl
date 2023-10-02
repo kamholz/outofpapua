@@ -2941,6 +2941,11 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Klamer (nd)' => {
+    lang_target => 'Kaera',
+    path => 'Klamer_nd_Kaera.txt',
+    parser => 'Marker',
+  },
   'Kluge (2017)' => {
     lang_target => 'pmy',
     path => 'Kluge (2017) Papuan Malay.xlsx',
