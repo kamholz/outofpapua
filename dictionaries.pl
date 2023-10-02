@@ -380,6 +380,23 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Barlow (2020)' => { #not ingested
+    lang_target => 'lnm',
+    path => 'Colexification_tool/Pondi (Barlow 2020).xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'nt', '<'],
+      [4, 'nt', 'TB:'],
+      [5, 'va'],
+      [6, 'nt', 'plural:'],
+      [7, 'nt'],
+      [8, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
    'Bateman (1980)' => {
     lang_target => 'tmu',
     path => 'Bateman_1980_Lau.txt',
