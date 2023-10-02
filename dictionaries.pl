@@ -3379,6 +3379,23 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Mekwei' => { #not ingested
+    lang_target => 'msf',
+    path => 'Colexification_tool/Mekwei dictionary.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'subentry'],
+      [0, 'headword'],
+      [3, 'ph'],
+      [4, 'ps'],
+      [6, 'gloss', 'ind'],
+      [7, 'gloss', 'eng'],
+      [[8 .. 9], 'example', ['ind']],
+      [10, 'nt', 'sin'],
+      [11, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Menick (nd)' => {
     lang_target => 'mxn',
     path => 'Menick_Moi_Dictionary.txt',
