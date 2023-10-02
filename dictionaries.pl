@@ -3883,6 +3883,14 @@ our $dict = {
       [[6 .. 7], 'example', ['ind']],
     ],
   },
+  'Schapper (nd)' => {
+    lang_target => 'nec',
+    path => 'Schapper_nd_Nedebang.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'mkn',
+    definition_action => 'merge',
+  },
   'Schapper & Manimau (2011)' => { #not ingested due to unsolved error
     lang_target => 'woi',
     path => 'SchapperManimau2011_Kamang.txt',
