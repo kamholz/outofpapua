@@ -2342,7 +2342,7 @@ our $dict = {
     strip => 'to',
   },
   'van Hasselt & van Hasselt (1947h)' => {
-    lang_target => 'Windesi',
+    lang_target => 'Wamesa Windesi',
     path => 'vanHasselt_1947_Windesi.txt',
     parser => 'Marker',
     lang_national => 'ind',
