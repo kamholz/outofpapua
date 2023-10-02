@@ -2875,6 +2875,27 @@ our $dict = {
       [21, '3j'],
     ],
   },
+  'Kemtuik' => { #not ingested
+    lang_target => 'kmt',
+    path => 'Colexification_tool/Kamus Kemtuik.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'va'],
+      [3, 'ps'],
+      [5, 'gloss', 'ind'],
+      [6, 'gloss', 'eng'],
+      [7, 'nt', 'From:'],
+      [8, 'nt', 'Ant:'],
+      [9, 'nt', 'Syn:'],
+      [[10 .. 12], 'example', ['ind', 'eng']], #1
+      [[13 .. 15], 'example', ['ind', 'eng']], #2
+      [[16 .. 18], 'example', ['ind', 'eng']], #3
+      [19, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Kijne (nd a)' => {
     lang_target => 'Yawa Turu',
     path => 'spreadsheets/8-Turu word list Kijne.xlsx',
