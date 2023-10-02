@@ -7851,7 +7851,7 @@ our $dict = {
   },
   'Wilson (nd)' => { #not ingested
     lang_target => 'yev',
-    path => 'Wilson Yeri.xlsx',
+    path => 'Colexification_tool/Wilson Yeri.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
