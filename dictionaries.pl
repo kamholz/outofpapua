@@ -704,8 +704,8 @@ our $dict = {
   },
   'Bine' => { #not ingested
     lang_target => 'bon',
-    path => 'Colexification_tool/Bine_dictionary.csv',
-    parser => 'CSV',
+    path => 'Colexification_tool/Bine_dictionary.xlsx',
+    parser => 'spreadsheet',
     columns => [
       [0, 'headword'],
       [1, 'ph'],
