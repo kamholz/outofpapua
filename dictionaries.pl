@@ -2899,17 +2899,17 @@ our $dict = {
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
-      [2, 'va'],
-      [3, 'ps'],
-      [5, 'gloss', 'ind'],
-      [6, 'gloss', 'eng'],
-      [7, 'nt', 'From:'],
-      [8, 'nt', 'Ant:'],
-      [9, 'nt', 'Syn:'],
-      [[10 .. 12], 'example', ['ind', 'eng']], #1
-      [[13 .. 15], 'example', ['ind', 'eng']], #2
-      [[16 .. 18], 'example', ['ind', 'eng']], #3
-      [19, 'page_num'],
+      [2, 'ps'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [5, 'et'],
+      [6, 'an'],
+      [7, 'sy'],
+      [8, 'va'],
+      [[9 .. 11], 'example', ['ind', 'eng']], #1
+      [[12 .. 14], 'example', ['ind', 'eng']], #2
+      [[15 .. 17], 'example', ['ind', 'eng']], #3
+      [18, 'page_num'],
     ],
     mode => 'sense_per_row',
   },
