@@ -4055,6 +4055,14 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Sir & Schapper (nd)' => { 
+    lang_target => 'twe',
+    path => 'SirSchapper_Nd_Teiwa.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'mkn',
+    definition_action => 'merge',
+  },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
     path => 'spreadsheets/12-Serui-Laut vocabulary Slump.xlsx',
