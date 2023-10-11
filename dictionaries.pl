@@ -3596,11 +3596,13 @@ our $dict = {
     lang_target => 'Proto-Aru',
     path => 'Nivens_2017_Proto-Aru.txt',
     parser => 'Marker',
+    lang_national => 'ind',
   },
   'Nivens (2017b)' => {
     lang_target => 'Proto-Southern Aru',
     path => 'Nivens_2017_Proto-Southern-Aru.txt',
     parser => 'Marker',
+    lang_national => 'ind',
   },
   'Odé (2004a)' => {
     lang_target => 'akc',
