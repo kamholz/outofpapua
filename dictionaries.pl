@@ -3592,6 +3592,16 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
+  'Nivens (2017a)' => {
+    lang_target => 'Proto-Aru',
+    path => 'Nivens_2017_Proto-Aru.txt',
+    parser => 'Marker',
+  },
+  'Nivens (2017b)' => {
+    lang_target => 'Proto-Southern Aru',
+    path => 'Nivens_2017_Proto-Southern-Aru.txt',
+    parser => 'Marker',
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
