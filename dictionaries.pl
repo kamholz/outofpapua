@@ -2297,7 +2297,7 @@ our $dict = {
   },
   'Gizzra' => { #not ingested
     lang_target => 'tof',
-    path => 'Colexification_tool/Gizzra dictionary.txt',
+    path => 'Colexification_tool/Gizzra dictionary.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
