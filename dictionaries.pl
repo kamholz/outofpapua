@@ -1547,6 +1547,20 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Du Bois (1937)' => {
+    lang_target => 'Kafe', 
+    path => 'DuBois_1937_Kafe.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'lt'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'ind'],
+    ],
+    strip => 'to',
+  },
   'Edwards (2017)' => { 
     lang_target => 'aaz',
     path => 'Edwards_2018_Amarasi.txt',
