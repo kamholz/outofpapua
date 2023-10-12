@@ -4031,6 +4031,18 @@ our $dict = {
       [6, 'page_num'],
     ],
   },
+  'Schapper (2015)' => {
+    lang_target => 'Adang Otvai',
+    path => 'Schapper_2015_AdangOtvai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [3, 'lt'],
+      [4, 'sc'],
+    ],
+  },
   'Schapper (2020)' => {
     lang_target => 'kvw',
     path => 'Schapper 2020 - Wersing Peitoko.txt',
