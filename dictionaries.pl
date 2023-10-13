@@ -6501,7 +6501,7 @@ our $dict = {
       [10, 'nt'],
       [[11 .. 13], 'example', ['eng', 'ind']],
       [[14 .. 16], 'example', ['eng', 'ind']],
-      [[17 .. 29], 'example', ['eng', 'ind']],
+      [[17 .. 19], 'example', ['eng', 'ind']],
       [20, 'cf'],
       [21, 'page_num'],
     ],
