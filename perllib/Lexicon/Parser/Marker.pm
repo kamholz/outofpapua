@@ -276,7 +276,7 @@ sub parse {
 
   if ($self->ignore_toolbox_header) {
     # skip over the MDF header.
-    $data =~ s/^\s*(?:\\_[a-zA-Z]+.*\n)+\s*//;
+    $data =~ s/^\s*(?:\\[_ ][a-zA-Z]+.*\n)+\s*//;
   }
 
   my @raw_lines = split /\n/, $data;
