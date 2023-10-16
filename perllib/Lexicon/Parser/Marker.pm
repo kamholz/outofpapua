@@ -137,7 +137,7 @@ has 'filter_entry' => (
 );
 
 # whether to look for and skip a toolbox header at the beginning of the file
-has 'has_toolbox_header' => (
+has 'ignore_toolbox_header' => (
   is => 'ro',
   default => 1,
 );
@@ -271,17 +271,18 @@ sub parse {
   }
 
   open my $in, $mode, ($path // $self->path) or die $!;
+  my $data = do { local $/; <$in> };
+  close $in;
 
-  if ($self->has_toolbox_header) {
+  if ($self->ignore_toolbox_header) {
     # skip over the MDF header.
-    while (defined(my $line = <$in>)) {
-      last if $line =~ /^\s*$/;
-    }
+    $data =~ s/^\s*(?:\\_[a-zA-Z]+.*\n)+\s*//;
   }
 
+  my @raw_lines = split /\n/, $data;
   my (@lines, $last_marker, $last_txt);
 
-  while (defined(my $line = <$in>)) {
+  foreach my $line (@raw_lines) {
     $line = apply_encodings($line, $encoding) if $decode_by_line;
     chomp $line;
 
@@ -301,8 +302,6 @@ sub parse {
     }
   }
   push(@lines, [$last_marker, $last_txt]) if defined $last_marker;
-
-  close $in;
 
   return @lines;
 }
