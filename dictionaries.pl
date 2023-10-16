@@ -5877,7 +5877,7 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
-'Soares (2012)' => {
+  'Soares (2012)' => {
     lang_target => 'Midiki',
     path => 'Soares_2012_Midiki.xlsx',
     parser => 'Spreadsheet',
