@@ -6461,7 +6461,7 @@ our $dict = {
   },
   'Sulistyono (2022a)' => {
     lang_target => 'Proto-Western Lamaholot',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sulistyono 2022',
     columns => [
@@ -6473,7 +6473,7 @@ our $dict = {
   },
   'Sulistyono (2022b)' => {
     lang_target => 'Proto-Alorese',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sulistyono 2022',
     columns => [
