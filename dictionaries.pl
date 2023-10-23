@@ -2112,11 +2112,71 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'mkn',
   },
-  'Fricke (2019)' => { 
+  'Fricke (2019a)' => { 
     lang_target => 'Central Lembata',
     path => 'Fricke_2019_Central Lembata.txt',
     parser => 'Marker',
     definition_action => 'merge',
+  },
+  'Fricke (2019b)' => {
+    lang_target => 'Proto-Flores-Lembata',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Fricke 2019'
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [6, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Fricke (2019c)' => {
+    lang_target => 'Proto-Lamaholot',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Fricke 2019'
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [6, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Fricke (2019d)' => {
+    lang_target => 'Lamaholot-Kedang',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Fricke 2019'
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [6, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Fricke (2019e)' => {
+    lang_target => 'Lamaholot-Sikka',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Fricke 2019'
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [6, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Fricke (2019f)' => {
+    lang_target => 'Proto-Alorese',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Fricke 2019'
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [6, 'page_num'],
+    ],
+    strip => 'to',
   },
   'Friday (2005)' => {
     lang_target => 'Fataluku',
@@ -6398,6 +6458,30 @@ our $dict = {
     parser => 'Marker',
     split => ';',
     definition_action => 'merge',
+  },
+  'Sulistyono (2022a)' => {
+    lang_target => 'Proto-Western Lamaholot',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sulistyono 2022',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Sulistyono (2022b)' => {
+    lang_target => 'Proto-Alorese',
+    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Sulistyono 2022',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
   },
   'Taber (1993a)' => {
     lang_target => 'vbb', #Southeast Babar
