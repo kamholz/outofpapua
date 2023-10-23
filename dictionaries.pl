@@ -2122,7 +2122,7 @@ our $dict = {
     lang_target => 'Proto-Flores-Lembata',
     path => 'Sulistyono_2002_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Fricke 2019'
+    sheet => 'Fricke 2019',
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
@@ -2134,7 +2134,7 @@ our $dict = {
     lang_target => 'Proto-Lamaholot',
     path => 'Sulistyono_2002_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Fricke 2019'
+    sheet => 'Fricke 2019',
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
@@ -2146,7 +2146,7 @@ our $dict = {
     lang_target => 'Lamaholot-Kedang',
     path => 'Sulistyono_2002_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Fricke 2019'
+    sheet => 'Fricke 2019',
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
@@ -2158,7 +2158,7 @@ our $dict = {
     lang_target => 'Lamaholot-Sikka',
     path => 'Sulistyono_2002_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Fricke 2019'
+    sheet => 'Fricke 2019',
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
@@ -2170,7 +2170,7 @@ our $dict = {
     lang_target => 'Proto-Alorese',
     path => 'Sulistyono_2002_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Fricke 2019'
+    sheet => 'Fricke 2019',
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
