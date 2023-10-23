@@ -2120,7 +2120,7 @@ our $dict = {
   },
   'Fricke (2019b)' => {
     lang_target => 'Proto-Flores-Lembata',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Fricke 2019',
     columns => [
@@ -2132,7 +2132,7 @@ our $dict = {
   },
   'Fricke (2019c)' => {
     lang_target => 'Proto-Lamaholot',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Fricke 2019',
     columns => [
@@ -2144,7 +2144,7 @@ our $dict = {
   },
   'Fricke (2019d)' => {
     lang_target => 'Lamaholot-Kedang',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Fricke 2019',
     columns => [
@@ -2156,7 +2156,7 @@ our $dict = {
   },
   'Fricke (2019e)' => {
     lang_target => 'Lamaholot-Sikka',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Fricke 2019',
     columns => [
@@ -2168,7 +2168,7 @@ our $dict = {
   },
   'Fricke (2019f)' => {
     lang_target => 'Proto-Alorese',
-    path => 'Sulistyono_2002_Fricke_2019.xlsx',
+    path => 'Sulistyono_2022_Fricke_2019.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Fricke 2019',
     columns => [
