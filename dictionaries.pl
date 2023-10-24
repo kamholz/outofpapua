@@ -6459,6 +6459,7 @@ our $dict = {
     parser => 'Marker',
     split => ';',
     definition_action => 'merge',
+    strip => 'to',
   },
   'Sulistyono (2022a)' => {
     lang_target => 'Proto-Western Lamaholot',
