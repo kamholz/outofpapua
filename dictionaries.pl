@@ -1219,26 +1219,27 @@ our $dict = {
   },
   'de Josselin de Jong (1947)' => {
     lang_target => 'ilu',
-    path => 'de Josselin de Jong 1947 Iliuun Erai.xlsx',
+    path => 'deJosselindeJong_1947_IliuunErai.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
       [2, 'gloss', 'eng'],
       [6, 'gloss', 'ind'], 
-      [7, 'gloss', 'nld'],
+      [8, 'gloss', 'nld'],
       [3, 'pl'],
       [4, 'va'],
       [5, 'nt', 'literally:'],
-      [8, 'nt'],
-      [9, 'cf'],
-      [[10 .. 11], 'example', ['eng']], #1
-      [[12 .. 13], 'example', ['eng']], #2
-      [[14 .. 15], 'example', ['eng']], #3
-      [[16 .. 17], 'example', ['eng']], #4
-      [[18 .. 19], 'example', ['eng']], #5
-      [[20 .. 21], 'example', ['eng']], #6
-      [[22 .. 23], 'example', ['eng']], #7
+      [7, 'sc'],
+      [9, 'nt'],
+      [10, 'cf'],
+      [[11 .. 12], 'example', ['eng']], #1
+      [[13 .. 14], 'example', ['eng']], #2
+      [[15 .. 16], 'example', ['eng']], #3
+      [[17 .. 18], 'example', ['eng']], #4
+      [[19 .. 20], 'example', ['eng']], #5
+      [[21 .. 22], 'example', ['eng']], #6
+      [[23 .. 24], 'example', ['eng']], #7
     ],
     split_headword => ';',
     strip => 'to',
