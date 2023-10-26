@@ -7847,6 +7847,13 @@ our $dict = {
     },
     strip => 'to',
   },
+  'Visser (2023)' => {
+    lang_target => 'jmd',
+    path => 'Visser_2023_Yamdena.db', 
+    parser => 'Marker',
+    definition_action => 'merge',
+    strip => 'to',
+  },
   'Visser (nd)' => {
     lang_target => 'urn',
     path => 'uruangnirin-lexicon-20231002.db', 
