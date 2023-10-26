@@ -330,6 +330,33 @@ our $dict = {
     path => 'Baird_2003_Kafoa.txt',
     parser => 'Marker',
   },
+  'Baird (2008a)' => {
+    lang_target => 'Klon',
+    path => 'Baird_2008_Klon.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Klon',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [1, 'va'],
+      [4, 'page_num'],
+    ],
+    strip => 'to',
+  },
+  'Baird (2008b)' => {
+    lang_target => 'Klon Paneia',
+    path => 'Baird_2008_Klon.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Klon Paneia',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Balle (nd)' => {
     lang_target => 'heg',
     path => 'Balle_nd_Helong.txt',
