@@ -343,6 +343,7 @@ our $dict = {
       [4, 'page_num'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Baird (2008b)' => {
     lang_target => 'Klon Paneia',
@@ -356,6 +357,7 @@ our $dict = {
       [3, 'page_num'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Balle (nd)' => {
     lang_target => 'heg',
