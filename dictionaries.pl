@@ -804,6 +804,21 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Bolton & Matok (2005)' => {
+    lang_target => 'Nuaulu',
+    path => 'BoltonMatok_2005_Nuaulu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'por'],
+      [5, 'gloss', 'ind'],
+      [6, 'cf'],
+      [7, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Bowden (2001)' => {
     lang_target => 'East Makian',
     path => 'Bowden_2001_East-Makian.xlsx',
