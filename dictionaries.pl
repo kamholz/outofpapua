@@ -3610,7 +3610,7 @@ our $dict = {
     lang_target => 'tdt',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Tetun'
+    sheet => 'Tetun',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
