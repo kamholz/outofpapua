@@ -2495,6 +2495,25 @@ our $dict = {
     ],
     split_headword => ';',
   },
+  'Haan (2015)' => {
+    lang_target => 'woi',
+    path => 'Han_2015_Suboo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [1, 'ph'],
+      [2, 'ps'],
+      [5, 'sc'],
+      [6, '1s'],
+      [7, '3s'],
+      [8, '1d'],
+      [9, 'page_num']
+    ],
+    strip => 'to',
+    mode => 'sense_per_row',
+  },
   'van Hasselt & van Hasselt (1947a)' => {
     lang_target => 'Biak Numfor',
     path => 'vanHasselt_Numfor_Biak.txt',
@@ -3697,31 +3716,6 @@ our $dict = {
     strip => 'to',
   },
   'Morris (1984d)' => { 
-    lang_target => 'Tetun Samoro',
-    path => 'Morris_1984_Tetun.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Tetun Samoro',
-    columns => [
-      [1, 'subentry'],
-      [0, 'headword'],
-      [2, 'ps'],
-      [3, 'gloss', 'eng'],
-      [4, 'cf'],
-      [5, 'va'],
-      [6, 'sy'],
-      [7, 'ue'],
-      [[8 .. 9], 'example', ['eng']],
-      [[10 .. 11], 'example', ['eng']],
-      [12, 'lt'],
-      [13, 'sc'],
-      [14, 'nt'],
-      [15, 'et'],
-      [16, 'page_num'],
-    ],
-    mode => 'sense_per_row',
-    strip => 'to',
-  },
-  'Morris (1984e)' => { 
     lang_target => 'Tetun Dili',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3746,7 +3740,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984f)' => { 
+  'Morris (1984e)' => { 
     lang_target => 'Tetun Ue Keke',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3771,7 +3765,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984g)' => { 
+  'Morris (1984f)' => { 
     lang_target => 'Tetun Luka',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3796,7 +3790,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984h)' => { 
+  'Morris (1984g)' => { 
     lang_target => 'Tetun Alas',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3821,7 +3815,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984i)' => { 
+  'Morris (1984h)' => { 
     lang_target => 'Tetun Bubu Susu',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3846,7 +3840,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984j)' => { 
+  'Morris (1984i)' => { 
     lang_target => 'Tetun Bariki',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3871,7 +3865,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984k)' => { 
+  'Morris (1984j)' => { 
     lang_target => 'Tetun Lakluta',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3896,7 +3890,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984l)' => { 
+  'Morris (1984k)' => { 
     lang_target => 'Tetun Suai',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3921,7 +3915,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984m)' => { 
+  'Morris (1984l)' => { 
     lang_target => 'Tetun Ue Hali',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
@@ -3946,7 +3940,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Morris (1984n)' => { 
+  'Morris (1984m)' => { 
     lang_target => 'Tetun Dotik',
     path => 'Morris_1984_Tetun.xlsx',
     parser => 'Spreadsheet',
