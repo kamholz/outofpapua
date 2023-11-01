@@ -7678,6 +7678,39 @@ our $dict = {
       [7, 'page_num'],
     ],
   },
+  'van Dijk (2021a)' => {
+    lang_target => 'mxz',
+    path => 'vanDijk_2021_Babar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [ 
+      [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss','ind'],
+      [5, 'page_num'],
+    ],
+  },
+  'van Dijk (2021b)' => {
+    lang_target => 'sve',
+    path => 'vanDijk_2021_Babar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [ 
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss','ind'],
+      [5, 'page_num'],
+    ],
+  },
+  'van Dijk (2021c)' => {
+    lang_target => 'South Marsela Iblatmunta',
+    path => 'vanDijk_2021_Babar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [ 
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss','ind'],
+      [5, 'page_num'],
+    ],
+  },
   'van Engelenhoven (nd)' => {
     lang_target => 'Fataluku Tutuala',
     path => 'vanEngelenhoven_nd_FatalukuTutuala.txt',
