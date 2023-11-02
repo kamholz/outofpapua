@@ -8642,7 +8642,7 @@ strip => 'to',
     ],
   },
   'van Dijk (2021c)' => {
-    lang_target => 'South Marsela Iblatmunta',
+    lang_target => 'South Masela Iblatmunta',
     path => 'vanDijk_2021_Babar.xlsx',
     parser => 'Spreadsheet',
     columns => [ 
