@@ -4725,7 +4725,7 @@ strip => 'to',
 
 'Nivens (2017 Mariri a)' => {
 lang_target => 'mqi', #MR
-path => 'Nivens 2017/Nivens 2017 Mr a.txt',
+path => 'Nivens 2017/Nivens 2017 Kola Mr a.txt',
 parser => 'Marker',
 lang_national => 'ind',
 lang_regional => 'abs',
@@ -4734,7 +4734,7 @@ strip => 'to',
 
 'Nivens (2017 Mariri b)' => {
 lang_target => 'mqi', #MR
-path => 'Nivens 2017/Nivens 2017 Mr b.txt',
+path => 'Nivens 2017/Nivens 2017 Kola Mr b.txt',
 parser => 'Marker',
 lang_national => 'ind',
 lang_regional => 'abs',
