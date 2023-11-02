@@ -4102,6 +4102,950 @@ our $dict = {
     lang_national => 'ind',
     split_headword => ';,/',
   },
+  'Nivens (2017 Koba Dangar)' => {
+lang_target => 'kpd', #KB
+path => 'Nivens 2017 Koba Dg.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Koba Selfara)' => {
+lang_target => 'kpd', #KB
+path => 'Nivens 2017 Koba Sf.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Koba Seltimur)' => {
+lang_target => 'kpd', #KB
+path => 'Nivens 2017 Koba St.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Barakai Mesiang)' => {
+  lang_target => 'baj',
+  path => 'Nivens 2017 Barakai Lg.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Barakai Longgar)' => {
+  lang_target => 'baj',
+  path => 'Nivens 2017 Barakai Mg.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Jursiang)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Js.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Kumul)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Ku.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Benjuring)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Bj.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Kabalsiang)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Ks.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Waria)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Wr.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Batulei)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Bl.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Batuley Sewer)' => {
+  lang_target => 'bay',
+  path => 'Nivens 2017 Batuley Sw.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  lang_regional => 'abs',
+  strip => 'to',
+},
+
+'Nivens (2017 Dobel Algadan)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Al.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Irloy)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Ir.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Jirlay)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Jy.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Manjau)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Mn.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Warabola)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Qb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Murai Lama)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Ml.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Murai Baru)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Mb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Murai)' => {
+lang_target => 'kvo', #DBI
+path => 'Nivens 2017 Dobel Mr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Dosi Namalau)' => {
+lang_target => 'kvo', #DBN
+path => 'Nivens 2017 Dobel Dn.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Balatan)' => {
+lang_target => 'kvo', #DBN
+path => 'Nivens 2017 Dobel Bt.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Karawai)' => {
+lang_target => 'kvo', #DBN
+path => 'Nivens 2017 Dobel Ky.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Koijabi)' => {
+lang_target => 'kvo', #DBN
+path => 'Nivens 2017 Dobel Kj.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Warloi)' => {
+lang_target => 'kvo', #DBN
+path => 'Nivens 2017 Dobel Ql.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Basada)' => {
+lang_target => 'kvo', #DBS
+path => 'Nivens 2017 Dobel Bs.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Kaiwabar)' => {
+lang_target => 'kvo', #DBS
+path => 'Nivens 2017 Dobel Kw.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Ponom)' => {
+lang_target => 'kvo', #DBS
+path => 'Nivens 2017 Dobel Pn.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Wailay)' => {
+lang_target => 'kvo', #DBS
+path => 'Nivens 2017 Dobel Wy.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Kobror)' => {
+lang_target => 'kvo', #DBT
+path => 'Nivens 2017 Dobel Kr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Dobel Warjukur)' => {
+lang_target => 'kvo', #DBT
+path => 'Nivens 2017 Dobel Wj.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Erersin)' => {
+lang_target => 'tre', #ETN
+path => 'Nivens 2017 East Tarangan Er.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Fatlabata)' => {
+lang_target => 'tre', #ETN
+path => 'Nivens 2017 East Tarangan Fb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Gomar Sungai)' => {
+lang_target => 'tre', #ETN
+path => 'Nivens 2017 East Tarangan Gs.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Gomar Meti)' => {
+lang_target => 'tre', #ETN
+path => 'Nivens 2017 East Tarangan Gm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Jelia)' => {
+lang_target => 'tre', #ETN
+path => 'Nivens 2017 East Tarangan Jl.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Beltubur)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Br.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Meror)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Mr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Siya)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Sy.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Salarem)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Sr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Batu Goyang)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Bg.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 East Tarangan Dosi Mar)' => {
+lang_target => 'tre', #ETS
+path => 'Nivens 2017 East Tarangan Dm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Berdafan)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Bf.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Foket)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Fk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Gomsey)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Gy.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Langhalau)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Lh.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Marlasi)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Mi.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Mohang Sel)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Ms.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Tasinwaha)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Ts.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Wafan)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Wf.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Takata)' => {
+lang_target => 'kvv', #KLE
+path => 'Nivens 2017 Kola Takata.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Warialao)' => {
+lang_target => 'kvv', #KLW
+path => 'Nivens 2017 Kola Wl.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Kulaha)' => {
+lang_target => 'kvv', #KLW
+path => 'Nivens 2017 Kola Kh.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Kabofin)' => {
+lang_target => 'kvv', #northern area
+path => 'Nivens 2017 Kola Ka.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Kaibolafin)' => {
+lang_target => 'kvv', #northern area
+path => 'Nivens 2017 Kola Ki.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Wahangula-Ngula)' => {
+lang_target => 'kvv', #northern area
+path => 'Nivens 2017 Kola Wn.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Wahayun)' => {
+lang_target => 'kvv', #northern area
+path => 'Nivens 2017 Kola Wh.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Kolamar)' => {
+lang_target => 'kvv', #eastern area
+path => 'Nivens 2017 Kola Km.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Leting)' => {
+lang_target => 'kvv', #eastern area
+path => 'Nivens 2017 Kola Le.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Masidang)' => {
+lang_target => 'kvv', #eastern area
+path => 'Nivens 2017 Kola Md.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Mohang Pulau)' => {
+lang_target => 'kvv', #eastern area
+path => 'Nivens 2017 Kola Mp.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Selmona)' => {
+lang_target => 'kvv', #eastern area
+path => 'Nivens 2017 Kola Sm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Waifual)' => {
+lang_target => 'kvv', #southern area
+path => 'Nivens 2017 Kola Wi.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kola Yerwatu)' => {
+lang_target => 'kvv', #western area
+path => 'Nivens 2017 Kola Yw.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Lola)' => {
+lang_target => 'lcd', #LL
+path => 'Nivens 2017 Lola Lo.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Lola Warabal)' => {
+lang_target => 'lcd', #LL
+path => 'Nivens 2017 Lola Wb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Karey)' => {
+lang_target => 'kyd', #KR
+path => 'Nivens 2017 KR.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Kompane)' => {
+lang_target => 'kvm', #KP
+path => 'Nivens 2017 KP.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Lorang)' => {
+lang_target => 'lrn', #LR
+path => 'Nivens 2017 LR.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Mariri a)' => {
+lang_target => 'mqi', #MR
+path => 'Nivens 2017 Mr a.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Mariri b)' => {
+lang_target => 'mqi', #MR
+path => 'Nivens 2017 Mr b.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Ujir a)' => {
+lang_target => 'udj', #UJ
+path => 'Nivens 2017 Ujir Uj a.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Ujir b)' => {
+lang_target => 'udj', #UJ
+path => 'Nivens 2017 Ujir Uj b.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Ujir c)' => {
+lang_target => 'udj', #UJ
+path => 'Nivens 2017 Ujir Uj c.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Ujir Samang)' => {
+lang_target => 'udj', #UJ
+path => 'Nivens 2017 Ujir Sg.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Benjina)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Ba.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Gardakau)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Gk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Gulili)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Gl.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Gorar)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Gr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Jabulenga)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Jb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Jerukin)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Jk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Kobraur)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Kb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Karangguli)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Kg.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Kobamar)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Ko.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Lau-lau)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai LauLau.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Lamerang)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Lm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Maijuring)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Mj.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Maekor)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Mk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Mariri Mar)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Mm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Nafar)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Nf.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Namara)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Nr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Papakula)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Pp.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Selibata-Bata)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Sb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Selilau)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Sl.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Tanah Miring)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Tm.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Tungu)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Tu.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Tunguwatu)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Tw.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Wakua)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Wk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 Manombai Wokam)' => {
+lang_target => 'woo', #WM
+path => 'Nivens 2017 Wokam-Manombai Wo.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Feruni)' => {
+lang_target => 'txn', #WTF
+path => 'Nivens 2017 West Tarangan Fr.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Kalar-Kalar)' => {
+lang_target => 'txn', #WTF
+path => 'Nivens 2017 West Tarangan Kk.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Kabalukin)' => {
+lang_target => 'txn', #WTF
+path => 'Nivens 2017 West Tarangan Kn.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Ngaiguli)' => {
+lang_target => 'txn', #WTP
+path => 'Nivens 2017 West Tarangan Ng.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Fatural)' => {
+lang_target => 'txn', #WTP
+path => 'Nivens 2017 West Tarangan Ft.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Ngaibor)' => {
+lang_target => 'txn', #WTP
+path => 'Nivens 2017 West Tarangan Nb.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
