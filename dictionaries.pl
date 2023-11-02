@@ -4102,8 +4102,8 @@ our $dict = {
     lang_national => 'ind',
     split_headword => ';,/',
   },
-  'Nivens (2017 Koba Dangar)' => {
-lang_target => 'kpd', #KB
+  'Nivens (2017 Koba Dangar)' => {#done
+lang_target => 'kpd', #KB 
 path => 'Nivens 2017/Nivens 2017 Koba Dg.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -4111,7 +4111,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Koba Selfara)' => {
+'Nivens (2017 Koba Selfara)' => {#done
 lang_target => 'kpd', #KB
 path => 'Nivens 2017/Nivens 2017 Koba Sf.txt',
 parser => 'Marker',
@@ -4120,7 +4120,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Koba Seltimur)' => {
+'Nivens (2017 Koba Seltimur)' => {#done
 lang_target => 'kpd', #KB
 path => 'Nivens 2017/Nivens 2017 Koba St.txt',
 parser => 'Marker',
@@ -4129,7 +4129,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Barakai Mesiang)' => {
+'Nivens (2017 Barakai Mesiang)' => {#done
   lang_target => 'baj',
   path => 'Nivens 2017/Nivens 2017 Barakai Lg.txt',
   parser => 'Marker',
@@ -4138,7 +4138,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Barakai Longgar)' => {
+'Nivens (2017 Barakai Longgar)' => { #done
   lang_target => 'baj',
   path => 'Nivens 2017/Nivens 2017 Barakai Mg.txt',
   parser => 'Marker',
@@ -4147,7 +4147,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Jursiang)' => {
+'Nivens (2017 Batuley Jursiang)' => {#done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Js.txt',
   parser => 'Marker',
@@ -4156,7 +4156,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Kumul)' => {
+'Nivens (2017 Batuley Kumul)' => { #done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Ku.txt',
   parser => 'Marker',
@@ -4165,7 +4165,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Benjuring)' => {
+'Nivens (2017 Batuley Benjuring)' => {#done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Bj.txt',
   parser => 'Marker',
@@ -4174,7 +4174,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Kabalsiang)' => {
+'Nivens (2017 Batuley Kabalsiang)' => {#done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Ks.txt',
   parser => 'Marker',
@@ -4183,7 +4183,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Waria)' => {
+'Nivens (2017 Batuley Waria)' => { #done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Wr.txt',
   parser => 'Marker',
@@ -4192,7 +4192,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Batulei)' => {
+'Nivens (2017 Batuley Batulei)' => { #done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Bl.txt',
   parser => 'Marker',
@@ -4201,7 +4201,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Batuley Sewer)' => {
+'Nivens (2017 Batuley Sewer)' => {#done
   lang_target => 'bay',
   path => 'Nivens 2017/Nivens 2017 Batuley Sw.txt',
   parser => 'Marker',
@@ -4210,7 +4210,7 @@ strip => 'to',
   strip => 'to',
 },
 
-'Nivens (2017 Dobel Algadan)' => {
+'Nivens (2017 Dobel Algadan)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Al.txt',
 parser => 'Marker',
@@ -4219,7 +4219,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Irloy)' => {
+'Nivens (2017 Dobel Irloy)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Ir.txt',
 parser => 'Marker',
@@ -4228,7 +4228,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Jirlay)' => {
+'Nivens (2017 Dobel Jirlay)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Jy.txt',
 parser => 'Marker',
@@ -4237,7 +4237,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Manjau)' => {
+'Nivens (2017 Dobel Manjau)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Mn.txt',
 parser => 'Marker',
@@ -4246,7 +4246,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Warabola)' => {
+'Nivens (2017 Dobel Warabola)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Qb.txt',
 parser => 'Marker',
@@ -4255,7 +4255,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Murai Lama)' => {
+'Nivens (2017 Dobel Murai Lama)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Ml.txt',
 parser => 'Marker',
@@ -4264,7 +4264,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Murai Baru)' => {
+'Nivens (2017 Dobel Murai Baru)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Mb.txt',
 parser => 'Marker',
@@ -4273,7 +4273,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Murai)' => {
+'Nivens (2017 Dobel Murai)' => {#done
 lang_target => 'kvo', #DBI
 path => 'Nivens 2017/Nivens 2017 Dobel Mr.txt',
 parser => 'Marker',
@@ -4282,7 +4282,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Dosi Namalau)' => {
+'Nivens (2017 Dobel Dosi Namalau)' => {#done
 lang_target => 'kvo', #DBN
 path => 'Nivens 2017/Nivens 2017 Dobel Dn.txt',
 parser => 'Marker',
@@ -4291,7 +4291,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Balatan)' => {
+'Nivens (2017 Dobel Balatan)' => {#done
 lang_target => 'kvo', #DBN
 path => 'Nivens 2017/Nivens 2017 Dobel Bt.txt',
 parser => 'Marker',
@@ -4300,7 +4300,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Karawai)' => {
+'Nivens (2017 Dobel Karawai)' => {#done
 lang_target => 'kvo', #DBN
 path => 'Nivens 2017/Nivens 2017 Dobel Ky.txt',
 parser => 'Marker',
@@ -4309,7 +4309,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Koijabi)' => {
+'Nivens (2017 Dobel Koijabi)' => {#done
 lang_target => 'kvo', #DBN
 path => 'Nivens 2017/Nivens 2017 Dobel Kj.txt',
 parser => 'Marker',
@@ -4318,7 +4318,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Warloi)' => {
+'Nivens (2017 Dobel Warloi)' => {#done
 lang_target => 'kvo', #DBN
 path => 'Nivens 2017/Nivens 2017 Dobel Ql.txt',
 parser => 'Marker',
@@ -4327,7 +4327,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Basada)' => {
+'Nivens (2017 Dobel Basada)' => {#done
 lang_target => 'kvo', #DBS
 path => 'Nivens 2017/Nivens 2017 Dobel Bs.txt',
 parser => 'Marker',
@@ -4336,7 +4336,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Kaiwabar)' => {
+'Nivens (2017 Dobel Kaiwabar)' => {#done
 lang_target => 'kvo', #DBS
 path => 'Nivens 2017/Nivens 2017 Dobel Kw.txt',
 parser => 'Marker',
@@ -4345,7 +4345,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Ponom)' => {
+'Nivens (2017 Dobel Ponom)' => {#done
 lang_target => 'kvo', #DBS
 path => 'Nivens 2017/Nivens 2017 Dobel Pn.txt',
 parser => 'Marker',
@@ -4354,7 +4354,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Wailay)' => {
+'Nivens (2017 Dobel Wailay)' => { #done
 lang_target => 'kvo', #DBS
 path => 'Nivens 2017/Nivens 2017 Dobel Wy.txt',
 parser => 'Marker',
@@ -4363,7 +4363,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Kobror)' => {
+'Nivens (2017 Dobel Kobror)' => {#done
 lang_target => 'kvo', #DBT
 path => 'Nivens 2017/Nivens 2017 Dobel Kr.txt',
 parser => 'Marker',
@@ -4372,7 +4372,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Dobel Warjukur)' => {
+'Nivens (2017 Dobel Warjukur)' => {#done
 lang_target => 'kvo', #DBT
 path => 'Nivens 2017/Nivens 2017 Dobel Wj.txt',
 parser => 'Marker',
@@ -4381,7 +4381,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Erersin)' => {
+'Nivens (2017 East Tarangan Erersin)' => {#done
 lang_target => 'tre', #ETN
 path => 'Nivens 2017/Nivens 2017 East Tarangan Er.txt',
 parser => 'Marker',
@@ -4390,7 +4390,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Fatlabata)' => {
+'Nivens (2017 East Tarangan Fatlabata)' => {#done
 lang_target => 'tre', #ETN
 path => 'Nivens 2017/Nivens 2017 East Tarangan Fb.txt',
 parser => 'Marker',
@@ -4399,7 +4399,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Gomar Sungai)' => {
+'Nivens (2017 East Tarangan Gomar Sungai)' => {#done
 lang_target => 'tre', #ETN
 path => 'Nivens 2017/Nivens 2017 East Tarangan Gs.txt',
 parser => 'Marker',
@@ -4408,7 +4408,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Gomar Meti)' => {
+'Nivens (2017 East Tarangan Gomar Meti)' => {#done
 lang_target => 'tre', #ETN
 path => 'Nivens 2017/Nivens 2017 East Tarangan Gm.txt',
 parser => 'Marker',
@@ -4417,7 +4417,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Jelia)' => {
+'Nivens (2017 East Tarangan Jelia)' => {#done
 lang_target => 'tre', #ETN
 path => 'Nivens 2017/Nivens 2017 East Tarangan Jl.txt',
 parser => 'Marker',
@@ -4426,7 +4426,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Beltubur)' => {
+'Nivens (2017 East Tarangan Beltubur)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Br.txt',
 parser => 'Marker',
@@ -4435,7 +4435,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Meror)' => {
+'Nivens (2017 East Tarangan Meror)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Mr.txt',
 parser => 'Marker',
@@ -4444,7 +4444,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Siya)' => {
+'Nivens (2017 East Tarangan Siya)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Sy.txt',
 parser => 'Marker',
@@ -4453,7 +4453,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Salarem)' => {
+'Nivens (2017 East Tarangan Salarem)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Sr.txt',
 parser => 'Marker',
@@ -4462,7 +4462,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Batu Goyang)' => {
+'Nivens (2017 East Tarangan Batu Goyang)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Bg.txt',
 parser => 'Marker',
@@ -4471,7 +4471,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 East Tarangan Dosi Mar)' => {
+'Nivens (2017 East Tarangan Dosi Mar)' => {#done
 lang_target => 'tre', #ETS
 path => 'Nivens 2017/Nivens 2017 East Tarangan Dm.txt',
 parser => 'Marker',
@@ -4480,7 +4480,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Berdafan)' => {
+'Nivens (2017 Kola Berdafan)' => { #done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Bf.txt',
 parser => 'Marker',
@@ -4489,7 +4489,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Foket)' => {
+'Nivens (2017 Kola Foket)' => { #done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Fk.txt',
 parser => 'Marker',
@@ -4498,7 +4498,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Gomsey)' => {
+'Nivens (2017 Kola Gomsey)' => {#done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Gy.txt',
 parser => 'Marker',
@@ -4507,7 +4507,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Langhalau)' => {
+'Nivens (2017 Kola Langhalau)' => {#done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Lh.txt',
 parser => 'Marker',
@@ -4516,7 +4516,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Marlasi)' => {
+'Nivens (2017 Kola Marlasi)' => {#done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Mi.txt',
 parser => 'Marker',
@@ -4525,7 +4525,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Mohang Sel)' => {
+'Nivens (2017 Kola Mohang Sel)' => {#done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Ms.txt',
 parser => 'Marker',
@@ -4534,7 +4534,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Tasinwaha)' => {
+'Nivens (2017 Kola Tasinwaha)' => { #done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Ts.txt',
 parser => 'Marker',
@@ -4543,7 +4543,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Wafan)' => {
+'Nivens (2017 Kola Wafan)' => { #done
 lang_target => 'kvv', #KLE
 path => 'Nivens 2017/Nivens 2017 Kola Wf.txt',
 parser => 'Marker',
@@ -4552,8 +4552,8 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Takata)' => {
-lang_target => 'kvv', #KLE
+'Nivens (2017 Kola Takata)' => { #done
+lang_target => 'kvv', #KLE 
 path => 'Nivens 2017/Nivens 2017 Kola Takata.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -4561,7 +4561,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Warialao)' => {
+'Nivens (2017 Kola Warialao)' => { #done
 lang_target => 'kvv', #KLW
 path => 'Nivens 2017/Nivens 2017 Kola Wl.txt',
 parser => 'Marker',
@@ -4570,7 +4570,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Kulaha)' => {
+'Nivens (2017 Kola Kulaha)' => {#done
 lang_target => 'kvv', #KLW
 path => 'Nivens 2017/Nivens 2017 Kola Kh.txt',
 parser => 'Marker',
@@ -4579,7 +4579,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Kabofin)' => {
+'Nivens (2017 Kola Kabofin)' => {#done
 lang_target => 'kvv', #northern area
 path => 'Nivens 2017/Nivens 2017 Kola Ka.txt',
 parser => 'Marker',
@@ -4588,7 +4588,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Kaibolafin)' => {
+'Nivens (2017 Kola Kaibolafin)' => {#done
 lang_target => 'kvv', #northern area
 path => 'Nivens 2017/Nivens 2017 Kola Ki.txt',
 parser => 'Marker',
@@ -4597,7 +4597,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Wahangula-Ngula)' => {
+'Nivens (2017 Kola Wahangula-Ngula)' => { #done
 lang_target => 'kvv', #northern area
 path => 'Nivens 2017/Nivens 2017 Kola Wn.txt',
 parser => 'Marker',
@@ -4606,7 +4606,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Wahayun)' => {
+'Nivens (2017 Kola Wahayun)' => { #done
 lang_target => 'kvv', #northern area
 path => 'Nivens 2017/Nivens 2017 Kola Wh.txt',
 parser => 'Marker',
@@ -4615,7 +4615,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Kolamar)' => {
+'Nivens (2017 Kola Kolamar)' => {#done
 lang_target => 'kvv', #eastern area
 path => 'Nivens 2017/Nivens 2017 Kola Km.txt',
 parser => 'Marker',
@@ -4624,7 +4624,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Leting)' => {
+'Nivens (2017 Kola Leting)' => {#done
 lang_target => 'kvv', #eastern area
 path => 'Nivens 2017/Nivens 2017 Kola Le.txt',
 parser => 'Marker',
@@ -4633,7 +4633,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Masidang)' => {
+'Nivens (2017 Kola Masidang)' => {#done
 lang_target => 'kvv', #eastern area
 path => 'Nivens 2017/Nivens 2017 Kola Md.txt',
 parser => 'Marker',
@@ -4642,7 +4642,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Mohang Pulau)' => {
+'Nivens (2017 Kola Mohang Pulau)' => {#done
 lang_target => 'kvv', #eastern area
 path => 'Nivens 2017/Nivens 2017 Kola Mp.txt',
 parser => 'Marker',
@@ -4651,7 +4651,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Selmona)' => {
+'Nivens (2017 Kola Selmona)' => {#done
 lang_target => 'kvv', #eastern area
 path => 'Nivens 2017/Nivens 2017 Kola Sm.txt',
 parser => 'Marker',
@@ -4660,7 +4660,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Waifual)' => {
+'Nivens (2017 Kola Waifual)' => {#done
 lang_target => 'kvv', #southern area
 path => 'Nivens 2017/Nivens 2017 Kola Wi.txt',
 parser => 'Marker',
@@ -4669,7 +4669,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Kola Yerwatu)' => {
+'Nivens (2017 Kola Yerwatu)' => {#done
 lang_target => 'kvv', #western area
 path => 'Nivens 2017/Nivens 2017 Kola Yw.txt',
 parser => 'Marker',
@@ -4741,7 +4741,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Ujir a)' => {
+'Nivens (2017 Ujir a)' => { #done
 lang_target => 'udj', #UJ
 path => 'Nivens 2017/Nivens 2017 Ujir Uj a.txt',
 parser => 'Marker',
@@ -4750,7 +4750,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Ujir b)' => {
+'Nivens (2017 Ujir b)' => { #done
 lang_target => 'udj', #UJ
 path => 'Nivens 2017/Nivens 2017 Ujir Uj b.txt',
 parser => 'Marker',
@@ -4759,7 +4759,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Ujir c)' => {
+'Nivens (2017 Ujir c)' => { #done
 lang_target => 'udj', #UJ
 path => 'Nivens 2017/Nivens 2017 Ujir Uj c.txt',
 parser => 'Marker',
@@ -4768,7 +4768,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Ujir Samang)' => {
+'Nivens (2017 Ujir Samang)' => { #done
 lang_target => 'udj', #UJ
 path => 'Nivens 2017/Nivens 2017 Ujir Sg.txt',
 parser => 'Marker',
@@ -4777,7 +4777,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Benjina)' => {
+'Nivens (2017 Manombai Benjina)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Ba.txt',
 parser => 'Marker',
@@ -4786,7 +4786,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Gardakau)' => {
+'Nivens (2017 Manombai Gardakau)' => {#done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Gk.txt',
 parser => 'Marker',
@@ -4795,7 +4795,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Gulili)' => {
+'Nivens (2017 Manombai Gulili)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Gl.txt',
 parser => 'Marker',
@@ -4804,7 +4804,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Gorar)' => {
+'Nivens (2017 Manombai Gorar)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Gr.txt',
 parser => 'Marker',
@@ -4822,7 +4822,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Jerukin)' => {
+'Nivens (2017 Manombai Jerukin)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Jk.txt',
 parser => 'Marker',
@@ -4831,7 +4831,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Kobraur)' => {
+'Nivens (2017 Manombai Kobraur)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Kb.txt',
 parser => 'Marker',
@@ -4840,7 +4840,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Karangguli)' => {
+'Nivens (2017 Manombai Karangguli)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Kg.txt',
 parser => 'Marker',
@@ -4849,7 +4849,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Kobamar)' => {
+'Nivens (2017 Manombai Kobamar)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Ko.txt',
 parser => 'Marker',
@@ -4858,7 +4858,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Lau-lau)' => {
+'Nivens (2017 Manombai Lau-lau)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai LauLau.txt',
 parser => 'Marker',
@@ -4867,7 +4867,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Lamerang)' => {
+'Nivens (2017 Manombai Lamerang)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Lm.txt',
 parser => 'Marker',
@@ -4876,7 +4876,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Maijuring)' => {
+'Nivens (2017 Manombai Maijuring)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Mj.txt',
 parser => 'Marker',
@@ -4885,7 +4885,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Maekor)' => {
+'Nivens (2017 Manombai Maekor)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Mk.txt',
 parser => 'Marker',
@@ -4894,7 +4894,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Mariri Mar)' => {
+'Nivens (2017 Manombai Mariri Mar)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Mm.txt',
 parser => 'Marker',
@@ -4903,8 +4903,8 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Nafar)' => {
-lang_target => 'woo', #WM
+'Nivens (2017 Manombai Nafar)' => { #done
+lang_target => 'woo', #WM 
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Nf.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -4912,7 +4912,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Namara)' => {
+'Nivens (2017 Manombai Namara)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Nr.txt',
 parser => 'Marker',
@@ -4921,8 +4921,8 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Papakula)' => {
-lang_target => 'woo', #WM
+'Nivens (2017 Manombai Papakula)' => { #done
+lang_target => 'woo', #WM 
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Pp.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -4930,7 +4930,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Selibata-Bata)' => {
+'Nivens (2017 Manombai Selibata-Bata)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Sb.txt',
 parser => 'Marker',
@@ -4939,7 +4939,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Selilau)' => {
+'Nivens (2017 Manombai Selilau)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Sl.txt',
 parser => 'Marker',
@@ -4948,7 +4948,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Tanah Miring)' => {
+'Nivens (2017 Manombai Tanah Miring)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Tm.txt',
 parser => 'Marker',
@@ -4957,7 +4957,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Tungu)' => {
+'Nivens (2017 Manombai Tungu)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Tu.txt',
 parser => 'Marker',
@@ -4966,8 +4966,8 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Tunguwatu)' => {
-lang_target => 'woo', #WM
+'Nivens (2017 Manombai Tunguwatu)' => { #done
+lang_target => 'woo', #WM 
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Tw.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -4975,7 +4975,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Wakua)' => {
+'Nivens (2017 Manombai Wakua)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Wk.txt',
 parser => 'Marker',
@@ -4984,7 +4984,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 Manombai Wokam)' => {
+'Nivens (2017 Manombai Wokam)' => { #done
 lang_target => 'woo', #WM
 path => 'Nivens 2017/Nivens 2017 Wokam-Manombai Wo.txt',
 parser => 'Marker',
@@ -4993,7 +4993,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Feruni)' => {
+'Nivens (2017 West Tarangan Feruni)' => { #done
 lang_target => 'txn', #WTF
 path => 'Nivens 2017/Nivens 2017 West Tarangan Fr.txt',
 parser => 'Marker',
@@ -5002,7 +5002,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Kalar-Kalar)' => {
+'Nivens (2017 West Tarangan Kalar-Kalar)' => { #done
 lang_target => 'txn', #WTF
 path => 'Nivens 2017/Nivens 2017 West Tarangan Kk.txt',
 parser => 'Marker',
@@ -5011,8 +5011,8 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Kabalukin)' => {
-lang_target => 'txn', #WTF
+'Nivens (2017 West Tarangan Kabalukin)' => { #done
+lang_target => 'txn', #WTF 
 path => 'Nivens 2017/Nivens 2017 West Tarangan Kn.txt',
 parser => 'Marker',
 lang_national => 'ind',
@@ -5020,7 +5020,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Ngaiguli)' => {
+'Nivens (2017 West Tarangan Ngaiguli)' => { #done
 lang_target => 'txn', #WTP
 path => 'Nivens 2017/Nivens 2017 West Tarangan Ng.txt',
 parser => 'Marker',
@@ -5029,7 +5029,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Fatural)' => {
+'Nivens (2017 West Tarangan Fatural)' => { #done
 lang_target => 'txn', #WTP
 path => 'Nivens 2017/Nivens 2017 West Tarangan Ft.txt',
 parser => 'Marker',
@@ -5038,7 +5038,7 @@ lang_regional => 'abs',
 strip => 'to',
 },
 
-'Nivens (2017 West Tarangan Ngaibor)' => {
+'Nivens (2017 West Tarangan Ngaibor)' => { #done
 lang_target => 'txn', #WTP
 path => 'Nivens 2017/Nivens 2017 West Tarangan Nb.txt',
 parser => 'Marker',
