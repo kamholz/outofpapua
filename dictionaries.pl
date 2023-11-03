@@ -5041,6 +5041,34 @@ lang_national => 'ind',
 lang_regional => 'abs',
 strip => 'to',
 },
+
+'Nivens (2017 West Tarangan Marafenfen)' => { #done
+lang_target => 'txn', #WTP
+path => 'Nivens 2017/Nivens 2017 West Tarangan Mf.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Gaimar)' => { #done
+lang_target => 'txn', #WTP
+path => 'Nivens 2017/Nivens 2017 West Tarangan Ga.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
+'Nivens (2017 West Tarangan Popjetur)' => { #done
+lang_target => 'txn', #WTP
+path => 'Nivens 2017/Nivens 2017 West Tarangan Pj.txt',
+parser => 'Marker',
+lang_national => 'ind',
+lang_regional => 'abs',
+strip => 'to',
+},
+
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
