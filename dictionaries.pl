@@ -4088,14 +4088,14 @@ our $dict = {
     path => 'Nivens_2017_Proto-Aru.txt',
     parser => 'Marker',
     lang_national => 'ind',
-    split_headword => ';,/',
+    split_headword => ';',
   },
   'Nivens (2017b)' => {
     lang_target => 'Proto-Southern Aru',
     path => 'Nivens_2017_Proto-Southern-Aru.txt',
     parser => 'Marker',
     lang_national => 'ind',
-    split_headword => ';,/',
+    split_headword => ';',
   },
   'Nivens (2017 Koba Dangar)' => {#done
 lang_target => 'kpd', #KB 
