@@ -9633,6 +9633,12 @@ strip => 'to',
     path => 'Luang lexicon Luang to English.html',
     parser => 'LexiqueDocx',
   },
+  'Zielenbach (2022)' => {
+    lang_target => 'mqs',
+    path => 'Zielenbach_2022_WestMakianTegono.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Zobel (2017)' => {
     lang_target => 'Proto-South Babar',
     path => 'Zobel_2017_Proto-South Babar.xlsx',
