@@ -2138,7 +2138,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'Fortgens (1917)' => { 
+  'Kotynski (nd)' => { #Fortgens 1917
     lang_target => 'Ternate',
     path => 'Fortgens_1917_Ternate.txt',
     parser => 'Marker',
