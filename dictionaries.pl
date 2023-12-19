@@ -2138,6 +2138,13 @@ our $dict = {
     ],
     split => ';',
   },
+  'Fortgens (1917)' => { 
+    lang_target => 'Ternate',
+    path => 'Fortgens_1917_Ternate.txt',
+    parser => 'Marker',
+    strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
+  },
   'Fortgens (1921)' => { 
     lang_target => 'tlv',
     path => 'Fortgens_1921_Taliabo.txt',
