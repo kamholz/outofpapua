@@ -3265,6 +3265,7 @@ our $dict = {
     lang_regional => 'mkn',
     definition_action => 'merge',
     skip_marker => ['re', 'rr', 'rn'],
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Laidig & Laidig (1991)' => {
     lang_target => 'Larike',
@@ -4007,6 +4008,7 @@ our $dict = {
     ],
     split_headword => ';',
     strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Nacher (2012b)' => {
     lang_target => 'Makasae Fatumaka',
@@ -4021,6 +4023,7 @@ our $dict = {
     ],
     split_headword => ';',
     strip => 'to',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Narfafan & Sutriani (2011)' => { 
     lang_target => 'agf',
