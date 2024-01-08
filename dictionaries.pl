@@ -855,9 +855,9 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Chlenova (2020)' => {
+  'Chlenova (2000)' => {
     lang_target => 'srw', 
-    path => 'Chlenova_2020_Serua.xlsx',
+    path => 'Chlenova_2000_Serua.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
