@@ -855,14 +855,15 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Chlenova (2010a)' => {
-    lang_target => 'Gorom', 
-    path => 'Chlenova2010_Gorom-Geser-Watubela.xlsx',
+  'Chlenova (2020)' => {
+    lang_target => 'srw', 
+    path => 'Chlenova_2020_Serua.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [3, 'gloss', 'ind'],
-      [4, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'rus'],
     ],
     split_headword => ';',
     split => ';',
