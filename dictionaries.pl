@@ -2587,7 +2587,7 @@ our $dict = {
     strip => 'to',
   },
   'Huber (2011)' => {
-    lang_target => 'mjb',
+    lang_target => 'Makalero',
     path => 'Huber_2011_Makalero.xlsx',
     parser => 'Spreadsheet',
     columns => [
