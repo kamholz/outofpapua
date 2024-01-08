@@ -3246,6 +3246,7 @@ our $dict = {
     skip_marker => ['dv'],
     lang_regional => 'max',
     lang_national => 'ind',
+    definition_action => 'merge',
   },
   'Kratochvíl & Delpada (2008)' => {
     lang_target => 'abz',
