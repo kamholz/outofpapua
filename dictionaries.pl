@@ -2586,6 +2586,27 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Huber (2011)' => {
+    lang_target => 'mjb',
+    path => 'Huber_2011_Makalero.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'va'],
+      [4, 'gloss', 'eng'],
+      [5, 'sc'],
+      [6, 'mr'],
+      [7, '']
+
+      [[4 .. 5], 'example', ['eng']],
+      [6, 'page_num'],
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Hull (2001)' => {
     lang_target => 'mgm',
     path => 'Hull_2001_MambaeAinaro.xlsx',
@@ -3295,6 +3316,20 @@ our $dict = {
     ],
     split_headword => ';',
     mode => 'sense_per_row',
+    strip => 'to',
+  },
+  'Larson & Larson (1956)' => {
+    lang_target => 'mnz',
+    path => 'Larson & Larson_1956_Moni.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'pd'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [5, 'page_num'],
+    ],
     strip => 'to',
   },
   'Lekedee Study Group (2006a)' => {
