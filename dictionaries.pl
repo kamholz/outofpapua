@@ -4042,7 +4042,7 @@ our $dict = {
     definition_action => 'merge',
   },
   'Nácher (2012a)' => {
-    lang_target => 'ddg',
+    lang_target => 'Fataluku Fuiloro',
     path => 'Nacher Fataluku Dictionary.xlsx',
     parser => 'Spreadsheet',
     columns => [
