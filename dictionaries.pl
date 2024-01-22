@@ -4041,7 +4041,7 @@ our $dict = {
     lang_national => 'ind',
     definition_action => 'merge',
   },
-  'Nacher (2012a)' => {
+  'Nácher (2012a)' => {
     lang_target => 'ddg',
     path => 'Nacher Fataluku Dictionary.xlsx',
     parser => 'Spreadsheet',
@@ -4075,7 +4075,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
-  'Nacher (2012b)' => {
+  'Nácher (2012b)' => {
     lang_target => 'Makasae Fatumaka',
     path => 'Makasae Fatumaka_Nacher_2012.xlsx',
     parser => 'Spreadsheet',
