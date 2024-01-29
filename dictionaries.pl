@@ -5537,7 +5537,7 @@ strip => 'to',
       [4, 'sc'],
     ],
   },
-  'Schapper (2019a)' => {
+  'Williams (nd)' => {
     lang_target => 'tpg', #Kula
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
     parser => 'Spreadsheet',
@@ -5548,7 +5548,7 @@ strip => 'to',
       [2, 'nt'],
     ],
   },
-  'Schapper (2019b)' => {
+  'Schapper (2019a)' => {
     lang_target => 'Proto-East Alor', 
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
     parser => 'Spreadsheet',
@@ -5560,7 +5560,7 @@ strip => 'to',
       [3, 'nt'],
     ],
   },
-  'Schapper (2019c)' => {
+  'Schapper (2019b)' => {
     lang_target => 'Proto-East Alor Montane', 
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
     parser => 'Spreadsheet',
@@ -5572,7 +5572,7 @@ strip => 'to',
       [3, 'nt'],
     ],
   },
-  'Schapper (2019d)' => {
+  'Schapper (2019c)' => {
     lang_target => 'Proto-Abui-Kafoa', 
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
     parser => 'Spreadsheet',
@@ -5583,7 +5583,7 @@ strip => 'to',
       [3, 'nt'],
     ],
   },
-  'Schapper (2019e)' => {
+  'Schapper (2019d)' => {
     lang_target => 'Proto-Blagar-Reta', 
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
     parser => 'Spreadsheet',
