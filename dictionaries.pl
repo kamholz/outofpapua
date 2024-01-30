@@ -1235,6 +1235,18 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'de Clercq (1876)' => {
+    lang_target => 'North Moluccan Malay',
+    path => 'Clercq 1876 - Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ue'],
+      [2, 'gloss', 'nld'],
+      [3, 'nt'],
+      [4, 'nt'],
+    ],
+  },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
     path => 'de Josselin de Jong (1937) Oirata.xlsx',
