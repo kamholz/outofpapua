@@ -3246,7 +3246,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Kijne (nd h)' => { #not ingested
+  'Kijne (nd h)' => {
     lang_target => 'Roon',
     path => 'Kijne_nd_Roon-Dusner.xlsx',
     parser => 'Spreadsheet',
