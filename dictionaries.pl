@@ -57,6 +57,7 @@ our $dict = {
       [3, 'lt'],
       [4, 'nt'],
       mode => 'sense_per_row',
+      split_headword => ';',
     ],
   },
   'Ajamiseba et al. (1989)' => {
