@@ -9571,7 +9571,7 @@ strip => 'to',
     lang_target => 'khe',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Korowai (de Vries & van Enk 1997)',
+    sheet => 'Korowai (de Vries & van Enk 199',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
