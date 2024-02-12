@@ -3239,6 +3239,36 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Kijne (nd h)' => { #not ingested
+    lang_target => 'Roon',
+    path => 'Kijne_nd_Roon-Dusner.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Ron-Dusner I'
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
+      [4, 'nt_Nld'],
+      [5, 'page_num'].
+      [6, 'sc'],
+      [7, 'nq'],
+    ],
+  },
+  'Kijne (nd i)' => {
+    lang_target => 'Dusner',
+    path => 'Kijne_nd_Roon-Dusner.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Ron-Dusner I'
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
+      [4, 'nt_Nld'],
+      [5, 'page_num'].
+      [6, 'sc'],
+      [7, 'nq'],
+    ],
+  },
   'Klamer (2016)' => {
     lang_target => 'jka',
     path => 'Klamer_2016_Kaera.xlsx',
