@@ -5816,7 +5816,7 @@ strip => 'to',
     ],
   },
   'Silzer (1983d)' => {
-    lang_target => 'Pom',
+    lang_target => 'pmo',
     path => 'Silzer_1983_Ambai.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -5971,7 +5971,7 @@ strip => 'to',
     ],
   },
   'Silzer (1983o)' => {
-    lang_target => 'Woi',
+    lang_target => 'wbw',
     path => 'Silzer_1983_Ambai.xlsx',
     parser => 'Spreadsheet',
     columns => [
