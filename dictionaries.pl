@@ -50,7 +50,7 @@ our $dict = {
     lang_target => 'mle',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Manambu (Aikhenvald 2008)'
+    sheet => 'Manambu (Aikhenvald 2008)',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
@@ -1471,7 +1471,7 @@ our $dict = {
     lang_target => 'skv',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Skou (Donohue 2004)'
+    sheet => 'Skou (Donohue 2004)',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
@@ -2966,7 +2966,7 @@ our $dict = {
     lang_target => 'ian',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Iatmul (Jendraschek 2007)'
+    sheet => 'Iatmul (Jendraschek 2007)',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
@@ -9571,7 +9571,7 @@ strip => 'to',
     lang_target => 'khe',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Korowai (de Vries & van Enk 1997)'
+    sheet => 'Korowai (de Vries & van Enk 1997)',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
