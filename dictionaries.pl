@@ -46,6 +46,21 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
+  'Aikhenvald (2008)' => { #not ingested
+    lang_target => 'mle',
+    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Manambu (Aikhenvald 2008)'
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'ps'],
+      [3, 'lt'],
+      [4, 'nt'],
+      [5, 'page_num'],
+      mode => 'sense_per_row',
+    ],
+  },
   'Ajamiseba et al. (1989)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Mai Brat Vocabulary.xlsx',
@@ -1450,6 +1465,18 @@ our $dict = {
       [1, 'headword'],
       [0, 'gloss', 'eng'],
       [2, 'page_num'],
+    ],
+  },
+   'Donohue (2004)' => { #not ingested
+    lang_target => 'skv',
+    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Skou (Donohue 2004)'
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'ps'],
+      [3, 'page_num'],
     ],
   },
   'Donohue (2010a)' => {
@@ -2934,6 +2961,22 @@ our $dict = {
     lang_national => 'ind',
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
+  },
+  'Jendraschek (2007)' => { #not ingested
+    lang_target => 'ian',
+    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Iatmul (Jendraschek 2007)'
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'ps'],
+      [4, 'nt'],
+      [5, 'sy'],
+      [6, 'page_num'],
+      mode => 'sense_per_row',
+    ],
   },
   'Jones (1986a)' => {
     lang_target => 'Yawa Ambaidiru',
@@ -9523,6 +9566,21 @@ strip => 'to',
     split => ';', 
     split_headword => ';',
     strip => 'to',
+  },
+  'Vries & van Enk (1997)' => { #not ingested
+    lang_target => 'khe',
+    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Korowai (de Vries & van Enk 1997)'
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [1, 'ps'],
+      [3, 'lt'],
+      [4, 'sc'],
+      [5, 'cf'],
+      [6, 'page_num'],
+    ],
   },
   'Wada (1980a)' => {
     lang_target => 'gbi',
