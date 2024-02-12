@@ -56,7 +56,6 @@ our $dict = {
       [1, 'ps'],
       [3, 'lt'],
       [4, 'nt'],
-      [5, 'page_num'],
       mode => 'sense_per_row',
     ],
   },
