@@ -3249,7 +3249,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [1, 'gloss', 'eng'],
       [4, 'nt_Nld'],
-      [5, 'page_num'].
+      [5, 'page_num'],
       [6, 'sc'],
       [7, 'nq'],
     ],
@@ -3264,7 +3264,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [1, 'gloss', 'eng'],
       [4, 'nt_Nld'],
-      [5, 'page_num'].
+      [5, 'page_num'],
       [6, 'sc'],
       [7, 'nq'],
     ],
