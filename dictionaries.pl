@@ -48,9 +48,8 @@ our $dict = {
   },
   'Aikhenvald (2008)' => { #not ingested
     lang_target => 'mle',
-    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    path => 'Aikhenvald_2008_Manambu.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Manambu (Aikhenvald 2008)',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
