@@ -1323,6 +1323,12 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Degen (2008)' => {
+    lang_target => 'Manombai',
+    path => 'Degen_2008_Manumbai.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Doble (1960a)' => {
     lang_target => 'ekg',
     path => 'Doble_1960_Kapauku.xlsx',
