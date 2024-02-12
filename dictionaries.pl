@@ -1619,6 +1619,7 @@ our $dict = {
       [5, 'gloss', 'ind'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Edwards (2017)' => { 
     lang_target => 'aaz',
