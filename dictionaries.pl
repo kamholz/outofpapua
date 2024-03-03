@@ -165,6 +165,38 @@ our $dict = {
     strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
+  'Anceaux (1987)' => { #not ingested
+    lang_target => 'wlo',
+    path => 'Anceaux_1987_Wolio.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'ps'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'nld'],
+      [6, 'va'],
+      [7, 'sc'],
+      [8, 'et'],
+      [9, 'nt'],
+      [10, 'mr'],
+      [11, 'sg'],
+      [12, 'pl'],
+      [13, 'cf'],
+      [14, 'cf'],
+      [15, 'cf'],
+      [16, 'cf'],
+      [[17 .. 19], 'example', ['eng','ind']], #1
+      [[20 .. 22], 'example', ['eng','ind']], #2
+      [[23 .. 25], 'example', ['eng','ind']], #3
+      [[26 .. 28], 'example', ['eng','ind']], #4
+      [[29 .. 31], 'example', ['eng','ind']], #5
+      [[32 .. 34], 'example', ['eng','ind']], #6
+      [35, 'page_num'],
+    ],
+    split_headword => ';',
+    mode => 'sense_per_row'
+  },
   'Anceaux (nd a)' => {
     lang_target => 'slz',
     path => 'Maya Misool (Anceaux).xlsx',
@@ -6005,6 +6037,8 @@ strip => 'to',
     lang_national => 'ind',
     lang_regional => 'mkn',
     definition_action => 'merge',
+    skip_marker => 'nt',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Slump (1924-1938)' => {
     lang_target => 'seu',
