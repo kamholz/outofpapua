@@ -2059,7 +2059,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Fabritius (1855a)' => {
-    lang_target => 'Moi',
+    lang_target => 'mxn',
     path => 'Fabritius 1855.xlsx',
     parser => 'Spreadsheet',
     skip => 2, 3,
