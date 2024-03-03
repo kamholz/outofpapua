@@ -9507,9 +9507,14 @@ strip => 'to',
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-  'Verdizade (2023)' => {
+  'Verdizade (2023a)' => {
     lang_target => 'Seget',
     path => 'seget attempt4 (root based).db', 
+    parser => 'Marker',
+  },
+  'Verdizade (2023b)' => { #not ingested
+    lang_target => 'Salkma Saluk',
+    path => 'Verdizade_2023_Salkma_Saluk.db', 
     parser => 'Marker',
   },
   'Visser (2020)' => {
