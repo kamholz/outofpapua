@@ -2062,7 +2062,6 @@ our $dict = {
     lang_target => 'mxn',
     path => 'Fabritius 1855.xlsx',
     parser => 'Spreadsheet',
-    skip => 2, 3,
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
