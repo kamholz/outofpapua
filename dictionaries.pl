@@ -2058,6 +2058,16 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Fabritius (1855a)' => {
+    lang_target => 'Moi',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    skip => 2, 3,
+    columns => [
+      [1, 'headword'],,
+      [0, 'gloss', 'eng'],
+    ],
+  },
   'Ferreira (2005)' => {
     lang_target => 'idt', #Idate
     path => 'Ferreira_2005_Idate.xlsx',
