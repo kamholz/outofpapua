@@ -2064,7 +2064,7 @@ our $dict = {
     parser => 'Spreadsheet',
     skip => 2, 3,
     columns => [
-      [1, 'headword'],,
+      [1, 'headword'],
       [0, 'gloss', 'eng'],
     ],
   },
