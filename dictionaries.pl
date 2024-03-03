@@ -2067,6 +2067,159 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
+  'Fabritius (1855b)' => {
+    lang_target => 'Waropen',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855c)' => {
+    lang_target => 'Tandia',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855d)' => {
+    lang_target => 'Dusner',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855e)' => {
+    lang_target => 'Yaur',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855f)' => {
+    lang_target => 'Wamesa Wandamen',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855g)' => {
+    lang_target => 'Mansim',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855h)' => {
+    lang_target => 'Umar',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855i)' => {
+    lang_target => 'Yerisiam',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855j)' => {
+    lang_target => 'Mpur Amberbaken',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855k)' => {
+    lang_target => 'Abun',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [11, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855l)' => {
+    lang_target => 'Pom',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855m)' => {
+    lang_target => 'Serui-Laut',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855n)' => {
+    lang_target => 'Moor',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855o)' => {
+    lang_target => 'Roon',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855p)' => {
+    lang_target => 'Biak Numfor',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [16, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855q)' => {
+    lang_target => 'Ansus',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [17, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Fabritius (1855r)' => {
+    lang_target => 'slz',
+    path => 'Fabritius 1855.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [18, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
   'Ferreira (2005)' => {
     lang_target => 'idt', #Idate
     path => 'Ferreira_2005_Idate.xlsx',
