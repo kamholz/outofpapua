@@ -9582,26 +9582,26 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Verdizade (2022a)' => {
+  'Verdizade (ongoing g)' => {
     lang_target => 'Moi Yeflio',
     path => 'Moi Jeflio.txt', 
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-  'Verdizade (2022b)' => {
+  'Verdizade (ongoing h)' => {
     lang_target => 'sbg',
     path => 'Segun.txt', 
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-  'Verdizade (2023a)' => {
+  'Verdizade (ongoing i)' => {
     lang_target => 'Seget',
     path => 'seget attempt4 (root based).db', 
     parser => 'Marker',
   },
-  'Verdizade (2023b)' => { #not ingested
+  'Verdizade (ongoing j)' => { 
     lang_target => 'Salkma Saluk',
     path => 'Verdizade_2023_Salkma_Saluk.db', 
     parser => 'Marker',
