@@ -165,7 +165,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
-  'Anceaux (1987)' => { #not ingested
+  'Anceaux (1987)' => {
     lang_target => 'wlo',
     path => 'Anceaux_1987_Wolio.xlsx',
     parser => 'Spreadsheet',
