@@ -689,10 +689,15 @@ our $dict = {
   },
   'Berry & Berry (1987k)' => {
     lang_target => 'Kaburi Kambor',
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'kabu1249-kambo',
+    path => 'Berry/Berries_1987_Kaburi_Kambor',
+    parser => 'Spreadsheet',
+    skip => 1,
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
   },
   'Berry & Berry (1987l)' => {
     lang_target => 'kzm', # Kais
@@ -730,17 +735,27 @@ our $dict = {
   },
   'Berry & Berry (1987p)' => {
     lang_target => 'knd', # Konda
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'kond1303',
+    path => 'Berry/Berries_1987_Konda',
+    parser => 'Spreadsheet',
+    skip => 1,
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
   },
   'Berry & Berry (1987q)' => {
     lang_target => 'pru', # Puragi
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'pura1253',
+    path => 'Berry/Berries_1987_Puragi',
+    parser => 'Spreadsheet',
+    skip => 1,
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
   },
   'Berry & Berry (1987r)' => {
     lang_target => 'ner', # Mugim
