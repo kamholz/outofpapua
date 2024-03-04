@@ -9596,6 +9596,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Verdizade (ongoing i)' => {
     lang_target => 'Seget',
