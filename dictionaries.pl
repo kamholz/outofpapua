@@ -3635,6 +3635,7 @@ our $dict = {
       [24, 'page_num'],
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'Laidig & Laidig (1991)' => {
     lang_target => 'Larike',
