@@ -165,7 +165,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
-  'Anceaux (1987)' => {
+  'Anceaux (1987)' => { #not ingested
     lang_target => 'wlo',
     path => 'Anceaux_1987_Wolio.xlsx',
     parser => 'Spreadsheet',
@@ -3604,6 +3604,37 @@ our $dict = {
     definition_action => 'merge',
     skip_marker => ['re', 'rr', 'rn'],
     headword_preprocess => sub { s/^ø-//r },
+  },
+  'Kroon (2016)' => {
+    lang_target => 'slp',
+    path => 'Kroon_2016_LamaholotSolor.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ph'],
+      [3, 'ps'],
+      [4, 'gloss', 'eng'],
+      [5, 'sc'],
+      [6, 'sy'],
+      [7, 'va'],
+      [8, 'an'],
+      [9, 'lt'],
+      [10, 'nt'],
+      [11, 'et'],
+      [12, 'cf'],
+      [13, '1s'],
+      [14, '2s'],
+      [15, '3s'].
+      [16, '1pi'],
+      [17, '1pe'],
+      [18, '2p'],
+      [19, '3p'],
+      [[20 .. 21], 'example', ['eng']], #1
+      [[22 .. 23], 'example', ['eng']], #2
+      [24, 'page_num'],
+    ],
+    mode => 'sense_per_row',
   },
   'Laidig & Laidig (1991)' => {
     lang_target => 'Larike',
