@@ -2935,6 +2935,23 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Handayani Hasan (2021)' => {
+    lang_target => 'srw',
+    path => 'Handayani Hasan_2021_Serua.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ph'],
+      [3, 'pos'],
+      [5, 'gloss', 'eng'],
+      [6, 'gloss', 'ind'],
+      [[7 .. 8], 'example', ['ind']],
+      [[9 .. 10], 'example', ['ind']],
+      [11, 'page_num'],
+    ],
+    mode => 'sense_per_row'
+  },
   'Heeschen (1983)' => { #not ingested
     lang_target => 'eip',
     path => 'Colexification_tool/Eipomek (Heeschen 1983).xlsx',
