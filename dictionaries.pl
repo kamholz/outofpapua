@@ -689,7 +689,7 @@ our $dict = {
   },
   'Berry & Berry (1987k)' => {
     lang_target => 'Kaburi Kambor',
-    path => 'Berry/Berries_1987_Kaburi_Kambor',
+    path => 'Berry/Berries_1987_Kaburi_Kambor.xlsx',
     parser => 'Spreadsheet',
     skip => 1,
     columns => [
@@ -735,7 +735,7 @@ our $dict = {
   },
   'Berry & Berry (1987p)' => {
     lang_target => 'knd', # Konda
-    path => 'Berry/Berries_1987_Konda',
+    path => 'Berry/Berries_1987_Konda.xlsx',
     parser => 'Spreadsheet',
     skip => 1,
     columns => [
@@ -747,7 +747,7 @@ our $dict = {
   },
   'Berry & Berry (1987q)' => {
     lang_target => 'pru', # Puragi
-    path => 'Berry/Berries_1987_Puragi',
+    path => 'Berry/Berries_1987_Puragi.xlsx',
     parser => 'Spreadsheet',
     skip => 1,
     columns => [
