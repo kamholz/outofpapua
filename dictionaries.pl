@@ -3634,7 +3634,6 @@ our $dict = {
       [[22 .. 23], 'example', ['eng']], #2
       [24, 'page_num'],
     ],
-    mode => 'sense_per_row',
     split_headword => ';',
   },
   'Laidig & Laidig (1991)' => {
