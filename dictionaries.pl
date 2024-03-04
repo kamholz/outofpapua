@@ -3610,6 +3610,7 @@ our $dict = {
     path => 'Kroon_2016_LamaholotSolor.xlsx',
     parser => 'Spreadsheet',
     columns => [
+      [1, 'subentry'],
       [0, 'headword'],
       [2, 'ph'],
       [3, 'ps'],
