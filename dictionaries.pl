@@ -3010,11 +3010,12 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
-  'Hesse & Hesse (2021)' => {
+  'Hesse & Hesse (2023)' => {
     lang_target => 'Tehit Imian',
-    path => 'Hesse_2021_Tehit.txt',
+    path => 'Hesse_2023_Tehit_Imian.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    headword_preprocess => sub { s/^ø-//r },
   },
   'Heston (2015)' => {
     lang_target => 'Fataluku Central',
