@@ -3680,7 +3680,7 @@ our $dict = {
       [1, 'subentry'],
       [0, 'headword'],
       [2, 'ph'],
-      [3, 'ps'],
+      [3, 'pos'],
       [4, 'gloss', 'eng'],
       [5, 'sc'],
       [6, 'sy'],
