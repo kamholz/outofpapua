@@ -1308,7 +1308,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'de Clercq (1876)' => {
+  'de Clercq (1876)' => { #not ingestd
     lang_target => 'North Moluccan Malay',
     path => 'Clercq 1876 - Moluccan Malay.xlsx',
     parser => 'Spreadsheet',
@@ -1319,6 +1319,28 @@ our $dict = {
       [3, 'nt'],
       [4, 'nt'],
     ],
+  },
+  'de Clercq et al. (2018)' => { #not ingestd
+    lang_target => 'tft',
+    path => 'deClerq_2018_Ternate.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'cf'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'nld'],
+      [6, 'sc'],
+      [7, 'va'],
+      [8, 'nt'],
+      [9, 'et'],
+      [[10 .. 11], 'example', ['eng']],
+      [[12 .. 13], 'example', ['eng']],
+      [[14 .. 15], 'example', ['eng']],
+      [[16 .. 17], 'example', ['eng']],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
   },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
