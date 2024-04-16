@@ -917,7 +917,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Chlenova (2000)' => {
+  'Chlenova (2000a)' => {
     lang_target => 'srw', 
     path => 'Chlenova_2000_Serua.xlsx',
     parser => 'Spreadsheet',
@@ -929,6 +929,18 @@ our $dict = {
     ],
     split_headword => ';',
     split => ';',
+  },
+  'Chlenova (2000b)' => {
+    lang_target => 'ddw', 
+    path => 'Chlenova_2002_Daweloor.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'no_multiple_entries',
+    columns => [
+      [0, 'headword'],
+      [1, 'pdv'],
+      [3, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
   },
   'Chlenova (2006)' => {
     lang_target => 'drn', 
