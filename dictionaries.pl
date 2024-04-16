@@ -10119,7 +10119,7 @@ our $dict = {
   },
   'Voorhoeve (1982 Moi)' => {
     lang_target => 'mxn',
-    path => 'Voorhoeve_1982_Moi_Sorong.xlsx',
+    path => 'Voorhoeve_1982_Moi_Sorong.txt',
     parser => 'Marker',
   },
   'de Vries (2004a)' => {
