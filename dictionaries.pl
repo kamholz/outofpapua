@@ -759,11 +759,15 @@ our $dict = {
     strip => 'to',
   },
   'Berry & Berry (1987r)' => {
-    lang_target => 'ner', # Mugim
-    path => 'LexiRumah',
-    parser => 'LexiRumah',
-    lexirumah_source => 'berry87',
-    lexirumah_lect => 'yaha1248',
+    lang_target => 'Yahadian', 
+    path => 'Berry/Berries_1987_Yahadian.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+    ],
+    strip => 'to',
   },
   'Berry & Berry (1990)' => {
     lang_target => 'Abun Ye',
