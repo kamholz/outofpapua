@@ -1,3 +1,4 @@
+
 use v5.14;
 use utf8;
 
@@ -820,27 +821,27 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Blust & Trussel (ongoing a)' => {
+  'Blust & Trussel (2019 a)' => {
     lang_target => 'Proto-Austronesian',
     path => 'Blust_Trussel/PAN.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (ongoing b)' => {
+  'Blust & Trussel (2019 b)' => {
     lang_target => 'Proto-Malayo-Polynesian',
     path => 'Blust_Trussel/PMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (ongoing c)' => {
+  'Blust & Trussel (2019 c)' => {
     lang_target => 'Proto-Central-Eastern Malayo-Polynesian',
     path => 'Blust_Trussel/PCEMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (ongoing d)' => {
+  'Blust & Trussel (2019 d)' => {
     lang_target => 'Proto-Eastern Malayo-Polynesian',
     path => 'Blust_Trussel/PEMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (ongoing e)' => {
+  'Blust & Trussel (2019 e)' => {
     lang_target => 'Proto-SHWNG',
     path => 'Blust_Trussel/SHWNG.txt',
     parser => 'Marker',
@@ -2984,7 +2985,7 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
-  'Handayani Hasan (2021)' => {
+  'Handayani Hasan et al. (2021)' => {
     lang_target => 'srw',
     path => 'Handayani Hasan_2021_Serua.xlsx',
     parser => 'Spreadsheet',
@@ -3579,6 +3580,20 @@ our $dict = {
       [7, 'page_num'],
       [8, 'sc'],
       [9, 'nq'],
+    ],
+  },
+  'Kijne (nd j)' => {
+    lang_target => 'Tandia',
+    path => 'Kijne_ndj_Tandia.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'gloss', 'ind'],
+      [5, 'page_num'],
+      [6, 'nt'],
     ],
   },
   'Klamer (2016)' => {
@@ -10043,7 +10058,7 @@ our $dict = {
       [12, 'nt'],
     ],
   },
-  'Vries (2004a)' => {
+  'de Vries (2004a)' => {
     lang_target => 'Kaburi Benawa',
     path => 'Other_lists_De_Vries_2004.xlsx',
     parser => 'Spreadsheet',
@@ -10054,7 +10069,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'Vries (2004b)' => {
+  'de Vries (2004b)' => {
     lang_target => 'Kokoda Kasueri',
     path => 'Other_lists_De_Vries_2004.xlsx',
     parser => 'Spreadsheet',
@@ -10067,7 +10082,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Vries (2004c)' => {
+  'de Vries (2004c)' => {
     lang_target => 'pru', # Puragi
     path => 'Other_lists_De_Vries_2004.xlsx',
     parser => 'Spreadsheet',
@@ -10081,7 +10096,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Vries (2004d)' => {
+  'de Vries (2004d)' => {
     lang_target => 'ner', # Mugim
     path => 'Other_lists_De_Vries_2004.xlsx',
     parser => 'Spreadsheet',
@@ -10094,7 +10109,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Vries (2004e)' => {
+  'de Vries (2004e)' => {
     lang_target => 'szp', # Inanwatan
     path => 'Inanwatan_List.xlsx',
     parser => 'Spreadsheet',
@@ -10109,7 +10124,7 @@ our $dict = {
     ],
     split => ';',
   },
-  'Vries (2004f)' => {
+  'de Vries (2004f)' => {
     lang_target => 'oni', # Patipi Kokas
     path => 'Other_lists_De_Vries_2004.xlsx',
     parser => 'Spreadsheet',
