@@ -9684,7 +9684,7 @@ our $dict = {
   },
   'Verdizade (ongoing h)' => {
     lang_target => 'sbg',
-    path => 'Segun.txt', 
+    path => 'Verdizade_2023_Moi_Segun.txt', 
     parser => 'Marker',
     lang_national => 'ind',
     lang_regional => 'pmy',
