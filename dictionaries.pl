@@ -10117,6 +10117,11 @@ our $dict = {
       [12, 'nt'],
     ],
   },
+  'Voorhoeve (1982 Moi)' => {
+    lang_target => 'Moi',
+    path => 'Voorhoeve_1982_Moi_Sorong.xlsx',
+    parser => 'Marker',
+  },
   'de Vries (2004a)' => {
     lang_target => 'Kaburi Benawa',
     path => 'Other_lists_De_Vries_2004.xlsx',
