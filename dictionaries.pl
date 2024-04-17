@@ -2297,6 +2297,7 @@ our $dict = {
     path => 'Flassy 1977-78 Tehit.txt',
     parser => 'Marker',
     headword_preprocess => sub { s/^ø-//r },
+    strip => 'to',
   },
   'Flassy (1977/78b)' => {
     lang_target => 'kps', #Tehit Sfaryere
@@ -2314,6 +2315,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Flassy (1977/78c)' => {
     lang_target => 'kps', #Tehit Yimian
@@ -2329,6 +2331,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Flassy (1977/78d)' => {
     lang_target => 'kps', #Tehit Sayfi
@@ -2344,6 +2347,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Flassy (1977/78e)' => {
     lang_target => 'kps', #Tehit Mbolfle
@@ -2358,6 +2362,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Flassy (1977/78f)' => {
     lang_target => 'kps', #Tehit Sawiat
@@ -2373,6 +2378,7 @@ our $dict = {
       [9, 'page_num'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Flassy (1987)' => {
     lang_target => 'bdw',
