@@ -953,9 +953,9 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'mr'],
-      [2, 'gloss', 'eng'],
-      [3, 'gloss', 'ind'],
-      [5, 'va'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [4, 'va'],
     ],
   },
   'Christensen (nd)' => {
