@@ -166,7 +166,7 @@ our $dict = {
     strip => 'to',
     headword_preprocess => ignore_if_only_char('-'),
   },
-  'Anceaux (1987)' => { #not ingested
+  'Anceaux (1987)' => {
     lang_target => 'wlo',
     path => 'Anceaux_1987_Wolio.xlsx',
     parser => 'Spreadsheet',
@@ -1209,13 +1209,6 @@ our $dict = {
     split => ';',
   },
   'Collins (2003)' => {
-    lang_target => 'asl',
-    path => 'Collins (2003) Asilulu.txt',
-    parser => 'Marker',
-    strip => 'to',
-    headword_preprocess => sub { s/^ø-//r },
-  },
-  'Collins (2003a)' => { #not ingested, underlying spreadsheet of Collins (2003)
     lang_target => 'asl',
     path => 'Collins (2003) Asilulu.xlsx',
     parser => 'Spreadsheet',
@@ -6161,7 +6154,6 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [2, 'sc'],
       [4, 'nt'],
-      [5, 'page_num'],
       [22, 'et'],
       [23, 'page_num'],
     ],
