@@ -921,7 +921,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
-  'Chlenova (2000a)' => {
+  'Chlenova (2000)' => {
     lang_target => 'srw', 
     path => 'Chlenova_2000_Serua.xlsx',
     parser => 'Spreadsheet',
@@ -934,7 +934,7 @@ our $dict = {
     split_headword => ';',
     split => ';',
   },
-  'Chlenova (2000b)' => {
+  'Chlenova (2002)' => {
     lang_target => 'ddw', 
     path => 'Chlenova_2002_Daweloor.xlsx',
     parser => 'Spreadsheet',
