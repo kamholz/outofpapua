@@ -946,7 +946,7 @@ our $dict = {
       [2, 'gloss', 'eng'],
     ],
   },
-  'Chlenova (2006)' => {
+  'Chlenova & Chlenov (2006)' => {
     lang_target => 'drn', 
     path => 'Chlenova_2006_WestDamar.xlsx',
     parser => 'Spreadsheet',
