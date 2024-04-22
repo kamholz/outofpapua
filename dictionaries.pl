@@ -3630,6 +3630,7 @@ our $dict = {
       [4, 'gloss', 'ind'],
       [5, 'page_num'],
       [6, 'nt'],
+      [7, 'pd'],
     ],
   },
   'Klamer (2016)' => {
