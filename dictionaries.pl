@@ -4500,6 +4500,20 @@ our $dict = {
     lang_national => 'ind',
     definition_action => 'merge',
   },
+  'Müller-Wismar (1913)' => { 
+    lang_target => 'Oirata',
+    path => 'Müller-Wismar_1913_Oirata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'gloss', 'deu'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, '1s'],
+      [5, 'lt'],
+      [6, 'nt'],
+    ],
+  },
   'Nácher (2012a)' => {
     lang_target => 'Fataluku Fuiloro',
     path => 'Nacher Fataluku Dictionary.xlsx',
