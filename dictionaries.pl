@@ -8618,7 +8618,7 @@ our $dict = {
     strip => 'to',
   },
   'Stokhof (1983)' => { 
-    lang_target => 'Bunaq',
+    lang_target => 'bfn',
     path => 'Stokhof_1983_Bunaq.xlsx',
     parser => 'Spreadsheet',
     columns => [
