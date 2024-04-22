@@ -8628,6 +8628,7 @@ our $dict = {
       [3, 'gloss', 'ind'],
       [4, 'sc'],
     ],
+    strip => 'to',
   },
   'Stokhof & Flassy (1985a)' => {
     lang_target => 'mxn',
