@@ -9488,7 +9488,13 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-   'van der Roest (1905)' => {
+  'van der Roest (1905)' => {
+    lang_target => 'Tobelo Boëng',
+    path => 'vanderRoest_1905_TobeloBoeng.txt',
+    parser => 'Marker',
+    strip => 'to',
+  }
+   'van der Roest (1905a)' => { #not ingested, spreadsheet version of van der Roest (1905)
     lang_target => 'Tobelo Boëng',
     path => 'vanderRoest_1905_TobeloBoeng.xlsx',
     parser => 'Spreadsheet',
