@@ -9853,6 +9853,14 @@ our $dict = {
     split => ';',
     strip => 'to',
   },
+  'van Klinken (2000)' => {
+    lang_target => 'Tetun Fehan',
+    path => 'vanKlinken_2000_Fehan.txt',
+    parser => 'Marker',
+    split => ',;',
+    gloss_preprocess => replace_with_space('_'),
+    headword_preprocess => replace_with_space('_'),
+  },
    'van Schie (2022a)' => {
     lang_target => 'swr',
     path => 'Saweru (Van Schie, 2022).xlsx',
