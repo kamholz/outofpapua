@@ -1318,7 +1318,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'de Clercq (1876a)' => { #not ingestd
+  'de Clercq (1876a)' => {
     lang_target => 'Moluccan Malay',
     path => 'de Clerq_1876_Moluccan Malay.xlsx',
     parser => 'Spreadsheet',
@@ -1384,8 +1384,8 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
-  'de Clercq (1876d)' => { #not ingested
-    lang_target => 'Timor Malay',
+  'de Clercq (1876d)' => { 
+    lang_target => 'mkn',
     path => 'de Clerq_1876_Moluccan Malay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Timor Malay',
