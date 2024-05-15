@@ -9858,8 +9858,7 @@ our $dict = {
     path => 'vanKlinken_2000_Fehan.txt',
     parser => 'Marker',
     split => ',;',
-    gloss_preprocess => replace_with_space('_'),
-    headword_preprocess => replace_with_space('_'),
+    definition_action => 'prefer',
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
