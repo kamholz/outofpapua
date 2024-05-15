@@ -1305,6 +1305,11 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'Danckaerts & Wiltens (1632)' => {
+    lang_target => 'dsn',
+    path => 'DanckaertsWiltens_1623_Ternate.txt',
+    parser => 'Marker',
+  },
   'da Silva (2012)' => {
     lang_target => 'Welaun',
     path => 'Da Silva 2012 Welaun.xlsx',
