@@ -8345,6 +8345,36 @@ our $dict = {
     parser => 'Marker',
     strip => 'to',
   },
+  'Sneddon (1984g)' => { 
+    lang_target => 'Sangir Siau',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Siau.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984h)' => { 
+    lang_target => 'Sangir Sasahara',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Sasahara.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984i)' => { 
+    lang_target => 'Sangir Tabukang',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Tabukang.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984j)' => { 
+    lang_target => 'Sangir Tamako',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Tamako.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1984k)' => { 
+    lang_target => 'Sangir Taruna',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Taruna.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Soares (2012)' => {
     lang_target => 'Midiki',
     path => 'Soares_2012_Midiki.xlsx',
