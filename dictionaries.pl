@@ -8849,6 +8849,19 @@ our $dict = {
     split_headword => ';',
     strip => 'to', '(to)',
   },
+  'Stokhof (1981)' => {
+    lang_target => 'tve',
+    path => 'Stokhof_1981_Teun.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+    ],
+    strip => 'to',
+  },
   'Stokhof (1982)' => {
     lang_target => 'Geser',
     path => 'Stokhof_1982_Geser.xlsx',
