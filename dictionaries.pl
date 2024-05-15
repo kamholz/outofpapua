@@ -3205,6 +3205,27 @@ our $dict = {
     lang_national => 'ind',
     headword_preprocess => sub { s/^ø-//r },
   },
+  'Hesse & Hesse (2023b)' => {
+    lang_target => 'Tehit Kna Saifi',
+    path => 'Hesse_2023_Tehit_KnaSaifi.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    headword_preprocess => sub { s/^ø-//r },
+  },
+  'Hesse & Hesse (2023c)' => { #not ingested
+    lang_target => 'Tehit Wersar',
+    path => 'Hesse_2023_Tehit_Wersar.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    headword_preprocess => sub { s/^ø-//r },
+  },
+  'Hesse & Hesse (2023d)' => {
+    lang_target => 'Tehit Eles',
+    path => 'Hesse_2023_Tehit_Eles.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+    headword_preprocess => sub { s/^ø-//r },
+  },
   'Heston (2015)' => {
     lang_target => 'Fataluku Central',
     path => 'Heston2015CentralFataluku.xlsx',
