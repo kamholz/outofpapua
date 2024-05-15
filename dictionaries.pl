@@ -1318,16 +1318,145 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'de Clercq (1876)' => { #not ingestd
-    lang_target => 'North Moluccan Malay',
-    path => 'Clercq 1876 - Moluccan Malay.xlsx',
+  'de Clercq (1876a)' => { #not ingestd
+    lang_target => 'Moluccan Malay',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Moluccan Malay (unmarked)',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [6, 'sc'],
+      [7, 'gloss', 'ind'],
+      [8, 'sy'],
+      [9, 'nt'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['nld']], #1
+      [[14 .. 15], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876b)' => { 
+    lang_target => 'Manado Malay',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Manado Malay',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [6, 'sc'],
+      [7, 'gloss', 'ind'],
+      [8, 'sy'],
+      [9, 'nt'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['nld']], #1
+      [[14 .. 15], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876c)' => { 
+    lang_target => 'Ambonese Malay',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Ambonese Malay',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [6, 'sc'],
+      [7, 'gloss', 'ind'],
+      [8, 'sy'],
+      [9, 'nt'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['nld']], #1
+      [[14 .. 15], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876d)' => { #not ingested
+    lang_target => 'Timor Malay',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Timor Malay',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [6, 'sc'],
+      [7, 'gloss', 'ind'],
+      [8, 'sy'],
+      [9, 'nt'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['nld']], #1
+      [[14 .. 15], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876e)' => { 
+    lang_target => 'bpq', #Bandanese Malay
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Bandanese Malay',
+    columns => [
+      [1, 'se'],
+      [0, 'headword'],
+      [3, 'et'],
+      [4, 'gloss', 'nld'],
+      [5, 'gloss', 'eng'],
+      [6, 'sc'],
+      [7, 'gloss', 'ind'],
+      [8, 'sy'],
+      [9, 'nt'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['nld']], #1
+      [[14 .. 15], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876f)' => { 
+    lang_target => 'Ternate',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Ternate',
     columns => [
       [0, 'headword'],
-      [1, 'ue'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'gloss', 'ind'],
+      [5, 'sy'],
+      [6, 'nt'],
+      [7, 'nt'],
+      [8, 'cf'],
+      [[9 .. 10], 'example', ['nld']], #1
+      [[11 .. 12], 'example', ['nld']], #2
+    ],
+    mode => 'sense_per_row',
+  },
+  'de Clercq (1876g)' => { 
+    lang_target => 'Tidore',
+    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Tidore',
+    columns => [
+      [0, 'headword'],
       [2, 'gloss', 'nld'],
-      [3, 'nt'],
-      [4, 'nt'],
+      [3, 'gloss', 'eng'],
     ],
   },
   'de Clercq et al. (2018)' => { #not ingestd
