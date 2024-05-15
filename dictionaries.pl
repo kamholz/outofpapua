@@ -967,6 +967,12 @@ our $dict = {
     definition_action => 'merge',
     lang_national => 'ind',
   },
+  'Christensen (2024)' => {
+    lang_target => 'kje',
+    path => 'Christensen_2024_Kisar.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Clark (2022)' => {
     lang_target => 'Tobelo Boëng',
     path => 'Clark2022Tobelo.txt',
