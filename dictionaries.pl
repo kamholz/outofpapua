@@ -8861,6 +8861,7 @@ our $dict = {
       [4, 'sc'],
     ],
     strip => 'to',
+    split => ';',
   },
   'Stokhof (1982)' => {
     lang_target => 'Geser',
