@@ -3917,7 +3917,7 @@ our $dict = {
     lang_target => 'Moni',
     path => 'Larson & Larson_1956_Moni.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moni'
+    sheet => 'Moni',
     columns => [
       [0, 'headword'],
       [1, 'ps'],
@@ -3933,7 +3933,7 @@ our $dict = {
     lang_target => 'Moni Ajani',
     path => 'Larson & Larson_1956_Moni.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moni Ajani'
+    sheet => 'Moni Ajani',
     columns => [
       [0, 'headword'],
       [1, 'ps'],
@@ -3949,7 +3949,7 @@ our $dict = {
     lang_target => 'Moni Dugindoga',
     path => 'Larson & Larson_1956_Moni.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moni Dugindoga'
+    sheet => 'Moni Dugindoga',
     columns => [
       [0, 'headword'],
       [1, 'ps'],
@@ -3965,7 +3965,7 @@ our $dict = {
     lang_target => 'Moni Hegenagai',
     path => 'Larson & Larson_1956_Moni.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moni Hegenagai'
+    sheet => 'Moni Hegenagai',
     columns => [
       [0, 'headword'],
       [1, 'ps'],
@@ -3981,7 +3981,7 @@ our $dict = {
     lang_target => 'Moni Kemandoga',
     path => 'Larson & Larson_1956_Moni.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moni Kemandoga'
+    sheet => 'Moni Kemandoga',
     columns => [
       [0, 'headword'],
       [1, 'ps'],
