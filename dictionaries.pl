@@ -3198,7 +3198,7 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
-  'Hesse & Hesse (2023)' => {
+  'Hesse & Hesse (2023a)' => {
     lang_target => 'Tehit Imian',
     path => 'Hesse_2023_Tehit_Imian.txt',
     parser => 'Marker',
