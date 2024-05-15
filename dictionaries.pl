@@ -8335,7 +8335,7 @@ our $dict = {
   },
   'Sneddon (1984e)' => { 
     lang_target => 'Sangir Manganitu',
-    path => 'Sneddon 1984/Sneddon 1984 Sangir.txt',
+    path => 'Sneddon 1984/Sneddon 1984 Sangir Manganitu.txt',
     parser => 'Marker',
     strip => 'to',
   },
