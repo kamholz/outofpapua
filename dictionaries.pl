@@ -8283,7 +8283,7 @@ our $dict = {
     strip => 'to',
   },
   'Sneddon (1978b)' => { 
-    lang_target => 'Tombulu',
+    lang_target => 'Tombulu Kinilow',
     path => 'Sneddon 1978/Sneddon 1978 Tbl.txt',
     parser => 'Marker',
     strip => 'to',
@@ -8309,6 +8309,12 @@ our $dict = {
   'Sneddon (1978f)' => { 
     lang_target => 'Tontemboan',
     path => 'Sneddon 1978/Sneddon 1978 Ttb.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Sneddon (1978g)' => { 
+    lang_target => 'Tombulu Tomohon',
+    path => 'Sneddon 1978/Sneddon 1978 Tbl Tomohon.txt',
     parser => 'Marker',
     strip => 'to',
   },
