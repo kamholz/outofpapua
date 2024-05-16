@@ -9858,7 +9858,7 @@ our $dict = {
     path => 'vanKlinken_2000_Fehan.txt',
     parser => 'Marker',
     split => ',;',
-    definition_action => 'prefer',
+    definition_action => 'merge',
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
