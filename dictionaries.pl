@@ -2432,6 +2432,13 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Fields (1983)' => {
+    lang_target => 'ury',
+    path => 'Fields_1983_Orya.txt',
+    parser => 'Marker',
+    skip_marker => ['lf', 'th'],
+    lang_national => 'ind',
+  },
   'Flassy (1977/78a)' => {
     lang_target => 'kps',
     path => 'Flassy 1977-78 Tehit.txt',
