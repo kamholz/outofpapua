@@ -6215,6 +6215,21 @@ our $dict = {
     lang_national => 'ind',
     definition_action => 'disprefer',
   },
+  'Sanjoko et al. (2021)' => {
+    lang_target => 'tpf',
+    path => 'Sanjoko_2021_Tarpia.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'hm'],
+      [2, 'ps'],
+      [4, 'gloss', 'ind'],
+      [5, 'gloss', 'eng'],
+      [[6 .. 7], 'example', ['ind']],
+      [[8 .. 9], 'example', ['ind']],
+    ],
+    mode => 'sense_per_row',
+  },
   'Sarmento (nd)' => {
     lang_target => 'Makasae Osoroa',
     path => 'Sarmento_nd_MakasaeOsoroa.xlsx',
