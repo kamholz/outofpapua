@@ -10072,6 +10072,7 @@ our $dict = {
     lang_target => 'swr',
     path => 'Saweru (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Saweru',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
