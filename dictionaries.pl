@@ -61,6 +61,18 @@ our $dict = {
       split_headword => ';',
     ],
   },
+  'Ajamiseba et al. (1987)' => {
+    lang_target => 'sob',
+    path => 'Ajamiseba_1987_Sobei.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Ajamiseba et al. (1989)' => {
     lang_target => 'Maybrat Ayamaru',
     path => 'spreadsheets/Mai Brat Vocabulary.xlsx',
@@ -2244,6 +2256,22 @@ our $dict = {
       [4, 'lt'],
       [5, 'nt'],
       [6, 'page_num'],
+    ],
+  },
+  'Erniati, Wahidah & Harlin (2017)' => {
+    lang_target => 'htu',
+    path => 'ErniatiWahidahHarlin_2017_Hitu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ph'],
+      [3, 'ps'],
+      [4, 'gloss', 'ind'],
+      [5, 'gloss', 'eng'],
+      [[6 .. 7], 'example', ['ind']],
+      [[8 .. 9], 'example', ['ind']],
+      [10, 'page_num'],
     ],
   },
   'Esserey (nd)' => {
