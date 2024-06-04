@@ -4396,7 +4396,7 @@ our $dict = {
     strip => 'to',
   },
   'Mead (1998ab)' => {
-    lang_target => 'mqn', #Rumbia-Poleang
+    lang_target => 'Rumbia-Poleang',
     path => 'Mead 1998/Mead 1998 MRN.txt',
     parser => 'Marker',
     strip => 'to',
