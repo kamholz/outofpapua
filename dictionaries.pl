@@ -10099,7 +10099,7 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [2, 'va'],
-      [3, 'gloss', 'eng'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'van Schie (2022d)' => {
