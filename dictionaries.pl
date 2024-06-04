@@ -10092,16 +10092,14 @@ our $dict = {
     ],
   },
    'van Schie (2022c)' => {
-    lang_target => 'yva', #Ambaidiru
+    lang_target => 'Yawa Ambaidiru',
     path => 'Yawa Ambaidiru (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Ambaidiru',
     columns => [
       [0, 'headword'],
-      [1, 'ph'],
       [2, 'va'],
       [3, 'gloss', 'eng'],
-      [4, 'gloss', 'ind'],
-      [[5 .. 7], 'example', ['eng', 'ind']],
     ],
   },
   'van Schie (2022d)' => {
