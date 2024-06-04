@@ -1335,7 +1335,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'Moluccan Malay (unmarked)',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [3, 'et'],
       [4, 'gloss', 'nld'],
@@ -1357,7 +1357,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'Manado Malay',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [3, 'et'],
       [4, 'gloss', 'nld'],
@@ -1379,7 +1379,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'Ambonese Malay',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [3, 'et'],
       [4, 'gloss', 'nld'],
@@ -1401,7 +1401,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'Timor Malay',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [3, 'et'],
       [4, 'gloss', 'nld'],
@@ -1423,7 +1423,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'Bandanese Malay',
     columns => [
-      [1, 'se'],
+      [1, 'subentry'],
       [0, 'headword'],
       [3, 'et'],
       [4, 'gloss', 'nld'],
