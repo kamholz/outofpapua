@@ -10716,6 +10716,18 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Westrum et al. (1986)' => {
+    lang_target => 'bkl',
+    path => 'Westrum_1986_Berik.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+    strip => 'to',
+  },
   'Whisler (2019)' => {
     lang_target => 'szw',
     path => 'Whisler2019Sawai.txt',
