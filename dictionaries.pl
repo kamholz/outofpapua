@@ -57,9 +57,9 @@ our $dict = {
       [1, 'ps'],
       [3, 'lt'],
       [4, 'nt'],
-      mode => 'sense_per_row',
-      split_headword => ';',
     ],
+    mode => 'sense_per_row',
+    split_headword => ';',
   },
   'Ajamiseba et al. (1987)' => {
     lang_target => 'sob',
