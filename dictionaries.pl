@@ -4234,6 +4234,20 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Mariati, Iribaram & Sihombing (2021a)' => {
+    lang_target => 'set',
+    path => 'MariatiIribaramSihombing_2021_Sentani.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'sy'],
+      [[5 .. 6], 'example', ['ind']],
+    ],
+    mode => 'sense_per_row',
+  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07_Version2.db',
