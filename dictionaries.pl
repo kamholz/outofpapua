@@ -3470,8 +3470,8 @@ our $dict = {
       [5, 'sy'],
       [[6 .. 7], 'example', ['ind']],
       [8, 'page_num'],
-      mode => 'sense_per_row',
     ],
+    mode => 'sense_per_row',
   },
   'Jendraschek (2007)' => { #not ingested
     lang_target => 'ian',
