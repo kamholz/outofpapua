@@ -3473,6 +3473,19 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Iribaram, Mariati & Sanjoko (2021)' => { 
+    lang_target => 'kxq',
+    path => 'IribaramMariatiSanjoko_2021_Tamer.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [[4 .. 5], 'example', ['ind']],
+    ],
+    mode => 'sense_per_row',
+  },
   'Jendraschek (2007)' => { #not ingested
     lang_target => 'ian',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
