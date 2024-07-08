@@ -1508,7 +1508,7 @@ our $dict = {
   },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
-    path => 'de Josselin de Jong (1937) Oirata.xlsx',
+    path => 'deJosselindeJong_1937_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
