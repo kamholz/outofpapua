@@ -10835,7 +10835,7 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Vries & van Enk (1997)' => { #not ingested
+  'de Vries & van Enk (1997)' => { #not ingested
     lang_target => 'khe',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
