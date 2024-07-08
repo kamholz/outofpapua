@@ -3486,8 +3486,8 @@ our $dict = {
       [4, 'nt'],
       [5, 'sy'],
       [6, 'page_num'],
-      mode => 'sense_per_row',
     ],
+    mode => 'sense_per_row',
   },
   'Jones (1986a)' => {
     lang_target => 'Yawa Ambaidiru',
@@ -10729,6 +10729,7 @@ our $dict = {
       [6, 'cf'],
     ],
     split => ';',
+    strip => 'to',
   },
   'de Vries (2004f)' => {
     lang_target => 'oni', # Patipi Kokas
