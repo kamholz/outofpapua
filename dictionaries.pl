@@ -5012,7 +5012,7 @@ our $dict = {
   },
   'Nazarudin (2013)' => { #not ingested
     lang_target => 'Oirata',
-    path => 'Nazarudin 2013 Oirata.xlsx',
+    path => 'Nazarudin_2013_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'], 
