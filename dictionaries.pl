@@ -2979,7 +2979,7 @@ our $dict = {
     ],
     split_headword => ';',
   },
-  'Haan (2015)' => {
+  'Han (2015)' => {
     lang_target => 'woi',
     path => 'Han_2015_Suboo.xlsx',
     parser => 'Spreadsheet',
@@ -3938,7 +3938,7 @@ our $dict = {
     skip_marker => ['re', 'rr', 'rn'],
     headword_preprocess => sub { s/^ø-//r },
   },
-  'Kroon (2016)' => {
+  'Kroon (2016)' => { #not ingested, error
     lang_target => 'slp',
     path => 'Kroon_2016_LamaholotSolor.xlsx',
     parser => 'Spreadsheet',
