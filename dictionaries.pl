@@ -9983,6 +9983,27 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row'
   },
+  'van der Wilden et al. (2012)' => {
+    lang_target => 'kmt',
+    path => 'van der Wilden et al_2012_Kemtuik.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [5, 'et'],
+      [6, 'an'],
+      [7, 'sy'],
+      [8, 'va'],
+      [[9 .. 11], 'example', ['ind', 'eng']],
+      [[12 .. 14], 'example', ['ind', 'eng']],
+      [[15 .. 17], 'example', ['ind', 'eng']],
+      [18, 'page_num'],
+    ],
+    mode => 'sense_per_row'
+  },
   'van Dijk (2000)' => {
     lang_target => 'mxz',
     path => 'vanDijk_2000_Central Marsela.xlsx',
