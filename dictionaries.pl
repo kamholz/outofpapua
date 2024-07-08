@@ -3457,6 +3457,22 @@ our $dict = {
     split_heuristic => ',',
     headword_preprocess => sub { $_[0] =~ tr/’/'/r },
   },
+  'Iribaram, Mariati & Sihombing (2017)' => { 
+    lang_target => 'msf',
+    path => 'IribaramMariatiSihombing_2017_Mekwei.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'ind'],
+      [4, 'gloss', 'eng'],
+      [5, 'sy'],
+      [[6 .. 7], 'example', ['ind']],
+      [8, 'page_num'],
+      mode => 'sense_per_row',
+    ],
+  },
   'Jendraschek (2007)' => { #not ingested
     lang_target => 'ian',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
