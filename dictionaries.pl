@@ -4234,7 +4234,7 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
-  'Mariati, Iribaram & Sihombing (2021a)' => {
+  'Mariati, Iribaram & Sihombing (2021)' => {
     lang_target => 'set',
     path => 'MariatiIribaramSihombing_2021_Sentani.xlsx',
     parser => 'Spreadsheet',
