@@ -1722,6 +1722,7 @@ our $dict = {
       [1, 'ps'],
       [3, 'page_num'],
     ],
+    strip => 'to',
   },
   'Donohue (2010a)' => {
     lang_target => 'oni',
@@ -10849,6 +10850,7 @@ our $dict = {
       [5, 'cf'],
       [6, 'page_num'],
     ],
+    strip => 'to',
   },
   'Wada (1980a)' => {
     lang_target => 'gbi',
