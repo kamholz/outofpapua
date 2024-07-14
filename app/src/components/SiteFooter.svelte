@@ -9,7 +9,9 @@
       OUTOFPAPUA database edited by David Kamholz and Antoinette Schapper is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
     </span>
   </div>
-  <div></div>
+  <a href="https://erc.europa.eu/homepage">
+    <img src="/erc.png" alt="ERC">
+  </a>
 </footer>
 
 <style lang="scss">
