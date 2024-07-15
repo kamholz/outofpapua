@@ -15,7 +15,7 @@ FROM (
       UNION ALL
       SELECT language2.id, descendant.path || ARRAY[to_bool_text(protolanguage.id), lower(language2.name)]
       FROM descendant
-      JOIN language language2 ON language2.parent_id = descendant.id
+      JOIN language language2 ON language2.parent_id = descendant.id AND language2.flag_language_list
       LEFT JOIN protolanguage ON protolanguage.id = language2.id
     )
     SELECT descendant.id, descendant.path
