@@ -187,7 +187,6 @@ function hasOverlap(lang1, lang2Set) {
 function removePlusOverlap(lang1Set, lang1SeenLangPlus, lang2SeenLang) {
   for (const lang of lang1SeenLangPlus) {
     if (lang2SeenLang.has(lang)) {
-      console.log(`deleting ${lang}`);
       lang1Set.delete(lang);
     }
   }
