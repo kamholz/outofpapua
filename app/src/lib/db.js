@@ -193,23 +193,34 @@ export function filterGlosslang(query, rows, filterCompareEntries) {
 // language and descendants
 
 export async function getLanguageIds(param) {
-  const [lang, langPlus] = partitionPlus(param);
-  if (langPlus.length) {
-    const langPlusUniq = [...new Set(langPlus)];
-    lang.push(...langPlusUniq);
+  const [result] = await getLanguageIdsSet(param);
+  return result ? [...result] : result;
+}
+
+export async function getLanguageIdsSet(param) {
+  const [_lang, _langPlus] = partitionPlus(param);
+  const seenLang = new Set(_lang);
+  const lang = [...seenLang];
+  let seenLangPlus;
+  if (_langPlus.length) {
+    seenLangPlus = new Set(_langPlus);
+    const langPlus = [...seenLangPlus];
+    lang.push(...langPlus);
     const descendants = (await knex('language')
-      .where('id', arrayCmp(langPlusUniq))
+      .where('id', arrayCmp(langPlus))
       .select(knex.raw('coalesce(language.descendants, language.dialects) as descendants')))
       .map((v) => v.descendants)
       .filter((v) => v);
     for (const d of descendants) {
       lang.push(...d);
     }
+  } else {
+    seenLangPlus = new Set();
   }
   if (lang.length) {
-    return [...new Set(lang)];
+    return [new Set(lang), seenLang, seenLangPlus];
   } else {
-    return null;
+    return [null];
   }
 }
 
