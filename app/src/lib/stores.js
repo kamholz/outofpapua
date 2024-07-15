@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { cookieStorage, persist } from 'svelte-persistent-store';
+import { cookieStorage, persist } from '@macfja/svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
 import { derived, readable, writable } from 'svelte/store';
 import { page } from '$app/stores';

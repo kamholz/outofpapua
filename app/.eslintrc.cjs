@@ -1,8 +1,16 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended'],
-  plugins: ['sort-imports-es6-autofix', 'svelte3'],
-  overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
+  extends: [
+    'eslint:recommended',
+    'plugin:svelte/recommended',
+  ],
+  plugins: ['sort-imports-es6-autofix'],
+  overrides: [
+    {
+      files: ['*.svelte'],
+      parser: 'svelte-eslint-parser',
+    },
+  ],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2021,
@@ -76,7 +84,7 @@ module.exports = {
     'template-curly-spacing': 'error',
   },
   settings: {
-    'svelte3/ignore-styles': (attrs) => attrs.lang && attrs.lang === 'scss',
-    'svelte3/ignore-warnings': ({ code }) => ['a11y-click-events-have-key-events', 'unused-export-let'].includes(code),
+    'svelte/ignore-styles': (attrs) => attrs.lang && attrs.lang === 'scss',
+    'svelte/ignore-warnings': ({ code }) => ['a11y-click-events-have-key-events', 'unused-export-let'].includes(code),
   },
 };
