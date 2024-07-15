@@ -188,6 +188,10 @@ export function isEditor(loggedInUser) {
   return ['admin', 'editor'].includes(loggedInUser?.role);
 }
 
+export function showPublicOnly(locals) {
+  return locals.user === null;
+}
+
 // gloss formatting and parsing
 
 const preferred = new Set(['eng', 'lat']);
@@ -401,10 +405,6 @@ export function parseLanguageLocation(language) {
     : null;
 }
 
-export function showPublicOnly(locals) {
-  return locals.user === null;
-}
-
 export function sortFunction(fn) {
   return (a, b) => {
     const aSort = fn(a);
@@ -427,4 +427,14 @@ export function toolboxMarkup(text) {
   function wrapEm(_, p1) {
     return `<em>${p1}</em>`;
   }
+}
+
+export function isValidEntrySearch(query) {
+  if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+    return true;
+  }
+  if (['inherited', 'borrowed', 'mixed'].includes(query.origin)) {
+    return true;
+  }
+  return false;
 }

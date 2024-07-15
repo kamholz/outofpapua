@@ -1,8 +1,8 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, arrayCmp, filterGlosslang, getCount, getLanguageIds,
   knex, pgError, record_match, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeHeadword, mungeRegex, normalizeQuery,
-  parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, isValidEntrySearch, mungeHeadword, mungeRegex,
+  normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams, showPublicOnly } from '$lib/util';
 import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { nfc } from './params';
@@ -34,7 +34,7 @@ const sortCols = {
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams),
     locals.hideComparative ? allowedHideComparative : allowed);
-  if (!['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+  if (!isValidEntrySearch(query)) {
     return jsonError(errorStrings.insufficientSearch);
   }
   parseBooleanParams(query, boolean);

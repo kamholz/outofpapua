@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { normalizeQuery, parseArrayNumParams, parseArrayParams, serializeQuery } from '$lib/util';
+import { isValidEntrySearch, normalizeQuery, parseArrayNumParams, parseArrayParams, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
 const arrayParams = new Set(['lang']);
@@ -23,7 +23,7 @@ export async function load({ fetch, parent, url: { searchParams } }) {
   }
 
   const query = normalizeQuery(searchParams);
-  if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
+  if (isValidEntrySearch(query)) {
     const res = await fetch('/api/entry' + serializeQuery(query));
     if (!res.ok) {
       throw error(500);
