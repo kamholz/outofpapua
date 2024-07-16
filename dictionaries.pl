@@ -837,27 +837,27 @@ our $dict = {
     split_headword => ';',
     strip => 'to',
   },
-  'Blust & Trussel (2019 a)' => {
+  'Blust & Trussel (2019a)' => {
     lang_target => 'Proto-Austronesian',
     path => 'Blust_Trussel/PAN.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (2019 b)' => {
+  'Blust & Trussel (2019b)' => {
     lang_target => 'Proto-Malayo-Polynesian',
     path => 'Blust_Trussel/PMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (2019 c)' => {
+  'Blust & Trussel (2019c)' => {
     lang_target => 'Proto-Central-Eastern Malayo-Polynesian',
     path => 'Blust_Trussel/PCEMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (2019 d)' => {
+  'Blust & Trussel (2019d)' => {
     lang_target => 'Proto-Eastern Malayo-Polynesian',
     path => 'Blust_Trussel/PEMP.txt',
     parser => 'Marker',
   },
-  'Blust & Trussel (2019 e)' => {
+  'Blust & Trussel (2019e)' => {
     lang_target => 'Proto-SHWNG',
     path => 'Blust_Trussel/SHWNG.txt',
     parser => 'Marker',
