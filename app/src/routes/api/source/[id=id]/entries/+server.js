@@ -1,8 +1,8 @@
 import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, knex, record_match,
   setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
-import { ensureNfcParams, getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseBooleanParams,
-  showPublicOnly } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams,
+  parseBooleanParams,showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
@@ -84,10 +84,17 @@ export async function GET({ locals, params, url: { searchParams } }) {
   const pageCount = applyPageParams(q, query, rowCount);
   applySortParams(q, query, sortCols, ['headword', 'senses']);
 
+  const rows = await q;
+  if (locals.hideComparative) {
+    for (const row of rows) {
+      hideComparativeInEntry(row);
+    }
+  }
+
   return json({
     query,
     pageCount,
     rowCount,
-    rows: await q,
+    rows,
   });
 }
