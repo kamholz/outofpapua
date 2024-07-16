@@ -45,6 +45,7 @@ const entryMarker = {
   so: 'source',
   sy: 'synonym',
   ue: 'usage',
+  url: 'url',
 };
 
 const entryMarkerArray = {

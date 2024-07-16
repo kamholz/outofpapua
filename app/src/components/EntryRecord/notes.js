@@ -110,20 +110,20 @@ export const entryNotesPost = [
     key: 'synonym',
     label: 'Synonyms',
     join: true,
-    link: true,
+    link: 'entry',
   },
   {
     key: 'antonym',
     label: 'Antonyms',
     join: true,
-    link: true,
+    link: 'entry',
   },
   {
     key: 'crossref',
     label: 'See also',
     join: true,
     trans: true,
-    link: true,
+    link: 'entry',
   },
   {
     key: 'source',
@@ -134,6 +134,12 @@ export const entryNotesPost = [
     key: 'reference',
     label: 'Reference',
     join: true,
+  },
+  {
+    key: 'url',
+    label: 'URL',
+    join: false,
+    link: 'url',
   },
 ];
 
@@ -154,6 +160,6 @@ export const exampleNotes = [
     label: 'See also',
     join: true,
     trans: true,
-    link: true,
+    link: 'entry',
   },
 ];
