@@ -188,6 +188,10 @@ export function isEditor(loggedInUser) {
   return ['admin', 'editor'].includes(loggedInUser?.role);
 }
 
+export function isContributor(loggedInUser) {
+  return ['admin', 'editor', 'contributor'].includes(loggedInUser?.role);
+}
+
 export function showPublicOnly(locals) {
   return locals.user === null;
 }

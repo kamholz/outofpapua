@@ -2,12 +2,12 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { getFilteredParams, isId } from '$lib/util';
 import { knex, pgError, setTransactionUser } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowed = new Set(['entry_id', 'note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 const required = new Set(['entry_id']);
 
-export const POST = requireAuth(async ({ locals, params, request, url: { searchParams } }) => {
+export const POST = requireContributor(async ({ locals, params, request, url: { searchParams } }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return jsonError(errorStrings.missing);

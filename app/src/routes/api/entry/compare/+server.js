@@ -6,7 +6,7 @@ import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, normalizeQu
 import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { nfc } from '../params';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowed = new Set(['gloss', 'glosslang', 'lang1', 'lang2', 'loose', 'page', 'pagesize']);
 const arrayNumParams = new Set(['glosslang']);
@@ -73,7 +73,7 @@ const compare_entries2 = `
   ) FILTER (WHERE found_with_compare.compare_language_id IS NOT NULL)
 `;
 
-export const GET = requireAuth(async ({ locals, url: { searchParams } }) => {
+export const GET = requireContributor(async ({ locals, url: { searchParams } }) => {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   if (!['lang1', 'lang2'].some((attr) => attr in query)) {
     return jsonError(errorStrings.insufficientSearch);

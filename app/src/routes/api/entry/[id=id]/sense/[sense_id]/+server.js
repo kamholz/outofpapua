@@ -4,9 +4,9 @@ import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../../params';
 import { json } from '@sveltejs/kit';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
-export const PUT = requireAuth(async ({ locals, params, request }) => {
+export const PUT = requireContributor(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   const { glosses } = updateParams;
   delete updateParams.glosses;
@@ -54,7 +54,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ params }) => {
+export const DELETE = requireContributor(async ({ params }) => {
   try {
     if (!(await isEditable(params.id))) {
       return jsonError(errorStrings.editableEntry);

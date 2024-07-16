@@ -3,7 +3,7 @@ import { ensureNfcParams, getFilteredParams, isEditor } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { filterPublicSources, knex, pgError } from '$lib/db';
-import { requireAdmin, requireAuth } from '$lib/auth';
+import { requireAdmin, requireContributor } from '$lib/auth';
 
 const columns = [
   'source.id',
@@ -39,7 +39,7 @@ export async function GET({ locals, params }) {
   }
 }
 
-export const PUT = requireAuth(async ({ locals, params, request }) => {
+export const PUT = requireContributor(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), isEditor(locals.user) ? allowedEditor : allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errorStrings.noUpdatable);

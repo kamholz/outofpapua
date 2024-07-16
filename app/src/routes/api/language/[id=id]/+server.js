@@ -3,7 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { knex, pgError } from '$lib/db';
 import { nfc } from '../params';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowed = new Set(['location', 'name', 'note', 'parent_id', 'prefer_set_name', 'region']);
 const proto = new Set(['prefer_set_name']);
@@ -48,7 +48,7 @@ export async function GET({ locals, params }) {
   }
 }
 
-export const PUT = requireAuth(async ({ params, request }) => {
+export const PUT = requireContributor(async ({ params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errorStrings.noUpdatable);
@@ -88,7 +88,7 @@ export const PUT = requireAuth(async ({ params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ params }) => {
+export const DELETE = requireContributor(async ({ params }) => {
   try {
     const { id } = params;
     const rows = await knex.transaction((trx) =>

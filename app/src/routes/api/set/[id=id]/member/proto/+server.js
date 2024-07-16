@@ -2,13 +2,13 @@ import { ensureNfcParams, getFilteredParams } from '$lib/util';
 import { errorStrings, jsonError } from '$lib/error';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { json } from '@sveltejs/kit';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowed = new Set(['glosses', 'headword', 'source_id']);
 const required = new Set(['glosses', 'headword', 'source_id']);
 const nfc = new Set(['headword']);
 
-export const POST = requireAuth(async ({ locals, params, request }) => {
+export const POST = requireContributor(async ({ locals, params, request }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   if (Object.keys(getFilteredParams(insertParams, required)).length !== required.size) {
     return jsonError(errorStrings.missing);

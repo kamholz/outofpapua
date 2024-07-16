@@ -2,6 +2,7 @@
   import Icon from 'svelte-awesome';
   import { faBars } from '@fortawesome/free-solid-svg-icons';
   import { hideComparative, session } from '$lib/stores';
+  import { isContributor } from '$lib/util';
   import { page } from '$app/stores';
 
   export let type; // compact, full
@@ -28,6 +29,7 @@
       title: 'Compare',
       url: '/compare',
       private: true,
+      contributor: true,
     },
     {
       title: 'Saved Maps',
@@ -45,8 +47,14 @@
   let active = false;
 
   function getTabs() {
-    if ($session.user) {
-      return tabsAll;
+    const user = $session.user;
+
+    if (user) {
+      if (isContributor(user)) {
+        return tabsAll;
+      } else {
+        return tabsAll.filter((field) => !field.contributor);
+      }
     } else if ($hideComparative) {
       return tabsAll.filter((field) => !field.comparative && !field.private);
     } else {

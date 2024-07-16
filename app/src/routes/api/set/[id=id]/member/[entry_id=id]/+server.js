@@ -2,11 +2,11 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { getFilteredParams } from '$lib/util';
 import { knex, pgError, setTransactionUser } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowed = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
-export const PUT = requireAuth(async ({ locals, params, request }) => {
+export const PUT = requireContributor(async ({ locals, params, request }) => {
   const updateParams = getFilteredParams(await request.json(), allowed);
   if (!Object.keys(updateParams).length) {
     return jsonError(errorStrings.noUpdatable);
@@ -42,7 +42,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ locals, params }) => {
+export const DELETE = requireContributor(async ({ locals, params }) => {
   try {
     const rows = await knex.transaction(async (trx) => {
       await setTransactionUser(trx, locals);

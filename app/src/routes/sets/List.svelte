@@ -15,7 +15,7 @@
   export let pageCount;
   const editable = getContext('editable');
   const collapsedRows = rows.map(() => false);
-  let selection = editable ? new Set() : null;
+  let selection = new Set();
   let promise;
 
   function collapseAll(state) {

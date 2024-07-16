@@ -4,7 +4,7 @@ import { ensureNfcParams, getFilteredParams, isEditor, normalizeQuery, parseBool
   stripParams } from '$lib/util';
 import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowedQuery = new Set(['asc', 'category', 'details', 'sort']);
 const boolean = new Set(['asc', 'details']);
@@ -61,7 +61,7 @@ export async function GET({ locals, url: { searchParams } }) {
   });
 }
 
-export const POST = requireAuth(async ({ locals, request }) => {
+export const POST = requireContributor(async ({ locals, request }) => {
   const params = getFilteredParams(await request.json(), isEditor(locals.user) ? allowedEditor : allowed);
   if (Object.keys(getFilteredParams(params, required)).length !== required.size) {
     return jsonError(errorStrings.missing);

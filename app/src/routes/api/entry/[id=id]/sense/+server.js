@@ -4,9 +4,9 @@ import { getFilteredParams } from '$lib/util';
 import { getGlossLanguage, insertGlosses, knex, pgError, setTransactionUser } from '$lib/db';
 import { isEditable } from '../../params';
 import { json } from '@sveltejs/kit';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
-export const POST = requireAuth(async ({ locals, params, request }) => {
+export const POST = requireContributor(async ({ locals, params, request }) => {
   const insertParams = getFilteredParams(await request.json(), allowed);
   const { glosses } = insertParams;
   delete insertParams.glosses;

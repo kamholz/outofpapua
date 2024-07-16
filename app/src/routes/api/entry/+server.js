@@ -6,7 +6,7 @@ import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, isValidEntr
 import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { nfc } from './params';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',
   'headword_ipa_exact', 'lang', 'langcat', 'page', 'pagesize', 'record', 'region', 'sort']);
@@ -159,7 +159,7 @@ export async function GET({ locals, url: { searchParams } }) {
 const allowedCreate = new Set(['headword', 'headword_ipa', 'origin', 'origin_language_id', 'root', 'source_id']);
 const requiredCreate = new Set(['headword', 'source_id']);
 
-export const POST = requireAuth(async ({ request }) => {
+export const POST = requireContributor(async ({ request }) => {
   const params = getFilteredParams(await request.json(), allowedCreate);
   if (Object.keys(getFilteredParams(params, requiredCreate)).length !== requiredCreate.size) {
     return jsonError(errorStrings.missing);

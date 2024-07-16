@@ -3,7 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { isEditable, nfc } from '../params';
 import { knex, pgError, setTransactionUser } from '$lib/db';
-import { requireAuth } from '$lib/auth';
+import { requireContributor } from '$lib/auth';
 
 const allowedAll = new Set(['multi_set', 'origin', 'origin_language_id', 'root']);
 const allowedEditable = new Set([...allowedAll, 'headword', 'source_id']);
@@ -37,7 +37,7 @@ export async function GET({ locals, params }) {
   }
 }
 
-export const PUT = requireAuth(async ({ locals, params, request }) => {
+export const PUT = requireContributor(async ({ locals, params, request }) => {
   const { id } = params;
   const editable = await isEditable(id);
   const updateParams = getFilteredParams(await request.json(), editable ? allowedEditable : allowedAll);
@@ -86,7 +86,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ locals, params }) => {
+export const DELETE = requireContributor(async ({ locals, params }) => {
   try {
     const { id } = params;
     const editable = await isEditable(id);

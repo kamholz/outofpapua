@@ -5,7 +5,7 @@ import { defaultPreferences } from '$lib/preferences';
 import { error, json } from '@sveltejs/kit';
 import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, showPublicOnly } from '$lib/util';
-import { requireAuth, requireComparative } from '$lib/auth';
+import { requireContributor, requireComparative } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
   'headword_ipa', 'headword_ipa_exact', 'lang', 'lang_all', 'name', 'note', 'page', 'pagesize', 'sort', 'source']);
@@ -136,7 +136,7 @@ export const GET = requireComparative(async ({ locals, url: { searchParams } }) 
   });
 });
 
-export const POST = requireAuth(async ({ locals, request }) => {
+export const POST = requireContributor(async ({ locals, request }) => {
   const body = await request.json();
   let members;
   if ('members' in body) {

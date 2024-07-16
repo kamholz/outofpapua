@@ -1,7 +1,7 @@
 import config from '$config';
 import jwt from 'jsonwebtoken';
 import { error } from '@sveltejs/kit';
-import { isAdmin, isEditor } from './util';
+import { isAdmin, isContributor, isEditor } from './util';
 import { knex } from '$lib/db';
 
 export const ACCESS_TOKEN_COOKIE = 'accesstoken';
@@ -127,6 +127,15 @@ export function requireAdmin(handler) {
 export function requireEditor(handler) {
   return (req) => {
     if (!isEditor(req.locals.user)) {
+      throw error(401);
+    }
+    return handler(req);
+  };
+}
+
+export function requireContributor(handler) {
+  return (req) => {
+    if (!isContributor(req.locals.user)) {
       throw error(401);
     }
     return handler(req);

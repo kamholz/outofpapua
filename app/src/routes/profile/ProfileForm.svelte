@@ -8,6 +8,7 @@
   export let adminView;
 
   const roles = [
+    { id: 'viewer', name: 'Viewer' },
     { id: 'contributor', name: 'Contributor' },
     { id: 'editor', name: 'Editor' },
     { id: 'admin', name: 'Admin' },

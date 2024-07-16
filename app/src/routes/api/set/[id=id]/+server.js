@@ -3,7 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, name_auto, pgError, setTransactionUser } from '$lib/db';
-import { requireAuth, requireComparative } from '$lib/auth';
+import { requireContributor, requireComparative } from '$lib/auth';
 
 export const GET = requireComparative(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
@@ -29,7 +29,7 @@ export const GET = requireComparative(async ({ locals, params }) => {
   }
 });
 
-export const PUT = requireAuth(async ({ locals, params, request }) => {
+export const PUT = requireContributor(async ({ locals, params, request }) => {
   const body = await request.json();
   let members;
   if ('members' in body) {
@@ -89,7 +89,7 @@ export const PUT = requireAuth(async ({ locals, params, request }) => {
   }
 });
 
-export const DELETE = requireAuth(async ({ params }) => {
+export const DELETE = requireContributor(async ({ params }) => {
   try {
     const rows = await knex.transaction((trx) =>
       trx('set')
