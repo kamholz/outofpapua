@@ -84,17 +84,17 @@ export const GET = requireContributor(async ({ locals, url: { searchParams } }) 
   ensureNfcParams(query, nfc);
   query = { ...defaults, ...query };
 
-  const [lang1Set, lang1SeenLang, lang1SeenLangPlus] = await getLanguageIdsSet(query.lang1);
-  const [lang2Set, lang2SeenLang, lang2SeenLangPlus] = await getLanguageIdsSet(query.lang2);
-  if (!lang1Set || !lang2Set) {
+  const [lang1Set, lang1PlusSet] = await getLanguageIdsSet(query.lang1);
+  const [lang2Set, lang2PlusSet] = await getLanguageIdsSet(query.lang2);
+  if (!(lang1Set && lang2Set)) {
     throw error(500);
   }
 
-  removePlusOverlap(lang1Set, lang1SeenLangPlus, lang2SeenLang);
-  removePlusOverlap(lang2Set, lang2SeenLangPlus, lang1SeenLang);
+  removePlusOverlap(lang1Set, lang2PlusSet);
+  removePlusOverlap(lang2Set, lang1PlusSet);
 
-  const lang1 = [...lang1Set];
-  const lang2 = [...lang2Set];
+  const lang1 = [...new Set([...lang1Set, ...lang1PlusSet])];
+  const lang2 = [...new Set([...lang2Set, ...lang2PlusSet])];
 
   if (hasOverlap(lang1, lang2Set)) {
     return jsonError('languages 1 and 2 overlap', query);
@@ -184,10 +184,10 @@ function hasOverlap(lang1, lang2Set) {
   return lang1.some((v) => lang2Set.has(v));
 }
 
-function removePlusOverlap(lang1Set, lang1SeenLangPlus, lang2SeenLang) {
-  for (const lang of lang1SeenLangPlus) {
-    if (lang2SeenLang.has(lang)) {
-      lang1Set.delete(lang);
+function removePlusOverlap(lang1Set, lang2PlusSet) {
+  for (const lang of lang1Set) {
+    if (lang2PlusSet.has(lang)) {
+      lang2PlusSet.delete(lang);
     }
   }
 }
