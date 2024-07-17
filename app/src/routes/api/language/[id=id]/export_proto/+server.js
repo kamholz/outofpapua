@@ -65,6 +65,9 @@ export const GET = requireAuth(async ({ params }) => {
         // if (entry.source_ipa_conversion_rule) {
         //   ipaConversionFunctions.add(entry.source_ipa_conversion_rule);
         // }
+        if (!entry.sets) {
+          continue;
+        }
         for (const set of entry.sets) {
           const ancestor = [];
           const descendant = [];

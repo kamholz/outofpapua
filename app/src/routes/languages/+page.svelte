@@ -33,6 +33,11 @@
 <div>
   <a href="/languages/map">View map of languages</a>
 </div>
+{#if $session.user}
+  <div>
+    <a href="/languages/export_proto">Export reconstructions</a>
+  </div>
+{/if}
 <Table
   {rows}
   {query}
