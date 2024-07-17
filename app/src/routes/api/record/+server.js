@@ -66,7 +66,7 @@ export async function GET({ locals, url: { searchParams } }) {
   }
 
   if ('source' in query) {
-    q.where('rs.source_id', arrayCmp(query.source));
+    q.where('source.id', arrayCmp(query.source));
   }
 
   if ('lang' in query) {
