@@ -6,8 +6,12 @@ export const errorStrings = {
   originLang: 'only borrowed items can have an origin language indicated',
 };
 
-export function jsonError(error) {
-  return new Response(JSON.stringify({ error }), {
+export function jsonError(error, query) {
+  const body = { error };
+  if (query) {
+    body.query = query;
+  }
+  return new Response(JSON.stringify(body), {
     status: 400,
     headers: {
       'content-type': 'application/json',
