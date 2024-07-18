@@ -35,13 +35,14 @@ my %print_toolbox_actions = map { $_ => 1 } qw/messy/;
 
 my ($cmd, $reference, @action) = map { decode_utf8($_, 1) } @ARGV;
 
-if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|delete_source|diff_toolbox|export|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
+if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|delete_source|diff_toolbox|export_csv|export_toolbox|import|parse|print_toolbox|update_source_language)$/ or !$reference) {
   print "\n";
   say "$0 delete_ipa_lib ipa_lib";
   say "$0 delete_ipa_ruleset ipa_ruleset";
   say "$0 delete_source source_reference";
   say "$0 diff_toolbox source_reference";
-  say "$0 export source_reference";
+  say "$0 export_csv source_reference";
+  say "$0 export_toolbox source_reference";
   say "$0 import source_reference [update|overwrite] [force|debug]";
   say "$0 parse source_reference";
   say "$0 print_toolbox source_reference [messy]";
@@ -52,8 +53,10 @@ if ($cmd !~ /^(?:delete_ipa_lib|delete_ipa_ruleset|delete_source|diff_toolbox|ex
   exit;
 }
 
-if ($cmd eq 'export') {
+if ($cmd eq 'export_csv') {
   Lexicon::Exporter::CSV->new->export_lexicon($reference, \*STDOUT);
+} elsif ($cmd eq 'export_toolbox') {
+  Lexicon::Exporter::Marker->new(preserve_ids => 1)->export_lexicon($reference, \*STDOUT);
 } elsif ($cmd eq 'update_source_language') {
   my ($lang_code) = @action;
   die "no language code or name given" unless $lang_code;

@@ -188,6 +188,12 @@ sub read_entries {
     my ($marker_orig, $txt, $headword_flag) = @$line;
     next if $skip_marker->{$marker_orig};
 
+    # save entry id
+    if ($marker_orig eq 'outofpapua_id') {
+      $entry->{id} = $txt + 0;
+      next;
+    }
+
     # don't save page_num in record, just in entry
     if ($page_num->{$marker_orig}) {
       $entry->{page_num} = $txt;
