@@ -1,6 +1,6 @@
 import { capitalizeFirstLetter } from '$lib/util';
 
-const nationalRegionalMarkers = ['c', 'd', 'g', 'r', 'v', 'x'];
+const nationalRegionalMarkers = ['c', 'd', 'g', 'lt', 'r', 'v', 'x'];
 
 const defaultMarkerConversion = Object.fromEntries(
   nationalRegionalMarkers.map((m) => [`${m}e`, `${m}_Eng`])
@@ -28,6 +28,7 @@ const entryMarker = {
   et: 'etymology',
   lc: 'citation',
   lf: 'lexicalFunction',
+  lt: 'literal',
   mr: 'morph',
   na: 'anthro',
   nd: 'discourse',
@@ -53,7 +54,7 @@ const entryMarkerArray = {
 };
 
 const senseMarker = {
-  lt: 'literal',
+  cf_sn: 'crossref',
 };
 
 const exampleMarker = {};
@@ -62,7 +63,7 @@ const exampleMarkerArray = {
   cf_x: 'crossref',
 };
 
-for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'pd', 'rf', 'sy', 'ue']) {
+for (const marker of ['an', 'na', 'nd', 'ng', 'np', 'nq', 'ns', 'nt', 'pd', 'rf', 'sc', 'sy', 'ue']) {
   senseMarker[`${marker}_sn`] = entryMarker[marker];
 }
 

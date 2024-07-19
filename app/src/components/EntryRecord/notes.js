@@ -1,11 +1,3 @@
-const entryNotesPreShared = [
-  {
-    key: 'paradigm',
-    label: 'Inflection/class',
-    join: true,
-  },
-];
-
 export const entryNotesPre = [
   {
     key: 'variant',
@@ -28,10 +20,30 @@ export const entryNotesPre = [
     label: 'Morphological form',
     join: false,
   },
-  ...entryNotesPreShared,
+  {
+    key: 'paradigm',
+    label: 'Inflection/class',
+    join: true,
+  },
 ];
 
-const entryNotesPostShared = [
+const entryNotesPost1 = [
+  {
+    key: 'literal',
+    label: 'Literally',
+    join: true,
+  },
+];
+
+const entryNotesPost2 = [
+  {
+    key: 'scientific',
+    label: 'Scientific name',
+    join: true,
+  },
+];
+
+const entryNotesPost3 = [
   {
     key: 'usage',
     label: 'Usage',
@@ -69,13 +81,7 @@ const entryNotesPostShared = [
   },
 ];
 
-export const entryNotesPost = [
-  {
-    key: 'scientific',
-    label: 'Scientific name',
-    join: true,
-  },
-  ...entryNotesPostShared,
+const entryNotesPost4 = [
   {
     key: 'question',
     label: 'Analyst’s question',
@@ -118,6 +124,9 @@ export const entryNotesPost = [
     join: true,
     link: 'entry',
   },
+];
+
+const entryNotesPost5 = [
   {
     key: 'crossref',
     label: 'See also',
@@ -125,6 +134,9 @@ export const entryNotesPost = [
     trans: true,
     link: 'entry',
   },
+];
+
+const entryNotesPost6 = [
   {
     key: 'source',
     label: 'Source',
@@ -143,23 +155,28 @@ export const entryNotesPost = [
   },
 ];
 
-export const senseNotes = [
-  ...entryNotesPreShared,
-  {
-    key: 'literal',
-    label: 'Literally',
-    join: true,
-  },
-  ...entryNotesPost,
+export const entryNotesPost = [
+  ...entryNotesPost1,
+  ...entryNotesPost2,
+  ...entryNotesPost3,
+  ...entryNotesPost4,
+  ...entryNotesPost5,
+  ...entryNotesPost6,
 ];
 
-export const exampleNotes = [
-  ...entryNotesPostShared,
+export const senseNotes = [
+  ...entryNotesPost2,
+  ...entryNotesPost3,
+  ...entryNotesPost4,
   {
     key: 'crossref',
     label: 'See also',
     join: true,
-    trans: true,
     link: 'entry',
   },
+];
+
+export const exampleNotes = [
+  ...entryNotesPost3,
+  ...entryNotesPost5,
 ];
