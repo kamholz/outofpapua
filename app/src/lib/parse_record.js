@@ -1,6 +1,6 @@
 import { capitalizeFirstLetter } from '$lib/util';
 
-const nationalRegionalMarkers = ['c', 'd', 'g', 'lt', 'r', 'v', 'x'];
+const nationalRegionalMarkers = ['c', 'd', 'e', 'g', 'lt', 'r', 'v', 'x'];
 
 const defaultMarkerConversion = Object.fromEntries(
   nationalRegionalMarkers.map((m) => [`${m}e`, `${m}_Eng`])
@@ -23,8 +23,8 @@ const multiMarkerForm = Object.fromEntries(
 
 const entryMarker = {
   an: 'antonym',
+  e: 'encyclopedic',
   ec: 'etymologyComment',
-  ee: 'encyclopedic',
   et: 'etymology',
   lc: 'citation',
   lf: 'lexicalFunction',
