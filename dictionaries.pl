@@ -3,6 +3,11 @@ use v5.14;
 use utf8;
 
 our $dict = {
+  'test' => {
+    lang_target => 'mqs',
+    path => 'test.txt',
+    parser => 'Marker',
+  },
   'Adriani & Kruijt (1914a)' => {
     lang_target => 'mky', #East Makian
     path => 'Adriani, Kruijt 1914.xlsx',
