@@ -1238,7 +1238,7 @@ our $dict = {
   },
   'Collins (2003)' => {
     lang_target => 'asl',
-    path => 'Collins (2003) Asilulu.xlsx',
+    path => 'Collins_2003_Asilulu.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
@@ -3192,7 +3192,7 @@ our $dict = {
   },
   'Hayami-Allen (2001)' => {
     lang_target => 'tft',
-    path => 'Hayami-Allen 2001 - Ternate.xlsx',
+    path => 'Hayami-Allen_2001_Ternate.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
