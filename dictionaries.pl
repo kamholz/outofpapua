@@ -157,7 +157,7 @@ our $dict = {
   },
   'Anceaux (1961b)' => {
     lang_target => 'kjr',
-    path => 'Wordlist Kurudu Wabo Anceaux 1961 (copied from Word file).xlsx',
+    path => 'Anceaux_1961_Kurudu.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
@@ -3011,7 +3011,7 @@ our $dict = {
   },
   'van Hasselt & van Hasselt (1947a)' => {
     lang_target => 'Biak Numfor',
-    path => 'vanHasselt_Numfor_Biak.txt',
+    path => 'vanHasselt_1947_BiakNumfor.txt',
     parser => 'Marker',
     lang_national => 'ind',
     strip => 'to',
@@ -3245,7 +3245,7 @@ our $dict = {
   },
   'Henning & Henning (1991)' => {
     lang_target => 'Wamesa Wandamen',
-    path => 'Wandamen_List.xlsx',
+    path => 'Henning_1991_WamesaWandamen.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -6255,14 +6255,14 @@ our $dict = {
   },
   'Price (2021)' => {
     lang_target => 'amk',
-    path => 'Ambai Lexicon.db',
+    path => 'Price_2021_Ambai.db',
     parser => 'Marker',
     lang_national => 'ind',
     reverse_action => 'ignore',
   },
   'Price & Donohue (2009)' => {
     lang_target => 'and',
-    path => 'spreadsheets/Ansus.xlsx',
+    path => 'PriceDonohue_2009_Ansus.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -10372,7 +10372,7 @@ our $dict = {
   },
   'Visser & Voorhoeve (1987a)' => {
     lang_target => 'saj',
-    path => 'spreadsheets/Sahu/VisserVoorhoeve_1987_Sahu.xlsx',
+    path => 'VisserVoorhoeve_1987_Sahu.xlsx',
     parser => 'Spreadsheet',
     sep_char => ',',
     quote_char => '"',
@@ -10405,7 +10405,7 @@ our $dict = {
   },
   'Visser & Voorhoeve (1987b)' => {
     lang_target => 'max',
-    path => 'spreadsheets/Visser,Voorhoeve-dic.xlsx',
+    path => 'VisserVoorhoeve_1987_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
