@@ -6146,6 +6146,27 @@ our $dict = {
   lang_regional => 'abs',
   strip => 'to',
   },
+  'Nivens (2017 West Tarangan Jeroil)' => { 
+  lang_target => 'West Tarangan Jeroil',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Jr.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
+  'Nivens (2017 West Tarangan Rebi)' => { 
+  lang_target => 'West Tarangan Rebi',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Rb.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
+  'Nivens (2017 West Tarangan Laininir)' => { 
+  lang_target => 'West Tarangan Laininir',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Ln.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
