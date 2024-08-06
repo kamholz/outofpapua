@@ -9932,9 +9932,15 @@ our $dict = {
     parser => 'Marker',
     skip_marker => ['lx_Kur', 'hm',],
   },
-  'van den Berg (2018)' => {
+  'van den Berg (2018a)' => {
     lang_target => 'Muna',
     path => 'vandenBerg2018_Muna.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
+  'van den Berg (2018b)' => {
+    lang_target => 'cia',
+    path => 'vandenBerg_2018_Cia-Cia.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
