@@ -872,6 +872,24 @@ our $dict = {
     parser => 'ACD',
     split_heuristic => ',/',
   },
+  'Blust & Trussel (2019f)' => {
+    lang_target => 'Proto-Oceanic',
+    path => 'BlustTrussel_2019_Proto-Oceanic.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Blust & Trussel (2019g)' => {
+    lang_target => 'Proto-Phillipine',
+    path => 'BlustTrussel_2019_Proto-Phillipine.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
+  'Blust & Trussel (2019h)' => {
+    lang_target => 'Proto-Western Malayo-Polynesian',
+    path => 'BlustTrussel_2019_Proto-WesternMalayo-Polynesian.txt',
+    parser => 'Marker',
+    strip => 'to',
+  },
   'Boarccaech (2013)' => {
     lang_target => 'Hresuk',
     path => 'Boarccaech 2013 Hresuk.xlsx',
