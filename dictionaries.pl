@@ -10206,6 +10206,7 @@ our $dict = {
     parser => 'Marker',
     split => ',;',
     definition_action => 'merge',
+    lang_national => 'ind',
   },
    'van Schie (2022a)' => {
     lang_target => 'swr',
