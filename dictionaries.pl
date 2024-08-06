@@ -10931,7 +10931,7 @@ our $dict = {
     lang_target => 'khe',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Korowai (de Vries & van Enk',
+    sheet => 'Korowai khe (de Vries & van Enk',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
