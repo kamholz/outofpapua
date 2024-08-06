@@ -6167,6 +6167,20 @@ our $dict = {
   lang_national => 'ind',
   strip => 'to',
   },
+  'Nivens (2017 West Tarangan Doka Barat)' => { 
+  lang_target => 'West Tarangan Doka Barat',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Db.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
+  'Nivens (2017 West Tarangan Doka Timur)' => { 
+  lang_target => 'West Tarangan Doka Timur',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Dt.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
   'Odé (2004a)' => {
     lang_target => 'akc',
     path => 'spreadsheets Upwork/Mpur dictionary.xlsx',
