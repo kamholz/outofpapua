@@ -1534,6 +1534,20 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'de Clercq (1893a)' => {
+    lang_target => 'Maˈya Misool',
+    path => 'de Clercq_1893_MayaMisool.txt',
+    parser => 'Marker',
+    lang_national => 'nld',
+    headword_preprocess => sub { s/^ø-//r },
+  },
+  'de Clercq (1893b)' => {
+    lang_target => 'Maˈya Kaplol',
+    path => 'de Clercq_1893_MayaKaplol.txt',
+    parser => 'Marker',
+    lang_national => 'nld',
+    headword_preprocess => sub { s/^ø-//r },
+  },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
     path => 'deJosselindeJong_1937_Oirata.xlsx',
