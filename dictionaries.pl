@@ -6255,7 +6255,7 @@ our $dict = {
   },
   'Price (2021)' => {
     lang_target => 'amk',
-    path => 'Price_2021_Ambai.db',
+    path => 'Price_2021_Ambai.txt',
     parser => 'Marker',
     lang_national => 'ind',
     reverse_action => 'ignore',
