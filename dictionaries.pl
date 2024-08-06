@@ -6452,6 +6452,12 @@ our $dict = {
     ],
     split_headword => ';',
   },
+  'Samley & Barnes (2013)' => {
+    lang_target => 'ksx',
+    path => 'SamleyBarnes_2013_Kedang.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Savosavo' => { #not ingested
     lang_target => 'svs',
     path => 'Colexification_tool/Savosavo dictionary.xlsx',
