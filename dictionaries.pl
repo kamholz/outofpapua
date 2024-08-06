@@ -11081,6 +11081,19 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Watuseke (1981)' => {
+    lang_target => 'Manado Malay',
+    path => 'Watuseke_1981_ManadoMalay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'eng'],
+      [1, 'et'],
+      [4, 'nt'],
+    ],
+    strip => 'to',
+  },
   'Westrum et al. (1986)' => {
     lang_target => 'bkl',
     path => 'Westrum_1986_Berik.xlsx',
