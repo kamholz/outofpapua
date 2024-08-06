@@ -3687,7 +3687,7 @@ our $dict = {
   },
   'Katubi et al. (2013)' => {
     lang_target => 'kvd',
-    path => 'Katubi 2013 - Kui.xlsx',
+    path => 'Katubi_2013_Kui.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -6603,7 +6603,7 @@ our $dict = {
     parser => 'Marker',
     split => ';',
   },
-  'Schapper (2023a)' => {
+  'Schapper (2023)' => {
     lang_target => 'Koiwai',
     path => 'Schapper_2023_Koiwai.xlsx',
     parser => 'Spreadsheet',
