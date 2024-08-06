@@ -1548,6 +1548,13 @@ our $dict = {
     lang_national => 'nld',
     headword_preprocess => sub { s/^ø-//r },
   },
+  'de Clercq (1893c)' => {
+    lang_target => 'Seget',
+    path => 'de Clercq_1893_Seget.txt',
+    parser => 'Marker',
+    lang_national => 'nld',
+    headword_preprocess => sub { s/^ø-//r },
+  },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
     path => 'deJosselindeJong_1937_Oirata.xlsx',
