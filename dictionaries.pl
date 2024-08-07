@@ -6460,6 +6460,22 @@ our $dict = {
     lang_regional => 'pmy',
     strip => 'to',
   },
+  'Rinnooy (1886)' => {
+    lang_target => 'Kisar',
+    path => 'Rinnooy_1886_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'abs'],
+      [3, 'gloss', 'eng'],
+      [[4 .. 5], 'example', ['ind']], #1
+      [[6 .. 7], 'example', ['ind']], #2
+      [[8 .. 9], 'example', ['ind']], #3
+      [10, 'nt'],
+      [11, 'page_num'],
+    ],
+  },
   'Robinson (2005)' => { #not ingested
     lang_target => 'kem',
     path => 'KemakAtsabe_Robinson_2005.txt',
