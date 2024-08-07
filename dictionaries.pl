@@ -879,7 +879,7 @@ our $dict = {
     strip => 'to',
   },
   'Blust & Trussel (2019g)' => {
-    lang_target => 'Proto-Phillipine',
+    lang_target => 'Proto-Philippine',
     path => 'BlustTrussel_2019_Proto-Phillipine.txt',
     parser => 'Marker',
     strip => 'to',
