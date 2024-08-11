@@ -3405,9 +3405,27 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Taylor (nd)' => {
-    lang_target => 'tlb',
+  'Taylor (nd a)' => {
+    lang_target => 'Tobelo',
     path => 'Hueting1908Tobelo.txt',
+    parser => 'Marker',
+    strip => ['the','to','a'],
+  },
+  'Taylor (nd b)' => {
+    lang_target => 'Tobelo Boeng',
+    path => 'Hueting_1908_TobeloBoeng.txt',
+    parser => 'Marker',
+    strip => ['the','to','a'],
+  },
+  'Taylor (nd c)' => {
+    lang_target => 'Tobelo Dodinga',
+    path => 'Hueting_1908_TobeloDodinga.txt',
+    parser => 'Marker',
+    strip => ['the','to','a'],
+  },
+  'Taylor (nd d)' => {
+    lang_target => 'Tugutil',
+    path => 'Hueting_1908_TobeloTugutil.txt',
     parser => 'Marker',
     strip => ['the','to','a'],
   },
