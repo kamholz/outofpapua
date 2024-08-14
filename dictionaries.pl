@@ -9905,7 +9905,7 @@ our $dict = {
     split => ';',
   },
   'Usup (1986a)' => {
-    lang_target => 'llk',
+    lang_target => 'llq',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Llk',
@@ -9918,7 +9918,7 @@ our $dict = {
     ],
   },
   'Usup (1986b)' => {
-    lang_target => 'mdw',
+    lang_target => 'mog',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Mdw',
@@ -9931,7 +9931,7 @@ our $dict = {
     ],
   },
   'Usup (1986c)' => {
-    lang_target => 'pak',
+    lang_target => 'pns',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Pak',
@@ -9944,7 +9944,7 @@ our $dict = {
     ],
   },
   'Usup (1986d)' => {
-    lang_target => 'sww',
+    lang_target => 'swu',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Sww',
