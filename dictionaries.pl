@@ -10951,6 +10951,11 @@ our $dict = {
     path => 'Verdizade_2023_Salkma_Saluk.db', 
     parser => 'Marker',
   },
+  'Verdizade (ongoing m)' => { 
+    lang_target => 'Kalabra Klawok',
+    path => 'Verdizade_nd_KalabraKlawok.db', 
+    parser => 'Marker',
+  },
   'Visser (2020)' => {
     lang_target => 'kgv',
     path => 'dictionaria-kalamang-5f28ae2',
