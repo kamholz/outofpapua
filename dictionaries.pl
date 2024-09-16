@@ -1632,6 +1632,16 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
+  'Djonler (1987)' => {
+    lang_target => 'Batuley',
+    path => 'Djonler_1987_Batuley.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+  },
   'Degen (2008)' => {
     lang_target => 'Manombai',
     path => 'Degen_2008_Manumbai.txt',
