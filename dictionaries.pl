@@ -6172,6 +6172,13 @@ our $dict = {
   lang_national => 'ind',
   strip => 'to',
   },
+  'Nivens (2017 West Tarangan Juring)' => { 
+  lang_target => 'West Tarangan Juring',
+  path => 'Nivens 2017/Nivens 2017 West Tarangan Jr.txt',
+  parser => 'Marker',
+  lang_national => 'ind',
+  strip => 'to',
+  },
   'Nivens (2017 West Tarangan Rebi)' => { 
   lang_target => 'West Tarangan Rebi',
   path => 'Nivens 2017/Nivens 2017 West Tarangan Rb.txt',
