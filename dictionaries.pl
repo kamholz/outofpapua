@@ -10955,6 +10955,8 @@ our $dict = {
     lang_target => 'Kalabra Klawok',
     path => 'Verdizade_nd_KalabraKlawok.txt', 
     parser => 'Marker',
+    lang_national => 'ind',
+    lang_regional => 'pmy',
   },
   'Visser (2020)' => {
     lang_target => 'kgv',
