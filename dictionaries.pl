@@ -5800,8 +5800,8 @@ our $dict = {
   },
 
   'Nivens (2017 Mariri a)' => { #done
-  lang_target => 'mqi', #MR
-  path => 'Nivens 2017/Nivens 2017 Kola Mr a.txt',
+  lang_target => 'Mariri',
+  path => 'Nivens 2017/Nivens 2017 Mariri Mr a.txt',
   parser => 'Marker',
   lang_national => 'ind',
   lang_regional => 'abs',
@@ -5809,8 +5809,8 @@ our $dict = {
   },
 
   'Nivens (2017 Mariri b)' => { #done
-  lang_target => 'mqi', #MR
-  path => 'Nivens 2017/Nivens 2017 Kola Mr b.txt',
+  lang_target => 'Mariri',
+  path => 'Nivens 2017/Nivens 2017 Mariri Mr b.txt',
   parser => 'Marker',
   lang_national => 'ind',
   lang_regional => 'abs',
