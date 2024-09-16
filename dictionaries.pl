@@ -6177,6 +6177,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Jr.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Nivens (2017 West Tarangan Rebi)' => { 
