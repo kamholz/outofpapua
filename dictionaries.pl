@@ -5180,6 +5180,7 @@ our $dict = {
     path => 'Nivens_2017_Proto-Aru.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    lang_regional => 'abs',
     split_headword => ';',
   },
   'Nivens (2017b)' => {
@@ -5187,6 +5188,7 @@ our $dict = {
     path => 'Nivens_2017_Proto-Southern-Aru.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    lang_regional => 'abs',
     split_headword => ';',
   },
   'Nivens (2017 Koba Dangar)' => {#done
