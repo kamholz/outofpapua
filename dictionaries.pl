@@ -10943,7 +10943,7 @@ our $dict = {
   },
   'Verdizade (ongoing i)' => {
     lang_target => 'Seget',
-    path => 'seget attempt4 (root based).db', 
+    path => 'Verdizade_Seget.db', 
     parser => 'Marker',
   },
   'Verdizade (ongoing j)' => { 
