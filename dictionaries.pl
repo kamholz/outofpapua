@@ -1510,7 +1510,7 @@ our $dict = {
       [3, 'gloss', 'eng'],
     ],
   },
-  'de Clercq (1890)' => { #not ingestd
+  'de Clercq (1890)' => {
     lang_target => 'tft',
     path => 'deClerq_1890_Ternate.xlsx',
     parser => 'Spreadsheet',
