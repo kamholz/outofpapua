@@ -1615,17 +1615,18 @@ our $dict = {
       [2, 'gloss', 'eng'],
       [4, 'gloss', 'ind'], 
       [3, 'sc'],
-      [5, 'pl'],
-      [6, 'mr'],
-      [7, 'lt'],
-      [8, 'et'],
-      [9, 'nt'],
-      [10, 'cf'],
-      [[11 .. 12], 'example', ['eng']], #1
-      [[13 .. 14], 'example', ['eng']], #2
-      [[15 .. 16], 'example', ['eng']], #3
-      [[17 .. 18], 'example', ['eng']], #4
-      [[19 .. 20], 'example', ['eng']], #5
+      [5, 'va'],
+      [6, 'pl'],
+      [7, 'mr'],
+      [8, 'lt'],
+      [9, 'et'],
+      [10, 'nt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['eng']], #1
+      [[14 .. 15], 'example', ['eng']], #2
+      [[16 .. 17], 'example', ['eng']], #3
+      [[18 .. 19], 'example', ['eng']], #4
+      [[20 .. 21], 'example', ['eng']], #5
     ],
     split_headword => ';',
     strip => 'to',
