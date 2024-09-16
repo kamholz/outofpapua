@@ -6170,6 +6170,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Jr.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Nivens (2017 West Tarangan Juring)' => { 
@@ -6185,6 +6186,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Rb.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Nivens (2017 West Tarangan Laininir)' => { 
@@ -6192,6 +6194,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Ln.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Nivens (2017 West Tarangan Doka Barat)' => { 
@@ -6199,6 +6202,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Db.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Nivens (2017 West Tarangan Doka Timur)' => { 
@@ -6206,6 +6210,7 @@ our $dict = {
   path => 'Nivens 2017/Nivens 2017 West Tarangan Dt.txt',
   parser => 'Marker',
   lang_national => 'ind',
+  lang_regional => 'abs',
   strip => 'to',
   },
   'Odé (2004a)' => {
