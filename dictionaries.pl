@@ -4890,7 +4890,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912b)' => { 
-    lang_target => 'mxz',
+    lang_target => 'Central Masela',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Central Masela mxz',
@@ -4903,7 +4903,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912c)' => { 
-    lang_target => 'vme',
+    lang_target => 'East Masela Latalola',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Masela Latalola vme',
@@ -4916,7 +4916,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912d)' => { 
-    lang_target => 'sve',
+    lang_target => 'Serili',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Serili sve',
@@ -4929,7 +4929,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912e)' => { 
-    lang_target => 'ddw',
+    lang_target => 'Daweloor',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Daweloor ddw',
@@ -4942,7 +4942,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912f)' => { 
-    lang_target => 'dij',
+    lang_target => 'Dai',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Dai dij',
@@ -4955,7 +4955,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912g)' => { 
-    lang_target => 'tvm',
+    lang_target => 'Tela',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Tela tvm',
@@ -4968,7 +4968,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912h)' => { 
-    lang_target => 'imr',
+    lang_target => 'Imroing',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Imroing imr',
@@ -4981,7 +4981,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912i)' => { 
-    lang_target => 'emw',
+    lang_target => 'Emplawas',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Emplawas emw',
@@ -5007,7 +5007,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912k)' => { 
-    lang_target => 'bcd',
+    lang_target => 'North Babar Yetoki',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'North Babar Yetoki bcd',
@@ -6980,7 +6980,7 @@ our $dict = {
       [23, 'page_num'],
     ],
   },
-  'Sir & Schapper (nd)' => { 
+  'Sir & Schapper (2024)' => { 
     lang_target => 'twe',
     path => 'SirSchapper_Nd_Teiwa.txt',
     parser => 'Marker',
