@@ -4942,7 +4942,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1912f)' => { 
-    lang_target => 'Dai',
+    lang_target => 'dij',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Dai dij',
