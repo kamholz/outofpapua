@@ -10953,7 +10953,7 @@ our $dict = {
   },
   'Verdizade (ongoing m)' => { 
     lang_target => 'Kalabra Klawok',
-    path => 'Verdizade_nd_KalabraKlawok.db', 
+    path => 'Verdizade_nd_KalabraKlawok.txt', 
     parser => 'Marker',
   },
   'Visser (2020)' => {
