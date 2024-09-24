@@ -10678,13 +10678,13 @@ our $dict = {
     lang_regional => 'pmy',
   },
   'van der Roest (1905)' => {
-    lang_target => 'Tobelo Boëng',
+    lang_target => 'Tobelo Boeng',
     path => 'vanderRoest_1905_TobeloBoeng.txt',
     parser => 'Marker',
     strip => 'to',
   },
    'van der Roest (1905a)' => { #not ingested, spreadsheet version of van der Roest (1905)
-    lang_target => 'Tobelo Boëng',
+    lang_target => 'Tobelo Boeng',
     path => 'vanderRoest_1905_TobeloBoeng.xlsx',
     parser => 'Spreadsheet',
     columns => [
