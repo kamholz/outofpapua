@@ -99,7 +99,6 @@ our $dict = {
     sheet => 'Moi, list 119',
     columns => [
       [3, 'headword'],
-      [4, 'va', 'split'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
       [0, 'nt', 'item number:'],
@@ -8690,7 +8689,7 @@ our $dict = {
       [2, 'nt'],
     ],
   },
-  'Smits & Voorhoeve (1998 Wooi)' => {
+  'Smits & Voorhoeve (1992 Wooi)' => {
     lang_target => 'wbw',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8780,7 +8779,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Papuma 26a.1)' => {
+  'Smits & Voorhoeve (1992 Papuma 26a.1)' => {
     lang_target => 'ppm',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8790,7 +8789,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Papuma 26a.2)' => {
+  'Smits & Voorhoeve (1992 Papuma 26a.2)' => {
     lang_target => 'ppm',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8810,7 +8809,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Wabo)' => {
+  'Smits & Voorhoeve (1992 Wabo)' => {
     lang_target => 'wbb',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -10453,7 +10452,7 @@ our $dict = {
     ],
   },
   'Usup (1986t)' => {
-    lang_target => 'Baree',
+    lang_target => 'pmf',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Baree',
@@ -10479,7 +10478,7 @@ our $dict = {
     ],
   },
   'Usup (1986v)' => {
-    lang_target => 'Bisaya',
+    lang_target => 'ceb',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bisaya',
@@ -10491,21 +10490,8 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986w)' => {
-    lang_target => 'Bares',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Bares',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
   'Usup (1986x)' => {
-    lang_target => 'Dampelasa',
+    lang_target => 'dms', #Dampelas
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Dampelasa',
@@ -10570,7 +10556,7 @@ our $dict = {
     ],
   },
   'Usup (1986ac)' => {
-    lang_target => 'Tinombo',
+    lang_target => 'Lauje',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Tinombo',
@@ -10582,58 +10568,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ad)' => {
-    lang_target => 'Kadazan',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Kadazan',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
-  'Usup (1986ae)' => {
-    lang_target => 'Parigi',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Parigi',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
-  'Usup (1986af)' => {
-    lang_target => 'Kaili',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Kaili',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
-  'Usup (1986ag)' => {
-    lang_target => 'Togian',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Togian',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
+
   'Usup (1986ah)' => {
     lang_target => 'Tondano',
     path => 'Usup_1986_PGM.xlsx',
@@ -10661,7 +10596,7 @@ our $dict = {
     ],
   },
   'Usup (1986aj)' => {
-    lang_target => 'Bugis',
+    lang_target => 'bug',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bugis',
@@ -10674,23 +10609,10 @@ our $dict = {
     ],
   },
   'Usup (1986ak)' => {
-    lang_target => 'Toraja',
+    lang_target => 'sda',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Toraja',
-    columns => [
-      [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [0, 'gloss', 'ind'],
-      [2, 'sc'],
-      [3, 'page_num'],
-    ],
-  },
-  'Usup (1986al)' => {
-    lang_target => 'Dayak Ngaju',
-    path => 'Usup_1986_PGM.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Dayak Ngaju',
     columns => [
       [4, 'headword'],
       [1, 'gloss', 'eng'],
