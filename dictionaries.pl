@@ -8730,7 +8730,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Marau 24a)' => {
+  'Smits & Voorhoeve (1992 24a)' => {
     lang_target => 'mvr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8740,7 +8740,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Marau 24b)' => {
+  'Smits & Voorhoeve (1992 Marau 24b)' => {
     lang_target => 'mvr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8750,7 +8750,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Munggui 25a)' => {
+  'Smits & Voorhoeve (1992 Munggui 25a)' => {
     lang_target => 'mth',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8760,7 +8760,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Munggui 25b.1)' => {
+  'Smits & Voorhoeve (1992 Munggui 25b.1)' => {
     lang_target => 'mth',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8770,7 +8770,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Munggui 25b.2)' => {
+  'Smits & Voorhoeve (1992 Munggui 25b.2)' => {
     lang_target => 'mth',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8800,7 +8800,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Busami)' => {
+  'Smits & Voorhoeve (1992 Busami)' => {
     lang_target => 'bsm',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8820,7 +8820,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Kurudu 32a.1)' => {
+  'Smits & Voorhoeve (1992 Kurudu 32a.1)' => {
     lang_target => 'kjr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8830,7 +8830,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Kurudu 32a.2)' => {
+  'Smits & Voorhoeve (1992 Kurudu 32a.2)' => {
     lang_target => 'kjr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8840,7 +8840,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Kurudu 32a.3)' => {
+  'Smits & Voorhoeve (1992 Kurudu 32a.3)' => {
     lang_target => 'kjr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8850,7 +8850,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Kurudu 32a.4)' => {
+  'Smits & Voorhoeve (1992 Kurudu 32a.4)' => {
     lang_target => 'kjr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
@@ -8860,7 +8860,7 @@ our $dict = {
       [1, 'page_num'],
     ],
   },
-  'Smits & Voorhoeve (1998 Kurudu 32b)' => {
+  'Smits & Voorhoeve (1992 Kurudu 32b)' => {
     lang_target => 'kjr',
     path => 'spreadsheets/Smits-Voorhoeve Yapen languages.xlsx',
     parser => 'Spreadsheet',
