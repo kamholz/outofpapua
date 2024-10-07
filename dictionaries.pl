@@ -6769,6 +6769,7 @@ our $dict = {
     path => 'Schapper_2022c_Irires.txt',
     parser => 'Marker',
     split => ';',
+    lang_national => 'ind',
   },
   'Schapper (2023)' => {
     lang_target => 'Koiwai',
@@ -7055,6 +7056,17 @@ our $dict = {
       [4, 'va'],
       [5, 'page_num'],
       [[6 .. 8], 'example', ['eng', 'ind']],
+    ],
+  },
+  'Smits & Voorhoeve (1992 Uruangirin a)' => {
+    lang_target => 'Uruangirin',
+    path => 'SmitsVoorhoeve_1992.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Austronesian',
+    skip => 2,
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
     ],
   },
   'Smits & Voorhoeve (1998 Yawa a)' => {
