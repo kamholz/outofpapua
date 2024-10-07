@@ -6556,7 +6556,7 @@ our $dict = {
     headword_citation_action => 'prefer_root'
   },
   'Roesler (2011)' => { 
-    lang_target => 'cns',
+    lang_target => 'Asmat',
     path => 'Roesler_2011_CentralAsmat.txt',
     parser => 'Marker',
     lang_national => 'ind',
