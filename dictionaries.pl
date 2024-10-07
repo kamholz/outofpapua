@@ -6545,6 +6545,7 @@ our $dict = {
       [[8 .. 9], 'example', ['ind']], #3
       [10, 'nt'],
       [11, 'page_num'],
+      mode = 'sense_per_row',
     ],
   },
   'Robinson (2005)' => { #not ingested
@@ -6822,6 +6823,22 @@ our $dict = {
       [20, 'page_num'],
     ],
     mode => 'sense_per_row',
+  },
+  'Sierevelt (1920)' => {
+    lang_target => 'Alune',
+    path => 'Sierevelt_1920_Alune.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+      [6, 'nt'],
+      [[7 .. 8], 'example', ['nld']],
+      [[9 .. 10], 'example', ['nld']],
+      [11, 'page_num'],
+    ],
   },
   'Silzer (1983a)' => {
     lang_target => 'Ambai',
