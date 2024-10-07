@@ -6545,7 +6545,7 @@ our $dict = {
       [[8 .. 9], 'example', ['ind']], #3
       [10, 'nt'],
       [11, 'page_num'],
-      mode = 'sense_per_row',
+      mode => 'sense_per_row',
     ],
   },
   'Robinson (2005)' => { #not ingested
