@@ -6555,6 +6555,12 @@ our $dict = {
     definition_action => 'prefer',
     headword_citation_action => 'prefer_root'
   },
+  'Roesler (2011)' => { 
+    lang_target => 'cns',
+    path => 'Roesler_2011_CentralAsmat.txt',
+    parser => 'Marker',
+    language_national => 'ind',
+  },
   'Rugebregt et al. (1986)' => {
     lang_target => 'Tobelo',
     path => 'Rugebregt 1986 - Tobelo.xlsx',
@@ -10196,7 +10202,7 @@ our $dict = {
     split => ';',
   },
   'Usup (1986a)' => {
-    lang_target => 'llq',
+    lang_target => 'Lolak',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Llk',
