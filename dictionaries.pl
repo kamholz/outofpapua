@@ -6559,7 +6559,7 @@ our $dict = {
     lang_target => 'cns',
     path => 'Roesler_2011_CentralAsmat.txt',
     parser => 'Marker',
-    language_national => 'ind',
+    lang_national => 'ind',
   },
   'Rugebregt et al. (1986)' => {
     lang_target => 'Tobelo',
