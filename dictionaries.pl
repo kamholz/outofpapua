@@ -931,6 +931,33 @@ our $dict = {
       [4, 'nt'],
     ],
     strip => 'to',
+  },  
+  'Bracks & Edwards (forthcoming a)' => {
+    lang_target => 'Rasua', 
+    path => 'BracksEdwardsfc_Ataúro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Bracks & Edwards (forthcoming b)' => {
+    lang_target => 'Raklungu', 
+    path => 'BracksEdwardsfc_Ataúro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Bracks & Edwards (forthcoming c)' => {
+    lang_target => 'Hresuk', 
+    path => 'BracksEdwardsfc_Ataúro.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
   },
   'Budiman (2012)' => {
     lang_target => 'kax',
