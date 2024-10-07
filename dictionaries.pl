@@ -7058,14 +7058,25 @@ our $dict = {
       [[6 .. 8], 'example', ['eng', 'ind']],
     ],
   },
-  'Smits & Voorhoeve (1992 Uruangirin a)' => {
-    lang_target => 'Uruangirin',
+  'Smits & Voorhoeve (1992 Uruangnirin a)' => {
+    lang_target => 'Uruangnirin',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
     skip => 2,
     columns => [
       [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Smits & Voorhoeve (1992 Uruangnirin b)' => {
+    lang_target => 'Uruangnirin',
+    path => 'SmitsVoorhoeve_1992.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Austronesian',
+    skip => 2,
+    columns => [
+      [2, 'headword'],
       [0, 'gloss', 'eng'],
     ],
   },
