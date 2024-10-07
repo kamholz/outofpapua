@@ -10490,7 +10490,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986x)' => {
+  'Usup (1986w)' => {
     lang_target => 'dms', #Dampelas
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10503,7 +10503,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986y)' => {
+  'Usup (1986x)' => {
     lang_target => 'Tontemboan',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10516,7 +10516,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986z)' => {
+  'Usup (1986y)' => {
     lang_target => 'Tonsawang',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10529,7 +10529,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986aa)' => {
+  'Usup (1986z)' => {
     lang_target => 'Tagalog',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10542,7 +10542,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ab)' => {
+  'Usup (1986aa)' => {
     lang_target => 'Timugon Murut',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10555,7 +10555,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ac)' => {
+  'Usup (1986ab)' => {
     lang_target => 'Lauje',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10568,8 +10568,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-
-  'Usup (1986ah)' => {
+  'Usup (1986ac)' => {
     lang_target => 'Tondano',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10582,7 +10581,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ai)' => {
+  'Usup (1986ad)' => {
     lang_target => 'Tonsea',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10595,7 +10594,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986aj)' => {
+  'Usup (1986ae)' => {
     lang_target => 'bug',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10608,7 +10607,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ak)' => {
+  'Usup (1986af)' => {
     lang_target => 'sda',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
