@@ -123,7 +123,6 @@ our $dict = {
     sheet => 'Tehit, list 131 (132)',
     columns => [
       [3, 'headword'],
-      [4, 'va', 'split'],
       [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
       [0, 'nt', 'item number:'],
