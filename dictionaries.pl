@@ -10361,7 +10361,7 @@ our $dict = {
     ],
   },
   'Usup (1986m)' => {
-    lang_target => 'Gorontola',
+    lang_target => 'Gorontalo',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Gorontola',
