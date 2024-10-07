@@ -7179,8 +7179,8 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Smits & Voorhoeve (1992 Sekar a)' => { #not ingested
-    lang_target => 'Sekar',
+  'Smits & Voorhoeve (1992 Sekar a)' => {
+    lang_target => 'Sekar Kokas',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7190,8 +7190,8 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
   },
-  'Smits & Voorhoeve (1992 Sekar b)' => { #not ingested
-    lang_target => 'Sekar',
+  'Smits & Voorhoeve (1992 Sekar b)' => {
+    lang_target => 'Sekar Kokas',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
