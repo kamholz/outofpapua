@@ -9005,7 +9005,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Tanah Merah c)' => {
-    lang_target => 'Tanah Merah',
+    lang_target => 'tcm', #Tanah Merah
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -9017,7 +9017,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Mor a)' => {
-    lang_target => 'Mor',
+    lang_target => 'moq', #Mor
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -9077,7 +9077,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Baham d)' => {
-    lang_target => 'Baham',
+    lang_target => 'bdw', #Baham
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -9269,7 +9269,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Karas c)' => {
-    lang_target => 'Karas',
+    lang_target => 'kgv', #Karas
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
