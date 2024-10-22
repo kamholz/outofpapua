@@ -1978,6 +1978,16 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Earl (1848)' => {
+    lang_target => 'Kisar',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
   'Edwards (2017)' => { 
     lang_target => 'aaz',
     path => 'Edwards_2018_Amarasi.txt',
