@@ -7080,7 +7080,7 @@ our $dict = {
     ],
   },
   'Smits & Voorhoeve (1992 Uruangnirin a)' => {
-    lang_target => 'Uruangnirin',
+    lang_target => 'Uruangnirin Tubiruasa',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7088,7 +7088,9 @@ our $dict = {
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Uruangnirin b)' => {
     lang_target => 'Uruangnirin',
@@ -7099,10 +7101,12 @@ our $dict = {
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin a)' => {
-    lang_target => 'Onin',
+    lang_target => 'Onin Rumbati',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7110,7 +7114,9 @@ our $dict = {
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin b)' => {
     lang_target => 'Onin',
@@ -7121,10 +7127,12 @@ our $dict = {
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin c)' => {
-    lang_target => 'Onin',
+    lang_target => 'Onin Tawar',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7132,7 +7140,9 @@ our $dict = {
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin d)' => {
     lang_target => 'Onin',
@@ -7143,7 +7153,9 @@ our $dict = {
     columns => [
       [6, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin e)' => {
     lang_target => 'Onin',
@@ -7154,7 +7166,9 @@ our $dict = {
     columns => [
       [7, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin f)' => {
     lang_target => 'Onin',
@@ -7165,7 +7179,9 @@ our $dict = {
     columns => [
       [8, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Onin g)' => {
     lang_target => 'Onin',
@@ -7176,7 +7192,9 @@ our $dict = {
     columns => [
       [9, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Sekar a)' => {
     lang_target => 'Sekar Kokas',
@@ -7187,7 +7205,9 @@ our $dict = {
     columns => [
       [10, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Sekar b)' => {
     lang_target => 'Sekar Kokas',
@@ -7198,7 +7218,9 @@ our $dict = {
     columns => [
       [11, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Arguni a)' => {
     lang_target => 'Arguni',
@@ -7209,7 +7231,9 @@ our $dict = {
     columns => [
       [12, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Arguni b)' => {
     lang_target => 'Arguni',
@@ -7220,7 +7244,9 @@ our $dict = {
     columns => [
       [13, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Arguni c)' => {
     lang_target => 'Arguni',
@@ -7231,10 +7257,12 @@ our $dict = {
     columns => [
       [14, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Bedoanas a)' => {
-    lang_target => 'Bedoanas',
+    lang_target => 'Bedoanas Forir',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7242,10 +7270,12 @@ our $dict = {
     columns => [
       [15, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Bedoanas b)' => {
-    lang_target => 'Bedoanas',
+    lang_target => 'Bedoanas Andamata',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7253,10 +7283,12 @@ our $dict = {
     columns => [
       [16, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Erokwanas a)' => {
-    lang_target => 'Erokwanas',
+    lang_target => 'Erokwanas Darembang',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7264,10 +7296,12 @@ our $dict = {
     columns => [
       [17, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Erokwanas b)' => {
-    lang_target => 'Erokwanas',
+    lang_target => 'Erokwanas Goras',
     path => 'SmitsVoorhoeve_1992.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Austronesian',
@@ -7275,7 +7309,9 @@ our $dict = {
     columns => [
       [18, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Tandia a)' => {
     lang_target => 'Tandia',
@@ -7286,7 +7322,9 @@ our $dict = {
     columns => [
       [19, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1992 Tandia b)' => {
     lang_target => 'Tandia',
@@ -7297,7 +7335,9 @@ our $dict = {
     columns => [
       [20, 'headword'],
       [0, 'gloss', 'eng'],
+      [21, 'page_num'],
     ],
+    strip => 'to',
   },
   'Smits & Voorhoeve (1998 Yawa a)' => {
     lang_target => 'Yawa Ambaidiru',
