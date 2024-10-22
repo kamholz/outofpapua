@@ -9221,7 +9221,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Iha l)' => {
-    lang_target => 'Iha',
+    lang_target => 'ihp', #Iha
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -9233,7 +9233,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Iha m)' => {
-    lang_target => 'Iha',
+    lang_target => 'ihp', #Iha
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
