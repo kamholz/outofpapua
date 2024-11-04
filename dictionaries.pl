@@ -3194,6 +3194,11 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'van Bodegraven (2004)' => {
+    lang_target => 'tof',
+    path => 'vanBodegraven_2004_Gizrra.txt',
+    parser => 'Marker',
+  },
   'van Hasselt & van Hasselt (1947a)' => {
     lang_target => 'Biak Numfor',
     path => 'vanHasselt_1947_BiakNumfor.txt',
