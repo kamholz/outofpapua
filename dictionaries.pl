@@ -12556,6 +12556,11 @@ our $dict = {
     path => 'Luang lexicon Luang to English.html',
     parser => 'LexiqueDocx',
   },
+  'Zahrer (2023)' => {
+    lang_target => 'kts',
+    path => 'Zahrer_2023_Muyu.db',
+    parser => 'Marker',
+  },
   'Zielenbach (2022)' => {
     lang_target => 'mqs',
     path => 'Zielenbach_2022_WestMakianTegono.txt',
