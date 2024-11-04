@@ -7184,6 +7184,12 @@ our $dict = {
       [23, 'page_num'],
     ],
   },
+  'Sims et al. (1990)' => {
+    lang_target => 'xte',
+    path => 'Sims_1990_Ketengban.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Sir & Schapper (2024)' => { 
     lang_target => 'twe',
     path => 'SirSchapper_Nd_Teiwa.txt',
