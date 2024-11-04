@@ -1302,6 +1302,29 @@ our $dict = {
       mode => 'sense_per_row',
       headword_preprocess => sub { s/^ø-//r },
   },
+  'Collins (2022)' => {
+    lang_target => 'btj',
+    path => 'Collins_2022_BacanMalay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'subentry'],
+      [0, 'headword'],
+      [3, 'ps'],
+      [4, 'gloss', 'eng'],
+      [5, 'ue'],
+      [6, 'lt'],
+      [7, 'sc'],
+      [8, 'et'],
+      [9, 'cf'],
+      [[10 .. 11], 'example', ['eng']],
+      [[12 .. 13], 'example', ['eng']],
+      [[14 .. 15], 'example', ['eng']],
+      [16, 'page_num'],
+      ],
+      strip => 'to',
+      mode => 'sense_per_row',
+      headword_preprocess => sub { s/^ø-//r },
+  },
   'Cottet (2015)' => {
     lang_target => 'bdw',
     path => 'spreadsheets/Mbaham_List_cleaned.xlsx',
@@ -2862,6 +2885,17 @@ our $dict = {
       [2, 'headword'],
       [0, 'gloss', 'fra'],
       [1, 'gloss', 'eng'],
+    ],
+  },
+  'Gaimard (1834)' => {
+    lang_target => 'Biak Dorei',
+    path => 'Gaimard_1834_BiakDorei.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'fra'],
+      [1, 'gloss', 'eng'],
+      [3, 'page_num'],
     ],
   },
   'Gane (2019)' => {
@@ -6551,8 +6585,9 @@ our $dict = {
       [[4 .. 5], 'example', ['ind']], #1
       [[6 .. 7], 'example', ['ind']], #2
       [[8 .. 9], 'example', ['ind']], #3
-      [10, 'nt'],
-      [11, 'page_num'],
+      [[10 .. 11], 'example', ['ind']], #4
+      [12, 'nt'],
+      [13, 'page_num'],
     ],
     mode => 'sense_per_row',
   },
@@ -6568,6 +6603,7 @@ our $dict = {
     path => 'Roesler_2011_CentralAsmat.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    skip => 'ce',
   },
   'Rugebregt et al. (1986)' => {
     lang_target => 'Tobelo',
@@ -10746,7 +10782,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986n)' => { #not ingested
+  'Usup (1986--)' => { #not ingested
     lang_target => 'Sangir',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -11566,6 +11602,26 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
+  'Verheijen (1986)' => {
+    lang_target => 'bdl',
+    path => 'VisserVoorhoeve_1987_MoluccanMalay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+
+
+
+
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [1, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
+
+
   'Visser (2020)' => {
     lang_target => 'kgv',
     path => 'dictionaria-kalamang-5f28ae2',
