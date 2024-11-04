@@ -1769,6 +1769,11 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Döhler (nd)' => {
+    lang_target => 'bon',
+    path => 'Döhler_nd_Bine.txt',
+    parser => 'Marker',
+  },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
     path => 'Dol/dol_maybrat2007_toolbox.txt',
