@@ -1783,7 +1783,7 @@ our $dict = {
   },
   'Dommel et al. (1991)' => {
     lang_target => 'bpp',
-    path => 'Dommel_1991_Kaure.txt',
+    path => 'Dommel_1991_Kaure.db',
     parser => 'Marker',
     lang_national => 'ind',
   },
