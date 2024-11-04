@@ -6662,6 +6662,11 @@ our $dict = {
     lang_regional => 'pmy',
     strip => 'to',
   },
+  'Riesberg, Zöllner & Zöllner (2016)' => {
+    lang_target => 'yli',
+    path => 'Riesberg_2016_YaliAngguruk.txt',
+    parser => 'Marker',
+  },
   'Rinnooy (1886)' => {
     lang_target => 'Kisar',
     path => 'Rinnooy_1886_Kisar.xlsx',
