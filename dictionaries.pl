@@ -10773,7 +10773,7 @@ our $dict = {
     lang_target => 'Bolango Atinggola',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Bolango Atinggola',
+    sheet => 'BolangoAtinggola',
     columns => [
       [4, 'headword'],
       [1, 'gloss', 'eng'],
@@ -11609,12 +11609,21 @@ our $dict = {
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
+      [2, 'mr'],
+      [3, 'va'],
+      [4, 've'],
+      [5, 'ue'],
+      [6, 'lt'],
+      [7, 'gloss', 'ind'],
+      [8, 'gloss', 'eng'],
+      [9,  'sc'],
+      [[10 .. 11], 'example', ['eng']],
+      [[12 .. 13], 'example', ['eng']],
+      [[14 .. 15], 'example', ['eng']],
+      [[16 .. 17], 'example', ['eng']],
+      [[18 .. 19], 'example', ['eng']],
+      [[20 .. 21], 'example', ['eng']],
 
-
-
-
-      [2, 'gloss', 'ind'],
-      [3, 'gloss', 'eng'],
       [1, 'page_num'],
     ],
     mode => 'sense_per_row',
