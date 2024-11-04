@@ -986,6 +986,12 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Carroll (2020)' => {
+    lang_target => 'jei',
+    path => 'Carroll_2020_Yei.txt',
+    parser => 'Marker',
+    definition_action => 'merge',
+  },
   'Chlenova (2000)' => {
     lang_target => 'srw', 
     path => 'Chlenova_2000_Serua.xlsx',
@@ -3080,6 +3086,61 @@ our $dict = {
     parser => 'Marker',
     split => ',;',
     split_headword => ',',
+  },
+  'Gregor (2021a)' => {
+    lang_target => 'Wanam',
+    path => 'Gregor_2021_Yelmek.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
+  },
+  'Gregor (2021b)' => {
+    lang_target => 'Bibikem',
+    path => 'Gregor_2021_Yelmek.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
+  },
+  'Gregor (2021c)' => {
+    lang_target => 'Woboyu',
+    path => 'Gregor_2021_Yelmek.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
+  },
+  'Gregor (2021d)' => {
+    lang_target => 'Dudalim',
+    path => 'Gregor_2021_Yelmek.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
+  },
+  'Gregor (2021e)' => {
+    lang_target => 'Welbuti',
+    path => 'Gregor_2021_Yelmek.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
   },
   'Griffiths (1994)' => {
     lang_target => 'Hatam Tinam',
@@ -6354,6 +6415,18 @@ our $dict = {
     definition_action => 'merge',
     skip_marker => ['nt', 'nq', 'np', 'npd', 're', 'rr', 'rn', 'so', 'ref'],
     split => ';', 
+  },
+  'Olsson (2021)' => {
+    lang_target => 'Yaqay',
+    path => 'Olsson_2021_Yaqay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'ps'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+    ],
+    mode => 'sense_per_row',
   },
   'Peckham (1991a)' => {
     lang_target => 'zrs',
@@ -11604,7 +11677,7 @@ our $dict = {
   },
   'Verheijen (1986)' => {
     lang_target => 'bdl',
-    path => 'VisserVoorhoeve_1987_MoluccanMalay.xlsx',
+    path => 'Verheijen_1986_SamaNTT.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
@@ -11623,14 +11696,14 @@ our $dict = {
       [[16 .. 17], 'example', ['eng']],
       [[18 .. 19], 'example', ['eng']],
       [[20 .. 21], 'example', ['eng']],
-
-      [1, 'page_num'],
+      [[22 .. 23], 'example', ['eng']],
+      [24, 'cf'],
+      [25, 'nt'],
+      [26, 'page_num'],
     ],
     mode => 'sense_per_row',
     strip => 'to',
   },
-
-
   'Visser (2020)' => {
     lang_target => 'kgv',
     path => 'dictionaria-kalamang-5f28ae2',
