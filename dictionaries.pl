@@ -11180,6 +11180,11 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'van den Heuvel (2016)' => {
+    lang_target => 'ahh',
+    path => 'vandenHeuvel_2016_Aghu.txt',
+    parser => 'Marker',
+  },
   'van den Heuvel (2023)' => {
     lang_target => 'Kurudu',
     path => 'vandenHeuvel_2023_Kurudu.txt',
