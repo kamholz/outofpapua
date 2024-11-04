@@ -2894,7 +2894,7 @@ our $dict = {
     ],
   },
   'Gaimard (1834)' => {
-    lang_target => 'Biak Dorei',
+    lang_target => 'bhw',
     path => 'Gaimard_1834_BiakDorei.xlsx',
     parser => 'Spreadsheet',
     columns => [
