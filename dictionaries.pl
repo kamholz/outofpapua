@@ -10625,6 +10625,7 @@ our $dict = {
       [0, 'gloss', 'ind'],
       [2, 'sc'],
       [3, 'page_num'],
+      [5, 'ph'],
     ],
   },
   'Usup (1986f)' => {
@@ -10638,6 +10639,7 @@ our $dict = {
       [0, 'gloss', 'ind'],
       [2, 'sc'],
       [3, 'page_num'],
+      [5, 'ph'],
     ],
   },
   'Usup (1986g)' => {
@@ -10732,6 +10734,19 @@ our $dict = {
     ],
   },
   'Usup (1986n)' => {
+    lang_target => 'Bolango Atinggola',
+    path => 'Usup_1986_PGM.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Bolango Atinggola',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'ind'],
+      [2, 'sc'],
+      [3, 'page_num'],
+    ],
+  },
+  'Usup (1986n)' => { #not ingested
     lang_target => 'Sangir',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10744,7 +10759,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986o)' => {
+  'Usup (1986o)' => { #not ingested
     lang_target => 'Bantik',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10757,7 +10772,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986p)' => {
+  'Usup (1986p)' => { #not ingested
     lang_target => 'Totoli',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10770,7 +10785,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986q)' => {
+  'Usup (1986q)' => { #not ingested
     lang_target => 'Balaesang',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10783,7 +10798,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986r)' => {
+  'Usup (1986r)' => { #not ingested
     lang_target => 'Ratahan',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10796,7 +10811,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986s)' => {
+  'Usup (1986s)' => { #not ingested
     lang_target => 'Sangir Siau',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10809,7 +10824,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986t)' => {
+  'Usup (1986t)' => { #not ingested
     lang_target => 'pmf',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10822,7 +10837,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986u)' => {
+  'Usup (1986u)' => { #not ingested
     lang_target => 'Tomini',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10835,7 +10850,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986v)' => {
+  'Usup (1986v)' => { #not ingested
     lang_target => 'ceb',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10848,7 +10863,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986w)' => {
+  'Usup (1986w)' => { #not ingested
     lang_target => 'dms', #Dampelas
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10861,7 +10876,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986x)' => {
+  'Usup (1986x)' => { #not ingested
     lang_target => 'Tontemboan',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10874,7 +10889,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986y)' => {
+  'Usup (1986y)' => { #not ingested
     lang_target => 'Tonsawang',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10887,7 +10902,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986z)' => {
+  'Usup (1986z)' => { #not ingested
     lang_target => 'Tagalog',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10900,7 +10915,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986aa)' => {
+  'Usup (1986aa)' => { #not ingested
     lang_target => 'Timugon Murut',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10913,7 +10928,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ab)' => {
+  'Usup (1986ab)' => { #not ingested
     lang_target => 'Lauje',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10926,7 +10941,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ac)' => {
+  'Usup (1986ac)' => { #not ingested
     lang_target => 'Tondano',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10939,7 +10954,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ad)' => {
+  'Usup (1986ad)' => { #not ingested
     lang_target => 'Tonsea',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10952,7 +10967,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986ae)' => {
+  'Usup (1986ae)' => { #not ingested
     lang_target => 'bug',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
@@ -10965,7 +10980,7 @@ our $dict = {
       [3, 'page_num'],
     ],
   },
-  'Usup (1986af)' => {
+  'Usup (1986af)' => { #not ingested
     lang_target => 'sda',
     path => 'Usup_1986_PGM.xlsx',
     parser => 'Spreadsheet',
