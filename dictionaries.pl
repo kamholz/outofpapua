@@ -1781,6 +1781,12 @@ our $dict = {
     split => ',;',
     split_headword => ',;/',
   },
+  'Dommel et al. (1991)' => {
+    lang_target => 'bpp',
+    path => 'Dommel_1991_Kaure.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Devin (nd)' => {
     lang_target => 'abs',
     path => 'Devin_nd_AmboneseMalay.txt',
