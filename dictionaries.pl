@@ -3233,7 +3233,7 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
-  'van Bodegraven (2004)' => {
+  'van Bodegraven (nd)' => {
     lang_target => 'tof',
     path => 'vanBodegraven_2004_Gizrra.txt',
     parser => 'Marker',
