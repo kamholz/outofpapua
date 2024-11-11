@@ -6900,6 +6900,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
+    skip_marker => 'lx_Miy',
   },
   'Schapper (2022b)' => {
     lang_target => 'Karon Senopi',
