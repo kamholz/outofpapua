@@ -6715,7 +6715,7 @@ our $dict = {
   },
   'Riesberg, Zöllner & Zöllner (2016)' => {
     lang_target => 'yli',
-    path => 'Riesberg_2016_YaliAngguruk_test.txt',
+    path => 'Riesberg_2016_YaliAngguruk.txt',
     parser => 'Marker',
   },
   'Rinnooy (1886)' => {
