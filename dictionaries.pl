@@ -1786,6 +1786,7 @@ our $dict = {
     path => 'Dommel_1991_Kaure.db',
     parser => 'Marker',
     lang_national => 'ind',
+    strip => 'to',
   },
   'Devin (nd)' => {
     lang_target => 'abs',
@@ -7245,6 +7246,7 @@ our $dict = {
     path => 'Sims_1990_Ketengban.db',
     parser => 'Marker',
     lang_national => 'ind',
+    strip => 'to',
   },
   'Sir & Schapper (2024)' => { 
     lang_target => 'twe',
