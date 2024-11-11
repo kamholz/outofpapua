@@ -1923,6 +1923,39 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Drabbe (1946a)' => {
+    lang_target => 'kig',
+    path => 'Drabbe_1949.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'ind'],
+      [5, 'page_num'],
+    ],
+  },
+  'Drabbe (1946b)' => {
+    lang_target => 'ran',
+    path => 'Drabbe_1949.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'ind'],
+      [5, 'page_num'],
+    ],
+  },
+  'Drabbe (1946c)' => {
+    lang_target => 'nqm',
+    path => 'Drabbe_1949.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'ind'],
+      [5, 'page_num'],
+    ],
+  },
   'Duarte (1990a)' => {
     lang_target => 'Hresuk Bikeli',
     path => 'Atauro lists Barros Duarte 1990.xlsx',
