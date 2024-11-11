@@ -1947,7 +1947,7 @@ our $dict = {
   },
   'Drabbe (1946c)' => {
     lang_target => 'nqm',
-    path => 'Drabbe_19496.xlsx',
+    path => 'Drabbe_1946.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
