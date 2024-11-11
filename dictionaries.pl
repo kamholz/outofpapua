@@ -1925,7 +1925,7 @@ our $dict = {
   },
   'Drabbe (1946a)' => {
     lang_target => 'kig',
-    path => 'Drabbe_1949.xlsx',
+    path => 'Drabbe_1946.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
@@ -1936,7 +1936,7 @@ our $dict = {
   },
   'Drabbe (1946b)' => {
     lang_target => 'ran',
-    path => 'Drabbe_1949.xlsx',
+    path => 'Drabbe_1946.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
@@ -1947,7 +1947,7 @@ our $dict = {
   },
   'Drabbe (1946c)' => {
     lang_target => 'nqm',
-    path => 'Drabbe_1949.xlsx',
+    path => 'Drabbe_19496.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
