@@ -6717,7 +6717,7 @@ our $dict = {
     lang_target => 'yli',
     path => 'Riesberg_2016_YaliAngguruk.txt',
     parser => 'Marker',
-    skip_marker => ['iv'],
+    skip_marker => ['iv', 'pdr',],
   },
   'Rinnooy (1886)' => {
     lang_target => 'Kisar',
