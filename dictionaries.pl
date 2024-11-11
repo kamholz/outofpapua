@@ -6601,6 +6601,17 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Purwa et al. (1994)' => {
+    lang_target => 'Idate',
+    path => 'Purwa_1994_Idate.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
   'Pusat Penerjemahan Alkitab GMIM (2018)' => {
     lang_target => 'xmm',
     path => 'webonary/manado/*.html',
