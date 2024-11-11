@@ -4520,6 +4520,12 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Marmion (nd)' => {
+    lang_target => 'wut',
+    path => 'Marmion_nd_Wutung.txt',
+    parser => 'Marker',
+    skip_marker => ['gn', 'gv'],
+  },
   'Matsumura (2016)' => {
     lang_target => 'irh',
     path => 'Irarutu cleaned Apr 07_Version2.db',
