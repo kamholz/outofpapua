@@ -10791,6 +10791,61 @@ our $dict = {
     ],
     split => ';',
   },
+  'Usher & Suter (2015a)' => {
+    lang_target => 'Proto-Anim',
+    path => 'UsherSuter_2015_Proto-Anim.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Anim',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Usher & Suter (2015b)' => {
+    lang_target => 'Proto-Marind-Yaqay',
+    path => 'UsherSuter_2015_Proto-Anim.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Marind-Yaqay',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+   'Usher & Suter (2015c)' => {
+    lang_target => 'Proto-Lake Murray',
+    path => 'UsherSuter_2015_Proto-Anim.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Lake Murray',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+   'Usher & Suter (2015d)' => {
+    lang_target => 'Proto-Lower Fly',
+    path => 'UsherSuter_2015_Proto-Anim.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Lower Fly',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+   'Usher & Suter (2015e)' => {
+    lang_target => 'Proto-Inland Gulf',
+    path => 'UsherSuter_2015_Proto-Anim.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Inland Gulf',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
   'Usup (1986a)' => {
     lang_target => 'Proto-Gorontalo-Mongondow',
     path => 'Usup_1986_PGM.xlsx',
