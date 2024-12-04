@@ -12316,7 +12316,7 @@ our $dict = {
     strip => 'to',
   },
   'Voorhoeve (1982 Maybrat a)' => {
-    lang_target => 'Maybrat Ayamaru',
+    lang_target => 'Maybrat',
     path => 'spreadsheets/Maybrat_Voorhoeve.xlsx',
     parser => 'Spreadsheet',
     columns => [
