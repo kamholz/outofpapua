@@ -7935,6 +7935,7 @@ our $dict = {
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -7946,6 +7947,7 @@ our $dict = {
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -7957,6 +7959,7 @@ our $dict = {
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -7968,6 +7971,7 @@ our $dict = {
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -7979,6 +7983,7 @@ our $dict = {
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -7990,6 +7995,7 @@ our $dict = {
     columns => [
       [6, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8001,6 +8007,7 @@ our $dict = {
     columns => [
       [7, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8012,6 +8019,7 @@ our $dict = {
     columns => [
       [8, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8023,6 +8031,7 @@ our $dict = {
     columns => [
       [9, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8034,6 +8043,7 @@ our $dict = {
     columns => [
       [10, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8045,6 +8055,7 @@ our $dict = {
     columns => [
       [11, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8056,6 +8067,7 @@ our $dict = {
     columns => [
       [12, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8067,6 +8079,7 @@ our $dict = {
     columns => [
       [13, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8078,6 +8091,7 @@ our $dict = {
     columns => [
       [14, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8089,6 +8103,7 @@ our $dict = {
     columns => [
       [15, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8100,6 +8115,7 @@ our $dict = {
     columns => [
       [16, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8111,6 +8127,7 @@ our $dict = {
     columns => [
       [17, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8122,6 +8139,7 @@ our $dict = {
     columns => [
       [18, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8133,6 +8151,7 @@ our $dict = {
     columns => [
       [19, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8144,6 +8163,7 @@ our $dict = {
     columns => [
       [20, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8155,6 +8175,7 @@ our $dict = {
     columns => [
       [21, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8166,6 +8187,7 @@ our $dict = {
     columns => [
       [22, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8177,6 +8199,7 @@ our $dict = {
     columns => [
       [23, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8188,6 +8211,7 @@ our $dict = {
     columns => [
       [24, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8199,6 +8223,7 @@ our $dict = {
     columns => [
       [25, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8210,6 +8235,7 @@ our $dict = {
     columns => [
       [26, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8221,6 +8247,7 @@ our $dict = {
     columns => [
       [27, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8232,6 +8259,7 @@ our $dict = {
     columns => [
       [28, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8243,17 +8271,19 @@ our $dict = {
     columns => [
       [29, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Maybrat i)' => {
-    lang_target => 'Maybrat Sawiet',
+    lang_target => 'Tehit Sawiet',
     path => 'spreadsheets/SmitsVoorhoeve_Maybrat.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
     columns => [
       [30, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8265,6 +8295,7 @@ our $dict = {
     columns => [
       [31, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8276,6 +8307,7 @@ our $dict = {
     columns => [
       [32, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8287,6 +8319,7 @@ our $dict = {
     columns => [
       [33, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8298,6 +8331,7 @@ our $dict = {
     columns => [
       [34, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8309,6 +8343,7 @@ our $dict = {
     columns => [
       [35, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8320,6 +8355,7 @@ our $dict = {
     columns => [
       [36, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8331,6 +8367,7 @@ our $dict = {
     columns => [
       [37, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8342,6 +8379,7 @@ our $dict = {
     columns => [
       [38, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8353,6 +8391,7 @@ our $dict = {
     columns => [
       [39, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8364,6 +8403,7 @@ our $dict = {
     columns => [
       [40, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8375,6 +8415,7 @@ our $dict = {
     columns => [
       [41, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8386,6 +8427,7 @@ our $dict = {
     columns => [
       [42, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8397,6 +8439,7 @@ our $dict = {
     columns => [
       [43, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8408,6 +8451,7 @@ our $dict = {
     columns => [
       [44, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8419,6 +8463,7 @@ our $dict = {
     columns => [
       [45, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8430,6 +8475,7 @@ our $dict = {
     columns => [
       [46, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
@@ -8441,28 +8487,31 @@ our $dict = {
     columns => [
       [47, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Maybrat s.1)' => {
-    lang_target => 'ayz',
+    lang_target => 'Maybrat',
     path => 'spreadsheets/SmitsVoorhoeve_Maybrat.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
     columns => [
       [48, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Maybrat s.2)' => {
-    lang_target => 'ayz',
+    lang_target => 'Maybrat',
     path => 'spreadsheets/SmitsVoorhoeve_Maybrat.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
     columns => [
       [49, 'headword'],
       [0, 'gloss', 'eng'],
+      [50, 'sc'],
     ],
     strip => 'to',
   },
