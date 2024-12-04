@@ -981,6 +981,16 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Burhanuddin (2017)' => {
+    lang_target => 'Gebe',
+    path => 'Burhanuddin_2017_Gebe.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+  },
   'Busenitz & Bradbury (2016)' => {
     lang_target => 'blz',
     path => 'webonary/balantak/*.html',
