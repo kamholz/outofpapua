@@ -7022,7 +7022,7 @@ our $dict = {
   },
   'Schapper (2022b)' => {
     lang_target => 'Karon Senopi',
-    path => 'Schapper_2022_Karon.txt',
+    path => 'Schapper_2022_KaronSenopi.txt',
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
