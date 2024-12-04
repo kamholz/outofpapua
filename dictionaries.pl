@@ -7026,6 +7026,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
+
   },
   'Schapper (2022c)' => {
     lang_target => 'Irires',
@@ -10861,6 +10862,7 @@ our $dict = {
       [0, 'gloss', 'eng'],
     ],
     split => ';',
+    definition_action => 'merge',
   },
   'Usher & Schapper (2022c)' => {
     lang_target => 'Proto-Eastern Timor',
