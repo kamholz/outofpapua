@@ -966,6 +966,18 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
   },
+  'Brown (1991)' => {
+    lang_target => 'Maybrat Kambuaya', 
+    path => 'Brown_1991_MaybratKambuaya.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'page_num'],
+    ],
+  },
   'Budiman (2012)' => {
     lang_target => 'kax',
     path => 'spreadsheets/Budiman-Kao-dic.xlsx',
