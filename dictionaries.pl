@@ -211,7 +211,7 @@ our $dict = {
       [35, 'page_num'],
     ],
     split_headword => ';',
-    mode => 'sense_per_row'
+    mode => 'sense_per_row',
   },
   'Anceaux (nd a)' => {
     lang_target => 'slz',
