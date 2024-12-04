@@ -8300,7 +8300,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Maybrat i)' => {
-    lang_target => 'kps',
+    lang_target => 'Tehit Sawiet',
     path => 'spreadsheets/SmitsVoorhoeve_Maybrat.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
