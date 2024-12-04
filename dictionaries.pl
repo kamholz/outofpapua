@@ -1785,10 +1785,10 @@ our $dict = {
   },
   'Dol (2007)' => {
     lang_target => 'Maybrat Ayawasi',
-    path => 'Dol/dol_maybrat2007_toolbox.txt',
+    path => 'Dol_2007_Maybrat.txt',
     parser => 'Marker',
-    split => ',;',
-    split_headword => ',;/',
+    split => ';',
+    split_headword => ';',
   },
   'Dommel et al. (1991)' => {
     lang_target => 'bpp',
