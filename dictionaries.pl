@@ -10846,6 +10846,61 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
+   'Usher & Suter (2020a)' => {
+    lang_target => 'Proto-Asmat-Kamrau Bay',
+    path => 'UsherSuter_2020_Asmat-Muli.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Asmat-Kamrau Bay',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Usher & Suter (2020b)' => {
+    lang_target => 'Proto-Kamrau Bay',
+    path => 'UsherSuter_2020_Asmat-Muli.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Kamrau Bay',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Usher & Suter (2020c)' => {
+    lang_target => 'Proto-Asmat-Kamoro',
+    path => 'UsherSuter_2020_Asmat-Muli.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Asmat-Kamoro',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Usher & Suter (2020d)' => {
+    lang_target => 'Proto-Asmat-Muli',
+    path => 'UsherSuter_2020_Asmat-Muli.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Asmat-Muli',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Usher & Suter (2020e)' => {
+    lang_target => 'Proto-Muli Strait',
+    path => 'UsherSuter_2020_Asmat-Muli.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Proto-Muli Strait',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
   'Usup (1986a)' => {
     lang_target => 'Proto-Gorontalo-Mongondow',
     path => 'Usup_1986_PGM.xlsx',
