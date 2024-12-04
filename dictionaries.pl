@@ -4373,6 +4373,30 @@ our $dict = {
       [18, 'page_num'],
     ],
   },
+  'Lawes (1896)' => {
+    lang_target => 'meu',
+    path => 'Lawes_1896_Motu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'gloss', 'eng'],
+      [4, 'sc'],
+      [5, 'sg'],
+      [6, 'pl'],
+      [7, 'nt'],
+      [8, 'et'],
+      [9, 'sy'],
+      [10, 'lt'],
+      [11, 'cf'],
+      [[12 .. 13], 'example', ['eng']],
+      [[14 .. 15], 'example', ['eng']],
+      [16, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Lekedee Study Group (2006a)' => {
     lang_target => 'tkd',
     path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
@@ -9217,7 +9241,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Mor a)' => {
-    lang_target => 'moq', #Mor
+    lang_target => 'Mor',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -9229,7 +9253,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Mor b)' => {
-    lang_target => 'moq', #Mor
+    lang_target => 'Mor',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
