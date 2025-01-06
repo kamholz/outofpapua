@@ -10289,7 +10289,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Inanwatan Gemor b)' => {
+  'Smits & Voorhoeve (1998 Inanwatan Gemor c)' => {
     lang_target => 'Inanwatan Gemor',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
