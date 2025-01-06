@@ -6957,6 +6957,18 @@ our $dict = {
       [2, 'nt'],
     ],
   },
+  'Schapper (2010)' => {
+    lang_target => 'Suboo', 
+    path => 'Schapper_2010__SubooApui.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [1, 'ph'],
+      [4, 'nt'],
+    ],
+  },
   'Schapper (2019a)' => {
     lang_target => 'Proto-East Alor', 
     path => 'Schapper_2019_Alor-Pantar sheets.xlsx',
@@ -10612,7 +10624,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kemberano Bomberai b1)' => {
-    lang_target => 'Kemberano', 
+    lang_target => 'Kemberano Bomberai', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
