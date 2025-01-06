@@ -10443,7 +10443,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasueri a5)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a5)' => {
     lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10612,7 +10612,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kemberano Bomberai b1)' => {
-    lang_target => 'Kemberano Bomberai', 
+    lang_target => 'Kemberano', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
