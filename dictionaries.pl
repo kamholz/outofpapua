@@ -7051,7 +7051,7 @@ our $dict = {
     ],
   },
   'Schapper (2010)' => {
-    lang_target => 'Suboo', 
+    lang_target => 'Suboo Apui', 
     path => 'Schapper_2010__SubooApui.xlsx',
     parser => 'Spreadsheet',
     columns => [
