@@ -3351,7 +3351,7 @@ our $dict = {
     split_headword => ';',
   },
   'Han (2015)' => {
-    lang_target => 'woi',
+    lang_target => 'Suboo',
     path => 'Han_2015_Suboo.xlsx',
     parser => 'Spreadsheet',
     columns => [
