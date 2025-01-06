@@ -10038,7 +10038,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a1)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10052,7 +10052,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a2)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10066,7 +10066,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a3)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10080,7 +10080,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a4)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10094,7 +10094,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a5)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10108,7 +10108,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a6)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10122,7 +10122,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a7)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10136,7 +10136,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a8)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10150,7 +10150,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a9)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10164,7 +10164,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a10)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10178,7 +10178,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a11)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10192,7 +10192,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a12)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10206,7 +10206,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a13)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10220,7 +10220,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a14)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10234,7 +10234,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a15)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10248,7 +10248,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a16)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10262,7 +10262,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan a17)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10276,7 +10276,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Besam b)' => {
-    lang_target => 'Inawatan Besam',
+    lang_target => 'Inanwatan Besam',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10290,7 +10290,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Gemor b)' => {
-    lang_target => 'Inawatan Gemor',
+    lang_target => 'Inanwatan Gemor',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10304,7 +10304,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Robabuan d)' => {
-    lang_target => 'Inawatan Robabuan',
+    lang_target => 'Inanwatan Robabuan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10318,7 +10318,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Bira e)' => {
-    lang_target => 'Inawatan Bira',
+    lang_target => 'Inanwatan Bira',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10332,7 +10332,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Samalek f)' => {
-    lang_target => 'Inawatan Samalek',
+    lang_target => 'Inanwatan Samalek',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10346,7 +10346,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Giruri g)' => {
-    lang_target => 'Inawatan Giruri',
+    lang_target => 'Inanwatan Giruri',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10360,7 +10360,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan Solowat h)' => {
-    lang_target => 'Inawatan Solowat',
+    lang_target => 'Inanwatan Solowat',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10374,7 +10374,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Inanwatan i)' => {
-    lang_target => 'Inawatan',
+    lang_target => 'Inanwatan',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
