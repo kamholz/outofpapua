@@ -9624,7 +9624,7 @@ our $dict = {
     skip => 2,
     sheet => 'South Birds Head',
     columns => [
-      [25, '2'],
+      [2, 'headword'],
       [0, 'gloss', 'eng'],
       [1, 'sc'],
       [77, 'page_num'],
