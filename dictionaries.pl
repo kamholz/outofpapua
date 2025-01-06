@@ -9659,8 +9659,8 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Duriankere Sisir Bayun a)' => {
-    lang_target => 'Duriankere Sisir Bayun', #? not ingested
+  'Smits & Voorhoeve (1998 Duriankari Sisir Beyun a)' => {
+    lang_target => 'Duriankari Sisir Beyun',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10387,7 +10387,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasuweri a1)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a1)' => { #not ingested
     lang_target => 'Kokoda Kasueri',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10401,7 +10401,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasuweri a2)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a2)' => { #not ingested
     lang_target => 'Kokoda Kasueri',
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10415,7 +10415,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasuweri a3)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a3)' => { #not ingested
     lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10429,7 +10429,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasuweri a4)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a4)' => { #not ingested
     lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10443,7 +10443,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Kokoda Kasuweri a5)' => { #not ingested
+  'Smits & Voorhoeve (1998 Kokoda Kasueri a5)' => { #not ingested
     lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
@@ -10458,7 +10458,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b1)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10472,7 +10472,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b2)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10486,7 +10486,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b3)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10500,7 +10500,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b4)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10514,7 +10514,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b5)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10528,7 +10528,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b6)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10542,7 +10542,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Negeri Besar b7)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -10556,7 +10556,7 @@ our $dict = {
     strip => 'to',
   },
   'Smits & Voorhoeve (1998 Kokoda Tarof c)' => {
-    lang_target => 'Kokoda Kasuweri', 
+    lang_target => 'Kokoda Kasueri', 
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
