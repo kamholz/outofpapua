@@ -9631,16 +9631,6 @@ our $dict = {
     ],
     strip => 'to',
   },
-
-
-
-
-
-
-
-
-
-
   'Sneddon (1978a)' => {
     lang_target => 'Proto-Minahasan',
     path => 'Sneddon_1978_ProtoMinahasan.xlsx',
