@@ -1641,23 +1641,23 @@ our $dict = {
     headword_preprocess => sub { s/^ø-//r },
   },
   'de Clercq (1893d)' => {
-    lang_target => 'yva',
+    lang_target => 'Yawa Central',
     path => 'de Clercq_1893_YawaCentral.xlsx',
     parser => 'Spreadsheet',
       columns => [
       [0, 'headword'],
-      [1, 'gloss', 'dut'],
+      [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
   },
   'de Clercq (1893e)' => {
-    lang_target => 'yva',
+    lang_target => 'Yava Turu',
     path => 'de Clercq_1893_YawaTuru.xlsx',
     parser => 'Spreadsheet',
       columns => [
       [0, 'headword'],
-      [1, 'gloss', 'dut'],
+      [1, 'gloss', 'nld'],
       [2, 'gloss', 'eng'],
       [3, 'page_num'],
     ],
