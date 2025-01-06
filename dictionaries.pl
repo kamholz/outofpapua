@@ -9617,6 +9617,30 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Smits & Voorhoeve (1998 Konda a)' => {
+    lang_target => 'Konda',
+    path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
+    parser => 'Spreadsheet',
+    skip => 2,
+    sheet => 'South Birds Head'
+    columns => [
+      [25, '2'],
+      [0, 'gloss', 'eng'],
+      [1, 'sc'],
+      [77, 'page_num'],
+    ],
+    strip => 'to',
+  },
+
+
+
+
+
+
+
+
+
+
   'Sneddon (1978a)' => {
     lang_target => 'Proto-Minahasan',
     path => 'Sneddon_1978_ProtoMinahasan.xlsx',
