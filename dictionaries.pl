@@ -2083,14 +2083,83 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
-  'Earl (1848)' => {
+  'Earl (1848a)' => {
     lang_target => 'Kisar',
     path => 'Earl_1848_Kisar.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Kisar',
     columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [3, 'page_num'],
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [[3 .. 4], 'example', ['ind']],
+      [5, 'page_num'],
+    ],
+  },
+  'Earl (1848b)' => {
+    lang_target => 'SW Rote',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
+    ],
+  },
+  'Earl (1848c)' => {
+    lang_target => 'Amarasi Kupang',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
+    ],
+  },
+  'Earl (1848d)' => {
+    lang_target => 'Fataluku Vialo',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
+    ],
+  },
+  'Earl (1848e)' => {
+    lang_target => 'Babar',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
+    ],
+  },
+  'Earl (1848f)' => {
+    lang_target => 'Kei Doulan',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
+    ],
+  },
+  'Earl (1848g)' => {
+    lang_target => 'Manombai Wokam',
+    path => 'Earl_1848_Kisar.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Comparative lists',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [7, 'page_num'],
     ],
   },
   'Edwards (2017)' => { 
