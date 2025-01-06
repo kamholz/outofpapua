@@ -1652,7 +1652,7 @@ our $dict = {
     ],
   },
   'de Clercq (1893e)' => {
-    lang_target => 'Yava Turu',
+    lang_target => 'Yawa Turu',
     path => 'de Clercq_1893_YawaTuru.xlsx',
     parser => 'Spreadsheet',
       columns => [
