@@ -13082,7 +13082,7 @@ our $dict = {
   },
   'van Schie (2024d)' => {
     lang_target => 'swr',
-    path => 'Saweru (Van Schie, 2022).xlsx',
+    path => 'vanSchie_2024_Saweru.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Saweru',
     columns => [
