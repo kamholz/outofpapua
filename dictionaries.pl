@@ -13017,18 +13017,6 @@ our $dict = {
     definition_action => 'merge',
     lang_national => 'ind',
   },
-   'van Schie (2022a)' => {
-    lang_target => 'swr',
-    path => 'Saweru (Van Schie, 2022).xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Saweru',
-    columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
-      [4, 'va'],
-    ],
-  },
    'van Schie (2022b)' => {
     lang_target => 'yva', #Kainui
     path => 'Yawa Kainui (Van Schie, 2022).xlsx',
@@ -13038,19 +13026,6 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
       [3, 'ph'],
-    ],
-  },
-   'van Schie (2024)' => {
-    lang_target => 'Yawa Ambaidiru',
-    path => 'vanSchie_2024_YawaAmbaidiru.xlsx',
-    parser => 'Spreadsheet',
-    sheet => 'Ambaidiru',
-    columns => [
-      [0, 'headword'],
-      [1, 'va'],
-      [2, 'gloss', 'eng'],
-      [3, 'gloss', 'ind'],
-      [4, 'sc'],
     ],
   },
   'van Schie (2022d)' => {
@@ -13068,8 +13043,31 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
-  'van Schie (2022e)' => {
-    lang_target => 'yva', #Turu
+  'van Schie (2024a)' => {
+    lang_target => 'Yawa Ambaidiru',
+    path => 'vanSchie_2024_YawaAmbaidiru.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Ambaidiru',
+    columns => [
+      [0, 'headword'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+    ],
+  },
+  'van Schie (2024b)' => {
+    lang_target => 'Yawa Tindaret',
+    path => 'van Schie_2023_YawaTindaret.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'van Schie (2024c)' => {
+    lang_target => 'Yawa Turu',
     path => 'Yawa Turu (van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -13082,14 +13080,16 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
-  'van Schie (2023a)' => {
-    lang_target => 'Yawa Tindaret',
-    path => 'van Schie_2023_YawaTindaret.xlsx',
+  'van Schie (2024d)' => {
+    lang_target => 'swr',
+    path => 'Saweru (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Saweru',
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
+      [4, 'va'],
     ],
   },
   'van Staden (nd)' => {
