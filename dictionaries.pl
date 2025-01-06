@@ -13058,7 +13058,7 @@ our $dict = {
   },
   'van Schie (2024b)' => {
     lang_target => 'Yawa Tindaret',
-    path => 'van Schie_2023_YawaTindaret.xlsx',
+    path => 'van Schie_2024_YawaTindaret.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
@@ -13068,7 +13068,7 @@ our $dict = {
   },
   'van Schie (2024c)' => {
     lang_target => 'Yawa Turu',
-    path => 'Yawa Turu (van Schie, 2022).xlsx',
+    path => 'vanSchie_2024_YawaTuru.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
