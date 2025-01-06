@@ -13064,6 +13064,7 @@ our $dict = {
       [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
+      [3, 'sc'],
     ],
   },
   'van Schie (2024c)' => {
@@ -13075,8 +13076,7 @@ our $dict = {
       [1, 'ps'],
       [2, 'gloss', 'eng'],
       [3, 'gloss', 'ind'],
-      [4, 'va'],
-      [5, 'ph'],
+      [4, 'sc'],
     ],
     mode => 'sense_per_row',
   },
@@ -13089,7 +13089,8 @@ our $dict = {
       [0, 'headword'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
-      [4, 'va'],
+      [3, 'va'],
+      [4, 'sc'],
     ],
   },
   'van Staden (nd)' => {
