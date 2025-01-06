@@ -1640,6 +1640,28 @@ our $dict = {
     lang_national => 'nld',
     headword_preprocess => sub { s/^ø-//r },
   },
+  'de Clercq (1893d)' => {
+    lang_target => 'Yawa Central',
+    path => 'de Clercq_1893_YawaCentral.txt',
+     parser => 'Spreadsheet',
+      columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'dut'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
+  'de Clercq (1893e)' => {
+    lang_target => 'Yawa Turu',
+    path => 'de Clercq_1893_YawaTuru.txt',
+     parser => 'Spreadsheet',
+      columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'dut'],
+      [2, 'gloss', 'eng'],
+      [3, 'page_num'],
+    ],
+  },
   'de Josselin de Jong (1937)' => {
     lang_target => 'Oirata',
     path => 'deJosselindeJong_1937_Oirata.xlsx',
