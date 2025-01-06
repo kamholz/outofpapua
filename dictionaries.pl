@@ -7028,7 +7028,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     split => ';',
-
+    definition_action => 'merge',
   },
   'Schapper (2022c)' => {
     lang_target => 'Irires',
