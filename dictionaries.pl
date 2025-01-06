@@ -2978,6 +2978,8 @@ our $dict = {
       [2, 'headword'],
       [0, 'gloss', 'fra'],
       [1, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'nt'],
     ],
   },
   'Gaimard (1834)' => {
