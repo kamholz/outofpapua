@@ -5527,6 +5527,7 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'abs',
     split_headword => ';',
+    strip => 'to',
   },
   'Nivens (2017b)' => {
     lang_target => 'Proto-Southern Aru',
@@ -5535,6 +5536,7 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'abs',
     split_headword => ';',
+    strip => 'to',
   },
   'Nivens (2017 Koba Dangar)' => {#done
   lang_target => 'kpd', #KB 
@@ -7124,6 +7126,7 @@ our $dict = {
     lang_national => 'ind',
     split => ';',
     skip_marker => 'lx_Miy',
+    definition_action => 'merge',
   },
   'Schapper (2022b)' => {
     lang_target => 'Karon Senopi',
@@ -13037,15 +13040,17 @@ our $dict = {
       [3, 'ph'],
     ],
   },
-   'van Schie (2022c)' => {
+   'van Schie (2024)' => {
     lang_target => 'Yawa Ambaidiru',
-    path => 'Yawa Ambaidiru (Van Schie, 2022).xlsx',
+    path => 'vanSchie_2024_YawaAmbaidiru.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Ambaidiru',
     columns => [
       [0, 'headword'],
-      [2, 'va'],
-      [1, 'gloss', 'eng'],
+      [1, 'va'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
     ],
   },
   'van Schie (2022d)' => {
