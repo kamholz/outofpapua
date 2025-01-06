@@ -9622,7 +9622,7 @@ our $dict = {
     path => 'SmitsVoorhoeve_1998_Papuan.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
-    sheet => 'South Birds Head'
+    sheet => 'South Birds Head',
     columns => [
       [25, '2'],
       [0, 'gloss', 'eng'],
