@@ -1977,9 +1977,9 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Drabbe (1946a)' => {
+  'Drabbe (1949a)' => {
     lang_target => 'kig',
-    path => 'Drabbe_1946.xlsx',
+    path => 'Drabbe_1949_Kolopom.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
@@ -1988,9 +1988,9 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
-  'Drabbe (1946b)' => {
+  'Drabbe (1949b)' => {
     lang_target => 'ran',
-    path => 'Drabbe_1946.xlsx',
+    path => 'Drabbe_1949_Kolopom.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
@@ -1999,9 +1999,9 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
-  'Drabbe (1946c)' => {
+  'Drabbe (1949c)' => {
     lang_target => 'nqm',
-    path => 'Drabbe_1946.xlsx',
+    path => 'Drabbe_1949_Kolopom.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
