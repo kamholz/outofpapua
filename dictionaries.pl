@@ -1456,7 +1456,7 @@ our $dict = {
   },
   'de Clercq (1876a)' => {
     lang_target => 'Moluccan Malay',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Moluccan Malay (unmarked)',
     columns => [
@@ -1475,6 +1475,7 @@ our $dict = {
       [[14 .. 15], 'example', ['nld']], #2
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'de Clercq (1876b)' => { 
     lang_target => 'Manado Malay',
