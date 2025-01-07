@@ -1479,7 +1479,7 @@ our $dict = {
   },
   'de Clercq (1876b)' => { 
     lang_target => 'Manado Malay',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Manado Malay',
     columns => [
@@ -1498,10 +1498,11 @@ our $dict = {
       [[14 .. 15], 'example', ['nld']], #2
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'de Clercq (1876c)' => { 
     lang_target => 'Ambonese Malay',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Ambonese Malay',
     columns => [
@@ -1520,10 +1521,11 @@ our $dict = {
       [[14 .. 15], 'example', ['nld']], #2
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'de Clercq (1876d)' => { 
     lang_target => 'mkn',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Timor Malay',
     columns => [
@@ -1542,10 +1544,11 @@ our $dict = {
       [[14 .. 15], 'example', ['nld']], #2
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'de Clercq (1876e)' => { 
     lang_target => 'bpq', #Bandanese Malay
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bandanese Malay',
     columns => [
@@ -1564,10 +1567,11 @@ our $dict = {
       [[14 .. 15], 'example', ['nld']], #2
     ],
     mode => 'sense_per_row',
+    split_headword => ';',
   },
   'de Clercq (1876f)' => { 
     lang_target => 'Ternate',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Ternate',
     columns => [
@@ -1587,7 +1591,7 @@ our $dict = {
   },
   'de Clercq (1876g)' => { 
     lang_target => 'Tidore',
-    path => 'de Clerq_1876_Moluccan Malay.xlsx',
+    path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Tidore',
     columns => [
