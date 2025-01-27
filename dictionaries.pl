@@ -6875,6 +6875,7 @@ our $dict = {
       [[25 .. 26], 'example', ['eng']],
       [2, 'page_num'],
     ],
+    mode => 'sense_per_row',
   },
   'Reesink (nd)' => {
     lang_target => 'had',
