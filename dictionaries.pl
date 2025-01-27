@@ -4998,6 +4998,46 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
+  'Miedema (1984e)' => { 
+    lang_target => 'Meyah Akrin',
+    path => 'Miedema_1984.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [10, 'page_num'],
+    ],
+  },
+  'Miedema (1984f)' => { 
+    lang_target => 'Etskebi Akari',
+    path => 'Miedema_1984.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [10, 'page_num'],
+    ],
+  },
+  'Miedema (1984g)' => { 
+    lang_target => 'Irires Akmuri',
+    path => 'Miedema_1984.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [10, 'page_num'],
+    ],
+  },
+  'Miedema (1984h)' => { 
+    lang_target => 'Anason Akmuri',
+    path => 'Miedema_1984.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [10, 'page_num'],
+    ],
+  },
   'Morris (1984a)' => { 
     lang_target => 'tet',
     path => 'Morris_1984_Tetun.xlsx',
