@@ -4709,6 +4709,20 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Mariati et al. (2015)' => { #not ingested
+    lang_target => 'krz',
+    path => 'Mariati_2015_Sota.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'sy'],
+      [[5 .. 6], 'example', ['ind']],
+    ],
+    mode => 'sense_per_row',
+  },
   'Mariati, Iribaram & Sihombing (2021)' => {
     lang_target => 'set',
     path => 'MariatiIribaramSihombing_2021_Sentani.xlsx',
