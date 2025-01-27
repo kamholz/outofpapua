@@ -833,6 +833,20 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Blake (2025)' => {
+    lang_target => 'Abui',
+    path => 'Blake_2025_Abui.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'lt'],
+      [5, 'nt'],
+      [4, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Bloyd (2020)' => {
     lang_target => 'szn',
     path => 'Bloyd 2020 - Sula.txt',
@@ -6790,6 +6804,20 @@ our $dict = {
     path => 'webonary/manado/*.html',
     parser => 'LexiqueHTML',
   },
+  'Ray (2003)' => { #not ingested
+    lang_target => 'ulk',
+    path => 'Ray_2003_MeriamMir.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [3, 'ps'],
+      [4, 'va'],
+      [4, 'cf'],
+      [2, 'page_num'],
+    ],
+  },
   'Reesink (nd)' => {
     lang_target => 'had',
     path => 'Hatam/Hatam Vocab list.xlsx',
@@ -6911,7 +6939,7 @@ our $dict = {
     headword_citation_action => 'prefer_root'
   },
   'Rødvand (2025)' => { 
-    lang_target => 'cns',
+    lang_target => 'Patani',
     path => 'Rødvand_2025_Patani.db',
     parser => 'Marker',
     lang_national => 'ind',
