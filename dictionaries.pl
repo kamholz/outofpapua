@@ -6910,6 +6910,13 @@ our $dict = {
     definition_action => 'prefer',
     headword_citation_action => 'prefer_root'
   },
+  'Rødvand (2025)' => { 
+    lang_target => 'cns',
+    path => 'Rødvand_2025_Patani.db',
+    parser => 'Marker',
+    lang_national => 'ind',
+    skip => 'lx_Pat',
+  },
   'Roesler (2011)' => { 
     lang_target => 'cns',
     path => 'Roesler_2011_CentralAsmat.txt',
