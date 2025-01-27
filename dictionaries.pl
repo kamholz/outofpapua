@@ -2960,7 +2960,7 @@ our $dict = {
       [2, 'gloss', 'nld'],
       [1, 'lt'],
       [4, 'gloss', 'max'],
-      [5, 'gloss', 'Ind'],
+      [5, 'gloss', 'ind'],
       [6, 'et'],
       [7, 'sc'],
       [8, 'nt'],
