@@ -2944,11 +2944,29 @@ our $dict = {
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
   },
-  'Fortgens (1921)' => { 
+  'Fortgens (1921a)' => { 
     lang_target => 'Soboyo',
     path => 'Fortgens_1921_Taliabo.txt',
     parser => 'Marker',
     strip => 'to',
+  },
+  'Fortgens (1921b)' => {
+    lang_target => 'kzd',
+    path => 'Fortgens_1921_Kadai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [3, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [1, 'lt'],
+      [4, 'gloss', 'max'],
+      [5, 'gloss', 'Ind'],
+      [6, 'et'],
+      [7, 'sc'],
+      [8, 'nt'],
+      [[9 .. 10], 'example', ['nld']],
+      [11, 'page_num'],
+    ],
   },
   'Fricke (2013)' => { #not ingested, unknown languageS
     lang_target => 'Hewa (Sikka)',
