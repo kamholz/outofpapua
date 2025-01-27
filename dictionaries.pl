@@ -4960,7 +4960,7 @@ our $dict = {
   },
   'Miedema (1984a)' => { 
     lang_target => 'Mpur Anjai',
-    path => 'Miedema_1984',
+    path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'headword'], 
@@ -4970,7 +4970,7 @@ our $dict = {
   },
   'Miedema (1984b)' => { 
     lang_target => 'Mpur Saukorem',
-    path => 'Miedema_1984',
+    path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'], 
@@ -4980,7 +4980,7 @@ our $dict = {
   },
   'Miedema (1984c)' => { 
     lang_target => 'Mpur Mumbrani',
-    path => 'Miedema_1984',
+    path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'], 
@@ -4990,7 +4990,7 @@ our $dict = {
   },
   'Miedema (1984d)' => { 
     lang_target => 'Meyah Mumbrani',
-    path => 'Miedema_1984',
+    path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'], 
