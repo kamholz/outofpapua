@@ -1761,7 +1761,7 @@ our $dict = {
     strip => 'to',
   },
   'Doble (1960a)' => {
-    lang_target => 'ekg',
+    lang_target => 'Mee',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kapauku',
@@ -1778,7 +1778,7 @@ our $dict = {
     strip => 'to',
   },
   'Doble (1960b)' => {
-    lang_target => 'Kapauku Paniai',
+    lang_target => 'Mee Paniai',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kapauku Paniai',
@@ -1795,7 +1795,7 @@ our $dict = {
     strip => 'to',
   },
   'Doble (1960c)' => {
-    lang_target => 'Kapauku Tigi',
+    lang_target => 'Mee Tigi',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kapauku Tigi',
@@ -1812,7 +1812,7 @@ our $dict = {
     strip => 'to',
   },
   'Doble (1960d)' => {
-    lang_target => 'Kapauku Enarotali',
+    lang_target => 'Mee Enarotali',
     path => 'Doble_1960_Kapauku.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kapauku Enarotali',
