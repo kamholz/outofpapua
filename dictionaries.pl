@@ -2954,6 +2954,7 @@ our $dict = {
     lang_target => 'kzd',
     path => 'Fortgens_1921_Kadai.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Kadai',
     columns => [
       [0, 'headword'],
       [3, 'gloss', 'eng'],
