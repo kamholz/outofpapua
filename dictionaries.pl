@@ -6944,6 +6944,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     skip => 'lx_Pat',
+    strip => 'to',
   },
   'Roesler (2011)' => { 
     lang_target => 'cns',
