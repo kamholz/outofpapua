@@ -1061,7 +1061,7 @@ our $dict = {
     ],
   },
   'Christensen (nd)' => {
-    lang_target => 'kje',
+    lang_target => 'Meher',
     path => 'Christensen_nd_Kisar.txt',
     parser => 'Marker',
     split => ';',
@@ -1070,7 +1070,7 @@ our $dict = {
     lang_national => 'ind',
   },
   'Christensen (2024)' => {
-    lang_target => 'kje',
+    lang_target => 'Meher',
     path => 'Christensen_2024_Kisar.txt',
     parser => 'Marker',
     strip => 'to',
