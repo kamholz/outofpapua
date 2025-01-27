@@ -2138,7 +2138,7 @@ our $dict = {
     ],
   },
   'Earl (1848b)' => {
-    lang_target => 'SW Rote',
+    lang_target => 'dnk',
     path => 'Earl_1848_Kisar.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative lists',
@@ -2171,7 +2171,7 @@ our $dict = {
     ],
   },
   'Earl (1848e)' => {
-    lang_target => 'Babar',
+    lang_target => 'Wetan',
     path => 'Earl_1848_Kisar.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative lists',
