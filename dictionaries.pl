@@ -2598,6 +2598,12 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Evans (2019)' => {
+    lang_target => 'nqn',
+    path => 'Evans_2019_Nen.db',
+    parser => 'Marker',
+    definition_action => 'prefer',
+  },
   'Fabritius (1855a)' => {
     lang_target => 'mxn',
     path => 'Fabritius 1855.xlsx',
