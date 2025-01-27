@@ -6878,7 +6878,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Ray (2003b)' => {
-    lang_target => 'mwp',
+    lang_target => 'Kala Lagaw Ya Mabuiag',
     path => 'Ray_2003_KalaLagawYa.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kala Lagaw Ya Mabuiag',
@@ -6904,7 +6904,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Ray (2003c)' => {
-    lang_target => 'mwp',
+    lang_target => 'Kala Lagaw Ya Masig',
     path => 'Ray_2003_KalaLagawYa.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kala Lagaw Ya Masig',
