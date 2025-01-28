@@ -6966,7 +6966,7 @@ our $dict = {
     path => 'webonary/manado/*.html',
     parser => 'LexiqueHTML',
   },
-  'Ray (2003a)' => { #not ingested
+  'Ray (2003a)' => {
     lang_target => 'ulk',
     path => 'Ray_2003_MeriamMir.xlsx',
     parser => 'Spreadsheet',
