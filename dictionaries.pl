@@ -12270,7 +12270,7 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
-  'unknown (nd)' => {
+  'unknown (nd b)' => {
     lang_target => 'Lino',
     path => 'unknown_nd_Lino.xlsx',
     parser => 'Spreadsheet',
@@ -12282,7 +12282,7 @@ our $dict = {
       [4, 'page_num'],
     ],
   },
-  'unknown (2023)' => {
+  'unknown (nd a)' => {
     lang_target => 'Busami',
     path => 'unknown_2023_Busami.xlsx',
     parser => 'Spreadsheet',
