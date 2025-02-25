@@ -13357,7 +13357,7 @@ our $dict = {
     definition_action => 'merge',
     lang_national => 'ind',
   },
-   'van Schie (2022b)' => {
+   'van Schie (2022a)' => {
     lang_target => 'yva', #Kainui
     path => 'Yawa Kainui (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
@@ -13368,7 +13368,7 @@ our $dict = {
       [3, 'ph'],
     ],
   },
-  'van Schie (2022d)' => {
+  'van Schie (2022b)' => {
     lang_target => 'yva', #Mariadei
     path => 'Yawa Mariadei (Van Schie, 2022).xlsx',
     parser => 'Spreadsheet',
