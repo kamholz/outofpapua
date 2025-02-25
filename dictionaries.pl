@@ -2914,6 +2914,11 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
+  'Fokayaa et al. (2014)' => {
+    lang_target => 'Koloncucu',
+    path => 'Fokayaa_2014_Koloncucu.txt',
+    parser => 'Marker',
+  },
   'Fogaca (2015)' => {
     lang_target => 'Makasae Baucau',
     path => 'Fogaca 2015 Makasae Baucau.xlsx',
