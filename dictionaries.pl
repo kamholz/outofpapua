@@ -944,6 +944,13 @@ our $dict = {
     ],
     strip => 'to',
   },  
+  'Bracks (2023)' => {
+    lang_target => 'mvs',
+    path => 'Bracks_2023_Massep.db',
+    parser => 'Marker',
+    definition_action => 'merge',
+    strip => 'to',
+  },
   'Bracks & Edwards (forthcoming a)' => {
     lang_target => 'Rasua', 
     path => 'BracksEdwardsfc_Ataúro.xlsx',
