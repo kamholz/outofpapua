@@ -5679,6 +5679,25 @@ our $dict = {
       [[12 .. 13], 'example', ['ind']], #3
     ],
   },
+  'Nazarudin (2014)' => {
+    lang_target => 'Oirata',
+    path => 'Nazarudin_2014_Oirata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [1, 'ph'],
+      [2, 'ps'],
+      [5, 'sc'],
+      [6, 'cf'],
+      [7, 'sy'],
+      [[8 .. 10], 'example', ['eng', 'ind']], #1
+      [[11 .. 13], 'example', ['eng', 'ind']], #2
+      [[14 .. 15], 'example', ['ind']], #3
+      [16, 'page_num'],
+    ],
+  },
   'Niggemeyer (1951a)' => { 
     lang_target => 'alp',
     path => 'Niggemeyer 1951 - Alune.xlsx',
