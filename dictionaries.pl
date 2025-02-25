@@ -5666,11 +5666,12 @@ our $dict = {
       [3, 'gloss', 'ind'],
       [1, 'ps'],
       [4, 'sc'],
-      [5, 'sy'],
-      [6, 'page_num'],
-      [[7 .. 8], 'example', ['ind']], #1
-      [[9 .. 10], 'example', ['ind']], #2
-      [[11 .. 12], 'example', ['ind']], #3
+      [5, 'cf'],
+      [6, 'sy'],
+      [7, 'page_num'],
+      [[8 .. 9], 'example', ['ind']], #1
+      [[10 .. 11], 'example', ['ind']], #2
+      [[12 .. 13], 'example', ['ind']], #3
     ],
   },
   'Niggemeyer (1951a)' => { 
