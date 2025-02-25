@@ -12270,8 +12270,8 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
-  'unknown (nd)' => { #not ingested
-    lang_target => 'Tobelo Lino',
+  'unknown (nd)' => {
+    lang_target => 'Lino',
     path => 'unknown_nd_Lino.xlsx',
     parser => 'Spreadsheet',
     columns => [
