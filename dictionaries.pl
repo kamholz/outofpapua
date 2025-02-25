@@ -2945,13 +2945,13 @@ our $dict = {
     headword_preprocess => sub { s/^ø-//r },
   },
   'Fortgens (1921a)' => { 
-    lang_target => 'Soboyo',
+    lang_target => 'Taliabu',
     path => 'Fortgens_1921_Taliabo.txt',
     parser => 'Marker',
     strip => 'to',
   },
   'Fortgens (1921b)' => {
-    lang_target => 'kzd',
+    lang_target => 'Kadai',
     path => 'Fortgens_1921_Kadai.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kadai',
@@ -4710,7 +4710,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Mariati et al. (2015)' => {
-    lang_target => 'krz',
+    lang_target => 'Sota',
     path => 'Mariati_2015_Sota.xlsx',
     parser => 'Spreadsheet',
     columns => [
