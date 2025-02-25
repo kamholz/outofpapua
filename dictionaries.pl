@@ -4160,6 +4160,12 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Khairunnisa, Pappas & Erniati (2023)' => {
+    lang_target => 'spr',
+    path => 'KhairunnisaPappasErniati_2023_Saparua.db',
+    parser => 'Marker',
+    definition_action => 'merge',
+  },
   'Kijne (nd a)' => {
     lang_target => 'Yawa Turu',
     path => 'spreadsheets/8-Turu word list Kijne.xlsx',
