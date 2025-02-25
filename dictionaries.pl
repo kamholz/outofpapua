@@ -14402,6 +14402,19 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'Zielenbach & Ellen (2025)' => {
+    lang_target => 'Modole',
+    path => 'ZielenbachEllen_2025_Modole.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'va'],
+      [3, 'nt'],
+      [4, 'et'],
+      [5, 'nt'],
+    ],
+  },
   'Zobel (2017)' => {
     lang_target => 'Proto-South Babar',
     path => 'Zobel_2017_Proto-South Babar.xlsx',
