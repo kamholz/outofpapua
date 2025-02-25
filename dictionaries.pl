@@ -14321,7 +14321,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     definition_action => 'merge',
-    skip_marker => ['re', 'rr', 'rn', 'lx_Eng', 'cet'],
+    skip_marker => ['re', 'rr', 'rn', 'lx_Eng', 'cet', 'et_Ind'],
   },
   'Wilson (nd)' => { #not ingested
     lang_target => 'yev',
