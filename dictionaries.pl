@@ -944,7 +944,7 @@ our $dict = {
     ],
     strip => 'to',
   },  
-  'Bracks (2023)' => {
+  'Bracks (2023)' => { #not ingested
     lang_target => 'mvs',
     path => 'Bracks_2023_Massep.db',
     parser => 'Marker',
@@ -12269,6 +12269,18 @@ our $dict = {
       [3, 'gloss', 'ind'],
     ],
     mode => 'sense_per_row',
+  },
+  'unknown (nd)' => { #not ingested
+    lang_target => 'Tobelo Lino',
+    path => 'unknown_nd_Lino.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'ind'],
+      [2, 'sc'],
+      [4, 'page_num'],
+    ],
   },
   'unknown (2023)' => {
     lang_target => 'Busami',
