@@ -2938,7 +2938,7 @@ our $dict = {
     strip => 'to',
   },
   'Fortgens (1905)' => {
-    lang_target => 'saj',
+    lang_target => 'ibu',
     path => 'Fortgens1905-Ibu.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -13668,7 +13668,7 @@ our $dict = {
     ],
   },
   'Visser & Voorhoeve (1987f)' => {
-    lang_target => 'Sahu Ibu',
+    lang_target => 'ibu',
     path => 'Visser, Voorhoeve 1987 dialects.xlsx',
     parser => 'Spreadsheet',
     columns => [
