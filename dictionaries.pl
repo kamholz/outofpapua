@@ -3497,7 +3497,7 @@ our $dict = {
     ],
   },
   'van Eijbergen (1864d)' => {
-    lang_target => 'Kei',
+    lang_target => 'kei',
     path => 'vanEijbergen_1864.xlsx',
     parser => 'Spreadsheet',
     columns => [
