@@ -12661,6 +12661,18 @@ our $dict = {
     ],
     split => '/',
   },
+  'Tismeer (1913)' => {
+    lang_target => 'Koiwai',
+    path => 'Tismeer_1913_Koiwai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'nld'],
+      [4, 'page_num'],
+    ],
+  },
   'Trainor (nd)' => {
     lang_target => 'Fataluku',
     path => 'Trainor_nd_Fataluku_birdlist.xlsx',
