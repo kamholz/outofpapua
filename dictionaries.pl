@@ -11814,6 +11814,19 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Stokhof (1987)' => { 
+    lang_target => 'Gebe',
+    path => 'Stokhof_1987_Gebe.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Stokhof & Flassy (1985a)' => {
     lang_target => 'mxn',
     path => 'spreadsheets Upwork/StokhofFlassy_1985_Moi.xlsx',
