@@ -1915,6 +1915,20 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
+  'Dommel et al. (1991)' => {
+    lang_target => 'bpp',
+    path => 'Dommel_1991_Kaure.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'rf'],
+      [4, 'page_num'],
+    ],
+    strip => 'to',
+    mode => 'sense_per_row',
+  },
   'Devin (nd)' => {
     lang_target => 'Ambon Malay',
     path => 'Devin_nd_AmboneseMalay.txt',
