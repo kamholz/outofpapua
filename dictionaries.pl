@@ -1452,9 +1452,9 @@ our $dict = {
     path => 'Cowan_1957_Watubela.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'headword'],
+      [2, 'headword'],
       [1, 'gloss', 'nld'],
-      [3, 'gloss', 'eng'],
+      [0, 'gloss', 'eng'],
     ],
   },
   'Coward (nd)' => {
