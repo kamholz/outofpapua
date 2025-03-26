@@ -3581,7 +3581,7 @@ our $dict = {
     lang_target => 'Ambon Malay',
     path => 'vanHoëvell_1876.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Ambon Malay'
+    sheet => 'Ambon Malay',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
@@ -3603,7 +3603,7 @@ our $dict = {
     lang_target => 'Saparua Malay',
     path => 'vanHoëvell_1876.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Saparua Malay'
+    sheet => 'Saparua Malay',
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
