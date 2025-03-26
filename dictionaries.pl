@@ -92,9 +92,9 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Anakota (2024)' => { #author name???
+  'Anakotta (2024)' => { #author name???
     lang_target => 'Mai Kilim',
-    path => 'Anakota_2024_MoiKilim.txt',
+    path => 'Anakotta_2024_MoiKilim.txt',
     parser => 'Marker',
     lang_national => 'ind',
   },
