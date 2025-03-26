@@ -7459,7 +7459,6 @@ our $dict = {
     path => 'Roesler_2011_CentralAsmat.txt',
     parser => 'Marker',
     lang_national => 'ind',
-    skip_marker => ['r', 'rn'],
   },
   'Rosenberg (1878a)' => {
     lang_target => 'Gorontalo',
