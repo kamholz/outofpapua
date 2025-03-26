@@ -7143,7 +7143,7 @@ our $dict = {
       [[8 .. 9], 'example', ['eng']],
       [[10 .. 11], 'example', ['eng']],
     ],
-    strip = 'to',
+    strip => 'to',
     mode => 'sense_per_row',
   },
   'Ray (1931b)' => {
@@ -7160,7 +7160,7 @@ our $dict = {
       [5, 'va'],
       [6, 've'],
     ],
-    strip = 'to',
+    strip => 'to',
     mode => 'sense_per_row',
   },
   'Ray (2003a)' => {
