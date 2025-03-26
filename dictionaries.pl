@@ -1481,10 +1481,22 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
-  'Danckaerts & Wiltens (1623)' => {
+  'Danckaerts & Wiltens (1623a)' => {
     lang_target => 'Ternate',
     path => 'DanckaertsWiltens_1623_Ternate.txt',
     parser => 'Marker',
+  },
+  'Danckaerts & Wiltens (1623b)' => { 
+    lang_target => 'North Moluccan Malay',
+    path => 'Danckaerts Wiltens_1623_NMM.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
   },
   'da Silva (2012)' => {
     lang_target => 'Welaun',
