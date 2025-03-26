@@ -361,15 +361,35 @@ our $dict = {
       [[5 .. 7], 'example', ['ind', 'eng']],
     ],
   },
-  'Atjo (2008)' => { #not ingested
+  'Atjo (2008)' => {
     lang_target => 'Ternate',
-    path => 'Atjo 2008 - Ternate.xlsx',
+    path => 'Atjo_2008_Ternate.xlsx',
     parser => 'Spreadsheet',
     columns => [
+      [1, 'subentry'],
       [0, 'headword'],
-      [1, 'gloss', 'ind'],
-      [2, 'sc'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'max'],
+      [4, 'gloss', 'eng'],
+      [5, 'sc'],
+      [6, 'lt'],
+      [7, 'et'],
+      [8, 'lc'],
+      [9, 'nt'],
+      [[10 .. 11], 'example', ['ind']], #1
+      [[12 .. 13], 'example', ['ind']], #2
+      [14, 'cf'],
+      [15, 'page_num'],
+      [[16 .. 17], 'example', ['ind']], #3
+      [[18 .. 19], 'example', ['ind']], #4
+      [[20 .. 21], 'example', ['ind']], #5
+      [[22 .. 23], 'example', ['ind']], #6
+      [[24 .. 25], 'example', ['ind']], #7
+      [[26 .. 27], 'example', ['ind']], #8
+      [28, 'nt'],
+      [29, 'va'],
     ],
+    mode => 'sense_per_row',
   },
   'Arnold (2019a)' => {
     lang_target => 'wgo',
