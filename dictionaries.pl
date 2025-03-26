@@ -1982,7 +1982,6 @@ our $dict = {
     lang_target => 'skv',
     path => 'Donohue_2004_Skou.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Skou (Donohue 2004)',
     columns => [
       [0, 'headword'],
       [2, 'gloss', 'eng'],
