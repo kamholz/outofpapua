@@ -7829,7 +7829,7 @@ our $dict = {
   },
   'Schapper & Syufi (2024)' => {
     lang_target => 'Irires',
-    path => 'Schapper_2022c_Irires.txt',
+    path => 'SchapperSyufi_2024_Irires.txt',
     parser => 'Marker',
     split => ';',
     lang_national => 'ind',
