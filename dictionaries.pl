@@ -12202,6 +12202,7 @@ our $dict = {
       [4, 'sc'],
     ],
     mode => 'sense_per_row',
+    strip => 'to',
   },
   'Stokhof & Flassy (1985a)' => {
     lang_target => 'mxn',
