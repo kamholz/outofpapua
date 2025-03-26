@@ -1447,6 +1447,16 @@ our $dict = {
     strip => 'to',
     mode => 'sense_per_row',
   },
+  'Cowan (1957)' => {
+    lang_target => 'Watubela',
+    path => 'Cowan_1957_Watubela.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [3, 'gloss', 'eng'],
+    ],
+  },
   'Coward (nd)' => {
     lang_target => 'frd',
     path => 'webonary/fordata/*.html',
