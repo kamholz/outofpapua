@@ -7827,7 +7827,7 @@ our $dict = {
     split => ';',
     definition_action => 'merge',
   },
-  'Schapper (2022c)' => {
+  'Schapper & Syufi (2024)' => {
     lang_target => 'Irires',
     path => 'Schapper_2022c_Irires.txt',
     parser => 'Marker',
