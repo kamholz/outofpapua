@@ -93,7 +93,7 @@ our $dict = {
     strip => 'to',
   },
   'Anakotta (2024)' => { #author name???
-    lang_target => 'Mai Kilim',
+    lang_target => 'Moi Kilim',
     path => 'Anakotta_2024_MoiKilim.txt',
     parser => 'Marker',
     lang_national => 'ind',
