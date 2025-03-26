@@ -7423,7 +7423,7 @@ our $dict = {
     ],
   },
   'Rosenberg (1878d)' => {
-    lang_target => 'Manumbai',
+    lang_target => 'Manombai',
     path => 'vonRosenberg_1878.xlsx',
     parser => 'Spreadsheet',
     columns => [
