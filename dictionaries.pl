@@ -3587,15 +3587,47 @@ our $dict = {
     ],
   },
   'van Neck (1648a)' => {
-    lang_target => 'Manombai Wokam',
-    path => 'vanEijbergen_1864.xlsx',
+    lang_target => 'North Moluccan Malay',
+    path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'North Moluccan Malay / Javanese',
+    columns => [
+      [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+    ],
+  },
+  'van Neck (1648b)' => {
+    lang_target => 'jav',
+    path => 'vanNeck_1648.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'North Moluccan Malay / Javanese',
     columns => [
       [3, 'headword'],
-      [0, 'gloss', 'eng'],
-      [1, 'gloss', 'nld'],
-      [2, 'gloss', 'ind'],
-      [7, 'page_num'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+    ],
+  },
+  'van Neck (1648c)' => {
+    lang_target => 'Moluccan Malay',
+    path => 'vanNeck_1648.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Moluccan Malay / Javanese',
+    columns => [
+      [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+    ],
+  },
+  'van Neck (1648d)' => {
+    lang_target => 'jav',
+    path => 'vanNeck_1648.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Moluccan Malay / Javanese',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
     ],
   },
   'Held (1942a)' => {
@@ -7415,7 +7447,7 @@ our $dict = {
     ],
   },
   'Rosenberg (1878f)' => {
-    lang_target => 'Kur',
+    lang_target => 'kuv',
     path => 'vonRosenberg_1878.xlsx',
     parser => 'Spreadsheet',
     columns => [
