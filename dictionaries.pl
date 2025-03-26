@@ -4330,6 +4330,7 @@ our $dict = {
     path => 'KhairunnisaPappasErniati_2023_Saparua.db',
     parser => 'Marker',
     definition_action => 'merge',
+    skip => 'ps_Ind',
   },
   'Kijne (nd a)' => {
     lang_target => 'Yawa Turu',
