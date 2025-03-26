@@ -3590,7 +3590,7 @@ our $dict = {
     lang_target => 'North Moluccan Malay',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'North Moluccan Malay / Javanese',
+    sheet => 'North Moluccan Malay_Javanese',
     columns => [
       [2, 'headword'],
       [1, 'gloss', 'eng'],
@@ -3601,7 +3601,7 @@ our $dict = {
     lang_target => 'jav',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'North Moluccan Malay / Javanese',
+    sheet => 'North Moluccan Malay_Javanese',
     columns => [
       [3, 'headword'],
       [1, 'gloss', 'eng'],
@@ -3612,7 +3612,7 @@ our $dict = {
     lang_target => 'Moluccan Malay',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moluccan Malay / Javanese',
+    sheet => 'Moluccan Malay_Javanese',
     columns => [
       [2, 'headword'],
       [1, 'gloss', 'eng'],
@@ -3623,7 +3623,7 @@ our $dict = {
     lang_target => 'jav',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Moluccan Malay / Javanese',
+    sheet => 'Moluccan Malay_Javanese',
     columns => [
       [3, 'headword'],
       [1, 'gloss', 'eng'],
