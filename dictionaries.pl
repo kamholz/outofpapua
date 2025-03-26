@@ -1488,7 +1488,7 @@ our $dict = {
   },
   'Danckaerts & Wiltens (1623b)' => { 
     lang_target => 'North Moluccan Malay',
-    path => 'Danckaerts Wiltens_1623_NMM.xlsx',
+    path => 'DanckaertsWiltens_1623_NMM.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [1, 'subentry'],
