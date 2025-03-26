@@ -92,6 +92,12 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Anakota (2024)' => { #author name???
+    lang_target => 'Mai Kilim',
+    path => 'Anakota_2024_MoiKilim.txt',
+    parser => 'Marker',
+    lang_national => 'ind',
+  },
   'Anceaux (1956a)' => {
     lang_target => 'mxn',
     path => 'spreadsheets/Anceaux archive materials, 100 lists.xlsx',
