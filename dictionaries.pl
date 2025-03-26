@@ -3577,10 +3577,11 @@ our $dict = {
     lang_national => 'ind',
     strip => 'to',
   },
-  'van Hoëvell (1876)' => {
+  'van Hoëvell (1876a)' => {
     lang_target => 'Ambon Malay',
-    path => 'van Hoëvell_1876_Ambonsch-Maleisch.xlsx',
+    path => 'vanHoëvell_1876.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Ambon Malay'
     columns => [
       [1, 'subentry'],
       [0, 'headword'],
@@ -3596,6 +3597,24 @@ our $dict = {
       [[13 .. 14], 'example', ['nld']],
       [[15 .. 16], 'example', ['nld']],
       [17, 'cf'],
+    ],
+  },
+  'van Hoëvell (1876b)' => {
+    lang_target => 'Saparua Malay',
+    path => 'vanHoëvell_1876.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Saparua Malay'
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [5, 'sc'],
+      [6, 'sy'],
+      [7, 'et'],
+      [8, 'nt'],
+      [[9 .. 10], 'example', ['nld']],
     ],
   },
   'van Neck (1648a)' => {
