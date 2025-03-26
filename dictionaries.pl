@@ -8146,10 +8146,15 @@ our $dict = {
   },
   'Sims et al. (1990)' => {
     lang_target => 'xte',
-    path => 'Sims_1990_Ketengban.db',
-    parser => 'Marker',
-    lang_national => 'ind',
-    strip => 'to',
+    path => 'Sims_1990_Ketengban.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'rf'],
+      [4, 'page_num'],
+    ],
   },
   'Sir & Schapper (2024)' => { 
     lang_target => 'twe',
