@@ -1980,7 +1980,7 @@ our $dict = {
   },
    'Donohue (2004)' => {
     lang_target => 'skv',
-    path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
+    path => 'Donohue_2004_Skou.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Skou (Donohue 2004)',
     columns => [
