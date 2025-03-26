@@ -1361,7 +1361,7 @@ our $dict = {
       headword_preprocess => sub { s/^ø-//r },
   },
   'Collins (2022)' => {
-    lang_target => 'btj',
+    lang_target => 'Bacan Malay',
     path => 'Collins_2022_BacanMalay.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1522,7 +1522,7 @@ our $dict = {
     split_headword => ';',
   },
   'de Clercq (1876c)' => { 
-    lang_target => 'Ambonese Malay',
+    lang_target => 'Ambon Malay',
     path => 'deClerq_1876_MoluccanMalay.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Ambonese Malay',
@@ -1868,7 +1868,7 @@ our $dict = {
     strip => 'to',
   },
   'Devin (nd)' => {
-    lang_target => 'abs',
+    lang_target => 'Ambon Malay',
     path => 'Devin_nd_AmboneseMalay.txt',
     parser => 'Marker',
     lang_national => 'ind',
@@ -2990,7 +2990,7 @@ our $dict = {
     lang_regional => 'mkn',
   },
   'Fricke (2019a)' => { 
-    lang_target => 'Central Lembata',
+    lang_target => 'Atadei Demon',
     path => 'Fricke_2019_Central Lembata.txt',
     parser => 'Marker',
     definition_action => 'merge',
@@ -3488,7 +3488,7 @@ our $dict = {
     strip => 'to',
   },
   'van Hoëvell (1876)' => {
-    lang_target => 'Ambonese Malay',
+    lang_target => 'Ambon Malay',
     path => 'van Hoëvell_1876_Ambonsch-Maleisch.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -5728,7 +5728,7 @@ our $dict = {
     ],
   },
   'Niggemeyer (1951c)' => {
-    lang_target => 'abs',
+    lang_target => 'Ambon Malay',
     path => 'Niggemeyer_1951_Alune extracted languages.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Str 2',
@@ -12259,7 +12259,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 Bacan)' => {
-    lang_target => 'btj',
+    lang_target => 'Bacan Malay',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Bacan',
