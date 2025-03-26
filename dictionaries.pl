@@ -7361,7 +7361,7 @@ our $dict = {
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7373,7 +7373,7 @@ our $dict = {
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7385,7 +7385,7 @@ our $dict = {
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7397,7 +7397,7 @@ our $dict = {
     columns => [
       [6, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7409,7 +7409,7 @@ our $dict = {
     columns => [
       [7, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7421,7 +7421,7 @@ our $dict = {
     columns => [
       [8, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7433,7 +7433,7 @@ our $dict = {
     columns => [
       [9, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7445,7 +7445,7 @@ our $dict = {
     columns => [
       [10, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7457,7 +7457,7 @@ our $dict = {
     columns => [
       [11, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7469,7 +7469,7 @@ our $dict = {
     columns => [
       [12, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7481,7 +7481,7 @@ our $dict = {
     columns => [
       [13, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7493,7 +7493,7 @@ our $dict = {
     columns => [
       [14, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7505,7 +7505,7 @@ our $dict = {
     columns => [
       [15, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7517,7 +7517,7 @@ our $dict = {
     columns => [
       [16, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
@@ -7529,7 +7529,7 @@ our $dict = {
     columns => [
       [17, 'headword'],
       [0, 'gloss', 'eng'],
-      [1, 'gloss', 'deu']
+      [1, 'gloss', 'deu'],
       [2, 'gloss', 'ind'],
       [18, 'page_num'],
     ],
