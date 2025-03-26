@@ -3586,6 +3586,18 @@ our $dict = {
       [17, 'cf'],
     ],
   },
+  'van Neck (1648a)' => {
+    lang_target => 'Manombai Wokam',
+    path => 'vanEijbergen_1864.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'ind'],
+      [7, 'page_num'],
+    ],
+  },
   'Held (1942a)' => {
     lang_target => 'Waropen Kai',
     path => 'Held_1942_WaropenKai.txt',
@@ -7341,6 +7353,186 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
     skip => 'ce',
+  },
+  'Rosenberg (1878a)' => {
+    lang_target => 'Gorontalo',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878b)' => {
+    lang_target => 'Pamona Ampana',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878c)' => {
+    lang_target => 'Wamar',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878d)' => {
+    lang_target => 'Manumbai',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878e)' => {
+    lang_target => 'West Tarangan',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878f)' => {
+    lang_target => 'Kur',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878g)' => {
+    lang_target => 'Teor',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878h)' => {
+    lang_target => 'kei',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878i)' => {
+    lang_target => 'Kesui Temertimer',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [11, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878j)' => {
+    lang_target => 'Gorom',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878k)' => {
+    lang_target => 'Uruangnirin',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878l)' => {
+    lang_target => 'Biak Numfor',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878m)' => {
+    lang_target => 'Mansim',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878n)' => {
+    lang_target => 'Hatam',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [16, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
+  },
+  'Rosenberg (1878o)' => {
+    lang_target => 'tti',
+    path => 'vonRosenberg_1878.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [17, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'deu']
+      [2, 'gloss', 'ind'],
+      [18, 'page_num'],
+    ],
   },
   'Rugebregt et al. (1986)' => {
     lang_target => 'Tobelo',
