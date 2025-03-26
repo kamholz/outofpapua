@@ -1978,7 +1978,7 @@ our $dict = {
       [2, 'page_num'],
     ],
   },
-   'Donohue (2004)' => { #not ingested
+   'Donohue (2004)' => {
     lang_target => 'skv',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
     parser => 'Spreadsheet',
@@ -1987,7 +1987,8 @@ our $dict = {
       [0, 'headword'],
       [2, 'gloss', 'eng'],
       [1, 'ps'],
-      [3, 'page_num'],
+      [3, 'et'],
+      [4, 'page_num'],
     ],
     strip => 'to',
   },
