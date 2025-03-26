@@ -12038,7 +12038,7 @@ our $dict = {
     strip => 'to',
     split => ';',
   },
-  'Stokhof (1982)' => {
+  'Stokhof (1982a)' => {
     lang_target => 'Geser',
     path => 'Stokhof_1982_Geser.xlsx',
     parser => 'Spreadsheet',
@@ -12050,6 +12050,20 @@ our $dict = {
       [4, 'sc'],
     ],
     strip => 'to',
+  },
+  'Stokhof (1982b)' => {
+    lang_target => 'Geser Waru',
+    path => 'Stokhof_1982_GeserWaru.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+    ],
+    strip => 'to',
+    mode => 'sense_per_row',
   },
   'Stokhof (1983)' => { 
     lang_target => 'bfn',
