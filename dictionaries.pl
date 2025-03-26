@@ -8155,6 +8155,8 @@ our $dict = {
       [3, 'rf'],
       [4, 'page_num'],
     ],
+    strip => 'to',
+    mode => 'sense_per_row',
   },
   'Sir & Schapper (2024)' => { 
     lang_target => 'twe',
@@ -12978,7 +12980,7 @@ our $dict = {
     parser => 'Spreadsheet',
     sheet => 'main file',
     columns => [
-      [0, 'headword'],
+      [3, 'headword'],
       [6, 'gloss', 'eng'],
       [5, 'gloss', 'ind'],
       [7, 'sc'],
