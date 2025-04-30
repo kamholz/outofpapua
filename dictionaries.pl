@@ -859,6 +859,19 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Bink (1902)' => {
+    lang_target => 'Tobati',
+    path => 'Bink_1902_Tobati.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [3, 'gloss', 'ind'],
+      [4, 'nt'],
+      [5, 'page_num'],
+    ],
+  },
   'Blake (2025)' => {
     lang_target => 'Abui',
     path => 'Blake_2025_Abui.xlsx',
