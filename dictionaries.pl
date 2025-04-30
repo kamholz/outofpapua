@@ -4785,6 +4785,30 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Le Cocq d`Armandville (1901a)' => {
+    lang_target => 'Geser',
+    path => 'LeCocqdArmandville_1901_Geser_MasiwangBonfia.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [4, 'nt'],
+      [5, 'page_num'],
+    ],
+  },
+  'Le Cocq d`Armandville (1901b)' => {
+    lang_target => 'Masiwang Bonfia',
+    path => 'LeCocqdArmandville_1901_Geser_MasiwangBonfia.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [4, 'nt'],
+      [5, 'page_num'],
+    ],
+  },
   'Lekedee Study Group (2006a)' => {
     lang_target => 'tkd',
     path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
