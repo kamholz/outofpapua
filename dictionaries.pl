@@ -1150,7 +1150,7 @@ our $dict = {
       [1, 'ps'],
       [2, 'gloss', 'eng'],
       [3, 'sc'],
-      [4, 'et'].
+      [4, 'et'],
       [[5 .. 6], 'example', ['eng']], #1
       [[7 .. 8], 'example', ['eng']], #2
       [[9 .. 10], 'example', ['eng']], #3
@@ -4517,6 +4517,21 @@ our $dict = {
   'Kijne (nd j)' => {
     lang_target => 'Tandia',
     path => 'Kijne_ndj_Tandia.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'gloss', 'ind'],
+      [5, 'page_num'],
+      [6, 'nt'],
+      [7, 'pd'],
+    ],
+  },
+  'Kim & Kim (1991)' => { #not ingested
+    lang_target => 'dbf',
+    path => 'Kim_1991_Edopi.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
