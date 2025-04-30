@@ -7527,6 +7527,19 @@ our $dict = {
       [4, 'cf'],
     ],
   },
+  'Reimer (1991)' => {
+    lang_target => 'mqf',
+    path => 'Reimer_1991_Momuna.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+      [3, 'nt', 'numbers with animal names:'],
+      [4, 'sc'],
+      [5, 'page_num'],
+    ],
+  },
   'Remijsen (2001a)' => {
     lang_target => 'bhc',
     path => 'Biga.txt',
