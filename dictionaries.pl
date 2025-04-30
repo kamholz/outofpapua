@@ -7638,6 +7638,7 @@ our $dict = {
       [4, 'sc'],
       [5, 'page_num'],
     ],
+    strip => 'to',
   },
   'Remijsen (2001a)' => {
     lang_target => 'bhc',
