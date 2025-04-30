@@ -4846,6 +4846,19 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
+  'Le Cocq d Armandville (1903)' => {
+    lang_target => 'Iha',
+    path => 'LeCocqdArmandville_1903_Iha.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [4, 'nt'],
+      [5, 'page_num'],
+    ],
+  },
   'Lekedee Study Group (2006a)' => {
     lang_target => 'tkd',
     path => 'LekedeeStudyGroup_2006_TokodedeDialects.xlsx',
