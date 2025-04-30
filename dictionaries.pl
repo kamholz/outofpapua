@@ -1561,7 +1561,7 @@ our $dict = {
     parser => 'Marker',
   },
   'Danckaerts & Wiltens (1623b)' => { 
-    lang_target => 'North Moluccan Malay',
+    lang_target => 'Moluccan Malay',
     path => 'DanckaertsWiltens_1623_NMM.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1771,6 +1771,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'nld',
     headword_preprocess => sub { s/^ø-//r },
+    strip => 'to',
   },
   'de Clercq (1893b)' => {
     lang_target => 'Maˈya Kaplol',
@@ -1778,6 +1779,7 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'nld',
     headword_preprocess => sub { s/^ø-//r },
+    strip => 'to',
   },
   'de Clercq (1893c)' => {
     lang_target => 'Seget',
@@ -2352,6 +2354,7 @@ our $dict = {
     lang_regional => 'mkn',
     split => ';',
     definition_action => 'merge',
+    strip => 'to',
   },
   'Edwards (2021a)' => {
     lang_target => 'Proto-Rote-Meto',
@@ -3048,9 +3051,14 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-  'Fokayaa et al. (2014)' => {
+  'Fokayaa et al. (2014a)' => {
     lang_target => 'Koloncucu',
     path => 'Fokayaa_2014_Koloncucu.txt',
+    parser => 'Marker',
+  },
+  'Fokayaa et al. (2014b)' => {
+    lang_target => 'ibu',
+    path => 'Fokayaa_2014_Ibu.txt',
     parser => 'Marker',
   },
   'Fogaca (2015)' => {
@@ -7418,6 +7426,7 @@ our $dict = {
     lang_target => 'xmm',
     path => 'webonary/manado/*.html',
     parser => 'LexiqueHTML',
+    strip => 'to',
   },
   'Ray (1931a)' => {
     lang_target => 'Kiwai',
@@ -14090,6 +14099,7 @@ our $dict = {
     split => ',;',
     definition_action => 'merge',
     lang_national => 'ind',
+    strip => 'to',
   },
    'van Schie (2022a)' => {
     lang_target => 'yva', #Kainui
