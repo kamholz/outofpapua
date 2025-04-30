@@ -4847,7 +4847,7 @@ our $dict = {
     ],
   },
   'Le Cocq d Armandville (1903)' => {
-    lang_target => 'Iha',
+    lang_target => 'ihp',
     path => 'LeCocqdArmandville_1903_Iha.xlsx',
     parser => 'Spreadsheet',
     columns => [
