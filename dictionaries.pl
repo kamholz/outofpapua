@@ -4785,7 +4785,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Le Cocq d`Armandville (1901a)' => {
+  'Le Cocq d Armandville (1901a)' => {
     lang_target => 'Geser',
     path => 'LeCocqdArmandville_1901_Geser_MasiwangBonfia.xlsx',
     parser => 'Spreadsheet',
@@ -4797,7 +4797,7 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
-  'Le Cocq d`Armandville (1901b)' => {
+  'Le Cocq d Armandville (1901b)' => {
     lang_target => 'Masiwang Bonfia',
     path => 'LeCocqdArmandville_1901_Geser_MasiwangBonfia.xlsx',
     parser => 'Spreadsheet',
