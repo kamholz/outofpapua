@@ -5277,6 +5277,39 @@ our $dict = {
       [15, 'page_num'],
     ],
   },
+  'Modera (1830a)' => { 
+    lang_target => 'Kamoro Utanata',
+    path => 'Modera_1830.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [5, 'page_num'],
+    ],
+  },
+  'Modera (1830b)' => { 
+    lang_target => 'Koiwai Lobo',
+    path => 'Modera_1830.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [5, 'page_num'],
+    ],
+  },
+  'Modera (1830c)' => { 
+    lang_target => 'Onin',
+    path => 'Modera_1830.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'], 
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [5, 'page_num'],
+    ],
+  },
   'Morris (1984a)' => { 
     lang_target => 'tet',
     path => 'Morris_1984_Tetun.xlsx',
