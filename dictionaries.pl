@@ -5672,6 +5672,21 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Moxness & Moxness (1991)' => { 
+    lang_target => 'auu',
+    path => 'Moxness_1991_Auye.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
+      [[4 .. 5], 'example', ['eng']],
+      [1, 'ps'],
+      [6, 'cf'],
+      [7, 'nt'],
+      [8, 'page_num'],
+    ],
+  },
   'Musgrave (nd)' => {
     lang_target => 'Sou Amana Teru',
     path => 'Musgrave_Sou Ama Teru_Lexicon.txt',
