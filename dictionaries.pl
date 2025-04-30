@@ -1167,7 +1167,7 @@ our $dict = {
     strip => 'to',
   },
   'Clark (2022)' => {
-    lang_target => 'Tobelo Boëng',
+    lang_target => 'Tobelo Boeng',
     path => 'Clark2022Tobelo.txt',
     parser => 'Marker',
     split => ';',
