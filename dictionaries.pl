@@ -4950,7 +4950,7 @@ our $dict = {
     split => ',',
   },
   'Lobat (2017a)' => {
-    lang_target => 'Kalabra Tet Tro',
+    lang_target => 'Kalabra Wemak',
     path => 'spreadsheets Upwork/Kalabra dictionary cleaned.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -4964,7 +4964,7 @@ our $dict = {
     strip => 'to',
   },
   'Lobat (2017b)' => {
-    lang_target => 'Kalabra Tet Tto',
+    lang_target => 'Kalabra Salmit',
     path => 'spreadsheets Upwork/Kalabra dictionary cleaned.xlsx',
     parser => 'Spreadsheet',
     columns => [
