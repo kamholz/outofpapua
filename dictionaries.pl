@@ -1141,6 +1141,28 @@ our $dict = {
     parser => 'Marker',
     split => ';',
   },
+  'Chlouse & Chlouse (1991)' => {
+    lang_target => 'kiy', 
+    path => 'Clouse_1991_Kirikiri.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [2, 'gloss', 'eng'],
+      [3, 'sc'],
+      [4, 'et'].
+      [[5 .. 6], 'example', ['eng']], #1
+      [[7 .. 8], 'example', ['eng']], #2
+      [[9 .. 10], 'example', ['eng']], #3
+      [[11 .. 12], 'example', ['eng']], #4
+      [[13 .. 14], 'example', ['eng']], #5
+      [[15 .. 16], 'example', ['eng']], #6
+      [[17 .. 18], 'example', ['eng']], #7
+      [[19 .. 20], 'example', ['eng']], #8
+      [[21 .. 22], 'example', ['eng']], #9
+      [23, 'page_num'],
+    ],
+  },
   'Coenen (1953)' => {
     lang_target => 'ihp',
     path => 'spreadsheets/Coenen_1953_Iha.xlsx',
