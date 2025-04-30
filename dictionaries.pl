@@ -1555,12 +1555,12 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
-  'Danckaerts & Wiltens (1623a)' => {
+  'Danckaerts & Wiltens (1623a)' => { #not ingested
     lang_target => 'Ternate',
     path => 'DanckaertsWiltens_1623_Ternate.txt',
     parser => 'Marker',
   },
-  'Danckaerts & Wiltens (1623b)' => { 
+  'Danckaerts & Wiltens (1623)' => { 
     lang_target => 'Moluccan Malay',
     path => 'DanckaertsWiltens_1623_NMM.xlsx',
     parser => 'Spreadsheet',
