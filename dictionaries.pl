@@ -4529,19 +4529,19 @@ our $dict = {
       [7, 'pd'],
     ],
   },
-  'Kim & Kim (1991)' => { #not ingested
+  'Kim & Kim (1991)' => {
     lang_target => 'dbf',
     path => 'Kim_1991_Edopi.xlsx',
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'nld'],
+      [1, 'ps'],
       [2, 'gloss', 'eng'],
-      [3, 'sc'],
-      [4, 'gloss', 'ind'],
-      [5, 'page_num'],
-      [6, 'nt'],
-      [7, 'pd'],
+      [3, 'gloss', 'ind'],
+      [[4 .. 5], 'example', ['eng']],
+      [6, 'va'],
+      [7, 've'],
+      [8, 'page_num'],
     ],
   },
   'Klamer (2016)' => {
