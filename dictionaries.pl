@@ -1173,7 +1173,7 @@ our $dict = {
     split => ';',
     strip => 'to',
   },
-  'Chlouse & Chlouse (1991)' => {
+  'Clouse & Clouse (1991)' => {
     lang_target => 'kiy', 
     path => 'Clouse_1991_Kirikiri.xlsx',
     parser => 'Spreadsheet',
