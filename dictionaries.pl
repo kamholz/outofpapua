@@ -5070,7 +5070,7 @@ our $dict = {
     lang_target => 'wut',
     path => 'Marmion_nd_Wutung.txt',
     parser => 'Marker',
-    skip_marker => ['gn', 'gv', 'xn'],
+    skip_marker => ['gn', 'gv', 'xn', 'dn'],
   },
   'Matsumura (2016)' => {
     lang_target => 'irh',
