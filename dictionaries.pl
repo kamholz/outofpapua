@@ -8939,12 +8939,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun a)' => {
-    lang_target => 'Abun Sausapor',
+  'Smits & Voorhoeve (1998 Abun a1)' => {
+    lang_target => 'Abun Ji Sausapor',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [1, 'headword'],
       [0, 'gloss', 'eng'],
@@ -8952,12 +8952,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun b)' => {
+  'Smits & Voorhoeve (1998 Abun a2)' => {
     lang_target => 'Abun Sausapor',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [2, 'headword'],
       [0, 'gloss', 'eng'],
@@ -8965,12 +8965,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun c)' => {
-    lang_target => 'Abun Sausapor',
+  'Smits & Voorhoeve (1998 Abun a3)' => {
+    lang_target => 'Abun Tat Sausapor',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'eng'],
@@ -8978,12 +8978,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun d)' => {
-    lang_target => 'Abun Mega',
+  'Smits & Voorhoeve (1998 Abun b)' => {
+    lang_target => 'Abun Ji Mega',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'eng'],
@@ -8991,12 +8991,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun e)' => {
-    lang_target => 'Abun Madik',
+  'Smits & Voorhoeve (1998 Abun c)' => {
+    lang_target => 'Abun Ji Madik',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [5, 'headword'],
       [0, 'gloss', 'eng'],
@@ -9004,12 +9004,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun f)' => {
+  'Smits & Voorhoeve (1998 Abun d1)' => {
     lang_target => 'Abun',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [6, 'headword'],
       [0, 'gloss', 'eng'],
@@ -9017,12 +9017,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun g)' => {
-    lang_target => 'Abun',
+  'Smits & Voorhoeve (1998 Abun d2)' => {
+    lang_target => 'Abun Tat',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [7, 'headword'],
       [0, 'gloss', 'eng'],
@@ -9030,12 +9030,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun h)' => {
-    lang_target => 'Abun',
+  'Smits & Voorhoeve (1998 Abun d3)' => {
+    lang_target => 'Abun Tat',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [8, 'headword'],
       [0, 'gloss', 'eng'],
@@ -9043,12 +9043,12 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Smits & Voorhoeve (1998 Abun i)' => {
-    lang_target => 'Abun',
+  'Smits & Voorhoeve (1998 Abun d4)' => {
+    lang_target => 'Abun Ji',
     path => 'spreadsheets/Maybrat_Abun_SmitsVoorhoeve.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Abun',
-    skip => 3,
+    skip => 2,
     columns => [
       [9, 'headword'],
       [0, 'gloss', 'eng'],
