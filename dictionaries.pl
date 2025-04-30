@@ -824,19 +824,48 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Berry & Berry (1999)' => {
+  'Berry & Berry (1999a)' => {
     lang_target => 'Abun Ye',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
     parser => 'Spreadsheet',
+    sheet => 'Abun Ye'
     columns => [
       [0, 'headword'],
       [1, 'va'],
       [2, 'gloss', 'eng'],
-      [3, 'pos'],
+      [3, 'ps'],
+      [4, 'page_num'],
       [5, 'nt'],
+      [6, 'mr'],
+      [7, 'et'],
+    ],
+  },
+  'Berry & Berry (1999b)' => {
+    lang_target => 'Abun Ji',
+    path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Abun Ji'
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
       [4, 'page_num'],
     ],
-    strip => 'to',
+  },
+  'Berry & Berry (1999c)' => {
+    lang_target => 'Abun Tat',
+    path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Abun Tat'
+    columns => [
+      [0, 'headword'],
+      [1, 'ph'],
+      [2, 'gloss', 'eng'],
+      [3, 'ps'],
+      [4, 'page_num'],
+      [5, 'nt'],
+    ],
   },
   'Bine' => { #not ingested
     lang_target => 'bon',
