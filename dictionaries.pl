@@ -14009,6 +14009,18 @@ our $dict = {
     parser => 'Marker',
     split_headword => ',',
   },
+  'van Velzen (1995)' => {
+    lang_target => 'Papuan Malay Serui',
+    path => 'vanVelzen_1995_PapuanMalaySerui.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'et'],
+      [4, 'page_num'],
+    ],
+  },
   'Veloso (2016a)' => {
     lang_target => 'Naueti Uatolari',
     path => 'Veloso_2016_Naueti_Uatolari.txt',
