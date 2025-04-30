@@ -13523,7 +13523,7 @@ our $dict = {
     strip => 'to',
   },
   'van der Crab (1862d)' => {
-    lang_target => 'mhs', #Buru Beach
+    lang_target => 'kzl', #Kayeli
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
     columns => [
