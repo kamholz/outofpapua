@@ -471,6 +471,7 @@ our $dict = {
       [7, 'page_num'],
     ],
     mode => 'sense_per_row',
+    strip => 'to',
   },
   'Banamtuan (2021)' => {
     lang_target => 'kyo',
@@ -1096,6 +1097,7 @@ our $dict = {
     lang_target => 'blz',
     path => 'webonary/balantak/*.html',
     parser => 'LexiqueHTML',
+    strip => 'to',
   },
   'Carr (2004)' => {
     lang_target => 'mkz', 
@@ -1169,6 +1171,7 @@ our $dict = {
     path => 'Clark2022Tobelo.txt',
     parser => 'Marker',
     split => ';',
+    strip => 'to',
   },
   'Chlouse & Chlouse (1991)' => {
     lang_target => 'kiy', 
@@ -1537,6 +1540,7 @@ our $dict = {
     path => 'Coward_2021_Selaru.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    strip => 'to',
   },
   'Dalrymple & Mofu (2009/10)' => {
     lang_target => 'bhw',
@@ -3717,7 +3721,7 @@ our $dict = {
     ],
   },
   'van Neck (1648b)' => {
-    lang_target => 'jav',
+    lang_target => 'North Moluccan Javanese',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
     sheet => 'North Moluccan Malay_Javanese',
@@ -3739,7 +3743,7 @@ our $dict = {
     ],
   },
   'van Neck (1648d)' => {
-    lang_target => 'jav',
+    lang_target => 'Moluccan Javanese',
     path => 'vanNeck_1648.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Moluccan Malay_Javanese',
@@ -4418,7 +4422,7 @@ our $dict = {
     path => 'KhairunnisaPappasErniati_2023_Saparua.db',
     parser => 'Marker',
     definition_action => 'merge',
-    skip => 'ps_Ind',
+    skip_marker => 'ps_Ind',
   },
   'Kijne (nd a)' => {
     lang_target => 'Yawa Turu',
@@ -4949,6 +4953,7 @@ our $dict = {
       [6, 'page_num'],
       [7, 'nt'],
     ],
+    strip => 'to',
   },
   'Lobat (2017b)' => {
     lang_target => 'Kalabra Tet Tto',
@@ -4962,6 +4967,7 @@ our $dict = {
       [6, 'page_num'],
       [7, 'nt'],
     ],
+    strip => 'to',
   },
   'Lunow (nd)' => {
     lang_target => 'mnx',
@@ -6104,6 +6110,7 @@ our $dict = {
       [[14 .. 15], 'example', ['ind']], #3
       [16, 'page_num'],
     ],
+    strip => 'to',
   },
   'Niggemeyer (1951a)' => { 
     lang_target => 'alp',
@@ -7309,6 +7316,7 @@ our $dict = {
     path => 'Peckham_2003_Mairasi.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    strip => 'to',
   },
   'Penn (2006)' => {
     lang_target => 'gal',
@@ -7481,6 +7489,7 @@ our $dict = {
       [2, 'page_num'],
     ],
     mode => 'sense_per_row',
+    strip => 'to',
   },
   'Ray (2003b)' => {
     lang_target => 'Kala Lagaw Ya Mabuiag',
@@ -7507,6 +7516,7 @@ our $dict = {
       [18, 'page_num'],
     ],
     mode => 'sense_per_row',
+    strip => 'to',
   },
   'Ray (2003c)' => {
     lang_target => 'Kala Lagaw Ya Masig',
@@ -7605,6 +7615,7 @@ our $dict = {
       [3, 'nt'],
       [4, 'cf'],
     ],
+    strip => 'to',
   },
   'Reimer (1991)' => {
     lang_target => 'mqf',
@@ -7719,6 +7730,7 @@ our $dict = {
     path => 'Roesler_2011_CentralAsmat.txt',
     parser => 'Marker',
     lang_national => 'ind',
+    strip => 'to',
   },
   'Rosenberg (1878a)' => {
     lang_target => 'Gorontalo',
@@ -14955,6 +14967,7 @@ our $dict = {
       [1, 'gloss', 'eng'],
     ],
     split => ';',
+    strip => 'to',
   },
   'Wattimury et al. (1992)' => {
     lang_target => 'gbi',
@@ -15005,9 +15018,11 @@ our $dict = {
       [0, 'headword'],
       [1, 'gloss', 'ind'],
       [2, 'gloss', 'eng'],
-      [3, 'page_num'],
+      [3, 'rf'],
+      [4, 'page_num'],
     ],
     strip => 'to',
+    mode => 'sense_per_row',
   },
   'Whisler (2019)' => {
     lang_target => 'szw',
@@ -15105,6 +15120,7 @@ our $dict = {
     lang_target => 'kts',
     path => 'Zahrer_2023_Muyu.db',
     parser => 'Marker',
+    strip => 'to',
   },
   'Zielenbach (2022)' => {
     lang_target => 'mqs',
