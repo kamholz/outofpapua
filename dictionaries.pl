@@ -5609,6 +5609,19 @@ our $dict = {
     lang_national => 'ind',
     definition_action => 'merge',
   },
+  'Müller (1857a)' => { 
+    lang_target => 'Kamoro Utanata',
+    path => 'Müller_1857.xlsx',
+    parser => 'Spreadsheet',
+    skip => 2,
+    columns => [
+      [3, 'headword'], 
+      [0, 'gloss', 'ind'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'nld'],
+      [8, 'page_num'],
+    ],
+  },
   'Müller-Wismar (1912a)' => { 
     lang_target => 'Lawarang',
     path => 'Müller-Wismar_1912_Babar-lists.xlsx',
