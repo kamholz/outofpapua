@@ -828,7 +828,7 @@ our $dict = {
     lang_target => 'Abun Ye',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Abun Ye'
+    sheet => 'Abun Ye',
     columns => [
       [0, 'headword'],
       [1, 'va'],
@@ -844,7 +844,7 @@ our $dict = {
     lang_target => 'Abun Ji',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Abun Ji'
+    sheet => 'Abun Ji',
     columns => [
       [0, 'headword'],
       [1, 'ph'],
@@ -857,7 +857,7 @@ our $dict = {
     lang_target => 'Abun Tat',
     path => 'spreadsheets/Abun_BerryBerry1999_database_modified.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Abun Tat'
+    sheet => 'Abun Tat',
     columns => [
       [0, 'headword'],
       [1, 'ph'],
