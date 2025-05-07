@@ -1083,7 +1083,7 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
-  'Budiono (2023 a)' => {
+  'Budiono (2023a)' => {
     lang_target => 'Wabo Wabo',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1093,7 +1093,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 b)' => {
+  'Budiono (2023b)' => {
     lang_target => 'Wabo Korombobi',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1103,7 +1103,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 c)' => {
+  'Budiono (2023c)' => {
     lang_target => 'Wabo Wonsyupi',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1113,7 +1113,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 d)' => {
+  'Budiono (2023d)' => {
     lang_target => 'Wabo Wabompi',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1123,7 +1123,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 e)' => {
+  'Budiono (2023e)' => {
     lang_target => 'Wabo Nunsembai',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1133,7 +1133,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 f)' => {
+  'Budiono (2023f)' => {
     lang_target => 'Wabo Kerenuni',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1143,7 +1143,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 g)' => {
+  'Budiono (2023g)' => {
     lang_target => 'Wabo Duai',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
@@ -1153,7 +1153,7 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
-  'Budiono (2023 h)' => {
+  'Budiono (2023h)' => {
     lang_target => 'Wabo Barawai',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
