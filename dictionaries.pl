@@ -1163,6 +1163,66 @@ our $dict = {
       [2, 'gloss', 'ind'],
     ],
   },
+  'Budiono (2024a)' => {
+    lang_target => 'Wabo Waindu',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [10, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2024b)' => {
+    lang_target => 'Wabo Sewenui',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [11, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2024c)' => {
+    lang_target => 'Wabo Kororompui',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [12, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2024d)' => {
+    lang_target => 'Wabo Woda',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [13, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2024e)' => {
+    lang_target => 'Wabo Aisau',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [14, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2024f)' => {
+    lang_target => 'Wabo Sawendui',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [15, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
   'Burhanuddin (2017)' => {
     lang_target => 'Gebe',
     path => 'Burhanuddin_2017_Gebe.xlsx',
