@@ -92,7 +92,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Anakotta (2024)' => { #author name???
+  'Anakotta (2024)' => {
     lang_target => 'Moi Kilim',
     path => 'Anakotta_2024_MoiKilim.txt',
     parser => 'Marker',
@@ -3079,6 +3079,19 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Fortgens (nd)' => {
+    lang_target => 'Sahu Talai',
+    path => 'Fortgens_nd_Talai.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'max'],
+      [2, 'gloss', 'eng'],
+      [[3 .. 4], 'example', ['max']],
+      [[5 .. 6], 'example', ['max']],
+      [7, 'nt'],
+    ],
+  },
   'Fortgens (1905)' => {
     lang_target => 'ibu',
     path => 'Fortgens1905-Ibu.xlsx',
@@ -3091,6 +3104,7 @@ our $dict = {
     ],
     split => ';',
   },
+
   'Kotynski (nd)' => { #Fortgens 1917
     lang_target => 'Ternate',
     path => 'Fortgens_1917_Ternate.txt',
