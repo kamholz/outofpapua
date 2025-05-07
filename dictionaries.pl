@@ -3085,11 +3085,12 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [1, 'gloss', 'max'],
-      [2, 'gloss', 'eng'],
-      [[3 .. 4], 'example', ['max']],
-      [[5 .. 6], 'example', ['max']],
-      [7, 'nt'],
+      [1, 'pd'],
+      [2, 'gloss', 'max'],
+      [3, 'gloss', 'eng'],
+      [[4 .. 5], 'example', ['max']],
+      [[6 .. 7], 'example', ['max']],
+      [8, 'nt'],
     ],
   },
   'Fortgens (1905)' => {
