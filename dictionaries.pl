@@ -3079,7 +3079,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Fortgens (nd)' => {
+  'Fortgens & unknown (nd)' => {
     lang_target => 'Sahu Talai',
     path => 'Fortgens_nd_Talai.xlsx',
     parser => 'Spreadsheet',
