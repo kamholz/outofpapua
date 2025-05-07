@@ -1083,6 +1083,86 @@ our $dict = {
     multiple_example_rows => 1,
     strip => '(to)',
   },
+  'Budiono (2023 a)' => {
+    lang_target => 'Wabo Wabo',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [2, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 b)' => {
+    lang_target => 'Wabo Korombobi',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 c)' => {
+    lang_target => 'Wabo Wonsyupi',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 d)' => {
+    lang_target => 'Wabo Wabompi',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [5, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 e)' => {
+    lang_target => 'Wabo Nunsembai',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [6, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 f)' => {
+    lang_target => 'Wabo Kerenuni',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [7, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 g)' => {
+    lang_target => 'Wabo Duai',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [8, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
+  'Budiono (2023 h)' => {
+    lang_target => 'Wabo Barawai',
+    path => 'Budiono_Wabo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [9, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
   'Burhanuddin (2017)' => {
     lang_target => 'Gebe',
     path => 'Burhanuddin_2017_Gebe.xlsx',
