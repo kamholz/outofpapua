@@ -1089,8 +1089,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023b)' => {
@@ -1099,8 +1099,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023c)' => {
@@ -1109,8 +1109,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023d)' => {
@@ -1119,8 +1119,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [5, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023e)' => {
@@ -1129,8 +1129,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [6, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023f)' => {
@@ -1139,8 +1139,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [7, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023g)' => {
@@ -1149,8 +1149,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [8, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2023h)' => {
@@ -1159,8 +1159,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [9, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024a)' => {
@@ -1169,8 +1169,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [10, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024b)' => {
@@ -1179,8 +1179,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [11, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024c)' => {
@@ -1189,8 +1189,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [12, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024d)' => {
@@ -1199,8 +1199,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [13, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024e)' => {
@@ -1209,8 +1209,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [14, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Budiono (2024f)' => {
@@ -1219,8 +1219,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [15, 'headword'],
-      [1, 'gloss', 'eng'],
-      [2, 'gloss', 'ind'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
     ],
   },
   'Burhanuddin (2017)' => {
