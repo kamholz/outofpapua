@@ -7929,6 +7929,21 @@ our $dict = {
     definition_action => 'prefer',
     headword_citation_action => 'prefer_root'
   },
+  'Rødvand (2024)' => {
+    lang_target => 'Patani',
+    path => 'Rødvand_2024_Patani.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'ps'],
+      [3, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
+      [5, 'et'],
+      [6, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Rødvand (2025)' => { 
     lang_target => 'Patani',
     path => 'Rødvand_2025_Patani.db',
