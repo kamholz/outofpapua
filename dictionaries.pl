@@ -305,7 +305,7 @@ our $dict = {
     ],
   },
   'Anceaux (nd g)' => {
-    lang_target => 'Moraid',
+    lang_target => 'Salkma',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Moraid, list 431',
