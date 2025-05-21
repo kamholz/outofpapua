@@ -9,7 +9,7 @@ our $dict = {
     parser => 'Marker',
   },
   'Adriani & Kruijt (1914a)' => {
-    lang_target => 'mky', #East Makian
+    lang_target => 'Taba',
     path => 'Adriani, Kruijt 1914.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1002,7 +1002,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Bowden (2001)' => {
-    lang_target => 'East Makian',
+    lang_target => 'Taba',
     path => 'Bowden_2001_East-Makian.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -1951,7 +1951,7 @@ our $dict = {
     ],
   },
   'de Josselin de Jong (1937)' => {
-    lang_target => 'Oirata',
+    lang_target => 'Woirata',
     path => 'deJosselindeJong_1937_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -6164,7 +6164,7 @@ our $dict = {
     ],
   },
   'Müller-Wismar (1913)' => { 
-    lang_target => 'Oirata',
+    lang_target => 'Woirata',
     path => 'Müller-Wismar_1913_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -6238,7 +6238,7 @@ our $dict = {
     ],
   },
   'Nazarudin (2013)' => {
-    lang_target => 'Oirata',
+    lang_target => 'Woirata',
     path => 'Nazarudin_2013_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -6256,7 +6256,7 @@ our $dict = {
     ],
   },
   'Nazarudin (2014)' => {
-    lang_target => 'Oirata',
+    lang_target => 'Woirata',
     path => 'Nazarudin_2014_Oirata.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -12954,7 +12954,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian a)' => {
-    lang_target => 'East Makian Kayoa',
+    lang_target => 'Taba Kayoa',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -12966,7 +12966,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian b)' => {
-    lang_target => 'East Makian Mailoa',
+    lang_target => 'Taba Mailoa',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -12978,7 +12978,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian c)' => {
-    lang_target => 'East Makian Soma',
+    lang_target => 'Taba Soma',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -12990,7 +12990,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian d)' => {
-    lang_target => 'East Makian Tahane',
+    lang_target => 'Taba Tahane',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -13002,7 +13002,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian e)' => {
-    lang_target => 'East Makian Peleri-Samsuma',
+    lang_target => 'Taba Peleri-Samsuma',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -13014,7 +13014,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian f)' => {
-    lang_target => 'East Makian Ngofakiaha',
+    lang_target => 'Taba Ngofakiaha',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -13026,7 +13026,7 @@ our $dict = {
     split => '/',
   },
   'Teljeur (1982 East Makian g)' => {
-    lang_target => 'East Makian Ngofagita',
+    lang_target => 'Taba Ngofagita',
     path => 'spreadsheets/Teljeur.xlsx',
     parser => 'Spreadsheet',
     sheet => 'East Makian',
@@ -14065,7 +14065,7 @@ our $dict = {
     strip => 'to',
   },
   'van der Crab (1862l)' => {
-    lang_target => 'East Makian',
+    lang_target => 'Taba',
     path => 'van der Crab 1862.xlsx',
     parser => 'Spreadsheet',
     columns => [
