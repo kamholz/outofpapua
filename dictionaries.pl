@@ -13223,7 +13223,7 @@ our $dict = {
     split => '/',
   },
   'Tiilikka, Kalmbacher & Oguri (1996)' => {
-    lang_target => 'Koiwai',
+    lang_target => 'srl',
     path => 'TiilikkaKalmbacherOguri_1996_Isirawa.xlsx',
     parser => 'Spreadsheet',
     columns => [
