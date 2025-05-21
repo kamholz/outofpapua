@@ -7966,7 +7966,7 @@ our $dict = {
     lang_regional => 'pmy',
     strip => 'to',
   },
-  'Riesberg, Zöllner & Zöllner (2016)' => {
+  'Riesberg, Zöllner & Zöllner (2021)' => {
     lang_target => 'yli',
     path => 'Riesberg_2016_YaliAngguruk.txt',
     parser => 'Marker',
