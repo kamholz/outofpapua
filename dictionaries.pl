@@ -8,6 +8,18 @@ our $dict = {
     path => 'test.txt',
     parser => 'Marker',
   },
+  'Abisay et al. (1983)' => {
+    lang_target => 'Tabla',
+    path => 'Abisay_1983_Tabla.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [3, 'cf'],
+      [4, 'page_num'],
+    ],
+  },
   'Adriani & Kruijt (1914a)' => {
     lang_target => 'Taba',
     path => 'Adriani, Kruijt 1914.xlsx',
