@@ -344,7 +344,7 @@ our $dict = {
     ],
   },
   'Anceaux (nd j)' => {
-    lang_target => 'Moi Waipoe',
+    lang_target => 'Moi Waipu',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Waipoe, list 465',
