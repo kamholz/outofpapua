@@ -13285,10 +13285,9 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
-      [0, 'gloss', 'eng'],
-      [1, 'gloss', 'ind'],
-      [2, 'gloss', 'nld'],
-      [4, 'page_num'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'eng'],
+      [3, 'gloss', 'ind'],
     ],
   },
   'Trainor (nd)' => {
