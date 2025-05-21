@@ -889,6 +889,30 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Bink (1891a)' => {
+    lang_target => 'Wamesa Wandamen',
+    path => 'Bink_1891.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'ind'],
+      [5, 'page_num'],
+    ],
+  },
+  'Bink (1891b)' => {
+    lang_target => 'Biak',
+    path => 'Bink_1891.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'ind'],
+      [5, 'page_num'],
+    ],
+  },
   'Bink (1902)' => {
     lang_target => 'Tobati',
     path => 'Bink_1902_Tobati.xlsx',
@@ -7442,7 +7466,7 @@ our $dict = {
     mode => 'sense_per_row',
   },
   'Ottow & Croockewit (1862)' => {
-    lang_target => 'Biak',
+    lang_target => 'Biak Dorei',
     path => 'OttowCroockewit_1862_Biak.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -7450,6 +7474,7 @@ our $dict = {
       [0, 'gloss', 'nld'],
       [1, 'gloss', 'eng'],
       [2, 'gloss', 'ind'],
+      [4, 'page_num'],
     ],
   },
   'Peckham (1991a)' => {
