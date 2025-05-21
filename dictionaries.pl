@@ -7441,6 +7441,17 @@ our $dict = {
     ],
     mode => 'sense_per_row',
   },
+  'Ottow & Croockewit (1862)' => {
+    lang_target => 'Biak',
+    path => 'OttowCroockewit_1862_Biak.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'], 
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+    ],
+  },
   'Peckham (1991a)' => {
     lang_target => 'zrs',
     path => 'Mairasi_Comparative_List.xlsx',
