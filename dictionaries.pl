@@ -291,7 +291,7 @@ our $dict = {
     ],
   },
   'Anceaux (nd f)' => {
-    lang_target => 'kzz',
+    lang_target => 'Kalabra',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Kalabra, list 430',
@@ -305,7 +305,7 @@ our $dict = {
     ],
   },
   'Anceaux (nd g)' => {
-    lang_target => 'msg',
+    lang_target => 'Moraid',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Moraid, list 431',
@@ -344,7 +344,7 @@ our $dict = {
     ],
   },
   'Anceaux (nd j)' => {
-    lang_target => 'Moi Waipu',
+    lang_target => 'Moi Waipoe',
     path => 'spreadsheets/Anceaux archive materials, 360 lists.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Waipoe, list 465',
