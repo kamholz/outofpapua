@@ -4535,6 +4535,23 @@ our $dict = {
     ],
     split => ';',
   },
+  'Kamanassa, Wedelen & Tamindael (2018)' => {
+    lang_target => 'Woirata',
+    path => 'KamanassaWedelenTamindael_2018_Woirata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'ind'],
+      [3, 'gloss', 'eng'],
+      [4, 'cf'],
+      [5, 'nt'],
+      [[6 .. 7], 'example', ['ind']],
+      [[8 .. 9], 'example', ['ind']],
+      [10, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Kamholz (nd a)' => {
     lang_target => 'mhz',
     path => 'Kamholz/Moor.txt',
