@@ -6198,7 +6198,7 @@ our $dict = {
       [4, 'nt'],
     ],
   },
-  'Müller-Wismar (1913)' => { 
+  'Müller-Wismar (1913a)' => { 
     lang_target => 'Woirata',
     path => 'Müller-Wismar_1913_Oirata.xlsx',
     parser => 'Spreadsheet',
@@ -6209,6 +6209,20 @@ our $dict = {
       [3, 'gloss', 'eng'],
       [4, '1s'],
       [5, 'lt'],
+      [6, 'nt'],
+    ],
+  },
+  'Müller-Wismar (1913b)' => { 
+    lang_target => 'Meher',
+    path => 'Müller-Wismar_1913_Meher.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'deu'],
+      [3, 'gloss', 'ind'],
+      [4, 'sc'],
+      [5, 'xv'],
       [6, 'nt'],
     ],
   },
