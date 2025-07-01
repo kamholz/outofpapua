@@ -3308,15 +3308,14 @@ our $dict = {
   },
   'Forrest (1780)' => {
     lang_target => 'Biak Dorei',
-    path => 'Fortgens1905-Ibu.xlsx',
+    path => 'Forrest_1780_BiakDorei.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'headword'],
-      [2, 'gloss', 'eng'],
-      [1, 'gloss', 'nld'],
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
       [3, 'page_num'],
     ],
-    split => ';',
   },
   'Kotynski (nd)' => { #Fortgens 1917
     lang_target => 'Ternate',
