@@ -425,6 +425,28 @@ our $dict = {
     parser => 'Marker',
     skip_marker => ['lx_Seg', 'ps_Pap']
   },
+  'Arnold (2025a)' => {
+    lang_target => 'Proto-Maˈya',
+    path => 'Arnold_2025_Proto-Maya.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'gloss', 'eng'],
+      [5, 'nt'],
+      [6, 'page_num'],
+    ],
+  },
+  'Arnold (2025b)' => {
+    lang_target => 'Proto-Maˈya-Salawati',
+    path => 'Arnold_2025_Proto-Maya.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [2, 'gloss', 'eng'],
+      [5, 'nt'],
+      [6, 'page_num'],
+    ],
+  },
   'Baird (2003)' => {
     lang_target => 'Kafoa',
     path => 'Baird_2003_Kafoa.txt',
