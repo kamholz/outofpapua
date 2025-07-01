@@ -3093,7 +3093,7 @@ our $dict = {
     ],
   },
   'Elmberg (nd g)' => {
-    lang_target => 'Moi',
+    lang_target => 'mxn',
     path => 'Elmberg_nd.xlsx',
     sheet => 'Moi',
     parser => 'Spreadsheet',
@@ -4455,6 +4455,29 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Hueting (1934)' => {
+    lang_target => 'Tobelo',
+    path => 'Hueting_1934_Tobelo.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [o, 'subentry'],
+      [1, 'headword'],
+      [2, 'pd'],
+      [3, 'gloss', 'nld'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+      [6, 'sc'],
+      [[7 .. 8], 'example', ['nld']],
+      [[9 .. 10], 'example', ['nld']],
+      [[11 .. 12], 'example', ['nld']],
+      [13, 'et'],
+      [14, 'cf'],
+      [15, 'ue'],
+      [16, 'nt'],
+      [17, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+  },
   'Taylor (nd a)' => {
     lang_target => 'Tobelo',
     path => 'Hueting1908Tobelo.txt',
@@ -5003,7 +5026,7 @@ our $dict = {
     ],
   },
   'Kijne (nd k)' => {
-    lang_target => 'Kuri',
+    lang_target => 'nbn',
     path => 'Kijne_ndk_Kuri.xlsx',
     parser => 'Spreadsheet',
     columns => [
