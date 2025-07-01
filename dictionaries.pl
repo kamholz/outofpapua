@@ -5581,7 +5581,7 @@ our $dict = {
     ],
   },
   'Miedema (1984f)' => { 
-    lang_target => 'Etskebi Akari',
+    lang_target => 'Meyah Akari',
     path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -5601,7 +5601,7 @@ our $dict = {
     ],
   },
   'Miedema (1984h)' => { 
-    lang_target => 'Anason Akmuri',
+    lang_target => 'Moskona Akmuri',
     path => 'Miedema_1984.xlsx',
     parser => 'Spreadsheet',
     columns => [
