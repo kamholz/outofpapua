@@ -4460,7 +4460,7 @@ our $dict = {
     path => 'Hueting_1934_Tobelo.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [o, 'subentry'],
+      [0, 'subentry'],
       [1, 'headword'],
       [2, 'pd'],
       [3, 'gloss', 'nld'],
