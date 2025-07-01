@@ -431,7 +431,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [1, 'headword'],
-      [2, 'gloss', 'eng'],
+      [0, 'gloss', 'eng'],
       [5, 'nt'],
       [6, 'page_num'],
     ],
@@ -441,8 +441,30 @@ our $dict = {
     path => 'Arnold_2025_Proto-Maya.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [1, 'headword'],
-      [2, 'gloss', 'eng'],
+      [2, 'headword'],
+      [0, 'gloss', 'eng'],
+      [5, 'nt'],
+      [6, 'page_num'],
+    ],
+  },
+  'Arnold (2025c)' => {
+    lang_target => 'Proto-Salawati-Batta',
+    path => 'Arnold_2025_Proto-Maya.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [0, 'gloss', 'eng'],
+      [5, 'nt'],
+      [6, 'page_num'],
+    ],
+  },
+  'Arnold (2025d)' => {
+    lang_target => 'Proto-Maya',
+    path => 'Arnold_2025_Proto-Maya.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [0, 'gloss', 'eng'],
       [5, 'nt'],
       [6, 'page_num'],
     ],
