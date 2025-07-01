@@ -14627,11 +14627,8 @@ our $dict = {
   },
   'Visser (2020)' => {
     lang_target => 'kgv',
-    path => 'dictionaria-kalamang-5f28ae2',
-    parser => 'Dictionaria',
-    lang_other => {
-      alt_translation1 => 'ind',
-    },
+    path => 'Visser_2020_Kalamang.txt',
+    parser => 'Marker',
     strip => 'to',
   },
   'Visser (2023)' => {
