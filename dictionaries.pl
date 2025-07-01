@@ -7731,7 +7731,7 @@ our $dict = {
       [1, 'subentry'],
       [0, 'headword'],
       [2, 'gloss', 'eng'],
-      [3, 'de'],
+      [3, 'd_Eng'],
       [4, 'lt'],
       [5, 'nt'],
       [6, 'page_num'],
