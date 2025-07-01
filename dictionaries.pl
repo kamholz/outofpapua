@@ -459,7 +459,7 @@ our $dict = {
     ],
   },
   'Arnold (2025d)' => {
-    lang_target => 'Proto-Maya',
+    lang_target => 'Proto-Salawati-Misool Maˈya',
     path => 'Arnold_2025_Proto-Maya.xlsx',
     parser => 'Spreadsheet',
     columns => [
