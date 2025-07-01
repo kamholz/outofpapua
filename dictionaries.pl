@@ -1172,6 +1172,7 @@ our $dict = {
       [12, 'na'],
       [13, 'page_num'],
     ],
+    mode => 'sense_per_row',
   },
   'Budiman (2012)' => {
     lang_target => 'kax',
