@@ -5003,7 +5003,7 @@ our $dict = {
     ],
   },
   'Kijne (nd k)' => {
-    lang_target => 'Kuri',
+    lang_target => 'nbn',
     path => 'Kijne_ndk_Kuri.xlsx',
     parser => 'Spreadsheet',
     columns => [
