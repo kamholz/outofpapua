@@ -3026,6 +3026,83 @@ our $dict = {
       [6, 'page_num'],
     ],
   },
+  'Elmberg (nd a)' => {
+    lang_target => 'Maybrat',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Maybrat',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd b)' => {
+    lang_target => 'Tehit',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Tehit',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd c)' => {
+    lang_target => 'Kondo',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Kondo',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd d)' => {
+    lang_target => 'Salkma',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Salkma',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd e)' => {
+    lang_target => 'Miyah',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Miyah',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd f)' => {
+    lang_target => 'Abun',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Abun',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
+  'Elmberg (nd g)' => {
+    lang_target => 'Moi',
+    path => 'Elmberg_nd.xlsx',
+    sheet => 'Moi',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+      [2, 'page_num'],
+    ],
+  },
   'Erniati, Wahidah & Harlin (2017)' => {
     lang_target => 'htu',
     path => 'ErniatiWahidahHarlin_2017_Hitu.xlsx',
