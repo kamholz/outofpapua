@@ -3093,7 +3093,7 @@ our $dict = {
     ],
   },
   'Elmberg (nd g)' => {
-    lang_target => 'Moi',
+    lang_target => 'mxn',
     path => 'Elmberg_nd.xlsx',
     sheet => 'Moi',
     parser => 'Spreadsheet',
