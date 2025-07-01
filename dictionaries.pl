@@ -7867,7 +7867,7 @@ our $dict = {
     split => ';',
     strip => '(to)',
   },
-  'Pinto (2004)' => {
+  'Pinto (2004z)' => {
     lang_target => 'Makalero',
     path => 'Pinto_2004_Makalero.xlsx',
     parser => 'Spreadsheet',
@@ -7880,6 +7880,13 @@ our $dict = {
       [5, 'nt'],
       [6, 'page_num'],
     ],
+    definition_action => 'merge',
+    strip => 'to',
+  },
+  'Pinto (2004)' => {
+    lang_target => 'Makalero',
+    path => 'Pinto_2004_Makalero.txt',
+    parser => 'Marker',
     definition_action => 'merge',
     strip => 'to',
   },
