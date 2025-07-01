@@ -8643,7 +8643,7 @@ our $dict = {
     definition_action => 'merge',
   },
   'Schapper (2022b)' => {
-    lang_target => 'Karon Senopi',
+    lang_target => 'Miyah Senopi',
     path => 'Schapper_2022_KaronSenopi.txt',
     parser => 'Marker',
     lang_national => 'ind',
