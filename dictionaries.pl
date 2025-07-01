@@ -14246,6 +14246,28 @@ our $dict = {
     parser => 'Marker',
     lang_national => 'ind',
   },
+  'van den Berg (2020)' => {
+    lang_target => 'Busoa',
+    path => 'vandenBerg_2020_Busoa.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [3, 'ps'],
+      [4, 'sn'],
+      [5, 'gloss', 'eng'],
+      [6, 'gloss', 'ind'],
+      [7, 'et'],
+      [8, 'va'],
+      [9, 'sy'],
+      [[10 .. 12], 'example', ['eng', 'ind']],
+      [[13 .. 15], 'example', ['eng', 'ind']],
+      [[16 .. 18], 'example', ['eng', 'ind']],
+      [19, 'cf'],
+      [2, 'page_num',]
+    ],
+    mode => 'sense_per_row',
+  },
   'van den Berg & Sidu Marafad (2016)' => {
     lang_target => 'mnb',
     path => 'webonary/muna/*.html',
