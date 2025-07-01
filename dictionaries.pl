@@ -3049,7 +3049,7 @@ our $dict = {
     ],
   },
   'Elmberg (nd c)' => {
-    lang_target => 'Kondo',
+    lang_target => 'Konda',
     path => 'Elmberg_nd.xlsx',
     sheet => 'Kondo',
     parser => 'Spreadsheet',
