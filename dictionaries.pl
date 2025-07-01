@@ -3311,7 +3311,7 @@ our $dict = {
     path => 'Forrest_1780_BiakDorei.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [3, 'headword'],
+      [2, 'headword'],
       [0, 'gloss', 'eng'],
       [1, 'gloss', 'ind'],
       [3, 'page_num'],
