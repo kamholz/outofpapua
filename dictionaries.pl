@@ -5015,7 +5015,7 @@ our $dict = {
     lang_target => 'Roon',
     path => 'Kijne_nd_Roon-Dusner.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Ron-Dusner I',
+    sheet => 'Ron-Dusner',
     columns => [
       [3, 'headword'],
       [0, 'gloss', 'nld'],
@@ -5031,7 +5031,7 @@ our $dict = {
     lang_target => 'Dusner',
     path => 'Kijne_nd_Roon-Dusner.xlsx',
     parser => 'Spreadsheet',
-    sheet => 'Ron-Dusner I',
+    sheet => 'Ron-Dusner',
     columns => [
       [4, 'headword'],
       [0, 'gloss', 'nld'],
