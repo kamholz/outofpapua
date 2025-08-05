@@ -5479,6 +5479,15 @@ our $dict = {
     ],
     strip => 'to',
   },
+  'Loski & Loski (bty)' => {
+    lang_target => 'mnx',
+    path => 'Loski_1989_Bati.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'gloss', 'eng'],
+    ],
+  },
   'Lunow (nd)' => {
     lang_target => 'mnx',
     path => 'spreadsheets/Lunow_Sougb_list_Version2.xlsx',
