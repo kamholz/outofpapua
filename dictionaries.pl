@@ -14367,6 +14367,7 @@ our $dict = {
     lang_target => 'ahh',
     path => 'vandenHeuvel_2016_Aghu.txt',
     parser => 'Marker',
+    skip_marker => ['a', 'cp', 'dr', 'ee', 'fr', 'pf', 'prm', 'rf', 'rm', 'sf',  'tr', 'u', 'wl'],
   },
   'van den Heuvel (2023)' => {
     lang_target => 'Kurudu',
