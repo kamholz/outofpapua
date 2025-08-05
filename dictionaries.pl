@@ -2473,6 +2473,7 @@ our $dict = {
       [[16 .. 17], 'example', ['nld']],
       [2, 'page_num'],
     ],
+    strip => 'to',
   },
   'Drabbe (1949a)' => {
     lang_target => 'kig',
@@ -4648,6 +4649,16 @@ our $dict = {
       [[4 .. 5], 'example', ['ind']],
     ],
     mode => 'sense_per_row',
+  },
+  'Jackson (2014)' => { 
+    lang_target => 'Irarutu Fruata',
+    path => 'Jackson_2014_IrarutuFruata.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'note'],
+    ],
   },
   'Jendraschek (2007)' => { #not ingested
     lang_target => 'ian',
