@@ -5485,7 +5485,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [0, 'headword'],
-      [2, 'gloss', 'eng'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'Lunow (nd)' => {
