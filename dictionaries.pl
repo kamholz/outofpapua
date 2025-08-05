@@ -5178,6 +5178,11 @@ our $dict = {
     skip_marker => ['re', 'rr', 'rn'],
     headword_preprocess => sub { s/^ø-//r },
   },
+  'Krausse (2025)' => {
+    lang_target => 'mxn',
+    path => 'Krausse_2025_Moi.db',
+    parser => 'Marker',
+  },
   'Kroon (2016)' => { #not ingested, error
     lang_target => 'slp',
     path => 'Kroon_2016_LamaholotSolor.xlsx',
@@ -5917,6 +5922,11 @@ our $dict = {
       [0, 'gloss', 'eng'],
       [15, 'page_num'],
     ],
+  },
+  'Milano (2025)' => {
+    lang_target => 'Arguni',
+    path => 'Milano_2025_Arguni.txt',
+    parser => 'Marker',
   },
   'Modera (1830a)' => { 
     lang_target => 'Kamoro Utanata',
