@@ -1284,7 +1284,7 @@ our $dict = {
     ],
   },
   'Budiono (2023f)' => {
-    lang_target => 'Wabo Kerenuni',
+    lang_target => 'Wabo Kerenui',
     path => 'Budiono_Wabo.xlsx',
     parser => 'Spreadsheet',
     columns => [
