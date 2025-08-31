@@ -1,4 +1,4 @@
-@import 'src/mixins.scss';
+@use 'src/mixins' as *;
 
 * {
   margin: 0;
