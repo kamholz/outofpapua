@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { cookieStorage, persist } from '@macfja/svelte-persistent-store';
+import { createCookieStorage, persist } from '@macfja/svelte-persistent-store';
 import { defaultPreferences } from '$lib/preferences';
 import { derived, readable, writable } from 'svelte/store';
 import { page } from '$app/stores';
@@ -26,7 +26,7 @@ export function getPreferences(data) {
       },
     };
   } else if (browser) {
-    const preferences = persist(writable(defaultPreferences), cookieStorage(), 'preferences');
+    const preferences = persist(writable(defaultPreferences), createCookieStorage(), 'preferences');
     preferences.update(($preferences) => ({ ...defaultPreferences, ...$preferences }));
     return {
       subscribe: preferences.subscribe,
