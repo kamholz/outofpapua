@@ -99,12 +99,12 @@ const entryNotesPost4 = [
   },
   {
     key: 'etymology',
-    label: 'Etymology',
+    label: 'Origin',
     join: false,
   },
   {
     key: 'etymologyComment',
-    label: 'Etymology comment',
+    label: 'Origin comment',
     join: false,
   },
   {
