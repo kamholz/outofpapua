@@ -4,7 +4,18 @@ import { normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
 
-const boolean = new Set(['note', 'descendants', 'orthography', 'ipa', 'borrowed', 'ancestors', 'ancestor_glosses', 'set_note']);
+const boolean = new Set([
+  'note',
+  'descendants',
+  'orthography',
+  'ipa',
+  'descendant_source',
+  'descendant_note',
+  'borrowed',
+  'ancestors',
+  'ancestor_glosses',
+  'set_note'
+]);
 
 const defaults = {
   note: false,

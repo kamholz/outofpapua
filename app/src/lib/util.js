@@ -328,6 +328,10 @@ export function originSummary(entry) {
   return origin;
 }
 
+export function referenceInParens(source) {
+  return '(' + source.reference.replace(/[()]/g, '') + ')';
+}
+
 // misc
 
 export function capitalizeFirstLetter(txt) {

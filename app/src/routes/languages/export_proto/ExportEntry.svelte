@@ -32,7 +32,7 @@
 
       {#if $settings.set_note && set.note}
         <div class="note">
-          <span class="label">Note:</span>&nbsp;{set.note}
+          <span class="label">Note:</span> {set.note}
         </div>
       {/if}
     </div>
