@@ -23,6 +23,11 @@
       options: langSuggest,
     },
     {
+      name: 'headword',
+      label: 'Headword',
+      type: 'text',
+    },
+    {
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
