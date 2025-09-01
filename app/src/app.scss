@@ -99,6 +99,10 @@ form {
   margin-block-start: var(--item-sep);
 }
 
+.lang {
+  font-style: italic;
+}
+
 .borrowed {
   color: #dc143c; // crimson
   a {

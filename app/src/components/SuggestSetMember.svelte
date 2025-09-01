@@ -2,7 +2,7 @@
   import Svelecte from '$lib/svelecte';
   import { createEventDispatcher, getContext } from 'svelte';
   const dispatch = createEventDispatcher();
-  import { escapeHtml as escape, toolboxMarkup } from '$lib/util';
+  import { escapeHtml as escape } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
   export let match;
@@ -21,7 +21,7 @@
     if (senses.length) {
       output += '<div>';
       for (const sense of senses) {
-        output += `<div>${toolboxMarkup(sense)}</div>`;
+        output += `<div>${sense}</div>`;
       }
       output += '</div>';
     } else {

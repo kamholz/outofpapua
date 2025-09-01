@@ -1,7 +1,7 @@
 <script>
   import Reflex from '$components/Reflex.svelte';
   import ReflexIPA from '$components/ReflexIPA.svelte';
-  import { capitalizeFirstLetter, maybeEngGlosses, toolboxMarkup } from '$lib/util';
+  import { capitalizeFirstLetter, maybeEngGlosses } from '$lib/util';
 
   export let set;
   export let ipaFunctions;
@@ -45,7 +45,7 @@
     {#if entry.headword_ipa}
       <ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />
     {/if}
-    {@html toolboxMarkup(maybeEngGlosses(entry.senses))} {reference(source)}
+    {@html maybeEngGlosses(entry.senses)} {reference(source)}
     {#if entry.origin}
       <strong>{origin(entry)}</strong>
     {/if}

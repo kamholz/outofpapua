@@ -228,7 +228,7 @@ export function glossSummaryNoLanguage({ txt }) {
 }
 
 export function joinGlosses(txt) {
-  return txt.join(', ');
+  return txt.map(toolboxMarkup).join(', ');
 }
 
 export function truncateGloss(txt, maxLength) {
@@ -264,7 +264,7 @@ export function maybeEngGlosses(senses) {
 
 export function maybeLanguageName(language_code, preferences) {
   return language_code && preferences?.showGlossLang
-    ? ` (${language_code})`
+    ? ` <span class="lang">(${language_code})</span>`
     : '';
 }
 

@@ -83,7 +83,7 @@
         margin-inline-start: 36px;
       }
 
-      .pos, .label, .lang {
+      .pos, .label {
         font-style: italic;
       }
 
