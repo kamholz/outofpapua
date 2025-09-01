@@ -76,7 +76,7 @@
     margin-block: var(--item-sep);
   }
 
-  .link {
-    margin-block-end: var(--item-sep);
-  }
+  // .link {
+  //   margin-block-end: var(--item-sep);
+  // }
 </style>

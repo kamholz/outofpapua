@@ -1,8 +1,9 @@
 import path from 'path';
+import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 
 /** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
   plugins: [
     sveltekit(),
   ],
@@ -16,6 +17,4 @@ const config = {
   server: {
     port: 3000,
   },
-};
-
-export default config;
+});

@@ -115,9 +115,9 @@
 {/if}
 
 <style lang="scss">
-  hr {
-    margin-block-start: var(--item-sep);
-  }
+  // hr {
+  //   margin-block-start: var(--item-sep);
+  // }
 
   .container {
     display: inline-block;
