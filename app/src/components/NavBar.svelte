@@ -47,7 +47,7 @@
   let active = false;
 
   function getTabs() {
-    const user = { $session };
+    const user = $session.user;
 
     if (user) {
       if (isContributor(user)) {
