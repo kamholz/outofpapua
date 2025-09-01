@@ -25,6 +25,7 @@ export const GET = requireAuth(async ({ params }) => {
       const descendants = new Set(language.descendants || []);
 
       const q = trx('entry')
+        .join('source', 'source.id', 'entry.source_id')
         .joinRaw(`
           JOIN LATERAL (
             SELECT json_agg(
@@ -53,6 +54,7 @@ export const GET = requireAuth(async ({ params }) => {
           'entry.id',
           'entry.headword',
           'entry.senses',
+          'source.reference as source_reference',
           's.sets'
         )
         .orderBy('entry.headword_degr')

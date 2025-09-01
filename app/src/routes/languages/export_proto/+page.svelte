@@ -76,57 +76,78 @@
 
     <div class="columns">
       <div>
-        <div class="checkbox">
-          <input type="checkbox" bind:checked={$settings.note} name="note" id="note">
-          <label for="note">Show proto-form note</label>
+        <div class="row heading">
+          Show forms:
         </div>
 
-        <div class="checkbox">
+        <div class="row">
           <input type="checkbox" bind:checked={$settings.descendants} name="descendants" id="descendants">
-          <label for="descendants">Show descendant forms</label>
+          <label for="descendants">Descendant forms</label>
         </div>
 
         <div class="indent">
-          <div class="checkbox">
+          <div class="row">
             <input type="checkbox" bind:checked={$settings.orthography} name="orthography" id="orthography" disabled={!$settings.descendants || !$settings.ipa}>
             <label for="orthography">Show orthography</label>
           </div>
-          <div class="checkbox">
+          <div class="row">
             <input type="checkbox" bind:checked={$settings.ipa} name="ipa" id="ipa" disabled={!$settings.descendants || !$settings.orthography}>
             <label for="ipa">Show IPA</label>
           </div>
         </div>
 
-        <div class="checkbox">
+        <div class="row">
           <input type="checkbox" bind:checked={$settings.borrowed} name="borrowed" id="borrowed">
-          <label for="borrowed">Show borrowed forms</label>
-        </div>
-      </div>
-
-      <div>
-        <div class="checkbox">
-          <input type="checkbox" bind:checked={$settings.descendant_source} name="descendant_source" id="descendant_source" disabled={!$settings.descendants && !$settings.borrowed}>
-          <label for="descendant_source">Show descendant/borrowed form source</label>
-        </div>
-        <div class="checkbox">
-          <input type="checkbox" bind:checked={$settings.descendant_note} name="descendant_note" id="descendant_note" disabled={!$settings.descendants && !$settings.borrowed}>
-          <label for="descendant_note">Show descendant/borrowed form  note</label>
+          <label for="borrowed">Borrowed forms</label>
         </div>
 
-        <div class="checkbox">
+        <div class="row">
           <input type="checkbox" bind:checked={$settings.ancestors} name="ancestors" id="ancestors">
-          <label for="ancestors">Show ancestor forms</label>
+          <label for="ancestors">Ancestor forms</label>
         </div>
 
         <div class="indent">
-          <div class="checkbox">
+          <div class="row">
             <input type="checkbox" bind:checked={$settings.ancestor_glosses} name="ancestor_glosses" id="ancestor_glosses" disabled={!$settings.ancestors}>
             <label for="ancestor_glosses">Show glosses</label>
           </div>
         </div>
-        <div class="checkbox">
+      </div>
+
+      <div>
+        <div class="row heading">
+          Show source for:
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.source} name="source" id="source">
+          <label for="source">Proto-forms</label>
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.descendant_source} name="descendant_source" id="descendant_source" disabled={!$settings.descendants && !$settings.borrowed}>
+          <label for="descendant_source">Descendant/borrowed forms</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="row heading">
+          Show note for:
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.note} name="note" id="note">
+          <label for="note">Proto-forms</label>
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.descendant_note} name="descendant_note" id="descendant_note" disabled={!$settings.descendants && !$settings.borrowed}>
+          <label for="descendant_note">Descendant/borrowed forms</label>
+        </div>
+
+        <div class="row">
           <input type="checkbox" bind:checked={$settings.set_note} name="set_note" id="set_note">
-          <label for="set_note">Show set note</label>
+          <label for="set_note">Set</label>
         </div>
       </div>
     </div>
@@ -145,12 +166,11 @@
   }
 
   .columns {
-    margin-inline-start: 20px;
     display: flex;
-    gap: 30px;
+    gap: 40px;
   }
 
-  .checkbox {
+  .row {
     display: flex;
     margin-block-start: 10px;
 
@@ -161,6 +181,10 @@
 
   .indent {
     margin-inline-start: 20px;
+  }
+
+  .heading {
+    font-style: italic;
   }
 
   @include hr;

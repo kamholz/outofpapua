@@ -20,7 +20,7 @@
 
 <!-- <p>
   {#if nameEntry}
-    {nameEntry.language.name} <strong>{nameEntry.headword}</strong>{gloss} {referenceInParens(nameEntry.source)}
+    {nameEntry.language.name} <strong>{nameEntry.headword}</strong>{gloss} {referenceInParens(nameEntry.source.reference)}
   {:else}
     Set: {set.name_auto.txt}
   {/if}
@@ -41,7 +41,7 @@
     {#if entry.headword_ipa}
       <ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />
     {/if}
-    {@html maybeEngGlosses(entry.senses)} {referenceInParens(source)}
+    {@html maybeEngGlosses(entry.senses)} {referenceInParens(source.reference)}
     {#if entry.origin}
       <strong>{origin(entry)}</strong>
     {/if}

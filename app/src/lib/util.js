@@ -328,8 +328,8 @@ export function originSummary(entry) {
   return origin;
 }
 
-export function referenceInParens(source) {
-  return '(' + source.reference.replace(/[()]/g, '') + ')';
+export function referenceInParens(reference) {
+  return '(' + reference.replace(/[()]/g, '') + ')';
 }
 
 // misc

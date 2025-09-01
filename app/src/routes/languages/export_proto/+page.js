@@ -5,16 +5,17 @@ import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
 
 const boolean = new Set([
-  'note',
-  'descendants',
-  'orthography',
-  'ipa',
-  'descendant_source',
-  'descendant_note',
-  'borrowed',
-  'ancestors',
   'ancestor_glosses',
-  'set_note'
+  'ancestors',
+  'borrowed',
+  'descendant_note',
+  'descendant_source',
+  'descendants',
+  'ipa',
+  'note',
+  'orthography',
+  'source',
+  'set_note',
 ]);
 
 const defaults = {
