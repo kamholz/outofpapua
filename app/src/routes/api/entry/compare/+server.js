@@ -1,4 +1,4 @@
-import { applyPageParams, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIdsSet,
+import { applyPageParams, applySetParam, arrayCmp, filterGlosslang, filterPublicSources, getCountDistinct, getLanguageIdsSet,
   knex, setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams,
@@ -8,16 +8,17 @@ import { errorStrings, jsonError } from '$lib/error';
 import { nfc } from '../params';
 import { requireContributor } from '$lib/auth';
 
-const allowed = new Set(['gloss', 'glosslang', 'headword', 'lang1', 'lang2', 'loose', 'page', 'pagesize']);
+const allowed = new Set(['gloss', 'glosslang', 'headword', 'lang1', 'lang2', 'loose', 'page', 'pagesize', 'set']);
 const arrayNumParams = new Set(['glosslang']);
 const arrayParams = new Set(['lang1', 'lang2']);
 const booleanParams = new Set(['loose']);
 const defaults = {
   page: 1,
   pagesize: defaultPreferences.listPageSize,
+  set: 'both',
 };
 
-function makeQuery(q, { filterHeadwordGloss, lang, locals, query }) {
+function makeQuery(q, { isLang1, lang, locals, query }) {
   q = q
     .from('entry')
     .join('source', 'source.id', 'entry.source_id')
@@ -26,7 +27,7 @@ function makeQuery(q, { filterHeadwordGloss, lang, locals, query }) {
     .where('source.language_id', arrayCmp(lang));
   filterPublicSources(q, locals);
 
-  if (filterHeadwordGloss) {
+  if (isLang1) {
     if ('headword' in query) {
       q.where('entry.headword', '~*', mungeRegex(query.headword));
     }
@@ -34,6 +35,8 @@ function makeQuery(q, { filterHeadwordGloss, lang, locals, query }) {
     if ('gloss' in query) {
       q.where('sense_gloss.txt', '~*', query.gloss);
     }
+
+    applySetParam(q, query);
   }
 
   if ('glosslang' in query) {
@@ -107,8 +110,8 @@ export const GET = requireContributor(async ({ locals, url: { searchParams } }) 
   }
 
   const subq = knex
-    .with('lang1', (cte) => makeCte(cte, { filterHeadwordGloss: true, lang: lang1, locals, query }))
-    .with('lang2', (cte) => makeCte(cte, { filterHeadwordGloss: false, lang: lang2, locals, query }))
+    .with('lang1', (cte) => makeCte(cte, { isLang1: true, lang: lang1, locals, query }))
+    .with('lang2', (cte) => makeCte(cte, { isLang1: false, lang: lang2, locals, query }))
     .from('lang1')
     .leftJoin('lang2', function () {
       this.on('lang2.language_id', 'lang1.language_id');
@@ -160,7 +163,7 @@ export const GET = requireContributor(async ({ locals, url: { searchParams } }) 
   .orderByRaw('entry.headword_degr')
   .orderByRaw('entry.headword');
 
-  const rowCount = await getCountDistinct(makeQuery(knex, { filterHeadwordGloss: true, lang: lang1, locals, query }), 'entry.id');
+  const rowCount = await getCountDistinct(makeQuery(knex, { isLang1: true, lang: lang1, locals, query }), 'entry.id');
   const pageCount = applyPageParams(q, query, rowCount);
 
   const rows = await q;

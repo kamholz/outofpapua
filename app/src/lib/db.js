@@ -89,16 +89,7 @@ export async function getCountDistinct(q, col) {
 
 export function applyEntrySearchParams(q, query) {
   applyHeadwordGlossSearchParams(q, query);
-
-  if (query.set === 'linked') {
-    q.whereExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  } else if (query.set === 'unlinked') {
-    q.whereNotExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  }
+  applySetParam(q, query);
 
   if (query.origin === 'inherited' || query.origin === 'borrowed' || query.origin === 'mixed') {
     q.where('entry.origin', query.origin);
@@ -114,6 +105,18 @@ export function applyEntrySearchParams(q, query) {
       this.select('*').from('record_row')
         .where('record_row.id', knex.ref('entry.record_id'))
         .where('record_row.value', '~*', mungeRegex(query.record));
+    });
+  }
+}
+
+export function applySetParam(q, { set }) {
+  if (set === 'linked') {
+    q.whereExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
+  } else if (set === 'unlinked') {
+    q.whereNotExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
     });
   }
 }
