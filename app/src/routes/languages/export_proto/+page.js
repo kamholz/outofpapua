@@ -6,6 +6,7 @@ import * as suggest from '$actions/suggest';
 
 const boolean = new Set([
   'ancestor_glosses',
+  'ancestor_source',
   'ancestors',
   'borrowed',
   'descendant_note',
@@ -14,18 +15,25 @@ const boolean = new Set([
   'ipa',
   'note',
   'orthography',
-  'source',
+  'outcomparison',
   'set_note',
+  'source',
 ]);
 
 const defaults = {
-  note: false,
-  descendants: true,
-  orthography: true,
-  ipa: true,
-  borrowed: false,
-  ancestors: false,
   ancestor_glosses: false,
+  ancestor_source: false,
+  ancestors: false,
+  borrowed: false,
+  descendant_note: false,
+  descendant_source: true,
+  descendants: true,
+  ipa: true,
+  note: true,
+  orthography: true,
+  outcomparison: false,
+  set_note: true,
+  source: true,
 };
 
 export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => {

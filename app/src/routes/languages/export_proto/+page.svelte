@@ -26,11 +26,16 @@
 
   function init() {
     $settings = {
-      descendants: data.query.descendants,
-      orthography: data.query.orthography,
-      ipa: data.query.ipa,
-      borrowed: data.query.borrowed,
+      ancestor_glosses: data.query.ancestor_glosses,
       ancestors: data.query.ancestors,
+      borrowed: data.query.borrowed,
+      descendant_note: data.query.descendant_note,
+      descendant_source: data.query.descendant_source,
+      descendants: data.query.descendants,
+      ipa: data.query.ipa,
+      orthography: data.query.orthography,
+      set_note: data.query.set_note,
+      source: data.query.source,
     };
 
     if (browser && data.query.protolang) {
@@ -102,6 +107,11 @@
         </div>
 
         <div class="row">
+          <input type="checkbox" bind:checked={$settings.outcomparison} name="outcomparison" id="outcomparison">
+          <label for="outcomparison">Outcomparisons</label>
+        </div>
+
+        <div class="row">
           <input type="checkbox" bind:checked={$settings.ancestors} name="ancestors" id="ancestors">
           <label for="ancestors">Ancestor forms</label>
         </div>
@@ -125,8 +135,13 @@
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.descendant_source} name="descendant_source" id="descendant_source" disabled={!$settings.descendants && !$settings.borrowed}>
-          <label for="descendant_source">Descendant/borrowed forms</label>
+          <input type="checkbox" bind:checked={$settings.descendant_source} name="descendant_source" id="descendant_source" disabled={!$settings.descendants && !$settings.borrowed && !$settings.outcomparison}>
+          <label for="descendant_source">Attested forms</label>
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.ancestor_source} name="ancestor_source" id="ancestor_source" disabled={!$settings.ancestors}>
+          <label for="ancestor_source">Ancestor forms</label>
         </div>
       </div>
 
@@ -141,8 +156,8 @@
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.descendant_note} name="descendant_note" id="descendant_note" disabled={!$settings.descendants && !$settings.borrowed}>
-          <label for="descendant_note">Descendant/borrowed forms</label>
+          <input type="checkbox" bind:checked={$settings.descendant_note} name="descendant_note" id="descendant_note" disabled={!$settings.descendants && !$settings.borrowed && !$settings.outcomparison}>
+          <label for="descendant_note">Attested forms</label>
         </div>
 
         <div class="row">
