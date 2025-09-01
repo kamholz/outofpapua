@@ -30,6 +30,7 @@ export const GET = requireAuth(async ({ params }) => {
             SELECT json_agg(
               json_build_object(
                 'id', set.id,
+                'note', set.note,
                 'name', ${name_auto},
                 'author_name', sd.author_name,
                 'members', sd.members

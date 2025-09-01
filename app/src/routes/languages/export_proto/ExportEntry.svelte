@@ -29,6 +29,12 @@
           {/each}
         {/if}
       </div>
+
+      {#if $settings.set_note && set.note}
+        <div class="note">
+          <span class="label">Note:</span>&nbsp;{set.note}
+        </div>
+      {/if}
     </div>
   {/each}
 {:else}
@@ -48,8 +54,12 @@
     font-weight: bold;
   }
 
-  .members {
+  .members, .note {
     margin-block-start: 8px;
     margin-inline-start: 24px;
+  }
+
+  .label {
+    font-style: italic;
   }
 </style>

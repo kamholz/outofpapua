@@ -111,6 +111,10 @@
         <label for="ancestor_glosses">Show glosses</label>
       </div>
     </div>
+    <div class="checkbox">
+      <input type="checkbox" bind:checked={$settings.set_note} name="set_note" id="set_note">
+      <label for="set_note">Show set note</label>
+    </div>
   </div>
   <hr>
   {#each entries as entry}
