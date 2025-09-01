@@ -26,7 +26,7 @@
         {#if $settings.borrowed && set.members.borrowed.length}
           <div class="heading">Borrowings:</div>
           {#each set.members.borrowed as member}
-            <ExportSetMember {member} {ipaFunctions} />
+            <ExportSetMember {member} {ipaFunctions} showOrigin={$settings.borrowed_origin} />
           {/each}
         {/if}
 
