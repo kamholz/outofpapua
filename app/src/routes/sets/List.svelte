@@ -3,7 +3,7 @@
   import ListControls from './ListControls.svelte';
   import ListItem from './ListItem.svelte';
   import Paginator from '$components/Paginator.svelte';
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   import { goto } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
@@ -13,7 +13,6 @@
   export let rows;
   export let query;
   export let pageCount;
-  const editable = getContext('editable');
   const collapsedRows = rows.map(() => false);
   let selection = new Set();
   let promise;

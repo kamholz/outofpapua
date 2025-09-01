@@ -36,7 +36,7 @@
     <TableControls
       bind:row
       {controls}
-      on:delete 
+      on:delete
       on:select
       on:link
     />

@@ -38,7 +38,7 @@
       label: 'Looser matching',
       type: 'checkbox',
     },
-];
+  ];
 
   function handleValidation(e) {
     const { form, values } = e.detail;

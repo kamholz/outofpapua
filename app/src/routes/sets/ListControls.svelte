@@ -1,6 +1,5 @@
 <script>
-  import { createEventDispatcher, getContext } from 'svelte';
-  const dispatch = createEventDispatcher();
+  import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
 
   export let collapseAll;

@@ -1,5 +1,5 @@
 import path from 'path';
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 /** @type {import('vite').UserConfig} */

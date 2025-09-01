@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import { login, logout } from '$actions/auth';
   import { pageLoading, session } from '$lib/stores';
-  
+
   export let username;
   let password;
   let promise;
@@ -32,7 +32,7 @@
 
 <div class="login">
   {#if promise}
-    {#await promise catch { message} }
+    {#await promise catch { message }}
       <span class="error">{message}</span>
     {/await}
   {/if}

@@ -2,7 +2,7 @@ import { applyPageParams, applySortParams, arrayCmp, getCount, getLanguageIds, k
   setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { errorStrings, jsonError } from '$lib/error';
-import { getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams,parseArrayParams,
+import { getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
 

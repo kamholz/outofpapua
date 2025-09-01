@@ -12,7 +12,7 @@
   import { formDisplayValue, nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
-  
+
   export let fields;
   export let values = {};
   export let submitLabel = null;
@@ -170,7 +170,7 @@
           &[type="checkbox"] {
             justify-self: start;
           }
-        }      
+        }
       }
     }
 

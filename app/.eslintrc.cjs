@@ -1,3 +1,9 @@
+const svelteIgnore = new Set([
+  'a11y-click-events-have-key-events',
+  'a11y-no-static-element-interactions',
+  'unused-export-let',
+]);
+
 module.exports = {
   root: true,
   extends: [
@@ -85,6 +91,6 @@ module.exports = {
   },
   settings: {
     'svelte/ignore-styles': (attrs) => attrs.lang && attrs.lang === 'scss',
-    'svelte/ignore-warnings': ({ code }) => ['a11y-click-events-have-key-events', 'unused-export-let'].includes(code),
+    'svelte/ignore-warnings': ({ code }) => svelteIgnore.has(code),
   },
 };

@@ -4,7 +4,7 @@
   import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
-  
+
   export let rows;
   export let query;
   export let showLanguagesWithNoEntries;

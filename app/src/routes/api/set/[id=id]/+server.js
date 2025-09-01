@@ -3,7 +3,7 @@ import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { getFilteredParams, isIdArray, showPublicOnly } from '$lib/util';
 import { knex, name_auto, pgError, setTransactionUser } from '$lib/db';
-import { requireContributor, requireComparative } from '$lib/auth';
+import { requireComparative, requireContributor } from '$lib/auth';
 
 export const GET = requireComparative(async ({ locals, params }) => {
   const publicOnly = showPublicOnly(locals);
