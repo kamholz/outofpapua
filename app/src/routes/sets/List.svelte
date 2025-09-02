@@ -68,9 +68,6 @@
   <hr>
 {/each}
 
-<ListControls {collapseAll} {handleAutocompare} {handleMerge} {handleMap} {selection} />
-<hr>
-
 {#if pageCount > 1}
   <Paginator {query} {pageCount} />
 {/if}
