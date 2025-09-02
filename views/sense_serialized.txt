@@ -11,7 +11,7 @@ FROM sense
 LEFT JOIN LATERAL (
   SELECT json_agg(json_build_array(sense_gloss.txt, language.iso6393) ORDER BY sense_gloss.seq) as gloss
   FROM sense_gloss
-  JOIN language language.id = sense_gloss.language_id
+  JOIN language ON language.id = sense_gloss.language_id
   WHERE sense_gloss.sense_id = sense.id
 ) sg ON TRUE
 LEFT JOIN LATERAL (

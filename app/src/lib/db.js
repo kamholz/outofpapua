@@ -109,18 +109,6 @@ export function applyEntrySearchParams(q, query) {
   }
 }
 
-export function applySetParam(q, { set }) {
-  if (set === 'linked') {
-    q.whereExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  } else if (set === 'unlinked') {
-    q.whereNotExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  }
-}
-
 export function applyHeadwordGlossSearchParams(q, query) {
   for (const p of ['headword', 'headword_ipa']) {
     if (p in query) {
@@ -138,10 +126,23 @@ export function applyHeadwordGlossSearchParams(q, query) {
       .join('sense', 'sense.entry_id', 'entry.id')
       .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
       .where('sense_gloss.txt', '~*', query.gloss);
+      // .whereRaw('sense_gloss.txt ~* ? COLLATE "en_US"', [query.gloss]);
 
     if ('glosslang' in query) {
       q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
     }
+  }
+}
+
+export function applySetParam(q, { set }) {
+  if (set === 'linked') {
+    q.whereExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
+  } else if (set === 'unlinked') {
+    q.whereNotExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
   }
 }
 
