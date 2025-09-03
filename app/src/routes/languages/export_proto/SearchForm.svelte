@@ -26,14 +26,8 @@
   style="--form-width: 45em; --label-width: 23%; --checkbox-width: 7em;"
 >
   <svelte:fragment slot="hidden">
-    {#if $settings.descendants}
-      <input type="hidden" name="descendants" value="1">
-    {/if}
-    {#if $settings.borrowed}
-      <input type="hidden" name="borrowed" value="1">
-    {/if}
-    {#if $settings.ancestors}
-      <input type="hidden" name="ancestors" value="1">
-    {/if}
+    {#each Object.entries($settings) as [key, value]}
+      <input type="hidden" name={key} value={value ? 1 : 0}>
+    {/each}
   </svelte:fragment>
 </Form>

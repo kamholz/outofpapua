@@ -9,7 +9,6 @@
   export let data;
   $: ({
     query,
-    language,
     entries,
     ipaFunctions,
   } = data);
@@ -17,7 +16,6 @@
     protolangSuggest,
   } = data;
   setContext('protolangSuggest', protolangSuggest);
-  setContext('language', language);
 
   const settings = writable({});
   setContext('settings', settings);
@@ -25,19 +23,9 @@
   $: init($page);
 
   function init() {
-    $settings = {
-      ancestor_glosses: data.query.ancestor_glosses,
-      ancestors: data.query.ancestors,
-      attested_note: data.query.attested_note,
-      attested_source: data.query.attested_source,
-      borrowed: data.query.borrowed,
-      borrowed_origin: data.query.borrowed_origin,
-      descendants: data.query.descendants,
-      ipa: data.query.ipa,
-      orthography: data.query.orthography,
-      set_note: data.query.set_note,
-      source: data.query.source,
-    };
+    $settings = Object.fromEntries(
+      Object.entries(data.query).filter(([key]) => key !== 'protolang')
+    );
 
     if (browser && data.query.protolang) {
       const unsubscribe = settings.subscribe((newSettings) => {
@@ -46,12 +34,9 @@
         const newQueryString = new URLSearchParams();
         let changed = false;
         for (const [key, value] of Object.entries(newSettings)) {
-          if (value) {
-            newQueryString.set(key, '1');
-            if (currentQueryString.get(key) !== '1') {
-              changed = true;
-            }
-          } else if (currentQueryString.has(key)) {
+          const newQueryValue = value ? '1' : '0';
+          newQueryString.set(key, newQueryValue);
+          if (currentQueryString.get(key) !== newQueryValue) {
             changed = true;
           }
         }
