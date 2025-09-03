@@ -7,32 +7,42 @@
 
   export let entry;
   export let ipaFunctions;
+
+  let lastAncestorLanguageId;
+  function ancestorSeparator({ language: { id }}) {
+    if (id === lastAncestorLanguageId) {
+      return ';';
+    } else {
+      lastAncestorLanguageId = id;
+      return '\u00a0<';
+    }
+  }
 </script>
 
 {#if entry.sets}
   {#each entry.sets as set}
     <div>
       <div class="heading">
-        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.ancestors && set.members.ancestor.length}{#each set.members.ancestor as member}&nbsp;&lt; {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{#if $settings.ancestor_source}&nbsp;{referenceInParens(member.source.reference)}{/if}{/each}{/if}.{#if $settings.source}&nbsp;{referenceInParens(entry.source_reference)}{/if}{#if $settings.note && entry.set_member_note}&nbsp;({entry.set_member_note}){/if}
+        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.source}&nbsp;{referenceInParens(entry.source_reference)}{/if}{#if $settings.note && entry.set_member_note}&nbsp;({entry.set_member_note}){/if}{#if $settings.ancestors && set.members.ancestor.length}{#each set.members.ancestor as member}{ancestorSeparator(member)} {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{#if $settings.ancestor_source}&nbsp;{referenceInParens(member.source.reference)}{/if}{/each}{/if}.
       </div>
 
       <div class="members">
         {#if $settings.descendants && set.members.descendant.length}
           {#each set.members.descendant as member}
-            <ExportSetMember {member} {ipaFunctions} />
-          {/each}
-        {/if}
-
-        {#if $settings.borrowed && set.members.borrowed.length}
-          <div class="heading">Borrowings:</div>
-          {#each set.members.borrowed as member}
-            <ExportSetMember {member} {ipaFunctions} showOrigin={$settings.borrowed_origin} />
+            <ExportSetMember {member} {ipaFunctions} showBorrowed={$settings.borrowed} />
           {/each}
         {/if}
 
         {#if $settings.outcomparison && set.members.other.length}
           <div class="heading">Outcomparisons:</div>
           {#each set.members.other as member}
+            <ExportSetMember {member} {ipaFunctions} showBorrowed={$settings.borrowed} />
+          {/each}
+        {/if}
+
+        {#if $settings.borrowed && set.members.borrowed.length}
+          <div class="heading">Outborrowings:</div>
+          {#each set.members.borrowed as member}
             <ExportSetMember {member} {ipaFunctions} />
           {/each}
         {/if}
