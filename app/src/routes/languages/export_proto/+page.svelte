@@ -50,6 +50,10 @@
       onDestroy(unsubscribe);
     }
   }
+
+  function attested(settings) {
+    return settings.descendants || settings.outcomparisons || settings.outborrowings;
+  }
 </script>
 
 <svelte:head>
@@ -88,20 +92,13 @@
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.borrowed} name="borrowed" id="borrowed">
-          <label for="borrowed">Borrowed forms</label>
-        </div>
-
-        <div class="indent">
-          <div class="row">
-            <input type="checkbox" bind:checked={$settings.borrowed_origin} name="borrowed_origin" id="borrowed_origin">
-            <label for="borrowed_origin">Source language</label>
-          </div>
+          <input type="checkbox" bind:checked={$settings.outcomparisons} name="outcomparison" id="outcomparison">
+          <label for="outcomparison">Outcomparisons</label>
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.outcomparison} name="outcomparison" id="outcomparison">
-          <label for="outcomparison">Outcomparisons</label>
+          <input type="checkbox" bind:checked={$settings.outborrowings} name="borrowed" id="borrowed">
+          <label for="borrowed">Outborrowings</label>
         </div>
 
         <div class="row">
@@ -128,7 +125,7 @@
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.attested_source} name="attested_source" id="attested_source" disabled={!$settings.descendants && !$settings.borrowed && !$settings.outcomparison}>
+          <input type="checkbox" bind:checked={$settings.attested_source} name="attested_source" id="attested_source" disabled={!attested($settings)}>
           <label for="attested_source">Attested forms</label>
         </div>
 
@@ -149,13 +146,29 @@
         </div>
 
         <div class="row">
-          <input type="checkbox" bind:checked={$settings.attested_note} name="attested_note" id="attested_note" disabled={!$settings.descendants && !$settings.borrowed && !$settings.outcomparison}>
+          <input type="checkbox" bind:checked={$settings.attested_note} name="attested_note" id="attested_note" disabled={!attested($settings)}>
           <label for="attested_note">Attested forms</label>
         </div>
 
         <div class="row">
           <input type="checkbox" bind:checked={$settings.set_note} name="set_note" id="set_note">
           <label for="set_note">Set</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="row heading">
+          Borrowings:
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.borrowed_attested} name="borrowed_attested" id="borrowed_attested" disabled={!$settings.descendants && !$settings.outcomparisons}>
+          <label for="borrowed_attested">Indicate on attested forms</label>
+        </div>
+
+        <div class="row">
+          <input type="checkbox" bind:checked={$settings.borrowed_origin} name="borrowed_origin" id="borrowed_origin" disabled={!(($settings.descendants || $settings.outcomparisons) && $settings.borrowed_attested) && !$settings.outborrowings}>
+          <label for="borrowed_origin">Show source language</label>
         </div>
       </div>
     </div>
