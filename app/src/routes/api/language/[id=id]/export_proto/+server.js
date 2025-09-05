@@ -102,6 +102,12 @@ export const GET = requireAuth(async ({ params }) => {
 
           if (ancestor.length) {
             ancestor.reverse();
+            for (let i = 1; i < ancestor.length; i++) {
+              const { language } = ancestor[i];
+              if (ancestor[i - 1].language.id === language.id) {
+                language.repeat = true;
+              }
+            }
           }
 
           set.members = { ancestor, descendant, borrowed, other };

@@ -7,23 +7,13 @@
 
   export let entry;
   export let ipaFunctions;
-
-  let lastAncestorLanguageId;
-  function ancestorSeparator({ language: { id }}) {
-    if (id === lastAncestorLanguageId) {
-      return ';';
-    } else {
-      lastAncestorLanguageId = id;
-      return '\u00a0<';
-    }
-  }
 </script>
 
 {#if entry.sets}
   {#each entry.sets as set}
     <div>
       <div class="heading">
-        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.source}&nbsp;{referenceInParens(entry.source_reference)}{/if}{#if entry.set_member_note && $settings.note}&nbsp;({entry.set_member_note}){/if}{#if set.members.ancestor.length && $settings.ancestors}{#each set.members.ancestor as member}{ancestorSeparator(member)} {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{#if $settings.ancestor_source}&nbsp;{referenceInParens(member.source.reference)}{/if}{/each}{/if}.
+        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.source}&nbsp;{referenceInParens(entry.source_reference)}{/if}{#if entry.set_member_note && $settings.note}&nbsp;({entry.set_member_note}){/if}{#if set.members.ancestor.length && $settings.ancestors}{#each set.members.ancestor as member}{#if member.language.repeat};{:else}&nbsp;&lt;{/if} {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{#if $settings.ancestor_source}&nbsp;{referenceInParens(member.source.reference)}{/if}{/each}{/if}.
       </div>
 
       <div class="members">
