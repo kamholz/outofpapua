@@ -104,9 +104,6 @@
       />
       <div class="controls">
         <PageSizeSelect {query} preferenceKey="tablePageSize" />
-        {#if rows.length}
-          <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
-        {/if}
       </div>
     {:else}
       <div class="notfound">nothing found</div>
@@ -115,9 +112,9 @@
 {/if}
 
 <style lang="scss">
-  hr {
-    margin-block-start: var(--item-sep);
-  }
+  // hr {
+  //   margin-block-start: var(--item-sep);
+  // }
 
   .container {
     display: inline-block;

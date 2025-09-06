@@ -1,4 +1,4 @@
-@import 'src/mixins.scss';
+@use './mixins' as *;
 
 * {
   margin: 0;
@@ -97,6 +97,10 @@ form {
   font-style: italic;
   // margin-block: var(--item-sep);
   margin-block-start: var(--item-sep);
+}
+
+.lang {
+  font-style: italic;
 }
 
 .borrowed {

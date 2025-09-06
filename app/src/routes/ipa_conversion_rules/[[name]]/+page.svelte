@@ -30,7 +30,7 @@
 
   async function handleSubmit(e) {
     const values = { ...e.detail.values };
-  
+
     for (const field of nullifyFields) {
       values[field] = nullify(values[field]);
     }
@@ -137,7 +137,7 @@
 
 <div class="rule">
   {#if promise}
-    {#await promise catch { message } }
+    {#await promise catch { message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}

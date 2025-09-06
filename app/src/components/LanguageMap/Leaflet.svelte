@@ -13,7 +13,7 @@
   export let baseMap;
   export let showLanguageNames;
   export let lineLength;
-  
+
   let L;
   let tooltipLayout;
   let map;

@@ -28,6 +28,6 @@
     text-align: start;
     * {
       vertical-align: middle;
-    }  
+    }
   }
 </style>

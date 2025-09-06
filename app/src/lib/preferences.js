@@ -1,6 +1,6 @@
 export const defaultPreferences = {
   baseMap: 'cartodb-positron',
-  showGlossLang: false,
+  showGlossLang: true,
   listPageSize: 50,
   tablePageSize: 100,
 };

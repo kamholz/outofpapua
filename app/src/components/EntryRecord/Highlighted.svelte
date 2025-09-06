@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  
+
   export let strings;
   export let showUnmatchedEntries = false;
   let node;

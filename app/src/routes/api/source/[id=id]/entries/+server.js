@@ -2,7 +2,7 @@ import { applyEntrySearchParams, applyPageParams, applySortParams, getCount, kne
   setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { ensureNfcParams, getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams,
-  parseBooleanParams,showPublicOnly } from '$lib/util';
+  parseBooleanParams, showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
 
 const allowedHideComparative = new Set(['asc', 'gloss', 'headword', 'headword_exact', 'headword_ipa',

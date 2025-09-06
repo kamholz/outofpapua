@@ -253,14 +253,14 @@
           <Input
             autofocus
             bind:value={protoValues.headword}
-            on:submit={handleSaveProto} 
+            on:submit={handleSaveProto}
             on:cancel={handleEditProtoCancel}
           />
         {:else}
           <MemberReflex
             bind:reflex={values.reflex}
             {entry}
-            {editable} 
+            {editable}
             on:change={() => handleUpdate('reflex')}
           />
         {/if}

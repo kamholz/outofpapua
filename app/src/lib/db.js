@@ -89,16 +89,7 @@ export async function getCountDistinct(q, col) {
 
 export function applyEntrySearchParams(q, query) {
   applyHeadwordGlossSearchParams(q, query);
-
-  if (query.set === 'linked') {
-    q.whereExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  } else if (query.set === 'unlinked') {
-    q.whereNotExists(function () {
-      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
-    });
-  }
+  applySetParam(q, query);
 
   if (query.origin === 'inherited' || query.origin === 'borrowed' || query.origin === 'mixed') {
     q.where('entry.origin', query.origin);
@@ -135,10 +126,23 @@ export function applyHeadwordGlossSearchParams(q, query) {
       .join('sense', 'sense.entry_id', 'entry.id')
       .join('sense_gloss', 'sense_gloss.sense_id', 'sense.id')
       .where('sense_gloss.txt', '~*', query.gloss);
+      // .whereRaw('sense_gloss.txt ~* ? COLLATE "en_US"', [query.gloss]);
 
     if ('glosslang' in query) {
       q.where('sense_gloss.language_id', arrayCmp(new Set(query.glosslang)));
     }
+  }
+}
+
+export function applySetParam(q, { set }) {
+  if (set === 'linked') {
+    q.whereExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
+  } else if (set === 'unlinked') {
+    q.whereNotExists(function () {
+      this.select('*').from('set_member').where('set_member.entry_id', knex.ref('entry.id'));
+    });
   }
 }
 

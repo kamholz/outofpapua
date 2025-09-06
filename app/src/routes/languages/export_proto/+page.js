@@ -4,16 +4,40 @@ import { normalizeQuery, parseBooleanParams } from '$lib/util';
 import { requireAuthLoad } from '$actions/auth.js';
 import * as suggest from '$actions/suggest';
 
-const boolean = new Set(['note', 'descendants', 'orthography', 'ipa', 'borrowed', 'ancestors', 'ancestor_glosses']);
+const boolean = new Set([
+  'ancestor_glosses',
+  'ancestor_source',
+  'ancestors',
+  'attested_note',
+  'attested_source',
+  'borrowed_attested',
+  'borrowed_origin',
+  'descendants',
+  'ipa',
+  'note',
+  'orthography',
+  'outborrowings',
+  'outcomparisons',
+  'set_note',
+  'source',
+]);
 
 const defaults = {
-  note: false,
-  descendants: true,
-  orthography: true,
-  ipa: true,
-  borrowed: false,
-  ancestors: false,
   ancestor_glosses: false,
+  ancestor_source: false,
+  ancestors: false,
+  attested_note: false,
+  attested_source: true,
+  borrowed_attested: false,
+  borrowed_origin: false,
+  descendants: true,
+  ipa: true,
+  note: true,
+  orthography: true,
+  outborrowings: false,
+  outcomparisons: false,
+  set_note: true,
+  source: true,
 };
 
 export const load = requireAuthLoad(async ({ fetch, url: { searchParams } }) => {

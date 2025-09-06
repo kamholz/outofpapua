@@ -3,6 +3,7 @@
   import Glosses from '$components/Glosses.svelte';
   import { getContext } from 'svelte';
   const settings = getContext('settings');
+  import { referenceInParens } from '$lib/util';
 
   export let entry;
   export let ipaFunctions;
@@ -12,23 +13,36 @@
   {#each entry.sets as set}
     <div>
       <div class="heading">
-        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.ancestors && set.members.ancestor.length}{#each set.members.ancestor as member}&nbsp;&lt; {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{/each}{/if}.{#if $settings.note && entry.set_member_note}&nbsp;({entry.set_member_note}){/if}
+        <span class="headword">{entry.headword}</span> <Glosses glosses={entry.senses?.[0]?.glosses} preferred />{#if $settings.source}&nbsp;{referenceInParens(entry.source_reference)}{/if}{#if entry.set_member_note && $settings.note}&nbsp;({entry.set_member_note}){/if}{#if set.members.ancestor.length && $settings.ancestors}{#each set.members.ancestor as member}{#if member.language.repeat};{:else}&nbsp;&lt;{/if} {member.language.name} <span class="headword">{member.entry.headword}</span>{#if $settings.ancestor_glosses}&nbsp;<Glosses glosses={member.entry.senses?.[0]?.glosses} preferred />{/if}{#if $settings.ancestor_source}&nbsp;{referenceInParens(member.source.reference)}{/if}{/each}{/if}.
       </div>
 
       <div class="members">
-        {#if $settings.descendants && set.members.descendant.length}
+        {#if set.members.descendant.length && $settings.descendants}
           {#each set.members.descendant as member}
             <ExportSetMember {member} {ipaFunctions} />
           {/each}
         {/if}
 
-        {#if $settings.borrowed && set.members.borrowed.length}
-          <div class="heading">Borrowed:</div>
-          {#each set.members.borrowed as member}
+        {#if set.members.other.length && $settings.outcomparisons}
+          <div class="heading">Outcomparisons:</div>
+          {#each set.members.other as member}
             <ExportSetMember {member} {ipaFunctions} />
           {/each}
         {/if}
+
+        {#if set.members.borrowed.length && $settings.outborrowings}
+          <div class="heading">Outborrowings:</div>
+          {#each set.members.borrowed as member}
+            <ExportSetMember {member} {ipaFunctions} isOutborrowings />
+          {/each}
+        {/if}
       </div>
+
+      {#if set.note && $settings.set_note}
+        <div class="note">
+          <span class="label">Note:</span> {set.note}
+        </div>
+      {/if}
     </div>
   {/each}
 {:else}
@@ -48,8 +62,12 @@
     font-weight: bold;
   }
 
-  .members {
+  .members, .note {
     margin-block-start: 8px;
     margin-inline-start: 24px;
+  }
+
+  .label {
+    font-style: italic;
   }
 </style>

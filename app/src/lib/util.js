@@ -228,7 +228,7 @@ export function glossSummaryNoLanguage({ txt }) {
 }
 
 export function joinGlosses(txt) {
-  return txt.join(', ');
+  return txt.map(toolboxMarkup).join(', ');
 }
 
 export function truncateGloss(txt, maxLength) {
@@ -264,7 +264,7 @@ export function maybeEngGlosses(senses) {
 
 export function maybeLanguageName(language_code, preferences) {
   return language_code && preferences?.showGlossLang
-    ? ` (${language_code})`
+    ? ` <span class="lang">(${language_code})</span>`
     : '';
 }
 
@@ -326,6 +326,10 @@ export function originSummary(entry) {
     origin += ` from ${entry.origin_language_name}`;
   }
   return origin;
+}
+
+export function referenceInParens(reference) {
+  return '(' + reference.replace(/[()]/g, '') + ')';
 }
 
 // misc

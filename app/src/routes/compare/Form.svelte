@@ -23,6 +23,11 @@
       options: langSuggest,
     },
     {
+      name: 'headword',
+      label: 'Headword',
+      type: 'text',
+    },
+    {
       name: 'gloss',
       label: 'Gloss',
       type: 'text',
@@ -34,11 +39,21 @@
       options: glosslangSuggest,
     },
     {
+      name: 'set',
+      label: 'Set',
+      type: 'radio',
+      options: [
+        { label: 'Linked', value: 'linked' },
+        { label: 'Unlinked', value: 'unlinked' },
+        { label: 'Both', value: 'both' },
+      ],
+    },
+    {
       name: 'loose',
       label: 'Looser matching',
       type: 'checkbox',
     },
-];
+  ];
 
   function handleValidation(e) {
     const { form, values } = e.detail;

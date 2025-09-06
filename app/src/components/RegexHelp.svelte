@@ -67,7 +67,7 @@
           <dd>or (e.g. <span class="code">a|b</span>)</dd>
           <dt>()</dt>
           <dd>grouping</dd>
-        </dl>  
+        </dl>
       </div>
     </div>
   </div>

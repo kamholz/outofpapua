@@ -1,6 +1,6 @@
 <script>
   import { getContext } from 'svelte';
-  import { glossSummaryNoLanguage, glossesSummary, glossesSummaryPreferred, toolboxMarkup } from '$lib/util';
+  import { glossSummaryNoLanguage, glossesSummary, glossesSummaryPreferred } from '$lib/util';
   const preferences = getContext('preferences');
 
   export let glosses;
@@ -19,5 +19,5 @@
 </script>
 
 {#if glosses?.length}
-  {@html toolboxMarkup(summary(glosses))}
+  {@html summary(glosses)}
 {/if}

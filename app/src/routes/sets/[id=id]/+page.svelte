@@ -241,7 +241,7 @@
         />
       {:else}
         <span>{set.note}</span>
-      {/if}  
+      {/if}
     </div>
   {/if}
   {#if editable || set.set_group}

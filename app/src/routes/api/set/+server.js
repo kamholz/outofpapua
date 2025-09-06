@@ -5,7 +5,7 @@ import { defaultPreferences } from '$lib/preferences';
 import { error, json } from '@sveltejs/kit';
 import { getFilteredParams, isIdArray, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
   parseBooleanParams, showPublicOnly } from '$lib/util';
-import { requireContributor, requireComparative } from '$lib/auth';
+import { requireComparative, requireContributor } from '$lib/auth';
 
 const allowedSearch = new Set(['asc', 'author_id', 'gloss', 'glosslang', 'headword', 'headword_exact',
   'headword_ipa', 'headword_ipa_exact', 'lang', 'lang_all', 'name', 'note', 'page', 'pagesize', 'sort', 'source']);

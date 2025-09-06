@@ -1,16 +1,12 @@
 <script>
   import Reflex from '$components/Reflex.svelte';
   import ReflexIPA from '$components/ReflexIPA.svelte';
-  import { capitalizeFirstLetter, maybeEngGlosses, toolboxMarkup } from '$lib/util';
+  import { capitalizeFirstLetter, maybeEngGlosses, referenceInParens } from '$lib/util';
 
   export let set;
   export let ipaFunctions;
   // export let nameEntry;
   // const gloss = nameEntry ? maybeGloss(nameEntry.senses) : null;
-
-  function reference(source) {
-    return '(' + source.reference.replace(/[()]/g, '') + ')';
-  }
 
   function origin(entry) {
     let txt = capitalizeFirstLetter(entry.origin);
@@ -24,7 +20,7 @@
 
 <!-- <p>
   {#if nameEntry}
-    {nameEntry.language.name} <strong>{nameEntry.headword}</strong>{gloss} {reference(nameEntry.source)}
+    {nameEntry.language.name} <strong>{nameEntry.headword}</strong>{gloss} {referenceInParens(nameEntry.source.reference)}
   {:else}
     Set: {set.name_auto.txt}
   {/if}
@@ -45,7 +41,7 @@
     {#if entry.headword_ipa}
       <ReflexIPA {reflex} headword_ipa={entry.headword_ipa} func={ipaFunctions[source.ipa_conversion_rule]} />
     {/if}
-    {@html toolboxMarkup(maybeEngGlosses(entry.senses))} {reference(source)}
+    {@html maybeEngGlosses(entry.senses)} {referenceInParens(source.reference)}
     {#if entry.origin}
       <strong>{origin(entry)}</strong>
     {/if}

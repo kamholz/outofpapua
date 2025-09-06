@@ -176,7 +176,7 @@
       lm.entries = [].concat(...lm.markers.map(({ entries }) => entries))
         .sort(sortFunction(({ headword }) => headword.toLowerCase()));
     }
-  
+
     return languageMarkers;
   }
 

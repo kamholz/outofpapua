@@ -24,7 +24,7 @@
   </Paragraph>
 
   <Div>
-    {#each entryNotesPre as { key, label, join, trans, link  }}
+    {#each entryNotesPre as { key, label, join, trans, link }}
       {#if key in entry}
         <Note data={entry} {key} {label} {join} {trans} {link} />
       {/if}
@@ -83,7 +83,7 @@
         margin-inline-start: 36px;
       }
 
-      .pos, .label, .lang {
+      .pos, .label {
         font-style: italic;
       }
 

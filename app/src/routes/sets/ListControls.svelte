@@ -1,6 +1,6 @@
 <script>
-  import { createEventDispatcher, getContext } from 'svelte';
-  const dispatch = createEventDispatcher();
+  import KeepOnscreen from '$components/KeepOnscreen.svelte';
+  import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
 
   export let collapseAll;
@@ -12,29 +12,33 @@
 </script>
 
 <div class="controls">
-  <div>
-    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
-    {#if editable}
+  <KeepOnscreen location="left" let:offscreen>
+    <div class="left" class:offscreen>
+      <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
+      <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+      {#if editable}
+        <button
+          type="button"
+          disabled={$pageLoading || selection.size < 2}
+          on:click={handleMerge}
+        >Merge Selected Sets</button>
+      {/if}
+    </div>
+  </KeepOnscreen>
+  <KeepOnscreen location="right" let:offscreen>
+    <div class="right" class:offscreen>
+      <button
+        type="button"
+        disabled={$pageLoading || selection.size < 1}
+        on:click={() => handleAutocompare('cog')}
+      >Export Cog</button>
       <button
         type="button"
         disabled={$pageLoading || selection.size < 2}
-        on:click={handleMerge}
-      >Merge Selected Sets</button>
-    {/if}
-  </div>
-  <div>
-    <button
-      type="button"
-      disabled={$pageLoading || selection.size < 1}
-      on:click={() => handleAutocompare('cog')}
-    >Export Cog</button>
-    <button
-      type="button"
-      disabled={$pageLoading || selection.size < 2}
-      on:click={handleMap}
-    >Map Selected Sets</button>
-  </div>
+        on:click={handleMap}
+      >Map Selected Sets</button>
+    </div>
+  </KeepOnscreen>
 </div>
 
 <style lang="scss">
@@ -42,12 +46,20 @@
     display: flex;
     justify-content: space-between;
 
-    :first-child {
+    .left {
       @include button-left;
+
+      &.offscreen button:last-child {
+        margin: 0;
+      }
     }
 
-    :last-child {
+    .right {
       @include button-right;
+
+      &.offscreen button:first-child {
+        margin: 0;
+      }
     }
   }
 </style>

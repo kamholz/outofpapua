@@ -9,7 +9,7 @@
 
   import L from 'leaflet';
   import tooltipLayout from 'leaflet-tooltip-layout';
-  
+
   import 'leaflet.fullscreen';
   import 'leaflet.fullscreen/Control.FullScreen.css';
   import 'leaflet/dist/leaflet.css';

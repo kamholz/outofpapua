@@ -30,6 +30,9 @@ export async function load({ fetch, parent, url: { searchParams } }) {
     Object.assign(data, json); // populates query, pageCount, rows, rowCount (or error)
   } else {
     parseArrayNumParams(query, arrayNumParams);
+    if (!('set' in query)) {
+      query.set = 'both';
+    }
     data.query = query;
   }
 

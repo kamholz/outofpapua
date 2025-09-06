@@ -26,7 +26,7 @@
     border-radius: 6px;
     border: 1px solid transparent;
     position: relative;
-  
+
     &.error {
       @include error_color;
     }

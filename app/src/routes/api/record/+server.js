@@ -2,8 +2,8 @@ import { applyPageParams, applySortParams, arrayCmp, getCount, getLanguageIds, k
   setIds } from '$lib/db';
 import { defaultPreferences } from '$lib/preferences';
 import { errorStrings, jsonError } from '$lib/error';
-import { getFilteredParams, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams, parseBooleanParams,
-  showPublicOnly } from '$lib/util';
+import { getFilteredParams, hideComparativeInEntry, mungeRegex, normalizeQuery, parseArrayNumParams, parseArrayParams,
+  parseBooleanParams, showPublicOnly } from '$lib/util';
 import { json } from '@sveltejs/kit';
 
 const allowed = new Set(['asc', 'lang', 'langcat', 'page', 'pagesize', 'record', 'record_marker', 'region', 'sort',
@@ -109,6 +109,12 @@ export async function GET({ locals, url: { searchParams } }) {
   applySortParams(q, query, sortCols, ['language', 'headword']);
 
   const rows = await q;
+  if (locals.hideComparative) {
+    for (const row of rows) {
+      hideComparativeInEntry(row);
+    }
+  }
+
   const seenRecord = new Set();
   for (const row of rows) {
     if (seenRecord.has(row.record_id)) {

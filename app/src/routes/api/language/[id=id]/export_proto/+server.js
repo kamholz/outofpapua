@@ -25,11 +25,13 @@ export const GET = requireAuth(async ({ params }) => {
       const descendants = new Set(language.descendants || []);
 
       const q = trx('entry')
+        .join('source', 'source.id', 'entry.source_id')
         .joinRaw(`
           JOIN LATERAL (
             SELECT json_agg(
               json_build_object(
                 'id', set.id,
+                'note', set.note,
                 'name', ${name_auto},
                 'author_name', sd.author_name,
                 'members', sd.members
@@ -52,6 +54,7 @@ export const GET = requireAuth(async ({ params }) => {
           'entry.id',
           'entry.headword',
           'entry.senses',
+          'source.reference as source_reference',
           's.sets'
         )
         .orderBy('entry.headword_degr')
@@ -99,6 +102,12 @@ export const GET = requireAuth(async ({ params }) => {
 
           if (ancestor.length) {
             ancestor.reverse();
+            for (let i = 1; i < ancestor.length; i++) {
+              const { language } = ancestor[i];
+              if (ancestor[i - 1].language.id === language.id) {
+                language.repeat = true;
+              }
+            }
           }
 
           set.members = { ancestor, descendant, borrowed, other };

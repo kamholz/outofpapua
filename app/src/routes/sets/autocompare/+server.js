@@ -26,7 +26,7 @@ export const GET = requireComparative(async ({ fetch, url: { searchParams } }) =
   const languagesNamesSorted = [...languageNames].sort();
 
   const maker = query.format === 'cog' ? makeCogTable : makeEdictorTable;
-  const data = maker(languagesNamesSorted, sets)
+  const data = maker(languagesNamesSorted, sets);
   return text(data, {
     headers: {
       'content-type': 'text/plain',
