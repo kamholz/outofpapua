@@ -1,13 +1,14 @@
 import { allowed, allowedEditor, nfc, required } from './params';
-import { applySortParams, filterPublicSources, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, isEditor, normalizeQuery, parseBooleanParams,
-  stripParams } from '$lib/util';
+import { applySortParams, arrayCmp, filterPublicSources, getLanguageIds, knex, pgError } from '$lib/db';
+import { ensureNfcParams, getFilteredParams, isEditor, normalizeQuery, parseArrayParams,
+  parseBooleanParams, stripParams } from '$lib/util';
 import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { requireContributor } from '$lib/auth';
 
-const allowedQuery = new Set(['asc', 'category', 'details', 'sort']);
+const allowedQuery = new Set(['asc', 'category', 'details', 'lang', 'sort']);
 const boolean = new Set(['asc', 'details']);
+const arrayParams = new Set(['lang']);
 const strip = new Set(['category', 'details']);
 const defaults = {
   asc: true,
@@ -26,6 +27,7 @@ const sortColsDetails = {
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams), allowedQuery);
   parseBooleanParams(query, boolean);
+  parseArrayParams(query, arrayParams);
   query = { ...defaults, ...query };
 
   const q = knex('source')
@@ -36,6 +38,13 @@ export async function GET({ locals, url: { searchParams } }) {
       'language.name as language'
     );
   filterPublicSources(q, locals);
+
+  if ('lang' in query) {
+    const lang = await getLanguageIds(query.lang);
+    if (lang) {
+      q.where('source.language_id', arrayCmp(lang));
+    }
+  }
 
   if (query.category === 'proto') {
     q.whereExists(function () {

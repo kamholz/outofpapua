@@ -4,7 +4,9 @@ import * as suggest from '$actions/suggest';
 
 export async function load({ fetch, parent, url: { searchParams } }) {
   const { user } = await parent();
-  const data = {};
+  const data = {
+    langSuggest: await suggest.langPlus(fetch),
+  };
   if (user) {
     data.protolangSuggest = await suggest.protolang(fetch);
     if (!data.protolangSuggest) {

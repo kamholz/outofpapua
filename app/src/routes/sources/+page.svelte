@@ -1,5 +1,6 @@
 <script>
   import CreateForm from './CreateForm.svelte';
+  import SearchForm from './SearchForm.svelte';
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
   import { invalidateAll } from '$app/navigation';
@@ -10,7 +11,8 @@
     rows,
     query,
   } = data);
-  const { protolangSuggest } = data;
+  const {  langSuggest, protolangSuggest } = data;
+  setContext('langSuggest', langSuggest);
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
   }
@@ -28,6 +30,12 @@
 </svelte:head>
 
 <h2>Sources</h2>
+<SearchForm {query} />
+
+<div class="info">
+  Sources: {rows.length}
+</div>
+
 <Table
   {rows}
   {query}
@@ -39,3 +47,9 @@
     on:refresh={handleRefresh}
   />
 {/if}
+
+<style lang="scss">
+  .info {
+    margin-block: var(--item-sep);
+  }
+</style>
