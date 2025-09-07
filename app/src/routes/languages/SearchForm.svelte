@@ -3,15 +3,15 @@
   import { getContext } from 'svelte';
 
   export let query;
-  const langSuggest = getContext('langSuggest');
+  const protolangSuggest = getContext('protolangSuggest');
   const values = { ...query };
 
   const fields = [
     {
-      name: 'lang',
-      label: 'Languages',
+      name: 'protolang',
+      label: 'Proto-languages',
       type: 'suggestMulti',
-      options: langSuggest,
+      options: protolangSuggest,
     },
   ];
 </script>
@@ -22,5 +22,5 @@
   submitLabel="Search"
   clearable
   browserSubmit
-  style="--form-width: 40em; --label-width: 20%"
+  style="--form-width: 40em; --label-width: 23%"
 />

@@ -33,7 +33,7 @@
 <SearchForm {query} />
 
 <div class="info">
-  Sources: {rows.length}
+  Number of sources: {rows.length}
 </div>
 
 <Table

@@ -20,12 +20,12 @@
   ];
 
   if (type === 'dialect') {
-    const langSuggest = getContext('langSuggest');
+    const dialectLangSuggest = getContext('dialectLangSuggest');
     fields.push({
       name: 'dialect_parent_id',
       label: 'Language',
       type: 'suggest',
-      options: langSuggest,
+      options: dialectLangSuggest,
       required: true,
     });
   }

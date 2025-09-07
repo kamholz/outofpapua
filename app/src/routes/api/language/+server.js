@@ -1,13 +1,14 @@
-import { applySortParams, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, isEditor, isId, normalizeQuery, parseBooleanParams, showPublicOnly,
-  stripParams } from '$lib/util';
+import { addLanguagePlusIds, applySortParams, arrayCmp, knex, pgError } from '$lib/db';
+import { ensureNfcParams, getFilteredParams, isEditor, isId, normalizeQuery, parseArrayNumParams,
+  parseBooleanParams, showPublicOnly, stripParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { nfc } from './params';
 import { requireContributor } from '$lib/auth';
 
-const allowed = new Set(['asc', 'category', 'details', 'sort']);
+const allowed = new Set(['asc', 'category', 'details', 'protolang', 'sort']);
 const boolean = new Set(['asc', 'details']);
+const arrayNumParams = new Set(['protolang']);
 const strip = new Set(['category', 'details']);
 
 const required = new Set(['name', 'type']);
@@ -35,6 +36,7 @@ const sortColsDetails = {
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
   parseBooleanParams(query, boolean);
+  parseArrayNumParams(query, arrayNumParams);
   query = { ...defaults, ...query };
 
   const q = knex('language')
@@ -99,6 +101,12 @@ export async function GET({ locals, url: { searchParams } }) {
       .leftJoin('entry', 'entry.source_id', 'source.id')
       .count('entry.id as numentries')
       .groupBy('language.id', 'parent.id', 'dialect_parent.id');
+
+    if ('protolang' in query) {
+      const protolang = new Set(query.protolang);
+      await addLanguagePlusIds(protolang);
+      q.where('source.language_id', arrayCmp(protolang));
+    }
   } else if (showPublicOnly(locals) && (!query.category || sourceFilterableCategories.has(query.category))) {
     q.whereExists(function () { // hide empty sources
       this.select('*').from('source')

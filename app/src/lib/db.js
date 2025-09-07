@@ -205,6 +205,13 @@ export async function getLanguageIdsSet(param) {
   const [_lang, _langPlus] = partitionPlus(param);
   const lang = new Set(_lang);
   const langPlus = new Set(_langPlus);
+  await addLanguagePlusIds(langPlus);
+  return lang.size || langPlus.size
+    ? [lang, langPlus]
+    : [null, null];
+}
+
+export async function addLanguagePlusIds(langPlus) {
   if (langPlus.size) {
     const descendants = (await knex('language')
       .where('id', arrayCmp(langPlus))
@@ -217,9 +224,6 @@ export async function getLanguageIdsSet(param) {
       }
     }
   }
-  return lang.size || langPlus.size
-    ? [lang, langPlus]
-    : [null, null];
 }
 
 export async function getLanguageIdsSingle(param) {

@@ -1,5 +1,6 @@
 <script>
   import CreateForm from './CreateForm.svelte';
+  import SearchForm from './SearchForm.svelte';
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
   import { invalidateAll } from '$app/navigation';
@@ -11,9 +12,10 @@
     query,
     rows,
   } = data);
-  const { langSuggest } = data;
-  if (langSuggest) {
-    setContext('langSuggest', langSuggest);
+  const { dialectLangSuggest, protolangSuggest } = data;
+  setContext('protolangSuggest', protolangSuggest);
+  if (dialectLangSuggest) {
+    setContext('dialectLangSuggest', dialectLangSuggest);
   }
   const editable = getContext('editable');
   let showLanguagesWithNoEntries = false;
@@ -38,6 +40,10 @@
     <a href="/languages/export_proto">Export reconstructions</a>
   </div>
 {/if}
+<SearchForm {query} />
+<div class="info">
+  Number of languages: {rows.length}
+</div>
 <Table
   {rows}
   {query}
@@ -83,5 +89,9 @@
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  .info {
+    margin-block: var(--item-sep);
   }
 </style>
