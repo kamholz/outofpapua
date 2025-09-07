@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict b1oK5ktbWFySMtmqzEMf14JvKQpnCg0BRx4WDLtZha6iJN5hiBSFGGuyLG55Xm4
+\restrict Wf0lcwC58hW97OUUcAfaCUM6iAJAkmZDE8rGRcUPZBIc5PYnrnzjOjbiih9eI21
 
 -- Dumped from database version 17.6 (Ubuntu 17.6-1.pgdg24.04+1)
 -- Dumped by pg_dump version 17.6 (Homebrew)
@@ -2247,7 +2247,7 @@ CREATE VIEW public.set_name_auto AS
 CREATE VIEW public.set_member_details AS
  SELECT set_member.set_id,
     set_member.entry_id,
-    json_build_object('id', entry.id, 'headword', entry.headword, 'headword_ipa', entry.headword_ipa, 'root', entry.root, 'origin', entry.origin, 'origin_language_id', entry.origin_language_id, 'origin_language_name', ed.origin_language_name, 'record_id', entry.record_id, 'senses', entry.senses) AS entry,
+    json_build_object('id', entry.id, 'headword', entry.headword, 'headword_degr', entry.headword_degr, 'headword_ipa', entry.headword_ipa, 'root', entry.root, 'origin', entry.origin, 'origin_language_id', entry.origin_language_id, 'origin_language_name', ed.origin_language_name, 'record_id', entry.record_id, 'senses', entry.senses) AS entry,
     ed.source,
     ed.language,
         CASE
@@ -2291,7 +2291,7 @@ CREATE VIEW public.set_details AS
     ( SELECT sna.name_auto
            FROM public.set_name_auto sna
           WHERE (sna.id = set.id)) AS name_auto,
-    COALESCE(json_agg(json_build_object('multi_set', set_member.multi_set, 'note', set_member.note, 'other_sets', smd.other_sets, 'reflex', set_member.reflex, 'reflex_origin', set_member.reflex_origin, 'reflex_origin_language_id', set_member.reflex_origin_language_id, 'entry', smd.entry, 'language', smd.language, 'source', smd.source) ORDER BY (((smd.language ->> 'is_proto'::text) = 'false'::text) AND ((smd.language ->> 'id'::text) = (smd.language ->> 'ancestor_id'::text))), (lower((smd.language ->> 'ancestor_name'::text))), (array_position(ancestor_language.descendants, ((smd.language ->> 'id'::text))::integer)) NULLS FIRST, (lower((smd.language ->> 'name'::text))), (lower((smd.entry ->> 'headword'::text))), ((smd.entry ->> 'id'::text))::integer) FILTER (WHERE (set_member.set_id IS NOT NULL)), '[]'::json) AS members
+    COALESCE(json_agg(json_build_object('multi_set', set_member.multi_set, 'note', set_member.note, 'other_sets', smd.other_sets, 'reflex', set_member.reflex, 'reflex_origin', set_member.reflex_origin, 'reflex_origin_language_id', set_member.reflex_origin_language_id, 'entry', smd.entry, 'language', smd.language, 'source', smd.source) ORDER BY (((smd.language ->> 'is_proto'::text) = 'false'::text) AND ((smd.language ->> 'id'::text) = (smd.language ->> 'ancestor_id'::text))), (lower((smd.language ->> 'ancestor_name'::text))), (array_position(ancestor_language.descendants, ((smd.language ->> 'id'::text))::integer)) NULLS FIRST, (lower((smd.language ->> 'name'::text))), (smd.entry ->> 'headword_degr'::text), (lower((smd.entry ->> 'headword'::text))), (lower((smd.source ->> 'reference'::text))), ((smd.entry ->> 'id'::text))::integer) FILTER (WHERE (set_member.set_id IS NOT NULL)), '[]'::json) AS members
    FROM ((((public.set
      JOIN public.set_member ON ((set_member.set_id = set.id)))
      JOIN public.set_member_details smd ON (((smd.set_id = set.id) AND (smd.entry_id = set_member.entry_id))))
@@ -2348,7 +2348,7 @@ CREATE VIEW public.set_name_auto_public AS
 CREATE VIEW public.set_member_details_public AS
  SELECT set_member.set_id,
     set_member.entry_id,
-    json_build_object('id', entry.id, 'headword', entry.headword, 'headword_ipa', entry.headword_ipa, 'root', entry.root, 'origin', entry.origin, 'origin_language_id', entry.origin_language_id, 'origin_language_name', ed.origin_language_name, 'record_id', entry.record_id, 'senses', entry.senses) AS entry,
+    json_build_object('id', entry.id, 'headword', entry.headword, 'headword_degr', entry.headword_degr, 'headword_ipa', entry.headword_ipa, 'root', entry.root, 'origin', entry.origin, 'origin_language_id', entry.origin_language_id, 'origin_language_name', ed.origin_language_name, 'record_id', entry.record_id, 'senses', entry.senses) AS entry,
     ed.source,
     ed.language,
         CASE
@@ -2375,7 +2375,7 @@ CREATE VIEW public.set_details_public AS
     ( SELECT sna.name_auto
            FROM public.set_name_auto_public sna
           WHERE (sna.id = set.id)) AS name_auto,
-    COALESCE(json_agg(json_build_object('multi_set', set_member.multi_set, 'note', set_member.note, 'other_sets', smd.other_sets, 'reflex', set_member.reflex, 'reflex_origin', set_member.reflex_origin, 'reflex_origin_language_id', set_member.reflex_origin_language_id, 'entry', smd.entry, 'language', smd.language, 'source', smd.source) ORDER BY (((smd.language ->> 'is_proto'::text) = 'false'::text) AND ((smd.language ->> 'id'::text) = (smd.language ->> 'ancestor_id'::text))), (lower((smd.language ->> 'ancestor_name'::text))), (array_position(ancestor_language.descendants, ((smd.language ->> 'id'::text))::integer)) NULLS FIRST, (lower((smd.language ->> 'name'::text))), (lower((smd.entry ->> 'headword'::text))), ((smd.entry ->> 'id'::text))::integer) FILTER (WHERE (set_member.set_id IS NOT NULL)), '[]'::json) AS members
+    COALESCE(json_agg(json_build_object('multi_set', set_member.multi_set, 'note', set_member.note, 'other_sets', smd.other_sets, 'reflex', set_member.reflex, 'reflex_origin', set_member.reflex_origin, 'reflex_origin_language_id', set_member.reflex_origin_language_id, 'entry', smd.entry, 'language', smd.language, 'source', smd.source) ORDER BY (((smd.language ->> 'is_proto'::text) = 'false'::text) AND ((smd.language ->> 'id'::text) = (smd.language ->> 'ancestor_id'::text))), (lower((smd.language ->> 'ancestor_name'::text))), (array_position(ancestor_language.descendants, ((smd.language ->> 'id'::text))::integer)) NULLS FIRST, (lower((smd.language ->> 'name'::text))), (smd.entry ->> 'headword_degr'::text), (lower((smd.entry ->> 'headword'::text))), (lower((smd.source ->> 'reference'::text))), ((smd.entry ->> 'id'::text))::integer) FILTER (WHERE (set_member.set_id IS NOT NULL)), '[]'::json) AS members
    FROM ((((public.set
      JOIN public.set_member ON ((set_member.set_id = set.id)))
      JOIN public.set_member_details_public smd ON (((smd.set_id = set.id) AND (smd.entry_id = set_member.entry_id))))
@@ -3802,5 +3802,5 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict b1oK5ktbWFySMtmqzEMf14JvKQpnCg0BRx4WDLtZha6iJN5hiBSFGGuyLG55Xm4
+\unrestrict Wf0lcwC58hW97OUUcAfaCUM6iAJAkmZDE8rGRcUPZBIc5PYnrnzjOjbiih9eI21
 

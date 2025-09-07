@@ -13,7 +13,7 @@ SELECT set.id,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
-    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), smd.entry->>'headword_degr', lower(smd.entry->>'headword'), lower(smd.source->>'reference'), (smd.entry->>'id')::integer
   ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
 JOIN set_member ON set_member.set_id = set.id
@@ -38,7 +38,7 @@ SELECT set.id,
       'entry', smd.entry,
       'language', smd.language,
       'source', smd.source
-    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), lower(smd.entry->>'headword'), (smd.entry->>'id')::integer
+    ) ORDER BY (smd.language->>'is_proto' = 'false' AND smd.language->>'id' = smd.language->>'ancestor_id'), lower(smd.language->>'ancestor_name'), array_position(ancestor_language.descendants, (smd.language->>'id')::integer) nulls first, lower(smd.language->>'name'), smd.entry->>'headword_degr', lower(smd.entry->>'headword'), lower(smd.source->>'reference'), (smd.entry->>'id')::integer
   ) FILTER (WHERE set_member.set_id IS NOT NULL), '[]'::json) AS members
 FROM set
 JOIN set_member ON set_member.set_id = set.id

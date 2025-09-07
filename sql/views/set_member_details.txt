@@ -5,6 +5,7 @@ SELECT
   json_build_object(
     'id', entry.id,
     'headword', entry.headword,
+    'headword_degr', entry.headword_degr,
     'headword_ipa', entry.headword_ipa,
     'root', entry.root,
     'origin', entry.origin,
@@ -41,6 +42,7 @@ SELECT
   json_build_object(
     'id', entry.id,
     'headword', entry.headword,
+    'headword_degr', entry.headword_degr,
     'headword_ipa', entry.headword_ipa,
     'root', entry.root,
     'origin', entry.origin,
