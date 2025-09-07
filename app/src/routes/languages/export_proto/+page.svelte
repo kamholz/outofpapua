@@ -1,5 +1,5 @@
 <script>
-  import ExportEntry from './ExportEntry.svelte';
+  import ExportSet from './ExportSet.svelte';
   import SearchForm from './SearchForm.svelte';
   import { browser } from '$app/environment';
   import { onDestroy, setContext } from 'svelte';
@@ -176,8 +176,8 @@
 
   </div>
   <hr>
-  {#each entries as entry}
-    <ExportEntry {entry} {ipaFunctions} />
+  {#each entries as { set } }
+    <ExportSet {set} {ipaFunctions} />
   {/each}
 {/if}
 
