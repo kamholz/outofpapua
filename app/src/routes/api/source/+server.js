@@ -6,13 +6,14 @@ import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { requireContributor } from '$lib/auth';
 
-const allowedQuery = new Set(['asc', 'category', 'details', 'lang', 'sort']);
-const boolean = new Set(['asc', 'details']);
+const allowedQuery = new Set(['asc', 'category', 'details', 'edit_mode', 'lang', 'sort']);
+const boolean = new Set(['asc', 'details', 'edit_mode']);
 const arrayParams = new Set(['lang']);
 const strip = new Set(['category', 'details']);
 const defaults = {
   asc: true,
   details: false,
+  edit_mode: false,
   sort: 'reference',
 };
 const sortCols = {
@@ -23,6 +24,22 @@ const sortColsDetails = {
   ...sortCols,
   numentries: 'count(entry.id)',
 };
+const sortColsEditMode = {
+  ...sortCols,
+  ipa_conversion_rule: 'lower(source.ipa_conversion_rule)',
+  note: 'lower(note)',
+  reference_full: 'lower(source.reference_full)',
+}
+
+function getSortParams(query) {
+  if (query.edit_mode) {
+    return sortColsEditMode;
+  } else if (query.details) {
+    return sortColsDetails;
+  } else {
+    return sortCols;
+  }
+}
 
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams), allowedQuery);
@@ -55,13 +72,21 @@ export async function GET({ locals, url: { searchParams } }) {
   }
 
   if (query.details) {
-    q
-      .leftJoin('entry', 'entry.source_id', 'source.id')
-      .count('entry.id as numentries')
-      .groupBy('source.id', 'language.name');
+    if (query.edit_mode) {
+      q.select(
+        'source.ipa_conversion_rule',
+        'source.note',
+        'source.reference_full',
+      );
+    } else {
+      q
+        .leftJoin('entry', 'entry.source_id', 'source.id')
+        .count('entry.id as numentries')
+        .groupBy('source.id', 'language.name');
+    }
   }
 
-  applySortParams(q, query, query.details ? sortColsDetails : sortCols, ['reference', 'language']);
+  applySortParams(q, query, getSortParams(query), ['reference', 'language']);
   stripParams(query, strip);
 
   return json({

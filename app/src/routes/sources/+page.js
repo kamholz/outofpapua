@@ -1,12 +1,24 @@
 import { error } from '@sveltejs/kit';
-import { normalizeQuery, serializeQuery } from '$lib/util';
+import { normalizeQuery, parseBooleanParams, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
+const boolean = new Set(['edit_mode']);
+
+const defaults = {
+  edit_mode: false,
+};
+
 export async function load({ fetch, parent, url: { searchParams } }) {
-  const { user } = await parent();
+  let query = normalizeQuery(searchParams);
+  parseBooleanParams(query, boolean);
+  query = { ...defaults, ...query };
+
   const data = {
     langSuggest: await suggest.langPlus(fetch),
+    query,
   };
+
+  const { user } = await parent();
   if (user) {
     data.protolangSuggest = await suggest.protolang(fetch);
     if (!data.protolangSuggest) {
@@ -14,7 +26,7 @@ export async function load({ fetch, parent, url: { searchParams } }) {
     }
   }
 
-  const res = await fetch('/api/source' + serializeQuery({ ...normalizeQuery(searchParams), details: 1 }));
+  const res = await fetch('/api/source' + serializeQuery({ ...query, details: 1 }));
   if (!res.ok) {
     throw error(500);
   }
@@ -23,4 +35,3 @@ export async function load({ fetch, parent, url: { searchParams } }) {
 
   return data;
 }
-

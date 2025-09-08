@@ -3,7 +3,7 @@
   import SearchForm from './SearchForm.svelte';
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
-  import { invalidateAll } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
 
   export let data;
@@ -22,6 +22,12 @@
     $pageLoading++;
     await invalidateAll();
     $pageLoading--;
+  }
+
+  async function handleChangeEditMode(e) {
+    const currentUrl = new URL(window.location);
+    currentUrl.searchParams.set('edit_mode', e.target.checked ? '1' : '0');
+    goto(currentUrl, { noScroll: true, replaceState: true });
   }
 </script>
 
@@ -42,6 +48,11 @@
 />
 
 {#if editable}
+  <form>
+    <input type="checkbox" id="editable" checked={query.edit_mode} on:change={handleChangeEditMode} />
+    <label for="editable">Enable Edit Mode</label>
+  </form>
+
   <h3>Create new proto-language source</h3>
   <CreateForm
     on:refresh={handleRefresh}
@@ -49,6 +60,13 @@
 {/if}
 
 <style lang="scss">
+  form {
+    margin-block-start: 18px;
+    margin-block-end: 24px;
+    display: flex;
+    gap: 12px;
+  }
+
   .info {
     margin-block: var(--item-sep);
   }
