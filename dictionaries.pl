@@ -15674,6 +15674,17 @@ our $dict = {
     split => ';',
     strip => 'to',
   },
+  'Wallace (1869a)' => {
+    lang_target => 'Wolio',
+    path => 'Wallace_1869.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'gloss', 'ind'],
+      [0, 'nt', 'number:'],
+    ],
+  },
   'Wattimury et al. (1992)' => {
     lang_target => 'gbi',
     path => 'spreadsheets/Wattimury,al1992-Galela.xlsx',
