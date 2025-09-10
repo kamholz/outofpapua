@@ -4043,7 +4043,7 @@ our $dict = {
       [1, 'subentry'],
       [0, 'headword'],
       [2, 'ps'],
-      [4, 'gloss', 'eng'],
+      [4, 'gloss', 'ind'],
       [5, 'gloss', 'eng'],
       [6, 'np'],
       [7, 'un'],
