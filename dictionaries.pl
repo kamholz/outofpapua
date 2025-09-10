@@ -1389,6 +1389,19 @@ our $dict = {
     parser => 'LexiqueHTML',
     strip => 'to',
   },
+  'Cambier (1873a)' => {
+    lang_target => 'mkz', 
+    path => 'Carr2004_MakasaeOssu.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+    ],
+  },
+
+
+
+
   'Carr (2004)' => {
     lang_target => 'mkz', 
     path => 'Carr2004_MakasaeOssu.xlsx',
@@ -3848,6 +3861,25 @@ our $dict = {
     lang_target => 'kei',
     path => 'Geurtjens_1921_Kei.txt',
     parser => 'Marker',
+    strip => 'to',
+  },
+  'Geurtjens (1933)' => { #not ingested
+    lang_target => 'Coastal Marind',
+    path => 'Geurtjens_1933_CoastalMarind.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, ''],
+      [3, 'sp'],
+      [4, 'op'],
+
+      [4, 'pos'],
+      [3, 'gloss', 'eng'],
+      [1, 'gloss', 'ind'],
+      [5, 'nt'],
+    ],
+    split => ',/',
     strip => 'to',
   },
   'Gizzra' => { #not ingested
@@ -12869,7 +12901,7 @@ our $dict = {
     split => ';',
   },
   'Srekya et al. (2004)' => { 
-    lang_target => 'Tehit Srer Toto',
+    lang_target => 'Tehit',
     path => 'Srekya_2004_Tehit-Srer_Toto.txt',
     parser => 'Marker',
   },
