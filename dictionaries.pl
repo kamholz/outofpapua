@@ -982,7 +982,7 @@ our $dict = {
       [5, 'page_num'],
     ],
   },
-  'Blake (2025)' => {
+  'Blake (2024)' => {
     lang_target => 'Abui',
     path => 'Blake_2025_Abui.xlsx',
     parser => 'Spreadsheet',
