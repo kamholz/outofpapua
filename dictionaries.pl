@@ -991,8 +991,8 @@ our $dict = {
       [1, 'gloss', 'eng'],
       [2, 'sc'],
       [3, 'lt'],
-      [5, 'nt'],
-      [4, 'page_num'],
+      [4, 'nt'],
+      [5, 'page_num'],
     ],
     mode => 'sense_per_row',
   },
@@ -5522,7 +5522,7 @@ our $dict = {
     ],
     strip => 'to',
   },
-  'Lewis (2011)' => {
+  'Pereira & Lewis (2011)' => {
     lang_target => 'ski',
     path => 'Lewis_2011_Sikka.xlsx',
     parser => 'Spreadsheet',
@@ -15274,7 +15274,7 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
-  'Voorhoeve (nd c)' => { #not ingested
+  'Voorhoeve (nd c)' => {
     lang_target => 'Asmat Flamingo Bay',
     path => 'Voorhoeve_nd_AsmatFlamingoBay.xlsx',
     parser => 'Spreadsheet',
@@ -15297,8 +15297,6 @@ our $dict = {
       [16, 'et'],
       [17, 'nt'],
       [18, 'ee'],
-      [19, ''], #subj.
-      [20, ''], #obj.
       [[21 .. 22], 'example', ['eng']], #1
       [[23 .. 24], 'example', ['eng']], #2
       [[25 .. 26], 'example', ['eng']], #3
