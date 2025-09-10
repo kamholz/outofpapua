@@ -15328,6 +15328,7 @@ our $dict = {
       [[59 .. 60], 'example', ['eng']], #20
     ],
     mode => 'sense_per_row',
+    strip => 'to',
   },
   'Voorhoeve (1975a)' => {
     lang_target => 'yva',
