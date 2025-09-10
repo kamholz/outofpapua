@@ -1395,7 +1395,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
-      [1, 'gloss', 'nld']
+      [1, 'gloss', 'nld'],
       [0, 'gloss', 'eng'],
     ],
   },
@@ -1405,7 +1405,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
-      [1, 'gloss', 'nld']
+      [1, 'gloss', 'nld'],
       [0, 'gloss', 'eng'],
     ],
   },
@@ -1415,7 +1415,7 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
-      [1, 'gloss', 'nld']
+      [1, 'gloss', 'nld'],
       [0, 'gloss', 'eng'],
     ],
   },
