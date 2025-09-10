@@ -3143,7 +3143,7 @@ our $dict = {
     ],
   },
   'Esserey (nd)' => {
-    lang_target => 'Keswui',
+    lang_target => 'Kesui',
     path => 'Esserey_nd_Keswui.xlsx',
     parser => 'Spreadsheet',
     columns => [
@@ -15213,6 +15213,54 @@ our $dict = {
     split_headword => ';',
     mode => 'sense_per_row',
     strip => 'to',
+  },
+  'Voorhoeve (nd c)' => { #not ingested
+    lang_target => 'Asmat Flamingo Bay',
+    path => 'Voorhoeve_nd_AsmatFlamingoBay.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'subentry'],
+      [0, 'headword'],
+      [2, 'ps'],
+      [3, 'mr'],
+      [5, 'gloss', 'eng'],
+      [6, 'gloss', 'nld'],
+      [7, 'gloss', 'ind'],
+      [8, 'gloss', 'tpi'],
+      [9, 'sc'],
+      [10, 'lt'],
+      [11, 'pl'],
+      [12, 'cf'],
+      [13, 'va']
+      [14, 've'],
+      [15, 'sy'],
+      [16, 'et'],
+      [17, 'nt'],
+      [18, 'ee'],
+      [19, ''], #subj.
+      [20, ''], #obj.
+      [[21 .. 22], 'example', ['eng']], #1
+      [[23 .. 24], 'example', ['eng']], #2
+      [[25 .. 26], 'example', ['eng']], #3
+      [[27 .. 28], 'example', ['eng']], #4
+      [[29 .. 30], 'example', ['eng']], #5
+      [[31 .. 32], 'example', ['eng']], #6
+      [[33 .. 34], 'example', ['eng']], #7
+      [[35 .. 36], 'example', ['eng']], #8
+      [[37 .. 38], 'example', ['eng']], #9
+      [[39 .. 40], 'example', ['eng']], #10
+      [[41 .. 42], 'example', ['eng']], #11
+      [[43 .. 44], 'example', ['eng']], #12
+      [[45 .. 46], 'example', ['eng']], #13
+      [[47 .. 48], 'example', ['eng']], #14
+      [[49 .. 50], 'example', ['eng']], #15
+      [[51 .. 52], 'example', ['eng']], #16
+      [[53 .. 54], 'example', ['eng']], #17
+      [[55 .. 56], 'example', ['eng']], #18
+      [[57 .. 58], 'example', ['eng']], #19
+      [[59 .. 60], 'example', ['eng']], #20
+    ],
+    mode => 'sense_per_row',
   },
   'Voorhoeve (1975a)' => {
     lang_target => 'yva',
