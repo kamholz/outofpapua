@@ -3907,6 +3907,7 @@ our $dict = {
       [[27 .. 28], 'example', ['nld']],
       [29, 'page_num'],
     ],
+    strip => 'to',
   },
   'Gizzra' => { #not ingested
     lang_target => 'tof',
