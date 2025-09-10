@@ -1390,18 +1390,35 @@ our $dict = {
     strip => 'to',
   },
   'Cambier (1873a)' => {
-    lang_target => 'mkz', 
-    path => 'Carr2004_MakasaeOssu.xlsx',
+    lang_target => 'Maba Gotowasi', 
+    path => 'Cambier1873.xlsx',
     parser => 'Spreadsheet',
     columns => [
-      [0, 'headword'],
-      [1, 'gloss', 'eng'],
+      [2, 'headword'],
+      [1, 'gloss', 'nld']
+      [0, 'gloss', 'eng'],
     ],
   },
-
-
-
-
+  'Cambier (1873b)' => {
+    lang_target => 'Buli', 
+    path => 'Cambier1873.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [3, 'headword'],
+      [1, 'gloss', 'nld']
+      [0, 'gloss', 'eng'],
+    ],
+  },
+  'Cambier (1873c)' => {
+    lang_target => 'Maba Ingli', 
+    path => 'Cambier1873.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [4, 'headword'],
+      [1, 'gloss', 'nld']
+      [0, 'gloss', 'eng'],
+    ],
+  },
   'Carr (2004)' => {
     lang_target => 'mkz', 
     path => 'Carr2004_MakasaeOssu.xlsx',
