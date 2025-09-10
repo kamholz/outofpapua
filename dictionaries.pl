@@ -16402,6 +16402,16 @@ our $dict = {
       [5, 'nt'],
     ],
   },
+  'Zielenbach (2025)' => {
+    lang_target => 'West Makian Sabale',
+    path => 'Zielenbach_2025_WestMakian.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'ind'],
+      [2, 'gloss', 'eng'],
+    ],
+  },
   'Zobel (2017)' => {
     lang_target => 'Proto-South Babar',
     path => 'Zobel_2017_Proto-South Babar.xlsx',
