@@ -4889,6 +4889,11 @@ our $dict = {
       [6, 'nt'],
     ],
   },
+  'Kareth et al. (2004)' => {
+    lang_target => 'Tehit Afsia',
+    path => 'Kareth_2004_Tehit-Afsia.db',
+    parser => 'Marker',
+  },
   'Katubi et al. (2013)' => {
     lang_target => 'kvd',
     path => 'Katubi_2013_Kui.xlsx',
@@ -12862,6 +12867,11 @@ our $dict = {
       [7, 'page_num'],
     ],
     split => ';',
+  },
+  'Srekya et al. (2004)' => { 
+    lang_target => 'Tehit Srer Toto',
+    path => 'Srekya_2004_Tehit-Srer_Toto.txt',
+    parser => 'Marker',
   },
   'Steinhauer (nd)' => { 
     lang_target => 'beu',
