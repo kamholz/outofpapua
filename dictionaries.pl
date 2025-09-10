@@ -16132,7 +16132,7 @@ our $dict = {
     ],
   },
   'Wallace (1869x)' => {
-    lang_target => 'Banggoi',
+    lang_target => 'bgy',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
