@@ -12901,9 +12901,10 @@ our $dict = {
     split => ';',
   },
   'Srekya et al. (2004)' => { 
-    lang_target => 'Tehit',
+    lang_target => 'Tehit Srer Toto',
     path => 'Srekya_2004_Tehit-Srer_Toto.txt',
     parser => 'Marker',
+    lang_national => 'ind',
   },
   'Steinhauer (nd)' => { 
     lang_target => 'beu',
