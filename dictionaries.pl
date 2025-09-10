@@ -3881,7 +3881,7 @@ our $dict = {
     strip => 'to',
   },
   'Geurtjens (1933)' => {
-    lang_target => 'Coastal Marind',
+    lang_target => 'mrz',
     path => 'Geurtjens_1933_CoastalMarind.xlsx',
     parser => 'Spreadsheet',
     columns => [
