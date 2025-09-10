@@ -16084,7 +16084,7 @@ our $dict = {
     ],
   },
   'Wallace (1869t)' => {
-    lang_target => 'jal',
+    lang_target => 'Awaiya',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -16144,7 +16144,7 @@ our $dict = {
     ],
   },
   'Wallace (1869y)' => {
-    lang_target => 'bvt',
+    lang_target => 'Bati Gah',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
     skip => 2,
@@ -16180,7 +16180,7 @@ our $dict = {
     ],
   },
 
-  'Wallace (1869aa)' => {
+  'Wallace (1869ab)' => {
     lang_target => 'Teor',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
@@ -16192,7 +16192,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-  'Wallace (1869ab)' => {
+  'Wallace (1869ac)' => {
     lang_target => 'slz',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
@@ -16204,7 +16204,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-  'Wallace (1869ac)' => {
+  'Wallace (1869ad)' => {
     lang_target => 'Matbat',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
@@ -16216,7 +16216,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-  'Wallace (1869ad)' => {
+  'Wallace (1869ae)' => {
     lang_target => 'bdl',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
