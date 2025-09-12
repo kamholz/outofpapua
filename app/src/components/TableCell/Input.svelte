@@ -5,11 +5,9 @@
   import { fade } from 'svelte/transition';
   import { normalizeParam } from '$lib/util';
 
-  export let row;
-  export let column;
-  export let editingCell;
+  let { row = $bindable(), column, editingCell = $bindable() } = $props();
   const { inputValue, key } = column;
-  let td;
+  let td = $state();
 
   onMount(() => {
     td.focus();
@@ -44,7 +42,7 @@
 <td
   contenteditable="true"
   bind:this={td}
-  on:blur={() => editingCell = null}
+  onblur={() => editingCell = null}
   use:keydown={{ enter: handleEnter, esc: () => editingCell = null }}
   in:fade|local={{ duration: 200 }}
 >

@@ -3,8 +3,14 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export let value;
-  export let autofocus = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} value
+   * @property {any} [autofocus]
+   */
+
+  /** @type {Props} */
+  let { value = $bindable(), autofocus = null } = $props();
 </script>
 
 <span
@@ -12,7 +18,7 @@
   {autofocus}
   bind:textContent={value}
   use:keydown={{ enter: () => dispatch('submit'), esc: () => dispatch('cancel') }}
-/>
+></span>
 
 <style lang="scss">
   @include contenteditable;

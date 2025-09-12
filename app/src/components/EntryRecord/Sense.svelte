@@ -8,8 +8,14 @@
   import { langMarkerSorted } from '$lib/parse_record';
   import { mungePos, toolboxMarkup } from '$lib/util';
 
-  export let sense;
-  export let num = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} sense
+   * @property {any} [num]
+   */
+
+  /** @type {Props} */
+  let { sense, num = null } = $props();
   const compact = getContext('compact');
 </script>
 

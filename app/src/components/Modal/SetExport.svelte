@@ -3,8 +3,7 @@
   import ReflexIPA from '$components/ReflexIPA.svelte';
   import { capitalizeFirstLetter, maybeEngGlosses, referenceInParens } from '$lib/util';
 
-  export let set;
-  export let ipaFunctions;
+  let { set, ipaFunctions } = $props();
   // export let nameEntry;
   // const gloss = nameEntry ? maybeGloss(nameEntry.senses) : null;
 

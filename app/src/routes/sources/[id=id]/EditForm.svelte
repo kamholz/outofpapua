@@ -7,7 +7,7 @@
   import { pageLoading, session } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let source;
+  let { source = $bindable() } = $props();
   source = togglePublic(source);
   const editable = getContext('editable');
   const langSuggest = getContext('langSuggest');
@@ -96,7 +96,7 @@
   }
 
   const update = crud.makeUpdater('source');
-  let promise;
+  let promise = $state();
 
   // so we can display on form as "private"
   function togglePublic(obj) {
@@ -118,7 +118,7 @@
   {#if promise}
     {#await promise then}
       <Alert type="success">Changes saved</Alert>
-    {:catch { message }}
+    {:catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}

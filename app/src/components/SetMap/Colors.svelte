@@ -1,11 +1,13 @@
 <script>
   import { fade } from 'svelte/transition';
 
-  export let colorBy;
-  export let colorOriginLanguage;
-  export let colors;
-  export let sets;
-  export let originLanguages;
+  let {
+    colorBy = $bindable(),
+    colorOriginLanguage = $bindable(),
+    colors = $bindable(),
+    sets,
+    originLanguages
+  } = $props();
 
   function toggleColorOriginLanguage() {
     colorOriginLanguage = !colorOriginLanguage;
@@ -44,7 +46,7 @@
         <input type="color" bind:value={colors.origin.borrowed} />
       </label>
       {#if originLanguages.length}
-        <button on:click={toggleColorOriginLanguage}>{ colorOriginLanguage ? '-' : '+'}</button>
+        <button onclick={toggleColorOriginLanguage}>{ colorOriginLanguage ? '-' : '+'}</button>
       {/if}
     </div>
     {#if colorOriginLanguage}

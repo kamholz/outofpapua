@@ -2,8 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export let row;
-  export let column;
+  let { row = $bindable(), column } = $props();
 
   function handleCheckbox(e) {
     const value = e.currentTarget.checked;
@@ -21,6 +20,6 @@
   <input
     type="checkbox"
     checked={row[column.key]}
-    on:click={handleCheckbox}
+    onclick={handleCheckbox}
   >
 </td>

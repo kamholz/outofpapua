@@ -3,19 +3,21 @@
   import Paginator from '$components/Paginator.svelte';
   import { fade } from 'svelte/transition';
 
-  export let rows;
-  export let query;
-  export let pageCount;
-  export let rowCount;
-  export let multiLang;
-  export let multiGlosslang;
+  let {
+    rows,
+    query,
+    pageCount,
+    rowCount,
+    multiLang,
+    multiGlosslang
+  } = $props();
 
-  $: collapsed = Object.fromEntries(
+  let collapsed = $derived(Object.fromEntries(
     rows.filter((row) => row.compare_entries).map((row) => [
       row.id,
       Object.fromEntries(row.compare_entries.map((v) => [v.language_id, false])),
     ])
-  );
+  ));
 
   // console.log(rows);
 
@@ -39,8 +41,8 @@
 {#if Object.keys(collapsed).length}
   <hr>
   <div>
-    <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-    <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+    <button type="button" onclick={() => collapseAll(true)}>Collapse All</button>
+    <button type="button" onclick={() => collapseAll(false)}>Expand All</button>
   </div>
 {/if}
 

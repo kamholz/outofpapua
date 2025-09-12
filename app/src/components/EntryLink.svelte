@@ -1,8 +1,8 @@
 <script>
-  export let entry;
+  let { entry, children } = $props();
 </script>
 {#if entry.record_id}
-  <a href="/records/{entry.record_id}"><slot /></a>
+  <a href="/records/{entry.record_id}">{@render children?.()}</a>
 {:else}
-  <slot />
+  {@render children?.()}
 {/if}

@@ -4,13 +4,11 @@
   const dispatch = createEventDispatcher();
   import { fade } from 'svelte/transition';
 
-  export let row;
-  export let column;
-  export let editingCell;
+  let { row = $bindable(), column, editingCell = $bindable() } = $props();
   const { filter, options, labelField, rowKey, searchField, valueField } = column.autocomplete;
-  let focus;
+  let focus = $state();
 
-  let filteredOptions = options;
+  let filteredOptions = $state(options);
   if (filter) {
     filteredOptions = filteredOptions.filter((option) => filter(option, row));
   }
@@ -40,7 +38,7 @@
 
 <td
   class="autocomplete"
-  on:focusout={() => editingCell = null}
+  onfocusout={() => editingCell = null}
   in:fade|local={{ duration: 200 }}
 >
   <Svelecte

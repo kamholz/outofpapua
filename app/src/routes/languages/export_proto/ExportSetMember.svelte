@@ -6,19 +6,15 @@
   const settings = getContext('settings');
   import { referenceInParens } from '$lib/util';
 
-  export let member;
-  $: ({
-    entry,
-    language,
-    note,
-    reflex,
-    source,
-  } = member);
-  export let ipaFunctions;
-  export let isOutborrowings = false;
-  $: ipa = $settings.ipa && entry.headword_ipa;
-  $: orthography = $settings.orthography || !ipa;
-  $: showBorrowed = !isOutborrowings && $settings.borrowed_attested;
+  /**
+   * @typedef {Object} Props
+   * @property {any} member
+   * @property {any} ipaFunctions
+   * @property {boolean} [isOutborrowings]
+   */
+
+  /** @type {Props} */
+  let { member, ipaFunctions, isOutborrowings = false } = $props();
 
   function borrowedText() {
     const { origin, origin_language_name } = entry;
@@ -36,6 +32,16 @@
     }
     return txt.length ? `\u00a0(${txt})` : '';
   }
+  let {
+    entry,
+    language,
+    note,
+    reflex,
+    source,
+  } = $derived(member);
+  let ipa = $derived($settings.ipa && entry.headword_ipa);
+  let orthography = $derived($settings.orthography || !ipa);
+  let showBorrowed = $derived(!isOutborrowings && $settings.borrowed_attested);
 </script>
 
 <div>

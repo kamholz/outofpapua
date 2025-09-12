@@ -2,18 +2,18 @@
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import { slide } from 'svelte/transition';
 
-  export let label;
-  let collapsed = true;
-  let toggle;
+  let { label, children } = $props();
+  let collapsed = $state(true);
+  let toggle = $state();
 </script>
 
 <div class="set-item">
   <CollapseIndicator bind:collapsed bind:toggle />
-  <div class="set-item-label clickable fullwidth" on:click={toggle}>{label}</div>
+  <div class="set-item-label clickable fullwidth" onclick={toggle}>{label}</div>
 </div>
 {#if !collapsed}
   <div class="section" transition:slide={{ duration: 200 }}>
-    <slot />
+    {@render children?.()}
   </div>
 {/if}
 

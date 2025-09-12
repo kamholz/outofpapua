@@ -1,19 +1,27 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { formatInfix, matchReflex } from '$lib/util';
 
-  export let reflex;
-  export let headword;
-  export let space = true;
+  /**
+   * @typedef {Object} Props
+   * @property {any} reflex
+   * @property {any} headword
+   * @property {boolean} [space]
+   */
 
-  let before, reflexProper, after;
-  $: {
+  /** @type {Props} */
+  let { reflex, headword, space = true } = $props();
+
+  let before = $state(), reflexProper = $state(), after = $state();
+  run(() => {
     if (reflex) {
       [before, reflexProper, after] = matchReflex(reflex);
     } else {
       reflexProper = headword;
       before = after = null;
     }
-  }
+  });
 </script>
 
 {#if space}

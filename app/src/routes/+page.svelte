@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Alert from '$components/Alert.svelte';
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
@@ -12,13 +14,7 @@
   import { writable } from 'svelte/store';
   import * as crudSet from '$actions/crud/set';
 
-  export let data;
-  $: ({
-    rows,
-    query,
-    pageCount,
-    rowCount,
-  } = data);
+  let { data } = $props();
   const {
     langSuggest,
     glosslangSuggest,
@@ -32,13 +28,11 @@
     setContext('borrowlangSuggest', borrowlangSuggest);
   }
 
-  $: linkable = getContext('editable') && query.set !== 'linked';
   const selection = writable();
   setContext('selection', selection);
   setContext('setSummaryCache', setSummaryCache);
-  let promise;
+  let promise = $state();
 
-  $: init($page);
 
   function init() {
     $setSummaryCache = {};
@@ -72,6 +66,16 @@
   function clearSelection() {
     $selection = new Set();
   }
+  let {
+    rows,
+    query,
+    pageCount,
+    rowCount,
+  } = $derived(data);
+  let linkable = $derived(getContext('editable') && query.set !== 'linked');
+  run(() => {
+    init($page);
+  });
 </script>
 
 <svelte:head>
@@ -92,7 +96,7 @@
         <SearchTableControls {linkable} on:clear={clearSelection} on:link={handleLink} on:map={handleMap} />
       </div>
       {#if promise}
-        {#await promise catch { message }}
+        {#await promise catch {message }}
           <Alert type="error">{message}</Alert>
         {/await}
       {/if}

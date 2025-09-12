@@ -3,8 +3,8 @@
   import { onMount } from 'svelte';
   import { pageLoading } from '$lib/stores';
 
-  export let set;
-  let log;
+  let { set } = $props();
+  let log = $state();
 
   onMount(async () => {
     $pageLoading++;

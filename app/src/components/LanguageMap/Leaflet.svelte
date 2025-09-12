@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import 'leaflet.fullscreen/Control.FullScreen.css';
   import 'leaflet/dist/leaflet.css';
   import baseMaps from '$lib/basemaps.json';
@@ -7,26 +9,21 @@
   import { maxZoom } from '$lib/preferences';
   import { onDestroy, onMount } from 'svelte';
 
-  export let languages;
-  export let families;
-  export let languageMarkers;
-  export let baseMap;
-  export let showLanguageNames;
-  export let lineLength;
+  let {
+    languages,
+    families,
+    languageMarkers,
+    baseMap,
+    showLanguageNames,
+    lineLength
+  } = $props();
 
-  let L;
+  let L = $state();
   let tooltipLayout;
-  let map;
-  let layer;
+  let map = $state();
+  let layer = $state();
 
-  $: if (map && baseMap) {
-    layer?.remove();
-    layer = L.tileLayer(baseMaps[baseMap].url, {
-      attribution: baseMaps[baseMap].attribution,
-    }).addTo(map);
-  }
 
-  $: updateMarkers(showLanguageNames);
 
   onMount(async () => {
     L = await import('leaflet');
@@ -127,6 +124,17 @@
   function getMarkerHtml(language) {
     return escape(language.name);
   }
+  run(() => {
+    if (map && baseMap) {
+      layer?.remove();
+      layer = L.tileLayer(baseMaps[baseMap].url, {
+        attribution: baseMaps[baseMap].attribution,
+      }).addTo(map);
+    }
+  });
+  run(() => {
+    updateMarkers(showLanguageNames);
+  });
 </script>
 
 <div>

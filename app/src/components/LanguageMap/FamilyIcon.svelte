@@ -1,8 +1,7 @@
 <script>
   import Svelecte from '$lib/svelecte';
 
-  export let family;
-  export let updateFamily;
+  let { family = $bindable(), updateFamily } = $props();
   const icons = ['circle', 'diamond', 'square', 'star', 'triangle'].map((value) => ({ value }));
 </script>
 

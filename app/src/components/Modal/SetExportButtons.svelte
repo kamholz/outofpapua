@@ -2,9 +2,9 @@
   import Icon from 'svelte-awesome';
   import { faClone, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-  export let onClose;
+  let { onClose } = $props();
   const scale = 1.25;
-  let div;
+  let div = $state();
 
   function copy() {
     const content = div.nextElementSibling;
@@ -19,10 +19,10 @@
 </script>
 
 <div bind:this={div}>
-  <span title="Copy" on:click={copy}>
+  <span title="Copy" onclick={copy}>
     <Icon data={faClone} {scale} />
   </span>
-  <span title="Close" on:click={onClose}>
+  <span title="Close" onclick={onClose}>
     <Icon data={faTimes} {scale} />
   </span>
 </div>

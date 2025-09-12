@@ -1,4 +1,5 @@
 <script>
+  import Entry from './Entry.svelte';
   import Div from '$components/EntryRecord/Div.svelte';
   import Note from '$components/EntryRecord/Note.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
@@ -6,7 +7,7 @@
   import { entryNotesPost, entryNotesPre } from './notes';
   import { getContext } from 'svelte';
 
-  export let entry;
+  let { entry } = $props();
   const compact = getContext('compact');
 
   function getPh(txt) {
@@ -50,7 +51,7 @@
 
 {#if entry.subentry}
   {#each entry.subentry as subentry}
-    <svelte:self entry={subentry} />
+    <Entry entry={subentry} />
   {/each}
 {/if}
 

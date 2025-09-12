@@ -8,13 +8,19 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let entry;
-  export let source;
-  export let editable = false;
+  /**
+   * @typedef {Object} Props
+   * @property {any} entry
+   * @property {any} source
+   * @property {boolean} [editable]
+   */
+
+  /** @type {Props} */
+  let { entry, source, editable = false } = $props();
   const sourceSuggest = getContext('sourceSuggest');
 
-  let editing = false;
-  let source_id;
+  let editing = $state(false);
+  let source_id = $state();
 
   function handleEdit() {
     source_id = source.id;
@@ -48,7 +54,7 @@
   {#if editable && source.editable}
     <span
       class="icon"
-      on:click={handleEdit}
+      onclick={handleEdit}
     >
       <Icon data={faEdit} />
     </span>

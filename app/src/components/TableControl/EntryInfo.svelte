@@ -3,9 +3,7 @@
   import Icon from 'svelte-awesome';
   import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-  export let control;control;
-  export let row;
-  export let scale;
+  let { control, row = $bindable(), scale } = $props();
 </script>
 
 <EntryInfoPopover

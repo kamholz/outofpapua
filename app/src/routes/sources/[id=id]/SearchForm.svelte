@@ -4,7 +4,7 @@
   import { getContext } from 'svelte';
   import { hideComparative } from '$lib/stores';
 
-  export let query;
+  let { query } = $props();
   const preferences = getContext('preferences');
   const borrowlangSuggest = getContext('borrowlangSuggest');
   const values = { ...query };
@@ -68,9 +68,9 @@
     },
   ];
 
-  $: fields = $hideComparative
+  let fields = $derived($hideComparative
     ? fieldsAll.filter((field) => !field.comparative)
-    : fieldsAll;
+    : fieldsAll);
 
   function handleChange(e) {
     if (e.target.name === 'origin') {
@@ -88,11 +88,15 @@
   style="--form-width: 40em; --label-width: 23%; --checkbox-width: 5em;"
   on:change={handleChange}
 >
-  <svelte:fragment slot="hidden">
-    <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
-  </svelte:fragment>
+  {#snippet hidden()}
+  
+      <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
+    
+  {/snippet}
 
-  <svelte:fragment slot="controls">
-    <RegexHelp />
-  </svelte:fragment>
+  {#snippet controls()}
+  
+      <RegexHelp />
+    
+  {/snippet}
 </Form>

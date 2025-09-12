@@ -13,17 +13,19 @@
   import { pageLoading } from '$lib/stores';
   import * as crudSet from '$actions/crud/set';
 
-  export let entry;
-  export let query;
-  export let collapsed;
-  export let multiLang;
-  export let multiGlosslang;
+  let {
+    entry = $bindable(),
+    query,
+    collapsed = $bindable(),
+    multiLang,
+    multiGlosslang
+  } = $props();
   const { compare_entries, headword, senses } = entry;
   const linkable = getContext('editable') && compare_entries;
   const langNameById = getContext('langNameById');
-  let selection = linkable ? {} : null;
+  let selection = $state(linkable ? {} : null);
 
-  $: allCollapsed = collapsed && Object.values(collapsed).every((v) => v);
+  let allCollapsed = $derived(collapsed && Object.values(collapsed).every((v) => v));
 
   function handleSelect(item) {
     if (selection[item.id]) {
@@ -56,7 +58,7 @@
 <div class="columns">
   <div class="entry">
     {#if linkable && !allCollapsed}
-      <span title="Select" on:click={() => handleSelect(entry)}>
+      <span title="Select" onclick={() => handleSelect(entry)}>
         <Icon data={selection[entry.id] ? faCircleSolid : faCircleRegular} />
       </span>
     {/if}
@@ -94,7 +96,7 @@
               {#each entries as compare_entry (compare_entry.id)}
                 <li>
                   {#if linkable}
-                    <span title="Select" on:click={() => handleSelect(compare_entry)}>
+                    <span title="Select" onclick={() => handleSelect(compare_entry)}>
                       <Icon data={selection[compare_entry.id] ? faCircleSolid : faCircleRegular} />
                     </span>
                   {/if}
@@ -129,7 +131,7 @@
     type="button"
     transition:fade={{ duration: 300 }}
     disabled={$pageLoading}
-    on:click={handleLink}
+    onclick={handleLink}
   >Link Selected</button>
 {/if}
 

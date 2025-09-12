@@ -1,11 +1,13 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { goto } from '$app/navigation';
   import { login, logout } from '$actions/auth';
   import { pageLoading, session } from '$lib/stores';
 
-  export let username;
-  let password;
-  let promise;
+  let { username = $bindable() } = $props();
+  let password = $state();
+  let promise = $state();
 
   async function handleLogin() {
     $pageLoading++;
@@ -32,15 +34,15 @@
 
 <div class="login">
   {#if promise}
-    {#await promise catch { message }}
+    {#await promise catch {message }}
       <span class="error">{message}</span>
     {/await}
   {/if}
   {#if $session.user}
     <span class="user">Logged in as: <a href="/profile"><strong>{$session.user.fullname}</strong></a></span>
-    <button type="button" on:click={handleLogout}>Logout</button>
+    <button type="button" onclick={handleLogout}>Logout</button>
   {:else}
-    <form on:submit|preventDefault={handleLogin} action="/auth/login" method="POST">
+    <form onsubmit={preventDefault(handleLogin)} action="/auth/login" method="POST">
       <div class="fields">
         <label>
           <span>Email:</span>

@@ -2,14 +2,28 @@
   import Form from '$components/EntryRecord/Form.svelte';
   import Paragraph from '$components/EntryRecord/Paragraph.svelte';
 
-  export let data;
-  export let key;
-  export let label;
-  export let join = false;
-  export let trans = false;
-  export let link = false;
-  let className = null;
-  export { className as class };
+  /**
+   * @typedef {Object} Props
+   * @property {any} data
+   * @property {any} key
+   * @property {any} label
+   * @property {boolean} [join]
+   * @property {boolean} [trans]
+   * @property {boolean} [link]
+   * @property {any} [class]
+   */
+
+  /** @type {Props} */
+  let {
+    data,
+    key,
+    label,
+    join = false,
+    trans = false,
+    link = false,
+    class: className = null
+  } = $props();
+  
   const items = data[key];
 </script>
 

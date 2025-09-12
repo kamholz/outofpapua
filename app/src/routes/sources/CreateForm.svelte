@@ -7,7 +7,7 @@
   import * as crud from '$actions/crud';
 
   const protolangSuggest = getContext('protolangSuggest');
-  let values = {};
+  let values = $state({});
 
   const fields = [
     {
@@ -35,7 +35,7 @@
   ];
 
   const creater = crud.makeCreater('source');
-  let promise;
+  let promise = $state();
 
   async function handleCreate() {
     if (!values.language_id) {
@@ -54,7 +54,7 @@
   }
 </script>
 
-{#await promise catch { message }}
+{#await promise catch {message }}
   <Alert type="error">{message}</Alert>
 {/await}
 <Form

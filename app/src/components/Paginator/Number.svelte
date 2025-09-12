@@ -1,8 +1,10 @@
 <script>
-  export let page;
-  export let pageUrl;
-  export let num;
-  export let sort;
+  let {
+    page,
+    pageUrl,
+    num,
+    sort
+  } = $props();
 </script>
 
 {#if page === num}

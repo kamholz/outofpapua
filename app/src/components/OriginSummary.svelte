@@ -1,7 +1,7 @@
 <script>
   import { originSummary } from '$lib/util';
 
-  export let entry;
+  let { entry } = $props();
 </script>
 
 {#if entry.origin}

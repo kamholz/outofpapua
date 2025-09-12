@@ -8,9 +8,8 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let user;
-  export let adminView;
-  let promise;
+  let { user, adminView } = $props();
+  let promise = $state();
 
   const del = crud.makeDeleter('user');
 
@@ -33,7 +32,7 @@
 
 <h2>Profile</h2>
 {#if promise}
-  {#await promise catch { message }}
+  {#await promise catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}
@@ -54,5 +53,5 @@
 />
 
 {#if adminView && !isAdmin(user)}
-  <button type="button" class="delete" on:click={handleDelete}>Delete User</button>
+  <button type="button" class="delete" onclick={handleDelete}>Delete User</button>
 {/if}

@@ -5,9 +5,7 @@
   import { getContext } from 'svelte';
   import { hideComparative } from '$lib/stores';
 
-  export let rows;
-  export let query;
-  export let pageCount;
+  let { rows, query, pageCount } = $props();
   const preferences = getContext('preferences');
 
   const columns = [
@@ -53,9 +51,9 @@
     },
   ];
 
-  $: controls = $hideComparative
+  let controls = $derived($hideComparative
     ? controlsAll.filter((control) => !control.comparative)
-    : controlsAll;
+    : controlsAll);
 </script>
 
 <Table
@@ -69,14 +67,16 @@
   highlight
   searchContext={Boolean(query.record)}
   searchContextCollapsed={(row) => row.seen_record}
-  let:row
+  
   on:link
 >
-  <EntryRecordHighlighted strings={row.record_match}>
-    <EntryRecordFormatted
-      data={row.record_data}
-      source={{ id: row.source_id, formatting: row.source_formatting }}
-      compact
-    />
-  </EntryRecordHighlighted>
+  {#snippet children({ row })}
+    <EntryRecordHighlighted strings={row.record_match}>
+      <EntryRecordFormatted
+        data={row.record_data}
+        source={{ id: row.source_id, formatting: row.source_formatting }}
+        compact
+      />
+    </EntryRecordHighlighted>
+  {/snippet}
 </Table>

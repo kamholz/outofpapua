@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Alert from '$components/Alert.svelte';
   import EditForm from './EditForm.svelte';
   import { checkError, isEditor } from '$lib/util';
@@ -6,8 +8,7 @@
   import { pageLoading, session } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let data;
-  $: ({ source } = data);
+  let { data } = $props();
   const {
     langSuggest,
     protolangSuggest,
@@ -23,9 +24,8 @@
     setContext('ipaConversionRuleSuggest', ipaConversionRuleSuggest);
   }
 
-  let promise;
+  let promise = $state();
 
-  $: init($page);
 
   function init() {
     if (source.formatting && typeof source.formatting === 'object') {
@@ -44,6 +44,10 @@
     } catch (e) {}
     $pageLoading--;
   }
+  let { source } = $derived(data);
+  run(() => {
+    init($page);
+  });
 </script>
 
 <svelte:head>
@@ -63,12 +67,12 @@
   </div>
 
   <div>
-    <button on:click={handleRule} disabled={$pageLoading}>Run IPA Conversion</button>
+    <button onclick={handleRule} disabled={$pageLoading}>Run IPA Conversion</button>
   </div>
   {#if promise}
     {#await promise then}
       <Alert type="success">Conversion successful</Alert>
-    {:catch { message }}
+    {:catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}

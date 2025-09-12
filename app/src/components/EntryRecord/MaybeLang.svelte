@@ -1,7 +1,7 @@
 <script>
   import { getContext } from 'svelte';
 
-  export let lang;
+  let { lang } = $props();
   const preferences = getContext('preferences');
 </script>
 

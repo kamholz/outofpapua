@@ -2,15 +2,14 @@
   import { getContext } from 'svelte';
   const preferences = getContext('preferences');
 
-  export let baseMap;
-  export let showLanguageNames;
+  let { baseMap = $bindable(), showLanguageNames = $bindable() } = $props();
 </script>
 
 <label>
   Base map:
   <select
     bind:value={baseMap}
-    on:change={() => preferences.update({ baseMap })}
+    onchange={() => preferences.update({ baseMap })}
   >
     <option value="esri-gray-canvas">Gray Canvas</option>
     <option value="cartodb-positron">Positron</option>

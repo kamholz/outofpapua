@@ -2,20 +2,22 @@
   import { getContext } from 'svelte';
   const preferences = getContext('preferences');
 
-  export let baseMap;
-  export let markerType;
-  export let lineLength;
-  export let showLanguage;
-  export let showGloss;
-  export let headwordDisplay;
-  export let headwordOptions;
+  let {
+    baseMap = $bindable(),
+    markerType = $bindable(),
+    lineLength = $bindable(),
+    showLanguage = $bindable(),
+    showGloss = $bindable(),
+    headwordDisplay = $bindable(),
+    headwordOptions
+  } = $props();
 </script>
 
 <label>
   Base map:
   <select
     bind:value={baseMap}
-    on:change={() => preferences.update({ baseMap })}
+    onchange={() => preferences.update({ baseMap })}
   >
     <option value="esri-gray-canvas">Gray Canvas</option>
     <option value="cartodb-positron">Positron</option>

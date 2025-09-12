@@ -1,37 +1,61 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Icon from 'svelte-awesome';
   import Paginator from '$components/Paginator.svelte';
   import TableRow from '$components/TableRow.svelte';
   import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
   import { serializeQuery, stringify } from '$lib/util';
 
-  export let columns;
-  export let rows;
-  export let query = null;
-  export let pageCount = null;
-  export let sortable = false;
-  export let editable = false;
-  export let paginated = false;
-  export let controls = null;
-  export let highlight = false;
-  export let searchContext = false;
-  export let searchContextCollapsed = () => false;
-  let editingCell = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} columns
+   * @property {any} rows
+   * @property {any} [query]
+   * @property {any} [pageCount]
+   * @property {boolean} [sortable]
+   * @property {boolean} [editable]
+   * @property {boolean} [paginated]
+   * @property {any} [controls]
+   * @property {boolean} [highlight]
+   * @property {boolean} [searchContext]
+   * @property {any} [searchContextCollapsed]
+   * @property {import('svelte').Snippet<[any]>} [children]
+   */
 
-  $: for (const column of columns) {
-    if (!('value' in column)) {
-      column.value = (row) => stringify(row[column.key]);
+  /** @type {Props} */
+  let {
+    columns,
+    rows,
+    query = null,
+    pageCount = null,
+    sortable = false,
+    editable = false,
+    paginated = false,
+    controls = null,
+    highlight = false,
+    searchContext = false,
+    searchContextCollapsed = () => false,
+    children
+  } = $props();
+  let editingCell = $state(null);
+
+  run(() => {
+    for (const column of columns) {
+      if (!('value' in column)) {
+        column.value = (row) => stringify(row[column.key]);
+      }
+      if (sortable && !('sortKey' in column)) {
+        column.sortKey = column.key;
+      }
+      if (column.editable && !('inputValue' in column)) {
+        column.inputValue = column.value;
+      }
+      if (column.link && !('prefetch' in column)) {
+        column.prefetch = true;
+      }
     }
-    if (sortable && !('sortKey' in column)) {
-      column.sortKey = column.key;
-    }
-    if (column.editable && !('inputValue' in column)) {
-      column.inputValue = column.value;
-    }
-    if (column.link && !('prefetch' in column)) {
-      column.prefetch = true;
-    }
-  }
+  });
 
   function getSortQuery(key, query) {
     const sortQuery = { ...query };
@@ -87,7 +111,7 @@
         on:select
         on:link
       >
-        <slot {row} />
+        {@render children?.({ row, })}
       </TableRow>
     {/each}
   </tbody>

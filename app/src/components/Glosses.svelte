@@ -3,9 +3,15 @@
   import { glossSummaryNoLanguage, glossesSummary, glossesSummaryPreferred } from '$lib/util';
   const preferences = getContext('preferences');
 
-  export let glosses;
-  export let single = false;
-  export let preferred = false;
+  /**
+   * @typedef {Object} Props
+   * @property {any} glosses
+   * @property {boolean} [single]
+   * @property {boolean} [preferred]
+   */
+
+  /** @type {Props} */
+  let { glosses, single = false, preferred = false } = $props();
 
   function summary(glosses) {
     if (single) {

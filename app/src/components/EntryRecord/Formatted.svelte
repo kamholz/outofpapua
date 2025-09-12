@@ -3,9 +3,15 @@
   import { parseRecord } from '$lib/parse_record';
   import { setContext } from 'svelte';
 
-  export let data;
-  export let source;
-  export let compact = false;
+  /**
+   * @typedef {Object} Props
+   * @property {any} data
+   * @property {any} source
+   * @property {boolean} [compact]
+   */
+
+  /** @type {Props} */
+  let { data, source, compact = false } = $props();
   setContext('source', source);
   setContext('compact', compact);
   const entry = parseRecord(data, source.formatting);

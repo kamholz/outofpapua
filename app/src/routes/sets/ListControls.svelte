@@ -3,42 +3,48 @@
   import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
 
-  export let collapseAll;
-  export let handleAutocompare;
-  export let handleMap;
-  export let handleMerge;
-  export let selection;
+  let {
+    collapseAll,
+    handleAutocompare,
+    handleMap,
+    handleMerge,
+    selection
+  } = $props();
   const editable = getContext('editable');
 </script>
 
 <div class="controls">
-  <KeepOnscreen location="left" let:offscreen>
-    <div class="left" class:offscreen>
-      <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-      <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
-      {#if editable}
+  <KeepOnscreen location="left" >
+    {#snippet children({ offscreen })}
+        <div class="left" class:offscreen>
+        <button type="button" onclick={() => collapseAll(true)}>Collapse All</button>
+        <button type="button" onclick={() => collapseAll(false)}>Expand All</button>
+        {#if editable}
+          <button
+            type="button"
+            disabled={$pageLoading || selection.size < 2}
+            onclick={handleMerge}
+          >Merge Selected Sets</button>
+        {/if}
+      </div>
+          {/snippet}
+    </KeepOnscreen>
+  <KeepOnscreen location="right" >
+    {#snippet children({ offscreen })}
+        <div class="right" class:offscreen>
+        <button
+          type="button"
+          disabled={$pageLoading || selection.size < 1}
+          onclick={() => handleAutocompare('cog')}
+        >Export Cog</button>
         <button
           type="button"
           disabled={$pageLoading || selection.size < 2}
-          on:click={handleMerge}
-        >Merge Selected Sets</button>
-      {/if}
-    </div>
-  </KeepOnscreen>
-  <KeepOnscreen location="right" let:offscreen>
-    <div class="right" class:offscreen>
-      <button
-        type="button"
-        disabled={$pageLoading || selection.size < 1}
-        on:click={() => handleAutocompare('cog')}
-      >Export Cog</button>
-      <button
-        type="button"
-        disabled={$pageLoading || selection.size < 2}
-        on:click={handleMap}
-      >Map Selected Sets</button>
-    </div>
-  </KeepOnscreen>
+          onclick={handleMap}
+        >Map Selected Sets</button>
+      </div>
+          {/snippet}
+    </KeepOnscreen>
 </div>
 
 <style lang="scss">

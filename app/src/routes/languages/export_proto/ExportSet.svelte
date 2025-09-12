@@ -5,9 +5,8 @@
   const settings = getContext('settings');
   import { referenceInParens } from '$lib/util';
 
-  export let set;
-  $: ({ members: { proto, ancestor, descendant, borrowed, other } } = set);
-  export let ipaFunctions;
+  let { set, ipaFunctions } = $props();
+  let { members: { proto, ancestor, descendant, borrowed, other } } = $derived(set);
 </script>
 
 <div>

@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Encountered an export declaration pattern that is not supported for automigration. -->
 <script>
   import Colors from '$components/SetMap/Colors.svelte';
   import Entries from './SetMap/Entries.svelte';

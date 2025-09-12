@@ -2,7 +2,7 @@
   import SetMap from '$components/SetMap.svelte';
   import { setContext } from 'svelte';
 
-  export let data;
+  let { data } = $props();
   const {
     sets,
     name = null,

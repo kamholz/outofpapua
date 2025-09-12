@@ -1,10 +1,12 @@
 <script>
   import CheckboxSide from '$components/Form/CheckboxSide.svelte';
 
-  export let field;
-  export let values;
-  export let haveCheckbox;
-  export let browserSubmit;browserSubmit;
+  let {
+    field,
+    values = $bindable(),
+    haveCheckbox,
+    browserSubmit
+  } = $props();
   const { checkbox, name, required } = field;
 </script>
 

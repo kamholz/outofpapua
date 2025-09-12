@@ -1,9 +1,7 @@
 <script>
   import { formatReflexIpa } from '$lib/util';
 
-  export let reflex;
-  export let headword_ipa;
-  export let func;
+  let { reflex, headword_ipa, func } = $props();
   const [before, reflexProper, after] = formatReflexIpa(reflex, headword_ipa, func);
 </script>
 

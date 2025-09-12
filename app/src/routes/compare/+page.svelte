@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Alert from '$components/Alert.svelte';
   import Form from './Form.svelte';
   import List from './List.svelte';
@@ -8,14 +10,7 @@
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let data;
-  $: ({
-    pageCount,
-    query,
-    rowCount,
-    rows,
-    error,
-  } = data);
+  let { data } = $props();
   const {
     langSuggest,
     glosslangSuggest,
@@ -32,12 +27,9 @@
   );
   setContext('langNameById', langNameById);
 
-  $: multiGlosslang = !(query.glosslang?.length === 1);
-  $: multiLang = !(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/));
 
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init($page);
 
   function init() {
     $setSummaryCache = {};
@@ -49,6 +41,18 @@
     $pageLoading--;
     init();
   }
+  let {
+    pageCount,
+    query,
+    rowCount,
+    rows,
+    error,
+  } = $derived(data);
+  let multiGlosslang = $derived(!(query.glosslang?.length === 1));
+  let multiLang = $derived(!(query.lang1?.length === 1 && !query.lang1[0].match(/\+$/)));
+  run(() => {
+    init($page);
+  });
 </script>
 
 <svelte:head>

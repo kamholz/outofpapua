@@ -1,8 +1,8 @@
 <script>
   import ProfilePage from '../ProfilePage.svelte';
 
-  export let data;
-  $: ({ user } = data);
+  let { data } = $props();
+  let { user } = $derived(data);
 </script>
 
 <ProfilePage {user} adminView={true} />

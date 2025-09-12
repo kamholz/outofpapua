@@ -2,8 +2,14 @@
   import Glosses from '$components/Glosses.svelte';
   import { mungePos } from '$lib/util';
 
-  export let senses;
-  export let multiGlosslang = true;
+  /**
+   * @typedef {Object} Props
+   * @property {any} senses
+   * @property {boolean} [multiGlosslang]
+   */
+
+  /** @type {Props} */
+  let { senses, multiGlosslang = true } = $props();
   const multiSense = senses.length > 1;
 </script>
 

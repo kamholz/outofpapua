@@ -1,8 +1,10 @@
 <script>
-  export let field;
-  export let values;
-  export let haveCheckbox;
-  export let browserSubmit;browserSubmit;
+  let {
+    field,
+    values = $bindable(),
+    haveCheckbox,
+    browserSubmit
+  } = $props();
   const { name, required } = field;
 </script>
 

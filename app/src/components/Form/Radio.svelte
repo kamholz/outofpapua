@@ -1,8 +1,13 @@
 <script>
-  export let field;
-  export let values;
-  export let haveCheckbox;haveCheckbox;
-  export let browserSubmit;browserSubmit;
+  import { createBubbler } from 'svelte/legacy';
+
+  const bubble = createBubbler();
+  let {
+    field,
+    values = $bindable(),
+    haveCheckbox,
+    browserSubmit
+  } = $props();
   const { name, options, required } = field;
 </script>
 
@@ -15,7 +20,7 @@
         {value}
         bind:group={values[name]}
         {required}
-        on:change
+        onchange={bubble('change')}
       >
       <span>{label}</span>
     </label>

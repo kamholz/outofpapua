@@ -6,9 +6,7 @@
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { slide } from 'svelte/transition';
 
-  export let set;
-  export let collapsed;
-  export let selection;
+  let { set, collapsed = $bindable(), selection = $bindable() } = $props();
 
   function handleSelect() {
     if (selection.has(set.id)) {
@@ -25,7 +23,7 @@
     <CollapseIndicator bind:collapsed />
     <strong>Set: <a href="/sets/{set.id}" data-sveltekit-preload-data="off">{set.name_auto.txt}</a></strong>
   </div>
-  <span title="Select" on:click={handleSelect}>
+  <span title="Select" onclick={handleSelect}>
     <Icon data={selection.has(set.id) ? faCircleSolid : faCircleRegular} />
   </span>
 </div>

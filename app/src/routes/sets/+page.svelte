@@ -6,13 +6,13 @@
   import { pageLoading } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let data;
-  $: ({
+  let { data } = $props();
+  let {
     rows,
     query,
     pageCount,
     rowCount,
-  } = data);
+  } = $derived(data);
   const {
     setAuthorSuggest,
     sourceSuggest,

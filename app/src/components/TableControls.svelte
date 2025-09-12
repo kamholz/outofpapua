@@ -8,8 +8,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export let row;
-  export let controls;
+  let { row = $bindable(), controls } = $props();
   const scale = 0.9;
 
   const componentMap = {
@@ -27,8 +26,8 @@
 <td>
   <div class="controls">
     {#each controls as control (control.type)}
-      <svelte:component
-        this={componentMap[control.type]}
+      {@const SvelteComponent = componentMap[control.type]}
+      <SvelteComponent
         {control}
         bind:row
         {scale}

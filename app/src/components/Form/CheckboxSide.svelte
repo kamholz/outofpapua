@@ -1,7 +1,5 @@
 <script>
-  export let name;
-  export let label;
-  export let checked;
+  let { name, label, checked = $bindable() } = $props();
 </script>
 
 <label>

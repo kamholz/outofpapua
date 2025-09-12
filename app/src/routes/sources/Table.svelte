@@ -4,8 +4,7 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let rows;
-  export let query;
+  let { rows, query } = $props();
   const editable = getContext('editable');
   const preferences = getContext('preferences');
 
@@ -51,7 +50,7 @@
     },
   ];
 
-  $: columns = query.edit_mode ? columnsEditMode : columnsReadOnly;
+  let columns = $derived(query.edit_mode ? columnsEditMode : columnsReadOnly);
 
   const controls = [
     {

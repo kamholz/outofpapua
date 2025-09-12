@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import ExportSet from './ExportSet.svelte';
   import SearchForm from './SearchForm.svelte';
   import { browser } from '$app/environment';
@@ -6,12 +8,7 @@
   import { page } from '$app/stores';
   import { writable } from 'svelte/store';
 
-  export let data;
-  $: ({
-    query,
-    entries,
-    ipaFunctions,
-  } = data);
+  let { data } = $props();
   const {
     protolangSuggest,
   } = data;
@@ -20,7 +17,6 @@
   const settings = writable({});
   setContext('settings', settings);
 
-  $: init($page);
 
   function init() {
     $settings = Object.fromEntries(
@@ -54,6 +50,14 @@
   function attested(settings) {
     return settings.descendants || settings.outcomparisons || settings.outborrowings;
   }
+  let {
+    query,
+    entries,
+    ipaFunctions,
+  } = $derived(data);
+  run(() => {
+    init($page);
+  });
 </script>
 
 <svelte:head>

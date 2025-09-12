@@ -7,15 +7,15 @@
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
-  export let data;
-  $: ({
+  let { data } = $props();
+  let {
     libs,
     name,
-  } = data);
+  } = $derived(data);
 
-  let selected = findLib(data.name) || {};
-  $: lib = { ...selected };
-  let promise;
+  let selected = $state(findLib(data.name) || {});
+  let lib = $derived({ ...selected });
+  let promise = $state();
 
   function handleChange() {
     window.history.pushState(null, '', libUrl(selected.name));
@@ -78,7 +78,7 @@
 
 <div class="lib">
   {#if promise}
-    {#await promise catch { message }}
+    {#await promise catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}

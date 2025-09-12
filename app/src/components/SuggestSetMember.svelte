@@ -5,13 +5,25 @@
   import { escapeHtml as escape } from '$lib/util';
   import * as suggest from '$actions/suggest';
 
-  export let match;
-  export let linked;
-  export let languages = null;
-  export let entry_id = null;
-  export let set_id = null;
-  let selection = null;
-  let value = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} match
+   * @property {any} linked
+   * @property {any} [languages]
+   * @property {any} [entry_id]
+   * @property {any} [set_id]
+   */
+
+  /** @type {Props} */
+  let {
+    match,
+    linked,
+    languages = null,
+    entry_id = null,
+    set_id = null
+  } = $props();
+  let selection = $state(null);
+  let value = $state(null);
   const preferences = getContext('preferences');
 
   function renderer(item) {

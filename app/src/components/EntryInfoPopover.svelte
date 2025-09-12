@@ -11,21 +11,35 @@
   import * as crud from '$actions/crud';
   import * as crudSet from '$actions/crud/set';
 
-  export let entry;
-  export let language_id;
-  export let click = false;
-  export let linkable = false;
-  export let placement = 'auto';
+  /**
+   * @typedef {Object} Props
+   * @property {any} entry
+   * @property {any} language_id
+   * @property {boolean} [click]
+   * @property {boolean} [linkable]
+   * @property {string} [placement]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let {
+    entry = $bindable(),
+    language_id,
+    click = false,
+    linkable = false,
+    placement = 'auto',
+    children
+  } = $props();
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
 
-  const values = {
+  const values = $state({
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,
-  };
-  const promises = { pending: {}, fulfilled: {} };
+  });
+  const promises = $state({ pending: {}, fulfilled: {} });
 
-  let showPopover = false;
+  let showPopover = $state(false);
   const popover = createPopover({
     hover: true,
     click,
@@ -71,7 +85,7 @@
 </script>
 
 <span use:popoverTrigger={popover}>
-  <slot />
+  {@render children?.()}
 </span>
 {#if showPopover}
   <div
@@ -92,7 +106,7 @@
                 value="inherited"
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
+                onchange={() => handleUpdate('origin')}
               >
               <span>inherited</span>
             </label>
@@ -102,7 +116,7 @@
                 value="borrowed"
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
+                onchange={() => handleUpdate('origin')}
               >
               <span>borrowed</span>
             </label>
@@ -112,7 +126,7 @@
                 value="mixed"
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
+                onchange={() => handleUpdate('origin')}
               >
               <span>mixed</span>
             </label>
@@ -122,7 +136,7 @@
                 value={null}
                 disabled={promises.pending.origin}
                 bind:group={values.origin}
-                on:change={() => handleUpdate('origin')}
+                onchange={() => handleUpdate('origin')}
               >
               <span>unspecified</span>
             </label>

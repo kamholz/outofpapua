@@ -7,10 +7,10 @@
   import { pageLoading } from '$lib/stores';
   import * as crudSetMember from '$actions/crud/setmember';
 
-  export let set;
+  let { set } = $props();
   const langSuggest = getContext('langSuggest');
-  let languages;
-  let promise;
+  let languages = $state();
+  let promise = $state();
 
   async function handleAdd(e) {
     const entry = e.detail;
@@ -25,7 +25,7 @@
 </script>
 
 {#if promise}
-  {#await promise catch { message }}
+  {#await promise catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}

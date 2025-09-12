@@ -2,18 +2,25 @@
   import CollapseIndicator from '$components/CollapseIndicator.svelte';
   import { slide } from 'svelte/transition';
 
-  export let collapsed = false;
-  export let name;
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [collapsed]
+   * @property {any} name
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { collapsed = $bindable(false), name, children } = $props();
 </script>
 
 <div class="section">
   <div class="heading">
     <CollapseIndicator bind:collapsed />
-    <h3 on:click={() => collapsed = !collapsed}>{name}</h3>
+    <h3 onclick={() => collapsed = !collapsed}>{name}</h3>
   </div>
   {#if !collapsed}
     <div class="content" transition:slide|local={{ duration: 200 }}>
-      <slot />
+      {@render children?.()}
     </div>
   {/if}
 </div>

@@ -22,18 +22,20 @@
   import * as crudSense from '$actions/crud/sense';
   import * as crudSetMember from '$actions/crud/setmember';
 
-  export let member;
-  export let set;
-  export let collapsed;
-  export let selection;
+  let {
+    member = $bindable(),
+    set,
+    collapsed = $bindable(),
+    selection = $bindable()
+  } = $props();
   const editable = getContext('editable');
   const borrowlangSuggest = getContext('borrowlangSuggest');
-  const promises = { pending: {}, fulfilled: {} };
+  const promises = $state({ pending: {}, fulfilled: {} });
   const memberKeys = new Set(['note', 'reflex', 'reflex_origin', 'reflex_origin_language_id']);
 
-  const { entry, language, source } = member;
+  const { entry, language, source } = $state(member);
   const { senses } = entry;
-  let values = {
+  let values = $state({
     note: member.note,
     origin: entry.origin,
     origin_language_id: entry.origin_language_id,
@@ -41,9 +43,9 @@
     reflex: member.reflex,
     reflex_origin: member.reflex_origin,
     reflex_origin_language_id: member.reflex_origin_language_id,
-  };
-  let editingProto = false;
-  let protoValues;
+  });
+  let editingProto = $state(false);
+  let protoValues = $state();
 
   async function handleUpdate(key) {
     if (typeof values[key] === 'string' || values[key] instanceof String) {
@@ -232,7 +234,7 @@
 
 {#if !collapsed}
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
-    {#await promises.fulfilled[key] catch { message }}
+    {#await promises.fulfilled[key] catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/each}
@@ -280,26 +282,26 @@
       {#if editable}
         <div class="controls">
           {#if language.is_proto && set.name_auto?.entry_id !== entry.id}
-            <span title="Choose for set name" on:click={handleNameEntry}>
+            <span title="Choose for set name" onclick={handleNameEntry}>
               <Icon data={faStar} />
             </span>
           {/if}
           {#if source.editable}
             {#if editingProto}
-              <span title="Save proto-form" on:click={handleSaveProto}>
+              <span title="Save proto-form" onclick={handleSaveProto}>
                 <Icon data={faCheckSquare} />
               </span>
             {:else}
-              <span title="Edit proto-form" on:click={handleEditProto}>
+              <span title="Edit proto-form" onclick={handleEditProto}>
                 <Icon data={faEdit} />
               </span>
             {/if}
           {/if}
-          <span title="Delete" on:click={handleDelete}>
+          <span title="Delete" onclick={handleDelete}>
             <Icon data={faTrash} />
           </span>
           {#if selection}
-            <span title="Select" on:click={handleSelect}>
+            <span title="Select" onclick={handleSelect}>
               <Icon data={selection.has(entry.id) ? faCircleSolid : faCircleRegular} />
             </span>
           {/if}
@@ -405,7 +407,7 @@
           <li>
             <span>Other sets:</span>
             <span>
-              <button type="button" on:click={handleToggleMultiSet}>
+              <button type="button" onclick={handleToggleMultiSet}>
                 {#if member.multi_set}
                   Make Single-set
                 {:else}
@@ -434,8 +436,8 @@
             <textarea
               disabled={promises.pending.note}
               bind:value={values.note}
-              on:change={() => handleUpdate('note')}
-            />
+              onchange={() => handleUpdate('note')}
+></textarea>
           </li>
         {:else if values.note}
           <li>

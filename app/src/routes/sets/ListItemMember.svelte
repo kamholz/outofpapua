@@ -4,8 +4,8 @@
   import Glosses from '$components/Glosses.svelte';
   import Reflex from '$components/Reflex.svelte';
 
-  export let member;
-  let { entry } = member;
+  let { member } = $props();
+  let { entry } = $state(member);
   const { language, reflex, source } = member;
 </script>
 

@@ -7,11 +7,11 @@
   import { fade } from 'svelte/transition';
   import { getContext } from 'svelte';
 
-  export let id;
+  let { id, children } = $props();
   const cache = getContext('setSummaryCache');
-  $: set = $cache[id];
+  let set = $derived($cache[id]);
 
-  let showPopover = false;
+  let showPopover = $state(false);
   const popover = createPopover({
     hover: true,
     show: () => showPopover = true,
@@ -33,9 +33,9 @@
   href="/sets/{id}"
   use:popoverTrigger={popover}
 >
-  <slot>
+  {#if children}{@render children()}{:else}
     <Icon data={faBezierCurve} />
-  </slot>
+  {/if}
 </a>
 {#if showPopover && set}
   <div

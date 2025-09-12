@@ -5,15 +5,21 @@
 
   const pageWidth = 2;
 
-  export let query;
-  export let pageCount;
-  export let pageParam = 'page';
+  /**
+   * @typedef {Object} Props
+   * @property {any} query
+   * @property {any} pageCount
+   * @property {string} [pageParam]
+   */
 
-  $: page = query[pageParam];
-  $: pagesToDisplay = [...Array(pageCount).keys()].slice(
+  /** @type {Props} */
+  let { query, pageCount, pageParam = 'page' } = $props();
+
+  let page = $derived(query[pageParam]);
+  let pagesToDisplay = $derived([...Array(pageCount).keys()].slice(
     Math.max(page - pageWidth - 1, 1),
     Math.min(page + pageWidth, pageCount - 1)
-  );
+  ));
 
   function pageUrl(page) {
     return serializeQuery({ ...query, [pageParam]: page });

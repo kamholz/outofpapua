@@ -1,9 +1,7 @@
 <script>
   import { maybeEngGlosses } from '$lib/util';
 
-  export let entries;
-  export let language;
-  export let updateLanguage;
+  let { entries, language, updateLanguage } = $props();
 </script>
 
 {#if entries.length > 1}
@@ -12,7 +10,7 @@
       <input
         type="checkbox"
         bind:checked={entry.selected}
-        on:change={() => updateLanguage(language.id)}
+        onchange={() => updateLanguage(language.id)}
         disabled={
           !language.selected ||
           ( // only one selected entry left for this language

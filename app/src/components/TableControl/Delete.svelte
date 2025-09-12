@@ -4,9 +4,7 @@
   const dispatch = createEventDispatcher();
   import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-  export let control;
-  export let row;
-  export let scale;
+  let { control, row, scale } = $props();
 
   function confirmDelete() {
     if (control.confirm(row)) {
@@ -16,7 +14,7 @@
 </script>
 
 {#if !control.canDelete || control.canDelete(row)}
-  <span title="Delete" on:click={confirmDelete}>
+  <span title="Delete" onclick={confirmDelete}>
     <Icon data={faTrash} {scale} />
   </span>
 {/if}

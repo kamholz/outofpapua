@@ -1,8 +1,8 @@
 <script>
   import LanguageMap from '$components/LanguageMap.svelte';
 
-  export let data;
-  $: ({ languages } = data);
+  let { data } = $props();
+  let { languages } = $derived(data);
 </script>
 
 <svelte:head>

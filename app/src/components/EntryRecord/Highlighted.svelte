@@ -1,9 +1,16 @@
 <script>
   import { onMount } from 'svelte';
 
-  export let strings;
-  export let showUnmatchedEntries = false;
-  let node;
+  /**
+   * @typedef {Object} Props
+   * @property {any} strings
+   * @property {boolean} [showUnmatchedEntries]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { strings, showUnmatchedEntries = false, children } = $props();
+  let node = $state();
 
   onMount(() => {
     for (const entry of node.querySelectorAll('.entry')) {
@@ -74,7 +81,7 @@
 </script>
 
 <div bind:this={node}>
-  <slot />
+  {@render children?.()}
 </div>
 
 <style lang="scss">

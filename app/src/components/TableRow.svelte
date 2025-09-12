@@ -4,13 +4,16 @@
   import { fly } from 'svelte/transition';
   import { sineIn, sineOut } from 'svelte/easing';
 
-  export let row;
-  export let columns;
-  export let controls;
-  export let editable;
-  export let editingCell;
-  export let searchContext;
-  export let searchContextCollapsed;
+  let {
+    row = $bindable(),
+    columns,
+    controls,
+    editable,
+    editingCell = $bindable(),
+    searchContext,
+    searchContextCollapsed = $bindable(),
+    children
+  } = $props();
 
   function toggleSearchContextCollapsed() {
     searchContextCollapsed = !searchContextCollapsed;
@@ -19,7 +22,7 @@
 
 <tr in:fly|local={{ easing: sineIn }} out:fly|local={{ easing: sineOut }}>
   {#if searchContext}
-    <td on:click={toggleSearchContextCollapsed}>
+    <td onclick={toggleSearchContextCollapsed}>
       { searchContextCollapsed ? '▶' : '▼'}
     </td>
   {/if}
@@ -47,7 +50,7 @@
   <tr class:collapsed={searchContextCollapsed}>
     <td></td>
     <td colspan={columns.length} class="context">
-      <slot />
+      {@render children?.()}
     </td>
     {#if controls}
       <td></td>

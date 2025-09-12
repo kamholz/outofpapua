@@ -5,8 +5,8 @@
   import { isAdmin } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
 
-  export let data;
-  $: ({ rows } = data);
+  let { data } = $props();
+  let { rows } = $derived(data);
 
   async function handleRefresh() {
     $pageLoading++;

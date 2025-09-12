@@ -7,18 +7,18 @@
   import { isEditor } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
 
-  export let data;
-  $: ({
+  let { data } = $props();
+  let {
     query,
     rows,
-  } = data);
+  } = $derived(data);
   const { dialectLangSuggest, protolangSuggest } = data;
   setContext('protolangSuggest', protolangSuggest);
   if (dialectLangSuggest) {
     setContext('dialectLangSuggest', dialectLangSuggest);
   }
   const editable = getContext('editable');
-  let showLanguagesWithNoEntries = false;
+  let showLanguagesWithNoEntries = $state(false);
 
   async function handleRefresh() {
     $pageLoading++;

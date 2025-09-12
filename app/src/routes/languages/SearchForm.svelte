@@ -2,7 +2,7 @@
   import Form from '$components/Form.svelte';
   import { getContext } from 'svelte';
 
-  export let query;
+  let { query } = $props();
   const protolangSuggest = getContext('protolangSuggest');
   const values = { ...query };
 

@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Encountered an export declaration pattern that is not supported for automigration. -->
 <script>
   import FamilyIcon from '$components/LanguageMap/FamilyIcon.svelte';
   import Leaflet from '$components/LanguageMap/Leaflet.svelte';

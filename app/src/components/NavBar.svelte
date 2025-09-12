@@ -5,7 +5,7 @@
   import { isContributor } from '$lib/util';
   import { page } from '$app/stores';
 
-  export let type; // compact, full
+  let { type } = $props();
 
   const tabsAll = [
     {
@@ -43,8 +43,7 @@
     },
   ];
 
-  $: tabs = getTabs($session, $hideComparative);
-  let active = false;
+  let active = $state(false);
 
   function getTabs() {
     const user = $session.user;
@@ -61,18 +60,19 @@
       return tabsAll.filter((field) => !field.private);
     }
   }
+  let tabs = $derived(getTabs($session, $hideComparative));
 </script>
 
 <nav class={type}>
   {#if type === 'compact'}
-    <div on:click={() => active = !active}>
+    <div onclick={() => active = !active}>
       <Icon data={faBars} scale={1.25} />
     </div>
   {/if}
   <ul class:active>
     {#each tabs as { title, url }}
       <li class:active={$page.url.pathname === url}>
-        <a href={url} on:click={() => active = false}>{title}</a>
+        <a href={url} onclick={() => active = false}>{title}</a>
       </li>
     {/each}
   </ul>

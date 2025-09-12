@@ -1,9 +1,11 @@
 <script>
-  export let key;
-  export let values;
-  export let promises;
-  export let options;
-  export let handleUpdate;
+  let {
+    key,
+    values = $bindable(),
+    promises,
+    options,
+    handleUpdate
+  } = $props();
 </script>
 
 <span class="radios">
@@ -14,7 +16,7 @@
         {value}
         disabled={promises.pending[key]}
         bind:group={values[key]}
-        on:change={() => handleUpdate(key)}
+        onchange={() => handleUpdate(key)}
       >
       <span>{label}</span>
     </label>

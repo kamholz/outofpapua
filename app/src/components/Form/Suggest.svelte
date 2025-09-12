@@ -2,10 +2,12 @@
   import Svelecte from '$components/Svelecte.svelte';
   import { slide } from 'svelte/transition';
 
-  export let field;
-  export let values;
-  export let haveCheckbox;haveCheckbox;
-  export let browserSubmit;
+  let {
+    field,
+    values = $bindable(),
+    haveCheckbox,
+    browserSubmit
+  } = $props();
   const { name, options, required, svelecteProps } = field;
 </script>
 

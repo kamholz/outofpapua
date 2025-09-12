@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import baseMaps from '$lib/basemaps.json';
   import hexAlpha from 'hex-alpha';
   import { escapeHtml as escape, formatReflexIpa, truncateGloss } from '$lib/util';
@@ -16,19 +18,21 @@
 
   const maxGlossLength = 25;
 
-  export let languages;
-  export let families;
-  export let languageMarkers;
-  export let baseMap;
-  export let view;
-  export let markerType;
-  export let showLanguage;
-  export let showGloss;
-  export let headwordDisplay;
-  export let lineLength;
-  export let colorBy;
-  export let colorOriginLanguage;
-  export let colors;
+  let {
+    languages,
+    families,
+    languageMarkers,
+    baseMap,
+    view,
+    markerType,
+    showLanguage,
+    showGloss,
+    headwordDisplay,
+    lineLength,
+    colorBy,
+    colorOriginLanguage,
+    colors
+  } = $props();
   const ipaFunctions = getContext('ipaFunctions');
 
   const languageMarkersById = {};
@@ -46,18 +50,10 @@
     }
   }
 
-  let map;
-  let layer;
+  let map = $state();
+  let layer = $state();
 
-  $: if (map && baseMap) {
-    layer?.remove();
-    layer = L.tileLayer(baseMaps[baseMap].url, {
-      attribution: baseMaps[baseMap].attribution,
-    }).addTo(map);
-  }
 
-  $: updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy, colorOriginLanguage);
-  $: cssVars = getCssVars(colors, colorBy, colorOriginLanguage);
 
   onMount(() => {
     map = L.map('map', {
@@ -344,6 +340,18 @@
     }
     return vars;
   }
+  run(() => {
+    if (map && baseMap) {
+      layer?.remove();
+      layer = L.tileLayer(baseMaps[baseMap].url, {
+        attribution: baseMaps[baseMap].attribution,
+      }).addTo(map);
+    }
+  });
+  run(() => {
+    updateMarkers(markerType, showLanguage, showGloss, headwordDisplay, lineLength, colorBy, colorOriginLanguage);
+  });
+  let cssVars = $derived(getCssVars(colors, colorBy, colorOriginLanguage));
 </script>
 
 <div style={cssVars}>

@@ -9,19 +9,19 @@
   import { nullify } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
-  export let data;
-  $: ({
+  let { data } = $props();
+  let {
     name,
     rules,
-  } = data);
+  } = $derived(data);
 
-  let selected = findRule(data.name) || {};
-  $: rule = { ...selected };
+  let selected = $state(findRule(data.name) || {});
+  let rule = $derived({ ...selected });
 
   const codeByName = {};
-  let testInput = '';
-  let testOutput = '';
-  let promise;
+  let testInput = $state('');
+  let testOutput = $state('');
+  let promise = $state();
 
   function handleChange() {
     testOutput = '';
@@ -137,7 +137,7 @@
 
 <div class="rule">
   {#if promise}
-    {#await promise catch { message }}
+    {#await promise catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}
@@ -160,7 +160,7 @@
   <button
     type="button"
     disabled={$pageLoading}
-    on:click={handleTest}
+    onclick={handleTest}
   >Run</button>
 </div>
 

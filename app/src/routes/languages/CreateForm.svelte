@@ -6,9 +6,9 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let type;
-  let values = {};
-  let error = null;
+  let { type } = $props();
+  let values = $state({});
+  let error = $state(null);
 
   const fields = [
     {

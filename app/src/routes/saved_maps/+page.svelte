@@ -3,8 +3,8 @@
   import { invalidateAll } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
 
-  export let data;
-  $: ({ rows } = data);
+  let { data } = $props();
+  let { rows } = $derived(data);
 
   async function handleRefresh() {
     $pageLoading++;

@@ -13,20 +13,43 @@
   import { pageLoading } from '$lib/stores';
   import { slide } from 'svelte/transition';
 
-  export let fields;
-  export let values = {};
-  export let submitLabel = null;
-  export let clearable = false;
-  export let action = null;
-  export let method = null;
-  export let browserSubmit = false;
-  export let style = null;
-  let className = null;
-  export { className as class };
-  export let form;
-  $: haveCheckbox = fields.some(({ checkbox }) => checkbox);
-  $: haveHotKeys = fields.some(({ hotkey }) => hotkey);
-  $: hotKeys = haveHotKeys && Object.fromEntries(fields.map(({ hotkey, name }) => [hotkey, name]));
+  
+  /**
+   * @typedef {Object} Props
+   * @property {any} fields
+   * @property {any} [values]
+   * @property {any} [submitLabel]
+   * @property {boolean} [clearable]
+   * @property {any} [action]
+   * @property {any} [method]
+   * @property {boolean} [browserSubmit]
+   * @property {any} [style]
+   * @property {any} [class]
+   * @property {any} form
+   * @property {import('svelte').Snippet} [controls]
+   * @property {import('svelte').Snippet} [buttons]
+   * @property {import('svelte').Snippet} [hidden]
+   */
+
+  /** @type {Props} */
+  let {
+    fields,
+    values = $bindable({}),
+    submitLabel = null,
+    clearable = false,
+    action = null,
+    method = null,
+    browserSubmit = false,
+    style = null,
+    class: className = null,
+    form = $bindable(),
+    controls,
+    buttons,
+    hidden
+  } = $props();
+  let haveCheckbox = $derived(fields.some(({ checkbox }) => checkbox));
+  let haveHotKeys = $derived(fields.some(({ hotkey }) => hotkey));
+  let hotKeys = $derived(haveHotKeys && Object.fromEntries(fields.map(({ hotkey, name }) => [hotkey, name])));
 
   const fieldComponent = {
     checkbox: Checkbox,
@@ -93,7 +116,7 @@
   {style}
   class={className}
   bind:this={form}
-  on:submit={handleSubmit}
+  onsubmit={handleSubmit}
 >
   <div class="fields">
     {#each fields as field (field.name)}
@@ -109,8 +132,8 @@
           <label for={field.name} class="label" transition:slide={{ duration: 200 }}>
             {@html field.label}:
           </label>
-          <svelte:component
-            this={fieldComponent[field.type]}
+          {@const SvelteComponent = fieldComponent[field.type]}
+          <SvelteComponent
             {field}
             {browserSubmit}
             {haveCheckbox}
@@ -121,24 +144,24 @@
       {/if}
     {/each}
   </div>
-  {#if submitLabel || $$slots.controls}
+  {#if submitLabel || controls}
     <div class="controls">
       <div class="buttons">
         {#if submitLabel}
           <button type="submit" disabled={$pageLoading}>{submitLabel}</button>
         {/if}
         {#if clearable}
-          <button type="button" disabled={$pageLoading} on:click={handleClear}>Clear</button>
+          <button type="button" disabled={$pageLoading} onclick={handleClear}>Clear</button>
         {/if}
-        <slot name="buttons" />
+        {@render buttons?.()}
       </div>
-      <slot name="controls" />
+      {@render controls?.()}
     </div>
   {/if}
-  <slot name="hidden" />
+  {@render hidden?.()}
 </form>
 
-<svelte:window on:keydown={haveHotKeys && handleKeyDown} />
+<svelte:window onkeydown={haveHotKeys && handleKeyDown} />
 
 <style lang="scss">
   form {

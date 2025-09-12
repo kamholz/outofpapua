@@ -6,8 +6,8 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let data;
-  $: ({ language } = data);
+  let { data } = $props();
+  let { language } = $derived(data);
   const { protolangSuggest, regionSuggest } = data;
   if (protolangSuggest) {
     setContext('protolangSuggest', protolangSuggest);
@@ -18,7 +18,7 @@
   const editable = getContext('editable');
 
   const del = crud.makeDeleter('language');
-  let promise;
+  let promise = $state();
 
   async function handleDelete() {
     if (confirm(`Are you sure you want to delete "${language.name}"?`)) {
@@ -39,12 +39,12 @@
 
 <h3>Language: {language.name}</h3>
 {#if promise}
-  {#await promise catch { message }}
+  {#await promise catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}
 <EditForm {language} />
 
 {#if editable && language.is_proto}
-  <button type="button" class="delete" on:click={handleDelete}>Delete Language</button>
+  <button type="button" class="delete" onclick={handleDelete}>Delete Language</button>
 {/if}

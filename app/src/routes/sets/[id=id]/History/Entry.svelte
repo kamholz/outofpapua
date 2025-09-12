@@ -1,7 +1,7 @@
 <script>
   import Glosses from '$components/Glosses.svelte';
 
-  export let details;
+  let { details } = $props();
 </script>
 
 {#if details?.entry_headword}

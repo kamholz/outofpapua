@@ -4,26 +4,28 @@
   const dispatch = createEventDispatcher();
   import { pageLoading } from '$lib/stores';
 
-  export let linkable;
+  let { linkable } = $props();
   const selection = getContext('selection');
-  $: disabled1 = $pageLoading || $selection.size === 0;
-  $: disabled2 = $pageLoading || $selection.size < 2;
+  let disabled1 = $derived($pageLoading || $selection.size === 0);
+  let disabled2 = $derived($pageLoading || $selection.size < 2);
 </script>
 
-<KeepOnscreen let:offscreen>
-  <div class:offscreen>
-    <button type="button" on:click={() => dispatch('clear')} disabled={disabled1}>
-      Select None
-    </button>
-    <button type="button" on:click={() => dispatch('map')} disabled={disabled1}>
-      Map Selected
-    </button>
-    {#if linkable}
-      <button type="button" on:click={() => dispatch('link')} disabled={disabled2}>
-        Link Selected
+<KeepOnscreen >
+  {#snippet children({ offscreen })}
+    <div class:offscreen>
+      <button type="button" onclick={() => dispatch('clear')} disabled={disabled1}>
+        Select None
       </button>
-    {/if}
-  </div>
+      <button type="button" onclick={() => dispatch('map')} disabled={disabled1}>
+        Map Selected
+      </button>
+      {#if linkable}
+        <button type="button" onclick={() => dispatch('link')} disabled={disabled2}>
+          Link Selected
+        </button>
+      {/if}
+    </div>
+  {/snippet}
 </KeepOnscreen>
 
 <style lang="scss">

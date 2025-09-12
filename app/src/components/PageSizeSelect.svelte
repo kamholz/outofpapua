@@ -4,8 +4,7 @@
   import { pageSizeValues } from '$lib/preferences';
   import { serializeQuery, stripEmptyArrayParams } from '$lib/util';
 
-  export let query;
-  export let preferenceKey;
+  let { query, preferenceKey } = $props();
   const values = pageSizeValues[preferenceKey];
   const preferences = getContext('preferences');
 
@@ -24,7 +23,7 @@
     id="pagesize"
     name="pagesize"
     value={query.pagesize}
-    on:input={handleSelect}
+    oninput={handleSelect}
   >
     {#each values as value}
       <option {value}>{value}</option>

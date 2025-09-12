@@ -6,7 +6,7 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let rows;
+  let { rows } = $props();
 
   const columns = [
     {
@@ -29,7 +29,7 @@
 
   const updateFromCell = crud.updateFromCell('saved_map');
   const del = crud.makeDeleter('saved_map');
-  let promise;
+  let promise = $state();
 
   async function handleUpdate(e) {
     $pageLoading++;
@@ -52,7 +52,7 @@
   }
 </script>
 
-{#await promise catch { message }}
+{#await promise catch {message }}
   <Alert type="error">{message}</Alert>
 {/await}
 <Table

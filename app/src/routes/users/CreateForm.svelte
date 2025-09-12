@@ -34,7 +34,7 @@
   ];
 
   const create = crud.makeCreater('user');
-  let promise;
+  let promise = $state();
 
   function handleValidation(e) {
     const { form } = e.detail;
@@ -61,7 +61,7 @@
 {#if promise}
   {#await promise then}
     <Alert type="success">New user created</Alert>
-  {:catch { message }}
+  {:catch {message }}
     <Alert type="error">Create user failed</Alert>
   {/await}
 {/if}

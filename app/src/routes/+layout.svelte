@@ -12,7 +12,7 @@
   import { navigating } from '$app/stores';
   import { pageLoading, session } from '$lib/stores';
 
-  export let data;
+  let { data, children } = $props();
 
   $session = { // eslint-disable-line prefer-const
     preferences: data.preferences,
@@ -36,7 +36,7 @@
       <Modal styleWindow={{ width: '80vw' }}>
         <ModalContent />
       </Modal>
-      <slot />
+      {@render children?.()}
     </PageContext>
   </div>
 {/key}

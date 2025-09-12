@@ -4,10 +4,9 @@
   import { pageLoading } from '$lib/stores';
   import { updatePassword } from '$actions/auth';
 
-  export let user;
-  export let adminView;
-  let passwordValues = {};
-  let promise;
+  let { user, adminView } = $props();
+  let passwordValues = $state({});
+  let promise = $state();
 
   const fields = [
     {
@@ -59,7 +58,7 @@
 {#if promise}
   {#await promise then}
     <Alert type="success">Password changed</Alert>
-  {:catch { message }}
+  {:catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}

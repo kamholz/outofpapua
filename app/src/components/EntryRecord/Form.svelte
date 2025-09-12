@@ -3,12 +3,23 @@
   import { getContext } from 'svelte';
   import { toolboxMarkup } from '$lib/util';
 
-  export let item;
-  export let key;
-  export let trans = false;
-  export let link = false;
+  /**
+   * @typedef {Object} Props
+   * @property {any} item
+   * @property {any} key
+   * @property {boolean} [trans]
+   * @property {boolean} [link]
+   */
 
-  let form, translations, sourceId;
+  /** @type {Props} */
+  let {
+    item,
+    key,
+    trans = false,
+    link = false
+  } = $props();
+
+  let form = $state(), translations = $state(), sourceId;
   if (trans) {
     [form, ...translations] = item;
   }

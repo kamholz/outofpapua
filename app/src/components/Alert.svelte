@@ -3,14 +3,14 @@
   import { faTimes } from '@fortawesome/free-solid-svg-icons';
   import { slide } from 'svelte/transition';
 
-  export let type;
-  let open = true;
+  let { type, children } = $props();
+  let open = $state(true);
 </script>
 
 {#if open}
   <div class={type} transition:slide>
-    <slot />
-    <span title="Close" on:click={() => open = false}>
+    {@render children?.()}
+    <span title="Close" onclick={() => open = false}>
       <Icon data={faTimes} />
     </span>
   </div>

@@ -1,6 +1,13 @@
 <script>
-  export let location = 'right'; 
-  let offscreen = false;
+  /**
+   * @typedef {Object} Props
+   * @property {string} [location]
+   * @property {import('svelte').Snippet<[any]>} [children]
+   */
+
+  /** @type {Props} */
+  let { location = 'right', children } = $props();
+  let offscreen = $state(false);
 
   function trackViewport(elt) {
     const observer = new IntersectionObserver(([entry]) => {
@@ -13,7 +20,7 @@
 <div>
   <div use:trackViewport></div>
   <div class:offscreen class:left={location === 'left'} class:right={location === 'right'}>
-    <slot {offscreen} />
+    {@render children?.({ offscreen, })}
   </div>
 </div>
 

@@ -4,8 +4,7 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let user;
-  export let adminView;
+  let { user, adminView } = $props();
 
   const roles = [
     { id: 'viewer', name: 'Viewer' },
@@ -40,7 +39,7 @@
   }
 
   const update = crud.makeUpdater('user');
-  let promise;
+  let promise = $state();
 
   async function handleUpdate(e) {
     const { values } = e.detail;
@@ -56,7 +55,7 @@
 {#if promise}
   {#await promise then}
     <Alert type="success">Changes saved</Alert>
-  {:catch { message }}
+  {:catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}

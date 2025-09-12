@@ -3,18 +3,16 @@
   const dispatch = createEventDispatcher();
   const preferences = getContext('preferences');
 
-  export let name;
-  export let getView;
-  export let setView;
+  let { name = $bindable(), getView, setView } = $props();
 </script>
 
 <button
   type="button"
-  on:click={() => preferences.update({ mapView: getView() })}
+  onclick={() => preferences.update({ mapView: getView() })}
 >Save Map View</button>
 <button
   type="button"
-  on:click={() => setView($preferences.mapView)}
+  onclick={() => setView($preferences.mapView)}
   disabled={!$preferences.mapView}
 >Restore Saved View</button>
 
@@ -24,7 +22,7 @@
 </label>
 <button
   type="button"
-  on:click={() => dispatch('save')}
+  onclick={() => dispatch('save')}
   disabled={!name?.length}
 >Save</button>
 

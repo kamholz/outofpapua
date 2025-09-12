@@ -1,14 +1,14 @@
 <script>
-  export let collapsed;
+  let { collapsed = $bindable() } = $props();
   export const toggle = function () {
     collapsed = !collapsed;
   };
 </script>
 
 {#if collapsed}
-  <div><span on:click={toggle}>▶</span></div>
+  <div><span onclick={toggle}>▶</span></div>
 {:else}
-  <div><span on:click={toggle}>▼</span></div>
+  <div><span onclick={toggle}>▼</span></div>
 {/if}
 
 <style>

@@ -2,8 +2,7 @@
   import Icon from 'svelte-awesome';
   import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
-  export let url;
-  export let dir;
+  let { url, dir } = $props();
   const icon = dir === 'previous' ? faCaretLeft : faCaretRight;
 </script>
 

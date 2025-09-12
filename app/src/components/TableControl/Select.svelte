@@ -4,9 +4,7 @@
   import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons';
   import { getContext } from 'svelte';
 
-  export let control;control;
-  export let row;
-  export let scale;
+  let { control, row, scale } = $props();
 
   const selection = getContext('selection');
   const { id } = row;
@@ -21,6 +19,6 @@
   }
 </script>
 
-<span title="Select" on:click={handleSelect}>
+<span title="Select" onclick={handleSelect}>
   <Icon data={$selection.has(id) ? faCircleSolid : faCircleRegular} {scale} />
 </span>

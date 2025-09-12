@@ -1,10 +1,16 @@
 <script>
   import { formDisplayValue } from '$lib/util';
 
-  export let fields;
-  export let values = {};
-  export let style = null;
-  // let className = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} fields
+   * @property {any} [values]
+   * @property {any} [style] - let className = null;
+   */
+
+  /** @type {Props} */
+  let { fields, values = {}, style = null } = $props();
+  
   // export { className as class };
 </script>
 

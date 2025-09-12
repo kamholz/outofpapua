@@ -3,11 +3,11 @@
   import RegexHelp from '$components/RegexHelp.svelte';
   import { getContext } from 'svelte';
 
-  export let query;
+  let { query } = $props();
   const langSuggest = getContext('langSuggest');
   const glosslangSuggest = getContext('glosslangSuggest');
   const preferences = getContext('preferences');
-  let values = { ...query };
+  let values = $state({ ...query });
 
   const fields = [
     {
@@ -87,18 +87,24 @@
   style="--form-width: 35em; --label-width: 30%;"
   on:beforesubmit={handleValidation}
 >
-  <svelte:fragment slot="hidden">
-    <input type="hidden" name="pagesize" value={$preferences.listPageSize}>
-  </svelte:fragment>
+  {#snippet hidden()}
+  
+      <input type="hidden" name="pagesize" value={$preferences.listPageSize}>
+    
+  {/snippet}
 
-  <svelte:fragment slot="buttons">
-    <button
-      type="button"
-      on:click={swapLanguages}
-    >Swap Languages</button>
-  </svelte:fragment>
+  {#snippet buttons()}
+  
+      <button
+        type="button"
+        onclick={swapLanguages}
+      >Swap Languages</button>
+    
+  {/snippet}
 
-  <svelte:fragment slot="controls">
-    <RegexHelp />
-  </svelte:fragment>
+  {#snippet controls()}
+  
+      <RegexHelp />
+    
+  {/snippet}
 </Form>

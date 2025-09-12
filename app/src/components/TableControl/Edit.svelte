@@ -2,9 +2,7 @@
   import Icon from 'svelte-awesome';
   import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-  export let control;
-  export let row;
-  export let scale;
+  let { control, row, scale } = $props();
 </script>
 
 <a href={control.link(row)} title="Edit">

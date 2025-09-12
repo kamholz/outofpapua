@@ -9,12 +9,18 @@
   import { normalizeParam } from '$lib/util';
   import { tick } from 'svelte';
 
-  export let reflex;
-  export let entry;
-  export let editable = false;
+  /**
+   * @typedef {Object} Props
+   * @property {any} reflex
+   * @property {any} entry
+   * @property {boolean} [editable]
+   */
 
-  let editing = false;
-  let editSpanRef;
+  /** @type {Props} */
+  let { reflex = $bindable(), entry, editable = false } = $props();
+
+  let editing = $state(false);
+  let editSpanRef = $state();
 
   async function handleClick() {
     editing = true;
@@ -39,11 +45,11 @@
     class="reflex"
     contenteditable="true"
     bind:this={editSpanRef}
-    on:blur={() => editing && save()}
+    onblur={() => editing && save()}
     use:keydown={{ enter: save, esc: () => editing = false }}
   >{deriveReflex(reflex)}</span>
 {:else}
-  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex {reflex} headword={entry.headword} /></span></EntryLink>{#if editable}<span class="icon" title="Edit reflex" on:click={handleClick}><Icon data={faRegistered} /></span>{/if}
+  <EntryLink {entry}><span class="reflex {entry.origin ?? ''}"><Reflex {reflex} headword={entry.headword} /></span></EntryLink>{#if editable}<span class="icon" title="Edit reflex" onclick={handleClick}><Icon data={faRegistered} /></span>{/if}
 {/if}
 
 <style lang="scss">

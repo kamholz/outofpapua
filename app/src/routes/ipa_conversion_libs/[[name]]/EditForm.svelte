@@ -1,7 +1,7 @@
 <script>
   import Form from '$components/Form.svelte';
 
-  export let lib;
+  let { lib } = $props();
 
   const fields = [
     {

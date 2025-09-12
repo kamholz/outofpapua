@@ -1,16 +1,23 @@
 <script>
   import { getContext } from 'svelte';
 
-  let className = null;
-  export { className as class };
-  export let period = false;
+  
+  /**
+   * @typedef {Object} Props
+   * @property {any} [class]
+   * @property {boolean} [period]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { class: className = null, period = false, children } = $props();
   const compact = getContext('compact');
 </script>
 
 {#if compact}
-  <slot />{#if period}.{/if}
+  {@render children?.()}{#if period}.{/if}
 {:else}
   <p class={className}>
-    <slot />
+    {@render children?.()}
   </p>
 {/if}

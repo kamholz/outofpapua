@@ -3,7 +3,7 @@
   import RegexHelp from '$components/RegexHelp.svelte';
   import { getContext } from 'svelte';
 
-  export let query;
+  let { query } = $props();
   const sourceSuggest = getContext('sourceSuggest');
   const langSuggest = getContext('langSuggest');
   const regionSuggest = getContext('regionSuggest');
@@ -61,11 +61,15 @@
   browserSubmit
   style="--form-width: 40em; --label-width: 23.5%; --checkbox-width: 5em;"
 >
-  <svelte:fragment slot="hidden">
-    <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
-  </svelte:fragment>
+  {#snippet hidden()}
+  
+      <input type="hidden" name="pagesize" value={$preferences.tablePageSize}>
+    
+  {/snippet}
 
-  <svelte:fragment slot="controls">
-    <RegexHelp />
-  </svelte:fragment>
+  {#snippet controls()}
+  
+      <RegexHelp />
+    
+  {/snippet}
 </Form>

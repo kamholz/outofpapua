@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import AddProtoForm from './AddProtoForm.svelte';
   import Alert from '$components/Alert.svelte';
   import History from './History.svelte';
@@ -19,8 +21,7 @@
   import { slide } from 'svelte/transition';
   import * as crud from '$actions/crud';
 
-  export let data;
-  $: ({ set } = data);
+  let { data } = $props();
   const editable = getContext('editable');
   if (editable) {
     const {
@@ -33,27 +34,19 @@
     setContext('sourceSuggest', sourceSuggest);
   }
 
-  const values = {};
-  let name;
-  let createProtoValues;
-  let selection;
-  let splitSetId;
-  const promises = { pending: {}, fulfilled: {} };
+  const values = $state({});
+  let name = $state();
+  let createProtoValues = $state();
+  let selection = $state();
+  let splitSetId = $state();
+  const promises = $state({ pending: {}, fulfilled: {} });
   const updater = crud.makeUpdater('set');
   const scale = 1.5;
 
   $setSummaryCache = {}; // eslint-disable-line prefer-const
   setContext('setSummaryCache', setSummaryCache);
 
-  $: ({ members } = set);
-  $: collapsedMembers = Object.fromEntries(
-    members.map((member) => [
-      member.entry.id,
-      collapsedMembers?.[member.entry.id] ?? false,
-    ])
-  );
 
-  $: init(true, $page);
 
   function init(clearProto) {
     values.name = set.name;
@@ -184,6 +177,17 @@
     $pageLoading--;
     return { ipaFunctions, set };
   }
+  let { set } = $derived(data);
+  let { members } = $derived(set);
+  let collapsedMembers = $derived(Object.fromEntries(
+    members.map((member) => [
+      member.entry.id,
+      collapsedMembers?.[member.entry.id] ?? false,
+    ])
+  ));
+  run(() => {
+    init(true, $page);
+  });
 </script>
 
 <svelte:head>
@@ -202,7 +206,7 @@
       Set:&nbsp;<span
         contenteditable="true"
         bind:textContent={name}
-        on:blur={handleUpdateName}
+        onblur={handleUpdateName}
         use:keydown={{ enter: (e) => e.currentTarget.blur() }}
       >{name}</span>
     </span>
@@ -210,7 +214,7 @@
     <span>Set: {name}</span>
   {/if}
   <div>
-    <span on:click={async () => $modal.setExport(await getModalProps())}>
+    <span onclick={async () => $modal.setExport(await getModalProps())}>
       <Icon data={faFileAlt} {scale} />
     </span>
     <a href="/sets/{set.id}/map" title="Map">
@@ -221,7 +225,7 @@
 
 <div class="set">
   {#each Object.keys(promises.fulfilled).sort() as key (key)}
-    {#await promises.fulfilled[key] catch { message }}
+    {#await promises.fulfilled[key] catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/each}
@@ -237,8 +241,8 @@
           name="note"
           disabled={promises.pending.note}
           bind:value={values.note}
-          on:change={() => handleUpdate('note')}
-        />
+          onchange={() => handleUpdate('note')}
+></textarea>
       {:else}
         <span>{set.note}</span>
       {/if}
@@ -253,7 +257,7 @@
             <span transition:slide|local>
               <SetPopover {id}>{name}</SetPopover>
               {#if editable}
-                <span title="Remove from list of related sets" on:click={() => handleUnlink(id)}>
+                <span title="Remove from list of related sets" onclick={() => handleUnlink(id)}>
                   <Icon data={faTrash} />
                 </span>
               {/if}
@@ -292,13 +296,13 @@
 
   <div class="controls">
     <div>
-      <button type="button" on:click={() => collapseAll(true)}>Collapse All</button>
-      <button type="button" on:click={() => collapseAll(false)}>Expand All</button>
+      <button type="button" onclick={() => collapseAll(true)}>Collapse All</button>
+      <button type="button" onclick={() => collapseAll(false)}>Expand All</button>
     </div>
     {#if selection}
       <button
         type="button"
-        on:click={handleSplit}
+        onclick={handleSplit}
         disabled={selection.size === 0 || selection.size === members.length || $pageLoading}
       >Split Selected Into New Set</button>
     {/if}
@@ -326,11 +330,11 @@
 
 {#if editable}
   <div class="controls bottom">
-    <button type="button" on:click={handleDelete}>Delete Set</button>
+    <button type="button" onclick={handleDelete}>Delete Set</button>
     {#if selection}
       <button
         type="button"
-        on:click={handleSplit}
+        onclick={handleSplit}
         disabled={selection.size === 0 || selection.size === members.length || $pageLoading}
       >Split Selected Into New Set</button>
     {/if}

@@ -6,7 +6,7 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let language;
+  let { language } = $props();
   const editable = getContext('editable');
   const protolangSuggest = getContext('protolangSuggest');
   const regionSuggest = getContext('regionSuggest');
@@ -88,7 +88,7 @@
   }
 
   const update = crud.makeUpdater('language');
-  let promise;
+  let promise = $state();
 
   async function handleUpdate(e) {
     const { values } = e.detail;
@@ -105,7 +105,7 @@
   {#if promise}
     {#await promise then}
       <Alert type="success">Changes saved</Alert>
-    {:catch { message }}
+    {:catch {message }}
       <Alert type="error">{message}</Alert>
     {/await}
   {/if}

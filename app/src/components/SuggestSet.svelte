@@ -4,11 +4,17 @@
   const dispatch = createEventDispatcher();
   import * as suggest from '$actions/suggest';
 
-  export let entry_id = null;
-  export let set_id = null;
-  export let exclude_grouped = false;
-  let selection = null;
-  let value = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} [entry_id]
+   * @property {any} [set_id]
+   * @property {boolean} [exclude_grouped]
+   */
+
+  /** @type {Props} */
+  let { entry_id = null, set_id = null, exclude_grouped = false } = $props();
+  let selection = $state(null);
+  let value = $state(null);
 
   function handleSelect() {
     if (selection) {

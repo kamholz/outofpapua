@@ -9,7 +9,7 @@
     show: () => showPopover = true,
     hide: () => showPopover = false,
   });
-  let showPopover = false;
+  let showPopover = $state(false);
 </script>
 
 <div use:popoverTrigger={popover}>

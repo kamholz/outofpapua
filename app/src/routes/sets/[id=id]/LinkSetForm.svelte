@@ -6,8 +6,8 @@
   import { pageLoading } from '$lib/stores';
   import * as crudSet from '$actions/crud/set';
 
-  export let set;
-  let promise;
+  let { set } = $props();
+  let promise = $state();
 
   async function handleAdd(e) {
     const newSet = e.detail;
@@ -22,7 +22,7 @@
 </script>
 
 {#if promise}
-  {#await promise catch { message }}
+  {#await promise catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}

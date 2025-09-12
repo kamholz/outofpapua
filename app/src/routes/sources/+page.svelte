@@ -6,11 +6,11 @@
   import { goto, invalidateAll } from '$app/navigation';
   import { pageLoading } from '$lib/stores';
 
-  export let data;
-  $: ({
+  let { data } = $props();
+  let {
     rows,
     query,
-  } = data);
+  } = $derived(data);
   const {  langSuggest, protolangSuggest } = data;
   setContext('langSuggest', langSuggest);
   if (protolangSuggest) {
@@ -40,7 +40,7 @@
 
 {#if editable}
   <form>
-    <input type="checkbox" id="editable" checked={query.edit_mode} on:change={handleChangeEditMode} />
+    <input type="checkbox" id="editable" checked={query.edit_mode} onchange={handleChangeEditMode} />
     <label for="editable">Enable Edit Mode</label>
   </form>
 {/if}

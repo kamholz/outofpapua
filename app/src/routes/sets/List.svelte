@@ -10,12 +10,10 @@
   import { serializeArrayParam } from '$lib/util';
   import * as crudSet from '$actions/crud/set';
 
-  export let rows;
-  export let query;
-  export let pageCount;
-  const collapsedRows = rows.map(() => false);
-  let selection = new Set();
-  let promise;
+  let { rows, query, pageCount } = $props();
+  const collapsedRows = $state(rows.map(() => false));
+  let selection = $state(new Set());
+  let promise = $state();
 
   function collapseAll(state) {
     for (const [i] of rows.entries()) {
@@ -51,7 +49,7 @@
   <Paginator {query} {pageCount} />
 {/if}
 
-{#await promise catch { message }}
+{#await promise catch {message }}
   <Alert type="error">{message}</Alert>
 {/await}
 

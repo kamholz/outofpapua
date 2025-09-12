@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import PageSizeSelect from '$components/PageSizeSelect.svelte';
   import SearchForm from './SearchForm.svelte';
   import SearchTable from './SearchTable.svelte';
@@ -7,13 +9,7 @@
   import { pageLoading, setSummaryCache } from '$lib/stores';
   import { setContext } from 'svelte';
 
-  export let data;
-  $: ({
-    rows,
-    query,
-    pageCount,
-    rowCount,
-  } = data);
+  let { data } = $props();
   const {
     sourceSuggest,
     langSuggest,
@@ -29,7 +25,6 @@
 
   setContext('setSummaryCache', setSummaryCache);
 
-  $: init($page);
 
   function init() {
     $setSummaryCache = {};
@@ -41,6 +36,15 @@
     $pageLoading--;
     init();
   }
+  let {
+    rows,
+    query,
+    pageCount,
+    rowCount,
+  } = $derived(data);
+  run(() => {
+    init($page);
+  });
 </script>
 
 <svelte:head>

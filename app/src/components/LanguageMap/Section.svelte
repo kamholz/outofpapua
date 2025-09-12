@@ -1,5 +1,5 @@
 <script>
-  export let name;
+  let { name, children } = $props();
 </script>
 
 <div class="section">
@@ -7,7 +7,7 @@
     <h3>{name}</h3>
   </div>
   <div class="content">
-    <slot />
+    {@render children?.()}
   </div>
 </div>
 

@@ -7,10 +7,9 @@
   import { parseGlosses } from '$lib/util';
   import * as crudSetMember from '$actions/crud/setmember';
 
-  export let set;
-  export let values;
+  let { set, values = $bindable() } = $props();
   const sourceSuggest = getContext('sourceSuggest');
-  let promise;
+  let promise = $state();
 
   const fields = [
     {
@@ -54,7 +53,7 @@
 </script>
 
 {#if promise}
-  {#await promise catch { message }}
+  {#await promise catch {message }}
     <Alert type="error">{message}</Alert>
   {/await}
 {/if}

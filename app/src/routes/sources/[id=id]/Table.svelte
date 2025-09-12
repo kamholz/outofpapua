@@ -9,10 +9,12 @@
   import * as crud from '$actions/crud';
   import * as crudSense from '$actions/crud/sense';
 
-  export let rows;
-  export let query;
-  export let source;
-  export let pageCount;
+  let {
+    rows,
+    query,
+    source,
+    pageCount
+  } = $props();
   const editable = getContext('editable');
 
   const columns = [
@@ -48,12 +50,12 @@
     },
   ];
 
-  $: controls = $hideComparative
+  let controls = $derived($hideComparative
     ? controlsAll.filter((control) => !control.comparative)
-    : controlsAll;
+    : controlsAll);
 
   const updateFromCell = crud.updateFromCell('entry');
-  let promise;
+  let promise = $state();
 
   async function handleUpdate(e) {
     const { key, row, onSuccess, values } = e.detail;
@@ -79,7 +81,7 @@
   }
 </script>
 
-{#await promise catch { message }}
+{#await promise catch {message }}
   <Alert type="error">{message}</Alert>
 {/await}
 <Table
@@ -93,15 +95,17 @@
   {pageCount}
   highlight
   searchContext={Boolean(query.record)}
-  let:row
+  
   on:update={handleUpdate}
   on:link
 >
-  <EntryRecordHighlighted strings={row.record_match}>
-    <EntryRecordFormatted
-      data={row.record_data}
-      source={{ id: row.source_id, formatting: row.source_formatting }}
-      compact
-    />
-  </EntryRecordHighlighted>
+  {#snippet children({ row })}
+    <EntryRecordHighlighted strings={row.record_match}>
+      <EntryRecordFormatted
+        data={row.record_data}
+        source={{ id: row.source_id, formatting: row.source_formatting }}
+        compact
+      />
+    </EntryRecordHighlighted>
+  {/snippet}
 </Table>

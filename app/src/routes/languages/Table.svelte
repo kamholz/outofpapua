@@ -5,16 +5,14 @@
   import { pageLoading } from '$lib/stores';
   import * as crud from '$actions/crud';
 
-  export let rows;
-  export let query;
-  export let showLanguagesWithNoEntries;
+  let { rows, query, showLanguagesWithNoEntries } = $props();
   const editable = getContext('editable');
-  $: parents = rows.filter((row) => row.is_proto);
-  $: visibleRows = showLanguagesWithNoEntries
+  let parents = $derived(rows.filter((row) => row.is_proto));
+  let visibleRows = $derived(showLanguagesWithNoEntries
     ? rows
-    : rows.filter((row) => row.is_proto || row.numentries !== '0');
+    : rows.filter((row) => row.is_proto || row.numentries !== '0'));
 
-  $: columns = [
+  let columns = $derived([
     {
       key: 'name',
       title: 'Language',
@@ -41,7 +39,7 @@
         filter: (option, row) => option.id !== row.id, // remove self
       },
     },
-  ];
+  ]);
 
   const controls = editable
     ?
@@ -55,7 +53,7 @@
     null;
 
   const updateFromCell = crud.updateFromCell('language');
-  let promise;
+  let promise = $state();
 
   async function handleUpdate(e) {
     $pageLoading++;
@@ -67,7 +65,7 @@
   }
 </script>
 
-{#await promise catch { message }}
+{#await promise catch {message }}
   <Alert type="error">{message}</Alert>
 {/await}
 <Table

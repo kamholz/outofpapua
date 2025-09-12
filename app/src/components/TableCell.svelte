@@ -5,15 +5,17 @@
   import TableCellInput from '$components/TableCell/Input.svelte';
   import { fade } from 'svelte/transition';
 
-  export let row;
-  export let column;
-  export let editable;
-  export let editingCell;
+  let {
+    row,
+    column,
+    editable,
+    editingCell = $bindable()
+  } = $props();
 
-  $: ({ type, value } = column);
-  $: cellEditable = editable &&
-    (typeof(column.editable) === 'function' ? column.editable(row) : column.editable);
-  $: href = !cellEditable && column.link && column.link(row);
+  let { type, value } = $derived(column);
+  let cellEditable = $derived(editable &&
+    (typeof(column.editable) === 'function' ? column.editable(row) : column.editable));
+  let href = $derived(!cellEditable && column.link && column.link(row));
 
   function handleActivate() {
     editingCell = [row.id, column.key];
@@ -44,13 +46,13 @@
   {/if}
 {:else}
   {#if type === 'senses'}
-    <td on:click={cellEditable ? handleActivate : null}>
+    <td onclick={cellEditable ? handleActivate : null}>
       <Senses senses={value(row)} multiGlosslang={column.multiGlosslang} />
     </td>
   {:else}
     <td
       class={column.class?.(row)}
-      on:click={cellEditable ? handleActivate : null}
+      onclick={cellEditable ? handleActivate : null}
       in:fade|local={{ duration: 300 }}
     >
       {#if href}

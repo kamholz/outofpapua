@@ -2,8 +2,7 @@
   import Table from '$components/Table.svelte';
   import { session } from '$lib/stores';
 
-  export let rows;
-  export let adminView;
+  let { rows, adminView } = $props();
 
   const columns = [
     {
