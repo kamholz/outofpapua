@@ -32,6 +32,7 @@
     "svelte-popperjs": "^1.2.10",
     "svelte-preprocess": "^6",
     "svelte-simple-modal": "^2.0.0",
+    "typescript": "^5.9.2",
     "vite": "^7.1.5",
     "yiq": "^4.0.0"
   },

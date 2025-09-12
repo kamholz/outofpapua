@@ -93,7 +93,7 @@
           </div>
           {#if !collapsed[language_id]}
             <ul transition:slide|local={{ duration: 200 }}>
-              {#each entries as compare_entry (compare_entry.id)}
+              {#each entries as compare_entry, i (compare_entry.id)}
                 <li>
                   {#if linkable}
                     <span title="Select" onclick={() => handleSelect(compare_entry)}>
@@ -101,7 +101,7 @@
                     </span>
                   {/if}
                   <EntryInfoPopover
-                    bind:entry={compare_entry}
+                    bind:entry={entries[i]}
                     {language_id}
                     linkable
                     on:link={handleRefresh}
