@@ -20,6 +20,7 @@
   export let action = null;
   export let method = null;
   export let browserSubmit = false;
+  export let browserReload = false;
   export let style = null;
   let className = null;
   export { className as class };
@@ -92,6 +93,7 @@
   novalidate
   {style}
   class={className}
+  data-sveltekit-reload={browserReload ? true : null}
   bind:this={form}
   on:submit={handleSubmit}
 >

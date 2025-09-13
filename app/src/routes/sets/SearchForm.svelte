@@ -75,6 +75,7 @@
   submitLabel="Search"
   clearable
   browserSubmit
+  browserReload
   style="--form-width: 45em; --label-width: 23%; --checkbox-width: 7em;"
 >
   <svelte:fragment slot="hidden">
