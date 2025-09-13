@@ -51,26 +51,28 @@
 
 <table class:hoverhighlight={highlight} class:searchcontext={searchContext}>
   <thead>
-    {#if searchContext}
-      <th></th>
-    {/if}
-    {#each columns as { key, sortKey, title } (key)}
-      <th>
-        {#if sortable}
-          <a href={getSortQuery(sortKey, query)} data-sveltekit-preload-data="off">
-            {title}
-            {#if sortKey === query.sort}
-              <Icon data={query.asc ? faCaretUp : faCaretDown} />
-            {/if}
-          </a>
-        {:else}
-          <span>{title}</span>
-        {/if}
-      </th>
-    {/each}
-    {#if controls}
-      <th></th>
-    {/if}
+    <tr>
+      {#if searchContext}
+        <th></th>
+      {/if}
+      {#each columns as { key, sortKey, title } (key)}
+        <th>
+          {#if sortable}
+            <a href={getSortQuery(sortKey, query)} data-sveltekit-preload-data="off">
+              {title}
+              {#if sortKey === query.sort}
+                <Icon data={query.asc ? faCaretUp : faCaretDown} />
+              {/if}
+            </a>
+          {:else}
+            <span>{title}</span>
+          {/if}
+        </th>
+      {/each}
+      {#if controls}
+        <th></th>
+      {/if}
+    </tr>
   </thead>
   <tbody>
     {#each rows as row (row.id)}
