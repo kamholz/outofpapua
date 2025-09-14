@@ -1,19 +1,19 @@
 import { allowed, allowedEditor, nfc, required } from './params';
 import { applySortParams, arrayCmp, filterPublicSources, getLanguageIds, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, isEditor, normalizeQuery, parseArrayParams,
+import { ensureNfcParams, getFilteredParams, isContributor, isEditor, normalizeQuery, parseArrayParams,
   parseBooleanParams, stripParams } from '$lib/util';
 import { errorStrings, jsonError } from '$lib/error';
 import { json } from '@sveltejs/kit';
 import { requireContributor } from '$lib/auth';
 
-const allowedQuery = new Set(['asc', 'category', 'details', 'edit_mode', 'lang', 'sort']);
-const boolean = new Set(['asc', 'details', 'edit_mode']);
+const allowedQuery = new Set(['asc', 'category', 'details', 'editor_mode', 'lang', 'sort']);
+const boolean = new Set(['asc', 'details', 'editor_mode']);
 const arrayParams = new Set(['lang']);
 const strip = new Set(['category', 'details']);
 const defaults = {
   asc: true,
   details: false,
-  edit_mode: false,
+  editor_mode: false,
   sort: 'reference',
 };
 const sortCols = {
@@ -24,7 +24,7 @@ const sortColsDetails = {
   ...sortCols,
   numentries: 'count(entry.id)',
 };
-const sortColsEditMode = {
+const sortColsEditorMode = {
   ...sortCols,
   ipa_conversion_rule: 'lower(source.ipa_conversion_rule)',
   note: 'lower(note)',
@@ -32,8 +32,8 @@ const sortColsEditMode = {
 }
 
 function getSortParams(query) {
-  if (query.edit_mode) {
-    return sortColsEditMode;
+  if (query.editor_mode) {
+    return sortColsEditorMode;
   } else if (query.details) {
     return sortColsDetails;
   } else {
@@ -72,7 +72,7 @@ export async function GET({ locals, url: { searchParams } }) {
   }
 
   if (query.details) {
-    if (query.edit_mode) {
+    if (query.editor_mode && isContributor(locals.user)) {
       q.select(
         'source.ipa_conversion_rule',
         'source.note',

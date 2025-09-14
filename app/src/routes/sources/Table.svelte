@@ -25,7 +25,7 @@
     },
   ];
 
-  const columnsEditMode = [
+  const columnsEditorMode = [
     {
       key: 'reference',
       title: 'Reference',
@@ -51,7 +51,7 @@
     },
   ];
 
-  $: columns = query.edit_mode ? columnsEditMode : columnsReadOnly;
+  $: columns = query.editor_mode ? columnsEditorMode : columnsReadOnly;
 
   const controls = [
     {
@@ -73,13 +73,13 @@
   }
 </script>
 
-<div class:editmode={query.edit_mode}>
+<div class:editormode={query.editor_mode}>
   <Table
     {columns}
     {rows}
     {query}
     {controls}
-    editable={query.edit_mode}
+    editable={query.editor_mode}
     sortable
     highlight
     on:update={handleUpdate}
@@ -87,7 +87,7 @@
 </div>
 
 <style lang="scss">
-  .editmode :global {
+  .editormode :global {
     table {
       width: 100%;
     }

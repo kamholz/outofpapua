@@ -1,13 +1,13 @@
 import { addLanguagePlusIds, applySortParams, arrayCmp, knex, pgError } from '$lib/db';
-import { ensureNfcParams, getFilteredParams, isEditor, isId, normalizeQuery, parseArrayNumParams,
-  parseBooleanParams, showPublicOnly, stripParams } from '$lib/util';
+import { ensureNfcParams, getFilteredParams, isContributor, isEditor, isId, normalizeQuery,
+  parseArrayNumParams, parseBooleanParams, showPublicOnly, stripParams } from '$lib/util';
 import { error, json } from '@sveltejs/kit';
 import { errorStrings, jsonError } from '$lib/error';
 import { nfc } from './params';
 import { requireContributor } from '$lib/auth';
 
-const allowed = new Set(['asc', 'category', 'details', 'protolang', 'sort']);
-const boolean = new Set(['asc', 'details']);
+const allowed = new Set(['asc', 'category', 'details', 'editor_mode', 'protolang', 'sort']);
+const boolean = new Set(['asc', 'details', 'editor_mode']);
 const arrayNumParams = new Set(['protolang']);
 const strip = new Set(['category', 'details']);
 
@@ -20,6 +20,7 @@ const sourceFilterableCategories = new Set(['descendants', 'location']);
 const defaults = {
   asc: true,
   details: false,
+  editor_mode: false,
   sort: 'name',
 };
 const sortCols = {
@@ -32,6 +33,22 @@ const sortColsDetails = {
   iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
   numentries: 'count(entry.id)',
 };
+const sortColsEditorMode = {
+  ...sortCols,
+  iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
+  region: 'language.region',
+};
+
+
+function getSortParams(query) {
+  if (query.editor_mode) {
+    return sortColsEditorMode;
+  } else if (query.details) {
+    return sortColsDetails;
+  } else {
+    return sortCols;
+  }
+}
 
 export async function GET({ locals, url: { searchParams } }) {
   let query = getFilteredParams(normalizeQuery(searchParams), allowed);
@@ -89,18 +106,25 @@ export async function GET({ locals, url: { searchParams } }) {
         knex.raw('(language.dialect_parent_id is not null) as is_dialect')
       );
 
-    // count entries
-    if (showPublicOnly(locals)) {
-      q.join('source', function () { // hide empty sources
-        this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
-      });
+    if (query.editor_mode && isContributor(locals.user)) {
+      q.select(
+        knex.raw("(language.location[0] || ', ' || language.location[1]) as location"),
+        'language.region',
+      );
     } else {
-      q.leftJoin('source', 'source.language_id', 'language.id');
+      // count entries
+      if (showPublicOnly(locals)) {
+        q.join('source', function () { // hide empty sources
+          this.on('source.language_id', 'language.id').andOn('source.public', knex.raw('true'));
+        });
+      } else {
+        q.leftJoin('source', 'source.language_id', 'language.id');
+      }
+      q
+        .leftJoin('entry', 'entry.source_id', 'source.id')
+        .count('entry.id as numentries')
+        .groupBy('language.id', 'parent.id', 'dialect_parent.id');
     }
-    q
-      .leftJoin('entry', 'entry.source_id', 'source.id')
-      .count('entry.id as numentries')
-      .groupBy('language.id', 'parent.id', 'dialect_parent.id');
 
     if ('protolang' in query) {
       const protolang = new Set(query.protolang);
@@ -115,7 +139,7 @@ export async function GET({ locals, url: { searchParams } }) {
     });
   }
 
-  applySortParams(q, query, query.details ? sortColsDetails : sortCols, ['name']);
+  applySortParams(q, query, getSortParams(query), ['name']);
   stripParams(query, strip);
 
   return json({

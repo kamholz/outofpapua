@@ -2,10 +2,10 @@ import { error } from '@sveltejs/kit';
 import { normalizeQuery, parseBooleanParams, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
-const boolean = new Set(['edit_mode']);
+const boolean = new Set(['editor_mode']);
 
 const defaults = {
-  edit_mode: false,
+  editor_mode: false,
 };
 
 export async function load({ fetch, parent, url: { searchParams } }) {

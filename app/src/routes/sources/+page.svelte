@@ -24,9 +24,9 @@
     $pageLoading--;
   }
 
-  function handleChangeEditMode(e) {
+  function handleChangeEditorMode(e) {
     const currentUrl = new URL(window.location);
-    currentUrl.searchParams.set('edit_mode', e.target.checked ? '1' : '0');
+    currentUrl.searchParams.set('editor_mode', e.target.checked ? '1' : '0');
     goto(currentUrl, { replaceState: true });
   }
 </script>
@@ -40,8 +40,8 @@
 
 {#if editable}
   <form>
-    <input type="checkbox" id="editable" checked={query.edit_mode} on:change={handleChangeEditMode} />
-    <label for="editable">Enable Edit Mode</label>
+    <input type="checkbox" id="editable" checked={query.editor_mode} on:change={handleChangeEditorMode} />
+    <label for="editable">Enable Editor Mode</label>
   </form>
 {/if}
 

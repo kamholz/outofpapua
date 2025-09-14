@@ -184,12 +184,16 @@ export function isAdmin(loggedInUser) {
   return loggedInUser?.role === 'admin';
 }
 
+const editorRoles = new Set(['admin', 'editor']);
+
 export function isEditor(loggedInUser) {
-  return ['admin', 'editor'].includes(loggedInUser?.role);
+  return editorRoles.has(loggedInUser?.role);
 }
 
+const contributorRoles = new Set(['admin', 'editor', 'contributor']);
+
 export function isContributor(loggedInUser) {
-  return ['admin', 'editor', 'contributor'].includes(loggedInUser?.role);
+  return contributorRoles.has(loggedInUser?.role);
 }
 
 export function showPublicOnly(locals) {
@@ -437,11 +441,13 @@ export function toolboxMarkup(text) {
   }
 }
 
+const origins = new Set(['inherited', 'borrowed', 'mixed']);
+
 export function isValidEntrySearch(query) {
   if (['borrowlang', 'gloss', 'headword', 'headword_ipa', 'record'].some((attr) => attr in query)) {
     return true;
   }
-  if (['inherited', 'borrowed', 'mixed'].includes(query.origin)) {
+  if (origins.has(query.origin)) {
     return true;
   }
   return false;

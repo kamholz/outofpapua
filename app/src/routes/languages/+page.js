@@ -1,14 +1,27 @@
 import { error } from '@sveltejs/kit';
-import { isEditor, normalizeQuery, serializeQuery } from '$lib/util';
+import { isEditor, normalizeQuery, parseBooleanParams, serializeQuery } from '$lib/util';
 import * as suggest from '$actions/suggest';
 
+const boolean = new Set(['editor_mode']);
+
+const defaults = {
+  editor_mode: false,
+};
+
 export async function load({ fetch, parent, url: { searchParams } }) {
+  let query = normalizeQuery(searchParams);
+  parseBooleanParams(query, boolean);
+  query = { ...defaults, ...query };
+
   const { user } = await parent();
   const data = {
     protolangSuggest: await suggest.protolang(fetch),
   };
+  if (user && query.editor_mode) {
+    data.regionSuggest = await suggest.region(fetch);
+  }
 
-  const res = await fetch('/api/language' + serializeQuery({ ...normalizeQuery(searchParams), details: 1 }));
+  const res = await fetch('/api/language' + serializeQuery({ ...query, details: 1 }));
   if (!res.ok) {
     throw error(500);
   }

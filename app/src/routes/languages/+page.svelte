@@ -3,7 +3,7 @@
   import SearchForm from './SearchForm.svelte';
   import Table from './Table.svelte';
   import { getContext, setContext } from 'svelte';
-  import { invalidateAll } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { isEditor } from '$lib/util';
   import { pageLoading, session } from '$lib/stores';
 
@@ -12,10 +12,13 @@
     query,
     rows,
   } = data);
-  const { dialectLangSuggest, protolangSuggest } = data;
+  const { dialectLangSuggest, protolangSuggest, regionSuggest } = data;
   setContext('protolangSuggest', protolangSuggest);
   if (dialectLangSuggest) {
     setContext('dialectLangSuggest', dialectLangSuggest);
+  }
+  if (regionSuggest) {
+    setContext('regionSuggest', regionSuggest);
   }
   const editable = getContext('editable');
   let showLanguagesWithNoEntries = false;
@@ -24,6 +27,12 @@
     $pageLoading++;
     await invalidateAll();
     $pageLoading--;
+  }
+
+  function handleChangeEditorMode(e) {
+    const currentUrl = new URL(window.location);
+    currentUrl.searchParams.set('editor_mode', e.target.checked ? '1' : '0');
+    goto(currentUrl, { replaceState: true });
   }
 </script>
 
@@ -41,6 +50,14 @@
   </div>
 {/if}
 <SearchForm {query} />
+
+{#if editable}
+  <form>
+    <input type="checkbox" id="editable" checked={query.editor_mode} on:change={handleChangeEditorMode} />
+    <label for="editable">Enable Editor Mode</label>
+  </form>
+{/if}
+
 <div class="info">
   Number of languages: {rows.length}
 </div>
@@ -51,7 +68,7 @@
   on:refresh={handleRefresh}
 />
 
-{#if isEditor($session.user)}
+{#if !query.editor_mode && isEditor($session.user)}
   <form>
     <input type="checkbox" id="showLanguagesWithNoEntries" bind:checked={showLanguagesWithNoEntries} />
     <label for="showLanguagesWithNoEntries">Show Languages With No Entries</label>
