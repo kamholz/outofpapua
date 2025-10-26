@@ -3,6 +3,7 @@
   import Table from '$components/Table.svelte';
   import { getContext } from 'svelte';
   import { pageLoading } from '$lib/stores';
+  import { stringify } from '$lib/util';
   import * as crud from '$actions/crud';
 
   export let rows;
@@ -48,6 +49,11 @@
       title: '#Entries',
     },
     columnParentName,
+    {
+      key: 'ancestor_name',
+      title: 'Family',
+      value: (row) => stringify(row.ancestor_name).replace(/^Proto-/, ''),
+    },
   ];
 
   $: columnsEditorMode = [
