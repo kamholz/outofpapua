@@ -25,13 +25,14 @@ const defaults = {
 };
 const sortCols = {
   name: 'lower(language.name)',
-  is_proto: 'protolanguage.id is not null',
-  parent_name: 'parent.name',
 };
 const sortColsDetails = {
   ...sortCols,
+  ancestor_name: 'ancestor.name',
+  is_proto: 'protolanguage.id is not null',
   iso6393: 'coalesce(language.iso6393, dialect_parent.iso6393)',
   numentries: 'count(entry.id)',
+  parent_name: 'parent.name',
 };
 const sortColsEditorMode = {
   ...sortCols,
@@ -122,8 +123,12 @@ export async function GET({ locals, url: { searchParams } }) {
       }
       q
         .leftJoin('entry', 'entry.source_id', 'source.id')
+        .leftJoin('language as ancestor', 'ancestor.id', 'language.ancestor_id')
         .count('entry.id as numentries')
-        .groupBy('language.id', 'parent.id', 'dialect_parent.id');
+        .groupBy('language.id', 'parent.id', 'dialect_parent.id', 'ancestor.id')
+        .select(
+          'ancestor.name as ancestor_name',
+        )
     }
 
     if ('protolang' in query) {
