@@ -114,7 +114,7 @@
                 bind:group={values.origin}
                 on:change={() => handleUpdate('origin')}
               >
-              <span>mixed</span>
+              <span>innovative</span>
             </label>
             <label>
               <input

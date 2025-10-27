@@ -41,7 +41,7 @@
       options: [
         { label: 'Inherited', value: 'inherited' },
         { label: 'Borrowed', value: 'borrowed' },
-        { label: 'Mixed', value: 'mixed' },
+        { label: 'Innovative', value: 'mixed' },
         { label: 'Unspecified', value: 'unspecified' },
         { label: 'All', value: 'all' },
       ],
@@ -85,7 +85,7 @@
   submitLabel="Search"
   clearable
   browserSubmit
-  style="--form-width: 40em; --label-width: 23%; --checkbox-width: 5em;"
+  style="--form-width: 40em; --label-width: 20%; --checkbox-width: 5em;"
   on:change={handleChange}
 >
   <svelte:fragment slot="hidden">

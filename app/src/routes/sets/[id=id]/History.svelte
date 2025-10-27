@@ -1,6 +1,7 @@
 <script>
   import Entry from './History/Entry.svelte';
   import { onMount } from 'svelte';
+  import { originLabel } from '$lib/util';
   import { pageLoading } from '$lib/stores';
 
   export let set;
@@ -68,7 +69,7 @@
           {:else if event === 'set_member_reflex_origin_language_id'}
             changed entry [<Entry {details} />] reflex origin language to {stringify(details.language_name)}
           {:else if event === 'entry_origin'}
-            changed entry [<Entry {details} />] origin to “{details.text ?? 'unspecified'}”
+            changed entry [<Entry {details} />] origin to “{originLabel(details.text) ?? 'unspecified'}”
           {:else if event === 'entry_origin_language_id'}
             changed entry [<Entry {details} />] origin language to {stringify(details.language_name)}
           {:else if event === 'entry_created'}

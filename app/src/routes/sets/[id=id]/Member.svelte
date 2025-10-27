@@ -338,7 +338,7 @@
               options={[
                 ['inherited', 'inherited'],
                 ['borrowed', 'borrowed'],
-                ['mixed', 'mixed'],
+                ['mixed', 'innovative'],
                 [null, 'unspecified'],
               ]}
             />

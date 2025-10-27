@@ -65,7 +65,7 @@
     </div>
     <div>
       <label>
-        Mixed:
+        Innovative:
         <input type="color" bind:value={colors.origin.mixed} />
       </label>
     </div>

@@ -324,8 +324,12 @@ export function formatInfix(reflexProper) {
   return html;
 }
 
+export function originLabel(origin) {
+  return origin === 'mixed' ? 'innovative' : origin;
+}
+
 export function originSummary(entry) {
-  let origin = entry.origin ?? 'unspecified';
+  let origin = originLabel(entry.origin) ?? 'unspecified';
   if (origin === 'borrowed' && entry.origin_language_name) {
     origin += ` from ${entry.origin_language_name}`;
   }

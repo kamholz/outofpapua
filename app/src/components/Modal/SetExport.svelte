@@ -1,7 +1,7 @@
 <script>
   import Reflex from '$components/Reflex.svelte';
   import ReflexIPA from '$components/ReflexIPA.svelte';
-  import { capitalizeFirstLetter, maybeEngGlosses, referenceInParens } from '$lib/util';
+  import { capitalizeFirstLetter, maybeEngGlosses, originLabel, referenceInParens } from '$lib/util';
 
   export let set;
   export let ipaFunctions;
@@ -9,7 +9,7 @@
   // const gloss = nameEntry ? maybeGloss(nameEntry.senses) : null;
 
   function origin(entry) {
-    let txt = capitalizeFirstLetter(entry.origin);
+    let txt = capitalizeFirstLetter(originLabel(entry.origin));
     if (entry.origin_language_name) {
       txt += ': ' + entry.origin_language_name;
     }
