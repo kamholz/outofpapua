@@ -4862,6 +4862,19 @@ our $dict = {
     ],
     split => ';',
   },
+  'Kalkman (1961)' => {
+    lang_target => 'Tehit Afsia',
+    path => 'Kalkman_1961.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [2, 'sc'],
+      [4, 'gloss', 'eng'],
+      [5, 'gloss', 'ind'],
+      [1, 'nt', 'Genus:'],
+      [3, 'nt'],
+    ],
+  },
   'Kamanassa, Wedelen & Tamindael (2018)' => {
     lang_target => 'Woirata',
     path => 'KamanassaWedelenTamindael_2018_Woirata.xlsx',
@@ -16151,7 +16164,7 @@ our $dict = {
       [0, 'nt', 'number:'],
     ],
   },
-  'Wallace (1869c)' => { #
+  'Wallace (1869c)' => {
     lang_target => 'Bantik Manado',
     path => 'Wallace_1869.xlsx',
     parser => 'Spreadsheet',
@@ -16680,7 +16693,7 @@ our $dict = {
     ],
   },
   'Zieck (1956c)' => {
-    lang_target => 'Moi',
+    lang_target => 'mxn',
     path => 'Zieck_1956.xlsx',
     parser => 'Spreadsheet',
     columns => [
