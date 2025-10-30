@@ -4743,6 +4743,23 @@ our $dict = {
       [2, 'note'],
     ],
   },
+  'Jacobs (1971)' => { 
+    lang_target => 'North Moluccan Malay',
+    path => 'Jacobs_1971.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'eng'],
+      [2, 'sc'],
+      [3, 'gloss', 'ind'],
+      [4, 'va'], 
+      [5, 'et'],
+      [6, 'nt'],
+      [7, 'cf'],
+      [8, 'pl'],
+      [9, 'nt', 'chapter:']
+    ],
+  },
   'Jendraschek (2007)' => { #not ingested
     lang_target => 'ian',
     path => 'Wordlists_ Korowai - Skou - Manambu - Iatmul.xlsx',
