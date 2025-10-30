@@ -5621,7 +5621,7 @@ our $dict = {
   },
   'Ludeking (1868a)' => {
     lang_target => 'Ambon Malay',
-    path => 'Ludeking_1868_AmbonMalay.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => ' Ambon Malay list',
     columns => [
@@ -5634,7 +5634,7 @@ our $dict = {
   },
   'Ludeking (1868b)' => {
     lang_target => 'Batumerah',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5647,7 +5647,7 @@ our $dict = {
   },
   'Ludeking (1868c)' => {
     lang_target => 'Allang',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5660,7 +5660,7 @@ our $dict = {
   },
   'Ludeking (1868d)' => {
     lang_target => 'Waai',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5673,7 +5673,7 @@ our $dict = {
   },
   'Ludeking (1868e)' => {
     lang_target => 'Hitu',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5686,7 +5686,7 @@ our $dict = {
   },
   'Ludeking (1868f)' => {
     lang_target => 'Larike',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5699,7 +5699,7 @@ our $dict = {
   },
   'Ludeking (1868g)' => {
     lang_target => 'Asilulu',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5712,7 +5712,7 @@ our $dict = {
   },
   'Ludeking (1868h)' => {
     lang_target => 'Nusa Laut',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5725,7 +5725,7 @@ our $dict = {
   },
   'Ludeking (1868i)' => {
     lang_target => 'Saparua',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5738,7 +5738,7 @@ our $dict = {
   },
   'Ludeking (1868j)' => {
     lang_target => 'Haruku',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5751,7 +5751,7 @@ our $dict = {
   },
   'Ludeking (1868k)' => {
     lang_target => 'Kayeli',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5764,7 +5764,7 @@ our $dict = {
   },
   'Ludeking (1868l)' => {
     lang_target => 'Buru',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5777,7 +5777,7 @@ our $dict = {
   },
   'Ludeking (1868m)' => {
     lang_target => 'Hoti',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5790,7 +5790,7 @@ our $dict = {
   },
   'Ludeking (1868n)' => {
     lang_target => 'Saleman Hatue',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5803,7 +5803,7 @@ our $dict = {
   },
   'Ludeking (1868o)' => {
     lang_target => 'Lisibata',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5816,7 +5816,7 @@ our $dict = {
   },
   'Ludeking (1868p)' => {
     lang_target => 'Wemale',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5829,7 +5829,7 @@ our $dict = {
   },
   'Ludeking (1868q)' => {
     lang_target => 'Alune Buria',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5842,7 +5842,7 @@ our $dict = {
   },
   'Ludeking (1868r)' => {
     lang_target => 'Alune Murinaten',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5855,7 +5855,7 @@ our $dict = {
   },
   'Ludeking (1868s)' => {
     lang_target => 'Amahai',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
@@ -5868,7 +5868,7 @@ our $dict = {
   },
   'Ludeking (1868t)' => {
     lang_target => 'Amahai Alfuru',
-    path => 'Ludeking_1868_CentralMaluku.xlsx',
+    path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
     sheet => 'Comparative Central Maluku lists',
     columns => [
