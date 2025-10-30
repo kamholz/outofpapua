@@ -15044,12 +15044,13 @@ our $dict = {
   },
   'van der Leeden (nd)' => {
     lang_target => 'slz',
-    path => 'Maya/Maya_toolbox_cleaned_Version4.txt',
+    path => 'vanderLeeden_nd_Maya.txt',
     parser => 'Marker',
     strip => 'to',
     headword_preprocess => sub { s/^ø-//r },
     lang_national => 'ind',
     lang_regional => 'pmy',
+    definition_action => 'merge',
   },
   'van der Roest (1905)' => {
     lang_target => 'Tobelo Boeng',
