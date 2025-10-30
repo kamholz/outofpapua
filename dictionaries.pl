@@ -1395,8 +1395,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [2, 'headword'],
-      [1, 'gloss', 'nld'],
-      [0, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'Cambier (1873b)' => {
@@ -1405,8 +1405,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [3, 'headword'],
-      [1, 'gloss', 'nld'],
-      [0, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'Cambier (1873c)' => {
@@ -1415,8 +1415,8 @@ our $dict = {
     parser => 'Spreadsheet',
     columns => [
       [4, 'headword'],
-      [1, 'gloss', 'nld'],
-      [0, 'gloss', 'eng'],
+      [0, 'gloss', 'nld'],
+      [1, 'gloss', 'eng'],
     ],
   },
   'Carr (2004)' => {
@@ -5617,6 +5617,19 @@ our $dict = {
     columns => [
       [0, 'headword'],
       [1, 'gloss', 'eng'],
+    ],
+  },
+  'Ludeking (1868a)' => {
+    lang_target => 'Ambon Malay',
+    path => 'Ludeking_1868_AmbonMalay.xlsx',
+    parser => 'Spreadsheet',
+    sheet => ' Ambon Malay list',
+    columns => [
+      [0, 'headword'],
+      [1, 'gloss', 'nld'],
+      [2, 'gloss', 'ind'],
+      [3, 'sc'],
+      [4, 'page_num'],
     ],
   },
   'Lunow (nd)' => {
