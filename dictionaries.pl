@@ -5636,7 +5636,7 @@ our $dict = {
     lang_target => 'Batumerah',
     path => 'Ludeking_1868.xlsx',
     parser => 'Spreadsheet',
-    sheet => ' Central Maluku',
+    sheet => 'Central Maluku',
     columns => [
       [4, 'headword'],
       [1, 'gloss', 'nld'],
