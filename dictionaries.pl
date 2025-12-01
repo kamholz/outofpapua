@@ -4950,6 +4950,13 @@ our $dict = {
       [12, 'sy'],
       [[13 .. 14], 'example', ['nld']],
       [[15 .. 16], 'example', ['nld']],
+      [17, '1s'],
+      [18, '2s'],
+      [19, '2p'],
+      [20, '3s'],
+      [21, '3p'],
+      [22, 'cf'],
+      [23, 'et'],
     ],
     mode => 'sense_per_row',
     split => ';',
@@ -15557,7 +15564,7 @@ our $dict = {
     lang_national => 'ind',
     lang_regional => 'pmy',
   },
-  'Verheijnen (1982)' => {
+  'Verheijen (1982)' => {
     lang_target => 'Komodo',
     path => 'Verheijen_1982_Komodo.xlsx',
     parser => 'Spreadsheet',
