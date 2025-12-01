@@ -8997,6 +8997,11 @@ our $dict = {
       [18, 'page_num'],
     ],
   },
+  'Ross, Pawley & Osmond (1998-2023)' => {
+    lang_target => 'Proto-Oceanic',
+    path => 'RossAl_pOC.txt',
+    parser => 'Marker',
+  },
   'Rugebregt et al. (1986)' => {
     lang_target => 'Tobelo',
     path => 'Rugebregt 1986 - Tobelo.xlsx',
