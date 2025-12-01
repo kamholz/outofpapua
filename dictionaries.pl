@@ -2296,7 +2296,7 @@ our $dict = {
     parser => 'Marker',
   },
   'Döhler (2022)' => {
-    lang_target => 'Komnzo',
+    lang_target => 'tci',
     path => 'Döhler_2022_Komnzo.xlsx',
     parser => 'Spreadsheet',
     columns => [
