@@ -8322,6 +8322,21 @@ our $dict = {
       [4, 'page_num'],
     ],
   },
+  'Passi & Piper (1999)' => {
+    lang_target => 'Meriam',
+    path => 'PassiPiper_1999_Meriam.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [0, 'headword'], 
+      [1, 'gloss', 'eng'],
+      [[2 .. 3], 'example', ['eng']],
+      [[4 .. 5], 'example', ['eng']],
+      [[6 .. 7], 'example', ['eng']],
+      [[8 .. 9], 'example', ['eng']],
+      [[10 .. 11], 'example', ['eng']],
+    ],
+    strip => 'to',
+  },
   'Peckham (1991a)' => {
     lang_target => 'zrs',
     path => 'Mairasi_Comparative_List.xlsx',
