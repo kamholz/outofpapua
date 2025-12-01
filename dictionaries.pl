@@ -1193,6 +1193,22 @@ our $dict = {
     mode => 'sense_per_row',
     strip => 'to',
   },
+  'Brown (1986b)' => {
+    lang_target => 'tqo', 
+    path => 'Brown_1986_OrokoloToaripi.xlsx',
+    parser => 'Spreadsheet',
+    sheet => 'Toaripi',
+    columns => [
+      [0, 'headword'],
+      [2, 'pl'],
+      [3, 'sg'],
+      [4, 'gloss', 'eng'],
+      [5, 'sc'],
+      [1, 'page_num'],
+    ],
+    mode => 'sense_per_row',
+    strip => 'to',
+  },
   'Brown (1991)' => {
     lang_target => 'Maybrat Kambuaya', 
     path => 'Brown_1991_MaybratKambuaya.xlsx',
