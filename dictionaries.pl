@@ -4952,6 +4952,7 @@ our $dict = {
       [[15 .. 16], 'example', ['nld']],
     ],
     mode => 'sense_per_row',
+    split => ';',
   },
   'Josefsson (2025a)' => {
     lang_target => 'Proto-Oriomo',
