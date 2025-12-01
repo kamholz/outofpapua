@@ -5136,6 +5136,15 @@ our $dict = {
       [21, '3j'],
     ],
   },
+  'Kawabe (2014)' => {
+    lang_target => 'gdr',
+    path => 'Kawabe_2014_Wipi.xlsx',
+    parser => 'Spreadsheet',
+    columns => [
+      [1, 'headword'],
+      [0, 'gloss', 'eng'],
+    ],
+  },
   'Kemtuik' => { #not ingested
     lang_target => 'kmt',
     path => 'Colexification_tool/Kamus Kemtuik.xlsx',
